@@ -1,0 +1,136 @@
+{
+  "updated": "2026-06-02T22:18:38.949764+00:00",
+  "source": "Open-Meteo hourly forecast API",
+  "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
+  "matches": [
+    {
+      "round": 1,
+      "match": "Example Broncos v Cowboys",
+      "venue": "Suncorp Stadium",
+      "kickoffLocal": "2026-06-06T19:50:00",
+      "timezone": "Australia/Brisbane",
+      "gameMinutes": 110,
+      "city": "Brisbane",
+      "lat": -27.4648,
+      "lon": 153.0095,
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-06-06T19:20:00",
+        "to": "2026-06-06T21:40:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-06-06T20:00",
+          "phase": "first_half",
+          "temperature_2m": 13.4,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 5.8,
+          "wind_gusts_10m": 13.3
+        },
+        {
+          "time": "2026-06-06T21:00",
+          "phase": "second_half",
+          "temperature_2m": 12.8,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 6.4,
+          "wind_gusts_10m": 13.0
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 0,
+        "maxRainProbability": 0,
+        "totalGameRainMm": 0.0,
+        "maxWindKmh": 6.4,
+        "maxGustKmh": 13.3,
+        "avgTemp": 13.1,
+        "phaseRisk": {
+          "first_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          },
+          "second_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          }
+        },
+        "reasons": [],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 1,
+      "match": "Example Storm v Warriors",
+      "venue": "AAMI Park",
+      "kickoffLocal": "2026-06-07T17:30:00",
+      "timezone": "Australia/Melbourne",
+      "gameMinutes": 110,
+      "city": "Melbourne",
+      "lat": -37.824,
+      "lon": 144.9834,
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-06-07T17:00:00",
+        "to": "2026-06-07T19:20:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-06-07T17:00",
+          "phase": "pre_game",
+          "temperature_2m": 15.4,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 7.2,
+          "wind_gusts_10m": 17.6
+        },
+        {
+          "time": "2026-06-07T18:00",
+          "phase": "first_half",
+          "temperature_2m": 14.0,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 5.9,
+          "wind_gusts_10m": 17.6
+        },
+        {
+          "time": "2026-06-07T19:00",
+          "phase": "second_half",
+          "temperature_2m": 12.8,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 5.2,
+          "wind_gusts_10m": 17.3
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 0,
+        "maxRainProbability": 0,
+        "totalGameRainMm": 0.0,
+        "maxWindKmh": 7.2,
+        "maxGustKmh": 17.6,
+        "avgTemp": 14.1,
+        "phaseRisk": {
+          "pre_game": {
+            "avgScore": 0,
+            "maxScore": 0
+          },
+          "first_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          },
+          "second_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          }
+        },
+        "reasons": [],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    }
+  ]
+}
