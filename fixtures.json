@@ -1,21 +1,68 @@
 {
-  "updated": "template-v2-game-window",
-  "note": "Edit weekly with NRL fixtures. gameMinutes controls weather coverage over full game window.",
+  "updated": "2026-round-14",
   "fixtures": [
     {
-      "round": 1,
-      "match": "Example Broncos v Cowboys",
-      "venue": "Suncorp Stadium",
-      "kickoffLocal": "2026-06-06T19:50:00",
+      "round": 14,
+      "match": "Sea Eagles v Rabbitohs",
+      "venue": "4 Pines Park",
+      "kickoffLocal": "2026-06-04T19:50:00",
+      "timezone": "Australia/Sydney",
+      "gameMinutes": 110
+    },
+    {
+      "round": 14,
+      "match": "Storm v Knights",
+      "venue": "AAMI Park",
+      "kickoffLocal": "2026-06-05T18:00:00",
+      "timezone": "Australia/Melbourne",
+      "gameMinutes": 110
+    },
+    {
+      "round": 14,
+      "match": "Raiders v Roosters",
+      "venue": "GIO Stadium",
+      "kickoffLocal": "2026-06-05T20:00:00",
+      "timezone": "Australia/Sydney",
+      "gameMinutes": 110
+    },
+    {
+      "round": 14,
+      "match": "Cowboys v Dolphins",
+      "venue": "Queensland Country Bank Stadium",
+      "kickoffLocal": "2026-06-06T17:30:00",
       "timezone": "Australia/Brisbane",
       "gameMinutes": 110
     },
     {
-      "round": 1,
-      "match": "Example Storm v Warriors",
-      "venue": "AAMI Park",
-      "kickoffLocal": "2026-06-07T17:30:00",
-      "timezone": "Australia/Melbourne",
+      "round": 14,
+      "match": "Broncos v Titans",
+      "venue": "Suncorp Stadium",
+      "kickoffLocal": "2026-06-06T19:30:00",
+      "timezone": "Australia/Brisbane",
+      "gameMinutes": 110
+    },
+    {
+      "round": 14,
+      "match": "Tigers v Panthers",
+      "venue": "CommBank Stadium",
+      "kickoffLocal": "2026-06-07T14:00:00",
+      "timezone": "Australia/Sydney",
+      "gameMinutes": 110
+    },
+    {
+      "round": 14,
+      "match": "Sharks v Dragons",
+      "venue": "Shark Park",
+      "kickoffLocal": "2026-06-07T16:05:00",
+      "timezone": "Australia/Sydney",
+      "gameMinutes": 110
+    },
+    {
+      "round": 14,
+      "match": "Bulldogs v Eels",
+      "venue": "Accor Stadium",
+      "kickoffLocal": "2026-06-08T16:05:00",
+      "timezone": "Australia/Sydney",
       "gameMinutes": 110
     }
   ]
