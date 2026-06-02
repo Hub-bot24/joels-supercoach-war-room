@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joel's SuperCoach War Room - User Friendly</title>
+<style>
+:root{--bg:#070a12;--card:#111827;--card2:#182235;--text:#f8fafc;--muted:#aeb7c7;--line:#2a3548;--good:#33d17a;--warn:#f5c542;--bad:#ff5c5c;--blue:#5aa7ff;--purple:#b36bff}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#05070d,#0b1020);color:var(--text)}
+header{padding:20px 16px;border-bottom:1px solid var(--line);background:#070a12;position:sticky;top:0;z-index:5}
+h1{margin:0;font-size:24px}.sub{color:var(--muted);font-size:14px;margin-top:6px}
+nav{display:flex;gap:8px;overflow:auto;padding:10px;background:#0c1220;border-bottom:1px solid var(--line);position:sticky;top:76px;z-index:4}
+button{background:var(--card2);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-weight:800;cursor:pointer;white-space:nowrap}
+button.active{background:var(--blue);color:#06101f}
+main{max-width:1250px;margin:auto;padding:14px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+.card{background:rgba(17,24,39,.95);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 10px 28px rgba(0,0,0,.28)}
+.span12{grid-column:span 12}.span8{grid-column:span 8}.span6{grid-column:span 6}.span4{grid-column:span 4}.span3{grid-column:span 3}
+@media(max-width:850px){.span8,.span6,.span4,.span3{grid-column:span 12}nav{top:84px}}
+h2{font-size:18px;margin:0 0 10px}h3{font-size:15px;margin:12px 0 8px;color:#dbe7ff}
+.metric{font-size:32px;font-weight:900;margin:8px 0}.muted{color:var(--muted)}.mini{font-size:12px;color:var(--muted)}
+.good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}.blue{color:var(--blue)}.purple{color:var(--purple)}
+input,select,textarea{width:100%;background:#0b1020;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:10px;margin:5px 0 9px}
+textarea{min-height:120px} table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:#cbd5e1}
+.pill{display:inline-block;padding:4px 8px;border-radius:999px;border:1px solid var(--line);font-size:12px}.pill.good{background:rgba(51,209,122,.14)}.pill.warn{background:rgba(245,197,66,.14)}.pill.bad{background:rgba(255,92,92,.14)}.pill.blue{background:rgba(90,167,255,.14)}
+.hidden{display:none}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.goodBox{border-left:4px solid var(--good)}.warnBox{border-left:4px solid var(--warn)}.badBox{border-left:4px solid var(--bad)}.blueBox{border-left:4px solid var(--blue)}
+.event{margin:8px 0;padding:8px;border:1px solid var(--line);border-radius:12px;background:#0b1020}.timeline{border-left:2px solid var(--line);margin-left:8px;padding-left:12px}
+</style>
+</head>
+<body>
+<header><h1>Joel's SuperCoach War Room V6</h1><div class="sub">Fixed tabs version: phone-photo import, weekly trades, par engine, live score build, captain room, bye planner, trade lab, injury risk and journal.</div></header>
+<nav id="tabs">
+<button class="active" data-tab="verdict">Verdict</button><button data-tab="injury">Injury Risk</button><button data-tab="par">Par Engine</button><button data-tab="team">My Team</button><button data-tab="importteam">Import Team Photo</button><button data-tab="weeklytrades">Weekly Trades</button><button data-tab="live">Live Match</button><button data-tab="captain">Captain Room</button><button data-tab="bye">Bye Planner</button><button data-tab="weatherhub">Weather Hub</button><button data-tab="trade">Trade Lab</button><button data-tab="journal">Journal</button><button data-tab="data">Data</button><button data-tab="nextsteps">What To Do</button>
+</nav>
+<main>
+
+<div class="card span12 blueBox" style="max-width:1250px;margin:0 auto 12px auto;">
+  <h2>Control Centre</h2>
+  <div class="row">
+    <button id="refreshLatestDataBtn" onclick="refreshLatestData()">Refresh Latest Data</button>
+    <button onclick="reloadTeamFromGithub()">Load Team Again From GitHub</button>
+    <button onclick="restoreClearedTeamBackup()">Restore Last Cleared Team</button>
+  </div>
+  <p id="refreshLatestDataStatus" class="muted">Use this after you run GitHub Actions, or when phone/desktop looks stale.</p>
+  <table>
+    <tbody>
+      <tr><td>Refresh Latest Data</td><td>Loads latest players.json, my_team.json and weather.json into the app.</td></tr>
+      <tr><td>Load Team Again</td><td>Reloads your saved squad from my_team.json if your phone/desktop is empty.</td></tr>
+      <tr><td>Weather Updates</td><td>Run GitHub Actions → Update Weather Data, then press Refresh Latest Data.</td></tr>
+      <tr><td>Player Updates</td><td>Run GitHub Actions → Update SuperCoach Data. If it fails, leave it for now and update players.json manually.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<datalist id="allPlayersDatalist"></datalist>
+<datalist id="teamPlayersDatalist"></datalist>
+<section id="verdict" class="tab"><div class="grid">
+<div class="card span4 badBox"><h2>This Week Verdict</h2><div id="mainVerdict" class="metric bad">Needs Team</div><p id="mainVerdictText" class="muted">Add your team and player data.</p></div>
+<div class="card span4"><h2>Your Projection</h2><div id="yourProjection" class="metric blue">0</div><div class="mini">Best 17 + captain estimate, adjusted for injury risk.</div></div>
+<div class="card span4"><h2>Available This Round</h2><div id="fieldThisRound" class="metric">0</div><div id="fieldThisRoundText" class="mini">Injury and bye adjusted.</div></div>
+<div class="card span6"><h2>What Is Hurting You</h2><table><tbody id="hurtList"></tbody></table></div>
+<div class="card span6"><h2>Attack Plan</h2><table><tbody id="attackList"></tbody></table></div>
+<div class="card span12 blueBox">
+<h2>What This Version Includes</h2>
+<table>
+<tbody>
+<tr><td>Par Engine</td><td>Overall, Top 10k, Top 5k and Top 1k par score bands.</td></tr>
+<tr><td>Live Match Room</td><td>Tap-player score build with points breakdown and timeline.</td></tr>
+<tr><td>Captain Room</td><td>VC/C threshold, captain uniqueness and pack captain estimate.</td></tr>
+<tr><td>Bye Planner</td><td>Bye heat map with injury-adjusted available player count.</td></tr>
+<tr><td>Trade Lab</td><td>Scores trades based on points, cash, ownership and injury logic.</td></tr>
+<tr><td>Injury Risk</td><td>Status, return round, play probability, likely/possible available numbers.</td></tr>
+<tr><td>Regret Detector</td><td>Season journal to track why you made each decision.</td></tr>
+</tbody>
+</table>
+</div>
+</div></section>
+
+<section id="injury" class="tab hidden"><div class="grid">
+<div class="card span4">
+<h2>Set Current Round</h2>
+<label>Current Round</label><input id="currentRound" type="number" value="1" oninput="saveState();renderAll()">
+<label>Risk mode</label><select id="riskMode" onchange="saveState();renderAll()"><option value="balanced">Balanced</option><option value="conservative">Conservative - assume doubtful misses</option><option value="aggressive">Aggressive - assume chance plays</option></select>
+<p class="muted">This does not guess magically. It uses each player's injury status, expected return round, and probability of playing.</p>
+</div>
+<div class="card span4 badBox"><h2>Likely Players Available</h2><div id="injuryAvailable" class="metric">0</div><p id="injuryAvailableText" class="muted"></p></div>
+<div class="card span4 warnBox"><h2>Emergency Trade Urgency</h2><div id="tradeUrgency" class="metric">None</div><p id="tradeUrgencyText" class="muted"></p></div>
+<div class="card span12"><h2>My Injury Watchlist</h2><table><thead><tr><th>Player</th><th>Status</th><th>Return</th><th>Play %</th><th>Impact</th><th>Action</th></tr></thead><tbody id="injuryTable"></tbody></table></div>
+</div></section>
+
+<section id="par" class="tab hidden"><div class="grid">
+<div class="card span3"><h2>Overall Par</h2><div id="overallPar" class="metric">0–0</div></div>
+<div class="card span3"><h2>Top 10k Par</h2><div id="top10kPar" class="metric">0–0</div></div>
+<div class="card span3"><h2>Top 5k Par</h2><div id="top5kPar" class="metric">0–0</div></div>
+<div class="card span3"><h2>Top 1k Par</h2><div id="top1kPar" class="metric">0–0</div></div>
+<div class="card span6"><h2>Par Settings</h2><label>Base Overall Par</label><input id="baseOverallPar" type="number" value="1080" oninput="saveState();renderAll()"><label>Round Difficulty</label><select id="roundDifficulty" onchange="saveState();renderAll()"><option value="normal">Normal</option><option value="low">Low scoring</option><option value="high">High scoring</option><option value="bye">Major bye</option></select><label>Model Confidence</label><select id="modelConfidence" onchange="saveState();renderAll()"><option value="early">Early ±60</option><option value="medium">Improved ±35</option><option value="strong">Strong ±20</option></select></div>
+<div class="card span6"><h2>Live Par Check</h2><label>Current live team score</label><input id="currentLiveTeamScore" type="number" value="0" oninput="saveState();renderAll()"><label>Players left</label><input id="playersLeft" type="number" value="0" oninput="saveState();renderAll()"><label>Expected avg from players left</label><input id="avgLeft" type="number" value="60" oninput="saveState();renderAll()"><div id="liveParResult" class="event">Live projection appears here.</div></div>
+</div></section>
+
+<section id="team" class="tab hidden"><div class="grid">
+<div class="card span4"><h2>Add Player</h2><select id="teamPlayerSelect"></select><button onclick="addToTeam()">Add Player</button><button onclick="clearTeam()">Clear Team</button></div>
+<div class="card span8"><h2>My Team</h2><p class="muted">Ownership and bye will show as "Needs data" until players.json has real values. That is a data-feed problem, not a display problem.</p><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Proj</th><th>Own</th><th>Bye</th><th>Injury</th><th></th></tr></thead><tbody id="myTeamTable"></tbody></table></div>
+</div></section>
+
+
+<section id="importteam" class="tab hidden">
+  <div class="grid">
+    <div class="card span4">
+      <h2>Import Team From Phone Photo</h2>
+      <p class="muted">Upload a SuperCoach team screenshot/photo. The app will try browser OCR if supported. If not, paste names manually.</p>
+      <input id="teamPhotoInput" type="file" accept="image/*" onchange="previewTeamPhoto(event)">
+      <img id="teamPhotoPreview" alt="Team preview" style="width:100%;display:none;border-radius:14px;border:1px solid var(--line);margin-top:8px;">
+      <button onclick="runBasicPhotoImport()">Try Auto Read / Match</button>
+      <p id="ocrStatus" class="mini">OCR depends on browser support. Manual paste always works.</p>
+    </div>
+    <div class="card span4">
+      <h2>Manual Paste</h2>
+      <p class="muted">Type or paste player names from the screenshot, one per line.</p>
+      <textarea id="manualTeamText" placeholder="Nathan Cleary&#10;Nicho Hynes&#10;Payne Haas"></textarea>
+      <button onclick="importNamesFromText()">Import Names</button>
+    </div>
+    <div class="card span4">
+      <h2>Import Summary</h2>
+      <div id="importCount" class="metric">0</div>
+      <p id="importSummary" class="muted">No imported players yet.</p>
+      <button onclick="saveImportedTeam()">Save As My Team</button>
+      <button onclick="clearImportedTeam()">Clear Import</button>
+    </div>
+    <div class="card span12">
+      <h2>Review & Fix Imported Team</h2>
+      <p class="muted">Fix any wrong/missing player with the dropdown, then save.</p>
+      <table>
+        <thead><tr><th>#</th><th>Detected / Slot</th><th>Matched Player</th><th>Status</th><th>Fix</th></tr></thead>
+        <tbody id="importReviewTable"></tbody>
+      </table>
+      <button onclick="addEmptyImportSlot()">Add Manual Slot</button>
+    </div>
+  </div>
+</section>
+
+<section id="weeklytrades" class="tab hidden">
+  <div class="grid">
+    <div class="card span4">
+      <h2>Make Weekly Trade</h2>
+      <label>Round</label>
+      <input id="tradeRound" type="number" value="1">
+      <label>Trade OUT</label>
+      <input id="weeklyTradeOut" list="teamPlayersDatalist" placeholder="Start typing player OUT...">
+      <label>Trade IN</label>
+      <input id="weeklyTradeIn" list="allPlayersDatalist" placeholder="Start typing player IN...">
+      <label>Reason for trade</label>
+      <textarea id="weeklyTradeReason" placeholder="Injury, bye cover, cash generation, POD attack..."></textarea>
+      <button onclick="previewWeeklyTrade()">Preview Trade</button>
+      <button onclick="applyWeeklyTrade()">Apply Trade To My Team</button>
+    </div>
+    <div class="card span4">
+      <h2>Trade Impact Preview</h2>
+      <div id="weeklyTradePreviewScore" class="metric">0/100</div>
+      <p id="weeklyTradePreviewText" class="muted">Select players to preview trade impact.</p>
+    </div>
+    <div class="card span4">
+      <h2>Current Squad Status</h2>
+      <div id="squadCount" class="metric">0</div>
+      <p id="squadStatusText" class="muted">Players saved in My Team.</p>
+    </div>
+    <div class="card span12">
+      <h2>Trade History</h2>
+      <table>
+        <thead><tr><th>Round</th><th>Out</th><th>In</th><th>Reason</th><th>Points</th><th>Cash</th><th>Date</th></tr></thead>
+        <tbody id="weeklyTradeHistory"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="live" class="tab hidden"><div class="grid">
+<div class="card span4"><h2>Live Player</h2><select id="livePlayerSelect" onchange="saveState();renderLive()"></select><div class="row"><button onclick="addLiveEvent('tackle')">+Tackle</button><button onclick="addLiveEvent('run10')">+10m</button><button onclick="addLiveEvent('goal')">+Goal</button><button onclick="addLiveEvent('tb')">+TB</button><button onclick="addLiveEvent('try')">+Try</button><button onclick="addLiveEvent('ta')">+TA</button><button onclick="addLiveEvent('lb')">+LB</button><button onclick="addLiveEvent('lba')">+LBA</button><button onclick="addLiveEvent('offload')">+Offload</button><button onclick="addLiveEvent('error')">-Error</button><button onclick="addLiveEvent('mt')">-MT</button></div><h3>Official Override</h3><input id="officialScore" type="number" placeholder="Official SC if available" oninput="saveState();renderLive()"></div>
+<div class="card span4 blueBox"><h2>Estimated Live SC</h2><div id="liveScore" class="metric blue">0</div><div id="livePlayerName" class="muted"></div><h3>Breakdown</h3><table><tbody id="breakdownTable"></tbody></table></div>
+<div class="card span4"><h2>Score Build Timeline</h2><div class="timeline" id="timeline"></div></div>
+</div></section>
+
+<section id="captain" class="tab hidden"><div class="grid">
+<div class="card span4"><h2>Captain Setup</h2><button onclick="forceLoadDataForCaptain()">Reload Captain Players</button><label>Vice Captain</label><select id="vcSelect" onchange="saveState();renderAll()"></select><label>Captain</label><select id="cSelect" onchange="saveState();renderAll()"></select><label>VC Take Threshold</label><input id="vcThreshold" type="number" value="115" oninput="saveState();renderAll()"></div>
+<div class="card span4"><h2>VC Decision</h2><div id="vcDecision" class="metric">Waiting</div><p id="vcDetail" class="muted"></p></div>
+<div class="card span4"><h2>Captain Edge</h2><div id="capUnique" class="metric purple">0/100</div><p id="capPack" class="muted"></p></div>
+</div>
+
+<div class="card span12">
+  <h2>Top Captain Rankings</h2>
+  <p class="muted">Ranks your team using projection/average, position profile, injury risk and full-game weather. Ownership and captain % will improve this later once we have reliable data.</p>
+  <div id="topCaptainRankings"></div>
+</div>
+
+<div class="card span12">
+  <h2>Captain Weather Verdict</h2>
+  <p class="muted">Uses your team, weather.json, player position and match weather risk. This is where weather starts affecting C/VC choices.</p>
+  <div id="captainWeatherVerdicts"></div>
+</div>
+</section>
+
+<section id="bye" class="tab hidden"><div class="grid"><div class="card span12"><h2>Bye + Injury Heat Map</h2><table><thead><tr><th>Round</th><th>Available</th><th>Possible if doubtful play</th><th>Status</th><th>Missing/At Risk</th></tr></thead><tbody id="byeTable"></tbody></table></div></div></section>
+
+
+<section id="weatherhub" class="tab hidden">
+  <div class="grid">
+    <div class="card span12">
+      <h2>Weather Hub</h2>
+      <p id="weatherHubSummary" class="muted">Press Refresh Latest Data after running the weather workflow.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Match</th>
+            <th>Venue</th>
+            <th>Kickoff</th>
+            <th>Max Rain</th>
+            <th>Max Wind</th>
+            <th>Risk</th>
+            <th>Captain/VC Impact</th>
+          </tr>
+        </thead>
+        <tbody id="weatherHubTable"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+\n<section id="trade" class="tab hidden"><div class="grid"><div class="card span4"><h2>Trade Test</h2><label>Out</label><input id="tradeOut" list="teamPlayersDatalist" placeholder="Start typing player OUT..."><label>In</label><input id="tradeIn" list="allPlayersDatalist" placeholder="Start typing player IN..."><button onclick="renderTrade()">Score Trade</button></div><div class="card span8"><h2>Trade Verdict</h2><div id="tradeScore" class="metric">0/100</div><p id="tradeVerdict" class="muted"></p><table><tbody id="tradeBreakdown"></tbody></table></div></div></section>
+
+<section id="journal" class="tab hidden"><div class="grid"><div class="card span6"><h2>Season Journal</h2><label>Round</label><input id="journalRound" value="Round 1"><label>Decision</label><textarea id="journalDecision" placeholder="Trade/captain decision..."></textarea><label>Reason</label><textarea id="journalWhy" placeholder="Why am I doing this?"></textarea><button onclick="saveJournal()">Save</button></div><div class="card span6"><h2>Regret Detector</h2><div id="journalList"></div></div></div></section>
+
+<section id="data" class="tab hidden"><div class="grid"><div class="card span12"><h2>Player Data JSON</h2><textarea id="playersJson"></textarea><button onclick="loadJson()">Load JSON</button><button onclick="resetSample()">Reset Sample</button><p class="muted">Injury fields: injuryStatus, expectedReturnRound, playProbability, injuryNote. Later this updates automatically from team lists/injury feeds.</p></div></div></section>
+
+<section id="nextsteps" class="tab hidden">
+  <div class="grid">
+    <div class="card span12 badBox">
+      <h2>What To Do Next</h2>
+      <table>
+        <tbody>
+          <tr><td>1</td><td><b>Update fixtures.json weekly.</b> This drives weather by match and venue. Without real fixtures, Weather Hub is rubbish.</td></tr>
+          <tr><td>2</td><td><b>Run Update Weather Data.</b> GitHub → Actions → Update Weather Data → Run workflow.</td></tr>
+          <tr><td>3</td><td><b>Press Refresh Latest Data in the app.</b> This loads weather.json, players.json and my_team.json into the browser.</td></tr>
+          <tr><td>4</td><td><b>Keep players.json accurate.</b> Ownership, BE, captain %, VC %, injuries and projections are the real edge.</td></tr>
+          <tr><td>5</td><td><b>Use Weekly Trades, not Clear Team.</b> Clear Team now has confirmation, but weekly trades are the correct way to manage the season.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card span12 blueBox">
+      <h2>Season Reset Checklist</h2>
+      <table>
+        <tbody>
+          <tr><td>New season draw</td><td>Replace fixtures.json with the official NRL draw for the season.</td></tr>
+          <tr><td>New players/prices</td><td>Replace/update players.json with current season positions, prices, averages and teams.</td></tr>
+          <tr><td>Bye rounds</td><td>Check all club bye rounds and Origin-affected rounds.</td></tr>
+          <tr><td>Venues</td><td>Update venues.json if stadium names or locations change.</td></tr>
+          <tr><td>Your team</td><td>Update my_team.json or reload via app if your squad changes.</td></tr>
+          <tr><td>Automation</td><td>Check both GitHub Actions: Update SuperCoach Data and Update Weather Data.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card span12 warnBox">
+      <h2>Current Weak Spots</h2>
+      <table>
+        <tbody>
+          <tr><td>Ownership %</td><td>Still needs a reliable source. Do not fake it.</td></tr>
+          <tr><td>Breakevens</td><td>Current scraper is unreliable. Use manual/player database updates until source is stable.</td></tr>
+          <tr><td>Captain % / VC %</td><td>Still missing. This is a high-value future feature.</td></tr>
+          <tr><td>Live scoring</td><td>Not automatic yet. Needs a real live stats source/backend.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+const samplePlayers=[
+{name:"Nathan Cleary",pos:"HFB",team:"PEN",price:950000,proj:82,avg:78,ownership:32,bye:[13],cPct:22,vcPct:38,risk:18,injuryStatus:"fit",expectedReturnRound:1,playProbability:100,injuryNote:"Available"},
+{name:"Nicho Hynes",pos:"HFB",team:"CRO",price:920000,proj:79,avg:75,ownership:38,bye:[17],cPct:36,vcPct:22,risk:20,injuryStatus:"fit",expectedReturnRound:1,playProbability:100,injuryNote:"Available"},
+{name:"Payne Haas",pos:"FRF",team:"BRI",price:780000,proj:74,avg:71,ownership:45,bye:[16],cPct:12,vcPct:9,risk:12,injuryStatus:"doubtful",expectedReturnRound:6,playProbability:45,injuryNote:"Monitor team lists"},
+{name:"Kalyn Ponga",pos:"FLB",team:"NEW",price:840000,proj:72,avg:68,ownership:24,bye:[18],cPct:8,vcPct:8,risk:28,injuryStatus:"injured",expectedReturnRound:8,playProbability:0,injuryNote:"Out until expected return"},
+{name:"Tom Dearden",pos:"5/8",team:"NQL",price:690000,proj:67,avg:61,ownership:6,bye:[15],cPct:3,vcPct:4,risk:30,injuryStatus:"fit",expectedReturnRound:1,playProbability:100,injuryNote:"Available"},
+{name:"Scott Drinkwater",pos:"FLB",team:"NQL",price:720000,proj:69,avg:64,ownership:8,bye:[15],cPct:2,vcPct:3,risk:31,injuryStatus:"fit",expectedReturnRound:1,playProbability:100,injuryNote:"Available"},
+{name:"Harry Grant",pos:"HOK",team:"MEL",price:760000,proj:70,avg:67,ownership:29,bye:[14],cPct:4,vcPct:5,risk:16,injuryStatus:"suspended",expectedReturnRound:5,playProbability:0,injuryNote:"Suspended/Unavailable"},
+{name:"Cameron Munster",pos:"5/8",team:"MEL",price:730000,proj:66,avg:62,ownership:13,bye:[14],cPct:2,vcPct:4,risk:27,injuryStatus:"chance",expectedReturnRound:4,playProbability:70,injuryNote:"Chance to play"},
+{name:"Angus Crichton",pos:"2RF",team:"SYD",price:700000,proj:65,avg:61,ownership:18,bye:[19],cPct:1,vcPct:2,risk:22,injuryStatus:"fit",expectedReturnRound:1,playProbability:100,injuryNote:"Available"},
+{name:"David Fifita",pos:"2RF",team:"GLD",price:735000,proj:68,avg:64,ownership:15,bye:[20],cPct:2,vcPct:3,risk:35,injuryStatus:"fit",expectedReturnRound:1,playProbability:100,injuryNote:"Available"},
+{name:"Reece Walsh",pos:"FLB",team:"BRI",price:705000,proj:64,avg:60,ownership:35,bye:[16],cPct:1,vcPct:2,risk:38,injuryStatus:"fit",expectedReturnRound:1,playProbability:100,injuryNote:"Available"},
+{name:"Blayke Brailey",pos:"HOK",team:"CRO",price:520000,proj:55,avg:52,ownership:11,bye:[17],cPct:0,vcPct:0,risk:14,injuryStatus:"fit",expectedReturnRound:1,playProbability:100,injuryNote:"Available"},
+{name:"Cheap Cow A",pos:"CTW",team:"WST",price:250000,proj:39,avg:35,ownership:21,bye:[18],cPct:0,vcPct:0,risk:42,injuryStatus:"fit",expectedReturnRound:1,playProbability:100,injuryNote:"Available"},
+{name:"POD Breakout B",pos:"2RF",team:"CAN",price:430000,proj:57,avg:49,ownership:3,bye:[20],cPct:0,vcPct:1,risk:26,injuryStatus:"chance",expectedReturnRound:4,playProbability:60,injuryNote:"Named on extended bench / monitor"},
+{name:"Value Hooker C",pos:"HOK",team:"DOL",price:410000,proj:54,avg:48,ownership:5,bye:[19],cPct:0,vcPct:0,risk:22,injuryStatus:"fit",expectedReturnRound:1,playProbability:100,injuryNote:"Available"}
+];
+let state=JSON.parse(localStorage.getItem("warroomV5Injury")||"{}");
+let players=state.players||samplePlayers,myTeam=state.myTeam||[],journal=state.journal||[],liveEvents=state.liveEvents||{};
+
+let weeklyTrades = state.weeklyTrades || [];
+let importedTeam = state.importedTeam || [];
+
+function normalizeNameForMatch(s){
+  return String(s || "").toLowerCase().replace(/[^a-z\s'-]/g," ").replace(/\s+/g," ").trim();
+}
+
+function bestPlayerMatch(rawName){
+  const raw = normalizeNameForMatch(rawName);
+  if(!raw) return null;
+  let exact = players.find(p => normalizeNameForMatch(p.name) === raw);
+  if(exact) return exact;
+  let best = null, bestScore = 0;
+  const rawParts = raw.split(" ").filter(Boolean);
+  players.forEach(p => {
+    const pn = normalizeNameForMatch(p.name);
+    const parts = pn.split(" ").filter(Boolean);
+    let score = 0;
+    if(pn.includes(raw) || raw.includes(pn)) score += 50;
+    rawParts.forEach(rp => {
+      parts.forEach(pp => {
+        if(rp === pp) score += 18;
+        else if(rp.length >= 4 && pp.startsWith(rp.slice(0,4))) score += 8;
+        else if(pp.length >= 4 && rp.startsWith(pp.slice(0,4))) score += 8;
+      });
+    });
+    if(score > bestScore){ bestScore = score; best = p; }
+  });
+  return bestScore >= 18 ? best : null;
+}
+
+function previewTeamPhoto(event){
+  const file = event.target.files && event.target.files[0];
+  const img = document.getElementById("teamPhotoPreview");
+  if(!file || !img) return;
+  img.src = URL.createObjectURL(file);
+  img.style.display = "block";
+  const status = document.getElementById("ocrStatus");
+  if(status) status.textContent = "Photo loaded. Try auto-read, or paste names manually.";
+}
+
+async function runBasicPhotoImport(){
+  const status = document.getElementById("ocrStatus");
+  if(status) status.textContent = "Trying browser OCR...";
+  if("TextDetector" in window){
+    try{
+      const img = document.getElementById("teamPhotoPreview");
+      if(!img || !img.src) throw new Error("Upload image first.");
+      const detector = new TextDetector();
+      const results = await detector.detect(img);
+      const text = results.map(r => r.rawValue).join("\n");
+      document.getElementById("manualTeamText").value = text;
+      importNamesFromText();
+      if(status) status.textContent = "Auto-read complete. Review below.";
+      return;
+    }catch(e){
+      if(status) status.textContent = "Auto-read failed. Paste/type player names manually.";
+      return;
+    }
+  }
+  if(status) status.textContent = "This browser does not support built-in OCR. Paste/type player names manually.";
+}
+
+function importNamesFromText(){
+  const text = document.getElementById("manualTeamText")?.value || "";
+  const lines = text.split(/\n|,/).map(x => x.trim()).filter(Boolean);
+  importedTeam = lines.map((line, idx) => {
+    const match = bestPlayerMatch(line);
+    return { slot: idx + 1, raw: line, player: match ? match.name : "", confidence: match ? "matched" : "unmatched" };
+  });
+  saveState();
+  renderImportedTeam();
+}
+
+function setImportedPlayer(index, playerName){
+  if(!importedTeam[index]) return;
+  importedTeam[index].player = playerName;
+  importedTeam[index].confidence = playerName ? "manual-fixed" : "unmatched";
+  saveState();
+  renderImportedTeam();
+}
+
+function addEmptyImportSlot(){
+  importedTeam.push({ slot: importedTeam.length + 1, raw: "Manual slot", player: "", confidence: "unmatched" });
+  saveState();
+  renderImportedTeam();
+}
+
+function removeImportSlot(index){
+  importedTeam.splice(index, 1);
+  importedTeam = importedTeam.map((x,i)=>({ ...x, slot:i+1 }));
+  saveState();
+  renderImportedTeam();
+}
+
+function saveImportedTeam(){
+  const selected = importedTeam.map(x => x.player).filter(Boolean);
+  if(!selected.length){ alert("No matched players to save."); return; }
+  const unique = [];
+  selected.forEach(n => { if(!unique.includes(n)) unique.push(n); });
+  myTeam = unique;
+  saveState();
+  renderAll();
+  alert("Imported team saved to My Team.");
+}
+
+function clearImportedTeam(){
+  importedTeam = [];
+  saveState();
+  renderImportedTeam();
+}
+
+function renderImportedTeam(){
+  const tbody = document.getElementById("importReviewTable");
+  if(!tbody) return;
+  const options = ['<option value="">Select player...</option>']
+    .concat(players.map(p => `<option value="${p.name}">${p.name} (${p.pos} - ${p.team})</option>`))
+    .join("");
+  tbody.innerHTML = importedTeam.map((row, idx) => {
+    const statusClass = row.confidence === "matched" ? "good" : row.confidence === "manual-fixed" ? "blue" : "bad";
+    const statusText = row.confidence === "matched" ? "Matched" : row.confidence === "manual-fixed" ? "Fixed" : "Needs fix";
+    return `
+      <tr>
+        <td>${idx + 1}</td>
+        <td>${row.raw || ""}</td>
+        <td>${row.player || "<span class='bad'>Unknown</span>"}</td>
+        <td><span class="pill ${statusClass}">${statusText}</span></td>
+        <td>
+          <select onchange="setImportedPlayer(${idx}, this.value)">${options}</select>
+          <button onclick="removeImportSlot(${idx})">Remove</button>
+        </td>
+      </tr>`;
+  }).join("") || `<tr><td colspan="5" class="muted">No import yet. Upload a photo or paste player names.</td></tr>`;
+  importedTeam.forEach((row, idx) => {
+    const sel = tbody.querySelectorAll("select")[idx];
+    if(sel) sel.value = row.player || "";
+  });
+  const matched = importedTeam.filter(x => x.player).length;
+  const count = document.getElementById("importCount");
+  const summary = document.getElementById("importSummary");
+  if(count) count.textContent = `${matched}/${importedTeam.length}`;
+  if(summary) summary.textContent = importedTeam.length ? `${matched} matched. Fix unknowns with dropdowns, then Save As My Team.` : "No imported players yet.";
+}
+
+function previewWeeklyTrade(){
+  const outName = document.getElementById("weeklyTradeOut")?.value;
+  const inName = document.getElementById("weeklyTradeIn")?.value;
+  const out = players.find(p => p.name === outName);
+  const inn = players.find(p => p.name === inName);
+  const scoreEl = document.getElementById("weeklyTradePreviewScore");
+  const textEl = document.getElementById("weeklyTradePreviewText");
+  if(!out || !inn){
+    if(scoreEl) scoreEl.textContent = "0/100";
+    if(textEl) textEl.textContent = "Select OUT and IN players.";
+    return;
+  }
+  const pointsGain = Number(inn.proj || 0) - Number(out.proj || 0);
+  const cashChange = Number(out.price || 0) - Number(inn.price || 0);
+  const ownershipChange = Number(out.ownership || 0) - Number(inn.ownership || 0);
+  const injuryFix = (out.injuryStatus && out.injuryStatus !== "fit") ? 15 : 0;
+  const injuryRisk = (inn.injuryStatus && inn.injuryStatus !== "fit") ? 25 : 0;
+  let score = 50 + pointsGain * 2 + (cashChange / 50000) + ownershipChange + injuryFix - injuryRisk;
+  score = Math.round(Math.max(0, Math.min(100, score)));
+  if(scoreEl) scoreEl.textContent = score + "/100";
+  const verdict = score >= 80 ? "Strong trade." : score >= 60 ? "Decent trade. Check bye impact." : "Weak trade. Probably sideways or emotional.";
+  if(textEl) textEl.textContent = `${verdict} Points: ${pointsGain >= 0 ? "+" : ""}${pointsGain}. Cash: ${cashChange >= 0 ? "+" : "-"}$${Math.abs(cashChange).toLocaleString()}. Ownership: ${ownershipChange >= 0 ? "less template" : "more template"} ${Math.abs(ownershipChange)}%.`;
+}
+
+function applyWeeklyTrade(){
+  const round = document.getElementById("tradeRound")?.value || "";
+  const outName = document.getElementById("weeklyTradeOut")?.value;
+  const inName = document.getElementById("weeklyTradeIn")?.value;
+  const reason = document.getElementById("weeklyTradeReason")?.value || "";
+  const out = players.find(p => p.name === outName);
+  const inn = players.find(p => p.name === inName);
+  if(!out || !inn){ alert("Select OUT and IN players."); return; }
+  if(!myTeam.includes(outName)){ alert("OUT player is not in your current team."); return; }
+  if(myTeam.includes(inName)){ alert("IN player is already in your team."); return; }
+  const pointsGain = Number(inn.proj || 0) - Number(out.proj || 0);
+  const cashChange = Number(out.price || 0) - Number(inn.price || 0);
+  myTeam = myTeam.map(n => n === outName ? inName : n);
+  weeklyTrades.unshift({ round, out: outName, in: inName, reason, pointsGain, cashChange, date: new Date().toLocaleString() });
+  journal.unshift({ round: "Round " + round, decision: `Trade OUT ${outName} / IN ${inName}`, why: reason || "No reason entered — danger sign.", date: new Date().toLocaleString() });
+  const reasonBox = document.getElementById("weeklyTradeReason");
+  if(reasonBox) reasonBox.value = "";
+  saveState();
+  renderAll();
+  alert("Trade applied and saved.");
+}
+
+function renderWeeklyTrades(){
+  refreshPlayerDatalists();
+  const countEl = document.getElementById("squadCount");
+  const statusEl = document.getElementById("squadStatusText");
+  if(countEl) countEl.textContent = myTeam.length;
+  if(statusEl) statusEl.textContent = myTeam.length ? "Squad saved. Use Weekly Trades to update it." : "No squad saved yet. Add players in My Team or Import Team Photo.";
+  const hist = document.getElementById("weeklyTradeHistory");
+  if(hist){
+    hist.innerHTML = weeklyTrades.map(t => `
+      <tr>
+        <td>${t.round || ""}</td>
+        <td>${t.out}</td>
+        <td>${t.in}</td>
+        <td>${t.reason || "No reason entered"}</td>
+        <td>${t.pointsGain >= 0 ? "+" : ""}${t.pointsGain}</td>
+        <td>${t.cashChange >= 0 ? "+" : "-"}$${Math.abs(t.cashChange || 0).toLocaleString()}</td>
+        <td>${t.date || ""}</td>
+      </tr>`).join("") || `<tr><td colspan="7" class="muted">No trades saved yet.</td></tr>`;
+  }
+}
+
+const $=id=>document.getElementById(id);
+function money(n){return "$"+Number(n||0).toLocaleString()}
+function saveState(){state.players=players;state.myTeam=myTeam;state.journal=journal;state.liveEvents=liveEvents;state.weeklyTrades=weeklyTrades;state.importedTeam=importedTeam;["currentRound","riskMode","baseOverallPar","roundDifficulty","modelConfidence","currentLiveTeamScore","playersLeft","avgLeft","vcThreshold","vcSelect","cSelect","livePlayerSelect","officialScore"].forEach(id=>{if($(id))state[id]=$(id).value});localStorage.setItem("warroomV5Injury",JSON.stringify(state))}
+document.querySelectorAll("#tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#tabs button").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".tab").forEach(t=>t.classList.add("hidden"));$(b.dataset.tab).classList.remove("hidden")});
+function restore(){["currentRound","riskMode","baseOverallPar","roundDifficulty","modelConfidence","currentLiveTeamScore","playersLeft","avgLeft","vcThreshold","vcSelect","cSelect","livePlayerSelect","officialScore"].forEach(id=>{if($(id)&&state[id]!==undefined)$(id).value=state[id]})}
+function fillSelect(id,list,blank=false){const el=$(id);if(!el)return;const v=el.value;el.innerHTML=(blank?'<option value="">Select...</option>':'')+list.map(p=>`<option value="${p.name}">${p.name}</option>`).join("");if(v)el.value=v}
+function teamPlayers(){return myTeam.map(n=>players.find(p=>p.name===n)).filter(Boolean)}
+function probabilityThreshold(){const mode=$("riskMode")?.value||"balanced";return mode==="conservative"?80:mode==="aggressive"?40:60}
+function isAvailable(p,round=Number($("currentRound")?.value||1),strict=true){if((p.bye||[]).includes(round))return false;if((p.expectedReturnRound||1)>round)return false;if((p.playProbability||0)>=100)return true;return strict?(p.playProbability||0)>=probabilityThreshold():(p.playProbability||0)>0}
+function top17(){return teamPlayers().filter(p=>isAvailable(p)).sort((a,b)=>b.proj-a.proj).slice(0,17)}
+function projection(){const base=top17().reduce((s,p)=>s+Number(p.proj||0),0);const c=players.find(p=>p.name===$("cSelect")?.value);return Math.round(base+(c&&isAvailable(c)?Number(c.proj||0):0))}
+function parModel(){let base=Number($("baseOverallPar")?.value||1080);const d=$("roundDifficulty")?.value||"normal";if(d==="low")base-=55;if(d==="high")base+=55;if(d==="bye")base-=110;const spread=($("modelConfidence")?.value==="strong")?20:($("modelConfidence")?.value==="medium")?35:60;return {overall:[base-spread,base+spread],top10k:[base+35-spread,base+35+spread],top5k:[base+70-spread,base+70+spread],top1k:[base+125-spread,base+125+spread]}}
+function rangeText(r){return `${Math.round(r[0])}–${Math.round(r[1])}`}
+function addToTeam(){const n=$("teamPlayerSelect").value;if(n&&!myTeam.includes(n))myTeam.push(n);saveState();renderAll()}
+function clearTeam(){myTeam=[];saveState();renderAll()} function removeTeam(n){myTeam=myTeam.filter(x=>x!==n);saveState();renderAll()}
+function renderTeam(){$("myTeamTable").innerHTML=teamPlayers().map(p=>`<tr><td>${p.name}</td><td>${p.pos}</td><td>${p.team}</td><td>${p.proj}</td><td>${p.ownership ? p.ownership + "%" : "<span class=\"warn\">Needs data</span>"}</td><td>${(p.bye&&p.bye.length) ? p.bye.join(",") : "<span class=\"warn\">Needs data</span>"}</td><td>${injuryPill(p)}</td><td><button onclick="removeTeam('${p.name}')">Remove</button></td></tr>`).join("")}
+function injuryPill(p){const s=p.injuryStatus||"fit";const cls=s==="fit"?"good":(s==="chance"||s==="doubtful")?"warn":"bad";return `<span class="pill ${cls}">${s} ${p.playProbability||0}%</span>`}
+function renderInjury(){const round=Number($("currentRound").value||1);const strictAvail=teamPlayers().filter(p=>isAvailable(p,round,true));const possible=teamPlayers().filter(p=>isAvailable(p,round,false));$("injuryAvailable").textContent=`${strictAvail.length} / ${possible.length}`;$("injuryAvailableText").textContent=`Strict likely available / possible if doubtful players get through. Current round: ${round}.`;let urgency="None",cls="good",txt="You can field enough players.";if(strictAvail.length<17&&possible.length>=17){urgency="Wait Team Lists";cls="warn";txt="You need doubtful/chance players to play. Do not trade early unless news is bad."}if(strictAvail.length<17&&possible.length<17){urgency="Trade Needed";cls="bad";txt=`You are short by ${17-strictAvail.length} likely players. This is not optional.`}const el=$("tradeUrgency");el.textContent=urgency;el.className=`metric ${cls}`;$("tradeUrgencyText").textContent=txt;$("injuryTable").innerHTML=teamPlayers().filter(p=>(p.injuryStatus||"fit")!=="fit"||!isAvailable(p,round,true)).map(p=>{let impact=!isAvailable(p,round,false)?"Out":!isAvailable(p,round,true)?"Risk":"Available";let action=impact==="Out"?"Trade/hold only if short-term superstar":impact==="Risk"?"Wait for team lists / have backup":"Hold";return `<tr><td>${p.name}</td><td>${injuryPill(p)}</td><td>Round ${p.expectedReturnRound||"?"}</td><td>${p.playProbability||0}%</td><td>${impact}</td><td>${action}</td></tr>`}).join("")||`<tr><td colspan="6" class="muted">No injury risks in your team.</td></tr>`}
+function renderVerdict(){const p=parModel(),proj=projection(),avail=teamPlayers().filter(p=>isAvailable(p)).length,possible=teamPlayers().filter(p=>isAvailable(p,Number($("currentRound").value||1),false)).length;$("yourProjection").textContent=proj;$("fieldThisRound").textContent=`${avail} / ${possible}`;$("fieldThisRoundText").textContent="Likely / possible available players.";let v="Needs Team",cls="bad",txt="Add your team.";if(myTeam.length){if(avail<17){v="Field 17 Danger";cls="bad";txt=`You have only ${avail} likely available. Fix injuries/bye risk first.`}else if(proj>=p.top1k[0]){v="Top 1000 Attack";cls="good";txt="Projection is inside Top 1000 par band."}else if(proj>=p.top5k[0]){v="Around Good Par";cls="warn";txt="Not dead, but you need captain or POD edge."}else{v="Behind Par";cls="bad";txt="Projection is weak. Trade/captain edge needed."}}$("mainVerdict").textContent=v;$("mainVerdict").className=`metric ${cls}`;$("mainVerdictText").textContent=txt;const injured=teamPlayers().filter(p=>!isAvailable(p)).length;const avgOwn=top17().reduce((s,p)=>s+(p.ownership||0),0)/(top17().length||1);$("hurtList").innerHTML=`<tr><td>Field 17</td><td>${avail<17?'<span class="pill bad">Danger</span>':'<span class="pill good">OK</span>'}</td><td>${avail} likely available.</td></tr><tr><td>Injury Risk</td><td>${injured?'<span class="pill bad">Active</span>':'<span class="pill good">Clean</span>'}</td><td>${injured} player(s) unavailable/risky.</td></tr><tr><td>Template Risk</td><td>${avgOwn>25?'<span class="pill warn">High</span>':'<span class="pill good">OK</span>'}</td><td>Avg ownership best 17: ${avgOwn.toFixed(1)}%</td></tr>`;$("attackList").innerHTML=`<tr><td>1</td><td>${avail<17?"Fix available numbers before chasing upside.":"Check captain differential before lockout."}</td></tr><tr><td>2</td><td>Use Injury Risk tab before trading. Do not trade blind.</td></tr><tr><td>3</td><td>Run the trade through Trade Lab and check bye impact.</td></tr>`}
+function renderPar(){const p=parModel();$("overallPar").textContent=rangeText(p.overall);$("top10kPar").textContent=rangeText(p.top10k);$("top5kPar").textContent=rangeText(p.top5k);$("top1kPar").textContent=rangeText(p.top1k);const live=Number($("currentLiveTeamScore").value||0),left=Number($("playersLeft").value||0),avg=Number($("avgLeft").value||60),finish=live+left*avg;$("liveParResult").innerHTML=`Projected finish: <b>${finish}</b><br>Top 1000 par: ${rangeText(p.top1k)}<br>Top 5000 par: ${rangeText(p.top5k)}<br>${finish>=p.top1k[0]?"Above Top 1000 low par.":"Below Top 1000 par. Need points."}`}
+const eventMap={tackle:{label:"Tackle",pts:1},run10:{label:"10m Run",pts:1},goal:{label:"Goal",pts:4},tb:{label:"Tackle Bust",pts:3},try:{label:"Try",pts:17},ta:{label:"Try Assist",pts:12},lb:{label:"Line Break",pts:10},lba:{label:"LB Assist",pts:8},offload:{label:"Offload",pts:4},error:{label:"Error",pts:-2},mt:{label:"Missed Tackle",pts:-1}}
+function addLiveEvent(type){const n=$("livePlayerSelect").value;if(!n)return;if(!liveEvents[n])liveEvents[n]=[];liveEvents[n].push({type,t:new Date().toLocaleTimeString(),pts:eventMap[type].pts});saveState();renderLive()}
+function renderLive(){const n=$("livePlayerSelect").value||players[0]?.name;if(!n)return;const ev=liveEvents[n]||[],breakdown={};ev.forEach(e=>breakdown[e.type]=(breakdown[e.type]||0)+e.pts);const est=Object.values(breakdown).reduce((a,b)=>a+b,0),off=$("officialScore").value;$("livePlayerName").textContent=n;$("liveScore").textContent=off?`${off} official / ${est} est`:est;$("breakdownTable").innerHTML=Object.keys(breakdown).map(k=>`<tr><td>${eventMap[k].label}</td><td>${breakdown[k]>0?"+":""}${breakdown[k]}</td></tr>`).join("")||`<tr><td class="muted">No events yet.</td></tr>`;$("timeline").innerHTML=ev.slice().reverse().map(e=>`<div class="event"><b>${e.t}</b><br>${eventMap[e.type].label}: ${e.pts>0?"+":""}${e.pts}</div>`).join("")||`<div class="muted">Score build appears here.</div>`;renderCaptain()}
+function renderCaptain(){const vc=players.find(p=>p.name===$("vcSelect").value),c=players.find(p=>p.name===$("cSelect").value),threshold=Number($("vcThreshold").value||115);const ev=vc?(liveEvents[vc.name]||[]):[],score=ev.reduce((s,e)=>s+e.pts,0);let d="Waiting",detail="Select VC and track live score.";if(vc&&ev.length){if(score>=threshold){d="TAKE VC";detail=`VC ${score} is above threshold ${threshold}.` }else if(score>=threshold-10){d="Line Ball";detail=`VC ${score}. Watch final score.`}else{d="ROLL C";detail=`VC ${score} below threshold.`}}$("vcDecision").textContent=d;$("vcDetail").textContent=detail;const cPct=c?c.cPct||0:0,vcPct=vc?vc.vcPct||0:0,unique=Math.max(0,Math.min(100,Math.round(100-(cPct*1.4+vcPct*.8))));$("capUnique").textContent=`${unique}/100`;$("capPack").textContent=c&&vc?`C ${c.name}: ${cPct}% | VC ${vc.name}: ${vcPct}%`:"Select C and VC."}
+function renderBye(){const rounds=[1,2,3,4,5,6,7,8,13,14,15,16,17,18,19,20];$("byeTable").innerHTML=rounds.map(r=>{const strict=teamPlayers().filter(p=>isAvailable(p,r,true));const poss=teamPlayers().filter(p=>isAvailable(p,r,false));const missing=teamPlayers().filter(p=>!isAvailable(p,r,true)).sort((a,b)=>b.proj-a.proj).slice(0,5).map(p=>p.name).join(", ");let status=strict.length>=17?'<span class="pill good">Strong</span>':poss.length>=17?'<span class="pill warn">Depends on injuries</span>':'<span class="pill bad">Disaster</span>';return `<tr><td>Round ${r}</td><td>${strict.length}</td><td>${poss.length}</td><td>${status}</td><td>${missing||"None"}</td></tr>`}).join("")}
+function renderTrade(){const out=players.find(p=>p.name===$("tradeOut").value),inn=players.find(p=>p.name===$("tradeIn").value);if(!out||!inn)return;const points=inn.proj-out.proj,cash=out.price-inn.price,pod=out.ownership-inn.ownership,injuryBoost=!isAvailable(out)?15:0,injuryPenalty=!isAvailable(inn)?25:0;let score=50+points*2+(cash/50000)+pod+injuryBoost-injuryPenalty;score=Math.round(Math.max(0,Math.min(100,score)));$("tradeScore").textContent=`${score}/100`;$("tradeVerdict").textContent=score>=80?"Strong trade.":score>=60?"Okay, check byes.":"Weak trade.";$("tradeBreakdown").innerHTML=`<tr><td>Points</td><td>${points>0?"+":""}${points}</td></tr><tr><td>Cash</td><td>${cash>=0?"+":""}${money(cash)}</td></tr><tr><td>POD effect</td><td>${pod>0?"Less template":"More template"} ${Math.abs(pod)}%</td></tr><tr><td>Injury logic</td><td>${injuryBoost?"Fixes unavailable player":injuryPenalty?"Incoming player risky":"Neutral"}</td></tr>`}
+function saveJournal(){journal.unshift({round:$("journalRound").value,decision:$("journalDecision").value,why:$("journalWhy").value,date:new Date().toLocaleString()});$("journalDecision").value="";$("journalWhy").value="";saveState();renderJournal();renderWeatherHub();renderCaptainRoomUpgrade();renderTopCaptainRankings();updateCaptainSelectionFromRankings();renderWeatherHub();renderCaptainRoomUpgrade();renderTopCaptainRankings();updateCaptainSelectionFromRankings()}
+function renderJournal(){$("journalList").innerHTML=journal.map(j=>`<div class="event"><b>${j.round}</b> <span class="mini">${j.date}</span><br><b>Decision:</b> ${j.decision||"None"}<br><b>Reason:</b> ${j.why||"No reason — danger."}</div>`).join("")||`<p class="muted">No entries yet.</p>`}
+function loadJson(){try{players=JSON.parse($("playersJson").value);saveState();renderAll()}catch(e){alert("Invalid JSON")}}
+function resetSample(){players=samplePlayers;saveState();renderAll()}
+
+async function loadPlayersFromJsonFile(){
+  try{
+    const res = await fetch("players.json?cacheBust=" + Date.now(), {cache:"no-store"});
+    if(!res.ok) throw new Error("players.json not found");
+    const data = await res.json();
+    if(Array.isArray(data.players)) players = data.players;
+    else if(Array.isArray(data)) players = data;
+    else throw new Error("players.json must be an array or {players:[...]}");
+    state.players = players;
+    localStorage.setItem("warroomV5Injury", JSON.stringify(state));
+    console.log("Loaded players.json", players.length, "players");
+  }catch(err){
+    console.warn("Using embedded sample data:", err.message);
+  }
+}
+
+
+async function loadMyTeamFromJsonFile(){
+  try{
+    const existingTeam = JSON.parse(localStorage.getItem("warroomV5Injury") || "{}").myTeam || [];
+    if(existingTeam && existingTeam.length) return;
+    const res = await fetch("my_team.json?cacheBust=" + Date.now(), {cache:"no-store"});
+    if(!res.ok) throw new Error("my_team.json not found");
+    const data = await res.json();
+    if(Array.isArray(data.players)){
+      myTeam = data.players;
+      state.myTeam = myTeam;
+      if(data.captain) state.cSelect = data.captain;
+      if(data.viceCaptain) state.vcSelect = data.viceCaptain;
+      localStorage.setItem("warroomV5Injury", JSON.stringify(state));
+      console.log("Loaded my_team.json", myTeam.length, "players");
+    }
+  }catch(err){
+    console.warn("No my_team.json auto-load:", err.message);
+  }
+}
+
+
+function playerOptionsHtml(){
+  return players.map(p => `<option value="${p.name}">${p.pos || ""} ${p.team || ""} ${p.price ? "$" + Number(p.price).toLocaleString() : ""}</option>`).join("");
+}
+
+function refreshPlayerDatalists(){
+  const all = document.getElementById("allPlayersDatalist");
+  const team = document.getElementById("teamPlayersDatalist");
+  if(all) all.innerHTML = playerOptionsHtml();
+  if(team) team.innerHTML = teamPlayers().map(p => `<option value="${p.name}">${p.pos || ""} ${p.team || ""}</option>`).join("");
+}
+
+function getPlayerByInputValue(id){
+  const val = document.getElementById(id)?.value || "";
+  return players.find(p => p.name === val);
+}
+
+function getTeamPlayerByInputValue(id){
+  const val = document.getElementById(id)?.value || "";
+  return teamPlayers().find(p => p.name === val);
+}
+
+
+async function refreshLatestData(){
+  const button = document.getElementById("refreshLatestDataBtn");
+  const status = document.getElementById("refreshLatestDataStatus");
+  if(button) button.disabled = true;
+  if(status) status.textContent = "Refreshing latest GitHub data...";
+
+  const cacheBust = Date.now();
+  let messages = [];
+
+  try{
+    const playersRes = await fetch("players.json?cacheBust=" + cacheBust, {cache:"no-store"});
+    if(playersRes.ok){
+      const data = await playersRes.json();
+      if(Array.isArray(data.players)){
+        players = data.players;
+        state.players = players;
+        messages.push("players.json loaded");
+      } else if(Array.isArray(data)){
+        players = data;
+        state.players = players;
+        messages.push("players.json loaded");
+      } else {
+        messages.push("players.json format not recognised");
+      }
+    } else {
+      messages.push("players.json not found");
+    }
+  }catch(err){
+    messages.push("players.json error: " + err.message);
+  }
+
+  try{
+    const teamRes = await fetch("my_team.json?cacheBust=" + cacheBust, {cache:"no-store"});
+    if(teamRes.ok){
+      const teamData = await teamRes.json();
+      if(Array.isArray(teamData.players)){
+        myTeam = teamData.players;
+        state.myTeam = myTeam;
+        if(teamData.captain) state.cSelect = teamData.captain;
+        if(teamData.viceCaptain) state.vcSelect = teamData.viceCaptain;
+        messages.push("my_team.json loaded");
+      } else {
+        messages.push("my_team.json has no players array");
+      }
+    } else {
+      messages.push("my_team.json not found");
+    }
+  }catch(err){
+    messages.push("my_team.json error: " + err.message);
+  }
+
+  try{
+    const weatherRes = await fetch("weather.json?cacheBust=" + cacheBust, {cache:"no-store"});
+    if(weatherRes.ok){
+      const weatherData = await weatherRes.json();
+      state.weather = weatherData;
+      messages.push("weather.json loaded");
+    } else {
+      messages.push("weather.json not found yet");
+    }
+  }catch(err){
+    messages.push("weather.json error: " + err.message);
+  }
+
+  localStorage.setItem("warroomV5Injury", JSON.stringify(state));
+  if(typeof renderAll === "function") renderAll();
+  if(typeof renderWeatherHub === "function") renderWeatherHub(); if(typeof renderCaptainRoomUpgrade === "function") renderCaptainRoomUpgrade();renderTopCaptainRankings();updateCaptainSelectionFromRankings();renderCaptainRoomUpgrade();renderTopCaptainRankings();updateCaptainSelectionFromRankings();
+
+  if(status){
+    status.textContent = "Refresh complete: " + messages.join(" | ");
+  }
+  if(button) button.disabled = false;
+}
+
+function getWeatherMatches(){
+  return state.weather && Array.isArray(state.weather.matches) ? state.weather.matches : [];
+}
+
+function renderWeatherHub();renderCaptainRoomUpgrade();renderTopCaptainRankings();updateCaptainSelectionFromRankings(){
+  const tbody = document.getElementById("weatherHubTable");
+  const summary = document.getElementById("weatherHubSummary");
+  if(!tbody) return;
+
+  const matches = getWeatherMatches();
+  if(!matches.length){
+    tbody.innerHTML = `<tr><td colspan="7" class="muted">No weather.json loaded yet. Press Refresh Latest Data after running the weather workflow.</td></tr>`;
+    if(summary) summary.textContent = "No weather data loaded.";
+    return;
+  }
+
+  tbody.innerHTML = matches.map(m => {
+    const risk = m.weatherRisk || {};
+    const riskClass = risk.label === "High" ? "bad" : risk.label === "Medium" ? "warn" : "good";
+    return `<tr>
+      <td>${m.match || ""}</td>
+      <td>${m.venue || ""}</td>
+      <td>${m.kickoffLocal || ""}</td>
+      <td>${risk.maxRainProbability ?? ""}%</td>
+      <td>${risk.maxWindKmh ?? ""} km/h</td>
+      <td><span class="pill ${riskClass}">${risk.label || "Unknown"}</span></td>
+      <td>${risk.captainImpact || ""}</td>
+    </tr>`;
+  }).join("");
+
+  if(summary){
+    const high = matches.filter(m => (m.weatherRisk || {}).label === "High").length;
+    const med = matches.filter(m => (m.weatherRisk || {}).label === "Medium").length;
+    summary.textContent = `${matches.length} matches loaded. High risk: ${high}. Medium risk: ${med}.`;
+  }
+}
+\n
+function teamCodeFromNameOrObj(p){
+  if(!p) return "";
+  if(typeof p === "string"){
+    const found = players.find(x => x.name === p);
+    return found ? found.team : "";
+  }
+  return p.team || "";
+}
+
+const weatherTeamAliases = {
+  "BRO": ["Broncos", "Brisbane"],
+  "NQC": ["Cowboys", "North Queensland"],
+  "DOL": ["Dolphins"],
+  "MEL": ["Storm", "Melbourne"],
+  "NEW": ["Knights", "Newcastle"],
+  "CBR": ["Raiders", "Canberra"],
+  "SYD": ["Roosters", "Sydney Roosters"],
+  "MAN": ["Sea Eagles", "Manly"],
+  "STH": ["Rabbitohs", "South Sydney"],
+  "WST": ["Tigers", "Wests Tigers"],
+  "PEN": ["Panthers", "Penrith"],
+  "SHA": ["Sharks", "Cronulla"],
+  "STG": ["Dragons", "St George"],
+  "CAN": ["Bulldogs", "Canterbury"],
+  "PAR": ["Eels", "Parramatta"],
+  "NZL": ["Warriors", "New Zealand"],
+  "GLD": ["Titans", "Gold Coast"]
+};
+
+function findWeatherMatchForTeam(teamCode){
+  const matches = getWeatherMatches();
+  const aliases = weatherTeamAliases[teamCode] || [teamCode];
+  return matches.find(m => {
+    const text = String(m.match || "").toLowerCase();
+    return aliases.some(a => text.includes(String(a).toLowerCase()));
+  });
+}
+
+function weatherAdjustmentForPlayer(player, match){
+  if(!player || !match || !match.weatherRisk){
+    return {score:0, verdict:"No weather data", note:"Run Update Weather Data, then Refresh Latest Data."};
+  }
+
+  const risk = match.weatherRisk;
+  const label = risk.label || "Unknown";
+  const pos = String(player.pos || "").toUpperCase();
+  let adjustment = 0;
+  let note = "";
+
+  if(label === "High"){
+    if(["CTW","FLB","5/8","HFB"].includes(pos)){
+      adjustment = -18;
+      note = "High weather risk hurts attacking/edge upside. Dangerous C/VC.";
+    }else if(["2RF","FRF","HOK"].includes(pos)){
+      adjustment = +6;
+      note = "High weather risk can favour workload/tackle base.";
+    }else{
+      adjustment = -8;
+      note = "High weather risk. Be cautious.";
+    }
+  }else if(label === "Medium"){
+    if(["CTW","FLB"].includes(pos)){
+      adjustment = -9;
+      note = "Medium weather risk. Downgrade outside backs slightly.";
+    }else if(["2RF","FRF","HOK"].includes(pos)){
+      adjustment = +3;
+      note = "Medium weather risk. Workload players slightly safer.";
+    }else{
+      adjustment = -3;
+      note = "Medium weather risk. Small downgrade.";
+    }
+  }else if(label === "Low"){
+    adjustment = 0;
+    note = "Low weather risk. Normal captain logic.";
+  }else{
+    adjustment = 0;
+    note = "Weather risk unknown.";
+  }
+
+  return {score: adjustment, verdict: label, note};
+}
+
+function captainWeatherRating(player){
+  if(!player) return null;
+  const teamCode = teamCodeFromNameOrObj(player);
+  const match = findWeatherMatchForTeam(teamCode);
+  const adj = weatherAdjustmentForPlayer(player, match);
+
+  const base = Number(player.proj || player.avg || 0);
+  const ownPenalty = Number(player.ownership || 0) > 35 ? -3 : 0;
+  const riskPenalty = String(player.injuryStatus || "fit").toLowerCase() === "fit" ? 0 : -20;
+  const rating = Math.max(0, Math.round(base + adj.score + ownPenalty + riskPenalty));
+
+  let verdict = "Avoid";
+  if(rating >= 85) verdict = "Strong C/VC";
+  else if(rating >= 70) verdict = "Viable";
+  else if(rating >= 55) verdict = "Risky";
+  else verdict = "Avoid";
+
+  return {player, match, adj, rating, verdict};
+}
+
+function renderCaptainWeatherVerdicts(){
+  const box = document.getElementById("captainWeatherVerdicts");
+  if(!box) return;
+
+  const candidates = teamPlayers()
+    .filter(p => Number(p.proj || p.avg || 0) > 0)
+    .map(captainWeatherRating)
+    .filter(Boolean)
+    .sort((a,b) => b.rating - a.rating)
+    .slice(0, 12);
+
+  if(!candidates.length){
+    box.innerHTML = `<p class="muted">No captain candidates found. Load team and player data first.</p>`;
+    return;
+  }
+
+  box.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Player</th>
+          <th>Pos</th>
+          <th>Match</th>
+          <th>Weather</th>
+          <th>Adj</th>
+          <th>Rating</th>
+          <th>Verdict</th>
+          <th>Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${candidates.map(c => {
+          const riskClass = c.adj.verdict === "High" ? "bad" : c.adj.verdict === "Medium" ? "warn" : "good";
+          const verdictClass = c.verdict === "Strong C/VC" ? "good" : c.verdict === "Viable" ? "blue" : c.verdict === "Risky" ? "warn" : "bad";
+          return `<tr>
+            <td>${c.player.name}</td>
+            <td>${c.player.pos || ""}</td>
+            <td>${c.match ? c.match.match : "<span class='warn'>No fixture match</span>"}</td>
+            <td><span class="pill ${riskClass}">${c.adj.verdict}</span></td>
+            <td>${c.adj.score > 0 ? "+" : ""}${c.adj.score}</td>
+            <td><b>${c.rating}</b></td>
+            <td><span class="pill ${verdictClass}">${c.verdict}</span></td>
+            <td>${c.adj.note}</td>
+          </tr>`;
+        }).join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderCaptainRoomUpgrade();renderTopCaptainRankings();updateCaptainSelectionFromRankings(){
+  renderCaptainWeatherVerdicts();
+}
+
+
+function captainBaseScore(player){
+  const proj = Number(player.proj || 0);
+  const avg = Number(player.avg || 0);
+  const three = Number(player.threeRoundAvg || 0);
+  let base = 0;
+  if(proj && avg) base = (proj * 0.65) + (avg * 0.35);
+  else base = proj || avg || three || 0;
+  if(three) base = (base * 0.75) + (three * 0.25);
+  return base;
+}
+
+function captainPositionProfile(player){
+  const pos = String(player.pos || "").toUpperCase();
+  if(["HOK","2RF","FRF"].includes(pos)) return {type:"base", bonus:4, note:"Reliable base/workrate profile"};
+  if(["HFB","5/8"].includes(pos)) return {type:"playmaker", bonus:2, note:"Ceiling depends on attacking involvement"};
+  if(["FLB"].includes(pos)) return {type:"upside", bonus:1, note:"High ceiling but weather/opponent sensitive"};
+  if(["CTW"].includes(pos)) return {type:"volatile", bonus:-3, note:"High variance outside-back profile"};
+  return {type:"unknown", bonus:0, note:"Neutral position profile"};
+}
+
+function captainInjuryPenalty(player){
+  const status = String(player.injuryStatus || "fit").toLowerCase();
+  const prob = Number(player.playProbability ?? 100);
+  if(status === "unavailable" || status === "injured" || status === "suspended") return {penalty:-100, note:"Unavailable"};
+  if(status === "questionable" || status === "doubtful" || prob < 70) return {penalty:-25, note:"Selection/injury risk"};
+  if(prob < 90) return {penalty:-10, note:"Minor availability risk"};
+  return {penalty:0, note:"Fit"};
+}
+
+function captainOwnershipAdjustment(player){
+  const own = Number(player.ownership);
+  const cOwn = Number(player.captainOwnership || player.cPct || 0);
+  if(!own && !cOwn) return {adj:0, note:"Ownership data missing"};
+  let adj = 0;
+  let note = "";
+  if(cOwn >= 25){ adj += 6; note = "Safe popular captain"; }
+  else if(cOwn > 0 && cOwn < 10){ adj += 2; note = "POD captain upside"; }
+  else note = "Ownership available";
+  return {adj, note};
+}
+
+function captainWeatherScore(player){
+  const team = teamCodeFromNameOrObj(player);
+  const match = findWeatherMatchForTeam(team);
+  const adj = weatherAdjustmentForPlayer(player, match);
+  return {match, adj};
+}
+
+function calculateCaptainRanking(player){
+  const base = captainBaseScore(player);
+  const pos = captainPositionProfile(player);
+  const inj = captainInjuryPenalty(player);
+  const own = captainOwnershipAdjustment(player);
+  const weather = captainWeatherScore(player);
+
+  let score = base + pos.bonus + inj.penalty + own.adj + weather.adj.score;
+  score = Math.max(0, Math.min(100, Math.round(score)));
+
+  let verdict = "Avoid";
+  if(score >= 85) verdict = "Captain";
+  else if(score >= 75) verdict = "Strong VC";
+  else if(score >= 65) verdict = "Viable";
+  else if(score >= 55) verdict = "Risky";
+
+  const reasons = [
+    `Base ${Math.round(base)}`,
+    pos.note,
+    inj.note,
+    weather.adj.note,
+    own.note
+  ].filter(Boolean);
+
+  return {
+    player,
+    score,
+    verdict,
+    base: Math.round(base),
+    posBonus: pos.bonus,
+    weatherAdj: weather.adj.score,
+    weatherRisk: weather.adj.verdict,
+    match: weather.match,
+    reasons
+  };
+}
+
+function renderTopCaptainRankings(){
+  const el = document.getElementById("topCaptainRankings");
+  if(!el) return;
+
+  const ranked = teamPlayers()
+    .filter(p => Number(p.proj || p.avg || p.threeRoundAvg || 0) > 0)
+    .map(calculateCaptainRanking)
+    .sort((a,b) => b.score - a.score);
+
+  if(!ranked.length){
+    el.innerHTML = `<p class="muted">No ranked players yet. Press Refresh Latest Data or Load Team Again From GitHub.</p>`;
+    return;
+  }
+
+  const top = ranked[0];
+  const vc = ranked.find(r => r.player.name !== top.player.name && r.score >= 65) || ranked[1];
+
+  el.innerHTML = `
+    <div class="grid">
+      <div class="card span6">
+        <h2>Recommended Captain</h2>
+        <div class="metric">${top.player.name}</div>
+        <p><b>${top.score}/100</b> — ${top.verdict}</p>
+        <p class="muted">${top.reasons.join(" | ")}</p>
+      </div>
+      <div class="card span6">
+        <h2>Recommended VC</h2>
+        <div class="metric">${vc ? vc.player.name : "None"}</div>
+        <p><b>${vc ? vc.score : 0}/100</b> — ${vc ? vc.verdict : "No option"}</p>
+        <p class="muted">${vc ? vc.reasons.join(" | ") : "No viable VC found."}</p>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Pos</th>
+          <th>Team</th>
+          <th>Base</th>
+          <th>Weather</th>
+          <th>Adj</th>
+          <th>Score</th>
+          <th>Verdict</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${ranked.slice(0, 15).map((r, i) => {
+          const verdictClass = r.verdict === "Captain" ? "good" : r.verdict === "Strong VC" ? "blue" : r.verdict === "Viable" ? "warn" : "bad";
+          const weatherClass = r.weatherRisk === "High" ? "bad" : r.weatherRisk === "Medium" ? "warn" : r.weatherRisk === "Low" ? "good" : "warn";
+          return `<tr>
+            <td>${i+1}</td>
+            <td>${r.player.name}</td>
+            <td>${r.player.pos || ""}</td>
+            <td>${r.player.team || ""}</td>
+            <td>${r.base}</td>
+            <td><span class="pill ${weatherClass}">${r.weatherRisk}</span></td>
+            <td>${r.weatherAdj > 0 ? "+" : ""}${r.weatherAdj}</td>
+            <td><b>${r.score}</b></td>
+            <td><span class="pill ${verdictClass}">${r.verdict}</span></td>
+            <td>${r.reasons.join(" | ")}</td>
+          </tr>`;
+        }).join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function updateCaptainSelectionFromRankings(){
+  const ranked = teamPlayers()
+    .filter(p => Number(p.proj || p.avg || p.threeRoundAvg || 0) > 0)
+    .map(calculateCaptainRanking)
+    .sort((a,b) => b.score - a.score);
+
+  if(!ranked.length) return;
+  const c = document.getElementById("cSelect");
+  const vc = document.getElementById("vcSelect");
+  if(c && !c.value) c.value = ranked[0].player.name;
+  if(vc && !vc.value && ranked[1]) vc.value = ranked[1].player.name;
+}
+
+function renderAll(){ refreshPlayerDatalists(); ["teamPlayerSelect","livePlayerSelect","vcSelect","cSelect"].forEach(id=>fillSelect(id,players,id==="tradeIn"));fillSelect("tradeOut",teamPlayers(),true);restore();$("playersJson").value=JSON.stringify(players,null,2);renderTeam();renderInjury();renderVerdict();renderPar();renderLive();renderCaptain();renderBye();renderJournal();renderWeatherHub();renderCaptainRoomUpgrade();renderTopCaptainRankings();updateCaptainSelectionFromRankings();renderImportedTeam();renderWeeklyTrades()}
+loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
+</script>
+
+<script>
+(function(){
+  function showTab(tabId){
+    document.querySelectorAll(".tab").forEach(function(section){
+      section.classList.add("hidden");
+      section.style.display = "none";
+    });
+
+    const target = document.getElementById(tabId);
+    if(target){
+      target.classList.remove("hidden");
+      target.style.display = "";
+    }
+
+    document.querySelectorAll("[data-tab]").forEach(function(btn){
+      btn.classList.remove("active");
+    });
+
+    const activeBtn = document.querySelector('[data-tab="' + tabId + '"]');
+    if(activeBtn){
+      activeBtn.classList.add("active");
+    }
+
+    try{
+      localStorage.setItem("warroomActiveTab", tabId);
+    }catch(e){}
+  }
+
+  function wireTabs(){
+    document.querySelectorAll("[data-tab]").forEach(function(btn){
+      btn.onclick = function(e){
+        e.preventDefault();
+        const tabId = btn.getAttribute("data-tab");
+        if(tabId) showTab(tabId);
+      };
+    });
+
+    const saved = localStorage.getItem("warroomActiveTab");
+    const first = document.querySelector("[data-tab]")?.getAttribute("data-tab");
+    const start = saved && document.getElementById(saved) ? saved : first;
+    if(start) showTab(start);
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", wireTabs);
+  }else{
+    wireTabs();
+  }
+
+  window.showTab = showTab;
+})();
+</script>
+
+
+<script>
+(function(){
+  function getPlayerList(){
+    try{
+      if(Array.isArray(window.players) && window.players.length) return window.players;
+      if(typeof players !== "undefined" && Array.isArray(players) && players.length) return players;
+    }catch(e){}
+    return [];
+  }
+
+  function getMyTeamNames(){
+    try{
+      if(Array.isArray(window.myTeam) && window.myTeam.length) return window.myTeam;
+      if(typeof myTeam !== "undefined" && Array.isArray(myTeam) && myTeam.length) return myTeam;
+      const saved = JSON.parse(localStorage.getItem("warroomV5Injury") || "{}");
+      if(Array.isArray(saved.myTeam)) return saved.myTeam;
+    }catch(e){}
+    return [];
+  }
+
+  function getTeamPlayersSafe(){
+    const all = getPlayerList();
+    const names = getMyTeamNames();
+    if(!names.length) return all.slice(0, 30);
+    return names.map(n => all.find(p => p.name === n)).filter(Boolean);
+  }
+
+  function fillCaptainSelectsForce(){
+    const team = getTeamPlayersSafe();
+    const selects = ["vcSelect","cSelect"];
+    selects.forEach(id => {
+      const el = document.getElementById(id);
+      if(!el) return;
+      const current = el.value;
+      el.innerHTML = '<option value="">Select player...</option>' + team.map(p => {
+        const label = `${p.name} (${p.pos || ""} - ${p.team || ""})`;
+        return `<option value="${p.name}">${label}</option>`;
+      }).join("");
+      if(current) el.value = current;
+    });
+  }
+
+  async function forceLoadDataForCaptain(){
+    const cacheBust = Date.now();
+
+    try{
+      const pRes = await fetch("players.json?cacheBust=" + cacheBust, {cache:"no-store"});
+      if(pRes.ok){
+        const pData = await pRes.json();
+        if(Array.isArray(pData.players)){
+          window.players = pData.players;
+          try{ players = pData.players; }catch(e){}
+        }
+      }
+    }catch(e){ console.warn("players load failed", e); }
+
+    try{
+      const tRes = await fetch("my_team.json?cacheBust=" + cacheBust, {cache:"no-store"});
+      if(tRes.ok){
+        const tData = await tRes.json();
+        if(Array.isArray(tData.players)){
+          window.myTeam = tData.players;
+          try{ myTeam = tData.players; }catch(e){}
+          try{
+            state.myTeam = tData.players;
+            localStorage.setItem("warroomV5Injury", JSON.stringify(state));
+          }catch(e){}
+        }
+      }
+    }catch(e){ console.warn("team load failed", e); }
+
+    try{
+      const wRes = await fetch("weather.json?cacheBust=" + cacheBust, {cache:"no-store"});
+      if(wRes.ok){
+        const wData = await wRes.json();
+        try{ state.weather = wData; }catch(e){ window.weather = wData; }
+      }
+    }catch(e){ console.warn("weather load failed", e); }
+
+    fillCaptainSelectsForce();
+    if(typeof renderCaptainWeatherVerdicts === "function") renderCaptainWeatherVerdicts(); if(typeof renderTopCaptainRankings === "function") renderTopCaptainRankings(); if(typeof updateCaptainSelectionFromRankings === "function") updateCaptainSelectionFromRankings();
+    if(typeof renderWeatherHub === "function") renderWeatherHub();
+
+    const status = document.getElementById("refreshLatestDataStatus");
+    if(status) status.textContent = "Captain data loaded: players, team and weather refreshed.";
+  }
+
+  const oldRefresh = window.refreshLatestData;
+  window.refreshLatestData = async function(){
+    if(typeof oldRefresh === "function"){
+      try{ await oldRefresh(); }catch(e){ console.warn(e); }
+    }
+    await forceLoadDataForCaptain();
+  };
+
+  function bootCaptainFix(){
+    fillCaptainSelectsForce();
+    setTimeout(forceLoadDataForCaptain, 400);
+    setTimeout(fillCaptainSelectsForce, 1200);
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", bootCaptainFix);
+  }else{
+    bootCaptainFix();
+  }
+
+  window.fillCaptainSelectsForce = fillCaptainSelectsForce;
+  window.forceLoadDataForCaptain = forceLoadDataForCaptain;
+})();
+</script>
+
+</body>
+</html>
