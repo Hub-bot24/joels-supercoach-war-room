@@ -1,6 +1,6 @@
 name: Update SuperCoach Data
 
-on:
+"on":
   workflow_dispatch:
   schedule:
     - cron: "0 20 * * *"
@@ -11,13 +11,19 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
       - name: Run updater
         run: python scripts/update_players.py
+
       - name: Commit updated players.json
         run: |
           git config user.name "github-actions"
