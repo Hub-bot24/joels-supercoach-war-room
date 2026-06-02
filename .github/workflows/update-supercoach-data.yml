@@ -1,17 +1,15 @@
-name: Update Weather Data
+name: Update SuperCoach Data
 
 "on":
   workflow_dispatch:
   schedule:
-    # Runs every hour during likely NRL activity window.
-    # GitHub Actions uses UTC. This roughly covers Australian afternoon/evening checks.
-    - cron: "0 * * * *"
+    - cron: "0 20 * * *"
 
 permissions:
   contents: write
 
 jobs:
-  update-weather:
+  update:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,15 +24,15 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          pip install pandas lxml requests
 
-      - name: Run weather updater
-        run: python scripts/update_weather.py
+      - name: Run updater
+        run: python scripts/update_players.py
 
-      - name: Commit weather.json
+      - name: Commit updated players.json
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add weather.json
-          git commit -m "Update NRL game-window weather" || echo "No changes"
+          git add players.json
+          git commit -m "Update SuperCoach price and BE data" || echo "No changes"
           git push
