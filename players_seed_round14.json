@@ -1318,10 +1318,10 @@
       "bye": [],
       "injuryStatus": "fit",
       "playProbability": 100,
-      "expectedMinutes": null,
+      "expectedMinutes": 80,
       "ppm": null,
-      "roleConfidence": "Low",
-      "roleNote": "Seeded from Round 14 named team list. Replace with SuperCoach/role data for serious projections.",
+      "roleConfidence": "High",
+      "roleNote": "Elite HOK base role if named. Update with real stats.",
       "captainOwnership": null,
       "vcOwnership": null,
       "projectionSource": "round14_seed_role_baseline",
@@ -4643,10 +4643,10 @@
       "bye": [],
       "injuryStatus": "fit",
       "playProbability": 100,
-      "expectedMinutes": null,
+      "expectedMinutes": 65,
       "ppm": null,
-      "roleConfidence": "Low",
-      "roleNote": "Seeded from Round 14 named team list. Replace with SuperCoach/role data for serious projections.",
+      "roleConfidence": "High",
+      "roleNote": "Elite FRF base role if named. Update with real stats.",
       "captainOwnership": null,
       "vcOwnership": null,
       "projectionSource": "round14_seed_role_baseline",
@@ -5093,10 +5093,10 @@
       "bye": [],
       "injuryStatus": "fit",
       "playProbability": 100,
-      "expectedMinutes": null,
+      "expectedMinutes": 80,
       "ppm": null,
-      "roleConfidence": "Low",
-      "roleNote": "Seeded from Round 14 named team list. Replace with SuperCoach/role data for serious projections.",
+      "roleConfidence": "Medium",
+      "roleNote": "Starting spine role if named. Update with trusted minutes/role data.",
       "captainOwnership": null,
       "vcOwnership": null,
       "projectionSource": "round14_seed_role_baseline",
@@ -8803,5 +8803,12 @@
       "seedWarning": "Projection is role baseline only, not official SuperCoach projection.",
       "squadStatus": "reserve"
     }
-  ]
+  ],
+  "level3CsvImport": {
+    "updated": "2026-06-03T01:41:20.455984+00:00",
+    "source": "level3_player_stats.csv",
+    "playersUpdated": 3,
+    "playersSkippedNotFoundInThisFile": [],
+    "warning": "Only non-empty CSV cells overwrite existing data. Blank cells are ignored."
+  }
 }
