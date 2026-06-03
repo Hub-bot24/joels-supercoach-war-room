@@ -1,0 +1,38 @@
+name: Update Fixtures
+
+"on":
+  workflow_dispatch:
+  schedule:
+    - cron: "0 19 * * MON"
+
+permissions:
+  contents: write
+
+jobs:
+  update-fixtures:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas lxml requests
+
+      - name: Update fixtures
+        run: python scripts/update_fixtures.py
+
+      - name: Commit fixtures
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add fixtures.json fixtures_update_report.json
+          git commit -m "Update full fixture draw and byes" || echo "No changes"
+          git push
