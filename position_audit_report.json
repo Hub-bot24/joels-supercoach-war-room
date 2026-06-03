@@ -1,9 +1,55 @@
 {
-  "updated": "2026-06-03T10:53:44.530254+00:00",
-  "note": "Run GitHub Action Update SuperCoach Positions to refresh this.",
-  "total_players_seen": 0,
-  "positions_from_import": 0,
-  "manual_overrides_applied": 10,
-  "conflicts_fixed_by_override": [],
-  "missing_positions": []
+  "updated": "2026-06-03T11:06:45.827781+00:00",
+  "checked_master_players_found_in_players_json": 10,
+  "positions_forced_from_master": 10,
+  "conflict_count": 4,
+  "conflicts": [
+    {
+      "player": "Corey Horsburgh",
+      "trusted_name": "Corey Horsburgh",
+      "imported": [
+        "2RF"
+      ],
+      "trusted": [
+        "FRF",
+        "2RF"
+      ],
+      "action": "trusted position used; imported data ignored"
+    },
+    {
+      "player": "Alex Twal",
+      "trusted_name": "Alex Twal",
+      "imported": [
+        "2RF"
+      ],
+      "trusted": [
+        "FRF",
+        "2RF"
+      ],
+      "action": "trusted position used; imported data ignored"
+    },
+    {
+      "player": "Erin Clark",
+      "trusted_name": "Erin Clark",
+      "imported": [
+        "HOK"
+      ],
+      "trusted": [
+        "2RF"
+      ],
+      "action": "trusted position used; imported data ignored"
+    },
+    {
+      "player": "Tom Chester",
+      "trusted_name": "Tom Chester",
+      "imported": [
+        "FLB"
+      ],
+      "trusted": [
+        "CTW",
+        "FLB"
+      ],
+      "action": "trusted position used; imported data ignored"
+    }
+  ]
 }
