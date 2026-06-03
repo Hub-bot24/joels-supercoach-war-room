@@ -1,0 +1,38 @@
+name: Auto Enrich Level 3 Stats
+
+"on":
+  workflow_dispatch:
+  schedule:
+    - cron: "15 21 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  auto-enrich:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas lxml requests
+
+      - name: Auto enrich player stats
+        run: python scripts/auto_enrich_level3_stats.py
+
+      - name: Commit enriched player data and report
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add players.json players_seed_round14.json level3_enrichment_report.json
+          git commit -m "Auto enrich Level 3 player stats diagnostic" || echo "No changes"
+          git push
