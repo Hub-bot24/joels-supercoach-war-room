@@ -1,0 +1,176 @@
+{
+  "updated": "2026-06-03T03:01:44.906929+00:00",
+  "note": "This workflow validates primary/backup goal kickers against players.json + players_seed_round14.json. It cannot discover brand-new goal kickers unless the player is entered as primary/backup in team_roles.json.",
+  "teams": {
+    "BRO": {
+      "primary": "Adam Reynolds",
+      "backup": "Reece Walsh",
+      "primaryActive": true,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Adam Reynolds",
+      "roleStatus": "primary_named"
+    },
+    "DOL": {
+      "primary": "Jamayne Isaako",
+      "backup": "Herbie Farnworth",
+      "primaryActive": true,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Jamayne Isaako",
+      "roleStatus": "primary_named"
+    },
+    "PEN": {
+      "primary": "Nathan Cleary",
+      "backup": "Paul Alamoti",
+      "primaryActive": true,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Nathan Cleary",
+      "roleStatus": "primary_named"
+    },
+    "NQC": {
+      "primary": "Scott Drinkwater",
+      "backup": "Valentine Holmes",
+      "primaryActive": true,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Scott Drinkwater",
+      "roleStatus": "primary_named"
+    },
+    "MEL": {
+      "primary": "Nick Meaney",
+      "backup": "Cameron Munster",
+      "primaryActive": false,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": true,
+      "activeGoalKicker": "Cameron Munster",
+      "roleStatus": "primary_not_named_backup_named"
+    },
+    "GLD": {
+      "primary": "Jayden Campbell",
+      "backup": "AJ Brimson",
+      "primaryActive": true,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Jayden Campbell",
+      "roleStatus": "primary_named"
+    },
+    "NEW": {
+      "primary": "Kalyn Ponga",
+      "backup": "Dylan Brown",
+      "primaryActive": true,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Kalyn Ponga",
+      "roleStatus": "primary_named"
+    },
+    "CBR": {
+      "primary": "Jamal Fogarty",
+      "backup": "Kaeo Weekes",
+      "primaryActive": true,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Jamal Fogarty",
+      "roleStatus": "primary_named"
+    },
+    "SYD": {
+      "primary": "Sam Walker",
+      "backup": "James Tedesco",
+      "primaryActive": true,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Sam Walker",
+      "roleStatus": "primary_named"
+    },
+    "MAN": {
+      "primary": "Reuben Garrick",
+      "backup": "Jamal Fogarty",
+      "primaryActive": true,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Reuben Garrick",
+      "roleStatus": "primary_named"
+    },
+    "STH": {
+      "primary": "Latrell Mitchell",
+      "backup": "Cody Walker",
+      "primaryActive": false,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": true,
+      "activeGoalKicker": "Cody Walker",
+      "roleStatus": "primary_not_named_backup_named"
+    },
+    "WST": {
+      "primary": "Adam Doueihi",
+      "backup": "Jarome Luai",
+      "primaryActive": false,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": true,
+      "activeGoalKicker": "Jarome Luai",
+      "roleStatus": "primary_not_named_backup_named"
+    },
+    "SHA": {
+      "primary": "Nicholas Hynes",
+      "backup": "Braydon Trindall",
+      "primaryActive": false,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": true,
+      "activeGoalKicker": "Braydon Trindall",
+      "roleStatus": "primary_not_named_backup_named"
+    },
+    "STG": {
+      "primary": "Valentine Holmes",
+      "backup": "Kyle Flanagan",
+      "primaryActive": true,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Valentine Holmes",
+      "roleStatus": "primary_named"
+    },
+    "CAN": {
+      "primary": "Matt Burton",
+      "backup": "Stephen Crichton",
+      "primaryActive": true,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Matt Burton",
+      "roleStatus": "primary_named"
+    },
+    "PAR": {
+      "primary": "Isaiah Iongi",
+      "backup": "Dylan Walker",
+      "primaryActive": true,
+      "backupActive": true,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Isaiah Iongi",
+      "roleStatus": "primary_named"
+    },
+    "NZL": {
+      "primary": "Luke Metcalf",
+      "backup": "Chanel Harris-Tavita",
+      "primaryActive": false,
+      "backupActive": false,
+      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Luke Metcalf",
+      "roleStatus": "warning_no_named_primary_or_backup"
+    }
+  }
+}
