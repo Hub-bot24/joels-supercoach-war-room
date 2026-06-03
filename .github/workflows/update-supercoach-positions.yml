@@ -1,0 +1,31 @@
+name: Update SuperCoach Positions
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Weekly Monday night UTC / Tuesday morning AU-ish
+    - cron: "0 20 * * 1"
+
+permissions:
+  contents: write
+
+jobs:
+  update-positions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Update position master and dual positions
+        run: python scripts/update_position_master.py
+
+      - name: Commit updated position files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update SuperCoach position master and dual positions
+          file_pattern: position_master.json dual_positions.json position_audit_report.json
