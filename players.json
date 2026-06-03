@@ -30,7 +30,10 @@
       "breakeven": null,
       "breakevenStatus": "needs_data",
       "captainOwnership": null,
-      "vcOwnership": null
+      "vcOwnership": null,
+      "expectedMinutes": 80,
+      "roleConfidence": "High",
+      "roleNote": "Elite HOK base role if named. Update with real stats."
     },
     {
       "name": "Toby Couchman",
@@ -756,5 +759,15 @@
     }
   ],
   "lastAutomationRun": "2026-06-02T12:08:40.516199+00:00",
-  "automationStatus": "GitHub Actions pipeline is working. Real data source still required."
+  "automationStatus": "GitHub Actions pipeline is working. Real data source still required.",
+  "level3CsvImport": {
+    "updated": "2026-06-03T01:32:09.276342+00:00",
+    "source": "level3_player_stats.csv",
+    "playersUpdated": 1,
+    "playersSkippedNotFound": [
+      "Jayden Campbell",
+      "Payne Haas"
+    ],
+    "warning": "Only non-empty CSV cells overwrite players.json. Blank cells are ignored."
+  }
 }
