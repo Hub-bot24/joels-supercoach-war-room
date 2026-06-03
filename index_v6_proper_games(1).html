@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Joel's SuperCoach War Room V6 - Level 3 Only</title>
+<style>
+:root{
+  --bg:#070a12;--card:#111827;--card2:#182235;--text:#f8fafc;--muted:#aeb7c7;
+  --line:#2a3548;--good:#33d17a;--warn:#f5c542;--bad:#ff5c5c;--blue:#5aa7ff;--purple:#b36bff
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#05070d,#0b1020);color:var(--text)}
+header{padding:18px 14px;border-bottom:1px solid var(--line);background:#070a12;position:sticky;top:0;z-index:10}
+h1{margin:0;font-size:23px}.sub{color:var(--muted);font-size:13px;margin-top:5px}
+nav{display:flex;gap:8px;overflow:auto;padding:10px;background:#0c1220;border-bottom:1px solid var(--line);position:sticky;top:74px;z-index:9}
+button{background:var(--card2);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-weight:800;cursor:pointer;white-space:nowrap}
+button.active{background:var(--blue);color:#06101f}
+button.danger{background:#351b24;border-color:#743244}
+button.goodBtn{background:#123323;border-color:#1f6b43}
+main{max-width:1250px;margin:auto;padding:14px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+.card{background:rgba(17,24,39,.95);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 10px 28px rgba(0,0,0,.28)}
+.span12{grid-column:span 12}.span8{grid-column:span 8}.span6{grid-column:span 6}.span4{grid-column:span 4}.span3{grid-column:span 3}
+@media(max-width:850px){.span8,.span6,.span4,.span3{grid-column:span 12}nav{top:84px}}
+h2{font-size:17px;margin:0 0 10px}h3{font-size:15px;margin:12px 0 8px;color:#dbe7ff}
+.metric{font-size:32px;font-weight:900;margin:8px 0}.muted{color:var(--muted)}.mini{font-size:12px;color:var(--muted)}
+.good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}.blue{color:var(--blue)}.purple{color:var(--purple)}
+input,select,textarea{width:100%;background:#0b1020;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:10px;margin:5px 0 9px}
+textarea{min-height:160px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:#cbd5e1}
+.pill{display:inline-block;padding:4px 8px;border-radius:999px;border:1px solid var(--line);font-size:12px}
+.pill.good{background:rgba(51,209,122,.14)}.pill.warn{background:rgba(245,197,66,.14)}.pill.bad{background:rgba(255,92,92,.14)}.pill.blue{background:rgba(90,167,255,.14)}.pill.purple{background:rgba(179,107,255,.14)}
+.hidden{display:none}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.goodBox{border-left:4px solid var(--good)}.warnBox{border-left:4px solid var(--warn)}.badBox{border-left:4px solid var(--bad)}.blueBox{border-left:4px solid var(--blue)}
+.event{margin:8px 0;padding:8px;border:1px solid var(--line);border-radius:12px;background:#0b1020}
+.dragrow{cursor:grab}.dragrow:hover{background:#101a2b}
+.scorepill{font-size:18px;font-weight:900}
+.posHeader{font-weight:900;color:#5aa7ff;background:#0b1020}
+.smallInput{max-width:130px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Joel's SuperCoach War Room V6</h1>
+  <div class="sub">LEVEL 3 ONLY: one score source, no random zeros, proper last 3/5 games ignore BYE/HIA/injury-minutes, correct reserves.</div>
+</header>
+
+<nav id="tabs">
+  <button class="active" data-tab="verdict">Verdict</button>
+  <button data-tab="team">My Team</button>
+  <button data-tab="explorer">Player Explorer</button>
+  <button data-tab="level3">Level 3 Audit</button>
+  <button data-tab="data">Data</button>
+</nav>
+
+<main>
+  <datalist id="allPlayersDatalist"></datalist>
+
+  <section id="verdict" class="tab">
+    <div class="grid">
+      <div class="card span3 blueBox"><h2>Projected Total</h2><div id="yourProjection" class="metric blue">0</div><div class="mini">Starters + FLEX + best 4 available reserves</div></div>
+      <div class="card span3"><h2>Available</h2><div id="fieldThisRound" class="metric">0</div><div class="mini">BYE/OUT excluded</div></div>
+      <div class="card span3"><h2>Best 4 Reserves</h2><div id="bestReserveScore" class="metric">0</div><div class="mini">Auto-selected by Level 3</div></div>
+      <div class="card span3 warnBox"><h2>Data Warnings</h2><div id="warningCount" class="metric warn">0</div><div class="mini">Missing data lowers confidence, not projection</div></div>
+
+      <div class="card span6"><h2>Best 4 Available Reserves</h2><table><thead><tr><th>Player</th><th>Pos</th><th>L3</th><th>Conf</th></tr></thead><tbody id="bestReservesTable"></tbody></table></div>
+      <div class="card span6"><h2>Problems To Fix</h2><table><tbody id="problemTable"></tbody></table></div>
+
+      <div class="card span12 badBox">
+        <h2>Hard Rule</h2>
+        <p class="muted">If a player is not BYE or OUT, this file will not display zero. Missing BE, ownership, captain %, VC %, or opponent lowers confidence only. It does not smash the score.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" class="tab hidden">
+    <div class="grid">
+      <div class="card span4">
+        <h2>Add Player</h2>
+        <label>Position filter</label>
+        <select id="positionFilter" onchange="fillAddDropdown()">
+          <option value="ANY">ANY</option>
+          <option value="HOK">HOK</option>
+          <option value="FRF">FRF</option>
+          <option value="2RF">2RF</option>
+          <option value="HFB">HFB</option>
+          <option value="5/8">5/8</option>
+          <option value="CTW">CTW</option>
+          <option value="FLB">FLB</option>
+          <option value="FLEX">FLEX</option>
+        </select>
+        <select id="teamPlayerSelect"></select>
+        <button onclick="addToTeam()" class="goodBtn">Add Player</button>
+        <button onclick="clearTeam()" class="danger">Clear Team</button>
+        <p class="muted">Dropdown only shows valid players for the selected position. FLEX allows anyone.</p>
+      </div>
+
+      <div class="card span8">
+        <h2>My Team</h2>
+        <p class="muted">Bench layout: HOK 1, FRF 2, 2RF 3, HFB 1, 5/8 1, CTW 3, FLB 1, FLEX no reserve. Drag rows to swap players.</p>
+        <table>
+          <thead><tr><th>Player</th><th>Slot</th><th>Eligible</th><th>Team</th><th>Level 3</th><th>Conf</th><th>Status</th><th></th></tr></thead>
+          <tbody id="myTeamTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="explorer" class="tab hidden">
+    <div class="grid">
+      <div class="card span4">
+        <h2>Player Explorer</h2>
+        <input id="playerSearch" list="allPlayersDatalist" placeholder="Start typing player..." oninput="renderPlayerExplorer()" onchange="renderPlayerExplorer()">
+        <button onclick="renderPlayerExplorer()">Search</button>
+      </div>
+      <div class="card span8" id="playerExplorerResult">
+        <h2>No player selected</h2>
+        <p class="muted">Search a player to see the one true Level 3 score.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="level3" class="tab hidden">
+    <div class="grid">
+      <div class="card span12">
+        <h2>Level 3 Audit</h2>
+        <button onclick="renderLevel3Audit()">Recalculate</button>
+        <table>
+          <thead><tr><th>Player</th><th>Pos</th><th>Tier</th><th>Base</th><th>Final L3</th><th>Confidence</th><th>Missing</th><th>Status</th></tr></thead>
+          <tbody id="level3AuditTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="data" class="tab hidden">
+    <div class="grid">
+      <div class="card span6">
+        <h2>Load / Save Data</h2>
+        <div class="row">
+          <button onclick="refreshLatestData()">Refresh Latest Data</button>
+          <button onclick="loadJson()">Load JSON From Box</button>
+          <button onclick="downloadPlayersJson()">Download players.json</button>
+        </div>
+        <p id="dataStatus" class="muted">This tries to load players.json, my_team.json and fixtures.json from your GitHub folder.</p>
+        <h3>Player Data JSON</h3>
+        <textarea id="playersJson"></textarea>
+      </div>
+
+      <div class="card span6">
+        <h2>Manual Team JSON</h2>
+        <p class="muted">Format: {"players":["Name 1","Name 2"],"captain":"Name"}</p>
+        <textarea id="teamJson"></textarea>
+        <button onclick="loadTeamJson()">Load Team JSON</button>
+        <button onclick="downloadMyTeamJson()">Download my_team.json</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* =========================
+   DATA
+========================= */
+
+const samplePlayers = [
+  {name:"Payne Haas",pos:"FRF",team:"BRI",price:780000,avg:72,proj:74,ownership:45,bye:[16],injuryStatus:"fit",playProbability:100,expectedMinutes:65,tier:"elite"},
+  {name:"Nathan Cleary",pos:"HFB",team:"PEN",price:950000,avg:78,proj:82,ownership:32,bye:[13],injuryStatus:"fit",playProbability:100,expectedMinutes:80,tier:"elite",goalKicker:true},
+  {name:"Nicho Hynes",pos:"HFB",team:"CRO",price:920000,avg:75,proj:79,ownership:38,bye:[17],injuryStatus:"fit",playProbability:100,expectedMinutes:80,tier:"elite",goalKicker:true},
+  {name:"Harry Grant",pos:"HOK",team:"MEL",price:760000,avg:67,proj:70,ownership:29,bye:[14],injuryStatus:"fit",playProbability:100,expectedMinutes:70,tier:"elite"},
+  {name:"Reece Walsh",pos:"FLB",team:"BRI",price:705000,avg:60,proj:64,ownership:35,bye:[16],injuryStatus:"fit",playProbability:100,expectedMinutes:80,tier:"premium"},
+  {name:"Scott Drinkwater",pos:"FLB",team:"NQC",price:720000,avg:64,proj:64,ownership:8,bye:[15],injuryStatus:"fit",playProbability:100,expectedMinutes:80,tier:"keeper"},
+  {name:"Tom Dearden",pos:"5/8",team:"NQC",price:690000,avg:61,proj:63,ownership:6,bye:[15],injuryStatus:"fit",playProbability:100,expectedMinutes:80,tier:"keeper"},
+  {name:"Cody Walker",pos:"5/8",team:"STH",price:650000,avg:58,proj:60,ownership:10,bye:[14],injuryStatus:"fit",playProbability:100,expectedMinutes:80,tier:"keeper"},
+  {name:"Erin Clark",pos:"HOK/2RF",team:"NZW",price:520000,avg:52,proj:54,ownership:11,bye:[12],injuryStatus:"fit",playProbability:100,expectedMinutes:60,tier:"keeper"},
+  {name:"Alex Twal",pos:"FRF/2RF",team:"WST",price:480000,avg:48,proj:49,ownership:5,bye:[17],injuryStatus:"fit",playProbability:100,expectedMinutes:55,tier:"mid"},
+  {name:"Te Maire Martin",pos:"HFB/5/8",team:"NZW",price:430000,avg:42,proj:43,ownership:9,bye:[12],injuryStatus:"fit",playProbability:100,expectedMinutes:80,tier:"mid"}
+];
+
+let state = JSON.parse(localStorage.getItem("warroomV6_level3_only") || "{}");
+let players = Array.isArray(state.players) && state.players.length ? state.players : samplePlayers;
+let myTeam = Array.isArray(state.myTeam) ? state.myTeam : [];
+let fixtures = Array.isArray(state.fixtures) ? state.fixtures : [];
+
+const $ = id => document.getElementById(id);
+
+function saveState(){
+  state.players = players;
+  state.myTeam = myTeam;
+  state.fixtures = fixtures;
+  localStorage.setItem("warroomV6_level3_only", JSON.stringify(state));
+}
+
+/* =========================
+   POSITIONS / STATUS
+========================= */
+
+const POSITION_RULES = {
+  "HOK": { starters: 1, reserves: 1 },
+  "FRF": { starters: 2, reserves: 2 },
+  "2RF": { starters: 3, reserves: 3 },
+  "HFB": { starters: 1, reserves: 1 },
+  "5/8": { starters: 1, reserves: 1 },
+  "CTW": { starters: 3, reserves: 3 },
+  "FLB": { starters: 1, reserves: 1 },
+  "FLEX": { starters: 1, reserves: 0 }
+};
+
+function currentRound(){
+  return Number(state.currentRound || 1);
+}
+
+function cleanPos(pos) {
+  if (!pos) return [];
+  if (Array.isArray(pos)) return pos.map(p => String(p).trim()).filter(Boolean);
+  return String(pos)
+    .replaceAll("FiveEighth", "5/8")
+    .replaceAll("FIVE-EIGHTH", "5/8")
+    .replaceAll("Five-Eighth", "5/8")
+    .replaceAll("5-8", "5/8")
+    .replaceAll("HLF", "HFB")
+    .replaceAll("MID", "FRF")
+    .split(/[\/,|]/)
+    .map(p => p.trim())
+    .filter(Boolean);
+}
+
+function playerPositions(p) {
+  let list = cleanPos(p.positions || p.position || p.pos || "");
+
+  if (p.name === "Erin Clark" && !list.includes("HOK")) list.push("HOK");
+
+  if (p.name === "Alex Twal") {
+    if (!list.includes("FRF")) list.push("FRF");
+    if (!list.includes("2RF")) list.push("2RF");
+  }
+
+  if (p.name === "Te Maire Martin") {
+    if (!list.includes("HFB")) list.push("HFB");
+    if (!list.includes("5/8")) list.push("5/8");
+  }
+
+  return [...new Set(list)];
+}
+
+function primaryPosition(p) {
+  const positions = playerPositions(p);
+  const order = ["HOK","HFB","5/8","FLB","2RF","FRF","CTW"];
+  return order.find(x => positions.includes(x)) || positions[0] || "";
+}
+
+function isBye(p, round = currentRound()) {
+  const byes = p.bye || p.byes || p.byeRounds || [];
+  return Array.isArray(byes) && byes.map(Number).includes(Number(round));
+}
+
+function isOut(p) {
+  const status = String(p.injuryStatus || p.status || "").toLowerCase();
+  return (
+    status.includes("out") ||
+    status.includes("suspended") ||
+    status.includes("unavailable") ||
+    status.includes("injured") ||
+    Number(p.playProbability ?? 100) <= 0
+  );
+}
+
+function isAvailableForScoring(p, round = currentRound()) {
+  return !isBye(p, round) && !isOut(p);
+}
+
+function statusText(p) {
+  if (isBye(p)) return "BYE";
+  if (isOut(p)) return "OUT";
+  return "Available";
+}
+
+/* =========================
+   GOAL KICKING
+   Explicit only. No random spine-player boost.
+========================= */
+
+const GOAL_KICKER_DEPTH = {
+  "BRI": ["Adam Reynolds", "Reece Walsh"],
+  "CBR": [],
+  "PAR": ["Mitchell Moses"],
+  "NQC": [],
+  "NQL": [],
+  "STH": ["Latrell Mitchell"],
+  "NEW": ["Kalyn Ponga"],
+  "PEN": ["Nathan Cleary"],
+  "MEL": ["Nick Meaney"],
+  "CRO": ["Nicho Hynes", "Braydon Trindall"],
+  "MAN": ["Reuben Garrick", "Jamal Fogarty"],
+  "SYD": ["Sam Walker"],
+  "WST": ["Adam Doueihi"],
+  "DOL": ["Jamayne Isaako"],
+  "GLD": [],
+  "CAN": ["Matt Burton"],
+  "STG": ["Valentine Holmes"],
+  "NZW": []
+};
+
+function isGoalKicker(p) {
+  if (p.goalKicker === true) return true;
+  const team = p.team;
+  if (!team || !GOAL_KICKER_DEPTH[team]) return false;
+  return GOAL_KICKER_DEPTH[team].includes(p.name);
+}
+
+function goalKickAdjustment(p) {
+  return isGoalKicker(p) ? 6 : 0;
+}
+
+/* =========================
+   UNIVERSAL LEVEL 3 ENGINE
+========================= */
+
+const POSITION_BASE_DEFAULTS = {
+  HOK: 48, FRF: 46, "2RF": 48, HFB: 50, "5/8": 48, CTW: 38, FLB: 45
+};
+
+const ROLE_BASE_DEFAULTS = {
+  elite: 72, premium: 62, keeper: 56, mid: 46, cheapie: 32, rookie: 25, unknown: 42
+};
+
+const PLAYER_TIERS = {
+  "Payne Haas":"elite","Nathan Cleary":"elite","Nicho Hynes":"elite","Harry Grant":"elite","Kalyn Ponga":"elite",
+  "Reece Walsh":"premium","Tom Trbojevic":"premium","Mitchell Moses":"premium","Daly Cherry-Evans":"premium",
+  "Angus Crichton":"premium","David Fifita":"premium","Patrick Carrigan":"premium","Tino Fa'asuamaleaui":"premium",
+  "Scott Drinkwater":"keeper","Cody Walker":"keeper","Tom Dearden":"keeper","Erin Clark":"keeper",
+  "Alex Twal":"mid","Te Maire Martin":"mid"
+};
+
+function normaliseNumber(value) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
+function playerTier(p) {
+  return p.tier || p.playerTier || PLAYER_TIERS[p.name] || inferPlayerTier(p);
+}
+
+function inferPlayerTier(p) {
+  const avg = normaliseNumber(p.seasonAverage ?? p.avg ?? p.average);
+  const price = normaliseNumber(p.price);
+
+  if (avg !== null) {
+    if (avg >= 70) return "elite";
+    if (avg >= 60) return "premium";
+    if (avg >= 52) return "keeper";
+    if (avg >= 38) return "mid";
+    if (avg >= 25) return "cheapie";
+    return "rookie";
+  }
+
+  if (price !== null) {
+    if (price >= 750000) return "elite";
+    if (price >= 600000) return "premium";
+    if (price >= 500000) return "keeper";
+    if (price >= 350000) return "mid";
+    if (price >= 250000) return "cheapie";
+    return "rookie";
+  }
+
+  return "unknown";
+}
+
+function baseScoreFromClass(p) {
+  const tier = playerTier(p);
+  const pos = primaryPosition(p);
+
+  const roleBase = ROLE_BASE_DEFAULTS[tier] ?? ROLE_BASE_DEFAULTS.unknown;
+  const posBase = POSITION_BASE_DEFAULTS[pos] ?? 42;
+
+  const avg = normaliseNumber(p.seasonAverage ?? p.avg ?? p.average);
+  const l3Base = normaliseNumber(p.level3Base ?? p.baseScore);
+
+  if (l3Base !== null && l3Base > 0) return Math.round(l3Base);
+
+  if (avg !== null && avg > 0) {
+    return Math.round((avg * 0.7) + (roleBase * 0.2) + (posBase * 0.1));
+  }
+
+  return Math.round((roleBase * 0.75) + (posBase * 0.25));
+}
+
+function minutesAdjustment(p) {
+  const mins = normaliseNumber(p.expectedMinutes ?? p.minutes ?? p.avgMinutes);
+  if (mins === null) return 0;
+  if (mins >= 75) return 6;
+  if (mins >= 65) return 3;
+  if (mins >= 55) return 0;
+  if (mins >= 45) return -5;
+  if (mins >= 30) return -12;
+  return -20;
+}
+
+function roleAdjustment(p) {
+  const role = String(p.role || p.expectedRole || "").toLowerCase();
+  let adj = 0;
+  if (role.includes("80")) adj += 5;
+  if (role.includes("big minute")) adj += 5;
+  if (role.includes("starting")) adj += 3;
+  if (role.includes("bench")) adj -= 8;
+  if (role.includes("edge")) adj += 2;
+  if (role.includes("middle")) adj += 1;
+  if (role.includes("utility")) adj -= 6;
+  if (role.includes("managed")) adj -= 8;
+  if (role.includes("minutes restriction")) adj -= 15;
+  return adj;
+}
+
+function properGameHistory(p) {
+  const history = p.gameLog || p.history || p.scores || p.pastGames || [];
+
+  if (!Array.isArray(history)) return [];
+
+  return history
+    .map(g => ({
+      round: g.round ?? g.rnd ?? "",
+      score: normaliseNumber(g.score ?? g.points ?? g.supercoach ?? g.sc),
+      minutes: normaliseNumber(g.minutes ?? g.mins ?? g.playedMinutes),
+      status: String(g.status || g.note || g.reason || "").toLowerCase(),
+      opponent: g.opponent || g.opp || "",
+      date: g.date || ""
+    }))
+    .filter(g => {
+      if (g.score === null || g.score <= 0) return false;
+
+      // Ignore BYE/DNP/OUT/no game.
+      if (
+        g.status.includes("bye") ||
+        g.status.includes("dnp") ||
+        g.status.includes("did not play") ||
+        g.status.includes("out") ||
+        g.status.includes("rested") ||
+        g.status.includes("suspended")
+      ) return false;
+
+      // Ignore injury/HIA/minutes-ruined games.
+      if (
+        g.status.includes("injury") ||
+        g.status.includes("injured") ||
+        g.status.includes("hia") ||
+        g.status.includes("head knock") ||
+        g.status.includes("failed hia") ||
+        g.status.includes("concussion") ||
+        g.status.includes("early exit")
+      ) return false;
+
+      // If minutes are known, ignore games that were clearly wrecked by early exit.
+      // This should NOT punish normal role minutes for bench/rookies; it only removes obvious injury/HIA disasters.
+      if (g.minutes !== null && g.minutes > 0) {
+        const expected = normaliseNumber(p.expectedMinutes ?? p.minutes ?? p.avgMinutes);
+        if (expected !== null && expected >= 55 && g.minutes < 40) return false;
+        if (expected !== null && expected >= 70 && g.minutes < 50) return false;
+      }
+
+      return true;
+    });
+}
+
+function properLastNAvg(p, n) {
+  const games = properGameHistory(p).slice(-n);
+  if (!games.length) return null;
+  return Math.round(games.reduce((sum, g) => sum + g.score, 0) / games.length);
+}
+
+function recentFormAdjustment(p) {
+  const last3Proper = properLastNAvg(p, 3);
+  const last5Proper = properLastNAvg(p, 5);
+
+  // Proper games only. BYE, DNP, HIA, early-injury, and minutes-wrecked games are ignored.
+  const recent =
+    last3Proper ??
+    last5Proper ??
+    normaliseNumber(p.last3ProperAvg) ??
+    normaliseNumber(p.last5ProperAvg) ??
+    normaliseNumber(p.last3Avg) ??
+    normaliseNumber(p.recentAvg);
+
+  const base = baseScoreFromClass(p);
+  if (recent === null || recent <= 0) return 0;
+
+  const diff = recent - base;
+
+  // Controlled form adjustment. Recent proper games should help the model, not hijack it.
+  if (diff >= 20) return 8;
+  if (diff >= 12) return 5;
+  if (diff >= 6) return 3;
+  if (diff <= -20) return -8;
+  if (diff <= -12) return -5;
+  if (diff <= -6) return -3;
+  return 0;
+}
+
+function opponentAdjustment(p, roundInfo = null) {
+  const opp = roundInfo?.opponent || p.nextOpponent || p.opponent;
+  if (!opp) return 0;
+  const hardTeams = ["PEN", "MEL", "BRI", "SYD"];
+  const softTeams = ["WST", "GLD", "DOL", "STG"];
+  if (hardTeams.includes(opp)) return -4;
+  if (softTeams.includes(opp)) return 4;
+  return 0;
+}
+
+function venueAdjustment(p, roundInfo = null) {
+  const venue = String(roundInfo?.venue || p.venue || "").toLowerCase();
+  const team = String(p.team || "").toLowerCase();
+  if (!venue || !team) return 0;
+  if (venue.includes("suncorp") && (team.includes("bri") || team.includes("broncos"))) return 2;
+  if (venue.includes("aami") && (team.includes("mel") || team.includes("storm"))) return 2;
+  return 0;
+}
+
+function floorByTierAndPosition(p) {
+  if (isBye(p) || isOut(p)) return 0;
+  const tier = playerTier(p);
+  const pos = primaryPosition(p);
+
+  const floors = {
+    elite: {HOK:62,FRF:65,"2RF":60,HFB:65,"5/8":58,CTW:45,FLB:58},
+    premium: {HOK:55,FRF:58,"2RF":55,HFB:58,"5/8":54,CTW:40,FLB:52},
+    keeper: {HOK:48,FRF:50,"2RF":50,HFB:50,"5/8":48,CTW:36,FLB:46},
+    mid: {HOK:35,FRF:35,"2RF":36,HFB:36,"5/8":35,CTW:28,FLB:32},
+    cheapie: {HOK:20,FRF:20,"2RF":20,HFB:20,"5/8":20,CTW:18,FLB:18},
+    rookie: {HOK:15,FRF:15,"2RF":15,HFB:15,"5/8":15,CTW:12,FLB:12},
+    unknown: {HOK:25,FRF:25,"2RF":25,HFB:25,"5/8":25,CTW:20,FLB:22}
+  };
+
+  return floors[tier]?.[pos] ?? 20;
+}
+
+function ceilingByTierAndPosition(p) {
+  const tier = playerTier(p);
+  const pos = primaryPosition(p);
+
+  const ceilings = {
+    elite: {HOK:95,FRF:100,"2RF":95,HFB:110,"5/8":100,CTW:85,FLB:105},
+    premium: {HOK:85,FRF:88,"2RF":88,HFB:100,"5/8":90,CTW:78,FLB:95},
+    keeper: {HOK:75,FRF:78,"2RF":78,HFB:85,"5/8":82,CTW:68,FLB:82},
+    mid: {HOK:65,FRF:65,"2RF":68,HFB:72,"5/8":70,CTW:60,FLB:70},
+    cheapie: {HOK:55,FRF:55,"2RF":55,HFB:60,"5/8":60,CTW:52,FLB:58},
+    rookie: {HOK:50,FRF:50,"2RF":50,HFB:55,"5/8":55,CTW:48,FLB:52},
+    unknown: {HOK:65,FRF:65,"2RF":65,HFB:70,"5/8":70,CTW:60,FLB:65}
+  };
+
+  return ceilings[tier]?.[pos] ?? 70;
+}
+
+function applyProjectionBounds(p, score) {
+  if (isBye(p) || isOut(p)) return 0;
+  const floor = floorByTierAndPosition(p);
+  const ceiling = ceilingByTierAndPosition(p);
+  return Math.max(floor, Math.min(ceiling, score));
+}
+
+function getMissingDataList(p) {
+  const missing = [];
+  if (!normaliseNumber(p.seasonAverage ?? p.avg ?? p.average)) missing.push("season average");
+  if (!normaliseNumber(p.ownership)) missing.push("ownership");
+  if (!normaliseNumber(p.be ?? p.breakEven)) missing.push("BE");
+  if (!normaliseNumber(p.captainPercent ?? p.captainPct ?? p.cPct)) missing.push("captain %");
+  if (!normaliseNumber(p.vcPercent ?? p.vcPct)) missing.push("VC %");
+  if (!(p.nextOpponent || p.opponent || p.fixtures || fixtures.length)) missing.push("opponent/match");
+  return missing;
+}
+
+function confidenceScore(p) {
+  let confidence = 100;
+  confidence -= getMissingDataList(p).length * 7;
+  if (playerTier(p) === "unknown") confidence -= 15;
+  if (!primaryPosition(p)) confidence -= 15;
+  if (!normaliseNumber(p.expectedMinutes ?? p.minutes ?? p.avgMinutes)) confidence -= 8;
+  if (isBye(p) || isOut(p)) confidence = 100;
+  return Math.max(20, Math.min(100, Math.round(confidence)));
+}
+
+function calculateUniversalLevel3(p, roundInfo = null) {
+  if (!p) return {base:0,realisticExpected:0,score:0,confidence:0,missing:[],factors:[]};
+
+  if (isBye(p) || isOut(p)) {
+    return {
+      base:0, realisticExpected:0, score:0, expected:0, confidence:100, missing:[],
+      factors:[{factor:isBye(p)?"BYE":"OUT",impact:-100,why:"Only true zero allowed"}]
+    };
+  }
+
+  const base = baseScoreFromClass(p);
+  const factors = [
+    {factor:"Player class / position", impact:base, why:`${playerTier(p)} ${primaryPosition(p)} base`},
+    {factor:"Minutes", impact:minutesAdjustment(p), why:"Expected playing time"},
+    {factor:"Role", impact:roleAdjustment(p), why:"Starting, bench, edge, middle, managed role"},
+    {factor:"Goal kicking", impact:goalKickAdjustment(p), why:isGoalKicker(p) ? "Confirmed goal kicker" : "Not confirmed goal kicker"},
+    {factor:"Recent form", impact:recentFormAdjustment(p), why:"Controlled form adjustment"},
+    {factor:"Opponent", impact:opponentAdjustment(p, roundInfo), why:"Matchup difficulty"},
+    {factor:"Venue", impact:venueAdjustment(p, roundInfo), why:"Small home/venue modifier"}
+  ];
+
+  const raw = factors.reduce((s,x) => s + Number(x.impact || 0), 0);
+  const realisticExpected = applyProjectionBounds(p, Math.round(raw));
+
+  return {
+    base,
+    realisticExpected,
+    score: realisticExpected,
+    expected: realisticExpected,
+    confidence: confidenceScore(p),
+    missing: getMissingDataList(p),
+    factors
+  };
+}
+
+function getFinalScore(p, roundInfo = null) {
+  if (!p) return 0;
+  if (isBye(p) || isOut(p)) return 0;
+  return calculateUniversalLevel3(p, roundInfo).realisticExpected;
+}
+
+function getFinalConfidence(p) {
+  return confidenceScore(p);
+}
+
+/* =========================
+   TEAM STRUCTURE
+========================= */
+
+function teamPlayers(){
+  return myTeam.map(n => players.find(p => p.name === n)).filter(Boolean);
+}
+
+function validForPosition(p, pos) {
+  if (pos === "ANY" || pos === "FLEX") return true;
+  return playerPositions(p).includes(pos);
+}
+
+function buildPositionGroups() {
+  const squad = teamPlayers();
+  const used = new Set();
+  const groups = {};
+  Object.keys(POSITION_RULES).forEach(pos => groups[pos] = {starters:[], reserves:[]});
+
+  Object.keys(POSITION_RULES).filter(pos => pos !== "FLEX").forEach(pos => {
+    const candidates = squad
+      .filter(p => !used.has(p.name))
+      .filter(p => playerPositions(p).includes(pos))
+      .sort((a,b) => getFinalScore(b) - getFinalScore(a));
+
+    groups[pos].starters = candidates.slice(0, POSITION_RULES[pos].starters);
+    groups[pos].starters.forEach(p => used.add(p.name));
+  });
+
+  const flexCandidate = squad
+    .filter(p => !used.has(p.name))
+    .sort((a,b) => getFinalScore(b) - getFinalScore(a))[0];
+
+  if (flexCandidate) {
+    groups.FLEX.starters = [flexCandidate];
+    used.add(flexCandidate.name);
+  }
+
+  Object.keys(POSITION_RULES).filter(pos => pos !== "FLEX").forEach(pos => {
+    const candidates = squad
+      .filter(p => !used.has(p.name))
+      .filter(p => playerPositions(p).includes(pos))
+      .sort((a,b) => getFinalScore(b) - getFinalScore(a));
+
+    groups[pos].reserves = candidates.slice(0, POSITION_RULES[pos].reserves);
+    groups[pos].reserves.forEach(p => used.add(p.name));
+  });
+
+  return groups;
+}
+
+function getAllStartersAndFlex() {
+  const groups = buildPositionGroups();
+  return Object.values(groups).flatMap(g => g.starters || []);
+}
+
+function getAllReserves() {
+  const groups = buildPositionGroups();
+  return Object.values(groups).flatMap(g => g.reserves || []);
+}
+
+function bestFourReserves() {
+  return getAllReserves()
+    .filter(p => isAvailableForScoring(p))
+    .sort((a,b) => getFinalScore(b) - getFinalScore(a))
+    .slice(0,4);
+}
+
+function projectedTotal() {
+  const starterScore = getAllStartersAndFlex()
+    .filter(p => isAvailableForScoring(p))
+    .reduce((sum,p) => sum + getFinalScore(p), 0);
+
+  const reserveScore = bestFourReserves()
+    .reduce((sum,p) => sum + getFinalScore(p), 0);
+
+  return Math.round(starterScore + reserveScore);
+}
+
+/* =========================
+   RENDERING
+========================= */
+
+document.querySelectorAll("#tabs button").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll("#tabs button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".tab").forEach(t => t.classList.add("hidden"));
+    $(btn.dataset.tab).classList.remove("hidden");
+    renderAll();
+  };
+});
+
+function fillDatalist(){
+  const all = $("allPlayersDatalist");
+  if (all) all.innerHTML = players.map(p => `<option value="${escapeHtml(p.name)}">${escapeHtml(playerPositions(p).join("/"))} ${escapeHtml(p.team||"")}</option>`).join("");
+}
+
+function fillAddDropdown(){
+  const el = $("teamPlayerSelect");
+  const pos = $("positionFilter")?.value || "ANY";
+  if (!el) return;
+
+  const current = el.value;
+  const valid = players
+    .filter(p => validForPosition(p, pos))
+    .sort((a,b) => a.name.localeCompare(b.name));
+
+  el.innerHTML = `<option value="">Select ${pos}...</option>` + valid.map(p => {
+    const l3 = getFinalScore(p);
+    return `<option value="${escapeHtml(p.name)}">${escapeHtml(p.name)} — ${escapeHtml(playerPositions(p).join("/"))} — L3 ${l3}</option>`;
+  }).join("");
+
+  if (current && valid.some(p => p.name === current)) el.value = current;
+}
+
+function renderTeam(){
+  const table = $("myTeamTable");
+  if (!table) return;
+
+  const groups = buildPositionGroups();
+  let html = "";
+
+  Object.entries(groups).forEach(([pos, group]) => {
+    html += `<tr><td colspan="8" class="posHeader">${pos}</td></tr>`;
+
+    if (group.starters.length) {
+      group.starters.forEach(p => html += playerRowHtml(p, pos, "Starter"));
+    } else {
+      html += emptySlotRow(pos, "Starter");
+    }
+
+    if (POSITION_RULES[pos].reserves > 0) {
+      if (group.reserves.length) {
+        group.reserves.forEach(p => html += playerRowHtml(p, pos, "Reserve"));
+      } else {
+        html += emptySlotRow(pos, "Reserve");
+      }
+    }
+  });
+
+  table.innerHTML = html;
+}
+
+function playerRowHtml(p, slotPos, slotType) {
+  const score = getFinalScore(p);
+  const conf = getFinalConfidence(p);
+  const status = statusText(p);
+  const statusClass = status === "Available" ? "good" : "bad";
+  return `
+    <tr class="dragrow"
+      draggable="true"
+      ondragstart="dragStartPlayer(event, '${jsEscape(p.name)}')"
+      ondragover="event.preventDefault()"
+      ondrop="dropSwapPlayer(event, '${jsEscape(p.name)}')">
+      <td><b>${escapeHtml(p.name)}</b><div class="mini">${escapeHtml(slotType)}</div></td>
+      <td>${escapeHtml(slotPos)}</td>
+      <td>${escapeHtml(playerPositions(p).join("/"))}</td>
+      <td>${escapeHtml(p.team || "")}</td>
+      <td><span class="scorepill ${score > 0 ? "good" : "bad"}">${score}</span></td>
+      <td>${conf}/100</td>
+      <td><span class="pill ${statusClass}">${status}</span></td>
+      <td><button onclick="removeTeam('${jsEscape(p.name)}')">Remove</button></td>
+    </tr>
+  `;
+}
+
+function emptySlotRow(pos, type) {
+  return `<tr><td colspan="8" class="muted">Empty ${type} slot for ${pos}</td></tr>`;
+}
+
+let draggedPlayerName = null;
+
+function dragStartPlayer(event, playerName) {
+  draggedPlayerName = playerName;
+}
+
+function dropSwapPlayer(event, targetPlayerName) {
+  event.preventDefault();
+  if (!draggedPlayerName || draggedPlayerName === targetPlayerName) return;
+  const a = myTeam.indexOf(draggedPlayerName);
+  const b = myTeam.indexOf(targetPlayerName);
+  if (a >= 0 && b >= 0) {
+    [myTeam[a], myTeam[b]] = [myTeam[b], myTeam[a]];
+    saveState();
+    renderAll();
+  }
+  draggedPlayerName = null;
+}
+
+function addToTeam(){
+  const n = $("teamPlayerSelect").value;
+  if (n && !myTeam.includes(n)) myTeam.push(n);
+  saveState();
+  renderAll();
+}
+
+function removeTeam(n){
+  myTeam = myTeam.filter(x => x !== n);
+  saveState();
+  renderAll();
+}
+
+function clearTeam(){
+  if (!confirm("Clear your team from this browser?")) return;
+  myTeam = [];
+  saveState();
+  renderAll();
+}
+
+function renderVerdict(){
+  const total = projectedTotal();
+  const avail = teamPlayers().filter(p => isAvailableForScoring(p)).length;
+  const b4 = bestFourReserves();
+  const b4Score = b4.reduce((s,p) => s + getFinalScore(p), 0);
+  const warnings = players.reduce((s,p) => s + getMissingDataList(p).length, 0);
+
+  $("yourProjection").textContent = total;
+  $("fieldThisRound").textContent = avail;
+  $("bestReserveScore").textContent = b4Score;
+  $("warningCount").textContent = warnings;
+
+  $("bestReservesTable").innerHTML = b4.length ? b4.map(p => `
+    <tr><td>${escapeHtml(p.name)}</td><td>${escapeHtml(playerPositions(p).join("/"))}</td><td><b>${getFinalScore(p)}</b></td><td>${getFinalConfidence(p)}/100</td></tr>
+  `).join("") : `<tr><td colspan="4" class="muted">No reserves available yet.</td></tr>`;
+
+  const problems = [];
+  if (myTeam.length < 17) problems.push(["Team short", `You only have ${myTeam.length} players loaded. Add/import full squad.`]);
+  if (avail < 17 && myTeam.length >= 17) problems.push(["Availability", `Only ${avail} available this round. Check BYE/OUT.`]);
+  const lowConf = teamPlayers().filter(p => getFinalConfidence(p) < 60);
+  if (lowConf.length) problems.push(["Low confidence", `${lowConf.length} team players need data. Projection still works, but confidence is lower.`]);
+
+  $("problemTable").innerHTML = problems.length ? problems.map(x => `<tr><td><b>${x[0]}</b></td><td>${x[1]}</td></tr>`).join("") : `<tr><td><b>Clean</b></td><td>No major problems detected.</td></tr>`;
+}
+
+function renderPlayerExplorer(){
+  const val = $("playerSearch")?.value || "";
+  const p = players.find(x => x.name.toLowerCase() === val.toLowerCase()) ||
+            players.find(x => x.name.toLowerCase().includes(val.toLowerCase()));
+  const box = $("playerExplorerResult");
+  if (!box) return;
+
+  if (!p) {
+    box.innerHTML = `<h2>No player selected</h2><p class="muted">Search a player to see the one true Level 3 score.</p>`;
+    return;
+  }
+
+  const l3 = calculateUniversalLevel3(p);
+  const fixtureScores = nextFixtureScores(p, 5);
+  const last3Proper = properLastNAvg(p, 3);
+  const last5Proper = properLastNAvg(p, 5);
+  const next3 = last3Proper || averageScores(fixtureScores.slice(0,3).map(x => x.score));
+  const next5 = last5Proper || averageScores(fixtureScores.slice(0,5).map(x => x.score));
+
+  box.innerHTML = `
+    <h2>${escapeHtml(p.name)}</h2>
+    <div class="grid">
+      <div class="card span3"><h2>Current Projection</h2><div class="metric blue">${l3.realisticExpected}</div><div class="mini">Final Level 3 only</div></div>
+      <div class="card span3"><h2>Last 3 Proper Avg</h2><div class="metric">${next3 || l3.realisticExpected}</div><div class="mini">Proper games only where history exists</div></div>
+      <div class="card span3"><h2>Last 5 Proper Avg</h2><div class="metric">${next5 || l3.realisticExpected}</div><div class="mini">Proper games only where history exists</div></div>
+      <div class="card span3"><h2>Confidence</h2><div class="metric ${l3.confidence < 60 ? "warn" : "good"}">${l3.confidence}/100</div><div class="mini">${l3.missing.length ? "Missing: " + escapeHtml(l3.missing.join(", ")) : "Valid"}</div></div>
+    </div>
+    <h3>Projection Context</h3>
+    <table>
+      <thead><tr><th>Factor</th><th>Impact</th><th>Why</th></tr></thead>
+      <tbody>${l3.factors.map(f => `<tr><td>${escapeHtml(f.factor)}</td><td>${Number(f.impact)>0?"+":""}${f.impact}</td><td>${escapeHtml(f.why)}</td></tr>`).join("")}</tbody>
+    </table>
+    <h3>Next Fixture Scores</h3>
+    <table>
+      <thead><tr><th>Round</th><th>Opponent</th><th>Venue</th><th>Projected</th><th>Confidence</th></tr></thead>
+      <tbody>${fixtureScores.length ? fixtureScores.map(f => `<tr><td>${f.round}</td><td>${escapeHtml(f.opponent||"")}</td><td>${escapeHtml(f.venue||"")}</td><td><b>${f.score}</b></td><td>${l3.confidence}/100</td></tr>`).join("") : `<tr><td colspan="5" class="muted">No fixtures.json loaded. Current Level 3 score shown above.</td></tr>`}</tbody>
+    </table>
+  `;
+}
+
+function renderLevel3Audit(){
+  const rows = players.slice().sort((a,b) => getFinalScore(b) - getFinalScore(a)).map(p => {
+    const l3 = calculateUniversalLevel3(p);
+    return `<tr>
+      <td>${escapeHtml(p.name)}</td>
+      <td>${escapeHtml(playerPositions(p).join("/"))}</td>
+      <td>${escapeHtml(playerTier(p))}</td>
+      <td>${l3.base}</td>
+      <td><b>${l3.realisticExpected}</b></td>
+      <td>${l3.confidence}/100</td>
+      <td>${escapeHtml(l3.missing.join(", ") || "None")}</td>
+      <td>${escapeHtml(statusText(p))}</td>
+    </tr>`;
+  }).join("");
+
+  $("level3AuditTable").innerHTML = rows || `<tr><td colspan="8" class="muted">No players loaded.</td></tr>`;
+}
+
+function renderData(){
+  $("playersJson").value = JSON.stringify(players, null, 2);
+  $("teamJson").value = JSON.stringify({players: myTeam}, null, 2);
+}
+
+function renderAll(){
+  fillDatalist();
+  fillAddDropdown();
+  renderTeam();
+  renderVerdict();
+  renderLevel3Audit();
+  renderData();
+}
+
+/* =========================
+   FIXTURES
+========================= */
+
+function nextFixtureScores(p, n = 5){
+  if (!fixtures.length) return [];
+  const team = p.team;
+  const matches = fixtures.filter(f => String(f.homeTeam || f.home || f.homeCode || "").includes(team) || String(f.awayTeam || f.away || f.awayCode || "").includes(team) || f.team === team).slice(0,n);
+  return matches.map(f => {
+    const opp = f.opponent || f.opponentCode || inferOpponentFromFixture(f, team);
+    const l3 = calculateUniversalLevel3(p, {round:f.round, opponent:opp, venue:f.venue, kickoff:f.kickoff});
+    return {round:f.round || "", opponent:opp || "", venue:f.venue || "", score:l3.realisticExpected};
+  });
+}
+
+function inferOpponentFromFixture(f, team){
+  const h = f.homeCode || f.homeTeam || f.home;
+  const a = f.awayCode || f.awayTeam || f.away;
+  if (h === team) return a;
+  if (a === team) return h;
+  return f.opponent || "";
+}
+
+function averageScores(arr){
+  const nums = arr.map(Number).filter(n => Number.isFinite(n) && n > 0);
+  if (!nums.length) return 0;
+  return Math.round(nums.reduce((a,b)=>a+b,0)/nums.length);
+}
+
+/* =========================
+   LOAD/SAVE
+========================= */
+
+async function refreshLatestData(){
+  const status = $("dataStatus");
+  const loaded = [];
+
+  try {
+    const res = await fetch("players.json?cacheBust=" + Date.now(), {cache:"no-store"});
+    if (res.ok) {
+      const data = await res.json();
+      players = Array.isArray(data) ? data : (Array.isArray(data.players) ? data.players : players);
+      loaded.push(`players.json (${players.length})`);
+    }
+  } catch(e){ console.warn(e); }
+
+  try {
+    const res = await fetch("my_team.json?cacheBust=" + Date.now(), {cache:"no-store"});
+    if (res.ok) {
+      const data = await res.json();
+      myTeam = Array.isArray(data) ? data : (Array.isArray(data.players) ? data.players : myTeam);
+      loaded.push(`my_team.json (${myTeam.length})`);
+    }
+  } catch(e){ console.warn(e); }
+
+  try {
+    const res = await fetch("fixtures.json?cacheBust=" + Date.now(), {cache:"no-store"});
+    if (res.ok) {
+      const data = await res.json();
+      fixtures = Array.isArray(data) ? data : (Array.isArray(data.fixtures) ? data.fixtures : fixtures);
+      loaded.push(`fixtures.json (${fixtures.length})`);
+    }
+  } catch(e){ console.warn(e); }
+
+  saveState();
+  renderAll();
+  if (status) status.textContent = loaded.length ? "Loaded: " + loaded.join(", ") : "No GitHub JSON found. Using browser/local data.";
+}
+
+function loadJson(){
+  try {
+    const data = JSON.parse($("playersJson").value);
+    players = Array.isArray(data) ? data : (Array.isArray(data.players) ? data.players : players);
+    saveState();
+    renderAll();
+    alert("Players loaded.");
+  } catch(e) {
+    alert("Invalid player JSON.");
+  }
+}
+
+function loadTeamJson(){
+  try {
+    const data = JSON.parse($("teamJson").value);
+    myTeam = Array.isArray(data) ? data : (Array.isArray(data.players) ? data.players : myTeam);
+    saveState();
+    renderAll();
+    alert("Team loaded.");
+  } catch(e) {
+    alert("Invalid team JSON.");
+  }
+}
+
+function downloadPlayersJson(){
+  downloadText("players.json", JSON.stringify(players, null, 2));
+}
+
+function downloadMyTeamJson(){
+  downloadText("my_team.json", JSON.stringify({players: myTeam}, null, 2));
+}
+
+function downloadText(filename, text){
+  const blob = new Blob([text], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* =========================
+   UTILS
+========================= */
+
+function escapeHtml(s){
+  return String(s ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[c]));
+}
+
+function jsEscape(s){
+  return String(s ?? "").replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+}
+
+refreshLatestData().then(renderAll);
+</script>
+</body>
+</html>
