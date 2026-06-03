@@ -1,0 +1,46 @@
+{
+  "updated": "2026-06-03T11:23:20.990414+00:00",
+  "source": "manual trusted goal-kicker roles; no guessed kicking bonus",
+  "rule": "A player gets goal-kicking uplift only if listed as active kicker for their team. Everyone else gets 0.",
+  "teams": {
+    "NQC": {
+      "active": [],
+      "notes": "No guessed kicker set"
+    },
+    "DOL": {
+      "active": [],
+      "notes": "No guessed kicker set"
+    },
+    "BRO": {
+      "active": [],
+      "notes": "No guessed kicker set"
+    },
+    "MEL": {
+      "active": [],
+      "notes": "No guessed kicker set"
+    },
+    "STH": {
+      "active": [],
+      "notes": "No guessed kicker set"
+    },
+    "NZL": {
+      "active": [],
+      "notes": "No guessed kicker set"
+    },
+    "WST": {
+      "active": [],
+      "notes": "No guessed kicker set"
+    },
+    "SHA": {
+      "active": [],
+      "notes": "No guessed kicker set"
+    }
+  },
+  "player_overrides": {
+    "Scott Drinkwater": {
+      "goalKicker": false,
+      "goalKickAdjustment": 0,
+      "reason": "Not confirmed as active goal kicker; no bonus allowed."
+    }
+  }
+}
