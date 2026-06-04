@@ -1,109 +1,1800 @@
 {
-  "updated": "2026-06-03T11:17:43.364805+00:00",
-  "source": "trusted NRL SuperCoach position master starter + protected overrides",
-  "rule": "This file is the single source of truth for positions. The app must not guess DPP.",
+  "updated": "2026-06-04T09:28:54.278284+00:00",
+  "source": "https://nrlsupercoachstats.com/playerlist.php",
+  "rule": "Regenerated from imported SuperCoach source data. Manual overrides are fallback-only when a player is missing from the source.",
+  "teamCodeNormalization": {
+    "BUL": "CAN",
+    "GCT": "GLD",
+    "MNL": "MAN",
+    "PTH": "PEN"
+  },
+  "sourcePlayerCount": 563,
+  "manualFallbackCount": 0,
   "players": {
-    "Harry Grant": [
-      "HOK"
+    "Aaron Schoupp": [
+      "CTW"
     ],
-    "Brandon Smith": [
-      "HOK"
-    ],
-    "Payne Haas": [
-      "FRF"
-    ],
-    "Terrell May": [
-      "FRF",
+    "Adam Christensen": [
       "2RF"
     ],
-    "Taniela Paseka": [
+    "Adam Doueihi": [
+      "HFB"
+    ],
+    "Adam Elliott": [
+      "2RF"
+    ],
+    "Adam Pompey": [
+      "CTW"
+    ],
+    "Adam Reynolds": [
+      "HFB"
+    ],
+    "Addin Fonua-Blake": [
       "FRF"
     ],
-    "Toby Couchman": [
+    "Alec MacDonald": [
+      "2RF",
       "FRF"
+    ],
+    "Alekolasimi Jones": [
+      "2RF"
+    ],
+    "Alex Johnston": [
+      "CTW"
+    ],
+    "Alex Seyfarth": [
+      "2RF"
     ],
     "Alex Twal": [
       "FRF",
       "2RF"
     ],
-    "Corey Horsburgh": [
-      "FRF",
+    "Alexander Brimson": [
+      "5/8",
+      "CTW"
+    ],
+    "Ali Leiataua": [
+      "CTW"
+    ],
+    "Alofiana Khan-Pereira": [
+      "CTW"
+    ],
+    "Angus Crichton": [
       "2RF"
     ],
-    "Myles Martin": [
+    "Angus Hinchey": [
+      "2RF"
+    ],
+    "Antonio Verhoeven": [
+      "CTW"
+    ],
+    "Apa Twidle": [
+      "HFB"
+    ],
+    "Apisai Koroisau": [
+      "HOK"
+    ],
+    "Arama Hau": [
+      "2RF",
       "FRF"
     ],
-    "Tom Duncan": [
-      "2RF"
+    "Araz Nanva": [
+      "CTW",
+      "FLB"
     ],
-    "Heilum Luki": [
-      "2RF"
+    "Ashton Ward": [
+      "HFB"
+    ],
+    "Asu Kepaoa": [
+      "CTW"
+    ],
+    "Ata Mariota": [
+      "FRF"
     ],
     "Ativalu Lisati": [
       "2RF"
     ],
+    "Aublix Tawha": [
+      "FRF"
+    ],
+    "Bailey Hayward": [
+      "HOK"
+    ],
+    "Bailey Simonsson": [
+      "CTW"
+    ],
+    "Bayleigh Bentley-Hape": [
+      "CTW"
+    ],
+    "Beau Fermor": [
+      "2RF"
+    ],
+    "Ben Hunt": [
+      "HOK"
+    ],
+    "Ben Talty": [
+      "2RF",
+      "FRF"
+    ],
+    "Ben Trbojevic": [
+      "2RF"
+    ],
+    "Benaiah Ioelu": [
+      "HOK"
+    ],
+    "Benjamin TeKura": [
+      "FRF"
+    ],
+    "Billy Burns": [
+      "2RF"
+    ],
+    "Billy Phillips": [
+      "2RF"
+    ],
+    "Billy Scott": [
+      "HOK"
+    ],
+    "Billy Smith": [
+      "CTW"
+    ],
+    "Billy Walters": [
+      "5/8",
+      "HOK"
+    ],
+    "Blaize Talagi": [
+      "5/8"
+    ],
+    "Blake Hosking": [
+      "2RF"
+    ],
+    "Blake Lawrie": [
+      "FRF"
+    ],
+    "Blake Mozer": [
+      "HOK"
+    ],
+    "Blake Steep": [
+      "2RF"
+    ],
+    "Blake Wilson": [
+      "CTW"
+    ],
+    "Blayke Brailey": [
+      "HOK"
+    ],
+    "Brad Schneider": [
+      "HFB",
+      "HOK"
+    ],
+    "Braden Uele": [
+      "FRF"
+    ],
+    "Bradman Best": [
+      "CTW"
+    ],
+    "Braidon Burns": [
+      "CTW"
+    ],
+    "Brandon Smith": [
+      "HOK"
+    ],
+    "Brandon Wakeham": [
+      "5/8",
+      "HFB"
+    ],
+    "Braydon Trindall": [
+      "5/8"
+    ],
+    "Brendan Piakura": [
+      "2RF"
+    ],
+    "Brent Woolf": [
+      "HOK"
+    ],
+    "Brian Kelly": [
+      "CTW"
+    ],
+    "Brian Pouniu": [
+      "2RF"
+    ],
+    "Brian To'o": [
+      "CTW"
+    ],
+    "Briton Nikora": [
+      "2RF"
+    ],
+    "Brock Gray": [
+      "2RF"
+    ],
+    "Brodie Jones": [
+      "2RF",
+      "FRF"
+    ],
+    "Bronson Garlick": [
+      "HOK",
+      "2RF"
+    ],
+    "Bronson Xerri": [
+      "CTW"
+    ],
+    "Bunty Afoa": [
+      "FRF"
+    ],
+    "Caleb Navale": [
+      "2RF",
+      "FRF"
+    ],
+    "Cameron Bukowski": [
+      "HOK"
+    ],
+    "Cameron McInnes": [
+      "2RF"
+    ],
+    "Cameron Munster": [
+      "5/8"
+    ],
+    "Cameron Murray": [
+      "2RF"
+    ],
+    "Campbell Graham": [
+      "CTW"
+    ],
+    "Casey McLean": [
+      "CTW"
+    ],
+    "Chanel Harris-Tavita": [
+      "5/8"
+    ],
+    "Charlie Guymer": [
+      "2RF"
+    ],
+    "Charlie Murray": [
+      "2RF"
+    ],
+    "Charnze Nicoll-Klokstad": [
+      "FLB"
+    ],
+    "Chevy Stewart": [
+      "FLB"
+    ],
+    "Chris Randall": [
+      "2RF"
+    ],
+    "Chris Veaila": [
+      "CTW"
+    ],
+    "Christian Tuipulotu": [
+      "CTW"
+    ],
+    "Clayton Faulalo": [
+      "CTW"
+    ],
+    "Clint Gutherson": [
+      "FLB"
+    ],
+    "Coby Black": [
+      "HFB"
+    ],
+    "Cody Hopwood": [
+      "FRF"
+    ],
+    "Cody Ramsey": [
+      "CTW",
+      "FLB"
+    ],
+    "Cody Walker": [
+      "5/8"
+    ],
+    "Coen Hess": [
+      "2RF",
+      "FRF"
+    ],
+    "Connelly Lemuelu": [
+      "2RF"
+    ],
+    "Connor Tracey": [
+      "FLB"
+    ],
+    "Connor Votano": [
+      "FLB"
+    ],
+    "Connor Watson": [
+      "2RF",
+      "HOK"
+    ],
+    "Cooper Bai": [
+      "2RF"
+    ],
+    "Cooper Clarke": [
+      "2RF",
+      "FRF"
+    ],
+    "Corey Horsburgh": [
+      "2RF",
+      "FRF"
+    ],
+    "Corey Jensen": [
+      "FRF"
+    ],
+    "Corey Waddell": [
+      "2RF"
+    ],
+    "Cory Paix": [
+      "HOK"
+    ],
+    "Cyrus Stanley-Traill": [
+      "2RF"
+    ],
+    "Daine Laurie": [
+      "FLB"
+    ],
+    "Dallin Watene-Zelezniak": [
+      "CTW"
+    ],
+    "Daly Cherry-Evans": [
+      "5/8"
+    ],
+    "Damien Cook": [
+      "HOK"
+    ],
+    "Dane Gagai": [
+      "CTW"
+    ],
+    "Daniel Atkinson": [
+      "5/8",
+      "HFB"
+    ],
+    "Daniel Saifiti": [
+      "FRF"
+    ],
+    "Daniel Suluka-Fifita": [
+      "FRF"
+    ],
+    "Daniel Tupou": [
+      "CTW"
+    ],
+    "David Fale": [
+      "CTW"
+    ],
+    "David Fifita": [
+      "2RF"
+    ],
+    "Davvy Moale": [
+      "FRF"
+    ],
+    "Deine Mariner": [
+      "CTW"
+    ],
+    "DeLaSalle Vaa": [
+      "FRF"
+    ],
+    "Delouise Hoeter": [
+      "CTW"
+    ],
+    "Demitric Vaimauga": [
+      "2RF",
+      "FRF"
+    ],
+    "Djazirhae Puaavase": [
+      "FRF"
+    ],
+    "Dominic Young": [
+      "CTW"
+    ],
+    "Dylan Brown": [
+      "HFB"
+    ],
+    "Dylan Edwards": [
+      "FLB"
+    ],
+    "Dylan Egan": [
+      "2RF"
+    ],
+    "Dylan Lucas": [
+      "2RF"
+    ],
+    "Dylan Walker": [
+      "2RF"
+    ],
+    "Eddie Ieremia-Toeava": [
+      "2RF"
+    ],
+    "Edward Kosi": [
+      "CTW"
+    ],
+    "Egan Butcher": [
+      "2RF"
+    ],
+    "Eliesa Katoa": [
+      "2RF"
+    ],
+    "Elijah Rasmussen": [
+      "FRF"
+    ],
+    "Elijah Salesa-Leaumoana": [
+      "2RF",
+      "FRF"
+    ],
+    "Emre Guler": [
+      "FRF"
+    ],
+    "Enari Tuala": [
+      "CTW"
+    ],
     "Erin Clark": [
       "2RF"
     ],
-    "E. Clark": [
+    "Ethan Alaia": [
+      "FLB"
+    ],
+    "Ethan Bullemor": [
+      "FRF"
+    ],
+    "Ethan King": [
+      "CTW",
+      "FLB"
+    ],
+    "Ethan Roberts": [
+      "FRF",
+      "2RF"
+    ],
+    "Ethan Sanders": [
+      "HFB"
+    ],
+    "Ethan Strange": [
+      "5/8"
+    ],
+    "Euan Aitken": [
+      "2RF"
+    ],
+    "Ezra Mam": [
+      "5/8"
+    ],
+    "Faaletino Tavana": [
+      "CTW",
+      "FLB"
+    ],
+    "Felise Kaufusi": [
+      "FRF"
+    ],
+    "Fetalagia Pauga": [
+      "CTW"
+    ],
+    "Finau Latu": [
+      "2RF"
+    ],
+    "Fletcher Baker": [
+      "FRF"
+    ],
+    "Fletcher Hunt": [
+      "CTW",
+      "FLB"
+    ],
+    "Fletcher Sharpe": [
+      "5/8"
+    ],
+    "Fonua Pole": [
+      "FRF"
+    ],
+    "Francis Manuleleua": [
+      "2RF"
+    ],
+    "Francis Molo": [
+      "FRF"
+    ],
+    "Freddy Lussick": [
+      "HOK"
+    ],
+    "Gabriel Satrick": [
+      "HOK"
+    ],
+    "Gehamat Shibasaki": [
+      "CTW"
+    ],
+    "Gordon ChanKumTong": [
+      "HOK"
+    ],
+    "Grant Anderson": [
+      "CTW"
+    ],
+    "Greg Marzhew": [
+      "CTW"
+    ],
+    "Griffin Neame": [
+      "FRF"
+    ],
+    "Haizyn Mellars": [
+      "CTW"
+    ],
+    "Hame Sele": [
+      "FRF"
+    ],
+    "Hamish Stewart": [
+      "2RF"
+    ],
+    "Hamiso Tabuai-Fidow": [
+      "FLB"
+    ],
+    "Harrison Edwards": [
+      "2RF",
+      "HOK"
+    ],
+    "Harrison Graham": [
+      "HOK"
+    ],
+    "Harry Grant": [
+      "HOK"
+    ],
+    "Harry Hayes": [
+      "2RF"
+    ],
+    "Haumole Olakau'atu": [
+      "2RF"
+    ],
+    "Hayden Buchanan": [
+      "CTW"
+    ],
+    "Hayze Perham": [
+      "CTW",
+      "FLB"
+    ],
+    "Heamasi Makasini": [
+      "CTW"
+    ],
+    "Heath Mason": [
+      "5/8",
+      "FLB"
+    ],
+    "Heilum Luki": [
+      "2RF"
+    ],
+    "Herbie Farnworth": [
+      "CTW"
+    ],
+    "Hohepa Puru": [
+      "2RF"
+    ],
+    "Hudson Young": [
+      "2RF"
+    ],
+    "Hugo Hart": [
+      "2RF"
+    ],
+    "Hugo Peel": [
+      "FLB",
+      "CTW"
+    ],
+    "Hugo Savala": [
+      "5/8",
+      "HFB"
+    ],
+    "Isaah Yeo": [
+      "2RF"
+    ],
+    "Isaiah Iongi": [
+      "FLB"
+    ],
+    "Isaiah Papali'i": [
+      "2RF",
+      "FRF"
+    ],
+    "Isaiah Tass": [
+      "CTW"
+    ],
+    "Isaiya Katoa": [
+      "HFB"
+    ],
+    "Izack Tago": [
+      "CTW"
+    ],
+    "Jack Bird": [
+      "2RF"
+    ],
+    "Jack Bostock": [
+      "CTW"
+    ],
+    "Jack Cogger": [
+      "HFB",
+      "5/8"
+    ],
+    "Jack Cole": [
+      "5/8"
+    ],
+    "Jack de Belin": [
+      "2RF",
+      "FRF"
+    ],
+    "Jack Gosiewski": [
+      "2RF",
+      "FRF"
+    ],
+    "Jack Hetherington": [
+      "2RF",
+      "FRF"
+    ],
+    "Jack Howarth": [
+      "CTW"
+    ],
+    "Jack Todd": [
+      "2RF",
+      "FRF"
+    ],
+    "Jack Underhill": [
+      "FRF"
+    ],
+    "Jack Wighton": [
+      "CTW"
+    ],
+    "Jack Williams": [
+      "2RF",
+      "FRF"
+    ],
+    "Jackson Ford": [
+      "FRF"
+    ],
+    "Jackson Shereb": [
+      "2RF"
+    ],
+    "Jacob Halangahu": [
+      "2RF"
+    ],
+    "Jacob Kiraz": [
+      "CTW"
+    ],
+    "Jacob Laban": [
+      "2RF"
+    ],
+    "Jacob Liddle": [
+      "HOK"
+    ],
+    "Jacob Preston": [
+      "2RF"
+    ],
+    "Jacob Saifiti": [
+      "FRF"
+    ],
+    "Jaeman Salmon": [
+      "2RF"
+    ],
+    "Jahream Bula": [
+      "FLB"
+    ],
+    "Jahrome Hughes": [
+      "HFB"
+    ],
+    "Jai Arrow": [
+      "2RF",
+      "FRF"
+    ],
+    "Jaimin Jolliffe": [
+      "FRF"
+    ],
+    "Jaiyden Hunt": [
+      "2RF"
+    ],
+    "Jake Averillo": [
+      "CTW"
+    ],
+    "Jake Clifford": [
+      "5/8"
+    ],
+    "Jake Clydsdale": [
+      "FRF"
+    ],
+    "Jake Elliott": [
+      "HFB",
+      "5/8"
+    ],
+    "Jake Simpkin": [
+      "HOK"
+    ],
+    "Jake Trbojevic": [
+      "2RF"
+    ],
+    "Jake Turpin": [
+      "HOK"
+    ],
+    "Jamal Fogarty": [
+      "HFB"
+    ],
+    "Jamayne Isaako": [
+      "CTW"
+    ],
+    "James Fisher-Harris": [
+      "FRF"
+    ],
+    "James Schiller": [
+      "CTW"
+    ],
+    "James Tedesco": [
+      "FLB"
+    ],
+    "James Walsh": [
+      "2RF",
+      "CTW"
+    ],
+    "Jamie Humphreys": [
+      "HFB"
+    ],
+    "Jared Haywood": [
+      "HOK"
+    ],
+    "Jarome Luai": [
+      "5/8"
+    ],
+    "Jason Saab": [
+      "CTW"
+    ],
+    "Jason Taumalolo": [
+      "FRF"
+    ],
+    "Javon Andrews": [
+      "5/8"
+    ],
+    "Jaxen Edgar": [
+      "FLB"
+    ],
+    "Jaxon Purdue": [
+      "5/8",
+      "CTW"
+    ],
+    "Jaxson Paulo": [
+      "CTW"
+    ],
+    "Jayden Berrell": [
+      "HOK"
+    ],
+    "Jayden Brailey": [
+      "HOK"
+    ],
+    "Jayden Campbell": [
+      "HFB"
+    ],
+    "Jayden Sullivan": [
+      "5/8",
+      "HFB"
+    ],
+    "Jaydn Su'A": [
+      "2RF"
+    ],
+    "Jaylan De Groot": [
+      "CTW"
+    ],
+    "Jed Reardon": [
+      "2RF"
+    ],
+    "Jed Stuart": [
+      "CTW"
+    ],
+    "Jensen Taumoepeau": [
+      "CTW"
+    ],
+    "Jeral Skelton": [
+      "CTW"
+    ],
+    "Jeremiah Nanai": [
+      "2RF"
+    ],
+    "Jeremy Marshall-King": [
+      "HOK"
+    ],
+    "Jermaine McEwen": [
+      "2RF"
+    ],
+    "Jesse Arthars": [
+      "CTW"
+    ],
+    "Jesse Colquhoun": [
+      "2RF",
+      "FRF"
+    ],
+    "Jesse McLean": [
+      "CTW"
+    ],
+    "Jesse Ramien": [
+      "CTW"
+    ],
+    "Jethro Rinakama": [
+      "CTW"
+    ],
+    "Jett Cleary": [
+      "HFB"
+    ],
+    "Jett Liu": [
+      "FRF"
+    ],
+    "Jezaiah Funa-Iuta": [
+      "2RF"
+    ],
+    "Jmaine Hopgood": [
+      "2RF",
+      "FRF"
+    ],
+    "Joash Papalii": [
+      "5/8",
+      "FLB"
+    ],
+    "Jock Madden": [
+      "5/8",
+      "HFB"
+    ],
+    "Joe Chan": [
+      "2RF"
+    ],
+    "Joe Roddy": [
+      "2RF"
+    ],
+    "Joey Walsh": [
+      "HFB"
+    ],
+    "John Bateman": [
+      "2RF"
+    ],
+    "John Fineanganofo": [
+      "5/8",
+      "HOK"
+    ],
+    "John Radel": [
+      "FRF"
+    ],
+    "Jojo Fifita": [
+      "CTW"
+    ],
+    "Jonah Glover": [
+      "HFB",
+      "5/8"
+    ],
+    "Jonah Pezet": [
+      "5/8"
+    ],
+    "Jonathan Sua": [
+      "CTW"
+    ],
+    "Jordan Miller": [
+      "FRF"
+    ],
+    "Jordan Riki": [
+      "2RF"
+    ],
+    "Jordan Samrani": [
+      "2RF",
+      "CTW"
+    ],
+    "Jordan Uta": [
+      "2RF"
+    ],
+    "Joseph ONeill": [
+      "HFB"
+    ],
+    "Joseph Tapine": [
+      "FRF"
+    ],
+    "Josh Addo-Carr": [
+      "CTW"
+    ],
+    "Josh Feledy": [
+      "CTW"
+    ],
+    "Josh Kerr": [
+      "FRF"
+    ],
+    "Josh King": [
+      "FRF"
+    ],
+    "Josh Papalii": [
+      "FRF"
+    ],
+    "Josh Rogers": [
+      "5/8"
+    ],
+    "Joshua Curran": [
+      "2RF",
+      "FRF"
+    ],
+    "Joshua Patston": [
+      "2RF"
+    ],
+    "Josiah Karapani": [
+      "CTW"
+    ],
+    "Josiah Pahulu": [
+      "FRF"
+    ],
+    "Junior Paulo": [
+      "FRF"
+    ],
+    "Junior Tupou": [
+      "CTW"
+    ],
+    "Jye Gray": [
+      "FLB"
+    ],
+    "Jye Linnane": [
+      "5/8"
+    ],
+    "Kade Dykes": [
+      "FLB"
+    ],
+    "Kade Reed": [
+      "5/8"
+    ],
+    "Kaeo Weekes": [
+      "FLB"
+    ],
+    "Kai ODonnell": [
       "2RF"
     ],
     "Kai Pearce-Paul": [
       "2RF"
     ],
-    "Ryan Couchman": [
+    "Kaiden Lahrs": [
+      "FRF"
+    ],
+    "Kalani Going": [
+      "2RF",
+      "HOK"
+    ],
+    "Kalyn Ponga": [
+      "FLB"
+    ],
+    "Karl Lawton": [
+      "2RF",
+      "HOK"
+    ],
+    "Kayal Iro": [
+      "CTW"
+    ],
+    "Kayliss Fatialofa": [
       "2RF"
     ],
-    "Jahrome Hughes": [
+    "Keagan Russell-Smith": [
       "HFB"
+    ],
+    "Keano Kini": [
+      "FLB"
+    ],
+    "Keaon Koloamatangi": [
+      "FRF"
+    ],
+    "Kelma Tuilagi": [
+      "2RF"
+    ],
+    "Kit Laulilii": [
+      "2RF"
+    ],
+    "Kitione Kautoga": [
+      "2RF"
+    ],
+    "Klese Haas": [
+      "2RF",
+      "FRF"
+    ],
+    "Kobe Hetherington": [
+      "2RF",
+      "FRF"
+    ],
+    "Kodi Nikorima": [
+      "5/8"
+    ],
+    "Kotoni Staggs": [
+      "CTW"
+    ],
+    "Kulikefu Finefeuiaki": [
+      "2RF"
+    ],
+    "Kurt Capewell": [
+      "2RF"
+    ],
+    "Kurt Donoghoe": [
+      "2RF",
+      "HOK"
+    ],
+    "Kurt Mann": [
+      "2RF"
+    ],
+    "Kurtis Morrin": [
+      "2RF",
+      "FRF"
+    ],
+    "Kyle Flanagan": [
+      "5/8",
+      "HFB"
+    ],
+    "Kyle McCarthy": [
+      "CTW"
+    ],
+    "Lachlan Broederlow": [
+      "2RF"
+    ],
+    "Lachlan Crouch": [
+      "FRF"
+    ],
+    "Lachlan Galvin": [
+      "HFB"
+    ],
+    "Lachlan Hubner": [
+      "2RF"
+    ],
+    "Lachlan Ilias": [
+      "5/8",
+      "HFB"
+    ],
+    "Latrell Mitchell": [
+      "CTW"
+    ],
+    "Latrell Siegwalt": [
+      "HFB",
+      "FLB"
+    ],
+    "Latu Fainu": [
+      "HFB"
+    ],
+    "Lazarus Vaalepu": [
+      "FRF"
+    ],
+    "Lehi Hopoate": [
+      "CTW"
+    ],
+    "Leka Halasima": [
+      "2RF"
+    ],
+    "Leo Thompson": [
+      "FRF"
+    ],
+    "Lewis Symonds": [
+      "2RF"
+    ],
+    "Liam Henry": [
+      "FRF",
+      "2RF"
+    ],
+    "Liam Ison": [
+      "FLB"
+    ],
+    "Liam Le Blanc": [
+      "FRF"
+    ],
+    "Liam Martin": [
+      "2RF"
+    ],
+    "Liam Sutton": [
+      "HFB",
+      "5/8"
+    ],
+    "Lindsay Collins": [
+      "FRF"
+    ],
+    "Lindsay Smith": [
+      "FRF"
+    ],
+    "Lipoi Hopoi": [
+      "2RF",
+      "FRF"
+    ],
+    "LJ Nonu": [
+      "CTW"
+    ],
+    "Logan Spinks": [
+      "2RF"
+    ],
+    "Loko Pasifiki Tonga": [
+      "FRF"
+    ],
+    "Lorenzo Talataina": [
+      "5/8"
+    ],
+    "Luca Moretti": [
+      "2RF",
+      "FRF"
+    ],
+    "Luciano Leilua": [
+      "2RF"
+    ],
+    "Luke Brooks": [
+      "5/8"
+    ],
+    "Luke Garner": [
+      "2RF"
+    ],
+    "Luke Hanson": [
+      "HFB"
+    ],
+    "Luke Laulilii": [
+      "CTW"
+    ],
+    "Luke Metcalf": [
+      "HFB"
+    ],
+    "Luke Sommerton": [
+      "HOK"
+    ],
+    "Luron Patea": [
+      "FRF"
+    ],
+    "Lyhkan King-Togia": [
+      "5/8"
+    ],
+    "Manaia Waitere": [
+      "CTW"
+    ],
+    "Marata Niukore": [
+      "2RF",
+      "FRF"
+    ],
+    "Marcelo Montoya": [
+      "CTW"
+    ],
+    "Mark Nawaqanitawase": [
+      "CTW"
+    ],
+    "Mason Barber": [
+      "FLB"
+    ],
+    "Mason Kira": [
+      "2RF"
+    ],
+    "Mathew Feagai": [
+      "CTW"
+    ],
+    "Matt Arthur": [
+      "HOK"
+    ],
+    "Matt Burton": [
+      "5/8"
+    ],
+    "Matt Croker": [
+      "2RF",
+      "FRF"
+    ],
+    "Matthew Doorey": [
+      "2RF"
+    ],
+    "Matthew Dufty": [
+      "FLB"
+    ],
+    "Matthew Eisenhuth": [
+      "2RF",
+      "FRF"
+    ],
+    "Matthew Hunter": [
+      "5/8"
+    ],
+    "Matthew Lodge": [
+      "FRF"
+    ],
+    "Matthew Timoko": [
+      "CTW"
+    ],
+    "Matthew Watts": [
+      "FRF"
+    ],
+    "Matty Nicholson": [
+      "2RF"
+    ],
+    "Mavrik Geyer": [
+      "2RF"
+    ],
+    "Mawene Hiroti": [
+      "CTW"
+    ],
+    "Max Feagai": [
+      "CTW"
+    ],
+    "Max King": [
+      "FRF"
+    ],
+    "Max McCarthy": [
+      "2RF"
+    ],
+    "Max Plath": [
+      "2RF",
+      "HOK"
+    ],
+    "Michael Asomua": [
+      "CTW"
+    ],
+    "Michael Gabrael": [
+      "CTW"
+    ],
+    "Mitchell Barnett": [
+      "FRF"
+    ],
+    "Mitchell Kenny": [
+      "HOK"
+    ],
+    "Mitchell Moses": [
+      "HFB"
+    ],
+    "Mitchell Woods": [
+      "HFB"
+    ],
+    "Moala Graham-Taufa": [
+      "CTW"
+    ],
+    "Moeaki Fotuaika": [
+      "FRF"
+    ],
+    "Morgan Gannon": [
+      "2RF"
+    ],
+    "Morgan Knowles": [
+      "2RF"
+    ],
+    "Morgan Smithies": [
+      "2RF",
+      "FRF"
+    ],
+    "Moses Leo": [
+      "CTW"
+    ],
+    "Moses Leota": [
+      "FRF"
+    ],
+    "Moses Suli": [
+      "CTW"
+    ],
+    "Motu Pasikala": [
+      "FLB",
+      "CTW"
+    ],
+    "Murray Taulagi": [
+      "CTW"
+    ],
+    "Myles Martin": [
+      "FRF",
+      "2RF"
+    ],
+    "Nat Butcher": [
+      "2RF"
+    ],
+    "Nathan Brown": [
+      "FRF"
+    ],
+    "Nathan Cleary": [
+      "HFB"
+    ],
+    "Nathan Lawson": [
+      "CTW"
+    ],
+    "Naufahu Whyte": [
+      "FRF"
+    ],
+    "Navren Willett": [
+      "CTW"
+    ],
+    "Nazareth Taua": [
+      "2RF"
     ],
     "Nicho Hynes": [
       "HFB"
     ],
-    "Cody Walker": [
-      "5/8"
-    ],
-    "Te Maire Martin": [
-      "HFB",
-      "5/8"
-    ],
-    "Greg Marzhew": [
+    "Nick Meaney": [
       "CTW"
     ],
-    "Herbie Farnworth": [
+    "Nick Tsougranis": [
+      "2RF",
       "CTW"
     ],
-    "Jack Bostock": [
+    "Niwhai Puru": [
+      "HFB"
+    ],
+    "Noah Martin": [
+      "2RF"
+    ],
+    "Oliver Pascoe": [
+      "HOK"
+    ],
+    "Oregon Kaufusi": [
+      "FRF"
+    ],
+    "Oryn Keeley": [
+      "2RF"
+    ],
+    "Owen Pattie": [
+      "HOK"
+    ],
+    "Pasami Saulo": [
+      "FRF"
+    ],
+    "Patrick Carrigan": [
+      "2RF",
+      "FRF"
+    ],
+    "Patrick Herbert": [
+      "CTW"
+    ],
+    "Patrick Young": [
+      "2RF"
+    ],
+    "Paul Alamoti": [
+      "CTW"
+    ],
+    "Paul Bryan": [
+      "FRF"
+    ],
+    "Payne Haas": [
+      "FRF"
+    ],
+    "Peter Hola": [
+      "FRF"
+    ],
+    "Peter Mamouzelos": [
+      "HOK"
+    ],
+    "Phillip Coates": [
+      "CTW"
+    ],
+    "Phillip Sami": [
+      "CTW"
+    ],
+    "Phoenix Crossland": [
+      "HOK"
+    ],
+    "Preston Conn": [
+      "2RF"
+    ],
+    "Preston Riki": [
+      "2RF"
+    ],
+    "Ray Stone": [
+      "2RF"
+    ],
+    "Reece Foley": [
+      "5/8",
+      "2RF"
+    ],
+    "Reece Robson": [
+      "HOK"
+    ],
+    "Reece Walsh": [
+      "FLB"
+    ],
+    "Reed Mahoney": [
+      "HOK"
+    ],
+    "Reuben Cotter": [
+      "2RF"
+    ],
+    "Reuben Garrick": [
+      "CTW"
+    ],
+    "Rex Bassingthwaighte": [
+      "FLB"
+    ],
+    "Riley Jones": [
+      "HOK"
+    ],
+    "Riley Pollard": [
+      "HFB"
+    ],
+    "Robert Derby": [
+      "CTW"
+    ],
+    "Robert Toia": [
+      "CTW"
+    ],
+    "Rocco Berry": [
+      "CTW"
+    ],
+    "Roger Tuivasa-Sheck": [
+      "CTW"
+    ],
+    "Ronald Philitoga": [
+      "CTW"
+    ],
+    "Ronald Volkman": [
+      "5/8",
+      "HFB"
+    ],
+    "Ronaldo Mulitalo": [
+      "CTW"
+    ],
+    "Royce Hunt": [
+      "FRF"
+    ],
+    "Ryan Couchman": [
+      "2RF"
+    ],
+    "Ryan Matterson": [
+      "2RF"
+    ],
+    "Ryley Smith": [
+      "HOK"
+    ],
+    "Salesi Foketi": [
+      "2RF"
+    ],
+    "Sam Healey": [
+      "HOK"
+    ],
+    "Sam McIntyre": [
+      "2RF",
+      "FRF"
+    ],
+    "Sam Stonestreet": [
+      "CTW"
+    ],
+    "Sam Tuivaiti": [
+      "2RF",
+      "FRF"
+    ],
+    "Sam Verrills": [
+      "HOK"
+    ],
+    "Sam Walker": [
+      "HFB"
+    ],
+    "Samuel Hughes": [
+      "FRF"
+    ],
+    "Samuela Fainu": [
+      "2RF"
+    ],
+    "Sandon Smith": [
+      "5/8",
+      "HOK"
+    ],
+    "Savelio Tamale": [
+      "CTW"
+    ],
+    "Saxon Pryke": [
+      "FRF"
+    ],
+    "Scott Drinkwater": [
+      "FLB"
+    ],
+    "Scott Sorensen": [
+      "2RF"
+    ],
+    "Sean Keppie": [
+      "FRF"
+    ],
+    "Sean O'Sullivan": [
+      "HFB"
+    ],
+    "Sean Russell": [
+      "CTW"
+    ],
+    "Sebastian Kris": [
+      "CTW"
+    ],
+    "Sebastian Sua": [
+      "FRF"
+    ],
+    "Selwyn Cobbo": [
       "CTW"
     ],
     "Setu Tu": [
       "CTW"
     ],
-    "Kayal Iro": [
+    "Shaun Packer": [
+      "HOK"
+    ],
+    "Shawn Blore": [
+      "2RF"
+    ],
+    "Sialetili Faeamani": [
       "CTW"
     ],
-    "Heath Mason": [
+    "Simi Sasagi": [
+      "2RF",
       "CTW"
     ],
-    "Hamiso Tabuai-Fidow": [
+    "Simione Laiafi": [
+      "FRF"
+    ],
+    "Sione Fainu": [
+      "FRF",
+      "2RF"
+    ],
+    "Sione Finau": [
+      "CTW"
+    ],
+    "Sione Fonua": [
       "CTW",
       "FLB"
+    ],
+    "Sione Katoa": [
+      "CTW"
+    ],
+    "Siosifa Talakai": [
+      "2RF",
+      "CTW"
+    ],
+    "Sitili Tupouniua": [
+      "2RF",
+      "FRF"
+    ],
+    "Siua Taukeiaho": [
+      "FRF"
+    ],
+    "Siua Wong": [
+      "2RF"
+    ],
+    "Siulagi Tuimalatu-Brown": [
+      "CTW"
+    ],
+    "Solomone Saukuru": [
+      "CTW"
+    ],
+    "Soni Luke": [
+      "HOK"
+    ],
+    "Sosaia Alatini": [
+      "2RF"
+    ],
+    "Spencer Leniu": [
+      "FRF"
+    ],
+    "Stanley Huen": [
+      "5/8"
+    ],
+    "Starford To'a": [
+      "CTW"
+    ],
+    "Stefano Utoikamanu": [
+      "FRF"
+    ],
+    "Stephen Crichton": [
+      "CTW"
+    ],
+    "Sua Fa'alogo": [
+      "FLB"
+    ],
+    "Sunia Turuva": [
+      "CTW"
+    ],
+    "Taine Tuaupiki": [
+      "CTW",
+      "FLB"
+    ],
+    "Talanoa Penitani": [
+      "CTW"
+    ],
+    "Tallis Duncan": [
+      "2RF"
+    ],
+    "Tallyn Da Silva": [
+      "HOK"
+    ],
+    "Tanah Boyd": [
+      "HFB"
+    ],
+    "Taniela Paseka": [
+      "FRF"
+    ],
+    "Tanner Stowers-Smith": [
+      "FRF"
+    ],
+    "Taylan May": [
+      "CTW"
+    ],
+    "Taylor Losalu": [
+      "FRF"
+    ],
+    "Te Maire Martin": [
+      "5/8",
+      "HFB"
+    ],
+    "Teancum Brown": [
+      "FRF"
+    ],
+    "Teig Wilton": [
+      "2RF"
+    ],
+    "Terrell May": [
+      "FRF"
+    ],
+    "Tevita Naufahu": [
+      "CTW"
+    ],
+    "Tevita Tatola": [
+      "FRF"
+    ],
+    "Thomas Cant": [
+      "2RF"
+    ],
+    "Thomas Dearden": [
+      "HFB"
+    ],
+    "Thomas Flegler": [
+      "FRF"
+    ],
+    "Thomas Fletcher": [
+      "2RF"
+    ],
+    "Thomas Hazelton": [
+      "FRF"
+    ],
+    "Thomas Jenkins": [
+      "CTW"
+    ],
+    "Thomas Mikaele": [
+      "FRF"
+    ],
+    "Tino Fa'asuamaleaui": [
+      "2RF",
+      "FRF"
+    ],
+    "Toby Couchman": [
+      "2RF",
+      "FRF"
+    ],
+    "Toby Rodwell": [
+      "HFB"
+    ],
+    "Toby Rudolf": [
+      "FRF"
+    ],
+    "Tolutau Koula": [
+      "CTW",
+      "FLB"
+    ],
+    "Tom Ale": [
+      "FRF"
     ],
     "Tom Chester": [
       "CTW",
       "FLB"
     ],
-    "Sua Fa'alogo": [
+    "Tom Duffy": [
+      "HFB"
+    ],
+    "Tom Gilbert": [
+      "2RF",
+      "FRF"
+    ],
+    "Tom Rodwell": [
+      "CTW"
+    ],
+    "Tom Starling": [
+      "HOK"
+    ],
+    "Tom Trbojevic": [
       "FLB"
     ],
-    "Sua Faalogo": [
+    "Tommy Talau": [
+      "CTW"
+    ],
+    "Toni Mataele": [
+      "2RF"
+    ],
+    "Tony Francis": [
+      "CTW"
+    ],
+    "Tony Sukkar": [
+      "2RF"
+    ],
+    "Trai Fuller": [
       "FLB"
     ],
-    "Scott Drinkwater": [
+    "Trent Loiero": [
+      "2RF"
+    ],
+    "Trent Toelau": [
+      "HFB"
+    ],
+    "Trey Mooney": [
+      "2RF",
+      "FRF"
+    ],
+    "Tristan Hope": [
+      "HOK"
+    ],
+    "Tui Kamikamica": [
+      "FRF"
+    ],
+    "Tukimihia Simpkins": [
+      "FRF"
+    ],
+    "Tuku HauTapuha": [
+      "FRF"
+    ],
+    "Tyran Wishart": [
+      "5/8",
+      "HFB"
+    ],
+    "Tyrell Sloan": [
+      "CTW",
       "FLB"
     ],
-    "Reece Walsh": [
+    "Tyrone Munro": [
+      "CTW"
+    ],
+    "Tyson Frizell": [
+      "2RF",
+      "FRF"
+    ],
+    "Tyson Gamble": [
+      "5/8",
+      "HFB"
+    ],
+    "Valentine Holmes": [
+      "CTW"
+    ],
+    "Vena Patuki-Case": [
+      "FRF"
+    ],
+    "Victor Radley": [
+      "2RF"
+    ],
+    "Viliame Kikau": [
+      "2RF"
+    ],
+    "Viliami Fifita": [
+      "2RF",
+      "FRF"
+    ],
+    "Viliami Vailea": [
+      "CTW"
+    ],
+    "VJ Semu": [
+      "FRF"
+    ],
+    "Wayde Egan": [
+      "HOK"
+    ],
+    "Wil Sullivan": [
+      "FRF"
+    ],
+    "Will Craig": [
+      "CTW"
+    ],
+    "Will Penisini": [
+      "CTW"
+    ],
+    "William Kennedy": [
       "FLB"
+    ],
+    "William Latu": [
+      "2RF"
+    ],
+    "William Warbrick": [
+      "CTW"
+    ],
+    "Wilson DeCourcey": [
+      "CTW"
+    ],
+    "Wiremu Greig": [
+      "FRF"
+    ],
+    "Xavier Coates": [
+      "CTW"
+    ],
+    "Xavier Kerrisk": [
+      "HOK"
+    ],
+    "Xavier Savage": [
+      "CTW"
+    ],
+    "Xavier Vaa": [
+      "FRF"
+    ],
+    "Xavier Willison": [
+      "2RF",
+      "FRF"
+    ],
+    "Zac Herdegen": [
+      "HFB",
+      "5/8"
+    ],
+    "Zac Hosking": [
+      "2RF"
+    ],
+    "Zac Laybutt": [
+      "CTW"
+    ],
+    "Zach Dockar-Clay": [
+      "HOK"
+    ],
+    "Zaidas Muagututia": [
+      "HOK"
+    ],
+    "Zane Harrison": [
+      "HFB"
+    ],
+    "Zyon Maiuu": [
+      "FRF"
     ]
   }
 }
