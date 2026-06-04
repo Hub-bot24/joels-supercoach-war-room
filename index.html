@@ -10367,62 +10367,117 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
   }
 
   function stableBaseline(p){
-    // PRICE IS DELIBERATELY NOT USED. Do not add it back.
-    const manual = firstPositive(p,["manualProjection","projectionOverride"]);
-    const proj = listedProj(p);
     const avg = seasonAvg(p);
     const g3 = weightedRecentFromGames(p,3) || last3(p);
     const g5 = weightedRecentFromGames(p,5) || last5(p);
 
-    if(manual) return {base: manual, source:"manual override", manual:true};
-
     const parts = [];
-    if(proj) parts.push({label:"projection", value:proj, weight:0.46});
-    if(avg) parts.push({label:"season avg", value:avg, weight:0.34});
-    if(g3) parts.push({label:"valid last 3", value:g3, weight:0.12});
-    if(g5) parts.push({label:"valid last 5", value:g5, weight:0.08});
+    if(avg) parts.push({label:"avg", value:avg, weight:0.45});
+    if(g3) parts.push({label:"last3", value:g3, weight:0.30});
+    if(g5) parts.push({label:"last5", value:g5, weight:0.25});
 
-    if(!parts.length) return {base:0, source:"no scoring data", manual:false};
+    if(!parts.length) return {base:0, source:"no scoring data", parts:[]};
 
     const totalW = parts.reduce((s,x)=>s+x.weight,0);
-    let base = parts.reduce((s,x)=>s+x.value*x.weight,0) / totalW;
+    const base = parts.reduce((s,x)=>s+x.value*x.weight,0) / totalW;
 
-    // Do not let missing/dirty recent form crush known gun players.
-    const stableHigh = Math.max(proj || 0, avg || 0);
-    if(stableHigh >= 68) base = Math.max(base, stableHigh - 5);
-    else if(stableHigh >= 60) base = Math.max(base, stableHigh - 7);
+    return {
+      base,
+      source:parts.map(x => `${x.label} ${Math.round(x.value)} @ ${Math.round((x.weight/totalW)*100)}%`).join(", "),
+      parts
+    };
+  }
 
-    // Recent form may move the needle, but it cannot hijack the model.
-    const recent = g3 || g5 || 0;
-    if(recent && stableHigh){
-      const cappedDelta = clamp(recent - stableHigh, -8, 8);
-      base = (base * 0.88) + ((stableHigh + cappedDelta) * 0.12);
+  function playerGroup(p){
+    const pos = posOf(p);
+    if(pos.includes("FRF") || pos.includes("2RF") || pos.includes("HOK") || pos.includes("LOCK")) return "forward";
+    if(pos.includes("HFB") || pos.includes("5/8")) return "half";
+    if(pos.includes("FLB") || pos.includes("CTW")) return "outside";
+    return "other";
+  }
+
+  function minutesAdjustment(p){
+    const mins = minutes(p);
+    const group = playerGroup(p);
+    if(!mins) return {adj:0, note:"minutes missing/neutral"};
+    if(group === "forward") return {adj:clamp((mins - 65) * 0.20, -8, 5), note:`forward/HOK minutes ${mins}`};
+    if(group === "half") return {adj:clamp((mins - 75) * 0.10, -6, 3), note:`half minutes ${mins}`};
+    if(group === "outside") return {adj:clamp((mins - 75) * 0.08, -8, 2), note:`outside-back minutes ${mins}`};
+    return {adj:0, note:"position minutes neutral"};
+  }
+
+  function ppmAdjustment(p, baseline){
+    const ppm = firstPositive(p,["ppm","pointsPerMinute"]);
+    const mins = minutes(p);
+    const group = playerGroup(p);
+
+    if(!ppm || ppm < 0.25 || ppm > 1.80 || !mins || mins < 30){
+      return {adj:0, ppm, ppmProjection:0, ppmDelta:0, note:"PPM ignored"};
     }
 
-    return {base, source:parts.map(x => `${x.label} ${Math.round(x.value)}`).join(", "), manual:false};
+    const ppmProjection = ppm * mins;
+    const ppmDelta = ppmProjection - baseline;
+    let adj = 0;
+
+    if(group === "forward") adj = clamp(ppmDelta * 0.15, -4, 4);
+    else if(group === "half") adj = clamp(ppmDelta * 0.05, -2, 2);
+    else adj = 0;
+
+    if(mins < 45) adj *= 0.5;
+
+    return {
+      adj,
+      ppm,
+      ppmProjection,
+      ppmDelta,
+      note: group === "outside" ? "PPM ignored for outside backs" : `PPM projection ${Math.round(ppmProjection)}`
+    };
+  }
+
+  function goalKickerAdjustment(p){
+    return {adj:0, note:"goal-kicker adjustment unavailable/not sourced"};
+  }
+
+  function applyEliteGuardrails(p, raw){
+    const avg = seasonAvg(p);
+    const mins = minutes(p);
+    const group = playerGroup(p);
+    let guarded = raw;
+    const notes = [];
+
+    if(avg >= 70 && mins >= 60 && guarded < avg - 5){
+      guarded = avg - 5;
+      notes.push(`avg>=70 guardrail ${Math.round(avg - 5)}`);
+    }
+    if(group === "forward" && avg >= 70 && mins >= 60 && guarded < avg - 3){
+      guarded = avg - 3;
+      notes.push(`elite forward/HOK guardrail ${Math.round(avg - 3)}`);
+    }
+    if(avg >= 85 && mins >= 75 && guarded < avg - 7){
+      guarded = avg - 7;
+      notes.push(`avg>=85 guardrail ${Math.round(avg - 7)}`);
+    }
+
+    return {score:guarded, notes};
   }
 
   function roleAdj(p){
-    const pos = posOf(p);
-    const mins = minutes(p);
-    const noteBits = [];
-    let adj = 0;
-    const forward = pos.includes("FRF") || pos.includes("2RF") || pos.includes("HOK") || pos.includes("LOCK");
-    const half = pos.includes("HFB") || pos.includes("5/8");
-    const outside = pos.includes("FLB") || pos.includes("CTW");
-    const role = lower(p?.role || p?.roleSecurity || p?.notes || "");
-
-    if(forward && (seasonAvg(p) >= 60 || listedProj(p) >= 60)){ adj += 3; noteBits.push("stable forward base"); }
-    if(mins >= 75 && forward){ adj += 3; noteBits.push("big minutes"); }
-    else if(mins && mins < 45){ adj -= 7; noteBits.push("low minutes risk"); }
-    if(half && (p?.dominantHalf === true || lower(p?.dominantHalf).includes("yes") || lower(p?.primaryPlaymaker).includes("yes"))){ adj += 3; noteBits.push("dominant half"); }
-    if(p?.goalKicker === true || lower(p?.goalKicker).includes("yes") || lower(p?.kickingGoals).includes("yes")){ adj += 4; noteBits.push("goal kicker"); }
-    if(role.includes("bench")){ adj -= 9; noteBits.push("bench role"); }
-    if(role.includes("utility")){ adj -= 5; noteBits.push("utility risk"); }
-    if(role.includes("80") || role.includes("eighty")){ adj += 3; noteBits.push("80-minute role"); }
-    if(outside && role.includes("elite")){ adj += 2; noteBits.push("outside-back upside"); }
-
-    return {adj:clamp(adj,-12,10), note:noteBits.join(", ") || "neutral role"};
+    const base = stableBaseline(p).base;
+    const mins = minutesAdjustment(p);
+    const ppm = ppmAdjustment(p, base);
+    const goal = goalKickerAdjustment(p);
+    const adj = mins.adj + ppm.adj + goal.adj;
+    const notes = [mins.note, ppm.note, goal.note].filter(Boolean);
+    return {
+      adj,
+      note:notes.join(", ") || "neutral role",
+      minutesAdjustment:mins.adj,
+      ppmAdjustment:ppm.adj,
+      ppm:ppm.ppm,
+      ppmProjection:ppm.ppmProjection,
+      ppmDelta:ppm.ppmDelta,
+      goalKickerAdjustment:goal.adj
+    };
   }
 
   function weatherAdj(p){
@@ -10461,21 +10516,23 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
   }
 
   function calculateStableLevel3(p, options={}){
-    if(!p) return {player:null, name:"", expected:0, projection:0, realisticExpected:0, floor:0, ceiling:0, base:0, confidence:"Low", missing:["player"], reason:["No player supplied"]};
+    if(!p) return {player:null, name:"", expected:0, rawExpected:0, roundExpected:0, projection:0, realisticExpected:0, floor:0, ceiling:0, base:0, confidence:"Low", missing:["player"], reason:["No player supplied"]};
     const round = N(options.round, getCurrentRound());
     const baseInfo = stableBaseline(p);
     const role = roleAdj(p);
     const weather = options.disableWeather ? {adj:0,note:"weather disabled"} : weatherAdj(p);
     const avail = availabilityInfo(p, round);
     const vol = volatility(p);
-    const rawExpected = baseInfo.base + role.adj + weather.adj + avail.adj;
-    const expected = Math.round(clamp(rawExpected, 0, 125));
-    const high = highScore(p);
-    const floor = Math.round(clamp(expected - vol, 0, expected));
-    const ceiling = high ? Math.round(clamp(expected*0.70 + high*0.30, expected+4, 140)) : Math.round(clamp(expected + vol + 8, expected+4, 140));
+
+    const rawBeforeGuardrails = baseInfo.base + role.adj + weather.adj;
+    const guarded = applyEliteGuardrails(p, rawBeforeGuardrails);
+    const rawExpected = Math.round(clamp(guarded.score, 0, 130));
+    const unavailable = !avail.available;
+    const roundExpected = unavailable ? 0 : rawExpected;
+    const floor = unavailable ? 0 : Math.round(clamp(rawExpected - vol, 0, rawExpected));
+    const ceiling = unavailable ? 0 : Math.round(clamp(rawExpected + vol, rawExpected, 140));
 
     const missing = [];
-    if(!listedProj(p)) missing.push("projection");
     if(!seasonAvg(p)) missing.push("season average");
     if(!last3(p) && !weightedRecentFromGames(p,3)) missing.push("valid last 3");
     if(!last5(p) && !weightedRecentFromGames(p,5)) missing.push("valid last 5");
@@ -10487,7 +10544,8 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
     if(missing.length >= 5) confidence = "Low";
     else if(missing.length >= 2 || avail.label !== "AVAILABLE") confidence = "Medium";
 
-    const verdict = !avail.available ? avail.label : expected >= 80 ? "Strong C/VC" : expected >= 70 ? "VC option" : expected >= 60 ? "Playable" : "Risky";
+    const verdict = !avail.available ? avail.label : roundExpected >= 80 ? "Strong C/VC" : roundExpected >= 70 ? "VC option" : roundExpected >= 60 ? "Playable" : "Risky";
+    const guardrailNote = guarded.notes.length ? `Guardrails: ${guarded.notes.join(", ")}` : "Guardrails: none";
 
     return {
       player:p,
@@ -10495,28 +10553,45 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
       pos:posOf(p),
       team:upper(p.team || p.club),
       round,
-      expected,
-      projection:expected,
-      realisticExpected:expected,
-      finalExpected:expected,
-      score:expected,
+      expected:roundExpected,
+      rawExpected,
+      roundExpected,
+      projection:roundExpected,
+      realisticExpected:roundExpected,
+      finalExpected:roundExpected,
+      score:roundExpected,
       base:Math.round(baseInfo.base),
+      baseline:+baseInfo.base.toFixed(2),
+      rawBeforeGuardrails:+rawBeforeGuardrails.toFixed(2),
       floor,
       ceiling,
+      volatility:vol,
       confidence,
       confidenceScore: confidence === "High" ? 85 : confidence === "Medium" ? 65 : 42,
       available:avail.available,
       availability:avail.label,
       missing,
-      role:{adjustment:role.adj, note:role.note},
+      role:{
+        adjustment:+role.adj.toFixed(2),
+        note:role.note,
+        minutesAdjustment:+role.minutesAdjustment.toFixed(2),
+        ppmAdjustment:+role.ppmAdjustment.toFixed(2),
+        ppm:role.ppm,
+        ppmProjection:+N(role.ppmProjection,0).toFixed(2),
+        ppmDelta:+N(role.ppmDelta,0).toFixed(2),
+        goalKickerAdjustment:role.goalKickerAdjustment
+      },
       weather:{adjustment:weather.adj, note:weather.note, text:weather.note},
-      adjustments:{role:role.adj, weather:weather.adj, availability:avail.adj},
+      adjustments:{role:+role.adj.toFixed(2), weather:weather.adj, availability:0, minutes:+role.minutesAdjustment.toFixed(2), ppm:+role.ppmAdjustment.toFixed(2), goalKicker:role.goalKickerAdjustment},
       reason:[
-        `Base ${Math.round(baseInfo.base)} from ${baseInfo.source}`,
-        `Role ${role.adj >= 0 ? "+" : ""}${role.adj}: ${role.note}`,
+        `Baseline ${Math.round(baseInfo.base)} from ${baseInfo.source}`,
+        `Minutes ${role.minutesAdjustment >= 0 ? "+" : ""}${role.minutesAdjustment.toFixed(2)}`,
+        `PPM ${role.ppmAdjustment >= 0 ? "+" : ""}${role.ppmAdjustment.toFixed(2)} (${role.ppm ? "ppm " + role.ppm : "no valid ppm"})`,
+        "Goal kicking +0: not sourced",
         `Weather ${weather.adj >= 0 ? "+" : ""}${weather.adj}: ${weather.note}`,
+        guardrailNote,
         `Availability: ${avail.label} - ${avail.note}`,
-        "Price ignored completely"
+        "BE ignored for scoring projection"
       ],
       verdict
     };
