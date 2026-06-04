@@ -10,6 +10,11 @@
 header{padding:20px 16px;border-bottom:1px solid var(--line);background:#070a12;position:sticky;top:0;z-index:5}
 h1{margin:0;font-size:24px}.sub{color:var(--muted);font-size:14px;margin-top:6px}
 nav{display:flex;gap:8px;overflow:auto;padding:10px;background:#0c1220;border-bottom:1px solid var(--line);position:sticky;top:76px;z-index:4}
+.subTabs{display:flex;gap:8px;overflow:auto;padding:8px 10px;background:#09111f;border-bottom:1px solid var(--line);position:sticky;top:126px;z-index:3}
+.subTabs button{padding:8px 10px;font-size:12px;font-weight:800}
+.subTabs button.active{background:var(--blue);color:#06101f}
+.mainTabs button{font-size:14px}
+#legacyTabs,#legacyTabs button{display:none!important;visibility:hidden!important;width:0!important;height:0!important;overflow:hidden!important;position:absolute!important;left:-9999px!important}
 button{background:var(--card2);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-weight:800;cursor:pointer;white-space:nowrap}
 button.active{background:var(--blue);color:#06101f}
 main{max-width:1250px;margin:auto;padding:14px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
@@ -29,9 +34,15 @@ textarea{min-height:120px} table{width:100%;border-collapse:collapse;font-size:1
 </head>
 <body>
 <header><h1>Joel's SuperCoach War Room V6 - FINAL Level 3 Fix</h1><div class="sub">Fixed tabs version: phone-photo import, weekly trades, par engine, live score build, captain room, bye planner, trade lab, injury risk and journal.</div></header>
-<nav id="tabs">
-<button class="active" data-tab="verdict">Verdict</button><button data-tab="injury">Injury Risk</button><button data-tab="par">Par Engine</button><button data-tab="team">My Team</button><button data-tab="importteam">Import Team Photo</button><button data-tab="weeklytrades">Weekly Trades</button><button data-tab="live">Live Match</button><button data-tab="captain">Captain Room</button><button data-tab="level3">Level 3 Projections</button><button data-tab="method">How Calculated</button><button data-tab="bye">Bye Planner</button><button data-tab="weatherhub">Weather Hub</button><button data-tab="trade">Trade Lab</button><button data-tab="playerexplorer">Player Explorer</button><button data-tab="journal">Journal</button><button data-tab="data">Data</button><button data-tab="nextsteps">What To Do</button>
+<nav id="tabs" class="mainTabs">
+  <button class="active" data-main-group="dashboard" data-tab="verdict">Dashboard</button>
+  <button data-main-group="myteam" data-tab="team">My Team</button>
+  <button data-main-group="trades" data-tab="weeklytrades">Trades</button>
+  <button data-main-group="captainroom" data-tab="captain">Captain Room</button>
+  <button data-main-group="datasettings" data-tab="data">Data / Settings</button>
 </nav>
+<div id="subtabs" class="subTabs" aria-label="Grouped section navigation"></div>
+<div id="legacyTabs" class="hidden" hidden aria-hidden="true" style="display:none!important;visibility:hidden!important"><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="verdict">Verdict</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="injury">Injury Risk</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="par">Par Engine</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="team">My Team</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="importteam">Import Team Photo</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="weeklytrades">Weekly Trades</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="live">Live Match</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="captain">Captain Room</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="level3">Level 3 Projections</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="method">How Calculated</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="bye">Bye Planner</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="weatherhub">Weather Hub</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="trade">Trade Lab</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="playerexplorer">Player Explorer</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="journal">Journal</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="data">Data</button><button hidden aria-hidden="true" tabindex="-1" style="display:none!important" data-tab="nextsteps">What To Do</button></div>
 <main>
 
 <div class="card span12 blueBox" style="max-width:1250px;margin:0 auto 12px auto;">
@@ -54,26 +65,13 @@ textarea{min-height:120px} table{width:100%;border-collapse:collapse;font-size:1
 
 <datalist id="allPlayersDatalist"></datalist>
 <datalist id="teamPlayersDatalist"></datalist>
-<section id="verdict" class="tab"><div class="grid">
-<div class="card span4 badBox"><h2>This Week Verdict</h2><div id="mainVerdict" class="metric bad">Needs Team</div><p id="mainVerdictText" class="muted">Add your team and player data.</p></div>
-<div class="card span4"><h2>Your Projection</h2><div id="yourProjection" class="metric blue">0</div><div class="mini">Best 17 + captain estimate, adjusted for injury risk.</div></div>
-<div class="card span4"><h2>Available This Round</h2><div id="fieldThisRound" class="metric">0</div><div id="fieldThisRoundText" class="mini">Injury and bye adjusted.</div></div>
-<div class="card span6"><h2>What Is Hurting You</h2><table><tbody id="hurtList"></tbody></table></div>
-<div class="card span6"><h2>Attack Plan</h2><table><tbody id="attackList"></tbody></table></div>
-<div class="card span12 blueBox">
-<h2>What This Version Includes</h2>
-<table>
-<tbody>
-<tr><td>Par Engine</td><td>Overall, Top 10k, Top 5k and Top 1k par score bands.</td></tr>
-<tr><td>Live Match Room</td><td>Tap-player score build with points breakdown and timeline.</td></tr>
-<tr><td>Captain Room</td><td>VC/C threshold, captain uniqueness and pack captain estimate.</td></tr>
-<tr><td>Bye Planner</td><td>Bye heat map with injury-adjusted available player count.</td></tr>
-<tr><td>Trade Lab</td><td>Scores trades based on points, cash, ownership and injury logic.</td></tr>
-<tr><td>Injury Risk</td><td>Status, return round, play probability, likely/possible available numbers.</td></tr>
-<tr><td>Regret Detector</td><td>Season journal to track why you made each decision.</td></tr>
-</tbody>
-</table>
-</div>
+<section id="verdict" class="tab"><div class="grid dashboardGrid">
+<div class="card span4 blueBox"><h2>Projected Score</h2><div id="yourProjection" class="metric blue">0</div><p id="dashboardProjectionRange" class="mini">Best 17 + captain estimate.</p></div>
+<div class="card span4"><h2>Field Status</h2><div id="fieldThisRound" class="metric">0</div><p id="fieldThisRoundText" class="mini">Available / possible this round.</p></div>
+<div class="card span4 goodBox"><h2>Best Captain</h2><div id="dashboardBestCaptain" class="metric">-</div><p id="dashboardBestCaptainText" class="mini">Captain option appears after team loads.</p></div>
+<div class="card span4"><h2>Trade Urgency</h2><div id="mainVerdict" class="metric bad">Needs Team</div><p id="mainVerdictText" class="muted">Add your team and player data.</p></div>
+<div class="card span4"><h2>What To Do</h2><ol id="dashboardActionList" class="muted" style="margin:0;padding-left:20px;"><li>Load your team.</li><li>Check captain.</li><li>Review trades.</li></ol><table class="hidden"><tbody id="attackList"></tbody></table></div>
+<div class="card span4 warnBox"><h2>Alerts</h2><div id="dashboardAlerts" class="muted">No alerts yet.</div><table class="hidden"><tbody id="hurtList"></tbody></table></div>
 </div></section>
 
 <section id="injury" class="tab hidden"><div class="grid">
@@ -1099,7 +1097,76 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
 
 <script>
 (function(){
-  function showTab(tabId){
+  const TAB_GROUPS = {
+    dashboard: {
+      label: "Dashboard",
+      defaultTab: "verdict",
+      tabs: [
+        ["verdict", "Dashboard"],
+        ["nextsteps", "What To Do"],
+        ["injury", "Injury Risk"],
+        ["bye", "Bye Planner"]
+      ]
+    },
+    myteam: {
+      label: "My Team",
+      defaultTab: "team",
+      tabs: [
+        ["team", "My Team"],
+        ["importteam", "Import Team Photo"]
+      ]
+    },
+    trades: {
+      label: "Trades",
+      defaultTab: "weeklytrades",
+      tabs: [
+        ["weeklytrades", "Weekly Trades"],
+        ["trade", "Trade Lab"],
+        ["par", "Par Engine"]
+      ]
+    },
+    captainroom: {
+      label: "Captain Room",
+      defaultTab: "captain",
+      tabs: [
+        ["captain", "Captain Room"],
+        ["level3", "Level 3 Projections"],
+        ["live", "Live Match"],
+        ["weatherhub", "Weather Hub"]
+      ]
+    },
+    datasettings: {
+      label: "Data / Settings",
+      defaultTab: "data",
+      tabs: [
+        ["data", "Data"],
+        ["method", "How Calculated"],
+        ["playerexplorer", "Player Explorer"],
+        ["journal", "Journal"],
+        ["weatherhub", "Weather Hub"]
+      ]
+    }
+  };
+
+  function groupForTab(tabId, preferredGroup){
+    if(preferredGroup && TAB_GROUPS[preferredGroup]) return preferredGroup;
+    for(const groupId of Object.keys(TAB_GROUPS)){
+      if(TAB_GROUPS[groupId].tabs.some(([id]) => id === tabId)) return groupId;
+    }
+    return "dashboard";
+  }
+
+  function renderSubtabs(activeGroup, activeTab){
+    const holder = document.getElementById("subtabs");
+    if(!holder) return;
+    const group = TAB_GROUPS[activeGroup] || TAB_GROUPS.dashboard;
+    holder.innerHTML = group.tabs.map(([tabId, label]) => {
+      const active = tabId === activeTab ? "active" : "";
+      return `<button class="${active}" data-group="${activeGroup}" data-tab="${tabId}">${label}</button>`;
+    }).join("");
+  }
+
+  function showTab(tabId, preferredGroup){
     document.querySelectorAll(".tab").forEach(function(section){
       section.classList.add("hidden");
       section.style.display = "none";
@@ -1111,17 +1178,22 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
       target.style.display = "";
     }
 
-    document.querySelectorAll("[data-tab]").forEach(function(btn){
+    const activeGroup = groupForTab(tabId, preferredGroup);
+    renderSubtabs(activeGroup, tabId);
+
+    document.querySelectorAll("#tabs button, #subtabs button").forEach(function(btn){
       btn.classList.remove("active");
     });
 
-    const activeBtn = document.querySelector('[data-tab="' + tabId + '"]');
-    if(activeBtn){
-      activeBtn.classList.add("active");
-    }
+    const activeMain = document.querySelector('#tabs [data-main-group="' + activeGroup + '"]');
+    if(activeMain) activeMain.classList.add("active");
+
+    const activeSub = document.querySelector('#subtabs [data-tab="' + tabId + '"]');
+    if(activeSub) activeSub.classList.add("active");
 
     try{
       localStorage.setItem("warroomActiveTab", tabId);
+      localStorage.setItem("warroomActiveGroup", activeGroup);
     }catch(e){}
   }
 
@@ -1130,14 +1202,16 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
       btn.onclick = function(e){
         e.preventDefault();
         const tabId = btn.getAttribute("data-tab");
-        if(tabId) showTab(tabId);
+        const groupId = btn.getAttribute("data-main-group") || btn.getAttribute("data-group") || null;
+        if(tabId) showTab(tabId, groupId);
       };
     });
 
     const saved = localStorage.getItem("warroomActiveTab");
-    const first = document.querySelector("[data-tab]")?.getAttribute("data-tab");
+    const savedGroup = localStorage.getItem("warroomActiveGroup");
+    const first = document.querySelector("#tabs [data-tab]")?.getAttribute("data-tab");
     const start = saved && document.getElementById(saved) ? saved : first;
-    if(start) showTab(start);
+    if(start) showTab(start, savedGroup);
   }
 
   if(document.readyState === "loading"){
@@ -6134,18 +6208,18 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
   let rendering = false;
 
   function norm(s){return String(s||"").toLowerCase().replace(/[’']/g,"").replace(/\./g,"").replace(/[^a-z0-9]+/g," ").trim();}
-  function cleanPos(v){const valid=["HOK","FRF","2RF","HFB","5/8","CTW","FLB"];let raw=Array.isArray(v)?v.flatMap(x=>String(x).split(/[\/,|]/)):String(v||"").split(/[\/,|]/);const out=[];raw.map(x=>x.trim().toUpperCase()).forEach(x=>{if(valid.includes(x)&&!out.includes(x))out.push(x)});return out;}
+  function cleanPos(v){const valid=["HOK","FRF","2RF","HFB","5/8","CTW","FLB"];const out=[];function add(x){const text=String(x||"").toUpperCase();const matches=text.match(/HOK|FRF|2RF|HFB|5\/8|CTW|FLB/g)||[];matches.forEach(p=>{if(valid.includes(p)&&!out.includes(p))out.push(p)})} if(Array.isArray(v))v.forEach(add); else add(v); return out;}
   async function fetchJson(f){try{const r=await fetch(f+"?cb="+Date.now(),{cache:"no-store"});if(r.ok)return await r.json();}catch(e){}return null;}
   function asPlayers(d){return Array.isArray(d)?d:(d&&Array.isArray(d.players)?d.players:[])}
   function asNames(d){if(Array.isArray(d))return d.map(x=>typeof x==="string"?x:x.name).filter(Boolean); if(d&&Array.isArray(d.players))return d.players.map(x=>typeof x==="string"?x:x.name).filter(Boolean); if(d&&Array.isArray(d.team))return d.team.map(x=>typeof x==="string"?x:x.name).filter(Boolean); if(d&&Array.isArray(d.myTeam))return d.myTeam.map(x=>typeof x==="string"?x:x.name).filter(Boolean); return [];}
-  function player(name){return playersDb.find(p=>norm(p.name)===norm(name))}
+  function player(name){const key=norm(name); return playersDb.find(p=>norm(p.name)===key||norm(p.sourceName)===key)}
   function positions(p){if(!p)return[]; const fixed=Object.keys(POS_MASTER).find(k=>norm(k)===norm(p.name)); if(fixed)return POS_MASTER[fixed]; return cleanPos(p.positions||p.eligiblePositions||p.dualPositions||p.pos||p.position)}
   function compatible(p,allowed){if(!p)return true; if(!allowed||!allowed.length)return true; const pos=positions(p); return allowed.some(a=>pos.includes(a))}
   function rowForSlot(slot){return STRUCT.find(r=>[...r.starters,...r.reserves].includes(slot))}
   function isReserveSlot(slot){return STRUCT.some(r=>r.reserves.includes(slot))}
   function isStarterSlot(slot){return STRUCT.some(r=>r.starters.includes(slot))}
   function scoreMap(){const map=new Map(), level3=document.getElementById("level3"); if(level3){level3.querySelectorAll("tbody tr").forEach(row=>{const c=row.querySelectorAll("td"); if(c.length>=6){const n=String(c[1]?.textContent||"").trim(); const e=Number(String(c[5]?.textContent||"").trim()); if(n&&Number.isFinite(e))map.set(n.toLowerCase(),e)}})} return map;}
-  function level3Score(p,map){if(!p)return 0; const m=map.get(String(p.name||"").toLowerCase()); if(m!==undefined)return Number(m); try{if(typeof level3Projection==="function"){const r=level3Projection(p); if(r&&r.expected!==undefined)return Number(r.expected)}}catch(e){} return Number(p.proj||p.avg||0)}
+  function level3Score(p,map){if(!p)return 0; try{const fn=window.calculateLevel3Projection||window.level3Projection; if(typeof fn==="function"){const r=fn(p,{round:selectedRound}); const val=Number(r?.roundExpected ?? r?.expected ?? r?.projection ?? r?.score); if(Number.isFinite(val))return val}}catch(e){} const m=map.get(String(p.name||"").toLowerCase()); if(m!==undefined)return Number(m); return Number(p.proj||p.avg||0)}
   function price(p){return Number(p?.price||p?.value||0)}
   function be(p){return p?.breakeven??p?.be??"-"}
   function byeRounds(p){const b=p&&p.bye; if(Array.isArray(b))return b.map(Number).filter(Number.isFinite); if(typeof b==="number")return[b]; if(typeof b==="string")return b.split(/[,\s]+/).map(Number).filter(Number.isFinite); return []}
@@ -6202,7 +6276,7 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
     [slotMap[a],slotMap[b]]=[slotMap[b],slotMap[a]];
     saveSlots(); render();
   }
-  function options(selected,row,map){return `<option value="">-- select player --</option>`+playersDb.filter(p=>compatible(p,row.allowed)).map(p=>`<option value="${String(p.name||"").replace(/"/g,"&quot;")}" ${p.name===selected?"selected":""}>${p.name} | ${positions(p).join("/")} | ${p.team||""} | L3 ${level3Score(p,map)}</option>`).join("")}
+  function options(selected,row,map){const selectedKey=norm(selected);return `<option value="">-- select player --</option>`+playersDb.filter(p=>compatible(p,row.allowed)).map(p=>`<option value="${String(p.name||"").replace(/"/g,"&quot;")}" ${norm(p.name)===selectedKey||norm(p.sourceName)===selectedKey?"selected":""}>${p.name} | ${positions(p).join("/")} | ${p.team||""} | L3 ${level3Score(p,map)}</option>`).join("")}
   function activeReserves(map){return ALL_SLOTS.filter(isReserveSlot).map(s=>player(slotMap[s])).filter(Boolean).filter(available).sort((a,b)=>level3Score(b,map)-level3Score(a,map)).slice(0,4)}
   function total(map){const starters=ALL_SLOTS.filter(isStarterSlot).map(s=>player(slotMap[s])).filter(Boolean).filter(available); return Math.round([...starters,...activeReserves(map)].reduce((sum,p)=>sum+level3Score(p,map),0))}
   function card(slot,row,map,activeNames){
@@ -6341,17 +6415,15 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
 
   function cleanPos(v){
     const valid = ["HOK","FRF","2RF","HFB","5/8","CTW","FLB"];
-    let raw = [];
-    if(Array.isArray(v)) raw = v;
-    else raw = String(v || "").split(/[\/,|]/);
-
     const out = [];
-    raw.map(x => String(x).trim().toUpperCase()).forEach(x => {
-      if(valid.includes(x) && !out.includes(x)) out.push(x);
-    });
+    function add(value){
+      const matches = String(value || "").toUpperCase().match(/HOK|FRF|2RF|HFB|5\/8|CTW|FLB/g) || [];
+      matches.forEach(x => { if(valid.includes(x) && !out.includes(x)) out.push(x); });
+    }
+    if(Array.isArray(v)) v.forEach(add);
+    else add(v);
     return out;
   }
-
   function seedMaster(){
     positionMaster = {};
     Object.keys(FALLBACK_POSITIONS).forEach(name => {
@@ -10367,65 +10439,182 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
   }
 
   function stableBaseline(p){
-    // PRICE IS DELIBERATELY NOT USED. Do not add it back.
-    const manual = firstPositive(p,["manualProjection","projectionOverride"]);
-    const proj = listedProj(p);
     const avg = seasonAvg(p);
     const g3 = weightedRecentFromGames(p,3) || last3(p);
     const g5 = weightedRecentFromGames(p,5) || last5(p);
 
-    if(manual) return {base: manual, source:"manual override", manual:true};
+    const definitions = [
+      {field:"avg", value:avg, weight:0.45},
+      {field:"last3Avg", value:g3, weight:0.30},
+      {field:"last5Avg", value:g5, weight:0.25}
+    ];
+    const parts = definitions.filter(x => x.value);
 
-    const parts = [];
-    if(proj) parts.push({label:"projection", value:proj, weight:0.46});
-    if(avg) parts.push({label:"season avg", value:avg, weight:0.34});
-    if(g3) parts.push({label:"valid last 3", value:g3, weight:0.12});
-    if(g5) parts.push({label:"valid last 5", value:g5, weight:0.08});
-
-    if(!parts.length) return {base:0, source:"no scoring data", manual:false};
-
-    const totalW = parts.reduce((s,x)=>s+x.weight,0);
-    let base = parts.reduce((s,x)=>s+x.value*x.weight,0) / totalW;
-
-    // Do not let missing/dirty recent form crush known gun players.
-    const stableHigh = Math.max(proj || 0, avg || 0);
-    if(stableHigh >= 68) base = Math.max(base, stableHigh - 5);
-    else if(stableHigh >= 60) base = Math.max(base, stableHigh - 7);
-
-    // Recent form may move the needle, but it cannot hijack the model.
-    const recent = g3 || g5 || 0;
-    if(recent && stableHigh){
-      const cappedDelta = clamp(recent - stableHigh, -8, 8);
-      base = (base * 0.88) + ((stableHigh + cappedDelta) * 0.12);
+    if(!parts.length){
+      return {
+        base:0,
+        source:"no scoring data",
+        parts:[],
+        weightsRenormalized:false,
+        inputs:definitions.map(x => ({field:x.field, value:x.value || 0, originalWeight:x.weight, effectiveWeight:0, contribution:0}))
+      };
     }
 
-    return {base, source:parts.map(x => `${x.label} ${Math.round(x.value)}`).join(", "), manual:false};
+    const totalW = parts.reduce((s,x)=>s+x.weight,0);
+    const base = parts.reduce((s,x)=>s+x.value*x.weight,0) / totalW;
+    const weightsRenormalized = Math.abs(totalW - 1) > 0.0001;
+    const inputs = definitions.map(x => {
+      const effectiveWeight = x.value ? x.weight / totalW : 0;
+      return {
+        field:x.field,
+        value:x.value || 0,
+        originalWeight:x.weight,
+        effectiveWeight,
+        contribution:(x.value || 0) * effectiveWeight
+      };
+    });
+
+    return {
+      base,
+      source:inputs.filter(x => x.effectiveWeight > 0).map(x => `${x.field.replace("Avg","")} ${Math.round(x.value)} @ ${Math.round(x.effectiveWeight*100)}%`).join(", "),
+      parts,
+      weightsRenormalized,
+      inputs
+    };
+  }
+
+  function playerGroup(p){
+    const pos = posOf(p);
+    if(pos.includes("FRF") || pos.includes("2RF") || pos.includes("HOK") || pos.includes("LOCK")) return "forward";
+    if(pos.includes("HFB") || pos.includes("5/8")) return "half";
+    if(pos.includes("FLB") || pos.includes("CTW")) return "outside";
+    return "other";
+  }
+
+  function positionGroupLabel(group){
+    if(group === "forward") return "FRF / 2RF / HOK";
+    if(group === "half") return "HFB / 5/8";
+    if(group === "outside") return "FLB / CTW";
+    return "other";
+  }
+
+  function minutesFormula(group){
+    if(group === "forward") return "clamp((expectedMinutes - 65) * 0.20, -8, +5)";
+    if(group === "half") return "clamp((expectedMinutes - 75) * 0.10, -6, +3)";
+    if(group === "outside") return "clamp((expectedMinutes - 75) * 0.08, -8, +2)";
+    return "0";
+  }
+
+  function minutesAdjustment(p){
+    const mins = minutes(p);
+    const group = playerGroup(p);
+    if(!mins) return {adj:0, note:"minutes missing/neutral", expectedMinutes:0, positionGroup:group, formula:minutesFormula(group)};
+    if(group === "forward") return {adj:clamp((mins - 65) * 0.20, -8, 5), note:`forward/HOK minutes ${mins}`, expectedMinutes:mins, positionGroup:group, formula:minutesFormula(group)};
+    if(group === "half") return {adj:clamp((mins - 75) * 0.10, -6, 3), note:`half minutes ${mins}`, expectedMinutes:mins, positionGroup:group, formula:minutesFormula(group)};
+    if(group === "outside") return {adj:clamp((mins - 75) * 0.08, -8, 2), note:`outside-back minutes ${mins}`, expectedMinutes:mins, positionGroup:group, formula:minutesFormula(group)};
+    return {adj:0, note:"position minutes neutral", expectedMinutes:mins, positionGroup:group, formula:minutesFormula(group)};
+  }
+
+  function ppmAdjustment(p, baseline){
+    const ppm = firstPositive(p,["ppm","pointsPerMinute"]);
+    const mins = minutes(p);
+    const group = playerGroup(p);
+    const ppmProjection = ppm && mins ? ppm * mins : 0;
+    const ppmDelta = ppmProjection - baseline;
+    let ignoredReason = null;
+
+    if(!ppm) ignoredReason = "PPM missing";
+    else if(ppm < 0.25 || ppm > 1.80) ignoredReason = "PPM outside valid range 0.25-1.80";
+    else if(!mins) ignoredReason = "expectedMinutes missing";
+    else if(mins < 30) ignoredReason = "expectedMinutes below 30";
+
+    if(ignoredReason){
+      return {adj:0, ppm, ppmProjection:0, ppmDelta:0, valid:false, ignoredReason, positionRule:"ignored", reducedForLowMinutes:false, note:`PPM ignored: ${ignoredReason}`};
+    }
+
+    let adj = 0;
+    let positionRule = "outside backs: 0 for now";
+
+    if(group === "forward"){
+      adj = clamp(ppmDelta * 0.15, -4, 4);
+      positionRule = "FRF / 2RF / HOK: clamp(ppmDelta * 0.15, -4, +4)";
+    }
+    else if(group === "half"){
+      adj = clamp(ppmDelta * 0.05, -2, 2);
+      positionRule = "HFB / 5/8: clamp(ppmDelta * 0.05, -2, +2)";
+    }
+
+    const reducedForLowMinutes = mins < 45;
+    if(reducedForLowMinutes) adj *= 0.5;
+
+    return {
+      adj,
+      ppm,
+      ppmProjection,
+      ppmDelta,
+      valid:true,
+      ignoredReason: group === "outside" ? "outside backs disabled for PPM adjustment" : null,
+      positionRule,
+      reducedForLowMinutes,
+      note: group === "outside" ? "PPM ignored for outside backs" : `PPM projection ${Math.round(ppmProjection)}`
+    };
+  }
+
+  function goalKickerAdjustment(p){
+    return {adj:0, status:"unknown", source:null, note:"No verified sourced goal-kicker data."};
+  }
+
+  function applyEliteGuardrails(p, raw){
+    const avg = seasonAvg(p);
+    const mins = minutes(p);
+    const group = playerGroup(p);
+    let guarded = raw;
+    const notes = [];
+    const guardrails = [];
+
+    function addGuardrail(name, checked, minimum){
+      const before = guarded;
+      let applied = false;
+      if(checked && minimum !== null && guarded < minimum){
+        guarded = minimum;
+        applied = true;
+        notes.push(`${name} ${Math.round(minimum)}`);
+      }
+      guardrails.push({name, checked, applied, minimum, before, after:guarded});
+    }
+
+    addGuardrail("avg >= 70 and expectedMinutes >= 60", avg >= 70 && mins >= 60, avg >= 70 && mins >= 60 ? avg - 5 : null);
+    addGuardrail("elite forward/HOK guardrail", group === "forward" && avg >= 70 && mins >= 60, group === "forward" && avg >= 70 && mins >= 60 ? avg - 3 : null);
+    addGuardrail("avg >= 85 and expectedMinutes >= 75", avg >= 85 && mins >= 75, avg >= 85 && mins >= 75 ? avg - 7 : null);
+
+    return {score:guarded, notes, guardrails};
   }
 
   function roleAdj(p){
-    const pos = posOf(p);
-    const mins = minutes(p);
-    const noteBits = [];
-    let adj = 0;
-    const forward = pos.includes("FRF") || pos.includes("2RF") || pos.includes("HOK") || pos.includes("LOCK");
-    const half = pos.includes("HFB") || pos.includes("5/8");
-    const outside = pos.includes("FLB") || pos.includes("CTW");
-    const role = lower(p?.role || p?.roleSecurity || p?.notes || "");
-
-    if(forward && (seasonAvg(p) >= 60 || listedProj(p) >= 60)){ adj += 3; noteBits.push("stable forward base"); }
-    if(mins >= 75 && forward){ adj += 3; noteBits.push("big minutes"); }
-    else if(mins && mins < 45){ adj -= 7; noteBits.push("low minutes risk"); }
-    if(half && (p?.dominantHalf === true || lower(p?.dominantHalf).includes("yes") || lower(p?.primaryPlaymaker).includes("yes"))){ adj += 3; noteBits.push("dominant half"); }
-    if(p?.goalKicker === true || lower(p?.goalKicker).includes("yes") || lower(p?.kickingGoals).includes("yes")){ adj += 4; noteBits.push("goal kicker"); }
-    if(role.includes("bench")){ adj -= 9; noteBits.push("bench role"); }
-    if(role.includes("utility")){ adj -= 5; noteBits.push("utility risk"); }
-    if(role.includes("80") || role.includes("eighty")){ adj += 3; noteBits.push("80-minute role"); }
-    if(outside && role.includes("elite")){ adj += 2; noteBits.push("outside-back upside"); }
-
-    return {adj:clamp(adj,-12,10), note:noteBits.join(", ") || "neutral role"};
+    const base = stableBaseline(p).base;
+    const mins = minutesAdjustment(p);
+    const ppm = ppmAdjustment(p, base);
+    const goal = goalKickerAdjustment(p);
+    const adj = mins.adj + ppm.adj + goal.adj;
+    const notes = [mins.note, ppm.note, goal.note].filter(Boolean);
+    return {
+      adj,
+      note:notes.join(", ") || "neutral role",
+      minutesAdjustment:mins.adj,
+      minutes:mins,
+      ppmAdjustment:ppm.adj,
+      ppm:ppm.ppm,
+      ppmProjection:ppm.ppmProjection,
+      ppmDelta:ppm.ppmDelta,
+      ppmDetail:ppm,
+      goalKickerAdjustment:goal.adj,
+      goalKicker:goal
+    };
   }
 
-  function weatherAdj(p){
+  
+
+function weatherAdj(p){
     try{
       if(typeof window.findWeatherMatchForTeam === "function" && typeof window.numericWeatherAdjustment === "function"){
         const match = window.findWeatherMatchForTeam(upper(p?.team || p?.club));
@@ -10461,21 +10650,23 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
   }
 
   function calculateStableLevel3(p, options={}){
-    if(!p) return {player:null, name:"", expected:0, projection:0, realisticExpected:0, floor:0, ceiling:0, base:0, confidence:"Low", missing:["player"], reason:["No player supplied"]};
+    if(!p) return {player:null, name:"", expected:0, rawExpected:0, roundExpected:0, projection:0, realisticExpected:0, floor:0, ceiling:0, base:0, confidence:"Low", missing:["player"], reason:["No player supplied"]};
     const round = N(options.round, getCurrentRound());
     const baseInfo = stableBaseline(p);
     const role = roleAdj(p);
     const weather = options.disableWeather ? {adj:0,note:"weather disabled"} : weatherAdj(p);
     const avail = availabilityInfo(p, round);
     const vol = volatility(p);
-    const rawExpected = baseInfo.base + role.adj + weather.adj + avail.adj;
-    const expected = Math.round(clamp(rawExpected, 0, 125));
-    const high = highScore(p);
-    const floor = Math.round(clamp(expected - vol, 0, expected));
-    const ceiling = high ? Math.round(clamp(expected*0.70 + high*0.30, expected+4, 140)) : Math.round(clamp(expected + vol + 8, expected+4, 140));
+
+    const rawBeforeGuardrails = baseInfo.base + role.adj + weather.adj;
+    const guarded = applyEliteGuardrails(p, rawBeforeGuardrails);
+    const rawExpected = Math.round(clamp(guarded.score, 0, 130));
+    const unavailable = !avail.available;
+    const roundExpected = unavailable ? 0 : rawExpected;
+    const floor = unavailable ? 0 : Math.round(clamp(rawExpected - vol, 0, rawExpected));
+    const ceiling = unavailable ? 0 : Math.round(clamp(rawExpected + vol, rawExpected, 140));
 
     const missing = [];
-    if(!listedProj(p)) missing.push("projection");
     if(!seasonAvg(p)) missing.push("season average");
     if(!last3(p) && !weightedRecentFromGames(p,3)) missing.push("valid last 3");
     if(!last5(p) && !weightedRecentFromGames(p,5)) missing.push("valid last 5");
@@ -10487,7 +10678,75 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
     if(missing.length >= 5) confidence = "Low";
     else if(missing.length >= 2 || avail.label !== "AVAILABLE") confidence = "Medium";
 
-    const verdict = !avail.available ? avail.label : expected >= 80 ? "Strong C/VC" : expected >= 70 ? "VC option" : expected >= 60 ? "Playable" : "Risky";
+    const verdict = !avail.available ? avail.label : roundExpected >= 80 ? "Strong C/VC" : roundExpected >= 70 ? "VC option" : roundExpected >= 60 ? "Playable" : "Risky";
+    const guardrailNote = guarded.notes.length ? `Guardrails: ${guarded.notes.join(", ")}` : "Guardrails: none";
+    const group = playerGroup(p);
+    const groupLabel = positionGroupLabel(group);
+    const breakdown = {
+      mainOutputs:{
+        rawExpected,
+        roundExpected,
+        floor,
+        ceiling,
+        availability:avail.label
+      },
+      baseline:{
+        total:+baseInfo.base.toFixed(2),
+        weightsRenormalized:!!baseInfo.weightsRenormalized,
+        inputs:(baseInfo.inputs || []).map(x => ({
+          field:x.field,
+          value:x.value,
+          originalWeight:+x.originalWeight.toFixed(2),
+          effectiveWeight:+x.effectiveWeight.toFixed(4),
+          contribution:+x.contribution.toFixed(2)
+        }))
+      },
+      minutes:{
+        expectedMinutes:role.minutes.expectedMinutes,
+        positionGroup:groupLabel,
+        formula:role.minutes.formula,
+        adjustment:+role.minutesAdjustment.toFixed(2)
+      },
+      ppm:{
+        value:role.ppm,
+        valid:!!role.ppmDetail.valid,
+        ignoredReason:role.ppmDetail.ignoredReason,
+        projection:+N(role.ppmProjection,0).toFixed(2),
+        delta:+N(role.ppmDelta,0).toFixed(2),
+        positionRule:role.ppmDetail.positionRule,
+        reducedForLowMinutes:!!role.ppmDetail.reducedForLowMinutes,
+        adjustment:+role.ppmAdjustment.toFixed(2)
+      },
+      goalKicker:{
+        adjustment:role.goalKickerAdjustment,
+        status:role.goalKicker.status,
+        source:role.goalKicker.source,
+        note:"No verified sourced goal-kicker data."
+      },
+      guardrails:guarded.guardrails.map(x => ({
+        name:x.name,
+        checked:!!x.checked,
+        applied:!!x.applied,
+        minimum:x.minimum === null ? null : +x.minimum.toFixed(2),
+        before:+x.before.toFixed(2),
+        after:+x.after.toFixed(2)
+      })),
+      availability:{
+        status:avail.label,
+        rawExpectedPreserved:true,
+        roundExpected,
+        floor,
+        ceiling,
+        note:unavailable ? `${avail.label}: roundExpected = 0, floor = 0, ceiling = 0` : "roundExpected = rawExpected"
+      },
+      volatility:{
+        source:"position fallback",
+        positionGroup:groupLabel,
+        value:vol,
+        floorCalculation:unavailable ? "unavailable: floor = 0" : `${rawExpected} - ${vol} = ${floor}`,
+        ceilingCalculation:unavailable ? "unavailable: ceiling = 0" : `${rawExpected} + ${vol} = ${ceiling}`
+      }
+    };
 
     return {
       player:p,
@@ -10495,28 +10754,46 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
       pos:posOf(p),
       team:upper(p.team || p.club),
       round,
-      expected,
-      projection:expected,
-      realisticExpected:expected,
-      finalExpected:expected,
-      score:expected,
+      expected:roundExpected,
+      rawExpected,
+      roundExpected,
+      projection:roundExpected,
+      realisticExpected:roundExpected,
+      finalExpected:roundExpected,
+      score:roundExpected,
       base:Math.round(baseInfo.base),
+      baseline:+baseInfo.base.toFixed(2),
+      rawBeforeGuardrails:+rawBeforeGuardrails.toFixed(2),
       floor,
       ceiling,
+      volatility:vol,
       confidence,
       confidenceScore: confidence === "High" ? 85 : confidence === "Medium" ? 65 : 42,
       available:avail.available,
       availability:avail.label,
       missing,
-      role:{adjustment:role.adj, note:role.note},
+      role:{
+        adjustment:+role.adj.toFixed(2),
+        note:role.note,
+        minutesAdjustment:+role.minutesAdjustment.toFixed(2),
+        ppmAdjustment:+role.ppmAdjustment.toFixed(2),
+        ppm:role.ppm,
+        ppmProjection:+N(role.ppmProjection,0).toFixed(2),
+        ppmDelta:+N(role.ppmDelta,0).toFixed(2),
+        goalKickerAdjustment:role.goalKickerAdjustment
+      },
       weather:{adjustment:weather.adj, note:weather.note, text:weather.note},
-      adjustments:{role:role.adj, weather:weather.adj, availability:avail.adj},
+      adjustments:{role:+role.adj.toFixed(2), weather:weather.adj, availability:0, minutes:+role.minutesAdjustment.toFixed(2), ppm:+role.ppmAdjustment.toFixed(2), goalKicker:role.goalKickerAdjustment},
+      breakdown,
       reason:[
-        `Base ${Math.round(baseInfo.base)} from ${baseInfo.source}`,
-        `Role ${role.adj >= 0 ? "+" : ""}${role.adj}: ${role.note}`,
+        `Baseline ${Math.round(baseInfo.base)} from ${baseInfo.source}`,
+        `Minutes ${role.minutesAdjustment >= 0 ? "+" : ""}${role.minutesAdjustment.toFixed(2)}`,
+        `PPM ${role.ppmAdjustment >= 0 ? "+" : ""}${role.ppmAdjustment.toFixed(2)} (${role.ppm ? "ppm " + role.ppm : "no valid ppm"})`,
+        "Goal kicking +0: not sourced",
         `Weather ${weather.adj >= 0 ? "+" : ""}${weather.adj}: ${weather.note}`,
+        guardrailNote,
         `Availability: ${avail.label} - ${avail.note}`,
-        "Price ignored completely"
+        "BE ignored for scoring projection"
       ],
       verdict
     };
@@ -10586,14 +10863,127 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
   window.getFiveGameProjectedScore = function(player, options={}){ return window.calculateFiveGameProjection(player, options).average; };
   window.getNextFiveProjectedScore = window.getFiveGameProjectedScore;
 
+  window.level3BreakdownCache = window.level3BreakdownCache || {};
+
+  function escapeHtml(value){
+    return String(value ?? "")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#39;");
+  }
+
+  function signed(value){
+    const n = N(value,0);
+    return `${n >= 0 ? "+" : ""}${Math.round(n * 100) / 100}`;
+  }
+
+  function fmt(value){
+    const n = Number(value);
+    if(Number.isFinite(n)) return String(Math.round(n * 100) / 100);
+    return value === null || value === undefined || value === "" ? "-" : escapeHtml(value);
+  }
+
+  function pct(value){
+    const n = Number(value);
+    return Number.isFinite(n) ? `${Math.round(n * 100)}%` : "-";
+  }
+
+  function breakdownDomId(prefix, name, index){
+    return `${prefix}_${index}_${String(name || "player").toLowerCase().replace(/[^a-z0-9]+/g,"_")}`;
+  }
+
+  function cacheLevel3Breakdown(id, result){
+    window.level3BreakdownCache[id] = result;
+    return id;
+  }
+
+  function renderLevel3BreakdownHtml(result){
+    const b = result && result.breakdown;
+    if(!b) return `<p class="muted">No breakdown available for this player.</p>`;
+
+    const baselineRows = (b.baseline?.inputs || []).map(x => `
+      <tr><td>${escapeHtml(x.field)}</td><td>${fmt(x.value)}</td><td>${pct(x.effectiveWeight)}</td><td>${fmt(x.contribution)}</td></tr>
+    `).join("");
+
+    const guardRows = (b.guardrails || []).map(g => `
+      <tr><td>${escapeHtml(g.name)}</td><td>${g.checked ? "yes" : "no"}</td><td>${g.applied ? "yes" : "no"}</td><td>${fmt(g.minimum)}</td><td>${fmt(g.before)}</td><td>${fmt(g.after)}</td></tr>
+    `).join("");
+
+    const ppmStatus = b.ppm?.valid ? "valid" : `ignored${b.ppm?.ignoredReason ? ": " + escapeHtml(b.ppm.ignoredReason) : ""}`;
+    const lowMinuteNote = b.ppm?.reducedForLowMinutes ? `<div class="mini warn">PPM influence reduced because expectedMinutes &lt; 45.</div>` : "";
+
+    return `
+      <div class="event level3BreakdownPanel">
+        <h3>Projection breakdown: ${escapeHtml(result.name || "Player")}</h3>
+        <div class="grid">
+          <div class="card span3"><h3>Main outputs</h3><table><tbody>
+            <tr><td>rawExpected</td><td><b>${fmt(b.mainOutputs?.rawExpected)}</b></td></tr>
+            <tr><td>roundExpected</td><td><b>${fmt(b.mainOutputs?.roundExpected)}</b></td></tr>
+            <tr><td>floor</td><td>${fmt(b.mainOutputs?.floor)}</td></tr>
+            <tr><td>ceiling</td><td>${fmt(b.mainOutputs?.ceiling)}</td></tr>
+            <tr><td>availability</td><td>${escapeHtml(b.mainOutputs?.availability)}</td></tr>
+          </tbody></table></div>
+          <div class="card span4"><h3>Baseline</h3><table><thead><tr><th>Input</th><th>Value</th><th>Weight</th><th>Contribution</th></tr></thead><tbody>${baselineRows}</tbody></table><p class="mini">Total: <b>${fmt(b.baseline?.total)}</b>${b.baseline?.weightsRenormalized ? " | weights re-normalized" : ""}</p></div>
+          <div class="card span5"><h3>Minutes + PPM</h3><table><tbody>
+            <tr><td>expectedMinutes</td><td>${fmt(b.minutes?.expectedMinutes)}</td></tr>
+            <tr><td>position group</td><td>${escapeHtml(b.minutes?.positionGroup)}</td></tr>
+            <tr><td>minutes formula</td><td>${escapeHtml(b.minutes?.formula)}</td></tr>
+            <tr><td>minutes adjustment</td><td>${signed(b.minutes?.adjustment)}</td></tr>
+            <tr><td>ppm</td><td>${fmt(b.ppm?.value)} (${ppmStatus})</td></tr>
+            <tr><td>ppmProjection</td><td>${fmt(b.ppm?.projection)}</td></tr>
+            <tr><td>ppmDelta</td><td>${signed(b.ppm?.delta)}</td></tr>
+            <tr><td>PPM rule</td><td>${escapeHtml(b.ppm?.positionRule)}</td></tr>
+            <tr><td>ppm adjustment</td><td>${signed(b.ppm?.adjustment)}</td></tr>
+          </tbody></table>${lowMinuteNote}</div>
+          <div class="card span4"><h3>Goal kicking</h3><table><tbody>
+            <tr><td>adjustment</td><td>${signed(b.goalKicker?.adjustment)}</td></tr>
+            <tr><td>status</td><td>${escapeHtml(b.goalKicker?.status)}</td></tr>
+            <tr><td>note</td><td>${escapeHtml(b.goalKicker?.note)}</td></tr>
+          </tbody></table></div>
+          <div class="card span4"><h3>Availability</h3><table><tbody>
+            <tr><td>status</td><td>${escapeHtml(b.availability?.status)}</td></tr>
+            <tr><td>raw preserved</td><td>${b.availability?.rawExpectedPreserved ? "yes" : "no"}</td></tr>
+            <tr><td>roundExpected</td><td>${fmt(b.availability?.roundExpected)}</td></tr>
+            <tr><td>floor</td><td>${fmt(b.availability?.floor)}</td></tr>
+            <tr><td>ceiling</td><td>${fmt(b.availability?.ceiling)}</td></tr>
+            <tr><td>note</td><td>${escapeHtml(b.availability?.note)}</td></tr>
+          </tbody></table></div>
+          <div class="card span4"><h3>Volatility</h3><table><tbody>
+            <tr><td>source</td><td>${escapeHtml(b.volatility?.source)}</td></tr>
+            <tr><td>group</td><td>${escapeHtml(b.volatility?.positionGroup)}</td></tr>
+            <tr><td>value</td><td>${fmt(b.volatility?.value)}</td></tr>
+            <tr><td>floor calc</td><td>${escapeHtml(b.volatility?.floorCalculation)}</td></tr>
+            <tr><td>ceiling calc</td><td>${escapeHtml(b.volatility?.ceilingCalculation)}</td></tr>
+          </tbody></table></div>
+          <div class="card span12"><h3>Guardrails</h3><table><thead><tr><th>Name</th><th>Checked</th><th>Applied</th><th>Minimum</th><th>Before</th><th>After</th></tr></thead><tbody>${guardRows}</tbody></table></div>
+        </div>
+      </div>`;
+  }
+
+  window.toggleLevel3Breakdown = function(id){
+    const row = document.getElementById(id);
+    if(!row) return;
+    const wasHidden = row.classList.contains("hidden");
+    document.querySelectorAll(".level3BreakdownRow").forEach(el => el.classList.add("hidden"));
+    if(!wasHidden) return;
+    const target = row.querySelector(".level3BreakdownMount");
+    if(target && !target.innerHTML){
+      target.innerHTML = renderLevel3BreakdownHtml(window.level3BreakdownCache[id]);
+    }
+    row.classList.remove("hidden");
+  };
+
   window.renderTeam = function(){
     const tbody = document.getElementById("myTeamTable");
     if(!tbody) return;
-    tbody.innerHTML = window.teamPlayers().map(p => {
+    tbody.innerHTML = window.teamPlayers().map((p, i) => {
       const l3 = calculateStableLevel3(p);
+      const id = cacheLevel3Breakdown(breakdownDomId("team_l3", p.name, i), l3);
       const own = p.ownership ? p.ownership + "%" : "<span class='warn'>Needs data</span>";
       const bye = byeRounds(p).length ? byeRounds(p).join(",") : "<span class='warn'>Needs data</span>";
-      return `<tr><td>${p.name}</td><td>${p.pos || l3.pos}</td><td>${p.team || l3.team}</td><td><b>${l3.expected}</b><br><span class="mini">${l3.floor}-${l3.ceiling}</span></td><td>${own}</td><td>${bye}</td><td><span class="pill ${l3.available ? (l3.availability === "AVAILABLE" ? "good" : "warn") : "bad"}">${l3.availability}</span></td><td><button onclick="removeTeam('${String(p.name).replace(/'/g,"\\'")}')">Remove</button></td></tr>`;
+      return `<tr><td>${p.name}</td><td>${p.pos || l3.pos}</td><td>${p.team || l3.team}</td><td><b>${l3.expected}</b> <button class="mini" onclick="toggleLevel3Breakdown('${id}')">Why?</button><br><span class="mini">${l3.floor}-${l3.ceiling}</span></td><td>${own}</td><td>${bye}</td><td><span class="pill ${l3.available ? (l3.availability === "AVAILABLE" ? "good" : "warn") : "bad"}">${l3.availability}</span></td><td><button onclick="removeTeam('${String(p.name).replace(/'/g,"\\'")}')">Remove</button></td></tr><tr id="${id}" class="hidden level3BreakdownRow"><td colspan="8"><div class="level3BreakdownMount"></div></td></tr>`;
     }).join("") || `<tr><td colspan="8" class="muted">No players added.</td></tr>`;
   };
 
@@ -10601,32 +10991,75 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
     const p = typeof parModel === "function" ? parModel() : {top1k:[1200],top5k:[1150]};
     const proj = window.projection();
     const team = window.teamPlayers();
-    const avail = team.filter(x => availabilityInfo(x).available).length;
-    const possible = team.filter(x => availabilityInfo(x).availability !== "BYE" && availabilityInfo(x).availability !== "OUT").length;
+    const levelRows = team.map(x => calculateStableLevel3(x));
+    const availableRows = levelRows.filter(x => x.available);
+    const avail = availableRows.length;
+    const possible = levelRows.filter(x => x.availability !== "BYE" && x.availability !== "OUT").length;
+    const byeCount = levelRows.filter(x => x.availability === "BYE").length;
+    const outCount = levelRows.filter(x => x.availability === "OUT").length;
+    const risky = levelRows.filter(x => x.availability !== "AVAILABLE").length;
     const yourProjection = document.getElementById("yourProjection");
     const field = document.getElementById("fieldThisRound");
     const fieldTxt = document.getElementById("fieldThisRoundText");
+    const rangeEl = document.getElementById("dashboardProjectionRange");
+    const captainEl = document.getElementById("dashboardBestCaptain");
+    const captainText = document.getElementById("dashboardBestCaptainText");
+    const actionsEl = document.getElementById("dashboardActionList");
+    const alertsEl = document.getElementById("dashboardAlerts");
+
     if(yourProjection) yourProjection.textContent = proj;
     if(field) field.textContent = `${avail} / ${possible}`;
-    if(fieldTxt) fieldTxt.textContent = "Likely / possible available players. Projection uses stable Level 3, not price.";
+    if(fieldTxt) fieldTxt.textContent = `${byeCount} bye | ${outCount} out/unavailable`;
+
+    const best17 = typeof window.getBest17Level3 === "function" ? window.getBest17Level3(team) : [];
+    if(rangeEl && best17.length){
+      const low = best17.reduce((s,row)=>s + N(row.level3?.floor ?? row.player?.floor,0),0);
+      const high = best17.reduce((s,row)=>s + N(row.level3?.ceiling ?? row.player?.ceiling,0),0);
+      rangeEl.textContent = `Best 17 range ${Math.round(low)}-${Math.round(high)} before captain extra.`;
+    }else if(rangeEl){
+      rangeEl.textContent = "Best 17 + captain estimate.";
+    }
+
+    const captainRows = availableRows.slice().sort((a,b)=>b.rawExpected-a.rawExpected);
+    if(captainEl) captainEl.textContent = captainRows[0]?.name || "-";
+    if(captainText){
+      captainText.textContent = captainRows[0] ? `${captainRows[0].roundExpected} projected | ${captainRows[0].confidence} confidence` : "Captain option appears after team loads.";
+    }
+
     let v="Needs Team", cls="bad", txt="Add your team.";
     if(team.length){
-      if(avail < 17){ v="Field 17 Danger"; cls="bad"; txt=`You have only ${avail} available. The baseline is protected, but unavailable players do not count this round.`; }
-      else if(proj >= p.top1k[0]){ v="Top 1000 Attack"; cls="good"; txt="Projection is inside Top 1000 par band."; }
-      else if(proj >= p.top5k[0]){ v="Around Good Par"; cls="warn"; txt="Close, but captain/trade edge matters."; }
-      else { v="Behind Par"; cls="bad"; txt="Projection is weak. Fix trades/captaincy."; }
+      if(avail < 17){ v="Trade Needed"; cls="bad"; txt=`Only ${avail} available. Fix byes/unavailable players first.`; }
+      else if(risky > 0){ v="Watch"; cls="warn"; txt=`${risky} bye/out/risk player(s). Check team lists before trading.`; }
+      else if(proj >= p.top1k[0]){ v="None"; cls="good"; txt="Strong projection. Focus on captaincy."; }
+      else if(proj >= p.top5k[0]){ v="Watch"; cls="warn"; txt="Close to par. Look for captain/trade edge."; }
+      else { v="Trade Watch"; cls="warn"; txt="Projection trails par. Check trade options."; }
     }
     const main = document.getElementById("mainVerdict");
     const mainText = document.getElementById("mainVerdictText");
     if(main){ main.textContent = v; main.className = `metric ${cls}`; }
     if(mainText) mainText.textContent = txt;
+
+    const alerts = [];
+    if(byeCount) alerts.push(`<span class="pill warn">${byeCount} on bye</span>`);
+    if(outCount) alerts.push(`<span class="pill bad">${outCount} out</span>`);
+    if(avail && avail < 17) alerts.push(`<span class="pill bad">Short ${17-avail} player(s)</span>`);
+    if(risky && avail >= 17) alerts.push(`<span class="pill warn">${risky} availability flag(s)</span>`);
+    if(alertsEl) alertsEl.innerHTML = alerts.length ? alerts.join(" ") : `<span class="pill good">No urgent alerts</span>`;
+
+    const actions = [];
+    if(!team.length) actions.push("Load your saved team.");
+    else if(avail < 17) actions.push("Prioritise fielding 17 before upside trades.");
+    else actions.push("Review captain and VC setup.");
+    if(team.length) actions.push(best17.length ? "Check top trade/captain edges in grouped tabs." : "Refresh latest data if projections look empty.");
+    if(byeCount) actions.push("Open Bye Planner for affected players.");
+    else if(actions.length < 3) actions.push("Use Trades tab only if it improves points or bye coverage.");
+    if(actionsEl) actionsEl.innerHTML = actions.slice(0,3).map(x=>`<li>${x}</li>`).join("");
+
     const hurt = document.getElementById("hurtList");
     const attack = document.getElementById("attackList");
-    const risky = team.filter(x => calculateStableLevel3(x).availability !== "AVAILABLE").length;
-    if(hurt) hurt.innerHTML = `<tr><td>Field 17</td><td>${avail<17?'<span class="pill bad">Danger</span>':'<span class="pill good">OK</span>'}</td><td>${avail} available.</td></tr><tr><td>Risk</td><td>${risky?'<span class="pill warn">Active</span>':'<span class="pill good">Clean</span>'}</td><td>${risky} risky/bye/out player(s).</td></tr><tr><td>Formula</td><td><span class="pill good">Fixed</span></td><td>Price ignored. Missing recent games do not crush guns.</td></tr>`;
-    if(attack) attack.innerHTML = `<tr><td>1</td><td>${avail<17?"Fix available numbers before chasing upside.":"Run captain and trade checks."}</td></tr><tr><td>2</td><td>Use Level 3 expected/floor/ceiling everywhere.</td></tr><tr><td>3</td><td>Manual override wins when you know the model is wrong.</td></tr>`;
+    if(hurt) hurt.innerHTML = `<tr><td>Field 17</td><td>${avail<17?'<span class="pill bad">Danger</span>':'<span class="pill good">OK</span>'}</td><td>${avail} available.</td></tr><tr><td>Byes</td><td>${byeCount?'<span class="pill warn">Active</span>':'<span class="pill good">Clear</span>'}</td><td>${byeCount} player(s) on bye.</td></tr><tr><td>Unavailable</td><td>${outCount?'<span class="pill bad">Active</span>':'<span class="pill good">Clear</span>'}</td><td>${outCount} out/unavailable.</td></tr>`;
+    if(attack) attack.innerHTML = actions.slice(0,3).map((x,i)=>`<tr><td>${i+1}</td><td>${x}</td></tr>`).join("");
   };
-
   window.renderLevel3ProjectionEngine = function(){
     const el = document.getElementById("level3ProjectionEngine");
     const missBox = document.getElementById("missingDataSummary");
@@ -10645,7 +11078,8 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
     el.innerHTML = `<table><thead><tr><th>#</th><th>Player</th><th>Pos</th><th>Team</th><th>Base</th><th>Expected</th><th>Floor</th><th>Ceiling</th><th>Status</th><th>Confidence</th><th>Why</th><th>Missing</th></tr></thead><tbody>${rows.map((r,i)=>{
       const c = r.confidence === "High" ? "good" : r.confidence === "Medium" ? "warn" : "bad";
       const s = r.available ? (r.availability === "AVAILABLE" ? "good" : "warn") : "bad";
-      return `<tr><td>${i+1}</td><td><b>${r.name}</b></td><td>${r.pos}</td><td>${r.team}</td><td>${r.base}</td><td><b>${r.expected}</b></td><td>${r.floor}</td><td>${r.ceiling}</td><td><span class="pill ${s}">${r.availability}</span></td><td><span class="pill ${c}">${r.confidence}</span></td><td>${r.reason.join("<br>")}</td><td>${r.missing.join(", ") || "none"}</td></tr>`;
+      const id = cacheLevel3Breakdown(breakdownDomId("level3_l3", r.name, i), r);
+      return `<tr><td>${i+1}</td><td><b>${r.name}</b></td><td>${r.pos}</td><td>${r.team}</td><td>${r.base}</td><td><b>${r.expected}</b> <button class="mini" onclick="toggleLevel3Breakdown('${id}')">Why?</button></td><td>${r.floor}</td><td>${r.ceiling}</td><td><span class="pill ${s}">${r.availability}</span></td><td><span class="pill ${c}">${r.confidence}</span></td><td><span class="mini">Expandable breakdown</span></td><td>${r.missing.join(", ") || "none"}</td></tr><tr id="${id}" class="hidden level3BreakdownRow"><td colspan="12"><div class="level3BreakdownMount"></div></td></tr>`;
     }).join("")}</tbody></table>`;
   };
 

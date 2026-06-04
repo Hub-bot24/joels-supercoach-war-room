@@ -1,208 +1,719 @@
 {
-  "updated": "2026-06-03T11:07:19.987552+00:00",
-  "total_players_seen": 359,
-  "positions_from_import": 200,
-  "manual_overrides_applied": 10,
-  "missing_positions": [
-    "Luke Brooks",
-    "Brandon Wakeham",
-    "Nathan Brown",
-    "Jackson Shereb",
-    "Simione Laiafi",
-    "Josh Feledy",
-    "Joey Walsh",
-    "Blake Wilson",
-    "Onitoni Large",
-    "Aaron Schoupp",
-    "Cody Walker",
-    "Lachlan Hubner",
-    "Jamie Humphreys",
-    "Euan Aitken",
-    "Sean Keppie",
-    "Matt Dufty",
-    "Liam Le Blanc",
-    "Moala Graham-Taufa",
-    "Bronson Garlick",
-    "Thomas Fletcher",
-    "Cameron Munster",
-    "Trent Toelau",
-    "Alec MacDonald",
-    "Jack Hetherington",
-    "Josiah Pahulu",
-    "Joe Chan",
-    "Siulagi Tuimalatu-Brown",
-    "Shawn Blore",
-    "Keagan Russell-Smith",
-    "Angus Hinchey",
-    "Fletcher Sharpe",
-    "Harrison Graham",
-    "Tyson Frizell",
-    "Pasami Saulo",
-    "Thomas Cant",
-    "Cody Hopwood",
-    "Francis Manuleleua",
-    "James Schiller",
-    "Kyle McCarthy",
-    "Elijah Salesa-Leaumoana",
-    "Ethan Strange",
-    "Owen Pattie",
-    "Ata Mariota",
-    "Morgan Smithies",
-    "Jed Stuart",
-    "Chevy Stewart",
-    "Joe Roddy",
-    "Coby Black",
-    "Vena Patuki-Case",
-    "Ethan Alaia",
-    "Daly Cherry-Evans",
-    "Connor Watson",
-    "Spencer Leniu",
-    "Nat Butcher",
-    "Salesi Foketi",
-    "Reece Foley",
-    "Egan Butcher",
-    "Benaiah Ioelu",
-    "Tom Rodwell",
-    "Mark Nawaqanitawase",
-    "Liam Sutton",
-    "Soni Luke",
-    "Griffin Neame",
-    "Matthew Lodge",
-    "Coen Hess",
-    "Robert Derby",
-    "Ethan King",
-    "Wiremu Greig",
-    "Viliami Vailea",
-    "Xavier Kerrisk",
-    "Kodi Nikorima",
-    "Jeremy Marshall-King",
-    "Kurt Donoghoe",
-    "Tom Gilbert",
-    "Ray Stone",
-    "Felise Kaufusi",
-    "Brad Schneider",
-    "Oryn Keeley",
-    "Trai Fuller",
-    "Tevita Naufahu",
-    "Tom Duffy",
-    "Ben Hunt",
-    "Ben Talty",
-    "Va'a Semu",
-    "Aublix Tawha",
-    "Ezra Mam",
-    "Hayze Perham",
-    "Jaiyden Hunt",
-    "Phillip Coates",
-    "Josh Rogers",
-    "Jayden Campbell",
-    "Kurtis Morrin",
-    "Josh Patston",
-    "Chris Randall",
-    "Klese Haas",
-    "Jaylan De Groot",
-    "Luke Sommerton",
-    "Tony Francis",
-    "Bodhi Sharpley",
-    "Lachlan Ilias",
-    "Jarome Luai",
-    "Latu Fainu",
-    "Alex Seyfarth",
-    "Royce Hunt",
-    "Ethan Roberts",
-    "Bunty Afoa",
-    "Starford To'a",
-    "Tristan Hope",
-    "Javon Andrews",
-    "Blaize Talagi",
-    "Jack Cogger",
-    "Scott Sorensen",
-    "Liam Henry",
-    "Izack Tago",
-    "Luke Garner",
-    "Jack Cole",
-    "Billy Phillips",
-    "Billy Scott",
-    "Luron Patea",
-    "Braydon Trindall",
-    "Siosifa Talakai",
-    "Billy Burns",
-    "Jesse Colquhoun",
-    "Thomas Hazelton",
-    "Hohepa Puru",
-    "Oregon Kaufusi",
-    "Riley Jones",
-    "KL Iro",
-    "Sione Katoa",
-    "Daniel Atkinson",
-    "Jacob Liddle",
-    "Josh Kerr",
-    "Luciano Leilua",
-    "Blake Lawrie",
-    "Lyhkan King-Togia",
-    "Emre Guler",
-    "Tyrell Sloan",
-    "Jaydn Su'A",
-    "Nathan Lawson",
-    "Matt Burton",
-    "Bailey Hayward",
-    "Jed Reardon",
-    "Jack Underhill",
-    "Josh Curran",
-    "Sean O'Sullivan",
-    "Logan Spinks",
-    "Lipoi Hopoi",
-    "Connor Tracey",
-    "Marcelo Montoya",
-    "Joash Papalii",
-    "Dylan Walker",
-    "Sam Tuivaiti",
-    "Toni Mataele",
-    "Harrison Edwards",
-    "Te Hurinui Twidle",
-    "Teancum Brown",
-    "Charlie Guymer",
-    "Ryley Smith",
-    "Araz Nanva"
-  ],
-  "conflicts_fixed_by_override": [
+  "updated": "2026-06-04T09:28:54.278284+00:00",
+  "source": "https://nrlsupercoachstats.com/playerlist.php",
+  "source_players_imported": 563,
+  "position_master_players": 563,
+  "manual_overrides_policy": "fallback-only; source wins when player is present in imported SuperCoach source",
+  "manual_override_fallbacks_used": [],
+  "ignored_overrides_with_source": [],
+  "position_disagreements": [
     {
+      "file": "players.json",
+      "player": "Toby Couchman",
+      "sourcePlayer": "Toby Couchman",
+      "localPositions": [
+        "2RF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players.json",
+      "player": "Corey Horsburgh",
+      "sourcePlayer": "Corey Horsburgh",
+      "localPositions": [
+        "2RF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players.json",
+      "player": "Alex Twal",
+      "sourcePlayer": "Alex Twal",
+      "localPositions": [
+        "2RF"
+      ],
+      "sourcePositions": [
+        "FRF",
+        "2RF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players.json",
+      "player": "Myles Martin",
+      "sourcePlayer": "Myles Martin",
+      "localPositions": [
+        "2RF"
+      ],
+      "sourcePositions": [
+        "FRF",
+        "2RF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players.json",
       "player": "Erin Clark",
-      "imported": [
+      "sourcePlayer": "Erin Clark",
+      "localPositions": [
         "HOK"
       ],
-      "trusted": [
-        "2RF"
-      ]
-    },
-    {
-      "player": "Alex Twal",
-      "imported": [
+      "sourcePositions": [
         "2RF"
       ],
-      "trusted": [
-        "FRF",
-        "2RF"
-      ]
+      "action": "source position used in position_master.json"
     },
     {
+      "file": "players.json",
+      "player": "Te Maire Martin",
+      "sourcePlayer": "Te Maire Martin",
+      "localPositions": [
+        "HFB"
+      ],
+      "sourcePositions": [
+        "5/8",
+        "HFB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players.json",
       "player": "Tom Chester",
-      "imported": [
+      "sourcePlayer": "Tom Chester",
+      "localPositions": [
         "FLB"
       ],
-      "trusted": [
+      "sourcePositions": [
         "CTW",
         "FLB"
-      ]
+      ],
+      "action": "source position used in position_master.json"
     },
     {
-      "player": "Corey Horsburgh",
-      "imported": [
+      "file": "players.json",
+      "player": "Heath Mason",
+      "sourcePlayer": "Heath Mason",
+      "localPositions": [
+        "CTW"
+      ],
+      "sourcePositions": [
+        "5/8",
+        "FLB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Clayton Faulalo",
+      "sourcePlayer": "Clayton Faulalo",
+      "localPositions": [
+        "FLB"
+      ],
+      "sourcePositions": [
+        "CTW"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Tolutau Koula",
+      "sourcePlayer": "Tolutau Koula",
+      "localPositions": [
+        "CTW"
+      ],
+      "sourcePositions": [
+        "CTW",
+        "FLB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Kobe Hetherington",
+      "sourcePlayer": "Kobe Hetherington",
+      "localPositions": [
+        "FRF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Latrell Siegwalt",
+      "sourcePlayer": "Latrell Siegwalt",
+      "localPositions": [
+        "CTW"
+      ],
+      "sourcePositions": [
+        "HFB",
+        "FLB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Cooper Clarke",
+      "sourcePlayer": "Cooper Clarke",
+      "localPositions": [
         "2RF"
       ],
-      "trusted": [
-        "FRF",
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Fletcher Hunt",
+      "sourcePlayer": "Fletcher Hunt",
+      "localPositions": [
+        "CTW"
+      ],
+      "sourcePositions": [
+        "CTW",
+        "FLB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Trey Mooney",
+      "sourcePlayer": "Trey Mooney",
+      "localPositions": [
+        "FRF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Daine Laurie",
+      "sourcePlayer": "Daine Laurie",
+      "localPositions": [
+        "CTW"
+      ],
+      "sourcePositions": [
+        "FLB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Corey Horsburgh",
+      "sourcePlayer": "Corey Horsburgh",
+      "localPositions": [
+        "FRF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Jayden Brailey",
+      "sourcePlayer": "Jayden Brailey",
+      "localPositions": [
         "2RF"
-      ]
+      ],
+      "sourcePositions": [
+        "HOK"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Hugo Savala",
+      "sourcePlayer": "Hugo Savala",
+      "localPositions": [
+        "CTW"
+      ],
+      "sourcePositions": [
+        "5/8",
+        "HFB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Cody Ramsey",
+      "sourcePlayer": "Cody Ramsey",
+      "localPositions": [
+        "CTW"
+      ],
+      "sourcePositions": [
+        "CTW",
+        "FLB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Jaxon Purdue",
+      "sourcePlayer": "Jaxon Purdue",
+      "localPositions": [
+        "CTW"
+      ],
+      "sourcePositions": [
+        "5/8",
+        "CTW"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Tom Chester",
+      "sourcePlayer": "Tom Chester",
+      "localPositions": [
+        "CTW"
+      ],
+      "sourcePositions": [
+        "CTW",
+        "FLB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Liam Sutton",
+      "sourcePlayer": "Liam Sutton",
+      "localPositions": [
+        "5/8"
+      ],
+      "sourcePositions": [
+        "HFB",
+        "5/8"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Jake Clifford",
+      "sourcePlayer": "Jake Clifford",
+      "localPositions": [
+        "HFB"
+      ],
+      "sourcePositions": [
+        "5/8"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Sam McIntyre",
+      "sourcePlayer": "Sam McIntyre",
+      "localPositions": [
+        "2RF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Max Plath",
+      "sourcePlayer": "Max Plath",
+      "localPositions": [
+        "HOK"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "HOK"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Tom Duffy",
+      "sourcePlayer": "Tom Duffy",
+      "localPositions": [
+        "5/8"
+      ],
+      "sourcePositions": [
+        "HFB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Preston Riki",
+      "sourcePlayer": "Preston Riki",
+      "localPositions": [
+        "FRF"
+      ],
+      "sourcePositions": [
+        "2RF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Jack Gosiewski",
+      "sourcePlayer": "Jack Gosiewski",
+      "localPositions": [
+        "2RF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Xavier Willison",
+      "sourcePlayer": "Xavier Willison",
+      "localPositions": [
+        "2RF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Jayden Campbell",
+      "sourcePlayer": "Jayden Campbell",
+      "localPositions": [
+        "5/8"
+      ],
+      "sourcePositions": [
+        "HFB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Tino Fa'asuamaleaui",
+      "sourcePlayer": "Tino Faasuamaleaui",
+      "localPositions": [
+        "FRF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Arama Hau",
+      "sourcePlayer": "Arama Hau",
+      "localPositions": [
+        "2RF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Jock Madden",
+      "sourcePlayer": "Jock Madden",
+      "localPositions": [
+        "HFB"
+      ],
+      "sourcePositions": [
+        "5/8",
+        "HFB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Isaiah Papali'i",
+      "sourcePlayer": "Isaiah Papalii",
+      "localPositions": [
+        "2RF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Daniel Atkinson",
+      "sourcePlayer": "Daniel Atkinson",
+      "localPositions": [
+        "5/8"
+      ],
+      "sourcePositions": [
+        "5/8",
+        "HFB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Kyle Flanagan",
+      "sourcePlayer": "Kyle Flanagan",
+      "localPositions": [
+        "HFB"
+      ],
+      "sourcePositions": [
+        "5/8",
+        "HFB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Toby Couchman",
+      "sourcePlayer": "Toby Couchman",
+      "localPositions": [
+        "FRF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Jacob Kiraz",
+      "sourcePlayer": "Jacob Kiraz",
+      "localPositions": [
+        "FLB"
+      ],
+      "sourcePositions": [
+        "CTW"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Kurt Mann",
+      "sourcePlayer": "Kurt Mann",
+      "localPositions": [
+        "HOK"
+      ],
+      "sourcePositions": [
+        "2RF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Sitili Tupouniua",
+      "sourcePlayer": "Sitili Tupouniua",
+      "localPositions": [
+        "2RF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Jordan Samrani",
+      "sourcePlayer": "Jordan Samrani",
+      "localPositions": [
+        "CTW"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "CTW"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Joash Papalii",
+      "sourcePlayer": "Joash Papalii",
+      "localPositions": [
+        "5/8"
+      ],
+      "sourcePositions": [
+        "5/8",
+        "FLB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Ronald Volkman",
+      "sourcePlayer": "Ronald Volkman",
+      "localPositions": [
+        "HFB"
+      ],
+      "sourcePositions": [
+        "5/8",
+        "HFB"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Luca Moretti",
+      "sourcePlayer": "Luca Moretti",
+      "localPositions": [
+        "FRF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Jack Williams",
+      "sourcePlayer": "Jack Williams",
+      "localPositions": [
+        "FRF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Jack de Belin",
+      "sourcePlayer": "Jack deBelin",
+      "localPositions": [
+        "2RF"
+      ],
+      "sourcePositions": [
+        "2RF",
+        "FRF"
+      ],
+      "action": "source position used in position_master.json"
+    }
+  ],
+  "team_disagreements": [],
+  "unmatched_local_players": [
+    {
+      "file": "players.json",
+      "player": "Tom Duncan",
+      "localPositions": [
+        "2RF"
+      ],
+      "localTeam": "STH"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Onitoni Large",
+      "localPositions": [],
+      "localTeam": "MAN"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Matt Dufty",
+      "localPositions": [],
+      "localTeam": "STH"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Will Warbrick",
+      "localPositions": [
+        "CTW"
+      ],
+      "localTeam": "MEL"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Mat Croker",
+      "localPositions": [
+        "2RF"
+      ],
+      "localTeam": "NEW"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Tom Flegler",
+      "localPositions": [
+        "FRF"
+      ],
+      "localTeam": "DOL"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Va'a Semu",
+      "localPositions": [],
+      "localTeam": "BRO"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "AJ Brimson",
+      "localPositions": [
+        "CTW"
+      ],
+      "localTeam": "GLD"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Josh Patston",
+      "localPositions": [],
+      "localTeam": "GLD"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Bodhi Sharpley",
+      "localPositions": [],
+      "localTeam": "GLD"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Tino Tavana",
+      "localPositions": [
+        "CTW"
+      ],
+      "localTeam": "WST"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "KL Iro",
+      "localPositions": [],
+      "localTeam": "SHA"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Clinton Gutherson",
+      "localPositions": [
+        "FLB"
+      ],
+      "localTeam": "STG"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Josh Curran",
+      "localPositions": [],
+      "localTeam": "CAN"
+    },
+    {
+      "file": "players_seed_round14.json",
+      "player": "Te Hurinui Twidle",
+      "localPositions": [],
+      "localTeam": "PAR"
     }
   ]
 }
