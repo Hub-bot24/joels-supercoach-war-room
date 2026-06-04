@@ -29,10 +29,10 @@ jobs:
       - name: Run updater
         run: python scripts/update_players.py
 
-      - name: Commit updated players.json
+      - name: Commit updated player data
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add players.json
-          git commit -m "Update SuperCoach price and BE data" || echo "No changes"
+          git add players.json players_update_audit_report.json
+          git commit -m "Update source-driven SuperCoach player database" || echo "No changes"
           git push
