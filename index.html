@@ -6134,18 +6134,18 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
   let rendering = false;
 
   function norm(s){return String(s||"").toLowerCase().replace(/[’']/g,"").replace(/\./g,"").replace(/[^a-z0-9]+/g," ").trim();}
-  function cleanPos(v){const valid=["HOK","FRF","2RF","HFB","5/8","CTW","FLB"];let raw=Array.isArray(v)?v.flatMap(x=>String(x).split(/[\/,|]/)):String(v||"").split(/[\/,|]/);const out=[];raw.map(x=>x.trim().toUpperCase()).forEach(x=>{if(valid.includes(x)&&!out.includes(x))out.push(x)});return out;}
+  function cleanPos(v){const valid=["HOK","FRF","2RF","HFB","5/8","CTW","FLB"];const out=[];function add(x){const text=String(x||"").toUpperCase();const matches=text.match(/HOK|FRF|2RF|HFB|5\/8|CTW|FLB/g)||[];matches.forEach(p=>{if(valid.includes(p)&&!out.includes(p))out.push(p)})} if(Array.isArray(v))v.forEach(add); else add(v); return out;}
   async function fetchJson(f){try{const r=await fetch(f+"?cb="+Date.now(),{cache:"no-store"});if(r.ok)return await r.json();}catch(e){}return null;}
   function asPlayers(d){return Array.isArray(d)?d:(d&&Array.isArray(d.players)?d.players:[])}
   function asNames(d){if(Array.isArray(d))return d.map(x=>typeof x==="string"?x:x.name).filter(Boolean); if(d&&Array.isArray(d.players))return d.players.map(x=>typeof x==="string"?x:x.name).filter(Boolean); if(d&&Array.isArray(d.team))return d.team.map(x=>typeof x==="string"?x:x.name).filter(Boolean); if(d&&Array.isArray(d.myTeam))return d.myTeam.map(x=>typeof x==="string"?x:x.name).filter(Boolean); return [];}
-  function player(name){return playersDb.find(p=>norm(p.name)===norm(name))}
+  function player(name){const key=norm(name); return playersDb.find(p=>norm(p.name)===key||norm(p.sourceName)===key)}
   function positions(p){if(!p)return[]; const fixed=Object.keys(POS_MASTER).find(k=>norm(k)===norm(p.name)); if(fixed)return POS_MASTER[fixed]; return cleanPos(p.positions||p.eligiblePositions||p.dualPositions||p.pos||p.position)}
   function compatible(p,allowed){if(!p)return true; if(!allowed||!allowed.length)return true; const pos=positions(p); return allowed.some(a=>pos.includes(a))}
   function rowForSlot(slot){return STRUCT.find(r=>[...r.starters,...r.reserves].includes(slot))}
   function isReserveSlot(slot){return STRUCT.some(r=>r.reserves.includes(slot))}
   function isStarterSlot(slot){return STRUCT.some(r=>r.starters.includes(slot))}
   function scoreMap(){const map=new Map(), level3=document.getElementById("level3"); if(level3){level3.querySelectorAll("tbody tr").forEach(row=>{const c=row.querySelectorAll("td"); if(c.length>=6){const n=String(c[1]?.textContent||"").trim(); const e=Number(String(c[5]?.textContent||"").trim()); if(n&&Number.isFinite(e))map.set(n.toLowerCase(),e)}})} return map;}
-  function level3Score(p,map){if(!p)return 0; const m=map.get(String(p.name||"").toLowerCase()); if(m!==undefined)return Number(m); try{if(typeof level3Projection==="function"){const r=level3Projection(p); if(r&&r.expected!==undefined)return Number(r.expected)}}catch(e){} return Number(p.proj||p.avg||0)}
+  function level3Score(p,map){if(!p)return 0; try{const fn=window.calculateLevel3Projection||window.level3Projection; if(typeof fn==="function"){const r=fn(p,{round:selectedRound}); const val=Number(r?.roundExpected ?? r?.expected ?? r?.projection ?? r?.score); if(Number.isFinite(val))return val}}catch(e){} const m=map.get(String(p.name||"").toLowerCase()); if(m!==undefined)return Number(m); return Number(p.proj||p.avg||0)}
   function price(p){return Number(p?.price||p?.value||0)}
   function be(p){return p?.breakeven??p?.be??"-"}
   function byeRounds(p){const b=p&&p.bye; if(Array.isArray(b))return b.map(Number).filter(Number.isFinite); if(typeof b==="number")return[b]; if(typeof b==="string")return b.split(/[,\s]+/).map(Number).filter(Number.isFinite); return []}
@@ -6202,7 +6202,7 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
     [slotMap[a],slotMap[b]]=[slotMap[b],slotMap[a]];
     saveSlots(); render();
   }
-  function options(selected,row,map){return `<option value="">-- select player --</option>`+playersDb.filter(p=>compatible(p,row.allowed)).map(p=>`<option value="${String(p.name||"").replace(/"/g,"&quot;")}" ${p.name===selected?"selected":""}>${p.name} | ${positions(p).join("/")} | ${p.team||""} | L3 ${level3Score(p,map)}</option>`).join("")}
+  function options(selected,row,map){const selectedKey=norm(selected);return `<option value="">-- select player --</option>`+playersDb.filter(p=>compatible(p,row.allowed)).map(p=>`<option value="${String(p.name||"").replace(/"/g,"&quot;")}" ${norm(p.name)===selectedKey||norm(p.sourceName)===selectedKey?"selected":""}>${p.name} | ${positions(p).join("/")} | ${p.team||""} | L3 ${level3Score(p,map)}</option>`).join("")}
   function activeReserves(map){return ALL_SLOTS.filter(isReserveSlot).map(s=>player(slotMap[s])).filter(Boolean).filter(available).sort((a,b)=>level3Score(b,map)-level3Score(a,map)).slice(0,4)}
   function total(map){const starters=ALL_SLOTS.filter(isStarterSlot).map(s=>player(slotMap[s])).filter(Boolean).filter(available); return Math.round([...starters,...activeReserves(map)].reduce((sum,p)=>sum+level3Score(p,map),0))}
   function card(slot,row,map,activeNames){
@@ -6341,17 +6341,15 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
 
   function cleanPos(v){
     const valid = ["HOK","FRF","2RF","HFB","5/8","CTW","FLB"];
-    let raw = [];
-    if(Array.isArray(v)) raw = v;
-    else raw = String(v || "").split(/[\/,|]/);
-
     const out = [];
-    raw.map(x => String(x).trim().toUpperCase()).forEach(x => {
-      if(valid.includes(x) && !out.includes(x)) out.push(x);
-    });
+    function add(value){
+      const matches = String(value || "").toUpperCase().match(/HOK|FRF|2RF|HFB|5\/8|CTW|FLB/g) || [];
+      matches.forEach(x => { if(valid.includes(x) && !out.includes(x)) out.push(x); });
+    }
+    if(Array.isArray(v)) v.forEach(add);
+    else add(v);
     return out;
   }
-
   function seedMaster(){
     positionMaster = {};
     Object.keys(FALLBACK_POSITIONS).forEach(name => {
