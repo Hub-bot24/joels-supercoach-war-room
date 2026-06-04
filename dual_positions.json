@@ -1,15 +1,6 @@
 {
   "updated": "2026-06-04T09:28:54.278284+00:00",
-  "source": "https://nrlsupercoachstats.com/playerlist.php",
-  "rule": "Regenerated from imported SuperCoach source data. Manual overrides are fallback-only when a player is missing from the source.",
-  "teamCodeNormalization": {
-    "BUL": "CAN",
-    "GCT": "GLD",
-    "MNL": "MAN",
-    "PTH": "PEN"
-  },
-  "sourcePlayerCount": 563,
-  "manualFallbackCount": 0,
+  "source": "generated from source-driven position_master.json",
   "players": {
     "Aaron Schoupp": [
       "CTW"
