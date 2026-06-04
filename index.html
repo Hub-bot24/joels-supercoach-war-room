@@ -10,6 +10,10 @@
 header{padding:20px 16px;border-bottom:1px solid var(--line);background:#070a12;position:sticky;top:0;z-index:5}
 h1{margin:0;font-size:24px}.sub{color:var(--muted);font-size:14px;margin-top:6px}
 nav{display:flex;gap:8px;overflow:auto;padding:10px;background:#0c1220;border-bottom:1px solid var(--line);position:sticky;top:76px;z-index:4}
+.subTabs{display:flex;gap:8px;overflow:auto;padding:8px 10px;background:#09111f;border-bottom:1px solid var(--line);position:sticky;top:126px;z-index:3}
+.subTabs button{padding:8px 10px;font-size:12px;font-weight:800}
+.subTabs button.active{background:var(--blue);color:#06101f}
+.mainTabs button{font-size:14px}
 button{background:var(--card2);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-weight:800;cursor:pointer;white-space:nowrap}
 button.active{background:var(--blue);color:#06101f}
 main{max-width:1250px;margin:auto;padding:14px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
@@ -29,9 +33,15 @@ textarea{min-height:120px} table{width:100%;border-collapse:collapse;font-size:1
 </head>
 <body>
 <header><h1>Joel's SuperCoach War Room V6 - FINAL Level 3 Fix</h1><div class="sub">Fixed tabs version: phone-photo import, weekly trades, par engine, live score build, captain room, bye planner, trade lab, injury risk and journal.</div></header>
-<nav id="tabs">
-<button class="active" data-tab="verdict">Verdict</button><button data-tab="injury">Injury Risk</button><button data-tab="par">Par Engine</button><button data-tab="team">My Team</button><button data-tab="importteam">Import Team Photo</button><button data-tab="weeklytrades">Weekly Trades</button><button data-tab="live">Live Match</button><button data-tab="captain">Captain Room</button><button data-tab="level3">Level 3 Projections</button><button data-tab="method">How Calculated</button><button data-tab="bye">Bye Planner</button><button data-tab="weatherhub">Weather Hub</button><button data-tab="trade">Trade Lab</button><button data-tab="playerexplorer">Player Explorer</button><button data-tab="journal">Journal</button><button data-tab="data">Data</button><button data-tab="nextsteps">What To Do</button>
+<nav id="tabs" class="mainTabs">
+  <button class="active" data-main-group="dashboard" data-tab="verdict">Dashboard</button>
+  <button data-main-group="myteam" data-tab="team">My Team</button>
+  <button data-main-group="trades" data-tab="weeklytrades">Trades</button>
+  <button data-main-group="captainroom" data-tab="captain">Captain Room</button>
+  <button data-main-group="datasettings" data-tab="data">Data / Settings</button>
 </nav>
+<div id="subtabs" class="subTabs" aria-label="Grouped section navigation"></div>
+<div id="legacyTabs" class="hidden" style="display:none"><button data-tab="verdict">Verdict</button><button data-tab="injury">Injury Risk</button><button data-tab="par">Par Engine</button><button data-tab="team">My Team</button><button data-tab="importteam">Import Team Photo</button><button data-tab="weeklytrades">Weekly Trades</button><button data-tab="live">Live Match</button><button data-tab="captain">Captain Room</button><button data-tab="level3">Level 3 Projections</button><button data-tab="method">How Calculated</button><button data-tab="bye">Bye Planner</button><button data-tab="weatherhub">Weather Hub</button><button data-tab="trade">Trade Lab</button><button data-tab="playerexplorer">Player Explorer</button><button data-tab="journal">Journal</button><button data-tab="data">Data</button><button data-tab="nextsteps">What To Do</button></div>
 <main>
 
 <div class="card span12 blueBox" style="max-width:1250px;margin:0 auto 12px auto;">
@@ -1099,7 +1109,76 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
 
 <script>
 (function(){
-  function showTab(tabId){
+  const TAB_GROUPS = {
+    dashboard: {
+      label: "Dashboard",
+      defaultTab: "verdict",
+      tabs: [
+        ["verdict", "Dashboard"],
+        ["nextsteps", "What To Do"],
+        ["injury", "Injury Risk"],
+        ["bye", "Bye Planner"]
+      ]
+    },
+    myteam: {
+      label: "My Team",
+      defaultTab: "team",
+      tabs: [
+        ["team", "My Team"],
+        ["importteam", "Import Team Photo"]
+      ]
+    },
+    trades: {
+      label: "Trades",
+      defaultTab: "weeklytrades",
+      tabs: [
+        ["weeklytrades", "Weekly Trades"],
+        ["trade", "Trade Lab"],
+        ["par", "Par Engine"]
+      ]
+    },
+    captainroom: {
+      label: "Captain Room",
+      defaultTab: "captain",
+      tabs: [
+        ["captain", "Captain Room"],
+        ["level3", "Level 3 Projections"],
+        ["live", "Live Match"],
+        ["weatherhub", "Weather Hub"]
+      ]
+    },
+    datasettings: {
+      label: "Data / Settings",
+      defaultTab: "data",
+      tabs: [
+        ["data", "Data"],
+        ["method", "How Calculated"],
+        ["playerexplorer", "Player Explorer"],
+        ["journal", "Journal"],
+        ["weatherhub", "Weather Hub"]
+      ]
+    }
+  };
+
+  function groupForTab(tabId, preferredGroup){
+    if(preferredGroup && TAB_GROUPS[preferredGroup]) return preferredGroup;
+    for(const groupId of Object.keys(TAB_GROUPS)){
+      if(TAB_GROUPS[groupId].tabs.some(([id]) => id === tabId)) return groupId;
+    }
+    return "dashboard";
+  }
+
+  function renderSubtabs(activeGroup, activeTab){
+    const holder = document.getElementById("subtabs");
+    if(!holder) return;
+    const group = TAB_GROUPS[activeGroup] || TAB_GROUPS.dashboard;
+    holder.innerHTML = group.tabs.map(([tabId, label]) => {
+      const active = tabId === activeTab ? "active" : "";
+      return `<button class="${active}" data-group="${activeGroup}" data-tab="${tabId}">${label}</button>`;
+    }).join("");
+  }
+
+  function showTab(tabId, preferredGroup){
     document.querySelectorAll(".tab").forEach(function(section){
       section.classList.add("hidden");
       section.style.display = "none";
@@ -1111,17 +1190,22 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
       target.style.display = "";
     }
 
-    document.querySelectorAll("[data-tab]").forEach(function(btn){
+    const activeGroup = groupForTab(tabId, preferredGroup);
+    renderSubtabs(activeGroup, tabId);
+
+    document.querySelectorAll("#tabs button, #subtabs button").forEach(function(btn){
       btn.classList.remove("active");
     });
 
-    const activeBtn = document.querySelector('[data-tab="' + tabId + '"]');
-    if(activeBtn){
-      activeBtn.classList.add("active");
-    }
+    const activeMain = document.querySelector('#tabs [data-main-group="' + activeGroup + '"]');
+    if(activeMain) activeMain.classList.add("active");
+
+    const activeSub = document.querySelector('#subtabs [data-tab="' + tabId + '"]');
+    if(activeSub) activeSub.classList.add("active");
 
     try{
       localStorage.setItem("warroomActiveTab", tabId);
+      localStorage.setItem("warroomActiveGroup", activeGroup);
     }catch(e){}
   }
 
@@ -1130,14 +1214,16 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
       btn.onclick = function(e){
         e.preventDefault();
         const tabId = btn.getAttribute("data-tab");
-        if(tabId) showTab(tabId);
+        const groupId = btn.getAttribute("data-main-group") || btn.getAttribute("data-group") || null;
+        if(tabId) showTab(tabId, groupId);
       };
     });
 
     const saved = localStorage.getItem("warroomActiveTab");
-    const first = document.querySelector("[data-tab]")?.getAttribute("data-tab");
+    const savedGroup = localStorage.getItem("warroomActiveGroup");
+    const first = document.querySelector("#tabs [data-tab]")?.getAttribute("data-tab");
     const start = saved && document.getElementById(saved) ? saved : first;
-    if(start) showTab(start);
+    if(start) showTab(start, savedGroup);
   }
 
   if(document.readyState === "loading"){
