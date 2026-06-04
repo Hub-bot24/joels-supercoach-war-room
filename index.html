@@ -64,26 +64,14 @@ textarea{min-height:120px} table{width:100%;border-collapse:collapse;font-size:1
 
 <datalist id="allPlayersDatalist"></datalist>
 <datalist id="teamPlayersDatalist"></datalist>
-<section id="verdict" class="tab"><div class="grid">
-<div class="card span4 badBox"><h2>This Week Verdict</h2><div id="mainVerdict" class="metric bad">Needs Team</div><p id="mainVerdictText" class="muted">Add your team and player data.</p></div>
-<div class="card span4"><h2>Your Projection</h2><div id="yourProjection" class="metric blue">0</div><div class="mini">Best 17 + captain estimate, adjusted for injury risk.</div></div>
-<div class="card span4"><h2>Available This Round</h2><div id="fieldThisRound" class="metric">0</div><div id="fieldThisRoundText" class="mini">Injury and bye adjusted.</div></div>
-<div class="card span6"><h2>What Is Hurting You</h2><table><tbody id="hurtList"></tbody></table></div>
-<div class="card span6"><h2>Attack Plan</h2><table><tbody id="attackList"></tbody></table></div>
-<div class="card span12 blueBox">
-<h2>What This Version Includes</h2>
-<table>
-<tbody>
-<tr><td>Par Engine</td><td>Overall, Top 10k, Top 5k and Top 1k par score bands.</td></tr>
-<tr><td>Live Match Room</td><td>Tap-player score build with points breakdown and timeline.</td></tr>
-<tr><td>Captain Room</td><td>VC/C threshold, captain uniqueness and pack captain estimate.</td></tr>
-<tr><td>Bye Planner</td><td>Bye heat map with injury-adjusted available player count.</td></tr>
-<tr><td>Trade Lab</td><td>Scores trades based on points, cash, ownership and injury logic.</td></tr>
-<tr><td>Injury Risk</td><td>Status, return round, play probability, likely/possible available numbers.</td></tr>
-<tr><td>Regret Detector</td><td>Season journal to track why you made each decision.</td></tr>
-</tbody>
-</table>
-</div>
+<section id="verdict" class="tab"><div class="grid dashboardGrid">
+<div class="card span4 blueBox"><h2>Projected Score</h2><div id="yourProjection" class="metric blue">0</div><p id="dashboardProjectionRange" class="mini">Best 17 + captain estimate.</p></div>
+<div class="card span4"><h2>Field Status</h2><div id="fieldThisRound" class="metric">0</div><p id="fieldThisRoundText" class="mini">Available / possible this round.</p></div>
+<div class="card span4 goodBox"><h2>Best Captain</h2><div id="dashboardBestCaptain" class="metric">-</div><p id="dashboardBestCaptainText" class="mini">Captain option appears after team loads.</p></div>
+<div class="card span4"><h2>Trade Urgency</h2><div id="mainVerdict" class="metric bad">Needs Team</div><p id="mainVerdictText" class="muted">Add your team and player data.</p></div>
+<div class="card span4"><h2>What To Do</h2><ol id="dashboardActionList" class="muted" style="margin:0;padding-left:20px;"><li>Load your team.</li><li>Check captain.</li><li>Review trades.</li></ol><table class="hidden"><tbody id="attackList"></tbody></table></div>
+<div class="card span4 warnBox"><h2>Alerts</h2><div id="dashboardAlerts" class="muted">No alerts yet.</div><table class="hidden"><tbody id="hurtList"></tbody></table></div>
+<div class="card span12 blueBox"><h2>Detailed rooms</h2><p class="muted">Open grouped tabs for full detail: What To Do, Injury Risk, Bye Planner, Trades, Captain Room, and Data / Settings.</p><div class="row"><button onclick="showTab('nextsteps','dashboard')">What To Do</button><button onclick="showTab('injury','dashboard')">Injury Risk</button><button onclick="showTab('bye','dashboard')">Bye Planner</button><button onclick="showTab('weeklytrades','trades')">Trades</button><button onclick="showTab('captain','captainroom')">Captain Room</button></div></div>
 </div></section>
 
 <section id="injury" class="tab hidden"><div class="grid">
@@ -11003,32 +10991,75 @@ function weatherAdj(p){
     const p = typeof parModel === "function" ? parModel() : {top1k:[1200],top5k:[1150]};
     const proj = window.projection();
     const team = window.teamPlayers();
-    const avail = team.filter(x => availabilityInfo(x).available).length;
-    const possible = team.filter(x => availabilityInfo(x).availability !== "BYE" && availabilityInfo(x).availability !== "OUT").length;
+    const levelRows = team.map(x => calculateStableLevel3(x));
+    const availableRows = levelRows.filter(x => x.available);
+    const avail = availableRows.length;
+    const possible = levelRows.filter(x => x.availability !== "BYE" && x.availability !== "OUT").length;
+    const byeCount = levelRows.filter(x => x.availability === "BYE").length;
+    const outCount = levelRows.filter(x => x.availability === "OUT").length;
+    const risky = levelRows.filter(x => x.availability !== "AVAILABLE").length;
     const yourProjection = document.getElementById("yourProjection");
     const field = document.getElementById("fieldThisRound");
     const fieldTxt = document.getElementById("fieldThisRoundText");
+    const rangeEl = document.getElementById("dashboardProjectionRange");
+    const captainEl = document.getElementById("dashboardBestCaptain");
+    const captainText = document.getElementById("dashboardBestCaptainText");
+    const actionsEl = document.getElementById("dashboardActionList");
+    const alertsEl = document.getElementById("dashboardAlerts");
+
     if(yourProjection) yourProjection.textContent = proj;
     if(field) field.textContent = `${avail} / ${possible}`;
-    if(fieldTxt) fieldTxt.textContent = "Likely / possible available players. Projection uses stable Level 3, not price.";
+    if(fieldTxt) fieldTxt.textContent = `${byeCount} bye | ${outCount} out/unavailable`;
+
+    const best17 = typeof window.getBest17Level3 === "function" ? window.getBest17Level3(team) : [];
+    if(rangeEl && best17.length){
+      const low = best17.reduce((s,row)=>s + N(row.level3?.floor ?? row.player?.floor,0),0);
+      const high = best17.reduce((s,row)=>s + N(row.level3?.ceiling ?? row.player?.ceiling,0),0);
+      rangeEl.textContent = `Best 17 range ${Math.round(low)}-${Math.round(high)} before captain extra.`;
+    }else if(rangeEl){
+      rangeEl.textContent = "Best 17 + captain estimate.";
+    }
+
+    const captainRows = availableRows.slice().sort((a,b)=>b.rawExpected-a.rawExpected);
+    if(captainEl) captainEl.textContent = captainRows[0]?.name || "-";
+    if(captainText){
+      captainText.textContent = captainRows[0] ? `${captainRows[0].roundExpected} projected | ${captainRows[0].confidence} confidence` : "Captain option appears after team loads.";
+    }
+
     let v="Needs Team", cls="bad", txt="Add your team.";
     if(team.length){
-      if(avail < 17){ v="Field 17 Danger"; cls="bad"; txt=`You have only ${avail} available. The baseline is protected, but unavailable players do not count this round.`; }
-      else if(proj >= p.top1k[0]){ v="Top 1000 Attack"; cls="good"; txt="Projection is inside Top 1000 par band."; }
-      else if(proj >= p.top5k[0]){ v="Around Good Par"; cls="warn"; txt="Close, but captain/trade edge matters."; }
-      else { v="Behind Par"; cls="bad"; txt="Projection is weak. Fix trades/captaincy."; }
+      if(avail < 17){ v="Trade Needed"; cls="bad"; txt=`Only ${avail} available. Fix byes/unavailable players first.`; }
+      else if(risky > 0){ v="Watch"; cls="warn"; txt=`${risky} bye/out/risk player(s). Check team lists before trading.`; }
+      else if(proj >= p.top1k[0]){ v="None"; cls="good"; txt="Strong projection. Focus on captaincy."; }
+      else if(proj >= p.top5k[0]){ v="Watch"; cls="warn"; txt="Close to par. Look for captain/trade edge."; }
+      else { v="Trade Watch"; cls="warn"; txt="Projection trails par. Check trade options."; }
     }
     const main = document.getElementById("mainVerdict");
     const mainText = document.getElementById("mainVerdictText");
     if(main){ main.textContent = v; main.className = `metric ${cls}`; }
     if(mainText) mainText.textContent = txt;
+
+    const alerts = [];
+    if(byeCount) alerts.push(`<span class="pill warn">${byeCount} on bye</span>`);
+    if(outCount) alerts.push(`<span class="pill bad">${outCount} out</span>`);
+    if(avail && avail < 17) alerts.push(`<span class="pill bad">Short ${17-avail} player(s)</span>`);
+    if(risky && avail >= 17) alerts.push(`<span class="pill warn">${risky} availability flag(s)</span>`);
+    if(alertsEl) alertsEl.innerHTML = alerts.length ? alerts.join(" ") : `<span class="pill good">No urgent alerts</span>`;
+
+    const actions = [];
+    if(!team.length) actions.push("Load your saved team.");
+    else if(avail < 17) actions.push("Prioritise fielding 17 before upside trades.");
+    else actions.push("Review captain and VC setup.");
+    if(team.length) actions.push(best17.length ? "Check top trade/captain edges in grouped tabs." : "Refresh latest data if projections look empty.");
+    if(byeCount) actions.push("Open Bye Planner for affected players.");
+    else if(actions.length < 3) actions.push("Use Trades tab only if it improves points or bye coverage.");
+    if(actionsEl) actionsEl.innerHTML = actions.slice(0,3).map(x=>`<li>${x}</li>`).join("");
+
     const hurt = document.getElementById("hurtList");
     const attack = document.getElementById("attackList");
-    const risky = team.filter(x => calculateStableLevel3(x).availability !== "AVAILABLE").length;
-    if(hurt) hurt.innerHTML = `<tr><td>Field 17</td><td>${avail<17?'<span class="pill bad">Danger</span>':'<span class="pill good">OK</span>'}</td><td>${avail} available.</td></tr><tr><td>Risk</td><td>${risky?'<span class="pill warn">Active</span>':'<span class="pill good">Clean</span>'}</td><td>${risky} risky/bye/out player(s).</td></tr><tr><td>Formula</td><td><span class="pill good">Fixed</span></td><td>Price ignored. Missing recent games do not crush guns.</td></tr>`;
-    if(attack) attack.innerHTML = `<tr><td>1</td><td>${avail<17?"Fix available numbers before chasing upside.":"Run captain and trade checks."}</td></tr><tr><td>2</td><td>Use Level 3 expected/floor/ceiling everywhere.</td></tr><tr><td>3</td><td>Manual override wins when you know the model is wrong.</td></tr>`;
+    if(hurt) hurt.innerHTML = `<tr><td>Field 17</td><td>${avail<17?'<span class="pill bad">Danger</span>':'<span class="pill good">OK</span>'}</td><td>${avail} available.</td></tr><tr><td>Byes</td><td>${byeCount?'<span class="pill warn">Active</span>':'<span class="pill good">Clear</span>'}</td><td>${byeCount} player(s) on bye.</td></tr><tr><td>Unavailable</td><td>${outCount?'<span class="pill bad">Active</span>':'<span class="pill good">Clear</span>'}</td><td>${outCount} out/unavailable.</td></tr>`;
+    if(attack) attack.innerHTML = actions.slice(0,3).map((x,i)=>`<tr><td>${i+1}</td><td>${x}</td></tr>`).join("");
   };
-
   window.renderLevel3ProjectionEngine = function(){
     const el = document.getElementById("level3ProjectionEngine");
     const missBox = document.getElementById("missingDataSummary");
