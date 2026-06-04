@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-03T03:01:44.906929+00:00",
+  "updated": "2026-06-04T11:20:32.753111+00:00",
   "note": "This workflow validates primary/backup goal kickers against players.json + players_seed_round14.json. It cannot discover brand-new goal kickers unless the player is entered as primary/backup in team_roles.json.",
   "teams": {
     "BRO": {
@@ -47,7 +47,7 @@
       "backup": "Cameron Munster",
       "primaryActive": false,
       "backupActive": true,
-      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerBefore": true,
       "useBackupGoalKickerAfter": true,
       "activeGoalKicker": "Cameron Munster",
       "roleStatus": "primary_not_named_backup_named"
@@ -107,7 +107,7 @@
       "backup": "Cody Walker",
       "primaryActive": false,
       "backupActive": true,
-      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerBefore": true,
       "useBackupGoalKickerAfter": true,
       "activeGoalKicker": "Cody Walker",
       "roleStatus": "primary_not_named_backup_named"
@@ -117,7 +117,7 @@
       "backup": "Jarome Luai",
       "primaryActive": false,
       "backupActive": true,
-      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerBefore": true,
       "useBackupGoalKickerAfter": true,
       "activeGoalKicker": "Jarome Luai",
       "roleStatus": "primary_not_named_backup_named"
@@ -127,7 +127,7 @@
       "backup": "Braydon Trindall",
       "primaryActive": false,
       "backupActive": true,
-      "useBackupGoalKickerBefore": false,
+      "useBackupGoalKickerBefore": true,
       "useBackupGoalKickerAfter": true,
       "activeGoalKicker": "Braydon Trindall",
       "roleStatus": "primary_not_named_backup_named"
