@@ -10791,14 +10791,127 @@ function weatherAdj(p){
   window.getFiveGameProjectedScore = function(player, options={}){ return window.calculateFiveGameProjection(player, options).average; };
   window.getNextFiveProjectedScore = window.getFiveGameProjectedScore;
 
+  window.level3BreakdownCache = window.level3BreakdownCache || {};
+
+  function escapeHtml(value){
+    return String(value ?? "")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#39;");
+  }
+
+  function signed(value){
+    const n = N(value,0);
+    return `${n >= 0 ? "+" : ""}${Math.round(n * 100) / 100}`;
+  }
+
+  function fmt(value){
+    const n = Number(value);
+    if(Number.isFinite(n)) return String(Math.round(n * 100) / 100);
+    return value === null || value === undefined || value === "" ? "-" : escapeHtml(value);
+  }
+
+  function pct(value){
+    const n = Number(value);
+    return Number.isFinite(n) ? `${Math.round(n * 100)}%` : "-";
+  }
+
+  function breakdownDomId(prefix, name, index){
+    return `${prefix}_${index}_${String(name || "player").toLowerCase().replace(/[^a-z0-9]+/g,"_")}`;
+  }
+
+  function cacheLevel3Breakdown(id, result){
+    window.level3BreakdownCache[id] = result;
+    return id;
+  }
+
+  function renderLevel3BreakdownHtml(result){
+    const b = result && result.breakdown;
+    if(!b) return `<p class="muted">No breakdown available for this player.</p>`;
+
+    const baselineRows = (b.baseline?.inputs || []).map(x => `
+      <tr><td>${escapeHtml(x.field)}</td><td>${fmt(x.value)}</td><td>${pct(x.effectiveWeight)}</td><td>${fmt(x.contribution)}</td></tr>
+    `).join("");
+
+    const guardRows = (b.guardrails || []).map(g => `
+      <tr><td>${escapeHtml(g.name)}</td><td>${g.checked ? "yes" : "no"}</td><td>${g.applied ? "yes" : "no"}</td><td>${fmt(g.minimum)}</td><td>${fmt(g.before)}</td><td>${fmt(g.after)}</td></tr>
+    `).join("");
+
+    const ppmStatus = b.ppm?.valid ? "valid" : `ignored${b.ppm?.ignoredReason ? ": " + escapeHtml(b.ppm.ignoredReason) : ""}`;
+    const lowMinuteNote = b.ppm?.reducedForLowMinutes ? `<div class="mini warn">PPM influence reduced because expectedMinutes &lt; 45.</div>` : "";
+
+    return `
+      <div class="event level3BreakdownPanel">
+        <h3>Projection breakdown: ${escapeHtml(result.name || "Player")}</h3>
+        <div class="grid">
+          <div class="card span3"><h3>Main outputs</h3><table><tbody>
+            <tr><td>rawExpected</td><td><b>${fmt(b.mainOutputs?.rawExpected)}</b></td></tr>
+            <tr><td>roundExpected</td><td><b>${fmt(b.mainOutputs?.roundExpected)}</b></td></tr>
+            <tr><td>floor</td><td>${fmt(b.mainOutputs?.floor)}</td></tr>
+            <tr><td>ceiling</td><td>${fmt(b.mainOutputs?.ceiling)}</td></tr>
+            <tr><td>availability</td><td>${escapeHtml(b.mainOutputs?.availability)}</td></tr>
+          </tbody></table></div>
+          <div class="card span4"><h3>Baseline</h3><table><thead><tr><th>Input</th><th>Value</th><th>Weight</th><th>Contribution</th></tr></thead><tbody>${baselineRows}</tbody></table><p class="mini">Total: <b>${fmt(b.baseline?.total)}</b>${b.baseline?.weightsRenormalized ? " | weights re-normalized" : ""}</p></div>
+          <div class="card span5"><h3>Minutes + PPM</h3><table><tbody>
+            <tr><td>expectedMinutes</td><td>${fmt(b.minutes?.expectedMinutes)}</td></tr>
+            <tr><td>position group</td><td>${escapeHtml(b.minutes?.positionGroup)}</td></tr>
+            <tr><td>minutes formula</td><td>${escapeHtml(b.minutes?.formula)}</td></tr>
+            <tr><td>minutes adjustment</td><td>${signed(b.minutes?.adjustment)}</td></tr>
+            <tr><td>ppm</td><td>${fmt(b.ppm?.value)} (${ppmStatus})</td></tr>
+            <tr><td>ppmProjection</td><td>${fmt(b.ppm?.projection)}</td></tr>
+            <tr><td>ppmDelta</td><td>${signed(b.ppm?.delta)}</td></tr>
+            <tr><td>PPM rule</td><td>${escapeHtml(b.ppm?.positionRule)}</td></tr>
+            <tr><td>ppm adjustment</td><td>${signed(b.ppm?.adjustment)}</td></tr>
+          </tbody></table>${lowMinuteNote}</div>
+          <div class="card span4"><h3>Goal kicking</h3><table><tbody>
+            <tr><td>adjustment</td><td>${signed(b.goalKicker?.adjustment)}</td></tr>
+            <tr><td>status</td><td>${escapeHtml(b.goalKicker?.status)}</td></tr>
+            <tr><td>note</td><td>${escapeHtml(b.goalKicker?.note)}</td></tr>
+          </tbody></table></div>
+          <div class="card span4"><h3>Availability</h3><table><tbody>
+            <tr><td>status</td><td>${escapeHtml(b.availability?.status)}</td></tr>
+            <tr><td>raw preserved</td><td>${b.availability?.rawExpectedPreserved ? "yes" : "no"}</td></tr>
+            <tr><td>roundExpected</td><td>${fmt(b.availability?.roundExpected)}</td></tr>
+            <tr><td>floor</td><td>${fmt(b.availability?.floor)}</td></tr>
+            <tr><td>ceiling</td><td>${fmt(b.availability?.ceiling)}</td></tr>
+            <tr><td>note</td><td>${escapeHtml(b.availability?.note)}</td></tr>
+          </tbody></table></div>
+          <div class="card span4"><h3>Volatility</h3><table><tbody>
+            <tr><td>source</td><td>${escapeHtml(b.volatility?.source)}</td></tr>
+            <tr><td>group</td><td>${escapeHtml(b.volatility?.positionGroup)}</td></tr>
+            <tr><td>value</td><td>${fmt(b.volatility?.value)}</td></tr>
+            <tr><td>floor calc</td><td>${escapeHtml(b.volatility?.floorCalculation)}</td></tr>
+            <tr><td>ceiling calc</td><td>${escapeHtml(b.volatility?.ceilingCalculation)}</td></tr>
+          </tbody></table></div>
+          <div class="card span12"><h3>Guardrails</h3><table><thead><tr><th>Name</th><th>Checked</th><th>Applied</th><th>Minimum</th><th>Before</th><th>After</th></tr></thead><tbody>${guardRows}</tbody></table></div>
+        </div>
+      </div>`;
+  }
+
+  window.toggleLevel3Breakdown = function(id){
+    const row = document.getElementById(id);
+    if(!row) return;
+    const wasHidden = row.classList.contains("hidden");
+    document.querySelectorAll(".level3BreakdownRow").forEach(el => el.classList.add("hidden"));
+    if(!wasHidden) return;
+    const target = row.querySelector(".level3BreakdownMount");
+    if(target && !target.innerHTML){
+      target.innerHTML = renderLevel3BreakdownHtml(window.level3BreakdownCache[id]);
+    }
+    row.classList.remove("hidden");
+  };
+
   window.renderTeam = function(){
     const tbody = document.getElementById("myTeamTable");
     if(!tbody) return;
-    tbody.innerHTML = window.teamPlayers().map(p => {
+    tbody.innerHTML = window.teamPlayers().map((p, i) => {
       const l3 = calculateStableLevel3(p);
+      const id = cacheLevel3Breakdown(breakdownDomId("team_l3", p.name, i), l3);
       const own = p.ownership ? p.ownership + "%" : "<span class='warn'>Needs data</span>";
       const bye = byeRounds(p).length ? byeRounds(p).join(",") : "<span class='warn'>Needs data</span>";
-      return `<tr><td>${p.name}</td><td>${p.pos || l3.pos}</td><td>${p.team || l3.team}</td><td><b>${l3.expected}</b><br><span class="mini">${l3.floor}-${l3.ceiling}</span></td><td>${own}</td><td>${bye}</td><td><span class="pill ${l3.available ? (l3.availability === "AVAILABLE" ? "good" : "warn") : "bad"}">${l3.availability}</span></td><td><button onclick="removeTeam('${String(p.name).replace(/'/g,"\\'")}')">Remove</button></td></tr>`;
+      return `<tr><td>${p.name}</td><td>${p.pos || l3.pos}</td><td>${p.team || l3.team}</td><td><b>${l3.expected}</b> <button class="mini" onclick="toggleLevel3Breakdown('${id}')">Why?</button><br><span class="mini">${l3.floor}-${l3.ceiling}</span></td><td>${own}</td><td>${bye}</td><td><span class="pill ${l3.available ? (l3.availability === "AVAILABLE" ? "good" : "warn") : "bad"}">${l3.availability}</span></td><td><button onclick="removeTeam('${String(p.name).replace(/'/g,"\\'")}')">Remove</button></td></tr><tr id="${id}" class="hidden level3BreakdownRow"><td colspan="8"><div class="level3BreakdownMount"></div></td></tr>`;
     }).join("") || `<tr><td colspan="8" class="muted">No players added.</td></tr>`;
   };
 
@@ -10850,7 +10963,8 @@ function weatherAdj(p){
     el.innerHTML = `<table><thead><tr><th>#</th><th>Player</th><th>Pos</th><th>Team</th><th>Base</th><th>Expected</th><th>Floor</th><th>Ceiling</th><th>Status</th><th>Confidence</th><th>Why</th><th>Missing</th></tr></thead><tbody>${rows.map((r,i)=>{
       const c = r.confidence === "High" ? "good" : r.confidence === "Medium" ? "warn" : "bad";
       const s = r.available ? (r.availability === "AVAILABLE" ? "good" : "warn") : "bad";
-      return `<tr><td>${i+1}</td><td><b>${r.name}</b></td><td>${r.pos}</td><td>${r.team}</td><td>${r.base}</td><td><b>${r.expected}</b></td><td>${r.floor}</td><td>${r.ceiling}</td><td><span class="pill ${s}">${r.availability}</span></td><td><span class="pill ${c}">${r.confidence}</span></td><td>${r.reason.join("<br>")}</td><td>${r.missing.join(", ") || "none"}</td></tr>`;
+      const id = cacheLevel3Breakdown(breakdownDomId("level3_l3", r.name, i), r);
+      return `<tr><td>${i+1}</td><td><b>${r.name}</b></td><td>${r.pos}</td><td>${r.team}</td><td>${r.base}</td><td><b>${r.expected}</b> <button class="mini" onclick="toggleLevel3Breakdown('${id}')">Why?</button></td><td>${r.floor}</td><td>${r.ceiling}</td><td><span class="pill ${s}">${r.availability}</span></td><td><span class="pill ${c}">${r.confidence}</span></td><td><span class="mini">Expandable breakdown</span></td><td>${r.missing.join(", ") || "none"}</td></tr><tr id="${id}" class="hidden level3BreakdownRow"><td colspan="12"><div class="level3BreakdownMount"></div></td></tr>`;
     }).join("")}</tbody></table>`;
   };
 
