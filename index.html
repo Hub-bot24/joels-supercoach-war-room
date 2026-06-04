@@ -10371,20 +10371,43 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
     const g3 = weightedRecentFromGames(p,3) || last3(p);
     const g5 = weightedRecentFromGames(p,5) || last5(p);
 
-    const parts = [];
-    if(avg) parts.push({label:"avg", value:avg, weight:0.45});
-    if(g3) parts.push({label:"last3", value:g3, weight:0.30});
-    if(g5) parts.push({label:"last5", value:g5, weight:0.25});
+    const definitions = [
+      {field:"avg", value:avg, weight:0.45},
+      {field:"last3Avg", value:g3, weight:0.30},
+      {field:"last5Avg", value:g5, weight:0.25}
+    ];
+    const parts = definitions.filter(x => x.value);
 
-    if(!parts.length) return {base:0, source:"no scoring data", parts:[]};
+    if(!parts.length){
+      return {
+        base:0,
+        source:"no scoring data",
+        parts:[],
+        weightsRenormalized:false,
+        inputs:definitions.map(x => ({field:x.field, value:x.value || 0, originalWeight:x.weight, effectiveWeight:0, contribution:0}))
+      };
+    }
 
     const totalW = parts.reduce((s,x)=>s+x.weight,0);
     const base = parts.reduce((s,x)=>s+x.value*x.weight,0) / totalW;
+    const weightsRenormalized = Math.abs(totalW - 1) > 0.0001;
+    const inputs = definitions.map(x => {
+      const effectiveWeight = x.value ? x.weight / totalW : 0;
+      return {
+        field:x.field,
+        value:x.value || 0,
+        originalWeight:x.weight,
+        effectiveWeight,
+        contribution:(x.value || 0) * effectiveWeight
+      };
+    });
 
     return {
       base,
-      source:parts.map(x => `${x.label} ${Math.round(x.value)} @ ${Math.round((x.weight/totalW)*100)}%`).join(", "),
-      parts
+      source:inputs.filter(x => x.effectiveWeight > 0).map(x => `${x.field.replace("Avg","")} ${Math.round(x.value)} @ ${Math.round(x.effectiveWeight*100)}%`).join(", "),
+      parts,
+      weightsRenormalized,
+      inputs
     };
   }
 
@@ -10396,46 +10419,77 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
     return "other";
   }
 
+  function positionGroupLabel(group){
+    if(group === "forward") return "FRF / 2RF / HOK";
+    if(group === "half") return "HFB / 5/8";
+    if(group === "outside") return "FLB / CTW";
+    return "other";
+  }
+
+  function minutesFormula(group){
+    if(group === "forward") return "clamp((expectedMinutes - 65) * 0.20, -8, +5)";
+    if(group === "half") return "clamp((expectedMinutes - 75) * 0.10, -6, +3)";
+    if(group === "outside") return "clamp((expectedMinutes - 75) * 0.08, -8, +2)";
+    return "0";
+  }
+
   function minutesAdjustment(p){
     const mins = minutes(p);
     const group = playerGroup(p);
-    if(!mins) return {adj:0, note:"minutes missing/neutral"};
-    if(group === "forward") return {adj:clamp((mins - 65) * 0.20, -8, 5), note:`forward/HOK minutes ${mins}`};
-    if(group === "half") return {adj:clamp((mins - 75) * 0.10, -6, 3), note:`half minutes ${mins}`};
-    if(group === "outside") return {adj:clamp((mins - 75) * 0.08, -8, 2), note:`outside-back minutes ${mins}`};
-    return {adj:0, note:"position minutes neutral"};
+    if(!mins) return {adj:0, note:"minutes missing/neutral", expectedMinutes:0, positionGroup:group, formula:minutesFormula(group)};
+    if(group === "forward") return {adj:clamp((mins - 65) * 0.20, -8, 5), note:`forward/HOK minutes ${mins}`, expectedMinutes:mins, positionGroup:group, formula:minutesFormula(group)};
+    if(group === "half") return {adj:clamp((mins - 75) * 0.10, -6, 3), note:`half minutes ${mins}`, expectedMinutes:mins, positionGroup:group, formula:minutesFormula(group)};
+    if(group === "outside") return {adj:clamp((mins - 75) * 0.08, -8, 2), note:`outside-back minutes ${mins}`, expectedMinutes:mins, positionGroup:group, formula:minutesFormula(group)};
+    return {adj:0, note:"position minutes neutral", expectedMinutes:mins, positionGroup:group, formula:minutesFormula(group)};
   }
 
   function ppmAdjustment(p, baseline){
     const ppm = firstPositive(p,["ppm","pointsPerMinute"]);
     const mins = minutes(p);
     const group = playerGroup(p);
+    const ppmProjection = ppm && mins ? ppm * mins : 0;
+    const ppmDelta = ppmProjection - baseline;
+    let ignoredReason = null;
 
-    if(!ppm || ppm < 0.25 || ppm > 1.80 || !mins || mins < 30){
-      return {adj:0, ppm, ppmProjection:0, ppmDelta:0, note:"PPM ignored"};
+    if(!ppm) ignoredReason = "PPM missing";
+    else if(ppm < 0.25 || ppm > 1.80) ignoredReason = "PPM outside valid range 0.25-1.80";
+    else if(!mins) ignoredReason = "expectedMinutes missing";
+    else if(mins < 30) ignoredReason = "expectedMinutes below 30";
+
+    if(ignoredReason){
+      return {adj:0, ppm, ppmProjection:0, ppmDelta:0, valid:false, ignoredReason, positionRule:"ignored", reducedForLowMinutes:false, note:`PPM ignored: ${ignoredReason}`};
     }
 
-    const ppmProjection = ppm * mins;
-    const ppmDelta = ppmProjection - baseline;
     let adj = 0;
+    let positionRule = "outside backs: 0 for now";
 
-    if(group === "forward") adj = clamp(ppmDelta * 0.15, -4, 4);
-    else if(group === "half") adj = clamp(ppmDelta * 0.05, -2, 2);
-    else adj = 0;
+    if(group === "forward"){
+      adj = clamp(ppmDelta * 0.15, -4, 4);
+      positionRule = "FRF / 2RF / HOK: clamp(ppmDelta * 0.15, -4, +4)";
+    }
+    else if(group === "half"){
+      adj = clamp(ppmDelta * 0.05, -2, 2);
+      positionRule = "HFB / 5/8: clamp(ppmDelta * 0.05, -2, +2)";
+    }
 
-    if(mins < 45) adj *= 0.5;
+    const reducedForLowMinutes = mins < 45;
+    if(reducedForLowMinutes) adj *= 0.5;
 
     return {
       adj,
       ppm,
       ppmProjection,
       ppmDelta,
+      valid:true,
+      ignoredReason: group === "outside" ? "outside backs disabled for PPM adjustment" : null,
+      positionRule,
+      reducedForLowMinutes,
       note: group === "outside" ? "PPM ignored for outside backs" : `PPM projection ${Math.round(ppmProjection)}`
     };
   }
 
   function goalKickerAdjustment(p){
-    return {adj:0, note:"goal-kicker adjustment unavailable/not sourced"};
+    return {adj:0, status:"unknown", source:null, note:"No verified sourced goal-kicker data."};
   }
 
   function applyEliteGuardrails(p, raw){
@@ -10444,21 +10498,24 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
     const group = playerGroup(p);
     let guarded = raw;
     const notes = [];
+    const guardrails = [];
 
-    if(avg >= 70 && mins >= 60 && guarded < avg - 5){
-      guarded = avg - 5;
-      notes.push(`avg>=70 guardrail ${Math.round(avg - 5)}`);
-    }
-    if(group === "forward" && avg >= 70 && mins >= 60 && guarded < avg - 3){
-      guarded = avg - 3;
-      notes.push(`elite forward/HOK guardrail ${Math.round(avg - 3)}`);
-    }
-    if(avg >= 85 && mins >= 75 && guarded < avg - 7){
-      guarded = avg - 7;
-      notes.push(`avg>=85 guardrail ${Math.round(avg - 7)}`);
+    function addGuardrail(name, checked, minimum){
+      const before = guarded;
+      let applied = false;
+      if(checked && minimum !== null && guarded < minimum){
+        guarded = minimum;
+        applied = true;
+        notes.push(`${name} ${Math.round(minimum)}`);
+      }
+      guardrails.push({name, checked, applied, minimum, before, after:guarded});
     }
 
-    return {score:guarded, notes};
+    addGuardrail("avg >= 70 and expectedMinutes >= 60", avg >= 70 && mins >= 60, avg >= 70 && mins >= 60 ? avg - 5 : null);
+    addGuardrail("elite forward/HOK guardrail", group === "forward" && avg >= 70 && mins >= 60, group === "forward" && avg >= 70 && mins >= 60 ? avg - 3 : null);
+    addGuardrail("avg >= 85 and expectedMinutes >= 75", avg >= 85 && mins >= 75, avg >= 85 && mins >= 75 ? avg - 7 : null);
+
+    return {score:guarded, notes, guardrails};
   }
 
   function roleAdj(p){
@@ -10472,15 +10529,20 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
       adj,
       note:notes.join(", ") || "neutral role",
       minutesAdjustment:mins.adj,
+      minutes:mins,
       ppmAdjustment:ppm.adj,
       ppm:ppm.ppm,
       ppmProjection:ppm.ppmProjection,
       ppmDelta:ppm.ppmDelta,
-      goalKickerAdjustment:goal.adj
+      ppmDetail:ppm,
+      goalKickerAdjustment:goal.adj,
+      goalKicker:goal
     };
   }
 
-  function weatherAdj(p){
+  
+
+function weatherAdj(p){
     try{
       if(typeof window.findWeatherMatchForTeam === "function" && typeof window.numericWeatherAdjustment === "function"){
         const match = window.findWeatherMatchForTeam(upper(p?.team || p?.club));
@@ -10546,6 +10608,73 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
 
     const verdict = !avail.available ? avail.label : roundExpected >= 80 ? "Strong C/VC" : roundExpected >= 70 ? "VC option" : roundExpected >= 60 ? "Playable" : "Risky";
     const guardrailNote = guarded.notes.length ? `Guardrails: ${guarded.notes.join(", ")}` : "Guardrails: none";
+    const group = playerGroup(p);
+    const groupLabel = positionGroupLabel(group);
+    const breakdown = {
+      mainOutputs:{
+        rawExpected,
+        roundExpected,
+        floor,
+        ceiling,
+        availability:avail.label
+      },
+      baseline:{
+        total:+baseInfo.base.toFixed(2),
+        weightsRenormalized:!!baseInfo.weightsRenormalized,
+        inputs:(baseInfo.inputs || []).map(x => ({
+          field:x.field,
+          value:x.value,
+          originalWeight:+x.originalWeight.toFixed(2),
+          effectiveWeight:+x.effectiveWeight.toFixed(4),
+          contribution:+x.contribution.toFixed(2)
+        }))
+      },
+      minutes:{
+        expectedMinutes:role.minutes.expectedMinutes,
+        positionGroup:groupLabel,
+        formula:role.minutes.formula,
+        adjustment:+role.minutesAdjustment.toFixed(2)
+      },
+      ppm:{
+        value:role.ppm,
+        valid:!!role.ppmDetail.valid,
+        ignoredReason:role.ppmDetail.ignoredReason,
+        projection:+N(role.ppmProjection,0).toFixed(2),
+        delta:+N(role.ppmDelta,0).toFixed(2),
+        positionRule:role.ppmDetail.positionRule,
+        reducedForLowMinutes:!!role.ppmDetail.reducedForLowMinutes,
+        adjustment:+role.ppmAdjustment.toFixed(2)
+      },
+      goalKicker:{
+        adjustment:role.goalKickerAdjustment,
+        status:role.goalKicker.status,
+        source:role.goalKicker.source,
+        note:"No verified sourced goal-kicker data."
+      },
+      guardrails:guarded.guardrails.map(x => ({
+        name:x.name,
+        checked:!!x.checked,
+        applied:!!x.applied,
+        minimum:x.minimum === null ? null : +x.minimum.toFixed(2),
+        before:+x.before.toFixed(2),
+        after:+x.after.toFixed(2)
+      })),
+      availability:{
+        status:avail.label,
+        rawExpectedPreserved:true,
+        roundExpected,
+        floor,
+        ceiling,
+        note:unavailable ? `${avail.label}: roundExpected = 0, floor = 0, ceiling = 0` : "roundExpected = rawExpected"
+      },
+      volatility:{
+        source:"position fallback",
+        positionGroup:groupLabel,
+        value:vol,
+        floorCalculation:unavailable ? "unavailable: floor = 0" : `${rawExpected} - ${vol} = ${floor}`,
+        ceilingCalculation:unavailable ? "unavailable: ceiling = 0" : `${rawExpected} + ${vol} = ${ceiling}`
+      }
+    };
 
     return {
       player:p,
@@ -10583,6 +10712,7 @@ loadPlayersFromJsonFile().then(loadMyTeamFromJsonFile).then(renderAll);
       },
       weather:{adjustment:weather.adj, note:weather.note, text:weather.note},
       adjustments:{role:+role.adj.toFixed(2), weather:weather.adj, availability:0, minutes:+role.minutesAdjustment.toFixed(2), ppm:+role.ppmAdjustment.toFixed(2), goalKicker:role.goalKickerAdjustment},
+      breakdown,
       reason:[
         `Baseline ${Math.round(baseInfo.base)} from ${baseInfo.source}`,
         `Minutes ${role.minutesAdjustment >= 0 ? "+" : ""}${role.minutesAdjustment.toFixed(2)}`,
