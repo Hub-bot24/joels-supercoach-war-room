@@ -293,6 +293,14 @@ def preferred_name_lookup(position_master: dict[str, tuple[str, list[str]]], exi
     preferred: dict[str, str] = {}
     for key, (name, _) in position_master.items():
         preferred.setdefault(key, name)
+
+    # my_team.json stores the selected squad by exact name. Those names must
+    # remain resolvable by the browser's existing exact-name lookup.
+    team_data = load_json(MY_TEAM_JSON, {"players": []})
+    for name in team_data.get("players", []) if isinstance(team_data, dict) else []:
+        for key in match_keys(name):
+            preferred[key] = name
+
     for key, player in existing_lookup.items():
         preferred.setdefault(key, player.get("name"))
     return preferred
@@ -462,15 +470,7 @@ def main() -> None:
                 break
 
         if master_match:
-            master_name, positions = master_match
-            source_player = SourcePlayer(
-                name=master_name,
-                source_name=source_player.source_name,
-                team=source_player.team,
-                source_team=source_player.source_team,
-                source_positions=source_player.source_positions,
-                price=source_player.price,
-            )
+            _, positions = master_match
         else:
             positions = source_player.source_positions
             position_master_missing.append({
