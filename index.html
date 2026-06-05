@@ -118,7 +118,7 @@ async function boot(){
  App.myTeam=[...new Set(names.filter(n=>App.playerMap.has(n)))];
  App.lineup=JSON.parse(localStorage.getItem('sc_lineup')||'{}')||{};ensureLineup();wireTabs();renderActive();
 }
-function wireTabs(){document.querySelectorAll('nav button[data-tab]').forEach(b=>b.onclick=()=>{
+
 function scaleField(){
   const shell=document.querySelector('.field-shell');
   if(!shell) return;
@@ -127,8 +127,10 @@ function scaleField(){
   const scale=Math.min(1, Math.max(0.42, w/base));
   shell.style.setProperty('--fieldScale', scale.toFixed(4));
 }
+
 window.addEventListener('resize', ()=>requestAnimationFrame(scaleField));
 
+function wireTabs(){document.querySelectorAll('nav button[data-tab]').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active-tab'));App.active=b.dataset.tab;$(App.active).classList.add('active-tab');renderActive()})}
 function ensureLineup(){if(!App.lineup)App.lineup={};const used=new Set(Object.values(App.lineup).filter(n=>App.myTeam.includes(n)));for(const id of Object.keys(App.lineup)){if(!App.myTeam.includes(App.lineup[id]))delete App.lineup[id]}
  const candidates=[...App.myTeam].filter(n=>!used.has(n)).sort((a,b)=>proj(getPlayer(b)).expected-proj(getPlayer(a)).expected);
