@@ -110,7 +110,7 @@ function teamPlayers(){return App.myTeam.map(getPlayer).filter(Boolean)}
 function saveLocal(){localStorage.setItem('sc_round',String(App.round));localStorage.setItem('sc_myTeam',JSON.stringify(App.myTeam));localStorage.setItem('sc_lineup',JSON.stringify(App.lineup||{}))}
 async function boot(){
  const rawPlayers=await fetchJson('players.json',[]);let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));
- App.weather=await fetchJson('weather.json',null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});
+ App.weather=await fetchJson('weather.json',null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);
  const localTeam=JSON.parse(localStorage.getItem('sc_myTeam')||'null');const teamJson=await fetchJson('my_team.json',null);let names=localTeam||teamJson?.players||teamJson?.team||[];if(!Array.isArray(names))names=[];
  names = names.map(x => typeof x === 'string' ? x.trim() : (x?.name || x?.player || '')).filter(Boolean);
  const missingNames = names.filter(n=>!App.playerMap.has(n));

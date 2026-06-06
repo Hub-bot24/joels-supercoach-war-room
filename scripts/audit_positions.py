@@ -124,6 +124,7 @@ def main():
         "conflicts": conflicts
     }
 
+    PLAYERS_PATH.write_text(json.dumps(players_data, indent=2, ensure_ascii=False), encoding="utf-8")
     DUAL_PATH.write_text(json.dumps(dual_out, indent=2, ensure_ascii=False), encoding="utf-8")
     REPORT_PATH.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
 
