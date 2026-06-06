@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-04T11:20:32.753111+00:00",
+  "updated": "2026-06-06T09:58:10.148459+00:00",
   "note": "This workflow validates primary/backup goal kickers against players.json + players_seed_round14.json. It cannot discover brand-new goal kickers unless the player is entered as primary/backup in team_roles.json.",
   "teams": {
     "BRO": {
@@ -45,12 +45,12 @@
     "MEL": {
       "primary": "Nick Meaney",
       "backup": "Cameron Munster",
-      "primaryActive": false,
+      "primaryActive": true,
       "backupActive": true,
       "useBackupGoalKickerBefore": true,
-      "useBackupGoalKickerAfter": true,
-      "activeGoalKicker": "Cameron Munster",
-      "roleStatus": "primary_not_named_backup_named"
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Nick Meaney",
+      "roleStatus": "primary_named"
     },
     "GLD": {
       "primary": "Jayden Campbell",
@@ -105,22 +105,22 @@
     "STH": {
       "primary": "Latrell Mitchell",
       "backup": "Cody Walker",
-      "primaryActive": false,
+      "primaryActive": true,
       "backupActive": true,
       "useBackupGoalKickerBefore": true,
-      "useBackupGoalKickerAfter": true,
-      "activeGoalKicker": "Cody Walker",
-      "roleStatus": "primary_not_named_backup_named"
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Latrell Mitchell",
+      "roleStatus": "primary_named"
     },
     "WST": {
       "primary": "Adam Doueihi",
       "backup": "Jarome Luai",
-      "primaryActive": false,
+      "primaryActive": true,
       "backupActive": true,
       "useBackupGoalKickerBefore": true,
-      "useBackupGoalKickerAfter": true,
-      "activeGoalKicker": "Jarome Luai",
-      "roleStatus": "primary_not_named_backup_named"
+      "useBackupGoalKickerAfter": false,
+      "activeGoalKicker": "Adam Doueihi",
+      "roleStatus": "primary_named"
     },
     "SHA": {
       "primary": "Nicholas Hynes",
@@ -165,12 +165,12 @@
     "NZL": {
       "primary": "Luke Metcalf",
       "backup": "Chanel Harris-Tavita",
-      "primaryActive": false,
-      "backupActive": false,
+      "primaryActive": true,
+      "backupActive": true,
       "useBackupGoalKickerBefore": false,
       "useBackupGoalKickerAfter": false,
       "activeGoalKicker": "Luke Metcalf",
-      "roleStatus": "warning_no_named_primary_or_backup"
+      "roleStatus": "primary_named"
     }
   }
 }
