@@ -70,6 +70,71 @@ def parse_return_round(value: Any) -> int | None:
     return int(m.group(1)) if m else None
 
 
+def parse_week_range(*values: Any) -> tuple[int | None, int | None]:
+    """Parse a week-based return window into (minWeeks, maxWeeks).
+
+    Handles forms like "4-6 weeks", "4–6 weeks" (en dash), "4 to 6 weeks",
+    "out 4-6 weeks", and single values like "4 weeks" / "1 week"
+    (min == max). Returns (None, None) when no week figure is present.
+    """
+    text = " ".join(str(v or "") for v in values).lower()
+    if "week" not in text:
+        return None, None
+    # Range: "4-6", "4 - 6", "4–6" (en/em dash), "4 to 6"
+    m = re.search(r"(\d+)\s*(?:-|\u2013|\u2014|to)\s*(\d+)\s*week", text)
+    if m:
+        lo, hi = int(m.group(1)), int(m.group(2))
+        if lo > hi:
+            lo, hi = hi, lo
+        return lo, hi
+    # Single: "4 weeks" / "1 week"
+    m = re.search(r"(\d+)\s*week", text)
+    if m:
+        w = int(m.group(1))
+        return w, w
+    return None, None
+
+
+def compute_return_window(reason: Any, expected_return: Any) -> dict[str, Any]:
+    """Build additive return-window fields for a player.
+
+    Precedence: an explicit absolute round (e.g. "Round 17") is authoritative.
+    Otherwise, a week range is converted to absolute rounds ONLY when
+    SC_CURRENT_ROUND is set (no guessing). When neither yields an absolute
+    round, the player is treated as indefinite/unknown (stays OUT downstream).
+    """
+    rr = parse_return_round(expected_return)
+    min_weeks, max_weeks = parse_week_range(expected_return, reason)
+
+    return_type = "none"
+    min_round: int | None = None
+    max_round: int | None = None
+
+    if rr is not None:
+        # Absolute round is authoritative: before = out, at/after = return risk.
+        return_type = "round"
+        min_round = rr
+        max_round = rr
+    elif min_weeks is not None:
+        return_type = "weeks"
+        # Only convert to absolute rounds when an anchor round is set.
+        if CURRENT_ROUND is not None:
+            min_round = CURRENT_ROUND + min_weeks
+            max_round = CURRENT_ROUND + (max_weeks if max_weeks is not None else min_weeks)
+        # else: leave rounds null -> treated as OUT/unknown (no guessing).
+    elif re.search(r"tbc|indefinite|unknown|next\s*season", str(expected_return or ""), re.I):
+        return_type = "indefinite"
+
+    return {
+        "returnType": return_type,
+        "returnWindowMinWeeks": min_weeks,
+        "returnWindowMaxWeeks": max_weeks,
+        "returnWindowMinRound": min_round,
+        "returnWindowMaxRound": max_round,
+        "cleared": False,
+    }
+
+
 def classify(reason: Any, expected_return: Any) -> tuple[str, int]:
     """Map a source row to (status, playProbability).
 
@@ -264,15 +329,25 @@ def merge_rows(rows: list[dict[str, Any]], names: dict[str, str]) -> dict[str, A
         # Determine merged status via confidence-weighted rules
         merged_status, merged_prob, merged_confidence, merged_reason = _resolve_sources(source_results)
 
+        # Pick the most informative expectedReturn across sources: prefer one
+        # that yields an absolute round, else the first non-empty value.
+        best_er = next(
+            (r["expectedReturn"] for r in source_results if parse_return_round(r["expectedReturn"]) is not None),
+            next((r["expectedReturn"] for r in source_results if r["expectedReturn"]), ""),
+        )
+        best_reason = next((r["reason"] for r in source_results if r["reason"]), "")
+        window = compute_return_window(best_reason, best_er)
+
         entry = {
             "status": merged_status,
             "playProbability": merged_prob,
             "reason": merged_reason,
-            "expectedReturn": source_results[0]["expectedReturn"],
-            "expectedReturnRound": parse_return_round(source_results[0]["expectedReturn"]),
+            "expectedReturn": best_er,
+            "expectedReturnRound": parse_return_round(best_er),
             "sourceConfidence": merged_confidence,
             "sources": source_results,
             "lastUpdated": now,
+            **window,
         }
 
         if canonical:
