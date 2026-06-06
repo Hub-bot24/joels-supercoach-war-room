@@ -27,4 +27,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Audit and lock trusted player positions
-          file_pattern: dual_positions.json position_audit_report.json
+          file_pattern: players.json dual_positions.json position_audit_report.json
