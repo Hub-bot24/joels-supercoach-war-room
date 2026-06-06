@@ -1,0 +1,10 @@
+{
+  "updated": "2026-06-06T00:00:00Z",
+  "note": "Manual trump file. Entries here override scraped player_status.json. Edit directly or via workflow_dispatch.",
+  "schema": {
+    "status": "out | injured | suspended | unavailable | doubtful | chance | risk | available | fit",
+    "playProbability": "0-100 (optional, overrides probability check)",
+    "reason": "Free text shown in UI (e.g. 'Cleared at training', 'Manager confirmed out')"
+  },
+  "players": {}
+}

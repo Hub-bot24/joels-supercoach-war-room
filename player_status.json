@@ -1,63 +1,55 @@
 {
-  "updated": "2026-06-06T00:25:15.073574+00:00",
-  "source": "zerotackle injuries-suspensions (nrlsupercoachstats-referenced)",
+  "updated": "2026-06-06T00:50:03.992231+00:00",
+  "source": "multi-source (NRL Casualty Ward + zerotackle)",
   "sourceUrls": [
+    "https://www.nrl.com/casualty-ward/",
     "https://www.zerotackle.com/rugby-league/injuries-suspensions/"
   ],
   "round": null,
+  "sources": [
+    {
+      "name": "nrl-casualty-ward",
+      "url": "https://www.nrl.com/casualty-ward/",
+      "confidence": "high"
+    },
+    {
+      "name": "zerotackle-injuries-suspensions",
+      "url": "https://www.zerotackle.com/rugby-league/injuries-suspensions/",
+      "confidence": "medium"
+    }
+  ],
   "generated": {
-    "rowsFound": 77,
-    "matched": 68,
-    "unmatched": 9
+    "rowsFound": 154,
+    "matched": 69,
+    "unmatched": 10
   },
   "players": {
-    "Antonio Verhoeven": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Shoulder",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Corey Jensen": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Lung",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Deine Mariner": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Thigh",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Jordan Riki": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Foot",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Billy Walters": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "ACL",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
     "Delouise Hoeter": {
       "status": "out",
       "playProbability": 0,
       "reason": "Leg",
       "expectedReturn": "Round 15",
       "expectedReturnRound": 15,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Leg",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Leg",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Patrick Carrigan": {
       "status": "out",
@@ -65,7 +57,26 @@
       "reason": "Ankle",
       "expectedReturn": "Round 16",
       "expectedReturnRound": 16,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Round 16"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Gehamat Shibasaki": {
       "status": "out",
@@ -73,79 +84,161 @@
       "reason": "Knee",
       "expectedReturn": "Round 18",
       "expectedReturnRound": 18,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 18"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 18"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
-    "Noah Martin": {
+    "Corey Jensen": {
       "status": "out",
       "playProbability": 0,
-      "reason": "Ankle",
+      "reason": "Lung",
       "expectedReturn": "TBC",
       "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Lung",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Lung",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
-    "Ethan Sanders": {
+    "Deine Mariner": {
       "status": "out",
       "playProbability": 0,
-      "reason": "TBC",
+      "reason": "Thigh",
       "expectedReturn": "TBC",
       "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Thigh",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Thigh",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
-    "Savelio Tamale": {
+    "Jordan Riki": {
       "status": "out",
       "playProbability": 0,
-      "reason": "Head knock",
+      "reason": "Foot",
       "expectedReturn": "TBC",
       "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Foot",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Foot",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
-    "Josh Papalii": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Calf",
-      "expectedReturn": "Round 15",
-      "expectedReturnRound": 15,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Sebastian Kris": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Concussion",
-      "expectedReturn": "Round 15",
-      "expectedReturnRound": 15,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Simi Sasagi": {
+    "Antonio Verhoeven": {
       "status": "out",
       "playProbability": 0,
       "reason": "Shoulder",
-      "expectedReturn": "Round 16",
-      "expectedReturnRound": 16,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Samuel Hughes": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Neck",
       "expectedReturn": "TBC",
       "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
-    "Jake Turpin": {
+    "Billy Walters": {
       "status": "out",
       "playProbability": 0,
-      "reason": "Biceps",
+      "reason": "ACL",
       "expectedReturn": "TBC",
       "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Mitchell Woods": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Hamstring",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Jacob Preston": {
       "status": "out",
@@ -153,7 +246,26 @@
       "reason": "Arm",
       "expectedReturn": "Round 19",
       "expectedReturnRound": 19,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Arm",
+          "expectedReturn": "Round 19"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Arm",
+          "expectedReturn": "Round 19"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Viliame Kikau": {
       "status": "out",
@@ -161,191 +273,107 @@
       "reason": "Pectoral",
       "expectedReturn": "Round 20",
       "expectedReturnRound": 20,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Pectoral",
+          "expectedReturn": "Round 20"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Pectoral",
+          "expectedReturn": "Round 20"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
-    "Blayke Brailey": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Arm",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Liam Ison": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Knee",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Nicho Hynes": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Calf",
-      "expectedReturn": "Round 18",
-      "expectedReturnRound": 18,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Jake Averillo": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Hand",
-      "expectedReturn": "Round 15",
-      "expectedReturnRound": 15,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Brock Gray": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "ACL",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Tukimihia Simpkins": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Knee",
-      "expectedReturn": "Round 16",
-      "expectedReturnRound": 16,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Jaimin Jolliffe": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Knee",
-      "expectedReturn": "Next Season",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Caleb Navale": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "ACL",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Tom Trbojevic": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Hamstring",
-      "expectedReturn": "Round 16",
-      "expectedReturnRound": 16,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Corey Waddell": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Pectoral",
-      "expectedReturn": "Round 21",
-      "expectedReturnRound": 21,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Tui Kamikamica": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Medical Episode",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Tyran Wishart": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Ankle",
-      "expectedReturn": "Round 16",
-      "expectedReturnRound": 16,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Hugo Peel": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Knee",
-      "expectedReturn": "Round 17",
-      "expectedReturnRound": 17,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Nick Meaney": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Calf",
-      "expectedReturn": "Round 18",
-      "expectedReturnRound": 18,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Eliesa Katoa": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Medical Episode",
-      "expectedReturn": "Indefinite",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Xavier Coates": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Achilles",
-      "expectedReturn": "Next Season",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Leka Halasima": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Hamstring",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Haizyn Mellars": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Hamstring",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Charnze Nicoll-Klokstad": {
+    "Samuel Hughes": {
       "status": "out",
       "playProbability": 0,
       "reason": "Neck",
       "expectedReturn": "TBC",
       "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Neck",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Neck",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
-    "Roger Tuivasa-Sheck": {
+    "Jake Turpin": {
       "status": "out",
       "playProbability": 0,
-      "reason": "Knee",
-      "expectedReturn": "Next Season",
+      "reason": "Biceps",
+      "expectedReturn": "TBC",
       "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Biceps",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Biceps",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
-    "Tanah Boyd": {
+    "Mitchell Woods": {
       "status": "out",
       "playProbability": 0,
-      "reason": "ACL",
-      "expectedReturn": "Next Season",
+      "reason": "Hamstring",
+      "expectedReturn": "TBC",
       "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Bradman Best": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Calf",
-      "expectedReturn": "Round 15",
-      "expectedReturnRound": 15,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Sandon Smith": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Calf",
-      "expectedReturn": "Round 16",
-      "expectedReturnRound": 16,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Jeremiah Nanai": {
       "status": "out",
@@ -353,95 +381,53 @@
       "reason": "Shoulder",
       "expectedReturn": "TBC",
       "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
-    "Mitchell Moses": {
+    "Jake Averillo": {
       "status": "out",
       "playProbability": 0,
-      "reason": "Hamstring",
+      "reason": "Hand",
       "expectedReturn": "Round 15",
       "expectedReturnRound": 15,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Jonah Pezet": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Hamstring",
-      "expectedReturn": "Round 18",
-      "expectedReturnRound": 18,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Will Penisini": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Groin",
-      "expectedReturn": "Round 21",
-      "expectedReturnRound": 21,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Junior Paulo": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Knee",
-      "expectedReturn": "Round 21",
-      "expectedReturnRound": 21,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Bailey Simonsson": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Ankle",
-      "expectedReturn": "Round 23",
-      "expectedReturnRound": 23,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Isaiah Tass": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "ACL",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Latrell Mitchell": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Back",
-      "expectedReturn": "Round 17",
-      "expectedReturnRound": 17,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Jack Wighton": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Arm",
-      "expectedReturn": "Round 18",
-      "expectedReturnRound": 18,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Talanoa Penitani": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Hamstring",
-      "expectedReturn": "Round 26",
-      "expectedReturnRound": 26,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Adam Elliott": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Ankle",
-      "expectedReturn": "Next Season",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Jaydn Su'A": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Calf",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hand",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hand",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Christian Tuipulotu": {
       "status": "out",
@@ -449,7 +435,26 @@
       "reason": "Hamstring",
       "expectedReturn": "Round 15",
       "expectedReturnRound": 15,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "David Fale": {
       "status": "out",
@@ -457,7 +462,26 @@
       "reason": "Hamstring",
       "expectedReturn": "Round 16",
       "expectedReturnRound": 16,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 16"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Hayden Buchanan": {
       "status": "out",
@@ -465,7 +489,26 @@
       "reason": "Shoulder",
       "expectedReturn": "Round 17",
       "expectedReturnRound": 17,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 17"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 17"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Kade Reed": {
       "status": "out",
@@ -473,15 +516,539 @@
       "reason": "Finger",
       "expectedReturn": "Round 20",
       "expectedReturnRound": 20,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Finger",
+          "expectedReturn": "Round 20"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Finger",
+          "expectedReturn": "Round 20"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
-    "Daniel Tupou": {
+    "Jaydn Su'A": {
       "status": "out",
       "playProbability": 0,
       "reason": "Calf",
       "expectedReturn": "TBC",
       "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Mitchell Moses": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Hamstring",
+      "expectedReturn": "Round 15",
+      "expectedReturnRound": 15,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Jonah Pezet": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Hamstring",
+      "expectedReturn": "Round 18",
+      "expectedReturnRound": 18,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 18"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 18"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Junior Paulo": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Knee",
+      "expectedReturn": "Round 21",
+      "expectedReturnRound": 21,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 21"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 21"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Will Penisini": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Groin",
+      "expectedReturn": "Round 21",
+      "expectedReturnRound": 21,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Groin",
+          "expectedReturn": "Round 21"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Groin",
+          "expectedReturn": "Round 21"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Bailey Simonsson": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Ankle",
+      "expectedReturn": "Round 23",
+      "expectedReturnRound": 23,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Round 23"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Round 23"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Bradman Best": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Calf",
+      "expectedReturn": "Round 15",
+      "expectedReturnRound": 15,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Sandon Smith": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Calf",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 16"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Latrell Mitchell": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Back",
+      "expectedReturn": "Round 17",
+      "expectedReturnRound": 17,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Back",
+          "expectedReturn": "Round 17"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Back",
+          "expectedReturn": "Round 17"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Jack Wighton": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Arm",
+      "expectedReturn": "Round 18",
+      "expectedReturnRound": 18,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Arm",
+          "expectedReturn": "Round 18"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Arm",
+          "expectedReturn": "Round 18"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Talanoa Penitani": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Hamstring",
+      "expectedReturn": "Round 26",
+      "expectedReturnRound": 26,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 26"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 26"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Isaiah Tass": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "ACL",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Adam Elliott": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Ankle",
+      "expectedReturn": "Next Season",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Next Season"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Next Season"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Sebastian Kris": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Concussion",
+      "expectedReturn": "Round 15",
+      "expectedReturnRound": 15,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Concussion",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Concussion",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Josh Papalii": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Calf",
+      "expectedReturn": "Round 15",
+      "expectedReturnRound": 15,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Simi Sasagi": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Shoulder",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 16"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Noah Martin": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Ankle",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Ethan Sanders": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "TBC",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "TBC",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "TBC",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Savelio Tamale": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Head knock",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Head knock",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Head knock",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Cody Ramsey": {
       "status": "out",
@@ -489,7 +1056,53 @@
       "reason": "Illness",
       "expectedReturn": "Round 15",
       "expectedReturnRound": 15,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Illness",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Illness",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Daniel Tupou": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Calf",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Blake Steep": {
       "status": "out",
@@ -497,15 +1110,558 @@
       "reason": "ACL",
       "expectedReturn": "Next Season",
       "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "Next Season"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "Next Season"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
-    "Heamasi Makasini": {
+    "Tom Trbojevic": {
       "status": "out",
       "playProbability": 0,
-      "reason": "Shoulder",
+      "reason": "Hamstring",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 16"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Corey Waddell": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Pectoral",
+      "expectedReturn": "Round 21",
+      "expectedReturnRound": 21,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Pectoral",
+          "expectedReturn": "Round 21"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Pectoral",
+          "expectedReturn": "Round 21"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Caleb Navale": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "ACL",
       "expectedReturn": "TBC",
       "expectedReturnRound": null,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Blayke Brailey": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Arm",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Arm",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Arm",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Liam Ison": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Knee",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Tyran Wishart": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Ankle",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Round 16"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Hugo Peel": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Knee",
+      "expectedReturn": "Round 17",
+      "expectedReturnRound": 17,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 17"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 17"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Nick Meaney": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Calf",
+      "expectedReturn": "Round 18",
+      "expectedReturnRound": 18,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 18"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 18"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Tui Kamikamica": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Medical Episode",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Medical Episode",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Medical Episode",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Xavier Coates": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Achilles",
+      "expectedReturn": "Next Season",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Achilles",
+          "expectedReturn": "Next Season"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Achilles",
+          "expectedReturn": "Next Season"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Eliesa Katoa": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Medical Episode",
+      "expectedReturn": "Indefinite",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Medical Episode",
+          "expectedReturn": "Indefinite"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Medical Episode",
+          "expectedReturn": "Indefinite"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Tukimihia Simpkins": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Knee",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 16"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Brock Gray": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "ACL",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Jaimin Jolliffe": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Knee",
+      "expectedReturn": "Next Season",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Next Season"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Next Season"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Sam Healey": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Thumb",
+      "expectedReturn": "Round 17",
+      "expectedReturnRound": 17,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Thumb",
+          "expectedReturn": "Round 17"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Leka Halasima": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Hamstring",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Haizyn Mellars": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Hamstring",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Charnze Nicoll-Klokstad": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Neck",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Neck",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Neck",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Tanah Boyd": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "ACL",
+      "expectedReturn": "Next Season",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "Next Season"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "Next Season"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Roger Tuivasa-Sheck": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Knee",
+      "expectedReturn": "Next Season",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Next Season"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Next Season"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Sione Fainu": {
       "status": "out",
@@ -513,7 +1669,26 @@
       "reason": "Concussion",
       "expectedReturn": "Round 15",
       "expectedReturnRound": 15,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Concussion",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Concussion",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Patrick Herbert": {
       "status": "suspended",
@@ -521,15 +1696,26 @@
       "reason": "Suspension",
       "expectedReturn": "Round 15",
       "expectedReturnRound": 15,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
-    },
-    "Taylan May": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Shoulder",
-      "expectedReturn": "Round 16",
-      "expectedReturnRound": 16,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "suspended",
+          "playProbability": 0,
+          "reason": "Suspension",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "suspended",
+          "playProbability": 0,
+          "reason": "Suspension",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Adam Doueihi": {
       "status": "out",
@@ -537,7 +1723,53 @@
       "reason": "Shoulder",
       "expectedReturn": "Round 16",
       "expectedReturnRound": 16,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 16"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Taylan May": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Shoulder",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 16"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Alex Twal": {
       "status": "out",
@@ -545,7 +1777,26 @@
       "reason": "Knee",
       "expectedReturn": "Round 18",
       "expectedReturnRound": 18,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 18"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 18"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     },
     "Samuela Fainu": {
       "status": "out",
@@ -553,7 +1804,72 @@
       "reason": "Foot",
       "expectedReturn": "Round 20",
       "expectedReturnRound": 20,
-      "lastUpdated": "2026-06-06T00:25:15.073574+00:00"
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Foot",
+          "expectedReturn": "Round 20"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Foot",
+          "expectedReturn": "Round 20"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Heamasi Makasini": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Shoulder",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
+    },
+    "Nicho Hynes": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Calf",
+      "expectedReturn": "Round 18",
+      "expectedReturnRound": 18,
+      "sourceConfidence": "medium",
+      "sources": [
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 18"
+        }
+      ],
+      "lastUpdated": "2026-06-06T00:50:03.992231+00:00"
     }
   },
   "unmatched": [
@@ -562,6 +1878,7 @@
     "Marion Seve",
     "Matt Doorey",
     "Mitch Kenny",
+    "Nicholas Hynes",
     "Richard Penisini",
     "Samuel Healey",
     "Siosiua Taukeiaho",
