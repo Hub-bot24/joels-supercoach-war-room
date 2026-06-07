@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -196,6 +197,32 @@ def captain_impact(label: str, rain_prob: float, rain_mm: float, wind: float, gu
         return "Moderate weather risk over game window. Be careful with backs as C/VC unless chasing POD upside."
     return "Low weather risk over game window. Normal captain logic applies."
 
+def game_window(kickoff_local: str, game_minutes: int):
+    kickoff = datetime.fromisoformat(kickoff_local)
+    return {
+        "from": (kickoff - timedelta(minutes=30)).isoformat(),
+        "to": (kickoff + timedelta(minutes=game_minutes)).isoformat(),
+        "gameMinutes": game_minutes
+    }
+
+def api_failure_result(fixture: dict, venue: dict, game_minutes: int, status: str, reason: str, error: Exception):
+    return {
+        **fixture,
+        "city": venue.get("city"),
+        "lat": venue["lat"],
+        "lon": venue["lon"],
+        "weatherStatus": status,
+        "weatherError": str(error),
+        "gameWindow": game_window(fixture["kickoffLocal"], game_minutes),
+        "gameWindowWeather": [],
+        "weatherRisk": {
+            "score": 0,
+            "label": "Unknown",
+            "reasons": [reason],
+            "captainImpact": "Unknown weather risk."
+        },
+    }
+
 def main():
     venues = get_venue_map()
     fixtures_data = load_json(FIXTURES_JSON, {"fixtures": []})
@@ -258,11 +285,7 @@ def main():
             "lat": venue["lat"],
             "lon": venue["lon"],
             "weatherStatus": "updated",
-            "gameWindow": {
-                "from": (datetime.fromisoformat(fixture["kickoffLocal"]) - timedelta(minutes=30)).isoformat(),
-                "to": (datetime.fromisoformat(fixture["kickoffLocal"]) + timedelta(minutes=game_minutes)).isoformat(),
-                "gameMinutes": game_minutes
-            },
+            "gameWindow": game_window(fixture["kickoffLocal"], game_minutes),
             "gameWindowWeather": hours,
             "weatherRisk": summary,
         })
