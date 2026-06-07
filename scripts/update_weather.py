@@ -16,15 +16,28 @@ OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast"
 FORECAST_DAYS = 10
 OPEN_METEO_TIMEOUT_SECONDS = 10
 OPEN_METEO_MAX_ATTEMPTS = 2
+VENUE_ALIASES = {
+    "Commbank Stadium": "CommBank Stadium",
+    "Qld Country Bank Stadium": "Queensland Country Bank Stadium",
+    "Sharks Stadium": "Shark Park",
+}
 
 def load_json(path: Path, default):
     if not path.exists():
         return default
     return json.loads(path.read_text(encoding="utf-8"))
 
+def norm_venue_name(name):
+    return str(name or "").strip().casefold()
+
 def get_venue_map():
     data = load_json(VENUES_JSON, {"venues": []})
-    return {v["venue"]: v for v in data.get("venues", [])}
+    venues = {norm_venue_name(v["venue"]): v for v in data.get("venues", [])}
+    for alias, canonical in VENUE_ALIASES.items():
+        venue = venues.get(norm_venue_name(canonical))
+        if venue:
+            venues[norm_venue_name(alias)] = venue
+    return venues
 
 def is_in_forecast_window(kickoff_local: str, now: datetime, days: int = FORECAST_DAYS):
     kickoff = datetime.fromisoformat(kickoff_local)
@@ -238,7 +251,7 @@ def main():
             continue
 
         venue_name = fixture.get("venue")
-        venue = venues.get(venue_name)
+        venue = venues.get(norm_venue_name(venue_name))
         game_minutes = int(fixture.get("gameMinutes") or 110)
 
         if not venue:
