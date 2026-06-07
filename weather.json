@@ -1,35 +1,8 @@
 {
-  "updated": "2026-06-07T14:08:47.542482+00:00",
+  "updated": "2026-06-07T16:23:11.258886+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
-    {
-      "round": 14,
-      "match": "Sharks v Dragons",
-      "homeTeam": "SHA",
-      "awayTeam": "STG",
-      "venue": "Sharks Stadium",
-      "kickoffLocal": "2026-06-07T16:05:00",
-      "city": "Cronulla",
-      "lat": -34.0419,
-      "lon": 151.1403,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-06-07T15:35:00",
-        "to": "2026-06-07T17:55:00",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "label": "Unknown",
-        "score": 0,
-        "reasons": [
-          "No hourly forecast available"
-        ],
-        "captainImpact": "Unknown weather risk."
-      }
-    },
     {
       "round": 14,
       "match": "Bulldogs v Eels",
@@ -52,7 +25,7 @@
           "time": "2026-06-08T16:00",
           "phase": "pre_game",
           "temperature_2m": 17.5,
-          "precipitation_probability": 47,
+          "precipitation_probability": 14,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 6.3,
           "wind_gusts_10m": 15.1
@@ -61,7 +34,7 @@
           "time": "2026-06-08T17:00",
           "phase": "halftime_period",
           "temperature_2m": 15.9,
-          "precipitation_probability": 42,
+          "precipitation_probability": 15,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 6.3,
           "wind_gusts_10m": 13.7
@@ -69,25 +42,23 @@
       ],
       "weatherRisk": {
         "label": "Low",
-        "score": 25,
-        "maxRainProbability": 47.0,
+        "score": 0,
+        "maxRainProbability": 15.0,
         "totalGameRainMm": 0.0,
         "maxWindKmh": 6.3,
         "maxGustKmh": 15.1,
         "avgTemp": 16.7,
         "phaseRisk": {
           "pre_game": {
-            "avgScore": 25,
-            "maxScore": 25
+            "avgScore": 0,
+            "maxScore": 0
           },
           "halftime_period": {
-            "avgScore": 25,
-            "maxScore": 25
+            "avgScore": 0,
+            "maxScore": 0
           }
         },
-        "reasons": [
-          "moderate rain"
-        ],
+        "reasons": [],
         "captainImpact": "Low weather risk over game window. Normal captain logic applies."
       }
     },
@@ -113,7 +84,7 @@
           "time": "2026-06-11T20:00",
           "phase": "first_half",
           "temperature_2m": 13.9,
-          "precipitation_probability": 25,
+          "precipitation_probability": 19,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 6.5,
           "wind_gusts_10m": 12.2
@@ -122,7 +93,7 @@
           "time": "2026-06-11T21:00",
           "phase": "second_half",
           "temperature_2m": 13.9,
-          "precipitation_probability": 22,
+          "precipitation_probability": 17,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 7.0,
           "wind_gusts_10m": 12.6
@@ -131,7 +102,7 @@
       "weatherRisk": {
         "label": "Low",
         "score": 0,
-        "maxRainProbability": 25.0,
+        "maxRainProbability": 19.0,
         "totalGameRainMm": 0.0,
         "maxWindKmh": 7.0,
         "maxGustKmh": 12.6,
@@ -172,7 +143,7 @@
           "time": "2026-06-12T20:00",
           "phase": "first_half",
           "temperature_2m": 16.6,
-          "precipitation_probability": 7,
+          "precipitation_probability": 18,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 8.1,
           "wind_gusts_10m": 18.0
@@ -181,7 +152,7 @@
           "time": "2026-06-12T21:00",
           "phase": "halftime_period",
           "temperature_2m": 16.1,
-          "precipitation_probability": 8,
+          "precipitation_probability": 17,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 8.0,
           "wind_gusts_10m": 18.0
@@ -190,7 +161,7 @@
       "weatherRisk": {
         "label": "Low",
         "score": 0,
-        "maxRainProbability": 8.0,
+        "maxRainProbability": 18.0,
         "totalGameRainMm": 0.0,
         "maxWindKmh": 8.1,
         "maxGustKmh": 18.0,
@@ -231,7 +202,7 @@
           "time": "2026-06-13T19:00",
           "phase": "pre_game",
           "temperature_2m": 11.9,
-          "precipitation_probability": 5,
+          "precipitation_probability": 4,
           "precipitation_mm": 0.1,
           "wind_speed_10m": 9.7,
           "wind_gusts_10m": 30.6
