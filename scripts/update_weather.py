@@ -231,7 +231,10 @@ def main():
     now = datetime.now()
 
     for fixture in fixtures_data.get("fixtures", []):
-        if not is_in_forecast_window(fixture["kickoffLocal"], now):
+        kickoff_local = fixture.get("kickoffLocal")
+        if not kickoff_local or not str(kickoff_local).strip():
+            continue
+        if not is_in_forecast_window(kickoff_local, now):
             continue
 
         venue_name = fixture.get("venue")
