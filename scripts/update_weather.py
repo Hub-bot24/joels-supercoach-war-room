@@ -12,6 +12,9 @@ FIXTURES_JSON = ROOT / "fixtures.json"
 WEATHER_JSON = ROOT / "weather.json"
 
 OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast"
+FORECAST_DAYS = 10
+OPEN_METEO_TIMEOUT_SECONDS = 10
+OPEN_METEO_MAX_ATTEMPTS = 2
 
 def load_json(path: Path, default):
     if not path.exists():
@@ -22,17 +25,31 @@ def get_venue_map():
     data = load_json(VENUES_JSON, {"venues": []})
     return {v["venue"]: v for v in data.get("venues", [])}
 
+def is_in_forecast_window(kickoff_local: str, now: datetime, days: int = FORECAST_DAYS):
+    kickoff = datetime.fromisoformat(kickoff_local)
+    return now <= kickoff <= now + timedelta(days=days)
+
 def fetch_open_meteo(lat: float, lon: float, timezone_name: str):
     params = {
         "latitude": lat,
         "longitude": lon,
         "hourly": "temperature_2m,precipitation_probability,precipitation,wind_speed_10m,wind_gusts_10m",
         "timezone": timezone_name,
-        "forecast_days": 10,
+        "forecast_days": FORECAST_DAYS,
     }
-    res = requests.get(OPEN_METEO_URL, params=params, timeout=30)
-    res.raise_for_status()
-    return res.json()
+    last_error = None
+    for _ in range(OPEN_METEO_MAX_ATTEMPTS):
+        try:
+            res = requests.get(OPEN_METEO_URL, params=params, timeout=OPEN_METEO_TIMEOUT_SECONDS)
+            res.raise_for_status()
+            return res.json(), None
+        except requests.Timeout as exc:
+            last_error = exc
+        except requests.RequestException as exc:
+            last_error = exc
+    if isinstance(last_error, requests.Timeout):
+        return None, ("api_timeout", str(last_error))
+    return None, ("api_error", str(last_error))
 
 def extract_hourly_window(forecast: dict, kickoff_local: str, game_minutes: int):
     hourly = forecast.get("hourly", {})
@@ -183,8 +200,13 @@ def main():
     venues = get_venue_map()
     fixtures_data = load_json(FIXTURES_JSON, {"fixtures": []})
     results = []
+    forecast_cache = {}
+    now = datetime.now()
 
     for fixture in fixtures_data.get("fixtures", []):
+        if not is_in_forecast_window(fixture["kickoffLocal"], now):
+            continue
+
         venue_name = fixture.get("venue")
         venue = venues.get(venue_name)
         game_minutes = int(fixture.get("gameMinutes") or 110)
@@ -199,7 +221,34 @@ def main():
             continue
 
         tz = fixture.get("timezone") or "Australia/Brisbane"
-        forecast = fetch_open_meteo(venue["lat"], venue["lon"], tz)
+        cache_key = (venue["lat"], venue["lon"], tz)
+        if cache_key not in forecast_cache:
+            forecast_cache[cache_key] = fetch_open_meteo(venue["lat"], venue["lon"], tz)
+        forecast, forecast_error = forecast_cache[cache_key]
+        if forecast_error:
+            status, error_message = forecast_error
+            results.append({
+                **fixture,
+                "city": venue.get("city"),
+                "lat": venue["lat"],
+                "lon": venue["lon"],
+                "weatherStatus": status,
+                "weatherError": error_message,
+                "gameWindow": {
+                    "from": (datetime.fromisoformat(fixture["kickoffLocal"]) - timedelta(minutes=30)).isoformat(),
+                    "to": (datetime.fromisoformat(fixture["kickoffLocal"]) + timedelta(minutes=game_minutes)).isoformat(),
+                    "gameMinutes": game_minutes
+                },
+                "gameWindowWeather": [],
+                "weatherRisk": {
+                    "score": 0,
+                    "label": "Unknown",
+                    "reasons": [error_message],
+                    "captainImpact": "Unknown weather risk.",
+                },
+            })
+            continue
+
         hours = extract_hourly_window(forecast, fixture["kickoffLocal"], game_minutes)
         summary = summarise_game_weather(hours)
 
