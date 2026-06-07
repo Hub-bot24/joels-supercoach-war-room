@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -12,6 +13,9 @@ FIXTURES_JSON = ROOT / "fixtures.json"
 WEATHER_JSON = ROOT / "weather.json"
 
 OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast"
+OPEN_METEO_TIMEOUT = 60
+OPEN_METEO_ATTEMPTS = 3
+OPEN_METEO_BACKOFF_SECONDS = [2, 5]
 
 def load_json(path: Path, default):
     if not path.exists():
@@ -30,9 +34,17 @@ def fetch_open_meteo(lat: float, lon: float, timezone_name: str):
         "timezone": timezone_name,
         "forecast_days": 10,
     }
-    res = requests.get(OPEN_METEO_URL, params=params, timeout=30)
-    res.raise_for_status()
-    return res.json()
+    last_error = None
+    for attempt in range(OPEN_METEO_ATTEMPTS):
+        try:
+            res = requests.get(OPEN_METEO_URL, params=params, timeout=OPEN_METEO_TIMEOUT)
+            res.raise_for_status()
+            return res.json()
+        except requests.exceptions.RequestException as exc:
+            last_error = exc
+            if attempt < OPEN_METEO_ATTEMPTS - 1:
+                time.sleep(OPEN_METEO_BACKOFF_SECONDS[min(attempt, len(OPEN_METEO_BACKOFF_SECONDS) - 1)])
+    raise last_error
 
 def extract_hourly_window(forecast: dict, kickoff_local: str, game_minutes: int):
     hourly = forecast.get("hourly", {})
@@ -179,6 +191,32 @@ def captain_impact(label: str, rain_prob: float, rain_mm: float, wind: float, gu
         return "Moderate weather risk over game window. Be careful with backs as C/VC unless chasing POD upside."
     return "Low weather risk over game window. Normal captain logic applies."
 
+def game_window(kickoff_local: str, game_minutes: int):
+    kickoff = datetime.fromisoformat(kickoff_local)
+    return {
+        "from": (kickoff - timedelta(minutes=30)).isoformat(),
+        "to": (kickoff + timedelta(minutes=game_minutes)).isoformat(),
+        "gameMinutes": game_minutes
+    }
+
+def api_failure_result(fixture: dict, venue: dict, game_minutes: int, status: str, reason: str, error: Exception):
+    return {
+        **fixture,
+        "city": venue.get("city"),
+        "lat": venue["lat"],
+        "lon": venue["lon"],
+        "weatherStatus": status,
+        "weatherError": str(error),
+        "gameWindow": game_window(fixture["kickoffLocal"], game_minutes),
+        "gameWindowWeather": [],
+        "weatherRisk": {
+            "score": 0,
+            "label": "Unknown",
+            "reasons": [reason],
+            "captainImpact": "Unknown weather risk."
+        },
+    }
+
 def main():
     venues = get_venue_map()
     fixtures_data = load_json(FIXTURES_JSON, {"fixtures": []})
@@ -199,7 +237,15 @@ def main():
             continue
 
         tz = fixture.get("timezone") or "Australia/Brisbane"
-        forecast = fetch_open_meteo(venue["lat"], venue["lon"], tz)
+        try:
+            forecast = fetch_open_meteo(venue["lat"], venue["lon"], tz)
+        except requests.exceptions.Timeout as exc:
+            results.append(api_failure_result(fixture, venue, game_minutes, "api_timeout", "Weather API timeout after retries", exc))
+            continue
+        except requests.exceptions.RequestException as exc:
+            results.append(api_failure_result(fixture, venue, game_minutes, "api_error", "Weather API error after retries", exc))
+            continue
+
         hours = extract_hourly_window(forecast, fixture["kickoffLocal"], game_minutes)
         summary = summarise_game_weather(hours)
 
@@ -209,11 +255,7 @@ def main():
             "lat": venue["lat"],
             "lon": venue["lon"],
             "weatherStatus": "updated",
-            "gameWindow": {
-                "from": (datetime.fromisoformat(fixture["kickoffLocal"]) - timedelta(minutes=30)).isoformat(),
-                "to": (datetime.fromisoformat(fixture["kickoffLocal"]) + timedelta(minutes=game_minutes)).isoformat(),
-                "gameMinutes": game_minutes
-            },
+            "gameWindow": game_window(fixture["kickoffLocal"], game_minutes),
             "gameWindowWeather": hours,
             "weatherRisk": summary,
         })
