@@ -199,6 +199,10 @@ def game_window(kickoff_local: str, game_minutes: int):
         "gameMinutes": game_minutes
     }
 
+def is_inside_forecast_window(kickoff_local: str, now: datetime):
+    kickoff = datetime.fromisoformat(kickoff_local)
+    return now <= kickoff <= now + timedelta(days=10)
+
 def api_failure_result(fixture: dict, venue: dict, game_minutes: int, status: str, reason: str, error: Exception):
     return {
         **fixture,
@@ -221,8 +225,12 @@ def main():
     venues = get_venue_map()
     fixtures_data = load_json(FIXTURES_JSON, {"fixtures": []})
     results = []
+    now = datetime.now()
 
     for fixture in fixtures_data.get("fixtures", []):
+        if not is_inside_forecast_window(fixture["kickoffLocal"], now):
+            continue
+
         venue_name = fixture.get("venue")
         venue = venues.get(venue_name)
         game_minutes = int(fixture.get("gameMinutes") or 110)
