@@ -108,12 +108,12 @@ const SLOT_DEFS=[
  {id:'HFB1',label:'Halfback',short:'HFB',accept:['HFB'],row:'row-halves'}, {id:'FE1',label:'Five-Eighth',short:'5/8',accept:['5/8'],row:'row-halves'},
  {id:'CTW1',label:'Centre/Wing',short:'CTW',accept:['CTW'],row:'row-ctw1'}, {id:'CTW2',label:'Centre/Wing',short:'CTW',accept:['CTW'],row:'row-ctw1'},
  {id:'CTW3',label:'Centre/Wing',short:'CTW',accept:['CTW'],row:'row-ctw2'}, {id:'CTW4',label:'Centre/Wing',short:'CTW',accept:['CTW'],row:'row-ctw2'},
- {id:'FLB1',label:'Fullback',short:'FLB',accept:['FLB','FB'],row:'row-flb'}
+ {id:'FLB1',label:'Fullback',short:'FLB',accept:['FLB','FB'],row:'row-flb'}, {id:'FLEX1',label:'Flex',short:'FLEX',accept:['ANY'],row:'row-flb'}
 ];
 const slotById=Object.fromEntries(SLOT_DEFS.map(s=>[s.id,s]));
 const POS_ALIAS={'HKR':'HOK','HOK':'HOK','FR':'FRF','FRF':'FRF','SRF':'2RF','2RF':'2RF','HFB':'HFB','HB':'HFB','5/8':'5/8','FE':'5/8','CTW':'CTW','WFB':'FLB','FB':'FLB','FLB':'FLB'};
 function positions(p){return String(p?.pos||p?.position||'').toUpperCase().replace(/5\s*\/\s*8/g,'FE').split(/[|,\/ ]+/).map(x=>POS_ALIAS[x]||x).filter(Boolean)}
-function eligible(p,slot){if(!p||!slot)return false;const ps=positions(p);return slot.accept.some(a=>ps.includes(POS_ALIAS[a]||a))}
+function eligible(p,slot){if(!p||!slot)return false;if(slot.accept.includes('ANY'))return true;const ps=positions(p);return slot.accept.some(a=>ps.includes(POS_ALIAS[a]||a))}
 function primaryGroup(p){const ps=positions(p);if(ps.includes('HOK'))return 'HOOKER';if(ps.includes('FRF'))return 'FRONT ROW';if(ps.includes('2RF'))return '2ND ROW / FORWARDS';if(ps.includes('HFB')||ps.includes('5/8'))return 'HALVES';if(ps.includes('CTW'))return 'CENTRES / WINGS';if(ps.includes('FLB'))return 'FULLBACK';return 'UTILITY'}
 function getPlayer(name){if(!name)return null;return App.playerMap.get(String(name).trim())||null}
 function cleanPlayer(p){
@@ -151,7 +151,7 @@ window.addEventListener('resize', ()=>requestAnimationFrame(scaleField));
 
 function wireTabs(){document.querySelectorAll('nav button[data-tab]').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active-tab'));App.active=b.dataset.tab;$(App.active).classList.add('active-tab');renderActive()})}
-function validateLineup(){if(!App.lineup)App.lineup={};for(const [id,name] of Object.entries(App.lineup)){const slot=slotById[id],p=getPlayer(name);if(!slot||!p||!App.myTeam.includes(name)||!eligible(p,slot))delete App.lineup[id]}}
+function validateLineup(){if(!App.lineup)App.lineup={};const seen=new Set();for(const [id,name] of Object.entries(App.lineup)){const slot=slotById[id],p=getPlayer(name);if(!slot||!p||!App.myTeam.includes(name)||!eligible(p,slot)||seen.has(name))delete App.lineup[id];else seen.add(name)}}
 function ensureLineup(){if(!App.lineup)App.lineup={};const used=new Set(Object.values(App.lineup).filter(n=>App.myTeam.includes(n)));for(const id of Object.keys(App.lineup)){if(!App.myTeam.includes(App.lineup[id]))delete App.lineup[id]}
  const candidates=[...App.myTeam].filter(n=>!used.has(n)).sort((a,b)=>proj(getPlayer(b)).expected-proj(getPlayer(a)).expected);
  for(const slot of SLOT_DEFS){if(App.lineup[slot.id])continue;const n=candidates.find(x=>!used.has(x)&&eligible(getPlayer(x),slot));if(n){App.lineup[slot.id]=n;used.add(n)}}}
