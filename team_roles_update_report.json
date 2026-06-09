@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-06T09:58:10.148459+00:00",
+  "updated": "2026-06-09T10:57:05.352848+00:00",
   "note": "This workflow validates primary/backup goal kickers against players.json + players_seed_round14.json. It cannot discover brand-new goal kickers unless the player is entered as primary/backup in team_roles.json.",
   "teams": {
     "BRO": {
@@ -47,7 +47,7 @@
       "backup": "Cameron Munster",
       "primaryActive": true,
       "backupActive": true,
-      "useBackupGoalKickerBefore": true,
+      "useBackupGoalKickerBefore": false,
       "useBackupGoalKickerAfter": false,
       "activeGoalKicker": "Nick Meaney",
       "roleStatus": "primary_named"
@@ -107,7 +107,7 @@
       "backup": "Cody Walker",
       "primaryActive": true,
       "backupActive": true,
-      "useBackupGoalKickerBefore": true,
+      "useBackupGoalKickerBefore": false,
       "useBackupGoalKickerAfter": false,
       "activeGoalKicker": "Latrell Mitchell",
       "roleStatus": "primary_named"
@@ -117,7 +117,7 @@
       "backup": "Jarome Luai",
       "primaryActive": true,
       "backupActive": true,
-      "useBackupGoalKickerBefore": true,
+      "useBackupGoalKickerBefore": false,
       "useBackupGoalKickerAfter": false,
       "activeGoalKicker": "Adam Doueihi",
       "roleStatus": "primary_named"
