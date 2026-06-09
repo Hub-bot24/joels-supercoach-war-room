@@ -1,0 +1,14 @@
+{
+  "updated": "",
+  "notes": "Optional manual Origin safety layer. Leave players empty if relying only on originUrls. Add names only when squads are known. This is NOT a hard fix; the updater applies the same Origin rules to every listed player.",
+  "settings": {
+    "riskWindowDaysBeforeOrigin": 7,
+    "riskWindowDaysAfterOrigin": 4,
+    "clubTeamListOverridesOrigin": true,
+    "namedClubPlayerStatus": "available",
+    "originSelectedNotNamedStatus": "risk",
+    "originSelectedNotNamedLabel": "Origin monitor"
+  },
+  "originGames": [],
+  "players": {}
+}

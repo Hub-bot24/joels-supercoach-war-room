@@ -1,0 +1,20 @@
+{
+  "updated": "2026-06-09T00:00:00+10:00",
+  "notes": "Source-trust config. Add/adjust official team-list, late-mail and Origin squad URLs here. The updater never hard-codes player statuses.",
+  "teamListUrls": [
+    "https://www.nrl.com/news/topic/team-lists/"
+  ],
+  "lateMailUrls": [
+    "https://www.nrl.com/news/topic/late-mail/"
+  ],
+  "originUrls": [
+    "https://www.nrl.com/news/topic/state-of-origin/"
+  ],
+  "sourceWeights": {
+    "official_team_list": 100,
+    "late_mail": 90,
+    "origin_squad": 70,
+    "injury_report": 65,
+    "weak_visual_or_question_mark": 10
+  }
+}
