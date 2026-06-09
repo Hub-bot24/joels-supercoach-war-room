@@ -1,15 +1,22 @@
 {
+  "currentRound": 15,
   "updated": "2026-06-09T00:00:00+10:00",
-  "notes": "Use real article/detail URLs, not topic hub pages. If sources return tiny/empty content, updater must fail safe and not overwrite player_status.json.",
   "minimumValidSourceLength": 1000,
   "teamListUrls": [
-    "https://www.nrl.com/news/2026/05/19/raiders-v-dolphins-savage-eyes-return-trai-tevita-step-up/"
+    "https://www.nrl.com/news/2026/06/09/nrl-team-lists-round-15/",
+    "https://www.nrl.com/news/2026/06/10/nrl-team-lists-round-15/"
   ],
-  "lateMailUrls": [],
+  "lateMailUrls": [
+    "https://www.nrl.com/news/2026/06/11/nrl-late-mail-round-15/",
+    "https://www.nrl.com/news/2026/06/12/nrl-late-mail-round-15/"
+  ],
   "injuryUrls": [
-    "https://www.sharks.com.au/news/2026/05/26/pilot-medical-update--nicho-hynes/"
+    "https://rugbyleaguezone.com/nrl/injuries/",
+    "https://www.zerotackle.com/hynes-to-miss-more-time-as-calf-injury-plays-havoc-234398/"
   ],
-  "originUrls": [],
+  "originUrls": [
+    "https://www.nrl.com/news/topic/state-of-origin/"
+  ],
   "sourceWeights": {
     "official_team_list": 100,
     "late_mail": 95,
