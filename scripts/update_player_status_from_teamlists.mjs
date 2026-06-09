@@ -126,7 +126,7 @@ function evidenceFromPlayerJson(player, currentRound) {
 function directPlayerOutEvidence(text, playerName) {
   const n = norm(playerName).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const t = norm(text);
-  const hard = '(ruled out|set to miss|to miss|will miss|miss more time|miss another|out for|unavailable|rested|withdrawn|sidelined|injured|calf injury|hamstring injury|suspension|suspended)';
+  const hard = '(ruled out|set to miss|to miss|will miss|miss more time|miss another|out for|unavailable|rested|withdrawn|sidelined|injured|injury|calf injury|hamstring injury|mcl|acl|broken|fracture|forearm|arm|suspension|suspended)';
   const p1 = new RegExp(`${n}.{0,120}${hard}`, 'i');
   const p2 = new RegExp(`${hard}.{0,120}${n}`, 'i');
   return p1.test(t) || p2.test(t);
@@ -139,7 +139,92 @@ function directPlayerRiskEvidence(text, playerName) {
   const p2 = new RegExp(`${risk}.{0,100}${n}`, 'i');
   return p1.test(t) || p2.test(t);
 }
-function evidenceFromSource(sourceType, url, player, text) {
+
+function timelineFromText(text, currentRound) {
+  const raw = String(text || '');
+  const t = norm(raw);
+  let minWeeks = null;
+  let maxWeeks = null;
+
+  const wordNums = {
+    one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8,
+    nine: 9, ten: 10, eleven: 11, twelve: 12
+  };
+  function toNum(v) {
+    if (v == null) return null;
+    const s = String(v).toLowerCase();
+    if (/^\d+$/.test(s)) return Number(s);
+    return wordNums[s] ?? null;
+  }
+  function setRange(a, b) {
+    const lo = toNum(a);
+    const hi = toNum(b ?? a);
+    if (!lo || !hi) return;
+    minWeeks = Math.min(lo, hi);
+    maxWeeks = Math.max(lo, hi);
+  }
+
+  let m = t.match(/\b(\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\s*(?:-|to|or)\s*(\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\s*(?:weeks?|rounds?)\b/i);
+  if (m) setRange(m[1], m[2]);
+
+  if (!minWeeks) {
+    m = t.match(/\b(?:another|next|for|around|approximately|about|up to)?\s*(\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\s*(?:weeks?|rounds?)\b/i);
+    if (m) setRange(m[1], m[1]);
+  }
+
+  if (!minWeeks && /\b(month|four weeks)\b/i.test(t)) setRange(4, 4);
+  if (!minWeeks && /\b(season|season ending|season-ending)\b/i.test(t)) setRange(12, 99);
+
+  const rr = getRoundNumber(raw);
+  if (rr && currentRound && rr > currentRound) {
+    return {
+      type: 'return_round',
+      returnRound: rr,
+      outUntilRound: rr - 1,
+      riskUntilRound: rr + 1,
+      summary: `return/available from Round ${rr}`
+    };
+  }
+
+  if (!minWeeks) return null;
+  const outUntilRound = currentRound ? currentRound + minWeeks - 1 : null;
+  const riskUntilRound = currentRound ? currentRound + maxWeeks - 1 : null;
+  const returnRound = currentRound ? currentRound + minWeeks : null;
+  return {
+    type: 'weeks',
+    minWeeks,
+    maxWeeks,
+    returnRound,
+    returnWindowMinRound: returnRound,
+    returnWindowMaxRound: currentRound ? currentRound + maxWeeks : null,
+    outUntilRound,
+    riskUntilRound,
+    summary: minWeeks === maxWeeks ? `${minWeeks} week injury window` : `${minWeeks}-${maxWeeks} week injury window`
+  };
+}
+function roundStatusFromTimeline(timeline, currentRound) {
+  if (!timeline || !currentRound) return 'out';
+  if (timeline.outUntilRound && currentRound <= timeline.outUntilRound) return 'out';
+  if (timeline.riskUntilRound && currentRound <= timeline.riskUntilRound) return 'risk';
+  return 'risk';
+}
+function attachTimeline(evidence, timeline, currentRound) {
+  if (!timeline) return evidence;
+  const status = roundStatusFromTimeline(timeline, currentRound);
+  return {
+    ...evidence,
+    status,
+    label: status === 'out' ? 'Out' : 'Monitor',
+    timeline,
+    returnWindow: timeline,
+    returnRound: timeline.returnRound,
+    returnWindowMinRound: timeline.returnWindowMinRound || timeline.returnRound,
+    returnWindowMaxRound: timeline.returnWindowMaxRound || timeline.riskUntilRound,
+    reason: `${evidence.reason || 'Injury evidence.'} ${timeline.summary}; out through R${timeline.outUntilRound ?? '?'}, risk through R${timeline.riskUntilRound ?? '?'}.`
+  };
+}
+
+function evidenceFromSource(sourceType, url, player, text, currentRound) {
   if (!hasName(text, player.name)) return null;
   const context = extractWindow(text, player.name, 220).slice(0, 360);
 
@@ -155,8 +240,14 @@ function evidenceFromSource(sourceType, url, player, text) {
   }
 
   if (sourceType === 'injury_source') {
-    if (directPlayerOutEvidence(text, player.name)) return { source: sourceType, url, status: 'out', confidence: 'high', label: 'Out', context, reason: 'Injury source indicates out/injured/unavailable.' };
-    if (directPlayerRiskEvidence(text, player.name)) return { source: sourceType, url, status: 'risk', confidence: 'medium', label: 'Monitor', context, reason: 'Injury source indicates monitor/risk.' };
+    if (directPlayerOutEvidence(text, player.name)) {
+      const timeline = timelineFromText(context || text, currentRound);
+      return attachTimeline({ source: sourceType, url, status: 'out', confidence: 'high', label: 'Out', context, reason: 'Injury source indicates out/injured/unavailable.' }, timeline, currentRound);
+    }
+    if (directPlayerRiskEvidence(text, player.name)) {
+      const timeline = timelineFromText(context || text, currentRound);
+      return attachTimeline({ source: sourceType, url, status: 'risk', confidence: 'medium', label: 'Monitor', context, reason: 'Injury source indicates monitor/risk.' }, timeline, currentRound);
+    }
     return null;
   }
 
@@ -178,10 +269,10 @@ function chooseStatus(evidences) {
   if (named) return { status: 'available', label: 'Available', sourceConfidence: 'high', reason: named.reason, sources: [named] };
 
   const hardOut = evidences.find(e => e.status === 'out' && e.confidence === 'high') || evidences.find(e => e.status === 'out');
-  if (hardOut) return { status: 'out', label: 'Out', sourceConfidence: hardOut.confidence || 'medium', reason: hardOut.reason || 'Out/unavailable evidence.', sources: [hardOut] };
+  if (hardOut) return { status: hardOut.status || 'out', label: hardOut.label || 'Out', sourceConfidence: hardOut.confidence || 'medium', reason: hardOut.reason || 'Out/unavailable evidence.', sources: [hardOut], timeline: hardOut.timeline, returnWindow: hardOut.returnWindow, returnRound: hardOut.returnRound, returnWindowMinRound: hardOut.returnWindowMinRound, returnWindowMaxRound: hardOut.returnWindowMaxRound };
 
   const risk = evidences.find(e => e.status === 'risk');
-  if (risk) return { status: 'risk', label: risk.label || 'Monitor', sourceConfidence: risk.confidence || 'medium', reason: risk.reason || 'Risk/monitor evidence.', sources: [risk] };
+  if (risk) return { status: risk.status || 'risk', label: risk.label || 'Monitor', sourceConfidence: risk.confidence || 'medium', reason: risk.reason || 'Risk/monitor evidence.', sources: [risk], timeline: risk.timeline, returnWindow: risk.returnWindow, returnRound: risk.returnRound, returnWindowMinRound: risk.returnWindowMinRound, returnWindowMaxRound: risk.returnWindowMaxRound };
 
   return null;
 }
@@ -229,7 +320,8 @@ async function main() {
       onlyWritePlayersWithEvidence: true,
       officialTeamListWins: true,
       injuriesCarryUntilNamed: true,
-      originIsMonitorUntilClubListConfirms: true
+      originIsMonitorUntilClubListConfirms: true,
+      injuryTimelineWindows: 'min weeks out, max weeks risk'
     },
     sources: fetched.map(f => ({ source: f.sourceType, url: f.url, ok: f.ok, length: f.length || 0, error: f.error })),
     players: {}
@@ -249,7 +341,7 @@ async function main() {
     const originManual = originManualEvidence(player, originConfig, currentRound);
     if (originManual) evidences.push(originManual);
     for (const f of fetched.filter(x => x.ok && x.text)) {
-      const ev = evidenceFromSource(f.sourceType, f.url, player, f.text);
+      const ev = evidenceFromSource(f.sourceType, f.url, player, f.text, currentRound);
       if (ev) evidences.push(ev);
     }
     const chosen = chooseStatus(evidences);
@@ -280,7 +372,7 @@ async function main() {
     warnings,
     counts,
     originMonitorCount: Object.values(out.players).filter(p => p.label === 'Origin monitor' || p.flags?.includes('origin_monitor')).length,
-    sampleOutRisk: Object.entries(out.players).filter(([, p]) => ['out', 'risk', 'rested', 'origin_monitor'].includes(p.status)).slice(0, 20).map(([name, p]) => ({ name, status: p.status, label: p.label, reason: p.reason }))
+    sampleOutRisk: Object.entries(out.players).filter(([, p]) => ['out', 'risk', 'rested', 'origin_monitor'].includes(p.status)).slice(0, 20).map(([name, p]) => ({ name, status: p.status, label: p.label, reason: p.reason, timeline: p.timeline || p.returnWindow || null }))
   });
 
   console.log(`Updated sparse player_status.json. Players checked=${players.length}, evidence written=${evidencePlayersWritten}, counts=${JSON.stringify(counts)}`);
