@@ -1,28 +1,134 @@
 {
-  "updated": "2026-06-09T08:47:37.004Z",
+  "updated": "2026-06-09T10:46:08.588Z",
+  "currentRound": 15,
   "playersChecked": 563,
+  "evidencePlayersWritten": 11,
+  "namedCount": 0,
   "sourcesFetched": [
     {
       "source": "official_team_list",
-      "url": "https://www.nrl.com/news/topic/team-lists/",
-      "ok": true,
-      "length": 16
+      "url": "https://www.nrl.com/news/2026/06/09/nrl-team-lists-round-15/",
+      "ok": false,
+      "length": 16,
+      "error": "invalid/too-short source text"
+    },
+    {
+      "source": "official_team_list",
+      "url": "https://www.nrl.com/news/2026/06/10/nrl-team-lists-round-15/",
+      "ok": false,
+      "length": 16,
+      "error": "invalid/too-short source text"
     },
     {
       "source": "late_mail",
-      "url": "https://www.nrl.com/news/topic/late-mail/",
+      "url": "https://www.nrl.com/news/2026/06/11/nrl-late-mail-round-15/",
+      "ok": false,
+      "length": 16,
+      "error": "invalid/too-short source text"
+    },
+    {
+      "source": "late_mail",
+      "url": "https://www.nrl.com/news/2026/06/12/nrl-late-mail-round-15/",
+      "ok": false,
+      "length": 16,
+      "error": "invalid/too-short source text"
+    },
+    {
+      "source": "injury_source",
+      "url": "https://rugbyleaguezone.com/nrl/injuries/",
+      "ok": false,
+      "length": 0,
+      "error": "fetch failed"
+    },
+    {
+      "source": "injury_source",
+      "url": "https://www.zerotackle.com/hynes-to-miss-more-time-as-calf-injury-plays-havoc-234398/",
       "ok": true,
-      "length": 16
+      "length": 8713
     },
     {
       "source": "origin_squad",
       "url": "https://www.nrl.com/news/topic/state-of-origin/",
-      "ok": true,
-      "length": 16
+      "ok": false,
+      "length": 16,
+      "error": "invalid/too-short source text"
     }
   ],
+  "warnings": [
+    "No valid official team-list source fetched. Named-player confidence is limited.",
+    "Very low evidence count (11). Status output is sparse by design to avoid poisoning all players."
+  ],
   "counts": {
-    "available": 563
+    "out": 9,
+    "risk": 2
   },
-  "originMonitorCount": 0
+  "originMonitorCount": 0,
+  "sampleOutRisk": [
+    {
+      "name": "Alex Twal",
+      "status": "out",
+      "label": "Out",
+      "reason": "players.json says undefined."
+    },
+    {
+      "name": "Blayke Brailey",
+      "status": "risk",
+      "label": "Monitor",
+      "reason": "Seen in injury source; monitor."
+    },
+    {
+      "name": "Brandon Smith",
+      "status": "out",
+      "label": "Out",
+      "reason": "players.json says undefined."
+    },
+    {
+      "name": "Braydon Trindall",
+      "status": "out",
+      "label": "Out",
+      "reason": "Current source indicates out/rested/injured: nother two or three weeks as he gets back to full fitness with the sharks keen to avoid a more serious injury by playing through it the halfback will likely continue to be replaced..."
+    },
+    {
+      "name": "Cody Walker",
+      "status": "out",
+      "label": "Out",
+      "reason": "players.json says undefined."
+    },
+    {
+      "name": "Herbie Farnworth",
+      "status": "out",
+      "label": "Out",
+      "reason": "players.json says undefined."
+    },
+    {
+      "name": "Jack Bostock",
+      "status": "out",
+      "label": "Out",
+      "reason": "players.json says undefined."
+    },
+    {
+      "name": "Kayal Iro",
+      "status": "risk",
+      "label": "Monitor",
+      "reason": "players.json monitor note: undefined."
+    },
+    {
+      "name": "Myles Martin",
+      "status": "out",
+      "label": "Out",
+      "reason": "players.json says undefined."
+    },
+    {
+      "name": "Nicho Hynes",
+      "status": "out",
+      "label": "Out",
+      "reason": "Current source indicates out/rested/injured: latest nrl videos nrl live stream nsw cup live stream qld cup live stream more hynes to miss more time as calf injury plays havoc he was only set to miss a single week originally b..."
+    },
+    {
+      "name": "Niwhai Puru",
+      "status": "out",
+      "label": "Out",
+      "reason": "Current source indicates out/rested/injured:  he wouldn't be rushing hynes back it has now been revealed by news corp that hynes could miss another two or three weeks as he gets back to full fitness with the sharks keen to av..."
+    }
+  ]
 }
