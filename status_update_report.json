@@ -1,8 +1,8 @@
 {
-  "updated": "2026-06-09T10:53:04.502Z",
+  "updated": "2026-06-09T12:03:08.979Z",
   "currentRound": 15,
   "playersChecked": 563,
-  "evidencePlayersWritten": 32,
+  "evidencePlayersWritten": 94,
   "namedCount": 0,
   "sourcesFetched": [
     {
@@ -58,130 +58,193 @@
     "Named count is zero because official team-list sources did not fetch. This update is injury/risk evidence only."
   ],
   "counts": {
-    "out": 30,
-    "risk": 2
+    "out": 93,
+    "risk": 1
   },
   "originMonitorCount": 0,
   "sampleOutRisk": [
     {
-      "name": "Alex Twal",
+      "name": "Delouise Hoeter",
       "status": "out",
       "label": "Out",
-      "reason": "Injury source indicates out/injured/unavailable."
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "timeline": null
     },
     {
-      "name": "Blayke Brailey",
-      "status": "risk",
-      "label": "Monitor",
-      "reason": "Seen in injury source; monitor."
+      "name": "Patrick Carrigan",
+      "status": "out",
+      "reason": "Ankle",
+      "timeline": null
     },
     {
-      "name": "Brandon Smith",
+      "name": "Gehamat Shibasaki",
       "status": "out",
       "label": "Out",
-      "reason": "players.json indicates out/unavailable."
+      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
+      "timeline": {
+        "type": "return_round",
+        "returnRound": 20,
+        "outUntilRound": 19,
+        "riskUntilRound": 21,
+        "summary": "return/available from Round 20"
+      }
     },
     {
-      "name": "Braydon Trindall",
+      "name": "Corey Jensen",
       "status": "out",
       "label": "Out",
-      "reason": "Injury source indicates out/injured/unavailable."
+      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
+      "timeline": {
+        "type": "return_round",
+        "returnRound": 16,
+        "outUntilRound": 15,
+        "riskUntilRound": 17,
+        "summary": "return/available from Round 16"
+      }
     },
     {
-      "name": "Cody Walker",
+      "name": "Deine Mariner",
       "status": "out",
       "label": "Out",
-      "reason": "players.json indicates out/unavailable."
+      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
+      "timeline": {
+        "type": "return_round",
+        "returnRound": 16,
+        "outUntilRound": 15,
+        "riskUntilRound": 17,
+        "summary": "return/available from Round 16"
+      }
     },
     {
-      "name": "Herbie Farnworth",
+      "name": "Jordan Riki",
       "status": "out",
       "label": "Out",
-      "reason": "players.json indicates out/unavailable."
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "timeline": null
     },
     {
-      "name": "Jack Bostock",
+      "name": "Antonio Verhoeven",
       "status": "out",
       "label": "Out",
-      "reason": "players.json indicates out/unavailable."
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "timeline": null
     },
     {
-      "name": "Kayal Iro",
-      "status": "risk",
-      "label": "Monitor",
-      "reason": "players.json monitor note."
-    },
-    {
-      "name": "Myles Martin",
+      "name": "Billy Walters",
       "status": "out",
       "label": "Out",
-      "reason": "players.json indicates out/unavailable."
+      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
+      "timeline": {
+        "type": "return_round",
+        "returnRound": 16,
+        "outUntilRound": 15,
+        "riskUntilRound": 17,
+        "summary": "return/available from Round 16"
+      }
     },
     {
-      "name": "Nicho Hynes",
+      "name": "Jacob Preston",
       "status": "out",
       "label": "Out",
-      "reason": "Injury source indicates out/injured/unavailable."
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "timeline": null
     },
     {
-      "name": "Niwhai Puru",
+      "name": "Viliame Kikau",
       "status": "out",
       "label": "Out",
-      "reason": "Current source indicates out/rested/injured:  he wouldn't be rushing hynes back it has now been revealed by news corp that hynes could miss another two or three weeks as he gets back to full fitness with the sharks keen to av..."
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "timeline": null
     },
     {
-      "name": "Adam Doueihi",
+      "name": "Samuel Hughes",
       "status": "out",
-      "label": "Out",
-      "reason": "Injury source indicates out/injured/unavailable."
+      "reason": "Neck",
+      "timeline": null
     },
     {
-      "name": "Bradman Best",
+      "name": "Kurt Mann",
       "status": "out",
-      "label": "Out",
-      "reason": "Injury source indicates out/injured/unavailable."
+      "reason": "Ear",
+      "timeline": null
     },
     {
-      "name": "Charnze Nicoll-Klokstad",
+      "name": "Jake Turpin",
       "status": "out",
       "label": "Out",
-      "reason": "Injury source indicates out/injured/unavailable."
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "timeline": null
     },
     {
-      "name": "Christian Tuipulotu",
+      "name": "Mitchell Woods",
       "status": "out",
       "label": "Out",
-      "reason": "Injury source indicates out/injured/unavailable."
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "timeline": null
     },
     {
-      "name": "Eddie Ieremia-Toeava",
+      "name": "Jeremiah Nanai",
       "status": "out",
       "label": "Out",
-      "reason": "Injury source indicates out/injured/unavailable."
-    },
-    {
-      "name": "Jack Wighton",
-      "status": "out",
-      "label": "Out",
-      "reason": "Injury source indicates out/injured/unavailable."
+      "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
+      "timeline": {
+        "type": "weeks",
+        "minWeeks": 12,
+        "maxWeeks": 99,
+        "returnRound": 27,
+        "returnWindowMinRound": 27,
+        "returnWindowMaxRound": 114,
+        "outUntilRound": 26,
+        "riskUntilRound": 113,
+        "summary": "12-99 week injury window"
+      }
     },
     {
       "name": "Jake Averillo",
       "status": "out",
       "label": "Out",
-      "reason": "Injury source indicates out/injured/unavailable."
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "timeline": null
     },
     {
-      "name": "Jock Madden",
+      "name": "Christian Tuipulotu",
       "status": "out",
       "label": "Out",
-      "reason": "Injury source indicates out/injured/unavailable."
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "timeline": null
     },
     {
-      "name": "Jonah Pezet",
+      "name": "David Fale",
       "status": "out",
       "label": "Out",
-      "reason": "Injury source indicates out/injured/unavailable."
+      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 18; out through R17, risk through R19.",
+      "timeline": {
+        "type": "return_round",
+        "returnRound": 18,
+        "outUntilRound": 17,
+        "riskUntilRound": 19,
+        "summary": "return/available from Round 18"
+      }
+    },
+    {
+      "name": "Hayden Buchanan",
+      "status": "out",
+      "label": "Out",
+      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 26; out through R25, risk through R27.",
+      "timeline": {
+        "type": "return_round",
+        "returnRound": 26,
+        "outUntilRound": 25,
+        "riskUntilRound": 27,
+        "summary": "return/available from Round 26"
+      }
+    },
+    {
+      "name": "Kade Reed",
+      "status": "out",
+      "label": "Out",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "timeline": null
     }
   ]
 }
