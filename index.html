@@ -76,7 +76,267 @@
   #bye td[data-label="Missing"]{display:block;padding-top:6px}
   #bye td[data-label="Missing"]::before{display:block;margin-bottom:4px}
 }
+/* =========================================================
+   WAR ROOM MOBILE MY TEAM WOW PATCH
+   ONLY affects My Team formation cards/reserves.
+   Does NOT touch Level 3, status, scripts, workflows, or data.
+   ========================================================= */
 
+/* Phone/tablet My Team layout: field first, reserves below */
+@media (max-width: 920px) {
+  .formation-page {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .formation-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .formation-field {
+    min-height: 900px;
+    padding: 12px;
+    border-radius: 18px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 5%, rgba(76, 255, 120, 0.18), transparent 26%),
+      linear-gradient(180deg, #092010 0%, #041208 48%, #020703 100%);
+    box-shadow:
+      inset 0 0 90px rgba(0, 255, 100, 0.12),
+      0 20px 55px rgba(0, 0, 0, 0.42);
+  }
+
+  .formation-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(58px, 1fr));
+    grid-template-rows: repeat(7, 112px);
+    gap: 10px 8px;
+    overflow: visible;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .formation-slot {
+    max-width: 102px;
+    min-height: 108px;
+  }
+
+  .formation-card {
+    min-height: 108px;
+    border-radius: 15px;
+    padding: 8px 5px 7px;
+    background:
+      radial-gradient(circle at 50% 18%, rgba(255,255,255,0.14), transparent 28%),
+      linear-gradient(180deg, rgba(10, 22, 34, 0.98), rgba(2, 6, 12, 0.99));
+    border: 1px solid color-mix(in srgb, var(--accent, #2fd6ff) 78%, #ffffff 0%);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--accent, #2fd6ff) 24%, transparent),
+      0 12px 28px rgba(0,0,0,0.58),
+      inset 0 0 20px rgba(255,255,255,0.035);
+  }
+
+  .formation-name {
+    font-size: 16px;
+    line-height: 1.05;
+    font-weight: 950;
+    letter-spacing: -0.02em;
+    text-transform: none;
+  }
+
+  .formation-score {
+    position: static;
+    font-size: 36px;
+    line-height: 0.95;
+    font-weight: 950;
+    color: #66ff35;
+    text-shadow: 0 0 14px rgba(102,255,53,0.28);
+  }
+
+  .formation-score small {
+    display: none;
+  }
+
+  .formation-pos {
+    position: static;
+    margin-top: 2px;
+    background: transparent;
+    border: none;
+    color: #dbeafe;
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+  }
+
+  .formation-trade {
+    position: static;
+    margin-top: 7px;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1;
+    border-color: #1688ff;
+    background: rgba(4, 14, 26, 0.88);
+    color: #ffffff;
+  }
+
+  .formation-card .status-dot {
+    right: 6px;
+    bottom: 6px;
+    width: 8px;
+    height: 8px;
+  }
+
+  /* Hide silhouettes/photos on phone so cards stay clean and readable */
+  .formation-face,
+  .formation-figure {
+    display: none !important;
+  }
+
+  /* Flex is a STARTER, visually behind/under Fullback */
+  .formation-card[style*="FLEX"],
+  .formation-card:has(.formation-pos) {
+    overflow: visible;
+  }
+
+  /* Reserves below field, not side panel */
+  .formation-reserves {
+    max-height: none;
+    overflow: visible;
+    border-radius: 18px;
+    padding: 14px;
+    background:
+      linear-gradient(180deg, rgba(10,16,27,0.98), rgba(4,7,14,0.98));
+  }
+
+  .formation-reserves h3 {
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+
+  .formation-reserve-section {
+    margin-top: 16px;
+    padding-top: 14px;
+  }
+
+  .formation-reserve-title {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .formation-reserve-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(88px, 1fr));
+    gap: 12px;
+  }
+
+  .formation-reserve-card {
+    display: block;
+    min-height: 118px;
+    padding: 10px 7px;
+    text-align: center;
+    border-radius: 14px;
+    background:
+      radial-gradient(circle at 50% 16%, rgba(255,255,255,0.12), transparent 28%),
+      linear-gradient(180deg, rgba(10, 22, 34, 0.98), rgba(2, 6, 12, 0.99));
+  }
+
+  .formation-reserve-face,
+  .formation-reserve-card .formation-figure {
+    display: none !important;
+  }
+
+  .formation-reserve-name {
+    font-size: 15px;
+    line-height: 1.05;
+    font-weight: 950;
+    text-transform: none;
+    margin-top: 4px;
+  }
+
+  .formation-reserve-score {
+    font-size: 34px;
+    line-height: 0.95;
+    color: #66ff35;
+    margin-top: 5px;
+  }
+
+  .formation-reserve-score small {
+    display: none;
+  }
+
+  .formation-reserve-meta {
+    font-size: 13px;
+    color: #dbeafe;
+    margin-top: 2px;
+  }
+
+  .formation-reserve-trade {
+    margin-top: 8px;
+    padding: 5px 12px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+}
+
+/* Smaller phones: keep 14 starters visible, still readable */
+@media (max-width: 430px) {
+  .formation-field {
+    min-height: 860px;
+    padding: 10px 8px;
+  }
+
+  .formation-grid {
+    grid-template-columns: repeat(5, minmax(54px, 1fr));
+    grid-template-rows: repeat(7, 106px);
+    gap: 8px 6px;
+  }
+
+  .formation-slot {
+    max-width: 92px;
+    min-height: 104px;
+  }
+
+  .formation-card {
+    min-height: 104px;
+    padding: 7px 4px;
+  }
+
+  .formation-name {
+    font-size: 14px;
+  }
+
+  .formation-score {
+    font-size: 32px;
+  }
+
+  .formation-pos {
+    font-size: 13px;
+  }
+
+  .formation-trade {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  .formation-reserve-list {
+    grid-template-columns: repeat(3, minmax(78px, 1fr));
+    gap: 10px;
+  }
+
+  .formation-reserve-card {
+    min-height: 110px;
+  }
+
+  .formation-reserve-name {
+    font-size: 14px;
+  }
+
+  .formation-reserve-score {
+    font-size: 30px;
+  }
+}
 </style>
 </head>
 <body>
