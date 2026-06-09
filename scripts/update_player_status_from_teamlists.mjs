@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const ROOT = process.cwd();
 const now = new Date();
+const nowIso = now.toISOString();
 
 async function readJson(file, fallback) {
   try { return JSON.parse(await fs.readFile(path.join(ROOT, file), 'utf8')); }
@@ -20,7 +21,7 @@ function norm(s) {
     .replace(/\s+/g, ' ')
     .trim();
 }
-function slug(s) { return norm(s).replace(/['’]/g, '').replace(/\s+/g, '-'); }
+function slug(s) { return norm(s).replace(/[’']/g, '').replace(/\s+/g, '-'); }
 function htmlToText(html) {
   return String(html || '')
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
@@ -35,66 +36,18 @@ function htmlToText(html) {
 }
 async function fetchText(url) {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 20000);
+  const timeout = setTimeout(() => controller.abort(), 25000);
   try {
     const res = await fetch(url, {
       signal: controller.signal,
       headers: {
-        'user-agent': 'Mozilla/5.0 WarRoomStatusBot/1.0 (+GitHub Actions)',
+        'user-agent': 'Mozilla/5.0 WarRoomStatusBot/2.0 (+GitHub Actions; source verification)',
         'accept': 'text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8'
       }
     });
     if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
     return htmlToText(await res.text());
   } finally { clearTimeout(timeout); }
-}
-function extractWindow(text, name, radius = 180) {
-  const nText = norm(text);
-  const nName = norm(name);
-  const i = nText.indexOf(nName);
-  if (i < 0) return '';
-  return nText.slice(Math.max(0, i - radius), Math.min(nText.length, i + nName.length + radius));
-}
-function hasName(text, name) {
-  const nText = ` ${norm(text)} `;
-  const nName = ` ${norm(name)} `;
-  return nText.includes(nName);
-}
-function isHardOutContext(w) {
-  return /\b(out|ruled out|withdrawn|omitted|rested|failed to back up|not playing|unavailable|suspended|injured|cut from the squad|failed fitness test|will miss|set to miss|expected to miss|dnp)\b/i.test(w);
-}
-function isAvailableContext(w) {
-  return /\b(named|selected|will play|available|cleared|confirmed|starts|starting|returns|included|final 17|final team|to play|listed)\b/i.test(w);
-}
-function isSoftRiskContext(w) {
-  return /\b(doubt|doubtful|monitor|chance|test|fitness test|late call|question mark|cloud|risk|may miss|could miss|back up|backing up|origin monitor|calf|hamstring|ankle|knee|shoulder|concussion)\b/i.test(w);
-}
-function sourceEvidence(sourceType, url, playerName, text) {
-  if (!hasName(text, playerName)) return null;
-  const window = extractWindow(text, playerName);
-  let status = 'monitor';
-  let confidence = 'medium';
-  let label = 'Seen in source';
-
-  if (sourceType === 'official_team_list') {
-    status = 'available';
-    confidence = 'high';
-    label = 'Named';
-  }
-  if (isHardOutContext(window)) {
-    status = 'out';
-    confidence = sourceType === 'origin_squad' ? 'medium' : 'high';
-    label = 'Out/Rested';
-  } else if (isAvailableContext(window)) {
-    status = 'available';
-    confidence = sourceType === 'origin_squad' ? 'medium' : 'high';
-    label = sourceType === 'origin_squad' ? 'Origin selected' : 'Named';
-  } else if (isSoftRiskContext(window)) {
-    status = 'risk';
-    confidence = sourceType === 'official_team_list' ? 'medium' : 'low';
-    label = sourceType === 'origin_squad' ? 'Origin monitor' : 'Monitor';
-  }
-  return { source: sourceType, url, status, confidence, label, context: window.slice(0, 320), seenAt: now.toISOString() };
 }
 function parsePlayers(playersJson) {
   const arr = Array.isArray(playersJson) ? playersJson : (playersJson.players || playersJson.data || []);
@@ -103,58 +56,106 @@ function parsePlayers(playersJson) {
     return { ...p, name: cleanName(p.name || p.player || p.fullName || p.playerName) };
   }).filter(p => p.name);
 }
-function numberOrNull(v) { const n = Number(v); return Number.isFinite(n) ? n : null; }
-function roundFromPlayer(player) {
-  for (const k of ['returnWindowMinRound','expectedReturnRound','returnRound','roundReturn','injuryReturnRound']) {
-    const n = numberOrNull(player?.[k]); if (n) return n;
-  }
-  const txt = `${player?.expectedReturn || ''} ${player?.injuryNote || ''} ${player?.statusNote || ''}`;
-  const m = txt.match(/(?:round|rd|r)\s*(\d{1,2})/i);
-  return m ? Number(m[1]) : null;
+function hasName(text, name) {
+  const nText = ` ${norm(text)} `;
+  const nName = ` ${norm(name)} `;
+  return nText.includes(nName);
 }
-function playerLocalInjuryEvidence(player, currentRound) {
-  const txt = [
-    player.status, player.injuryStatus, player.availability, player.injury, player.injuryNote,
-    player.statusNote, player.news, player.note, player.expectedReturn
-  ].map(x => String(x || '')).join(' | ');
-  const n = norm(txt);
-  if (!n) return null;
-
-  const retRound = roundFromPlayer(player);
-  const hasInjuryWords = /\b(calf|hamstring|ankle|knee|shoulder|concussion|injur|strain|suspended|rested|unavailable|dnp|ruled out|out|expected to be available|expected return|return round)\b/i.test(txt);
-  const hardOut = /\b(out|ruled out|unavailable|suspended|rested|dnp|will miss|expected to miss)\b/i.test(txt);
-  const softRisk = /\b(risk|question mark|monitor|test|fitness|doubt|calf|hamstring|ankle|knee|shoulder|concussion|expected to be available)\b/i.test(txt);
-  if (!hasInjuryWords && !retRound) return null;
-
-  if (retRound && currentRound && retRound > currentRound) {
-    return { source: 'players_json', status: 'out', confidence: 'medium', label: 'Injury return window', context: txt.slice(0, 320), returnRound: retRound };
-  }
-  if (hardOut) return { source: 'players_json', status: 'out', confidence: 'medium', label: 'Local injury/out flag', context: txt.slice(0, 320), returnRound: retRound };
-  if (softRisk) return { source: 'players_json', status: 'risk', confidence: 'medium', label: 'Local injury monitor', context: txt.slice(0, 320), returnRound: retRound };
-  return null;
+function extractWindow(text, name, radius = 280) {
+  const nText = norm(text);
+  const nName = norm(name);
+  const i = nText.indexOf(nName);
+  if (i < 0) return '';
+  return nText.slice(Math.max(0, i - radius), Math.min(nText.length, i + nName.length + radius));
 }
-function currentRoundFromFixtures(fixturesJson) {
-  const all = [];
+function firstDefined(...vals) { return vals.find(v => v !== undefined && v !== null && String(v).trim() !== ''); }
+function num(v) { const n = Number(v); return Number.isFinite(n) ? n : null; }
+function dateMs(v) { const t = new Date(v).getTime(); return Number.isFinite(t) ? t : NaN; }
+function sourceFresh(rec, hours = 96) {
+  const t = dateMs(rec?.updatedAt || rec?.updated || rec?.date || rec?.timestamp);
+  return Number.isFinite(t) && (Date.now() - t) <= hours * 3600000;
+}
+function isBadSourceText(t) {
+  const s = String(t || '').trim();
+  if (s.length < 350) return true;
+  if (/enable javascript|access denied|captcha|blocked|forbidden|not available/i.test(s)) return true;
+  return false;
+}
+function detectRound(sources, fixtures) {
+  const explicit = num(sources.currentRound || sources.round);
+  if (explicit) return explicit;
+  const matches = [];
   function walk(x) {
     if (Array.isArray(x)) return x.forEach(walk);
     if (!x || typeof x !== 'object') return;
-    const r = Number(x.round || x.roundNumber || x.round_number || x.scRound || x.nrlRound);
+    const r = num(x.round || x.roundNumber || x.round_number || x.scRound || x.nrlRound);
     const d = x.kickoffLocal || x.kickoff || x.date || x.matchDate || x.startTime || x.start;
-    const t = new Date(d).getTime();
-    if (Number.isFinite(r) && Number.isFinite(t)) all.push({ round: r, time: t });
+    const t = dateMs(d);
+    if (r && Number.isFinite(t)) matches.push({ r, t });
     Object.values(x).forEach(v => { if (v && typeof v === 'object') walk(v); });
   }
-  walk(fixturesJson);
-  if (!all.length) return null;
-  all.sort((a,b) => a.time-b.time);
-  const buffer = 10 * 60 * 60 * 1000;
-  const upcoming = all.find(m => m.time + buffer >= Date.now());
-  return upcoming ? upcoming.round : all[all.length-1].round;
+  walk(fixtures);
+  matches.sort((a,b) => a.t - b.t);
+  const upcoming = matches.find(m => m.t + 10 * 3600000 >= Date.now());
+  return upcoming?.r || matches.at(-1)?.r || null;
 }
-function dateMs(v) { const t = new Date(v).getTime(); return Number.isFinite(t) ? t : NaN; }
-function previousAgeHours(prev) {
-  const t = dateMs(prev?.updatedAt || prev?.updated || prev?.seenAt);
-  return Number.isFinite(t) ? (Date.now() - t) / 36e5 : 9999;
+function hardOutWords(w) {
+  return /\b(out|ruled out|withdrawn|omitted|rested|failed to back up|not playing|unavailable|suspended|injured|calf strain|hamstring|acl|hia|concussion|fracture|syndesmosis|shoulder injury|knee injury|failed fitness test|set to miss|will miss|sidelined|not named)\b/i.test(w);
+}
+function availableWords(w) {
+  return /\b(named|selected|will play|available|cleared|confirmed|starts|starting|returns|included|final 17|final team|to play|back from injury|has been named)\b/i.test(w);
+}
+function riskWords(w) {
+  return /\b(doubt|doubtful|monitor|chance|test|fitness test|late call|question mark|cloud|risk|may miss|could miss|back up|backing up|origin monitor|races clock|uncertain|awaiting scans|will be assessed)\b/i.test(w);
+}
+function returnRoundFromWindow(w) {
+  const m = String(w || '').match(/\b(?:round|rd|r)\s*(\d{1,2})\b/i);
+  return m ? Number(m[1]) : null;
+}
+function statusFromPlayerJson(player, currentRound) {
+  const raw = String(firstDefined(player.status, player.injuryStatus, player.availability, player.playerStatus, '')).toLowerCase();
+  const note = String(firstDefined(player.injuryNote, player.note, player.reason, player.news, '') || '');
+  const ret = num(firstDefined(player.returnWindowMinRound, player.expectedReturnRound, player.returnRound, player.availableRound));
+  const combined = `${raw} ${note}`.toLowerCase();
+  if (!raw && !note && !ret) return null;
+  if (/\b(fit|available|confirmed|named|playing|active)\b/.test(combined) && !/\b(out|injur|suspend|rest|doubt|risk|return)\b/.test(combined)) return null;
+  if (ret && currentRound && currentRound < ret) {
+    return { status:'out', label:'Out', sourceConfidence:'medium', reason:`players.json return window says not expected until R${ret}.`, source:'players_json', returnRound:ret };
+  }
+  if (/\b(out|injured|suspended|unavailable|rested)\b/.test(combined)) {
+    return { status:'out', label:/rested/.test(combined)?'Rested':'Out', sourceConfidence:'medium', reason:`players.json says ${raw || note}.`, source:'players_json', returnRound:ret || null };
+  }
+  if (/\b(doubtful|risk|chance|monitor|question|test|return)\b/.test(combined)) {
+    return { status:'risk', label:'Monitor', sourceConfidence:'low', reason:`players.json monitor note: ${raw || note}.`, source:'players_json', returnRound:ret || null };
+  }
+  return null;
+}
+function buildEvidenceFromSource(sourceType, url, text, player, currentRound) {
+  if (!hasName(text, player.name)) return null;
+  const window = extractWindow(text, player.name);
+  let status = 'monitor';
+  let label = 'Seen';
+  let confidence = 'medium';
+  let reason = `Seen in ${sourceType}.`;
+  const rr = returnRoundFromWindow(window);
+
+  if (sourceType === 'official_team_list') {
+    status = 'available'; label = 'Named'; confidence = 'high'; reason = 'Named in current team-list source.';
+  }
+  if (sourceType === 'injury_source') {
+    status = 'risk'; label = 'Monitor'; confidence = 'medium'; reason = 'Seen in injury source; monitor.';
+  }
+  if (hardOutWords(window)) {
+    status = 'out'; label = /rested/i.test(window) ? 'Rested' : 'Out'; confidence = sourceType === 'injury_source' ? 'high' : 'high'; reason = `Current source indicates out/rested/injured: ${window.slice(0,180)}...`;
+  } else if (availableWords(window)) {
+    status = 'available'; label = sourceType === 'origin_squad' ? 'Origin selected' : 'Named'; confidence = sourceType === 'origin_squad' ? 'medium' : 'high'; reason = sourceType === 'origin_squad' ? 'Seen in Origin source.' : 'Current source indicates named/available.';
+  } else if (riskWords(window)) {
+    status = 'risk'; label = sourceType === 'origin_squad' ? 'Origin monitor' : 'Monitor'; confidence = sourceType === 'official_team_list' ? 'medium' : 'medium'; reason = `Current source indicates monitor/risk: ${window.slice(0,180)}...`;
+  }
+  if (rr && currentRound && currentRound < rr && sourceType === 'injury_source') {
+    status = 'out'; label = 'Out'; confidence = 'high'; reason = `Injury source return estimate R${rr}; current round R${currentRound}.`;
+  }
+  return { source: sourceType, url, status, confidence, label, reason, context: window.slice(0,320), returnRound: rr || null };
 }
 function withinOriginWindow(originConfig, playerName) {
   const cfg = originConfig.settings || {};
@@ -163,109 +164,149 @@ function withinOriginWindow(originConfig, playerName) {
   const games = Array.isArray(originConfig.originGames) ? originConfig.originGames : [];
   const manual = originConfig.players?.[playerName] || originConfig.players?.[slug(playerName)] || null;
   const selectedManual = !!manual && !/not selected|removed|unavailable/i.test(String(manual.status || ''));
-  const nowMs = now.getTime();
+  const nowMs = Date.now();
   const inWindow = games.some(g => {
     const t = dateMs(g.date || g.kickoff || g.start);
-    return Number.isFinite(t) && nowMs >= t - before * 86400000 && nowMs <= t + after * 86400000;
+    if (!Number.isFinite(t)) return false;
+    return nowMs >= t - before * 86400000 && nowMs <= t + after * 86400000;
   });
   return { selectedManual, inWindow, manual };
-}
-function statusObj(status, label, confidence, reason, sources = [], flags = []) {
-  return { status, label, sourceConfidence: confidence, updated: now.toISOString(), updatedAt: now.toISOString(), reason, sources, flags };
 }
 function chooseStatus(player, evidences, previous, originConfig, currentRound) {
   const named = evidences.find(e => e.source === 'official_team_list' && e.status === 'available') || evidences.find(e => e.status === 'available' && e.confidence === 'high');
   const hardOut = evidences.find(e => e.status === 'out' && e.source !== 'origin_squad');
   const originEv = evidences.find(e => e.source === 'origin_squad');
   const risk = evidences.find(e => e.status === 'risk');
-  const local = playerLocalInjuryEvidence(player, currentRound);
+  const playerJson = statusFromPlayerJson(player, currentRound);
   const origin = withinOriginWindow(originConfig, player.name);
 
-  // Absolute rule: named/current team-list evidence wins over local stale injury notes and Origin uncertainty.
+  // Team list wins. A current named/final-team source clears stale injury/screenshot uncertainty.
   if (named) {
     const flags = [];
     if ((origin.selectedManual || originEv) && (origin.inWindow || originEv)) flags.push('origin_back_up_monitor');
-    return statusObj('available', 'Named', 'high', flags.length ? 'Named in current team-list source. Origin/back-up monitor only; team list wins.' : 'Named in current team-list source.', [named, ...(originEv ? [originEv] : [])], flags);
+    return { status:'available', label:'Named', sourceConfidence:'high', updatedAt:nowIso, reason: flags.length ? 'Named in current club/team-list source. Origin/back-up monitor only; team list wins.' : 'Named in current club/team-list source.', sources:[named, ...(originEv ? [originEv] : [])], flags };
   }
 
-  // Do not mark as available just because source did not mention them. Absence is not proof.
-  if (hardOut) return statusObj('out', 'Out', 'high', 'Current team-list/late-mail source indicates out/rested/unavailable.', [hardOut]);
-  if (local?.status === 'out') return statusObj('out', local.label || 'Out', local.confidence || 'medium', local.returnRound ? `Local player data says unavailable until around R${local.returnRound}.` : 'Local player data says out/unavailable/rested.', [local]);
+  // Real out/injury evidence wins over weak assumptions.
+  if (hardOut) return { status:'out', label:hardOut.label || 'Out', sourceConfidence:'high', updatedAt:nowIso, reason:hardOut.reason || 'Current source indicates out/rested/unavailable.', sources:[hardOut] };
+  if (playerJson?.status === 'out') return { ...playerJson, updatedAt:nowIso, sources:[{source:playerJson.source, status:'out', confidence:playerJson.sourceConfidence, label:playerJson.label, returnRound:playerJson.returnRound || null}] };
 
+  // Origin is monitor only unless team list confirms named or club/late mail says rested/out.
   if ((origin.selectedManual || originEv) && (origin.inWindow || originEv)) {
-    return statusObj('risk', 'Origin monitor', 'medium', 'Origin player not confirmed in current club team-list source. Back-up/rest risk until named/final team confirms.', [originEv || { source: 'origin_players_json', status: 'risk', confidence: 'medium', label: 'Origin monitor', context: origin.manual?.source || '' }], ['origin_monitor']);
+    return { status:'risk', label:'Origin monitor', sourceConfidence:'medium', updatedAt:nowIso, reason:'Origin player not confirmed in current club team-list source. Back-up/rest risk until named/final team confirms.', sources:[originEv || {source:'origin_players_json', status:'risk', confidence:'medium', label:'Origin monitor', context:origin.manual?.source || ''}], flags:['origin_monitor'] };
   }
-  if (risk) return statusObj('risk', risk.label || 'Monitor', risk.confidence || 'low', 'Current source indicates monitor/risk. This will be cleared automatically if player is named.', [risk]);
-  if (local?.status === 'risk') return statusObj('risk', local.label || 'Monitor', local.confidence || 'medium', 'Local player data indicates injury/availability monitor. Team-list evidence is needed to clear it.', [local]);
+  if (risk) return { status:'risk', label:risk.label || 'Monitor', sourceConfidence:risk.confidence || 'medium', updatedAt:nowIso, reason:risk.reason || 'Current source indicates monitor/risk.', sources:[risk] };
+  if (playerJson?.status === 'risk') return { ...playerJson, updatedAt:nowIso, sources:[{source:playerJson.source, status:'risk', confidence:playerJson.sourceConfidence, label:playerJson.label, returnRound:playerJson.returnRound || null}] };
 
-  // Preserve a fresh previous high/medium out/risk if we did not find new named evidence. Do not wipe it.
-  if (previous && ['out','risk','rested','origin_monitor'].includes(previous.status) && previousAgeHours(previous) < 72) {
-    return statusObj(previous.status === 'origin_monitor' ? 'risk' : previous.status, previous.label || previous.status, previous.sourceConfidence || 'medium', `Carried forward previous ${previous.status}; no newer team-list evidence cleared it.`, previous.sources || [], previous.flags || []);
+  // Preserve fresh real out/risk from previous status. Do NOT preserve old generated "available 563" junk.
+  if (previous && sourceFresh(previous, 168) && ['out','risk','rested','origin_monitor'].includes(String(previous.status || '').toLowerCase()) && !/no current|available\*|assumed/i.test(String(previous.reason || ''))) {
+    return { ...previous, updatedAt:nowIso, carriedForward:true, reason:`Carried forward previous ${previous.status}: ${previous.reason || ''}`.trim() };
   }
 
-  // Conservative fallback: unknown/monitor, not available. This prevents the Hynes bug.
-  return statusObj('risk', 'Unconfirmed', 'low', 'No current named/out evidence found in configured sources. Do not treat as confirmed available.', []);
+  // No evidence. Return null so the output does not poison all players as available.
+  return null;
 }
-
 async function main() {
   const players = parsePlayers(await readJson('players.json', []));
-  const fixtures = await readJson('fixtures.json', null);
-  const currentRound = currentRoundFromFixtures(fixtures);
-  const previous = await readJson('player_status.json', { players: {} });
-  const sources = await readJson('teamlist_sources.json', { teamListUrls: [], lateMailUrls: [], originUrls: [] });
-  const originConfig = await readJson('origin_players.json', { settings: {}, originGames: [], players: {} });
+  const previous = await readJson('player_status.json', { players:{} });
+  const sources = await readJson('teamlist_sources.json', { teamListUrls:[], lateMailUrls:[], injuryUrls:[], originUrls:[] });
+  const originConfig = await readJson('origin_players.json', { settings:{}, originGames:[], players:{} });
+  const fixtures = await readJson('fixtures.json', []);
+  const currentRound = detectRound(sources, fixtures) || 15;
 
   const sourceGroups = [
     ['official_team_list', sources.teamListUrls || []],
     ['late_mail', sources.lateMailUrls || []],
+    ['injury_source', sources.injuryUrls || []],
     ['origin_squad', sources.originUrls || []]
   ];
+
   const fetched = [];
   for (const [sourceType, urls] of sourceGroups) {
     for (const url of urls) {
-      try { const text = await fetchText(url); fetched.push({ sourceType, url, text, ok: true, length: text.length }); }
-      catch (err) { fetched.push({ sourceType, url, text: '', ok: false, error: String(err?.message || err) }); }
+      try {
+        const text = await fetchText(url);
+        const invalid = isBadSourceText(text);
+        fetched.push({ sourceType, url, text, ok:!invalid, fetched:true, length:text.length, invalid });
+      } catch (err) {
+        fetched.push({ sourceType, url, text:'', ok:false, fetched:false, length:0, error:String(err?.message || err) });
+      }
     }
+  }
+
+  const valid = fetched.filter(f => f.ok && f.text);
+  const validTeamLists = valid.filter(f => f.sourceType === 'official_team_list');
+  const validInjury = valid.filter(f => f.sourceType === 'injury_source');
+  const validLateMail = valid.filter(f => f.sourceType === 'late_mail');
+  const validOrigin = valid.filter(f => f.sourceType === 'origin_squad');
+  const warnings = [];
+  if (!validTeamLists.length) warnings.push('No valid official team-list source fetched. Named-player confidence is limited.');
+  if (!validInjury.length) warnings.push('No valid injury source fetched. Injury/out detection is limited.');
+
+  // HARD FAIL-SAFE: if every source is empty/bad, do not overwrite player_status.json.
+  if (!valid.length) {
+    await writeJson('status_update_report.json', {
+      updated: nowIso,
+      error: 'ABORTED_NO_VALID_SOURCES',
+      message: 'No valid status sources fetched. player_status.json was NOT overwritten.',
+      playersChecked: players.length,
+      currentRound,
+      sourcesFetched: fetched.map(f => ({ source:f.sourceType, url:f.url, ok:f.ok, length:f.length || 0, error:f.error || (f.invalid ? 'invalid/too-short source text' : undefined) })),
+      warnings
+    });
+    console.error('ABORTED: no valid sources fetched. player_status.json not overwritten.');
+    process.exit(1);
   }
 
   const out = {
-    updated: now.toISOString(),
+    updated: nowIso,
     generatedBy: 'scripts/update_player_status_from_teamlists.mjs',
     currentRound,
+    mode: 'evidence-only-fail-safe',
     rules: {
-      noHardCodedPlayers: true,
-      currentTeamListWins: true,
-      absenceFromSourceIsNotAvailable: true,
-      localInjuryDataCanHoldRiskUntilTeamListClears: true,
-      originIsMonitorUntilClubTeamListConfirms: true,
-      staleWeakRiskDoesNotBeatNamedPlayer: true
+      noHardCodedPlayers:true,
+      currentTeamListWins:true,
+      noSourceDoesNotMeanAvailable:true,
+      emptySourcesDoNotOverwrite:true,
+      originIsMonitorUntilClubTeamListConfirms:true
     },
-    sources: fetched.map(f => ({ source: f.sourceType, url: f.url, ok: f.ok, length: f.length || 0, error: f.error })),
+    sources: fetched.map(f => ({ source:f.sourceType, url:f.url, ok:f.ok, length:f.length || 0, error:f.error || (f.invalid ? 'invalid/too-short source text' : undefined) })),
+    warnings,
     players: {}
   };
 
+  let namedCount = 0;
+  let evidenceCount = 0;
   for (const player of players) {
     const evidences = [];
-    for (const f of fetched.filter(x => x.ok && x.text)) {
-      const ev = sourceEvidence(f.sourceType, f.url, player.name, f.text);
+    for (const f of valid) {
+      const ev = buildEvidenceFromSource(f.sourceType, f.url, f.text, player, currentRound);
       if (ev) evidences.push(ev);
     }
-    out.players[player.name] = chooseStatus(player, evidences, previous.players?.[player.name], originConfig, currentRound);
+    if (evidences.some(e => e.status === 'available' && e.confidence === 'high')) namedCount++;
+    const chosen = chooseStatus(player, evidences, previous.players?.[player.name], originConfig, currentRound);
+    if (chosen) {
+      out.players[player.name] = chosen;
+      evidenceCount++;
+    }
   }
 
-  const counts = Object.values(out.players).reduce((a, p) => { a[p.status] = (a[p.status] || 0) + 1; return a; }, {});
+  if (validTeamLists.length && namedCount < 100) warnings.push(`Low named-player count from team-list sources (${namedCount}). Check teamlist_sources.json; source coverage may be incomplete.`);
+  if (evidenceCount < 20) warnings.push(`Very low evidence count (${evidenceCount}). Status output is sparse by design to avoid poisoning all players.`);
+
   await writeJson('player_status.json', out);
   await writeJson('status_update_report.json', {
     updated: out.updated,
     currentRound,
     playersChecked: players.length,
+    evidencePlayersWritten: Object.keys(out.players).length,
+    namedCount,
     sourcesFetched: out.sources,
-    counts,
+    warnings,
+    counts: Object.values(out.players).reduce((a, p) => { a[p.status] = (a[p.status] || 0) + 1; return a; }, {}),
     originMonitorCount: Object.values(out.players).filter(p => p.flags?.includes('origin_monitor') || p.flags?.includes('origin_back_up_monitor')).length,
-    warning: 'Players not found in current sources are Unconfirmed, not automatically Available. Named/current team-list evidence clears injury/risk.'
+    sampleOutRisk: Object.entries(out.players).filter(([,p]) => ['out','risk'].includes(p.status)).slice(0,25).map(([name,p]) => ({ name, status:p.status, label:p.label, reason:p.reason }))
   });
-
-  console.log(`Updated player_status.json for ${players.length} players. Counts: ${JSON.stringify(counts)}`);
+  console.log(`Updated player_status.json. Players checked ${players.length}; evidence statuses written ${Object.keys(out.players).length}; named ${namedCount}.`);
 }
-
 main().catch(err => { console.error(err); process.exit(1); });
