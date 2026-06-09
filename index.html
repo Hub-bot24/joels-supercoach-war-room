@@ -77,24 +77,6 @@
   #bye td[data-label="Missing"]::before{display:block;margin-bottom:4px}
 }
 
-/* Formation view: NRL-style field with player photos and reserves on the right */
-.formation-page{max-width:1380px;margin:0 auto}.formation-layout{display:grid;grid-template-columns:minmax(620px,1fr) 370px;gap:14px;align-items:start}.formation-field{position:relative;min-height:760px;border:1px solid #17381f;border-radius:18px;background:radial-gradient(circle at 50% 15%,rgba(0,255,124,.10),transparent 24%),linear-gradient(180deg,#050805,#020302);box-shadow:inset 0 0 70px rgba(0,255,112,.08),0 22px 60px rgba(0,0,0,.36);padding:22px;overflow:hidden}.formation-field:before{content:"";position:absolute;inset:14px;border:1px solid rgba(0,255,112,.16);border-radius:14px}.formation-grid{position:relative;z-index:2;display:grid;grid-template-columns:repeat(5,minmax(96px,1fr));grid-template-rows:repeat(6,112px);gap:14px 18px;align-items:center;justify-items:center}.formation-slot{width:100%;max-width:148px;min-height:104px;display:flex;align-items:center;justify-content:center}.formation-card{width:100%;min-height:102px;position:relative;display:grid;grid-template-rows:54px auto auto;justify-items:center;align-items:center;text-align:center;border:1px solid rgba(0,255,112,.45);border-radius:16px;background:linear-gradient(180deg,rgba(0,255,112,.18),rgba(0,60,32,.38));box-shadow:0 0 0 1px rgba(0,255,112,.08),0 12px 28px rgba(0,0,0,.42);padding:8px 6px 7px;cursor:pointer}.formation-card.risk{border-color:rgba(245,197,66,.95);box-shadow:0 0 0 1px rgba(245,197,66,.35),0 12px 28px rgba(0,0,0,.42)}.formation-card.out{border-color:rgba(255,77,77,.95);box-shadow:0 0 0 1px rgba(255,77,77,.35),0 12px 28px rgba(0,0,0,.42)}.formation-card.bye{border-color:rgba(139,92,246,.95);box-shadow:0 0 0 1px rgba(139,92,246,.35),0 12px 28px rgba(0,0,0,.42)}.formation-face{width:52px;height:52px;min-width:52px;min-height:52px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:#10213a;border:2px solid #00ff70;color:white;font-weight:950;font-size:12px}.formation-face img{width:52px;height:52px;object-fit:cover;object-position:center top}.formation-name{width:100%;font-size:12px;font-weight:950;line-height:1.05;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px #000}.formation-pos{margin-top:3px;background:#ff0b66;color:white;border-radius:7px;padding:3px 8px;font-size:11px;font-weight:950;line-height:1}.formation-score{position:absolute;right:6px;top:6px;font-size:14px;font-weight:950;color:#fff;text-shadow:0 1px 4px #000}.formation-card .status-dot{position:absolute;right:7px;bottom:7px;margin:0}.formation-trade{position:absolute;left:6px;bottom:6px;padding:3px 7px;border-radius:8px;font-size:10px;border:1px solid #58a6ff;background:#12345a;color:#fff;font-weight:900;box-shadow:none}.formation-empty{opacity:.62;border-style:dashed}.formation-reserves{background:linear-gradient(180deg,rgba(15,26,43,.96),rgba(7,14,26,.96));border:1px solid var(--line);border-radius:18px;padding:12px;max-height:760px;overflow:auto}.formation-reserves h3{margin:0 0 10px;font-size:16px}.formation-reserve-section{border-top:1px solid var(--line);padding-top:9px;margin-top:10px}.formation-reserve-title{font-size:11px;font-weight:950;color:#bfd0e8;letter-spacing:.06em;margin-bottom:7px}.formation-reserve-list{display:grid;gap:7px}.formation-reserve-card{display:grid;grid-template-columns:44px minmax(0,1fr) 42px;gap:8px;align-items:center;min-height:58px;background:#071222;border:1px solid #335074;border-radius:12px;padding:7px;position:relative}.formation-reserve-card.risk{border-color:rgba(245,197,66,.9)}.formation-reserve-card.out{border-color:rgba(255,77,77,.85)}.formation-reserve-card.bye{border-color:rgba(139,92,246,.95)}.formation-reserve-face{width:44px;height:44px;min-width:44px;min-height:44px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:#10213a;border:1px solid #436180;font-size:11px;font-weight:950}.formation-reserve-face img{width:44px;height:44px;object-fit:cover;object-position:center top}.formation-reserve-name{font-size:12px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.formation-reserve-meta{font-size:10px;color:#bfd0e8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.formation-reserve-trade{margin-top:4px;padding:3px 7px;border-radius:8px;font-size:10px;border:1px solid #58a6ff;background:#12345a;color:#fff;font-weight:900;box-shadow:none}.formation-reserve-score{text-align:right;font-size:15px;font-weight:950;color:#fff}.formation-reserve-score .status-dot{margin-left:3px}.formation-watermark{position:absolute;z-index:1;color:rgba(255,255,255,.16);font-size:22px;font-weight:950;font-style:italic}.formation-watermark.left{left:32px;top:42%}.formation-watermark.right{right:32px;top:42%}.formation-card.drop-ok,.formation-reserve-card.drop-ok{outline:3px solid var(--good);outline-offset:2px}.formation-card.drop-no,.formation-reserve-card.drop-no{outline:3px solid var(--bad);outline-offset:2px}
-@media(max-width:920px){.formation-layout{grid-template-columns:1fr}.formation-reserves{max-height:none}.formation-grid{grid-template-columns:repeat(5,92px);grid-template-rows:repeat(6,108px);overflow:auto;justify-content:start}.formation-field{overflow:auto}.formation-slot{max-width:116px}.formation-card{min-height:98px}.formation-name{font-size:11px}.formation-pos{font-size:10px;padding:3px 6px}}
-@media(max-width:620px){.formation-field{padding:12px;min-height:690px}.formation-grid{grid-template-columns:repeat(5,78px);grid-template-rows:repeat(6,98px);gap:10px}.formation-card{min-height:90px;padding:6px 4px}.formation-face{width:44px;height:44px;min-width:44px;min-height:44px}.formation-face img{width:44px;height:44px}.formation-name{font-size:10px}.formation-pos{font-size:9px}.formation-score{font-size:12px}.formation-trade{font-size:9px;padding:2px 5px}}
-
-
-
-/* WAR ROOM MVP SILHOUETTE CARD SKIN - safe generic player image + team-colour accents */
-.formation-page{max-width:1440px}
-.formation-layout{grid-template-columns:minmax(720px,1fr) 360px;gap:14px}
-.formation-field{min-height:820px;background:radial-gradient(circle at 50% 12%,rgba(0,255,112,.08),transparent 30%),linear-gradient(180deg,#071107,#020402);border-color:rgba(0,255,112,.22)}
-.formation-field:after{content:"";position:absolute;inset:34px 44px;border:2px solid rgba(255,255,255,.055);border-radius:50%;pointer-events:none}.formation-field:before{border-color:rgba(255,255,255,.08)}
-.formation-grid{grid-template-columns:repeat(5,minmax(118px,1fr));grid-template-rows:repeat(6,122px);gap:14px 18px}.formation-slot{max-width:168px;min-height:116px}.formation-card{--accent:#00d5d5;--pos:#00d5d5;min-height:116px;grid-template-rows:18px 54px 18px 16px;border-color:color-mix(in srgb,var(--accent) 72%,#ffffff 0%);background:radial-gradient(circle at 50% 40%,rgba(255,255,255,.13),transparent 34%),linear-gradient(180deg,rgba(20,22,24,.94),rgba(3,5,7,.98));box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 24%,transparent),0 14px 34px rgba(0,0,0,.52),inset 0 0 22px rgba(255,255,255,.025);padding:7px 7px 6px;overflow:hidden}.formation-card:hover{filter:brightness(1.09);transform:translateY(-1px)}.formation-card.risk{--accent:#f5c542}.formation-card.out{--accent:#ff4d4d}.formation-card.bye{--accent:#8b5cf6}
-.formation-pos{position:absolute;left:7px;top:7px;margin:0;background:var(--pos);color:#031225;border-radius:6px;padding:3px 6px;font-size:10px;font-weight:950;line-height:1;border:1px solid rgba(255,255,255,.18)}.formation-score{right:8px;top:7px;color:var(--accent);font-size:20px;line-height:1}.formation-score small{display:block;font-size:8px;color:color-mix(in srgb,var(--accent) 80%,#fff);letter-spacing:.08em}.formation-name{position:relative;z-index:2;font-size:12px;align-self:end;text-align:left;justify-self:stretch;text-transform:uppercase;letter-spacing:.02em}.formation-meta{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:4px;width:100%;font-size:9px;color:#dbeafe;white-space:nowrap;overflow:hidden}.formation-meta-left{display:flex;align-items:center;gap:4px;min-width:0;overflow:hidden}.formation-meta .status-dot{position:static;width:7px;height:7px;margin:0}.formation-round{color:var(--muted);font-weight:900}.formation-trade{left:7px;bottom:28px;background:rgba(4,14,26,.82);border-color:var(--accent);color:white;font-size:9px;padding:2px 6px}.formation-face{border:0;background:transparent}.formation-face img{display:none}.formation-figure{position:relative;width:76px;height:58px;margin:13px auto 0;filter:drop-shadow(0 8px 10px rgba(0,0,0,.7))}.formation-figure:before{content:"";position:absolute;left:50%;top:2px;transform:translateX(-50%);width:22px;height:26px;border-radius:50% 50% 45% 45%;background:linear-gradient(180deg,#101214,#010203);box-shadow:0 0 0 1px rgba(255,255,255,.13),inset 6px 0 10px rgba(255,255,255,.06)}.formation-figure:after{content:"";position:absolute;left:50%;bottom:1px;transform:translateX(-50%);width:70px;height:38px;border-radius:28px 28px 10px 10px;background:radial-gradient(circle at 50% 15%,rgba(255,255,255,.13),transparent 30%),linear-gradient(180deg,#111416,#020304);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.formation-arm{position:absolute;bottom:4px;width:42px;height:12px;border-radius:999px;background:linear-gradient(180deg,#15191c,#030405);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);z-index:2}.formation-arm.left{left:3px;transform:rotate(13deg)}.formation-arm.right{right:3px;transform:rotate(-13deg)}.formation-empty .formation-figure{opacity:.4}.formation-empty .formation-name{text-align:center;color:var(--muted)}
-.formation-reserves{background:linear-gradient(180deg,rgba(10,16,27,.98),rgba(4,7,14,.98));border-color:#263c5c}.formation-reserve-card{--accent:#00d5d5;--pos:#00d5d5;grid-template-columns:86px minmax(0,1fr) 52px;min-height:86px;background:linear-gradient(90deg,rgba(6,11,18,.96),rgba(7,18,34,.92));border-color:color-mix(in srgb,var(--accent) 70%,#334155);box-shadow:inset 0 0 18px rgba(255,255,255,.018)}.formation-reserve-card.risk{--accent:#f5c542}.formation-reserve-card.out{--accent:#ff4d4d}.formation-reserve-card.bye{--accent:#8b5cf6}.formation-reserve-face{width:78px;height:62px;border:0;background:transparent}.formation-reserve-face img{display:none}.formation-reserve-card .formation-figure{width:78px;height:62px;margin:0}.formation-reserve-name{text-transform:uppercase;font-size:12px}.formation-reserve-meta{font-size:10px}.formation-reserve-score{color:var(--accent);font-size:22px}.formation-reserve-score small{display:block;font-size:8px;color:color-mix(in srgb,var(--accent) 80%,#fff);letter-spacing:.08em}.formation-reserve-trade{border-color:var(--accent);background:rgba(4,14,26,.82);font-size:9px}.formation-watermark{opacity:.55}
-@media(max-width:920px){.formation-layout{grid-template-columns:1fr}.formation-reserves{max-height:430px}.formation-grid{grid-template-columns:repeat(5,112px);grid-template-rows:repeat(6,116px);gap:12px;overflow:auto;justify-content:start}.formation-slot{max-width:112px}.formation-card{min-height:108px}.formation-figure{width:64px;height:50px}.formation-name{font-size:10px}.formation-reserve-card{grid-template-columns:74px minmax(0,1fr) 46px}}
-@media(max-width:620px){.formation-field{padding:10px;min-height:690px}.formation-grid{grid-template-columns:repeat(5,92px);grid-template-rows:repeat(6,106px);gap:9px}.formation-slot{max-width:92px}.formation-card{min-height:98px;padding:6px 5px}.formation-figure{width:58px;height:44px;margin-top:12px}.formation-figure:before{width:18px;height:22px}.formation-figure:after{width:56px;height:30px}.formation-arm{width:34px;height:9px}.formation-score{font-size:16px}.formation-name{font-size:9px}.formation-meta{font-size:8px}.formation-pos{font-size:8px;padding:2px 4px}.formation-trade{bottom:24px;font-size:8px}.formation-reserves{max-height:360px}}
-
 </style>
 </head>
 <body>
@@ -117,48 +99,11 @@
 <script src="level3-projection-engine.js"></script>
 <script>
 'use strict';
-const App={players:[],playerMap:new Map(),myTeam:[],weather:null,fixtures:null,goalKickers:null,teamRoles:null,availabilityOverrides:null,playerStatus:null,playerPhotos:null,projectionCache:new Map(),active:'team',rendered:new Set(),round:Number(localStorage.getItem('sc_round')||14),roundSource:'stored',trustWarnings:[],lineup:null,drag:null};
+const App={players:[],playerMap:new Map(),myTeam:[],weather:null,fixtures:null,goalKickers:null,teamRoles:null,availabilityOverrides:null,playerStatus:null,projectionCache:new Map(),active:'team',rendered:new Set(),round:Number(localStorage.getItem('sc_round')||14),roundSource:'stored',trustWarnings:[],lineup:null,drag:null};
 const $=id=>document.getElementById(id);const safeNum=v=>Number.isFinite(Number(v))?Number(v):0;const money=n=>'$'+safeNum(n).toLocaleString();
 function esc(s){return String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 window.jsq = function(value){const s=String(value==null?'':value);return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\r/g,'\\r').replace(/\n/g,'\\n').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029')}
 function norm(s){return String(s||'').toLowerCase().replace(/[^a-z0-9/\s'-]/g,' ').replace(/\s+/g,' ').trim()}
-function playerSlug(name){return String(name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
-function playerPhotoCandidates(p){
- if(!p)return [];
- const out=[];
- const add=v=>{if(v&&!out.includes(String(v)))out.push(String(v))};
- for(const k of ['photo','photoUrl','image','imageUrl','headshot','headshotUrl','playerImage','image_url','photo_url','headshot_url','nrlPhoto','nrlPhotoUrl']) add(p[k]);
- const map=App.playerPhotos?.players||App.playerPhotos||{};
- const mapped=map[p.name]||map[playerSlug(p.name)]||map[norm(p.name)];
- if(Array.isArray(mapped)) mapped.forEach(add); else if(mapped&&typeof mapped==='object'){for(const k of ['photo','photoUrl','image','imageUrl','headshot','headshotUrl','url']) add(mapped[k]);} else add(mapped);
- const slug=playerSlug(p.name);
- if(slug){
-  add(`assets/players/${slug}.webp`);
-  add(`assets/players/${slug}.png`);
-  add(`assets/players/${slug}.jpg`);
-  add(`assets/players/${slug}.jpeg`);
- }
- return out;
-}
-function photoListAttr(list){return esc(JSON.stringify(list)).replace(/'/g,'&#39;')}
-function tryNextPlayerPhoto(img){
- try{
-  const list=JSON.parse(img.getAttribute('data-photo-list')||'[]');
-  const next=Number(img.getAttribute('data-photo-i')||0)+1;
-  if(next<list.length){img.setAttribute('data-photo-i',String(next));img.src=list[next];return;}
- }catch(e){}
- const fallback=img.getAttribute('data-team')||'SC';
- img.onerror=null;
- img.parentNode.textContent=fallback;
-}
-window.tryNextPlayerPhoto=tryNextPlayerPhoto;
-function playerPhotoUrl(p){return playerPhotoCandidates(p)[0]||''}
-function faceHtml(p,cls='mobile-face'){
- const team=esc((p?.team||'SC').slice(0,3));
- const list=playerPhotoCandidates(p);
- if(!list.length)return `<div class="${cls}">${team}</div>`;
- return `<div class="${cls}"><img src="${esc(list[0])}" data-photo-list='${photoListAttr(list)}' data-photo-i="0" data-team="${team}" alt="${esc(p?.name||'Player')}" loading="lazy" onerror="tryNextPlayerPhoto(this)"></div>`;
-}
 async function fetchJson(path,fallback){try{const r=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error(path);return await r.json()}catch(e){return fallback}}
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
 const SLOT_DEFS=[
@@ -194,22 +139,19 @@ function dataAgeLabel(rec){const h=recordAgeHours(rec);if(!Number.isFinite(h)||h
 function flattenFixtures(input,out=[]){if(Array.isArray(input)){input.forEach(x=>flattenFixtures(x,out));return out}if(input&&typeof input==='object'){const hasRound=input.round||input.roundNumber||input.round_number||input.scRound||input.nrlRound;const hasDate=input.kickoffLocal||input.kickoff||input.date||input.matchDate||input.startTime||input.start;if(hasRound&&hasDate)out.push(input);for(const v of Object.values(input)){if(v&&typeof v==='object')flattenFixtures(v,out)}}return out}
 function inferCurrentRound(){const matches=flattenFixtures(App.fixtures||[]).map(m=>({round:Number(m.round||m.roundNumber||m.round_number||m.scRound||m.nrlRound),time:firstDate(m)})).filter(m=>Number.isFinite(m.round)&&Number.isFinite(m.time)).sort((a,b)=>a.time-b.time);if(!matches.length)return null;const now=Date.now();const buffer=10*60*60*1000;const upcoming=matches.find(m=>m.time+buffer>=now);if(upcoming)return upcoming.round;return matches[matches.length-1].round}
 function syncCurrentRound(){const stored=Number(localStorage.getItem('sc_round')||0);const inferred=inferCurrentRound();App.trustWarnings=[];if(Number.isFinite(inferred)&&inferred>0){if(!stored||stored<inferred||stored>inferred+1){App.round=inferred;App.roundSource='fixtures auto';localStorage.setItem('sc_round',String(App.round));App.trustWarnings.push(`Round auto-set to R${App.round} from fixtures. Old stored round was ${stored||'blank'}.`)}else{App.round=stored;App.roundSource='stored'}}else{App.round=stored||App.round||14;App.roundSource='stored fallback';App.trustWarnings.push('Could not auto-detect current round from fixtures; check round manually.')}}
-function trustBannerHtml(){const statusAge=dataAgeLabel(App.playerStatus||{}),statusStale=!isFreshRecord(App.playerStatus||{},36);const cls=statusStale?'bad':'good';const warnings=[...App.trustWarnings];if(statusStale)warnings.push(`Player status data may be stale (${statusAge}).`);return `<div style="margin:8px 0;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:#081120"><b>Trust check:</b> Round ${App.round} <span class="pill">${esc(App.roundSource||'')}</span> <span class="pill ${cls}">Status ${esc(statusAge)}</span>${warnings.length?`<br><span class="${statusStale?'bad':'warn'}">${warnings.map(esc).join(' ')}</span>`:''}<br><button onclick="setRound(App.round-1)">R-</button> <button onclick="setRound(App.round+1)">R+</button> <button onclick="refreshTrustDataNow()">Refresh status</button></div>`}
+function trustBannerHtml(){const statusAge=dataAgeLabel(App.playerStatus||{}),statusStale=!isFreshRecord(App.playerStatus||{},36);const cls=statusStale?'bad':'good';const warnings=[...App.trustWarnings];if(statusStale)warnings.push(`Player status data may be stale (${statusAge}).`);return `<div style="margin:8px 0;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:#081120"><b>Trust check:</b> Round ${App.round} <span class="pill">${esc(App.roundSource||'')}</span> <span class="pill ${cls}">Status ${esc(statusAge)}</span>${warnings.length?`<br><span class="${statusStale?'bad':'warn'}">${warnings.map(esc).join(' ')}</span>`:''}<br><button onclick="setRound(App.round-1)">R-</button> <button onclick="setRound(App.round+1)">R+</button></div>`}
 function setRound(r){App.round=Math.max(1,Math.min(27,Number(r)||App.round));App.roundSource='manual';App.projectionCache.clear();saveLocal();renderActive();toast(`Round set to ${App.round}`)}
 async function boot(){
  const rawPlayers=await fetchJson('players.json',[]);let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));
- App.weather=await fetchJson('weather.json',null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);App.playerStatus=await fetchJson('player_status.json',{players:{}});App.playerPhotos=await fetchJson('player_photos.json',{players:{}});syncCurrentRound();
+ App.weather=await fetchJson('weather.json',null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);App.playerStatus=await fetchJson('player_status.json',{players:{}});syncCurrentRound();
  const localTeam=JSON.parse(localStorage.getItem('sc_myTeam')||'null');const teamJson=await fetchJson('my_team.json',null);let names=Array.isArray(localTeam)&&localTeam.length?localTeam:(teamJson?.players||teamJson?.team||[]);if(!Array.isArray(names))names=[];
  names = names.map(x => typeof x === 'string' ? x.trim() : (x?.name || x?.player || '')).filter(Boolean);
  const missingNames = names.filter(n=>!App.playerMap.has(n));
  if(missingNames.length) console.warn('Players in my_team.json not found in players.json:', missingNames);
  App.myTeam=[...new Set(names.filter(n=>App.playerMap.has(n)))];
  App.lineup=JSON.parse(localStorage.getItem('sc_lineup')||'{}')||{};validateLineup();ensureLineup();wireTabs();renderActive();
- updateStatusFreshnessLabel();startLiveStatusRefresh();
+ const fe=$('statusFreshness');if(fe&&App.playerStatus?.updated){const d=new Date(App.playerStatus.updated);const src=(App.playerStatus.sources||[]).map(s=>s.name.split('-')[0]).join('+');fe.textContent=`Status: ${d.toLocaleDateString('en-AU',{day:'numeric',month:'short'})}${src?' · '+src:''}`}
 }
-function updateStatusFreshnessLabel(){const fe=$('statusFreshness');if(fe&&App.playerStatus?.updated){const d=new Date(App.playerStatus.updated);const src=(App.playerStatus.sources||[]).map(s=>s.name?.split('-')[0]).filter(Boolean).join('+');fe.textContent=`Status: ${d.toLocaleDateString('en-AU',{day:'numeric',month:'short'})}${src?' · '+src:''}`} }
-async function refreshTrustDataNow(){const oldUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';App.playerStatus=await fetchJson('player_status.json',App.playerStatus||{players:{}});App.availabilityOverrides=await fetchJson('availability_overrides.json',App.availabilityOverrides||{players:{}});App.fixtures=await fetchJson('fixtures.json',App.fixtures||null);syncCurrentRound();App.projectionCache.clear();updateStatusFreshnessLabel();renderActive();const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed')}
-function startLiveStatusRefresh(){if(App._statusRefreshTimer)return;App._statusRefreshTimer=setInterval(refreshTrustDataNow,10*60*1000)}
 
 function scaleField(){
   const shell=document.querySelector('.field-shell');
@@ -232,39 +174,20 @@ function renderActive(){try{if(App.active==='team')renderTeam();else if(App.acti
 function overrideFor(p){if(!p||!p.name)return null;return App.availabilityOverrides?.players?.[p.name]||App.availabilityOverrides?.[p.name]||null}
 function statusFor(p){if(!p||!p.name)return null;return App.playerStatus?.players?.[p.name]||App.playerStatus?.[p.name]||null}
 
-function isSoftRiskStatus(text){return ['doubtful','chance','risk','maybe','return risk','returnrisk','uncertain','monitor','watch','question mark','question-mark'].includes(String(text||'').toLowerCase().trim())}
-function isHardOutStatus(text){return ['out','injured','suspended','unavailable','not selected','ruled out'].includes(String(text||'').toLowerCase().trim())}
-function isPositiveStatus(text){return ['available','fit','cleared','named','confirmed','starting','final17','final 17','selected','playing','played','green'].includes(String(text||'').toLowerCase().trim())}
-function freshPositiveStatus(text,rec,maxHours=36){return rec&&isFreshRecord(rec,maxHours)&&(isPositiveStatus(text)||rec.cleared===true||rec.named===true||rec.selected===true||rec.final17===true||rec.played===true)}
-function recordBlob(rec){try{return JSON.stringify(rec||{}).toLowerCase()}catch(e){return String(rec||'').toLowerCase()}}
-function isWeakRiskRecord(rec){const blob=recordBlob(rec);const conf=String(rec?.sourceConfidence||rec?.confidence||rec?.trust||'').toLowerCase();return blob.includes('question mark')||blob.includes('question-mark')||blob.includes('joel screenshot')||blob.includes('screenshot')||blob.includes('manual visual')||blob.includes('visual indicator')||blob.includes('question indicator')||blob.includes('questionable icon')||conf==='?'||conf==='low'||conf==='weak'||conf==='visual'}
+function isSoftRiskStatus(text){return ['doubtful','chance','risk','maybe','return risk','returnrisk'].includes(String(text||'').toLowerCase().trim())}
+function isHardOutStatus(text){return ['out','injured','suspended','unavailable'].includes(String(text||'').toLowerCase().trim())}
+function freshPositiveStatus(text,rec){const t=String(text||'').toLowerCase().trim();return rec&&isFreshRecord(rec,36)&&(['available','fit','cleared','named','confirmed','starting','final17','final 17'].includes(t)||rec.cleared===true)}
 function staleCleared(rec,type='status'){return {key:'good',available:true,label:'Available*',reason:`Old ${type} risk ignored because status data is stale (${dataAgeLabel(rec)}); verify official team list.`}}
-function weakRiskCleared(rec,type='status'){return {key:'good',available:true,label:'Available*',reason:`Weak ${type} risk ignored. Question-mark/screenshot indicators are not trusted as player availability evidence; verify official team list.`}}
-function positiveEvidenceFromPlayer(p,round=App.round){
- const fields=[p?.teamListStatus,p?.lineupStatus,p?.selectionStatus,p?.availability,p?.availabilityStatus,p?.status,p?.injuryStatus,p?.note,p?.injuryNote].map(x=>String(x||'').toLowerCase());
- if(fields.some(x=>isPositiveStatus(x)))return 'Player data says named/available';
- if(p?.cleared===true||p?.named===true||p?.selected===true||p?.starting===true||p?.final17===true||p?.inFinal17===true)return 'Player data says named/selected';
- const playedRound=Number(p?.playedRound||p?.lastPlayedRound||p?.lastRoundPlayed||p?.lastAppearanceRound||0);
- if(Number.isFinite(playedRound)&&playedRound>=Number(round)-1)return `Played recently in R${playedRound}`;
- return '';
-}
-function fallbackPlayerRiskRecord(p){return {status:p?.injuryStatus||p?.status||'',reason:p?.injuryNote||p?.statusNote||p?.note||p?.availabilityNote||'',sourceConfidence:p?.sourceConfidence||p?.confidence||'',playProbability:p?.playProbability,updated:p?.updated||p?.updatedAt||p?.lastUpdated||p?.generatedAt}}
 function availabilityStatus(p,round=App.round){
  if(!p)return {key:'out',available:false,label:'Missing',reason:'Player not found in players.json'};
  const ss=statusFor(p),ov=overrideFor(p),bye=(p.bye||[]).map(Number).includes(Number(round));
  const statusText=String(ss?.status||'').toLowerCase().trim(),ovText=String(ov?.status||'').toLowerCase().trim();
  const freshStatus=isFreshRecord(ss,36),freshOverride=isFreshRecord(ov,72);
- const playerPositive=positiveEvidenceFromPlayer(p,round);
- // Bye is not an availability injury call. If the current round is a bye, purple wins.
+ if(ss&&freshStatus&&(['available','fit','cleared','named','confirmed','starting','final17','final 17'].includes(statusText)||ss.cleared===true))return {key:'good',available:true,label:ss.status&&statusText.includes('named')?'Named':'Available',reason:ss.reason||`Fresh status: ${ss.status||'available'}`};
+ if(ov&&freshOverride&&(['available','fit','cleared','named','confirmed','starting','final17','final 17'].includes(ovText)||ov.cleared===true))return {key:'good',available:true,label:ov.status&&ovText.includes('named')?'Named':'Available',reason:ov.reason||'Fresh override: available'};
  if(bye)return {key:'bye',available:false,label:'Bye',reason:`Bye round ${round}`};
- // Highest trust: fresh named/available/confirmed/final-17 style records.
- if(freshPositiveStatus(statusText,ss,36))return {key:'good',available:true,label:statusText.includes('named')?'Named':'Available',reason:ss.reason||`Fresh status: ${ss.status||'available'}`};
- if(freshPositiveStatus(ovText,ov,72))return {key:'good',available:true,label:ovText.includes('named')?'Named':'Available',reason:ov.reason||'Fresh override: available'};
- if(playerPositive)return {key:'good',available:true,label:'Available',reason:playerPositive};
- // Overrides next. Only fresh, trusted evidence can keep yellow/red.
  if(ov){
   const ovMinR=ov.returnWindowMinRound;
-  if(isWeakRiskRecord(ov))return weakRiskCleared(ov,'override');
   if(!freshOverride&&(isSoftRiskStatus(ovText)||isHardOutStatus(ovText)||safeNum(ov.playProbability)<60)){
    if(ovMinR!=null&&Number(round)<Number(ovMinR))return {key:'out',available:false,label:'Out',reason:ov.reason||`Expected back around R${ovMinR}`};
    return staleCleared(ov,'override');
@@ -272,26 +195,21 @@ function availabilityStatus(p,round=App.round){
   if(freshOverride&&isHardOutStatus(ovText))return {key:'out',available:false,label:ovText==='suspended'?'Suspended':'Out',reason:ov.reason||'Override: unavailable'};
   if(freshOverride&&(isSoftRiskStatus(ovText)||safeNum(ov.playProbability)<60))return {key:'risk',available:true,label:'Risk',reason:ov.reason||'Override: risk'};
  }
- // Player status feed. Screenshot/question-mark/manual visual hints are weak evidence, not true injury data.
  if(ss){
   const minR=ss.returnWindowMinRound;
-  if(isWeakRiskRecord(ss))return weakRiskCleared(ss,'status');
   if(!freshStatus&&(isSoftRiskStatus(statusText)||isHardOutStatus(statusText)||safeNum(ss.playProbability)<60)){
    if(minR!=null&&Number(round)<Number(minR))return {key:'out',available:false,label:'Out',reason:ss.reason||`Expected back around R${minR}`};
    return staleCleared(ss,'status');
   }
   if(freshStatus&&isHardOutStatus(statusText)){
    if(minR!=null&&Number(round)>=Number(minR)){const note=ss.expectedReturn?`return risk (due ${ss.expectedReturn})`:'return risk';return {key:'risk',available:true,label:'Risk',reason:ss.reason?`${ss.reason} – ${note}`:note}}
-   return {key:'out',available:false,label:statusText==='suspended'?'Suspended':'Out',reason:ss.reason||'Status: unavailable'};
+   return {key:'out',available:false,label:statusText==='suspended'?'Suspended':'Out',reason:ss.reason||'Status: unavailable'}
   }
   if(freshStatus&&(isSoftRiskStatus(statusText)||safeNum(ss.playProbability)<60))return {key:'risk',available:true,label:'Risk',reason:ss.reason||'Status: risk'};
  }
- // Lowest trust: stale/static flags baked into players.json. These should never beat current team-list reality.
- const base=fallbackPlayerRiskRecord(p),baseStatus=String(base.status||'fit').toLowerCase().trim(),prob=p.playProbability==null?100:safeNum(p.playProbability);
- if(isWeakRiskRecord(base))return weakRiskCleared(base,'players.json');
- if(isHardOutStatus(baseStatus))return {key:'risk',available:true,label:'Data risk',reason:`players.json says ${baseStatus}; verify official team list`};
- if(prob<60||isSoftRiskStatus(baseStatus))return {key:'risk',available:true,label:'Risk',reason:base.reason||`${prob}% play chance`};
- return {key:'good',available:true,label:'Available',reason:'Available'};
+ const s=String(p.injuryStatus||p.status||'fit').toLowerCase().trim();
+ if(isHardOutStatus(s))return {key:'risk',available:true,label:'Data risk',reason:`players.json says ${s}; verify official team list`};
+ const prob=p.playProbability==null?100:safeNum(p.playProbability);if(prob<60||isSoftRiskStatus(s))return {key:'risk',available:true,label:'Risk',reason:p.injuryNote||`${prob}% play chance`};return {key:'good',available:true,label:'Available',reason:'Available'}
 }
 function statusDot(p){const st=availabilityStatus(p);return `<span class="status-dot ${st.key==='good'?'':st.key==='bye'?'bye':st.key==='risk'?'warn':'bad'}"></span>`}
 function statusPill(p){const st=availabilityStatus(p);const cls=st.key==='good'?'good':st.key==='bye'?'bye':st.key==='risk'?'warn':'bad';const ss=statusFor(p);const tip=ss?`${st.reason} [${ss.sourceConfidence||'?'}conf${ss.sources?', '+ss.sources.map(s=>s.source.replace(/-/g,' ')).join(' + '):''}]`:st.reason;return `<span class="pill ${cls}" title="${esc(tip)}">${esc(st.label)}</span>`}
@@ -328,49 +246,12 @@ function mobileTile(p,pos,isReserve=false,slotId=''){
  let tradeBtn='';
  if(!isReserve&&p&&slotId)tradeBtn=`<button type="button" onclick="event.stopPropagation();teamActionTradeOut('${slotId}')" style="margin-top:6px;padding:5px 10px;border-radius:10px;border:1px solid #58a6ff;background:#12345a;color:#fff;font-weight:700;cursor:pointer">Trade</button>`;
  if(isReserve&&p)tradeBtn=`<button type="button" onclick="event.stopPropagation();reserveActionTradeOut('${window.jsq(p.name)}')" style="margin-top:6px;padding:5px 10px;border-radius:10px;border:1px solid #58a6ff;background:#12345a;color:#fff;font-weight:700;cursor:pointer">Trade</button>`;
- return `<div class="mobile-player-tile ${isReserve?'mobile-reserve-tile':''}"${click}>${faceHtml(p,'mobile-face')}<div><div class="mobile-player-name">${esc(p?.name||'Empty')}</div><span class="mobile-pos-badge">${esc(pos)}</span>${tradeBtn}</div><div class="mobile-proj"><b>${pr.expected}</b><span class="status-dot ${cls}"></span></div></div>`
+ return `<div class="mobile-player-tile ${isReserve?'mobile-reserve-tile':''}"${click}><div class="mobile-face">${esc((p?.team||pos||'SC').slice(0,3))}</div><div><div class="mobile-player-name">${esc(p?.name||'Empty')}</div><span class="mobile-pos-badge">${esc(pos)}</span>${tradeBtn}</div><div class="mobile-proj"><b>${pr.expected}</b><span class="status-dot ${cls}"></span></div></div>`
 }
 function reserveBucket(p){const ps=positions(p);if(ps.includes('HOK'))return 'HOOKER';if(ps.includes('FRF'))return 'FRONT ROWERS';if(ps.includes('2RF'))return '2ND ROW FORWARDS';if(ps.includes('HFB'))return 'HALFBACK';if(ps.includes('5/8'))return '5/8';if(ps.includes('CTW'))return 'WINGS / CENTRES';if(ps.includes('FLB'))return 'FULLBACK';return 'FLEX'}
 function mobileSection(title,slotIds,fieldBySlot={}){return `<section class="mobile-team-section"><div class="mobile-section-title">${title}</div><div class="mobile-tile-list">${slotIds.map(id=>fieldBySlot[id]?mobileTile(getPlayer(fieldBySlot[id]),slotById[id]?.short||slotByTitle(title),false,id):'').join('')}</div></section>`}
 function slotByTitle(title){return title==='HOOKER'?'HOK':title==='FRONT ROWERS'?'FRF':title==='2ND ROW FORWARDS'?'2RF':title==='HALFBACK'?'HFB':title==='5/8'?'5/8':title==='WINGS / CENTRES'?'CTW':title==='FULLBACK'?'FLB':'FLEX'}
-
-
-const TEAM_ACCENTS={
- SHA:'#00d5d5',NQL:'#f6c945',NQC:'#f6c945',BRI:'#ffd24a',BRO:'#ffd24a',MEL:'#9b5cff',STH:'#00d5d5',SYD:'#2fd6ff',PAR:'#ffd24a',PEN:'#73d13d',CBR:'#a8e063',DOL:'#ff4d63',NEW:'#ff4d63',WST:'#f5c542',MAN:'#8b1538',CAN:'#3b82f6',STG:'#ef4444',GLD:'#00b3ff',NZL:'#38bdf8',CRO:'#00d5d5'
-};
-function teamKey(p){return String(p?.team||p?.club||'SC').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,3)}
-function teamAccent(p){return TEAM_ACCENTS[teamKey(p)]||'#00d5d5'}
-function posAccent(pos){const s=String(pos||'').toUpperCase();if(s.includes('FRF')||s.includes('HOK')||s.includes('2RF'))return '#f5c542';if(s.includes('CTW')||s.includes('FLB')||s.includes('FB'))return '#a855f7';if(s.includes('FLEX'))return '#32d168';return '#00d5d5'}
-function formationFigureHtml(cls='formation-face'){return `<div class="${cls}"><div class="formation-figure" aria-hidden="true"><span class="formation-arm left"></span><span class="formation-arm right"></span></div></div>`}
-function shortName(name){const parts=String(name||'').trim().split(/\s+/).filter(Boolean);if(parts.length>=2)return `${parts[0][0]}. ${parts.slice(1).join(' ')}`;return String(name||'')}
-
-function formationStatusClass(p){const st=availabilityStatus(p);return st.key==='bye'?'bye':st.key==='out'?'out':st.key==='risk'?'risk':''}
-function formationSlot(slotId,gridArea){
- const slot=slotById[slotId],p=getPlayer(App.lineup?.[slotId]);
- if(!slot)return '';
- if(!p)return `<div class="formation-slot" style="grid-area:${gridArea}"><div class="formation-card formation-empty" style="--accent:#335074;--pos:#335074" data-slot="${slotId}" ondragover="allowDropOnSlot(event,'${slotId}')" ondragleave="clearDrop(event)" ondrop="dropOnSlot(event,'${slotId}')"><span class="formation-score">--<small>PROJ</small></span><div class="formation-pos">${esc(slot.short)}</div>${formationFigureHtml('formation-face')}<div class="formation-name">Empty</div><div class="formation-meta"><span>Drop player</span></div></div></div>`;
- const pr=roundProj(p),st=availabilityStatus(p),cls=st.key==='good'?'':st.key==='bye'?'bye':st.key==='risk'?'warn':'bad';
- const accent=teamAccent(p),pa=posAccent(slot.short),opp=esc(p.opponent||p.opp||p.vs||'');
- return `<div class="formation-slot" style="grid-area:${gridArea}"><div class="formation-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-slot="${slotId}" onclick="selectTeamSlot('${slotId}')" ondragstart="dragField(event,'${slotId}','${window.jsq(p.name)}')" ondragover="allowDropOnSlot(event,'${slotId}')" ondragleave="clearDrop(event)" ondrop="dropOnSlot(event,'${slotId}')"><span class="formation-score">${pr.expected}<small>PROJ</small></span><div class="formation-pos">${esc(slot.short)}</div>${formationFigureHtml('formation-face')}<div class="formation-name" title="${esc(p.name)}">${esc(shortName(p.name))}</div><div class="formation-meta"><span class="formation-meta-left"><span class="status-dot ${cls}" title="${esc(st.reason)}"></span><span>${esc(st.label)}</span></span><span class="formation-round">R${App.round}${opp?' · '+opp:''}</span></div><button class="formation-trade" type="button" onclick="event.stopPropagation();teamActionTradeOut('${slotId}')">Trade</button></div></div>`
-}
-function formationFieldHtml(fieldBySlot={}){
- const slots=[
-  ['FRF1','1 / 1 / 2 / 2'],['HOK1','1 / 3 / 2 / 4'],['FRF2','1 / 5 / 2 / 6'],
-  ['2RF1','2 / 2 / 3 / 3'],['2RF2','2 / 4 / 3 / 5'],
-  ['HFB1','3 / 2 / 4 / 3'],['FLEX1','3 / 3 / 4 / 4'],['FE1','3 / 4 / 4 / 5'],
-  ['CTW1','4 / 1 / 5 / 2'],['CTW2','4 / 2 / 5 / 3'],['CTW3','4 / 4 / 5 / 5'],['CTW4','4 / 5 / 5 / 6'],
-  ['FLB1','5 / 3 / 6 / 4'],['FRF3','6 / 3 / 7 / 4']
- ];
- return `<div class="formation-field"><div class="formation-watermark left">WAR</div><div class="formation-watermark right">ROOM</div><div class="formation-grid">${slots.map(([id,area])=>formationSlot(id,area)).join('')}</div></div>`
-}
-function formationReserveCard(p){
- const pr=roundProj(p),st=availabilityStatus(p),cls=st.key==='good'?'':st.key==='bye'?'bye':st.key==='risk'?'warn':'bad';
- const accent=teamAccent(p),pa=posAccent(p.pos||''),opp=esc(p.opponent||p.opp||p.vs||'');
- return `<div class="formation-reserve-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-reserve="${esc(p.name)}" ondragstart="dragReserve(event,'${window.jsq(p.name)}')" ondragover="allowDropOnReserveCard(event,'${window.jsq(p.name)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(p.name)}')">${formationFigureHtml('formation-reserve-face')}<div><div class="formation-reserve-name" title="${esc(p.name)}">${esc(shortName(p.name))}</div><div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(p.pos||'')}</b> · R${App.round}${opp?' · '+opp:''}</div><div class="formation-reserve-meta"><span class="status-dot ${cls}" title="${esc(st.reason)}"></span> ${esc(st.label||'Reserve')}</div><button class="formation-reserve-trade" type="button" onclick="event.stopPropagation();reserveActionTradeOut('${window.jsq(p.name)}')">Trade</button></div><div class="formation-reserve-score">${pr.expected}<small>PROJ</small></div></div>`
-}
-function formationReservesHtml(reserveSections,groups){return `<aside class="formation-reserves"><h3>Reserves</h3>${reserveSections.map(g=>groups[g].length?`<section class="formation-reserve-section"><div class="formation-reserve-title">${esc(g)} RESERVES</div><div class="formation-reserve-list">${groups[g].map(formationReserveCard).join('')}</div></section>`:'').join('')}</aside>`}
-function mobileTeamHtml(state=teamRenderState()){const sections=[['HOOKER',['HOK1']],['FRONT ROWERS',['FRF1','FRF2','FRF3']],['2ND ROW FORWARDS',['2RF1','2RF2']],['HALFBACK',['HFB1']],['5/8',['FE1']],['WINGS / CENTRES',['CTW1','CTW2','CTW3','CTW4']],['FULLBACK',['FLB1']],['FLEX',['FLEX1']]],reserveSections=[...sections.map(s=>s[0]),'OTHER / UTILITY'],rs=state.reserveNames.map(name=>getPlayer(name)).filter(Boolean),groups=Object.fromEntries(reserveSections.map(g=>[g,[]]));rs.forEach(p=>{const bucket=reserveBucket(p);(groups[bucket]||groups['OTHER / UTILITY']).push(p)});const renderedField=state.fieldSlots.length,renderedReserveNames=reserveSections.flatMap(g=>groups[g].map(p=>p.name));return `<div class="mobile-team-layout formation-page"><div class="mobile-team-head"><h2>My Team</h2>${trustBannerHtml()}<div class="mobile-counts"><span>Field ${renderedField}/14</span><span>Reserves ${renderedReserveNames.length}/12</span><span>Projected ${teamProjection()}</span></div><div id="teamActionPanel" class="small">${teamActionHtml()}</div><div class="side-actions"><button onclick="resetTeamFromFile()">Reset Team From File</button></div></div><div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot)}</main>${formationReservesHtml(reserveSections,groups)}</div></div>`}
-
+function mobileTeamHtml(state=teamRenderState()){const sections=[['HOOKER',['HOK1']],['FRONT ROWERS',['FRF1','FRF2','FRF3']],['2ND ROW FORWARDS',['2RF1','2RF2']],['HALFBACK',['HFB1']],['5/8',['FE1']],['WINGS / CENTRES',['CTW1','CTW2','CTW3','CTW4']],['FULLBACK',['FLB1']],['FLEX',['FLEX1']]],reserveSections=[...sections.map(s=>s[0]),'OTHER / UTILITY'],rs=state.reserveNames.map(name=>getPlayer(name)).filter(Boolean),groups=Object.fromEntries(reserveSections.map(g=>[g,[]]));rs.forEach(p=>{const bucket=reserveBucket(p);(groups[bucket]||groups['OTHER / UTILITY']).push(p)});const renderedField=state.fieldSlots.length,renderedReserveNames=reserveSections.flatMap(g=>groups[g].map(p=>p.name)),missingReserves=state.reserveNames.filter(n=>!renderedReserveNames.includes(n)),debugReserveList=state.reserveNames.join(', ');return `<div class="mobile-team-layout"><div class="mobile-team-head"><h2>My Team</h2>${trustBannerHtml()}<div class="mobile-counts"><span>Field ${renderedField}/14</span><span>Reserves ${renderedReserveNames.length}/12</span><span>Projected ${teamProjection()}</span></div><p class="small">App.myTeam: ${App.myTeam.length} | Field: ${renderedField} | Reserves: ${state.reserveNames.length}<br>Reserve list: ${esc(debugReserveList)}<br>reserveNames length: ${state.reserveNames.length}<br>rendered reserve cards: ${renderedReserveNames.length}<br>missing reserve cards: ${esc(missingReserves.join(', ')||'none')}</p><div id="teamActionPanel" class="small">${teamActionHtml()}</div><div class="side-actions"><button onclick="resetTeamFromFile()">Reset Team From File</button></div></div><div class="mobile-team-grid"><main class="mobile-team-main">${sections.map(s=>mobileSection(s[0],s[1],state.fieldBySlot)).join('')}</main><aside class="mobile-team-reserve-col">${reserveSections.map(g=>groups[g].length?`<section class="mobile-team-section mobile-reserves"><div class="mobile-section-title">${g} RESERVES</div><div class="mobile-tile-list">${groups[g].map(p=>mobileTile(p,slotByTitle(g),true)).join('')}</div></section>`:'').join('')}</aside></div></div>`}
 function playerTradePositions(p){const ps=positions(p);return ps.length?ps:[]}
 function tradeEligibleForPlayer(candidate,oldPlayer){const oldPs=playerTradePositions(oldPlayer);if(!candidate||!oldPlayer||!oldPs.length)return false;const cps=positions(candidate);return oldPs.some(pos=>cps.includes(pos))}
 function tradeOptionButton(r,onclick){const rp=roundProj(r),rs=availabilityStatus(r),cls=rs.key==='good'?'':rs.key==='bye'?'bye':rs.key==='risk'?'warn':'bad';return `<button type="button" onclick="${onclick}" style="display:grid;grid-template-columns:42px minmax(0,1fr) 42px;gap:9px;align-items:center;width:100%;padding:9px;border-radius:14px;border:1px solid #29405f;background:#0b1a2d;color:#f8fafc;text-align:left;cursor:pointer"><span style="width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#10213a;border:1px solid #436180;font-size:11px;font-weight:950">${esc((r.team||'SC').slice(0,3))}</span><span style="min-width:0"><b style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.name)}</b><span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.team||'')} | ${esc(r.pos||'')}</span><span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(rs.label||'')}</span></span><span style="text-align:right;font-weight:950;color:#58a6ff;font-size:17px">${rp.expected}<span class="status-dot ${cls}" style="margin-left:4px"></span></span></button>`}
