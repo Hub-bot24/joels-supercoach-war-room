@@ -1,14 +1,16 @@
 {
-  "updated": "2026-06-09T10:46:08.588Z",
-  "generatedBy": "scripts/update_player_status_from_teamlists.mjs",
+  "updated": "2026-06-09T10:53:04.502Z",
   "currentRound": 15,
-  "mode": "evidence-only-fail-safe",
+  "generatedBy": "scripts/update_player_status_from_teamlists.mjs",
+  "mode": "fail_safe_sparse_evidence_only",
   "rules": {
     "noHardCodedPlayers": true,
-    "currentTeamListWins": true,
     "noSourceDoesNotMeanAvailable": true,
-    "emptySourcesDoNotOverwrite": true,
-    "originIsMonitorUntilClubTeamListConfirms": true
+    "emptySourcesDoNotOverwriteAllAvailable": true,
+    "onlyWritePlayersWithEvidence": true,
+    "officialTeamListWins": true,
+    "injuriesCarryUntilNamed": true,
+    "originIsMonitorUntilClubListConfirms": true
   },
   "sources": [
     {
@@ -42,9 +44,8 @@
     {
       "source": "injury_source",
       "url": "https://rugbyleaguezone.com/nrl/injuries/",
-      "ok": false,
-      "length": 0,
-      "error": "fetch failed"
+      "ok": true,
+      "length": 8657
     },
     {
       "source": "injury_source",
@@ -60,28 +61,24 @@
       "error": "invalid/too-short source text"
     }
   ],
-  "warnings": [
-    "No valid official team-list source fetched. Named-player confidence is limited.",
-    "Very low evidence count (11). Status output is sparse by design to avoid poisoning all players."
-  ],
   "players": {
     "Alex Twal": {
       "status": "out",
       "label": "Out",
-      "sourceConfidence": "medium",
-      "reason": "players.json says undefined.",
-      "source": "players_json",
-      "returnRound": null,
-      "updatedAt": "2026-06-09T10:46:08.588Z",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
       "sources": [
         {
-          "source": "players_json",
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
           "status": "out",
-          "confidence": "medium",
+          "confidence": "high",
           "label": "Out",
-          "returnRound": null
+          "context": "l season wests tigers player injury return jock madden arm tbc royce hunt pectoral tbc sione fainu concussion round 15 patrick herbert suspended round 15 adam doueihi shoulder round 16-17 taylan may shoulder round 16-17 alex twal knee round 18-20 samuela fainu foot round 20-21 related 2026 state of origin series https rugbyleaguezone com state-of-origin 2026",
+          "reason": "Injury source indicates out/injured/unavailable."
         }
-      ]
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
     },
     "Blayke Brailey": {
       "status": "risk",
@@ -100,32 +97,32 @@
           "context": "uring round 15 if he is touch and go for round 16 the sharks may also rest him from the clash against the sydney roosters with a bye to follow before he is almost certain to be back for a trip to brisbane where they will clash with the broncos on july 4 the sharks also have lost blayke brailey for at least the same amo",
           "returnRound": 15
         }
-      ]
+      ],
+      "carriedForward": true,
+      "updated": "2026-06-09T10:46:08.588Z"
     },
     "Brandon Smith": {
       "status": "out",
       "label": "Out",
       "sourceConfidence": "medium",
-      "reason": "players.json says undefined.",
-      "source": "players_json",
-      "returnRound": null,
-      "updatedAt": "2026-06-09T10:46:08.588Z",
+      "reason": "players.json indicates out/unavailable.",
       "sources": [
         {
           "source": "players_json",
           "status": "out",
           "confidence": "medium",
           "label": "Out",
-          "returnRound": null
+          "context": "injuryNote: DNP in screenshot treated as not-yet-played, not an injury/out.",
+          "reason": "players.json indicates out/unavailable."
         }
-      ]
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
     },
     "Braydon Trindall": {
       "status": "out",
       "label": "Out",
       "sourceConfidence": "high",
-      "updatedAt": "2026-06-09T10:46:08.588Z",
-      "reason": "Current source indicates out/rested/injured: nother two or three weeks as he gets back to full fitness with the sharks keen to avoid a more serious injury by playing through it the halfback will likely continue to be replaced...",
+      "reason": "Injury source indicates out/injured/unavailable.",
       "sources": [
         {
           "source": "injury_source",
@@ -133,108 +130,102 @@
           "status": "out",
           "confidence": "high",
           "label": "Out",
-          "reason": "Current source indicates out/rested/injured: nother two or three weeks as he gets back to full fitness with the sharks keen to avoid a more serious injury by playing through it the halfback will likely continue to be replaced...",
-          "context": "nother two or three weeks as he gets back to full fitness with the sharks keen to avoid a more serious injury by playing through it the halfback will likely continue to be replaced by niwhai puru after he did a solid job against manly in replacing him while normal halves partner braydon trindall stole the show with a s",
-          "returnRound": null
+          "context": "th the sharks keen to avoid a more serious injury by playing through it the halfback will likely continue to be replaced by niwhai puru after he did a solid job against manly in replacing him while normal halves partner braydon trindall stole the show with a sensational performance hynes being out for the coming games means he won't suit up against the st ge",
+          "reason": "Injury source indicates out/injured/unavailable."
         }
-      ]
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
     },
     "Cody Walker": {
       "status": "out",
       "label": "Out",
       "sourceConfidence": "medium",
-      "reason": "players.json says undefined.",
-      "source": "players_json",
-      "returnRound": null,
-      "updatedAt": "2026-06-09T10:46:08.588Z",
+      "reason": "players.json indicates out/unavailable.",
       "sources": [
         {
           "source": "players_json",
           "status": "out",
           "confidence": "medium",
           "label": "Out",
-          "returnRound": null
+          "context": "injuryNote: DNP in screenshot treated as not-yet-played, not an injury/out.",
+          "reason": "players.json indicates out/unavailable."
         }
-      ]
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
     },
     "Herbie Farnworth": {
       "status": "out",
       "label": "Out",
       "sourceConfidence": "medium",
-      "reason": "players.json says undefined.",
-      "source": "players_json",
-      "returnRound": null,
-      "updatedAt": "2026-06-09T10:46:08.588Z",
+      "reason": "players.json indicates out/unavailable.",
       "sources": [
         {
           "source": "players_json",
           "status": "out",
           "confidence": "medium",
           "label": "Out",
-          "returnRound": null
+          "context": "injuryNote: DNP in screenshot treated as not-yet-played, not an injury/out.",
+          "reason": "players.json indicates out/unavailable."
         }
-      ]
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
     },
     "Jack Bostock": {
       "status": "out",
       "label": "Out",
       "sourceConfidence": "medium",
-      "reason": "players.json says undefined.",
-      "source": "players_json",
-      "returnRound": null,
-      "updatedAt": "2026-06-09T10:46:08.588Z",
+      "reason": "players.json indicates out/unavailable.",
       "sources": [
         {
           "source": "players_json",
           "status": "out",
           "confidence": "medium",
           "label": "Out",
-          "returnRound": null
+          "context": "injuryNote: DNP in screenshot treated as not-yet-played, not an injury/out.",
+          "reason": "players.json indicates out/unavailable."
         }
-      ]
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
     },
     "Kayal Iro": {
       "status": "risk",
       "label": "Monitor",
       "sourceConfidence": "low",
-      "reason": "players.json monitor note: undefined.",
-      "source": "players_json",
-      "returnRound": null,
-      "updatedAt": "2026-06-09T10:46:08.588Z",
+      "reason": "players.json monitor note.",
       "sources": [
         {
           "source": "players_json",
           "status": "risk",
           "confidence": "low",
           "label": "Monitor",
-          "returnRound": null
+          "context": "injuryNote: Question mark indicator in Joel screenshot",
+          "reason": "players.json monitor note."
         }
-      ]
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
     },
     "Myles Martin": {
       "status": "out",
       "label": "Out",
       "sourceConfidence": "medium",
-      "reason": "players.json says undefined.",
-      "source": "players_json",
-      "returnRound": null,
-      "updatedAt": "2026-06-09T10:46:08.588Z",
+      "reason": "players.json indicates out/unavailable.",
       "sources": [
         {
           "source": "players_json",
           "status": "out",
           "confidence": "medium",
           "label": "Out",
-          "returnRound": null
+          "context": "injuryNote: DNP in screenshot treated as not-yet-played, not an injury/out.",
+          "reason": "players.json indicates out/unavailable."
         }
-      ]
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
     },
     "Nicho Hynes": {
       "status": "out",
       "label": "Out",
       "sourceConfidence": "high",
-      "updatedAt": "2026-06-09T10:46:08.588Z",
-      "reason": "Current source indicates out/rested/injured: latest nrl videos nrl live stream nsw cup live stream qld cup live stream more hynes to miss more time as calf injury plays havoc he was only set to miss a single week originally b...",
+      "reason": "Injury source indicates out/injured/unavailable.",
       "sources": [
         {
           "source": "injury_source",
@@ -242,11 +233,11 @@
           "status": "out",
           "confidence": "high",
           "label": "Out",
-          "reason": "Current source indicates out/rested/injured: latest nrl videos nrl live stream nsw cup live stream qld cup live stream more hynes to miss more time as calf injury plays havoc he was only set to miss a single week originally b...",
-          "context": "latest nrl videos nrl live stream nsw cup live stream qld cup live stream more hynes to miss more time as calf injury plays havoc he was only set to miss a single week originally by scott pryde - editor june 1 2026 - 4 40pm 7090 the cronulla sharks are understood to be expecting nicho hynes to miss at least another for",
-          "returnRound": null
+          "context": "p live stream more hynes to miss more time as calf injury plays havoc he was only set to miss a single week originally by scott pryde - editor june 1 2026 - 4 40pm 7090 the cronulla sharks are understood to be expecting nicho hynes to miss at least another fortnight hynes was withdrawn from the sharks' narrow win over the manly sea eagles over the weekend af",
+          "reason": "Injury source indicates out/injured/unavailable."
         }
-      ]
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
     },
     "Niwhai Puru": {
       "status": "out",
@@ -265,7 +256,387 @@
           "context": " he wouldn't be rushing hynes back it has now been revealed by news corp that hynes could miss another two or three weeks as he gets back to full fitness with the sharks keen to avoid a more serious injury by playing through it the halfback will likely continue to be replaced by niwhai puru after he did a solid job aga",
           "returnRound": null
         }
-      ]
+      ],
+      "carriedForward": true,
+      "updated": "2026-06-09T10:46:08.588Z"
+    },
+    "Adam Doueihi": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "nnon personal leave tbc tanah boyd acl 2027 roger tuivasa-sheck acl season wests tigers player injury return jock madden arm tbc royce hunt pectoral tbc sione fainu concussion round 15 patrick herbert suspended round 15 adam doueihi shoulder round 16-17 taylan may shoulder round 16-17 alex twal knee round 18-20 samuela fainu foot round 20-21 related 2026 sta",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Bradman Best": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "rested round 15 kurt capewell warriors rested round 15 charnze nicoll-klokstad warriors neck round 15 sione fainu tigers concussion round 15 patrick herbert tigers suspended round 15 jake averillo dolphins hand round 15 bradman best knights calf round 15 full nrl injury list club-by-club brisbane broncos player injury return delouise hoeter leg round 16-17 g",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Charnze Nicoll-Klokstad": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "ound 15 seb kris raiders concussion round 15 christian tuipulotu dragons hamstring round 15 eddie ieremia-toeava warriors concussion round 15 mitch barnett warriors rested round 15 kurt capewell warriors rested round 15 charnze nicoll-klokstad warriors neck round 15 sione fainu tigers concussion round 15 patrick herbert tigers suspended round 15 jake averill",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Christian Tuipulotu": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "ed players returning soon next fortnight player club injury return connor tracey bulldogs hamstring round 14 marcelo montoya bulldogs knee round 14 josh papalii raiders calf round 15 seb kris raiders concussion round 15 christian tuipulotu dragons hamstring round 15 eddie ieremia-toeava warriors concussion round 15 mitch barnett warriors rested round 15 kurt",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Eddie Ieremia-Toeava": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": " club injury return connor tracey bulldogs hamstring round 14 marcelo montoya bulldogs knee round 14 josh papalii raiders calf round 15 seb kris raiders concussion round 15 christian tuipulotu dragons hamstring round 15 eddie ieremia-toeava warriors concussion round 15 mitch barnett warriors rested round 15 kurt capewell warriors rested round 15 charnze nico",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Jack Wighton": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "ith j maine hopgood and matt doorey both acl 2027 manly sea eagles without tom trbojevic hamstring until round 16 with other key forwards also sidelined south sydney rabbitohs dealing with latrell mitchell back round 17 jack wighton arm and multiple long-term cases melbourne storm have several key players out including xavier coates achilles next season and ",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Jake Averillo": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "sion round 15 mitch barnett warriors rested round 15 kurt capewell warriors rested round 15 charnze nicoll-klokstad warriors neck round 15 sione fainu tigers concussion round 15 patrick herbert tigers suspended round 15 jake averillo dolphins hand round 15 bradman best knights calf round 15 full nrl injury list club-by-club brisbane broncos player injury ret",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Jock Madden": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "d 15 kurt capewell rested round 15 charnze nicoll-klokstad neck round 15 sam healey thumb round 17-18 morgan gannon personal leave tbc tanah boyd acl 2027 roger tuivasa-sheck acl season wests tigers player injury return jock madden arm tbc royce hunt pectoral tbc sione fainu concussion round 15 patrick herbert suspended round 15 adam doueihi shoulder round 1",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Jonah Pezet": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "w of who is sidelined and when they could return to the field updated nrl injury list as at monday 8 june 2026 key injury news parramatta eels halves crisis continues with mitch moses hamstring out until round 15-16 and jonah pezet sidelined longer term long-term blows with j maine hopgood and matt doorey both acl 2027 manly sea eagles without tom trbojevic ",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Kurt Capewell": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "ee round 14 josh papalii raiders calf round 15 seb kris raiders concussion round 15 christian tuipulotu dragons hamstring round 15 eddie ieremia-toeava warriors concussion round 15 mitch barnett warriors rested round 15 kurt capewell warriors rested round 15 charnze nicoll-klokstad warriors neck round 15 sione fainu tigers concussion round 15 patrick herbert",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Latrell Mitchell": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "d longer term long-term blows with j maine hopgood and matt doorey both acl 2027 manly sea eagles without tom trbojevic hamstring until round 16 with other key forwards also sidelined south sydney rabbitohs dealing with latrell mitchell back round 17 jack wighton arm and multiple long-term cases melbourne storm have several key players out including xavier c",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Leka Halasima": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "round 20-22 cyrus stanley-traill ankle tbc connor muhleisen acl tbc sydney roosters player injury return cody ramsey illness round 15 daniel tupou calf tbc blake steep knee 2027 new zealand warriors player injury return leka halasima hamstring tbc eddie ieremia-toeava concussion round 15 mitch barnett rested round 15 kurt capewell rested round 15 charnze nic",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Morgan Gannon": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "rs player injury return leka halasima hamstring tbc eddie ieremia-toeava concussion round 15 mitch barnett rested round 15 kurt capewell rested round 15 charnze nicoll-klokstad neck round 15 sam healey thumb round 17-18 morgan gannon personal leave tbc tanah boyd acl 2027 roger tuivasa-sheck acl season wests tigers player injury return jock madden arm tbc ro",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Patrick Herbert": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "nd 15 eddie ieremia-toeava warriors concussion round 15 mitch barnett warriors rested round 15 kurt capewell warriors rested round 15 charnze nicoll-klokstad warriors neck round 15 sione fainu tigers concussion round 15 patrick herbert tigers suspended round 15 jake averillo dolphins hand round 15 bradman best knights calf round 15 full nrl injury list club-",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Royce Hunt": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "ested round 15 charnze nicoll-klokstad neck round 15 sam healey thumb round 17-18 morgan gannon personal leave tbc tanah boyd acl 2027 roger tuivasa-sheck acl season wests tigers player injury return jock madden arm tbc royce hunt pectoral tbc sione fainu concussion round 15 patrick herbert suspended round 15 adam doueihi shoulder round 16-17 taylan may shou",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Sam Healey": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": " knee 2027 new zealand warriors player injury return leka halasima hamstring tbc eddie ieremia-toeava concussion round 15 mitch barnett rested round 15 kurt capewell rested round 15 charnze nicoll-klokstad neck round 15 sam healey thumb round 17-18 morgan gannon personal leave tbc tanah boyd acl 2027 roger tuivasa-sheck acl season wests tigers player injury ",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Samuela Fainu": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "r injury return jock madden arm tbc royce hunt pectoral tbc sione fainu concussion round 15 patrick herbert suspended round 15 adam doueihi shoulder round 16-17 taylan may shoulder round 16-17 alex twal knee round 18-20 samuela fainu foot round 20-21 related 2026 state of origin series https rugbyleaguezone com state-of-origin 2026-series nrl 2026 season htt",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Sione Fainu": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "ristian tuipulotu dragons hamstring round 15 eddie ieremia-toeava warriors concussion round 15 mitch barnett warriors rested round 15 kurt capewell warriors rested round 15 charnze nicoll-klokstad warriors neck round 15 sione fainu tigers concussion round 15 patrick herbert tigers suspended round 15 jake averillo dolphins hand round 15 bradman best knights c",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Tanah Boyd": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": "rne storm have several key players out including xavier coates achilles next season and ongoing medical episodes for tui kamikamica and eli katoa new zealand warriors season-ending blow with roger tuivasa-sheck acl plus tanah boyd acl 2027 brisbane broncos managing a lengthy list with pat carrigan now out until round 20 north queensland cowboys without tom d",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Taylan May": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": " acl 2027 roger tuivasa-sheck acl season wests tigers player injury return jock madden arm tbc royce hunt pectoral tbc sione fainu concussion round 15 patrick herbert suspended round 15 adam doueihi shoulder round 16-17 taylan may shoulder round 16-17 alex twal knee round 18-20 samuela fainu foot round 20-21 related 2026 state of origin series https rugbylea",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
+    },
+    "Tom Trbojevic": {
+      "status": "out",
+      "label": "Out",
+      "sourceConfidence": "high",
+      "reason": "Injury source indicates out/injured/unavailable.",
+      "sources": [
+        {
+          "source": "injury_source",
+          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "status": "out",
+          "confidence": "high",
+          "label": "Out",
+          "context": " parramatta eels halves crisis continues with mitch moses hamstring out until round 15-16 and jonah pezet sidelined longer term long-term blows with j maine hopgood and matt doorey both acl 2027 manly sea eagles without tom trbojevic hamstring until round 16 with other key forwards also sidelined south sydney rabbitohs dealing with latrell mitchell back roun",
+          "reason": "Injury source indicates out/injured/unavailable."
+        }
+      ],
+      "updated": "2026-06-09T10:53:04.502Z"
     }
   }
 }

@@ -1,8 +1,8 @@
 {
-  "updated": "2026-06-09T10:46:08.588Z",
+  "updated": "2026-06-09T10:53:04.502Z",
   "currentRound": 15,
   "playersChecked": 563,
-  "evidencePlayersWritten": 11,
+  "evidencePlayersWritten": 32,
   "namedCount": 0,
   "sourcesFetched": [
     {
@@ -36,9 +36,8 @@
     {
       "source": "injury_source",
       "url": "https://rugbyleaguezone.com/nrl/injuries/",
-      "ok": false,
-      "length": 0,
-      "error": "fetch failed"
+      "ok": true,
+      "length": 8657
     },
     {
       "source": "injury_source",
@@ -56,10 +55,10 @@
   ],
   "warnings": [
     "No valid official team-list source fetched. Named-player confidence is limited.",
-    "Very low evidence count (11). Status output is sparse by design to avoid poisoning all players."
+    "Named count is zero because official team-list sources did not fetch. This update is injury/risk evidence only."
   ],
   "counts": {
-    "out": 9,
+    "out": 30,
     "risk": 2
   },
   "originMonitorCount": 0,
@@ -68,7 +67,7 @@
       "name": "Alex Twal",
       "status": "out",
       "label": "Out",
-      "reason": "players.json says undefined."
+      "reason": "Injury source indicates out/injured/unavailable."
     },
     {
       "name": "Blayke Brailey",
@@ -80,55 +79,109 @@
       "name": "Brandon Smith",
       "status": "out",
       "label": "Out",
-      "reason": "players.json says undefined."
+      "reason": "players.json indicates out/unavailable."
     },
     {
       "name": "Braydon Trindall",
       "status": "out",
       "label": "Out",
-      "reason": "Current source indicates out/rested/injured: nother two or three weeks as he gets back to full fitness with the sharks keen to avoid a more serious injury by playing through it the halfback will likely continue to be replaced..."
+      "reason": "Injury source indicates out/injured/unavailable."
     },
     {
       "name": "Cody Walker",
       "status": "out",
       "label": "Out",
-      "reason": "players.json says undefined."
+      "reason": "players.json indicates out/unavailable."
     },
     {
       "name": "Herbie Farnworth",
       "status": "out",
       "label": "Out",
-      "reason": "players.json says undefined."
+      "reason": "players.json indicates out/unavailable."
     },
     {
       "name": "Jack Bostock",
       "status": "out",
       "label": "Out",
-      "reason": "players.json says undefined."
+      "reason": "players.json indicates out/unavailable."
     },
     {
       "name": "Kayal Iro",
       "status": "risk",
       "label": "Monitor",
-      "reason": "players.json monitor note: undefined."
+      "reason": "players.json monitor note."
     },
     {
       "name": "Myles Martin",
       "status": "out",
       "label": "Out",
-      "reason": "players.json says undefined."
+      "reason": "players.json indicates out/unavailable."
     },
     {
       "name": "Nicho Hynes",
       "status": "out",
       "label": "Out",
-      "reason": "Current source indicates out/rested/injured: latest nrl videos nrl live stream nsw cup live stream qld cup live stream more hynes to miss more time as calf injury plays havoc he was only set to miss a single week originally b..."
+      "reason": "Injury source indicates out/injured/unavailable."
     },
     {
       "name": "Niwhai Puru",
       "status": "out",
       "label": "Out",
       "reason": "Current source indicates out/rested/injured:  he wouldn't be rushing hynes back it has now been revealed by news corp that hynes could miss another two or three weeks as he gets back to full fitness with the sharks keen to av..."
+    },
+    {
+      "name": "Adam Doueihi",
+      "status": "out",
+      "label": "Out",
+      "reason": "Injury source indicates out/injured/unavailable."
+    },
+    {
+      "name": "Bradman Best",
+      "status": "out",
+      "label": "Out",
+      "reason": "Injury source indicates out/injured/unavailable."
+    },
+    {
+      "name": "Charnze Nicoll-Klokstad",
+      "status": "out",
+      "label": "Out",
+      "reason": "Injury source indicates out/injured/unavailable."
+    },
+    {
+      "name": "Christian Tuipulotu",
+      "status": "out",
+      "label": "Out",
+      "reason": "Injury source indicates out/injured/unavailable."
+    },
+    {
+      "name": "Eddie Ieremia-Toeava",
+      "status": "out",
+      "label": "Out",
+      "reason": "Injury source indicates out/injured/unavailable."
+    },
+    {
+      "name": "Jack Wighton",
+      "status": "out",
+      "label": "Out",
+      "reason": "Injury source indicates out/injured/unavailable."
+    },
+    {
+      "name": "Jake Averillo",
+      "status": "out",
+      "label": "Out",
+      "reason": "Injury source indicates out/injured/unavailable."
+    },
+    {
+      "name": "Jock Madden",
+      "status": "out",
+      "label": "Out",
+      "reason": "Injury source indicates out/injured/unavailable."
+    },
+    {
+      "name": "Jonah Pezet",
+      "status": "out",
+      "label": "Out",
+      "reason": "Injury source indicates out/injured/unavailable."
     }
   ]
 }
