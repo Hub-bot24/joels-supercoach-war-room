@@ -1,20 +1,20 @@
 {
   "updated": "2026-06-09T00:00:00+10:00",
-  "notes": "Source-trust config. Add/adjust official team-list, late-mail and Origin squad URLs here. The updater never hard-codes player statuses.",
+  "notes": "Use real article/detail URLs, not topic hub pages. If sources return tiny/empty content, updater must fail safe and not overwrite player_status.json.",
+  "minimumValidSourceLength": 1000,
   "teamListUrls": [
-    "https://www.nrl.com/news/topic/team-lists/"
+    "https://www.nrl.com/news/2026/05/19/raiders-v-dolphins-savage-eyes-return-trai-tevita-step-up/"
   ],
-  "lateMailUrls": [
-    "https://www.nrl.com/news/topic/late-mail/"
+  "lateMailUrls": [],
+  "injuryUrls": [
+    "https://www.sharks.com.au/news/2026/05/26/pilot-medical-update--nicho-hynes/"
   ],
-  "originUrls": [
-    "https://www.nrl.com/news/topic/state-of-origin/"
-  ],
+  "originUrls": [],
   "sourceWeights": {
     "official_team_list": 100,
-    "late_mail": 90,
+    "late_mail": 95,
+    "injury_report": 90,
     "origin_squad": 70,
-    "injury_report": 65,
     "weak_visual_or_question_mark": 10
   }
 }
