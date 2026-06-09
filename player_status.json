@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-08T22:11:30.534133+00:00",
+  "updated": "2026-06-09T08:22:11.929173+00:00",
   "source": "multi-source (NRL Casualty Ward + zerotackle)",
   "sourceUrls": [
     "https://www.nrl.com/casualty-ward/",
@@ -19,8 +19,8 @@
     }
   ],
   "generated": {
-    "rowsFound": 164,
-    "matched": 73,
+    "rowsFound": 170,
+    "matched": 76,
     "unmatched": 11
   },
   "players": {
@@ -49,7 +49,73 @@
           "expectedReturn": "Round 15"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 15,
+      "returnWindowMaxRound": 15,
+      "cleared": false
+    },
+    "Jordan Riki": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Foot",
+      "expectedReturn": "Round 15",
+      "expectedReturnRound": 15,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Foot",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Foot",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 15,
+      "returnWindowMaxRound": 15,
+      "cleared": false
+    },
+    "Antonio Verhoeven": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Shoulder",
+      "expectedReturn": "Round 15",
+      "expectedReturnRound": 15,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -82,7 +148,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -115,7 +181,7 @@
           "expectedReturn": "Round 18"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -148,7 +214,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -181,73 +247,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
-      "returnType": "indefinite",
-      "returnWindowMinWeeks": null,
-      "returnWindowMaxWeeks": null,
-      "returnWindowMinRound": null,
-      "returnWindowMaxRound": null,
-      "cleared": false
-    },
-    "Jordan Riki": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Foot",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "sourceConfidence": "high",
-      "sources": [
-        {
-          "source": "nrl-casualty-ward",
-          "confidence": "high",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Foot",
-          "expectedReturn": "TBC"
-        },
-        {
-          "source": "zerotackle-injuries-suspensions",
-          "confidence": "medium",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Foot",
-          "expectedReturn": "TBC"
-        }
-      ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
-      "returnType": "indefinite",
-      "returnWindowMinWeeks": null,
-      "returnWindowMaxWeeks": null,
-      "returnWindowMinRound": null,
-      "returnWindowMaxRound": null,
-      "cleared": false
-    },
-    "Antonio Verhoeven": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Shoulder",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "sourceConfidence": "high",
-      "sources": [
-        {
-          "source": "nrl-casualty-ward",
-          "confidence": "high",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Shoulder",
-          "expectedReturn": "TBC"
-        },
-        {
-          "source": "zerotackle-injuries-suspensions",
-          "confidence": "medium",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Shoulder",
-          "expectedReturn": "TBC"
-        }
-      ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -280,12 +280,45 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": null,
       "returnWindowMaxRound": null,
+      "cleared": false
+    },
+    "Kurt Mann": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Ear",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ear",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ear",
+          "expectedReturn": "Round 16"
+        }
+      ],
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 16,
+      "returnWindowMaxRound": 16,
       "cleared": false
     },
     "Jacob Preston": {
@@ -313,7 +346,7 @@
           "expectedReturn": "Round 19"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -346,12 +379,45 @@
           "expectedReturn": "Round 20"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": 20,
       "returnWindowMaxRound": 20,
+      "cleared": false
+    },
+    "Stephen Crichton": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Shoulder",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
       "cleared": false
     },
     "Samuel Hughes": {
@@ -379,40 +445,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
-      "returnType": "indefinite",
-      "returnWindowMinWeeks": null,
-      "returnWindowMaxWeeks": null,
-      "returnWindowMinRound": null,
-      "returnWindowMaxRound": null,
-      "cleared": false
-    },
-    "Kurt Mann": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Ear",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "sourceConfidence": "high",
-      "sources": [
-        {
-          "source": "nrl-casualty-ward",
-          "confidence": "high",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Ear",
-          "expectedReturn": "TBC"
-        },
-        {
-          "source": "zerotackle-injuries-suspensions",
-          "confidence": "medium",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Ear",
-          "expectedReturn": "TBC"
-        }
-      ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -445,7 +478,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -478,7 +511,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -511,7 +544,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -544,7 +577,7 @@
           "expectedReturn": "Round 15"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -577,7 +610,7 @@
           "expectedReturn": "Round 15"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -610,7 +643,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -643,7 +676,7 @@
           "expectedReturn": "Round 17"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -676,7 +709,7 @@
           "expectedReturn": "Round 20"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -709,7 +742,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -742,7 +775,7 @@
           "expectedReturn": "Round 18"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -775,7 +808,7 @@
           "expectedReturn": "Round 21"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -808,7 +841,7 @@
           "expectedReturn": "Round 21"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -841,7 +874,7 @@
           "expectedReturn": "Round 23"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -874,7 +907,7 @@
           "expectedReturn": "Round 15"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -907,7 +940,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -915,12 +948,12 @@
       "returnWindowMaxRound": 16,
       "cleared": false
     },
-    "Casey McLean": {
+    "Jermaine McEwen": {
       "status": "out",
       "playProbability": 0,
-      "reason": "Ankle",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
+      "reason": "Stood down",
+      "expectedReturn": "Round 17",
+      "expectedReturnRound": 17,
       "sourceConfidence": "high",
       "sources": [
         {
@@ -928,24 +961,24 @@
           "confidence": "high",
           "status": "out",
           "playProbability": 0,
-          "reason": "Ankle",
-          "expectedReturn": "TBC"
+          "reason": "Stood down",
+          "expectedReturn": "Round 17"
         },
         {
           "source": "zerotackle-injuries-suspensions",
           "confidence": "medium",
           "status": "out",
           "playProbability": 0,
-          "reason": "Ankle",
-          "expectedReturn": "TBC"
+          "reason": "Stood down",
+          "expectedReturn": "Round 17"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
-      "returnType": "indefinite",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
+      "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
-      "returnWindowMinRound": null,
-      "returnWindowMaxRound": null,
+      "returnWindowMinRound": 17,
+      "returnWindowMaxRound": 17,
       "cleared": false
     },
     "Latrell Mitchell": {
@@ -973,7 +1006,7 @@
           "expectedReturn": "Round 17"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1006,7 +1039,7 @@
           "expectedReturn": "Round 18"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1039,12 +1072,45 @@
           "expectedReturn": "Round 26"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": 26,
       "returnWindowMaxRound": 26,
+      "cleared": false
+    },
+    "Campbell Graham": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Calf",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
       "cleared": false
     },
     "Isaiah Tass": {
@@ -1072,7 +1138,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1105,7 +1171,7 @@
           "expectedReturn": "Next Season"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1138,7 +1204,7 @@
           "expectedReturn": "Round 15"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1171,7 +1237,7 @@
           "expectedReturn": "Round 15"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1204,7 +1270,40 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 16,
+      "returnWindowMaxRound": 16,
+      "cleared": false
+    },
+    "Savelio Tamale": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Concussion",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Concussion",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Concussion",
+          "expectedReturn": "Round 16"
+        }
+      ],
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1237,73 +1336,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
-      "returnType": "indefinite",
-      "returnWindowMinWeeks": null,
-      "returnWindowMaxWeeks": null,
-      "returnWindowMinRound": null,
-      "returnWindowMaxRound": null,
-      "cleared": false
-    },
-    "Ethan Sanders": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "TBC",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "sourceConfidence": "high",
-      "sources": [
-        {
-          "source": "nrl-casualty-ward",
-          "confidence": "high",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "TBC",
-          "expectedReturn": "TBC"
-        },
-        {
-          "source": "zerotackle-injuries-suspensions",
-          "confidence": "medium",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "TBC",
-          "expectedReturn": "TBC"
-        }
-      ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
-      "returnType": "indefinite",
-      "returnWindowMinWeeks": null,
-      "returnWindowMaxWeeks": null,
-      "returnWindowMinRound": null,
-      "returnWindowMaxRound": null,
-      "cleared": false
-    },
-    "Savelio Tamale": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Head knock",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "sourceConfidence": "high",
-      "sources": [
-        {
-          "source": "nrl-casualty-ward",
-          "confidence": "high",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Head knock",
-          "expectedReturn": "TBC"
-        },
-        {
-          "source": "zerotackle-injuries-suspensions",
-          "confidence": "medium",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Head knock",
-          "expectedReturn": "TBC"
-        }
-      ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1336,7 +1369,7 @@
           "expectedReturn": "Round 15"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1369,7 +1402,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1402,7 +1435,7 @@
           "expectedReturn": "Next Season"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1435,7 +1468,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1468,7 +1501,7 @@
           "expectedReturn": "Round 21"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1501,12 +1534,45 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": null,
       "returnWindowMaxRound": null,
+      "cleared": false
+    },
+    "Jesse Ramien": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Knee",
+      "expectedReturn": "Round 15",
+      "expectedReturnRound": 15,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 15,
+      "returnWindowMaxRound": 15,
       "cleared": false
     },
     "Blayke Brailey": {
@@ -1534,7 +1600,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1567,7 +1633,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1600,7 +1666,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1633,7 +1699,7 @@
           "expectedReturn": "Round 17"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1666,7 +1732,7 @@
           "expectedReturn": "Round 18"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1699,7 +1765,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1732,7 +1798,7 @@
           "expectedReturn": "Next Season"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1765,12 +1831,45 @@
           "expectedReturn": "Indefinite"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": null,
       "returnWindowMaxRound": null,
+      "cleared": false
+    },
+    "Chris Randall": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Concussion",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Concussion",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Concussion",
+          "expectedReturn": "Round 16"
+        }
+      ],
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 16,
+      "returnWindowMaxRound": 16,
       "cleared": false
     },
     "Tukimihia Simpkins": {
@@ -1798,7 +1897,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1831,7 +1930,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1864,7 +1963,7 @@
           "expectedReturn": "Next Season"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1897,7 +1996,40 @@
           "expectedReturn": "Round 15"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 15,
+      "returnWindowMaxRound": 15,
+      "cleared": false
+    },
+    "Charnze Nicoll-Klokstad": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Neck",
+      "expectedReturn": "Round 15",
+      "expectedReturnRound": 15,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Neck",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Neck",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1922,12 +2054,45 @@
           "expectedReturn": "Round 17"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": 17,
       "returnWindowMaxRound": 17,
+      "cleared": false
+    },
+    "James Fisher-Harris": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Calf",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
       "cleared": false
     },
     "Leka Halasima": {
@@ -1955,7 +2120,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1988,40 +2153,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
-      "returnType": "indefinite",
-      "returnWindowMinWeeks": null,
-      "returnWindowMaxWeeks": null,
-      "returnWindowMinRound": null,
-      "returnWindowMaxRound": null,
-      "cleared": false
-    },
-    "Charnze Nicoll-Klokstad": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Neck",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "sourceConfidence": "high",
-      "sources": [
-        {
-          "source": "nrl-casualty-ward",
-          "confidence": "high",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Neck",
-          "expectedReturn": "TBC"
-        },
-        {
-          "source": "zerotackle-injuries-suspensions",
-          "confidence": "medium",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Neck",
-          "expectedReturn": "TBC"
-        }
-      ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -2054,7 +2186,7 @@
           "expectedReturn": "Next Season"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -2087,7 +2219,7 @@
           "expectedReturn": "Next Season"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -2120,7 +2252,7 @@
           "expectedReturn": "Round 15"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -2153,7 +2285,73 @@
           "expectedReturn": "Round 15"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 15,
+      "returnWindowMaxRound": 15,
+      "cleared": false
+    },
+    "Jock Madden": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Elbow",
+      "expectedReturn": "Round 15",
+      "expectedReturnRound": 15,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Elbow",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Elbow",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 15,
+      "returnWindowMaxRound": 15,
+      "cleared": false
+    },
+    "Taylan May": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Shoulder",
+      "expectedReturn": "Round 15",
+      "expectedReturnRound": 15,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 15"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 15"
+        }
+      ],
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -2186,40 +2384,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
-      "returnType": "round",
-      "returnWindowMinWeeks": null,
-      "returnWindowMaxWeeks": null,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 16,
-      "cleared": false
-    },
-    "Taylan May": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Shoulder",
-      "expectedReturn": "Round 16",
-      "expectedReturnRound": 16,
-      "sourceConfidence": "high",
-      "sources": [
-        {
-          "source": "nrl-casualty-ward",
-          "confidence": "high",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Shoulder",
-          "expectedReturn": "Round 16"
-        },
-        {
-          "source": "zerotackle-injuries-suspensions",
-          "confidence": "medium",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Shoulder",
-          "expectedReturn": "Round 16"
-        }
-      ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -2252,7 +2417,7 @@
           "expectedReturn": "Round 18"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -2285,7 +2450,7 @@
           "expectedReturn": "Round 20"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -2318,73 +2483,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
-      "returnType": "indefinite",
-      "returnWindowMinWeeks": null,
-      "returnWindowMaxWeeks": null,
-      "returnWindowMinRound": null,
-      "returnWindowMaxRound": null,
-      "cleared": false
-    },
-    "Jock Madden": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Elbow",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "sourceConfidence": "high",
-      "sources": [
-        {
-          "source": "nrl-casualty-ward",
-          "confidence": "high",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Elbow",
-          "expectedReturn": "TBC"
-        },
-        {
-          "source": "zerotackle-injuries-suspensions",
-          "confidence": "medium",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Elbow",
-          "expectedReturn": "TBC"
-        }
-      ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
-      "returnType": "indefinite",
-      "returnWindowMinWeeks": null,
-      "returnWindowMaxWeeks": null,
-      "returnWindowMinRound": null,
-      "returnWindowMaxRound": null,
-      "cleared": false
-    },
-    "Heamasi Makasini": {
-      "status": "out",
-      "playProbability": 0,
-      "reason": "Shoulder",
-      "expectedReturn": "TBC",
-      "expectedReturnRound": null,
-      "sourceConfidence": "high",
-      "sources": [
-        {
-          "source": "nrl-casualty-ward",
-          "confidence": "high",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Shoulder",
-          "expectedReturn": "TBC"
-        },
-        {
-          "source": "zerotackle-injuries-suspensions",
-          "confidence": "medium",
-          "status": "out",
-          "playProbability": 0,
-          "reason": "Shoulder",
-          "expectedReturn": "TBC"
-        }
-      ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -2409,7 +2508,7 @@
           "expectedReturn": "Round 18"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-09T08:22:11.929173+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
