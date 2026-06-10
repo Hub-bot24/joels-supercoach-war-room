@@ -707,7 +707,7 @@ if(App.teamActionMode==='emptyReserveTrade'){
  const opts=App.players
   .filter(r=>!App.myTeam.includes(r.name)&&accepts.some(pos=>positions(r).includes(pos)))
   .sort((a,b)=>roundProj(b).expected-roundProj(a).expected)
-  .slice(0,80);
+.slice(0,200);
 
  return tradePopupHtml(
   `TRADE INTO ${group} · ${opts.length} OPTIONS`,
@@ -721,7 +721,7 @@ if(App.teamActionMode==='reserveTrade'){
   const p=getPlayer(App.selectedReserveTradeName);
   if(!p)return '<span style="opacity:.75">Tap Swap or Trade on any field or reserve player.</span>';
   const posLabel=(playerTradePositions(p).join('/')||p.pos||'RESERVE');
-  const opts=App.players.filter(r=>!App.myTeam.includes(r.name)&&tradeEligibleForPlayer(r,p)).sort((a,b)=>roundProj(b).expected-roundProj(a).expected).slice(0,80);
+  const opts=App.players.filter(r=>!App.myTeam.includes(r.name)&&tradeEligibleForPlayer(r,p)).sort((a,b)=>roundProj(b).expected-roundProj(a).expected).slice(0,200);
   return tradePopupHtml(`TRADE OUT ${posLabel} · ${opts.length} OPTIONS`,p.name,opts,r=>`applyReserveTrade('${window.jsq(p.name)}','${window.jsq(r.name)}')`);
  }
  const slot=slotById[App.selectedTeamSlot],p=getPlayer(App.lineup?.[App.selectedTeamSlot]);
@@ -730,7 +730,7 @@ if(App.teamActionMode==='reserveTrade'){
   const opts=reserves().filter(r=>eligible(r,slot)).sort((a,b)=>roundProj(b).expected-roundProj(a).expected);
   body=`<div style="position:fixed;right:18px;bottom:18px;z-index:9999;width:min(560px,calc(100vw - 28px));max-height:min(620px,78vh);overflow:auto;background:#071222;border:1px solid #58a6ff;border-radius:18px;padding:14px;box-shadow:0 24px 80px rgba(0,0,0,.72)"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px"><div><div style="font-size:12px;color:#bfd0e8;font-weight:800">SWAP RESERVE INTO ${esc(slot.short)}</div><div style="font-size:18px;font-weight:950">${esc(p.name)}</div></div><button type="button" onclick="cancelTeamAction()" style="padding:7px 10px;border-radius:10px">Close</button></div>${opts.length?opts.map(r=>{const rp=roundProj(r),rs=availabilityStatus(r);return `<button type="button" onclick="applyTeamSwap('${slot.id}','${window.jsq(r.name)}')" style="display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;margin:0 0 8px;padding:10px 12px;border-radius:14px;border:1px solid #29405f;background:#0b1a2d;color:#f8fafc;text-align:left;cursor:pointer"><span><b>${esc(r.name)}</b><br><span style="color:#bfd0e8;font-size:12px">${esc(r.team||'')} | ${esc(r.pos||'')} | ${esc(rs.reason||'')}</span></span><span style="font-weight:950;color:#58a6ff">${rp.expected}</span></button>`}).join(''):`<div>No legal reserve swaps available</div>`}</div>`;
  }else if(App.teamActionMode==='trade'){
-  const opts=App.players.filter(r=>!App.myTeam.includes(r.name)&&eligible(r,slot)).sort((a,b)=>roundProj(b).expected-roundProj(a).expected).slice(0,80);
+  const opts=App.players.filter(r=>!App.myTeam.includes(r.name)&&eligible(r,slot)).sort((a,b)=>roundProj(b).expected-roundProj(a).expected).slice(0,200);
   body=tradePopupHtml(`TRADE OUT ${slot.short} · ${opts.length} OPTIONS`,p.name,opts,r=>`applyTeamTradeOut('${slot.id}','${window.jsq(r.name)}')`);
  }
  return `<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><b>${esc(p.name)}</b><span>at ${esc(slot.short)}</span><button onclick="teamActionSwap('${slot.id}')">Swap</button><button onclick="teamActionTradeOut('${slot.id}')">Trade</button><button onclick="cancelTeamAction()">Cancel</button></div>${body}`
