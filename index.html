@@ -605,8 +605,24 @@ function formationReserveCard(p){
  const accent=teamAccent(p),pa=posAccent(p.pos||''),opp=esc(p.opponent||p.opp||p.vs||'');
  return `<div class="formation-reserve-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-reserve="${esc(p.name)}" ondragstart="dragReserve(event,'${window.jsq(p.name)}')" ondragover="allowDropOnReserveCard(event,'${window.jsq(p.name)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(p.name)}')">${formationFigureHtml('formation-reserve-face')}<div><div class="formation-reserve-name" title="${esc(p.name)}">${esc(shortName(p.name))}</div><div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(p.pos||'')}</b> · R${App.round}${opp?' · '+opp:''}</div><div class="formation-reserve-meta"><span class="status-dot ${cls}" title="${esc(st.reason)}"></span> ${esc(st.label||'Reserve')}</div><div class="formation-reserve-actions"><button class="formation-reserve-swap" type="button" onclick="event.stopPropagation();reserveActionSwap('${window.jsq(p.name)}')">Swap</button><button class="formation-reserve-trade" type="button" onclick="event.stopPropagation();reserveActionTradeOut('${window.jsq(p.name)}')">Trade</button></div></div><div class="formation-reserve-score">${pr.expected}<small>PROJ</small></div></div>`
 }
-function formationReservesHtml(reserveSections,groups){return `<aside class="formation-reserves"><h3>Reserves</h3>${reserveSections.map(g=>groups[g].length?`<section class="formation-reserve-section"><div class="formation-reserve-title">${esc(g)} RESERVES</div><div class="formation-reserve-list">${groups[g].map(formationReserveCard).join('')}</div></section>`:'').join('')}</aside>`}
-function mobileTeamHtml(state=teamRenderState()){const sections=[['HOOKER',['HOK1']],['FRONT ROWERS',['FRF1','FRF2']],['2ND ROW FORWARDS',['2RF1','2RF2','2RF3']],['HALFBACK',['HFB1']],['5/8',['FE1']],['WINGS / CENTRES',['CTW1','CTW2','CTW3','CTW4']],['FULLBACK',['FLB1']],['FLEX',['FLEX1']]],reserveSections=sections.map(s=>s[0]).filter(g=>g!=='FLEX').concat('OTHER / UTILITY'),rs=state.reserveNames.map(name=>getPlayer(name)).filter(Boolean),groups=Object.fromEntries(reserveSections.map(g=>[g,[]]));rs.forEach(p=>{const bucket=reserveBucket(p);(groups[bucket]||groups['OTHER / UTILITY']).push(p)});const renderedField=state.fieldSlots.length,renderedReserveNames=reserveSections.flatMap(g=>groups[g].map(p=>p.name));const totalProjected=teamProjection();return `<div class="mobile-team-layout formation-page"><div class="mobile-team-head"><h2>My Team</h2>${trustBannerHtml()}<div class="team-score-hero"><span>Total Projected Score</span><b>${totalProjected}</b></div><div class="mobile-counts"><span>Field ${renderedField}/14</span><span>Reserves ${renderedReserveNames.length}/12</span><span>Projected ${totalProjected}</span></div><div id="teamActionPanel" class="small">${teamActionHtml()}</div><div class="side-actions"><button onclick="resetTeamFromFile()">Reset Team From File</button></div></div><div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot)}</main>${formationReservesHtml(reserveSections,groups)}</div></div>`}
+function formationReservesHtml(reserveSections,groups){
+ return `<aside class="formation-reserves"><h3>Reserves</h3>${reserveSections.map(g=>`<section class="formation-reserve-section"><div class="formation-reserve-title">${esc(g)} RESERVES</div><div class="formation-reserve-list">${groups[g].map(formationReserveCard).join('')}</div></section>`).join('')}</aside>`
+}
+
+function mobileTeamHtml(state=teamRenderState()){
+ const sections=[['HOOKER',['HOK1']],['FRONT ROWERS',['FRF1','FRF2']],['2ND ROW FORWARDS',['2RF1','2RF2','2RF3']],['HALFBACK',['HFB1']],['5/8',['FE1']],['WINGS / CENTRES',['CTW1','CTW2','CTW3','CTW4']],['FULLBACK',['FLB1']],['FLEX',['FLEX1']]],
+ reserveSections=sections.map(s=>s[0]).filter(g=>g!=='FLEX'),
+ rs=state.reserveNames.map(name=>getPlayer(name)).filter(Boolean),
+ groups=Object.fromEntries(reserveSections.map(g=>[g,[]]));
+
+ rs.forEach(p=>{
+  const bucket=reserveBucket(p);
+  if(groups[bucket])groups[bucket].push(p);
+ });
+
+ const totalProjected=teamProjection();
+ return `<div class="mobile-team-layout formation-page"><div class="mobile-team-head"><h2>My Team</h2>${trustBannerHtml()}<div class="team-score-hero"><span>Total Projected Score</span><b>${totalProjected}</b></div><div class="mobile-counts"><span>Field ${state.fieldSlots.length}/14</span><span>Reserves 12/12</span><span>Projected ${totalProjected}</span></div><div id="teamActionPanel" class="small">${teamActionHtml()}</div><div class="side-actions"><button onclick="resetTeamFromFile()">Reset Team From File</button></div></div><div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot)}</main>${formationReservesHtml(reserveSections,groups)}</div></div>`
+}
 
 function playerTradePositions(p){const ps=positions(p);return ps.length?ps:[]}
 function tradeEligibleForPlayer(candidate,oldPlayer){const oldPs=playerTradePositions(oldPlayer);if(!candidate||!oldPlayer||!oldPs.length)return false;const cps=positions(candidate);return oldPs.some(pos=>cps.includes(pos))}
