@@ -604,9 +604,40 @@ function formationReserveCard(p){
  const pr=roundProj(p),st=availabilityStatus(p),cls=st.key==='good'?'':st.key==='bye'?'bye':st.key==='risk'?'warn':'bad';
  const accent=teamAccent(p),pa=posAccent(p.pos||''),opp=esc(p.opponent||p.opp||p.vs||'');
  return `<div class="formation-reserve-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-reserve="${esc(p.name)}" ondragstart="dragReserve(event,'${window.jsq(p.name)}')" ondragover="allowDropOnReserveCard(event,'${window.jsq(p.name)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(p.name)}')">${formationFigureHtml('formation-reserve-face')}<div><div class="formation-reserve-name" title="${esc(p.name)}">${esc(shortName(p.name))}</div><div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(p.pos||'')}</b> · R${App.round}${opp?' · '+opp:''}</div><div class="formation-reserve-meta"><span class="status-dot ${cls}" title="${esc(st.reason)}"></span> ${esc(st.label||'Reserve')}</div><div class="formation-reserve-actions"><button class="formation-reserve-swap" type="button" onclick="event.stopPropagation();reserveActionSwap('${window.jsq(p.name)}')">Swap</button><button class="formation-reserve-trade" type="button" onclick="event.stopPropagation();reserveActionTradeOut('${window.jsq(p.name)}')">Trade</button></div></div><div class="formation-reserve-score">${pr.expected}<small>PROJ</small></div></div>`
+function emptyFormationReserveCard(group){
+ return `<div class="formation-reserve-card formation-empty" style="--accent:#64748b;--pos:#94a3b8">
+  ${formationFigureHtml('formation-reserve-face')}
+  <div>
+   <div class="formation-reserve-name">Empty</div>
+   <div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(group)}</b></div>
+   <div class="formation-reserve-meta"><span class="status-dot"></span> Empty reserve slot</div>
+   <div class="formation-reserve-actions">
+    <button class="formation-reserve-swap" type="button" onclick="event.stopPropagation();toast('Empty reserve slot')">Swap</button>
+    <button class="formation-reserve-trade" type="button" onclick="event.stopPropagation();toast('Trade into empty reserve slot')">Trade</button>
+   </div>
+  </div>
+  <div class="formation-reserve-score">--<small>PROJ</small></div>
+ </div>`
 }
+
+function reserveTargetCount(group){
+ return group==='HOOKER'?1:
+        group==='FRONT ROWERS'?2:
+        group==='2ND ROW FORWARDS'?3:
+        group==='HALFBACK'?1:
+        group==='5/8'?1:
+        group==='WINGS / CENTRES'?3:
+        group==='FULLBACK'?1:0
+}
+
 function formationReservesHtml(reserveSections,groups){
- return `<aside class="formation-reserves"><h3>Reserves</h3>${reserveSections.map(g=>`<section class="formation-reserve-section"><div class="formation-reserve-title">${esc(g)} RESERVES</div><div class="formation-reserve-list">${groups[g].map(formationReserveCard).join('')}</div></section>`).join('')}</aside>`
+ return `<aside class="formation-reserves"><h3>Reserves</h3>${reserveSections.map(g=>{
+  const players=groups[g]||[];
+  const target=reserveTargetCount(g);
+  const cards=[...players.map(formationReserveCard)];
+  while(cards.length<target)cards.push(emptyFormationReserveCard(g));
+  return `<section class="formation-reserve-section"><div class="formation-reserve-title">${esc(g)} RESERVES</div><div class="formation-reserve-list">${cards.join('')}</div></section>`
+ }).join('')}</aside>`
 }
 
 function mobileTeamHtml(state=teamRenderState()){
