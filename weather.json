@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-10T04:20:42.498586+00:00",
+  "updated": "2026-06-10T08:55:09.971592+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -24,11 +24,11 @@
         {
           "time": "2026-06-11T20:00",
           "phase": "first_half",
-          "temperature_2m": 14.9,
+          "temperature_2m": 14.8,
           "precipitation_probability": 1,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 1.9,
-          "wind_gusts_10m": 3.6
+          "wind_speed_10m": 4.0,
+          "wind_gusts_10m": 7.6
         },
         {
           "time": "2026-06-11T21:00",
@@ -36,8 +36,8 @@
           "temperature_2m": 14.4,
           "precipitation_probability": 1,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 4.2,
-          "wind_gusts_10m": 7.6
+          "wind_speed_10m": 4.4,
+          "wind_gusts_10m": 8.3
         }
       ],
       "weatherRisk": {
@@ -45,9 +45,9 @@
         "score": 0,
         "maxRainProbability": 1.0,
         "totalGameRainMm": 0.0,
-        "maxWindKmh": 4.2,
-        "maxGustKmh": 7.6,
-        "avgTemp": 14.7,
+        "maxWindKmh": 4.4,
+        "maxGustKmh": 8.3,
+        "avgTemp": 14.6,
         "phaseRisk": {
           "first_half": {
             "avgScore": 0,
@@ -83,20 +83,20 @@
         {
           "time": "2026-06-12T20:00",
           "phase": "first_half",
-          "temperature_2m": 15.9,
+          "temperature_2m": 15.8,
           "precipitation_probability": 0,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 8.5,
-          "wind_gusts_10m": 16.6
+          "wind_speed_10m": 8.3,
+          "wind_gusts_10m": 16.9
         },
         {
           "time": "2026-06-12T21:00",
           "phase": "halftime_period",
-          "temperature_2m": 15.8,
+          "temperature_2m": 15.5,
           "precipitation_probability": 0,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 8.9,
-          "wind_gusts_10m": 17.6
+          "wind_speed_10m": 7.7,
+          "wind_gusts_10m": 16.2
         }
       ],
       "weatherRisk": {
@@ -104,9 +104,9 @@
         "score": 0,
         "maxRainProbability": 0,
         "totalGameRainMm": 0.0,
-        "maxWindKmh": 8.9,
-        "maxGustKmh": 17.6,
-        "avgTemp": 15.9,
+        "maxWindKmh": 8.3,
+        "maxGustKmh": 16.9,
+        "avgTemp": 15.7,
         "phaseRisk": {
           "first_half": {
             "avgScore": 0,
@@ -142,11 +142,11 @@
         {
           "time": "2026-06-13T19:00",
           "phase": "pre_game",
-          "temperature_2m": 11.6,
+          "temperature_2m": 11.7,
           "precipitation_probability": 2,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 1.6,
-          "wind_gusts_10m": 5.0
+          "wind_speed_10m": 3.8,
+          "wind_gusts_10m": 6.8
         },
         {
           "time": "2026-06-13T20:00",
@@ -154,27 +154,27 @@
           "temperature_2m": 10.8,
           "precipitation_probability": 2,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 1.7,
-          "wind_gusts_10m": 2.5
+          "wind_speed_10m": 3.4,
+          "wind_gusts_10m": 7.2
         },
         {
           "time": "2026-06-13T21:00",
           "phase": "second_half",
-          "temperature_2m": 10.2,
+          "temperature_2m": 10.0,
           "precipitation_probability": 2,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 2.4,
-          "wind_gusts_10m": 4.3
+          "wind_speed_10m": 1.9,
+          "wind_gusts_10m": 5.8
         }
       ],
       "weatherRisk": {
         "label": "Low",
-        "score": 0,
+        "score": 6,
         "maxRainProbability": 2.0,
         "totalGameRainMm": 0.0,
-        "maxWindKmh": 2.4,
-        "maxGustKmh": 5.0,
-        "avgTemp": 10.9,
+        "maxWindKmh": 3.8,
+        "maxGustKmh": 7.2,
+        "avgTemp": 10.8,
         "phaseRisk": {
           "pre_game": {
             "avgScore": 0,
@@ -185,11 +185,13 @@
             "maxScore": 0
           },
           "second_half": {
-            "avgScore": 0,
-            "maxScore": 0
+            "avgScore": 10,
+            "maxScore": 10
           }
         },
-        "reasons": [],
+        "reasons": [
+          "cold"
+        ],
         "captainImpact": "Low weather risk over game window. Normal captain logic applies."
       }
     },
@@ -214,29 +216,29 @@
         {
           "time": "2026-06-13T19:00",
           "phase": "pre_game",
-          "temperature_2m": 17.1,
+          "temperature_2m": 17.5,
           "precipitation_probability": 0,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 6.8,
-          "wind_gusts_10m": 12.6
+          "wind_speed_10m": 7.7,
+          "wind_gusts_10m": 14.4
         },
         {
           "time": "2026-06-13T20:00",
           "phase": "first_half",
-          "temperature_2m": 17.1,
+          "temperature_2m": 16.8,
           "precipitation_probability": 0,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 7.5,
-          "wind_gusts_10m": 14.0
+          "wind_speed_10m": 8.3,
+          "wind_gusts_10m": 16.2
         },
         {
           "time": "2026-06-13T21:00",
           "phase": "second_half",
-          "temperature_2m": 16.5,
+          "temperature_2m": 16.3,
           "precipitation_probability": 0,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 7.4,
-          "wind_gusts_10m": 14.4
+          "wind_speed_10m": 8.7,
+          "wind_gusts_10m": 16.9
         }
       ],
       "weatherRisk": {
@@ -244,8 +246,8 @@
         "score": 0,
         "maxRainProbability": 0,
         "totalGameRainMm": 0.0,
-        "maxWindKmh": 7.5,
-        "maxGustKmh": 14.4,
+        "maxWindKmh": 8.7,
+        "maxGustKmh": 16.9,
         "avgTemp": 16.9,
         "phaseRisk": {
           "pre_game": {
@@ -307,44 +309,44 @@
         {
           "time": "2026-06-19T20:00",
           "phase": "first_half",
-          "temperature_2m": 13.5,
+          "temperature_2m": 13.6,
           "precipitation_probability": 13,
-          "precipitation_mm": 0.0,
-          "wind_speed_10m": 19.5,
-          "wind_gusts_10m": 48.6
+          "precipitation_mm": 0.2,
+          "wind_speed_10m": 19.9,
+          "wind_gusts_10m": 38.9
         },
         {
           "time": "2026-06-19T21:00",
           "phase": "halftime_period",
-          "temperature_2m": 12.7,
+          "temperature_2m": 13.0,
           "precipitation_probability": 14,
-          "precipitation_mm": 0.0,
-          "wind_speed_10m": 19.1,
-          "wind_gusts_10m": 45.0
+          "precipitation_mm": 0.2,
+          "wind_speed_10m": 21.9,
+          "wind_gusts_10m": 41.4
         }
       ],
       "weatherRisk": {
-        "label": "Medium",
-        "score": 30,
+        "label": "Low",
+        "score": 15,
         "maxRainProbability": 14.0,
-        "totalGameRainMm": 0.0,
-        "maxWindKmh": 19.5,
-        "maxGustKmh": 48.6,
-        "avgTemp": 13.1,
+        "totalGameRainMm": 0.4,
+        "maxWindKmh": 21.9,
+        "maxGustKmh": 41.4,
+        "avgTemp": 13.3,
         "phaseRisk": {
           "first_half": {
-            "avgScore": 30,
-            "maxScore": 30
+            "avgScore": 15,
+            "maxScore": 15
           },
           "halftime_period": {
-            "avgScore": 30,
-            "maxScore": 30
+            "avgScore": 15,
+            "maxScore": 15
           }
         },
         "reasons": [
-          "strong wind/gusts"
+          "moderate wind/gusts"
         ],
-        "captainImpact": "Moderate weather risk over game window. Be careful with backs as C/VC unless chasing POD upside."
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
       }
     }
   ]
