@@ -614,7 +614,7 @@ function formationReserveCard(p){
    <div class="formation-reserve-meta"><span class="status-dot"></span> Empty reserve slot</div>
    <div class="formation-reserve-actions">
     <button class="formation-reserve-swap" type="button" onclick="event.stopPropagation();toast('Empty reserve slot')">Swap</button>
-    <button class="formation-reserve-trade" type="button" onclick="event.stopPropagation();toast('Trade into empty reserve slot')">Trade</button>
+  <button class="formation-reserve-trade" type="button" onclick="event.stopPropagation();emptyReserveTrade('${window.jsq(group)}')">Trade</button>
    </div>
   </div>
   <div class="formation-reserve-score">--<small>PROJ</small></div>
