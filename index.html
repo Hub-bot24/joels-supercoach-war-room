@@ -635,7 +635,7 @@ function formationReservesHtml(reserveSections,groups){
  return `<aside class="formation-reserves"><h3>Reserves</h3>${reserveSections.map(g=>{
   const players=groups[g]||[];
   const target=reserveTargetCount(g);
-  const cards=[...players.map(formationReserveCard)];
+  const cards=[...players.slice(0,target).map(formationReserveCard)];
   while(cards.length<target)cards.push(emptyFormationReserveCard(g));
   return `<section class="formation-reserve-section"><div class="formation-reserve-title">${esc(g)} RESERVES</div><div class="formation-reserve-list">${cards.join('')}</div></section>`
  }).join('')}</aside>`
