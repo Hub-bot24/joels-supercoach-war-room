@@ -645,6 +645,25 @@ function emptyReserveTrade(group){
  App.teamActionMode='emptyReserveTrade';
  renderTeam();
 }
+  function applyEmptyReserveTrade(group,name){
+ const p=getPlayer(name);
+ const accepts=reserveGroupAccept(group);
+
+ if(!p || App.myTeam.includes(p.name) || !accepts.some(pos=>positions(p).includes(pos))){
+  return toast('Invalid empty reserve trade');
+ }
+
+ App.myTeam.push(p.name);
+ App.emptyReserveGroup='';
+ App.teamActionMode='';
+
+ validateLineup();
+ ensureLineup();
+ saveLocal();
+ renderTeam();
+
+ toast(`${p.name} added to ${group} reserves`);
+}
 function formationReservesHtml(reserveSections,groups){
  return `<aside class="formation-reserves"><h3>Reserves</h3>${reserveSections.map(g=>{
   const players=groups[g]||[];
