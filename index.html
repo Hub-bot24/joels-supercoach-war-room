@@ -604,7 +604,8 @@ function formationReserveCard(p){
  const pr=roundProj(p),st=availabilityStatus(p),cls=st.key==='good'?'':st.key==='bye'?'bye':st.key==='risk'?'warn':'bad';
  const accent=teamAccent(p),pa=posAccent(p.pos||''),opp=esc(p.opponent||p.opp||p.vs||'');
  return `<div class="formation-reserve-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-reserve="${esc(p.name)}" ondragstart="dragReserve(event,'${window.jsq(p.name)}')" ondragover="allowDropOnReserveCard(event,'${window.jsq(p.name)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(p.name)}')">${formationFigureHtml('formation-reserve-face')}<div><div class="formation-reserve-name" title="${esc(p.name)}">${esc(shortName(p.name))}</div><div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(p.pos||'')}</b> · R${App.round}${opp?' · '+opp:''}</div><div class="formation-reserve-meta"><span class="status-dot ${cls}" title="${esc(st.reason)}"></span> ${esc(st.label||'Reserve')}</div><div class="formation-reserve-actions"><button class="formation-reserve-swap" type="button" onclick="event.stopPropagation();reserveActionSwap('${window.jsq(p.name)}')">Swap</button><button class="formation-reserve-trade" type="button" onclick="event.stopPropagation();reserveActionTradeOut('${window.jsq(p.name)}')">Trade</button></div></div><div class="formation-reserve-score">${pr.expected}<small>PROJ</small></div></div>`
-function emptyFormationReserveCard(group){
+}
+  function emptyFormationReserveCard(group){
  return `<div class="formation-reserve-card formation-empty" style="--accent:#64748b;--pos:#94a3b8">
   ${formationFigureHtml('formation-reserve-face')}
   <div>
