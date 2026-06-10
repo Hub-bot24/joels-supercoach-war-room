@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-10T12:29:50.926983+00:00",
+  "updated": "2026-06-10T16:40:46.011568+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -24,8 +24,8 @@
         {
           "time": "2026-06-11T20:00",
           "phase": "first_half",
-          "temperature_2m": 14.8,
-          "precipitation_probability": 3,
+          "temperature_2m": 14.6,
+          "precipitation_probability": 12,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 4.0,
           "wind_gusts_10m": 7.6
@@ -33,21 +33,21 @@
         {
           "time": "2026-06-11T21:00",
           "phase": "second_half",
-          "temperature_2m": 14.4,
-          "precipitation_probability": 3,
-          "precipitation_mm": 0.0,
-          "wind_speed_10m": 4.4,
-          "wind_gusts_10m": 8.3
+          "temperature_2m": 14.0,
+          "precipitation_probability": 16,
+          "precipitation_mm": 0.2,
+          "wind_speed_10m": 4.1,
+          "wind_gusts_10m": 9.7
         }
       ],
       "weatherRisk": {
         "label": "Low",
         "score": 0,
-        "maxRainProbability": 3.0,
-        "totalGameRainMm": 0.0,
-        "maxWindKmh": 4.4,
-        "maxGustKmh": 8.3,
-        "avgTemp": 14.6,
+        "maxRainProbability": 16.0,
+        "totalGameRainMm": 0.2,
+        "maxWindKmh": 4.1,
+        "maxGustKmh": 9.7,
+        "avgTemp": 14.3,
         "phaseRisk": {
           "first_half": {
             "avgScore": 0,
@@ -83,30 +83,30 @@
         {
           "time": "2026-06-12T20:00",
           "phase": "first_half",
-          "temperature_2m": 15.8,
+          "temperature_2m": 15.9,
           "precipitation_probability": 0,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 8.3,
-          "wind_gusts_10m": 16.9
+          "wind_speed_10m": 6.3,
+          "wind_gusts_10m": 14.8
         },
         {
           "time": "2026-06-12T21:00",
           "phase": "halftime_period",
-          "temperature_2m": 15.5,
-          "precipitation_probability": 0,
+          "temperature_2m": 15.6,
+          "precipitation_probability": 2,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 7.7,
-          "wind_gusts_10m": 16.2
+          "wind_speed_10m": 7.2,
+          "wind_gusts_10m": 14.4
         }
       ],
       "weatherRisk": {
         "label": "Low",
         "score": 0,
-        "maxRainProbability": 0,
+        "maxRainProbability": 2.0,
         "totalGameRainMm": 0.0,
-        "maxWindKmh": 8.3,
-        "maxGustKmh": 16.9,
-        "avgTemp": 15.7,
+        "maxWindKmh": 7.2,
+        "maxGustKmh": 14.8,
+        "avgTemp": 15.8,
         "phaseRisk": {
           "first_half": {
             "avgScore": 0,
@@ -142,11 +142,11 @@
         {
           "time": "2026-06-13T19:00",
           "phase": "pre_game",
-          "temperature_2m": 11.7,
+          "temperature_2m": 11.8,
           "precipitation_probability": 0,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 3.8,
-          "wind_gusts_10m": 6.8
+          "wind_speed_10m": 4.2,
+          "wind_gusts_10m": 9.0
         },
         {
           "time": "2026-06-13T20:00",
@@ -154,91 +154,17 @@
           "temperature_2m": 10.8,
           "precipitation_probability": 0,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 3.4,
-          "wind_gusts_10m": 7.2
+          "wind_speed_10m": 3.6,
+          "wind_gusts_10m": 7.6
         },
         {
           "time": "2026-06-13T21:00",
           "phase": "second_half",
-          "temperature_2m": 10.0,
+          "temperature_2m": 10.2,
           "precipitation_probability": 0,
           "precipitation_mm": 0.0,
-          "wind_speed_10m": 1.9,
-          "wind_gusts_10m": 5.8
-        }
-      ],
-      "weatherRisk": {
-        "label": "Low",
-        "score": 6,
-        "maxRainProbability": 0,
-        "totalGameRainMm": 0.0,
-        "maxWindKmh": 3.8,
-        "maxGustKmh": 7.2,
-        "avgTemp": 10.8,
-        "phaseRisk": {
-          "pre_game": {
-            "avgScore": 0,
-            "maxScore": 0
-          },
-          "first_half": {
-            "avgScore": 0,
-            "maxScore": 0
-          },
-          "second_half": {
-            "avgScore": 10,
-            "maxScore": 10
-          }
-        },
-        "reasons": [
-          "cold"
-        ],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
-      }
-    },
-    {
-      "round": 15,
-      "match": "Eels v Raiders",
-      "homeTeam": "PAR",
-      "awayTeam": "CBR",
-      "venue": "Commbank Stadium",
-      "kickoffLocal": "2026-06-13T19:30:00",
-      "city": "Parramatta",
-      "lat": -33.8081,
-      "lon": 150.999,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-06-13T19:00:00",
-        "to": "2026-06-13T21:20:00",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-06-13T19:00",
-          "phase": "pre_game",
-          "temperature_2m": 17.5,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0.0,
-          "wind_speed_10m": 7.7,
-          "wind_gusts_10m": 14.4
-        },
-        {
-          "time": "2026-06-13T20:00",
-          "phase": "first_half",
-          "temperature_2m": 16.8,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0.0,
-          "wind_speed_10m": 8.3,
-          "wind_gusts_10m": 16.2
-        },
-        {
-          "time": "2026-06-13T21:00",
-          "phase": "second_half",
-          "temperature_2m": 16.3,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0.0,
-          "wind_speed_10m": 8.7,
-          "wind_gusts_10m": 16.9
+          "wind_speed_10m": 3.2,
+          "wind_gusts_10m": 6.1
         }
       ],
       "weatherRisk": {
@@ -246,9 +172,9 @@
         "score": 0,
         "maxRainProbability": 0,
         "totalGameRainMm": 0.0,
-        "maxWindKmh": 8.7,
-        "maxGustKmh": 16.9,
-        "avgTemp": 16.9,
+        "maxWindKmh": 4.2,
+        "maxGustKmh": 9.0,
+        "avgTemp": 10.9,
         "phaseRisk": {
           "pre_game": {
             "avgScore": 0,
@@ -265,6 +191,34 @@
         },
         "reasons": [],
         "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 15,
+      "match": "Eels v Raiders",
+      "homeTeam": "PAR",
+      "awayTeam": "CBR",
+      "venue": "Commbank Stadium",
+      "kickoffLocal": "2026-06-13T19:30:00",
+      "city": "Parramatta",
+      "lat": -33.8081,
+      "lon": 150.999,
+      "timezone": "Australia/Sydney",
+      "weatherStatus": "api_timeout",
+      "weatherError": "HTTPSConnectionPool(host='api.open-meteo.com', port=443): Read timed out. (read timeout=10)",
+      "gameWindow": {
+        "from": "2026-06-13T19:00:00",
+        "to": "2026-06-13T21:20:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [],
+      "weatherRisk": {
+        "score": 0,
+        "label": "Unknown",
+        "reasons": [
+          "HTTPSConnectionPool(host='api.open-meteo.com', port=443): Read timed out. (read timeout=10)"
+        ],
+        "captainImpact": "Unknown weather risk."
       }
     },
     {
@@ -347,6 +301,27 @@
           "moderate wind/gusts"
         ],
         "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 16,
+      "match": "Tigers v Dolphins",
+      "homeTeam": "WST",
+      "awayTeam": "DOL",
+      "venue": "Campbelltown Stadium",
+      "kickoffLocal": "2026-06-20T15:00:00",
+      "city": "Sydney",
+      "lat": -34.0537,
+      "lon": 150.8334,
+      "timezone": "Australia/Sydney",
+      "weatherStatus": "missing_venue",
+      "gameWindowWeather": [],
+      "weatherRisk": {
+        "score": 0,
+        "label": "Unknown",
+        "reasons": [
+          "Venue missing from venues.json"
+        ]
       }
     }
   ]
