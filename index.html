@@ -325,7 +325,8 @@
 <script src="level3-projection-engine.js"></script>
 <script>
 'use strict';
-const App={players:[],playerMap:new Map(),myTeam:[],weather:null,fixtures:null,goalKickers:null,teamRoles:null,availabilityOverrides:null,playerStatus:null,playerPhotos:null,projectionCache:new Map(),active:'team',rendered:new Set(),round:Number(localStorage.getItem('sc_round')||14),roundSource:'stored',trustWarnings:[],lineup:null,drag:null};
+const App={players:[],playerMap:new Map(),myTeam:[],weather:null,fixtures:null,goalKickers:null,teamRoles:null,availabilityOverrides:null,playerStatus:null,playerPhotos:null,
+dualPositions:{players:{}},,projectionCache:new Map(),active:'team',rendered:new Set(),round:Number(localStorage.getItem('sc_round')||14),roundSource:'stored',trustWarnings:[],lineup:null,drag:null};
 const $=id=>document.getElementById(id);const safeNum=v=>Number.isFinite(Number(v))?Number(v):0;const money=n=>'$'+safeNum(n).toLocaleString();
 function esc(s){return String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 window.jsq = function(value){const s=String(value==null?'':value);return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\r/g,'\\r').replace(/\n/g,'\\n').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029')}
@@ -387,7 +388,27 @@ const SLOT_DEFS=[
 ];
 const slotById=Object.fromEntries(SLOT_DEFS.map(s=>[s.id,s]));
 const POS_ALIAS={'HKR':'HOK','HOK':'HOK','FR':'FRF','FRF':'FRF','SRF':'2RF','2RF':'2RF','HFB':'HFB','HB':'HFB','5/8':'5/8','FE':'5/8','CTW':'CTW','WFB':'FLB','FB':'FLB','FLB':'FLB'};
-function positions(p){return String(p?.pos||p?.position||'').toUpperCase().replace(/5\s*\/\s*8/g,'FE').split(/[|,\/ ]+/).map(x=>POS_ALIAS[x]||x).filter(Boolean)}
+function normalisePosList(value){
+ if(value==null)return [];
+ const raw=Array.isArray(value)?value.join('/'):String(value);
+ const out=[];
+ raw.toUpperCase().replace(/5\s*\/\s*8/g,'FE').split(/[|,\/ ]+/).forEach(x=>{
+  const v=POS_ALIAS[x]||x;
+  if(v&&!out.includes(v))out.push(v);
+ });
+ return out;
+}
+function positions(p){
+ if(!p)return [];
+ const override=App.dualPositions?.players?.[p.name];
+ let ps=normalisePosList(override);
+ if(ps.length)return ps;
+ for(const key of ['positions','eligiblePositions','dualPositions','pos','position']){
+  ps=normalisePosList(p[key]);
+  if(ps.length)return ps;
+ }
+ return [];
+}
 function eligible(p,slot){if(!p||!slot)return false;if(slot.accept.includes('ANY'))return true;const ps=positions(p);return slot.accept.some(a=>ps.includes(POS_ALIAS[a]||a))}
 function primaryGroup(p){const ps=positions(p);if(ps.includes('HOK'))return 'HOOKER';if(ps.includes('FRF'))return 'FRONT ROW';if(ps.includes('2RF'))return '2ND ROW / FORWARDS';if(ps.includes('HFB')||ps.includes('5/8'))return 'HALVES';if(ps.includes('CTW'))return 'CENTRES / WINGS';if(ps.includes('FLB'))return 'FULLBACK';return 'UTILITY'}
 function getPlayer(name){if(!name)return null;return App.playerMap.get(String(name).trim())||null}
@@ -414,7 +435,7 @@ function trustBannerHtml(){const statusAge=dataAgeLabel(App.playerStatus||{}),st
 function setRound(r){App.round=Math.max(1,Math.min(27,Number(r)||App.round));App.roundSource='manual';App.projectionCache.clear();saveLocal();renderActive();toast(`Round set to ${App.round}`)}
 async function boot(){
  const rawPlayers=await fetchJson('players.json',[]);let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));
- App.weather=await fetchJson('weather.json',null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);App.playerStatus=await fetchJson('player_status.json',{players:{}});App.playerPhotos=await fetchJson('player_photos.json',{players:{}});syncCurrentRound();
+ App.weather=await fetchJson('weather.json',null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);App.playerStatus=await fetchJson('player_status.json',{players:{}});App.playerPhotos=await fetchJson('player_photos.json',{players:{}});App.dualPositions=await fetchJson('dual_positions.json',{players:{}});syncCurrentRound();
  const localTeam=JSON.parse(localStorage.getItem('sc_myTeam')||'null');const teamJson=await fetchJson('my_team.json',null);let names=Array.isArray(localTeam)&&localTeam.length?localTeam:(teamJson?.players||teamJson?.team||[]);if(!Array.isArray(names))names=[];
  names = names.map(x => typeof x === 'string' ? x.trim() : (x?.name || x?.player || '')).filter(Boolean);
  const missingNames = names.filter(n=>!App.playerMap.has(n));
