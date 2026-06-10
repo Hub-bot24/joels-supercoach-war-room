@@ -630,7 +630,19 @@ function reserveTargetCount(group){
         group==='WINGS / CENTRES'?3:
         group==='FULLBACK'?1:0
 }
+function reserveGroupAccept(group){
+ return group==='HOOKER'?['HOK']:
+        group==='FRONT ROWERS'?['FRF']:
+        group==='2ND ROW FORWARDS'?['2RF']:
+        group==='HALFBACK'?['HFB']:
+        group==='5/8'?['5/8']:
+        group==='WINGS / CENTRES'?['CTW']:
+        group==='FULLBACK'?['FLB']:[];
+}
 
+function emptyReserveTrade(group){
+ alert('Empty reserve trade for '+group);
+}
 function formationReservesHtml(reserveSections,groups){
  return `<aside class="formation-reserves"><h3>Reserves</h3>${reserveSections.map(g=>{
   const players=groups[g]||[];
