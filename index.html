@@ -632,7 +632,23 @@ function mobileTile(p,pos,isReserve=false,slotId=''){
  if(isReserve&&p)actions=`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><button type="button" onclick="event.stopPropagation();reserveActionSwap('${window.jsq(p.name)}')" style="padding:5px 10px;border-radius:10px;border:1px solid #22c55e;background:#0b3522;color:#fff;font-weight:700;cursor:pointer">Swap</button><button type="button" onclick="event.stopPropagation();reserveActionTradeOut('${window.jsq(p.name)}')" style="padding:5px 10px;border-radius:10px;border:1px solid #58a6ff;background:#12345a;color:#fff;font-weight:700;cursor:pointer">Trade</button></div>`;
  return `<div class="mobile-player-tile ${isReserve?'mobile-reserve-tile':''}"${click}>${faceHtml(p,'mobile-face')}<div><div class="mobile-player-name">${esc(p?.name||'Empty')}</div><span class="mobile-pos-badge">${esc(pos)}</span>${actions}</div><div class="mobile-proj"><b>${pr.expected}</b><span class="status-dot ${cls}"></span></div></div>`
 }
-function reserveBucket(p){const ps=positions(p);if(ps.includes('HOK'))return 'HOOKER';if(ps.includes('FRF'))return 'FRONT ROWERS';if(ps.includes('2RF'))return '2ND ROW FORWARDS';if(ps.includes('HFB'))return 'HALFBACK';if(ps.includes('5/8'))return '5/8';if(ps.includes('CTW'))return 'WINGS / CENTRES';if(ps.includes('FLB'))return 'FULLBACK';return 'FLEX'}
+function reserveBucket(p){
+ const ps=positions(p);
+
+ if(ps.includes('HOK')) return 'HOOKER';
+ if(ps.includes('FRF')) return 'FRONT ROWERS';
+ if(ps.includes('2RF')) return '2ND ROW FORWARDS';
+ if(ps.includes('HFB')) return 'HALFBACK';
+ if(ps.includes('FE') || ps.includes('5/8')) return '5/8';
+
+ // CTW/FLB duals stay with CTW.
+ if(ps.includes('CTW')) return 'WINGS / CENTRES';
+
+ // Pure fullbacks go here.
+ if(ps.includes('FLB')) return 'FULLBACK';
+
+ return 'FULLBACK';
+}
 function mobileSection(title,slotIds,fieldBySlot={}){return `<section class="mobile-team-section"><div class="mobile-section-title">${title}</div><div class="mobile-tile-list">${slotIds.map(id=>fieldBySlot[id]?mobileTile(getPlayer(fieldBySlot[id]),slotById[id]?.short||slotByTitle(title),false,id):'').join('')}</div></section>`}
 function slotByTitle(title){return title==='HOOKER'?'HOK':title==='FRONT ROWERS'?'FRF':title==='2ND ROW FORWARDS'?'2RF':title==='HALFBACK'?'HFB':title==='5/8'?'5/8':title==='WINGS / CENTRES'?'CTW':title==='FULLBACK'?'FLB':'FLEX'}
 
