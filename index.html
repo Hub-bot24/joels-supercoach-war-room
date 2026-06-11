@@ -752,12 +752,6 @@ function formationReservesHtml(reserveSections,groups){
   </section>`;
  }).join('')}</aside>`;
 }
-
-const overflowHtml='';
-  return `<section class="formation-reserve-section"><div class="formation-reserve-title">${esc(g)} RESERVES</div><div class="formation-reserve-list">${cards.join('')}</div>${overflowHtml}</section>`
- }).join('')}</aside>`
-}
-
 function mobileTeamHtml(state=teamRenderState()){
  const sections=[['HOOKER',['HOK1']],['FRONT ROWERS',['FRF1','FRF2']],['2ND ROW FORWARDS',['2RF1','2RF2','2RF3']],['HALFBACK',['HFB1']],['5/8',['FE1']],['WINGS / CENTRES',['CTW1','CTW2','CTW3','CTW4']],['FULLBACK',['FLB1']],['FLEX',['FLEX1']]],
  reserveSections=sections.map(s=>s[0]).filter(g=>g!=='FLEX'),
