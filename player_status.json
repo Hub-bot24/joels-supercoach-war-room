@@ -1,90 +1,223 @@
 {
-  "updated": "2026-06-11T10:59:35.051Z",
-  "currentRound": 15,
-  "generatedBy": "scripts/update_player_status_from_teamlists.mjs",
-  "mode": "fail_safe_sparse_evidence_only",
-  "rules": {
-    "noHardCodedPlayers": true,
-    "noSourceDoesNotMeanAvailable": true,
-    "emptySourcesDoNotOverwriteAllAvailable": true,
-    "onlyWritePlayersWithEvidence": true,
-    "officialTeamListWins": true,
-    "injuriesCarryUntilNamed": true,
-    "originIsMonitorUntilClubListConfirms": true,
-    "injuryTimelineWindows": "min weeks out, max weeks risk"
-  },
+  "updated": "2026-06-11T11:40:51.493963+00:00",
+  "source": "multi-source (NRL Casualty Ward + zerotackle)",
+  "sourceUrls": [
+    "https://www.nrl.com/casualty-ward/",
+    "https://www.zerotackle.com/rugby-league/injuries-suspensions/"
+  ],
+  "round": null,
   "sources": [
     {
-      "source": "official_team_list",
-      "url": "https://www.nrl.com/news/2026/06/09/nrl-team-lists-round-15/",
-      "ok": false,
-      "length": 16,
-      "error": "invalid/too-short source text"
+      "name": "nrl-casualty-ward",
+      "url": "https://www.nrl.com/casualty-ward/",
+      "confidence": "high"
     },
     {
-      "source": "official_team_list",
-      "url": "https://www.nrl.com/news/2026/06/10/nrl-team-lists-round-15/",
-      "ok": false,
-      "length": 16,
-      "error": "invalid/too-short source text"
-    },
-    {
-      "source": "late_mail",
-      "url": "https://www.nrl.com/news/2026/06/11/nrl-late-mail-round-15/",
-      "ok": false,
-      "length": 16,
-      "error": "invalid/too-short source text"
-    },
-    {
-      "source": "late_mail",
-      "url": "https://www.nrl.com/news/2026/06/12/nrl-late-mail-round-15/",
-      "ok": false,
-      "length": 16,
-      "error": "invalid/too-short source text"
-    },
-    {
-      "source": "injury_source",
-      "url": "https://rugbyleaguezone.com/nrl/injuries/",
-      "ok": true,
-      "length": 8658
-    },
-    {
-      "source": "injury_source",
-      "url": "https://www.zerotackle.com/hynes-to-miss-more-time-as-calf-injury-plays-havoc-234398/",
-      "ok": true,
-      "length": 8288
-    },
-    {
-      "source": "origin_squad",
-      "url": "https://www.nrl.com/news/topic/state-of-origin/",
-      "ok": false,
-      "length": 16,
-      "error": "invalid/too-short source text"
+      "name": "zerotackle-injuries-suspensions",
+      "url": "https://www.zerotackle.com/rugby-league/injuries-suspensions/",
+      "confidence": "medium"
     }
   ],
+  "generated": {
+    "rowsFound": 140,
+    "matched": 62,
+    "unmatched": 11
+  },
   "players": {
-    "Delouise Hoeter": {
+    "Gehamat Shibasaki": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Knee",
+      "expectedReturn": "Round 18",
+      "expectedReturnRound": 18,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": " fainu tigers concussion round 15 patrick herbert tigers suspended round 15 jake averillo dolphins hand round 15 bradman best knights calf round 15 full nrl injury list club-by-club brisbane broncos player injury return delouise hoeter leg round 16-17 gehamat shibasaki knee round 18-20 pat carrigan ankle round 20 jordan riki foot tbc antonio verhoeven should",
-          "reason": "Injury source indicates out/injured/unavailable."
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 18"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 18"
         }
       ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 18,
+      "returnWindowMaxRound": 18,
+      "cleared": false
     },
     "Patrick Carrigan": {
       "status": "out",
       "playProbability": 0,
       "reason": "Ankle",
+      "expectedReturn": "Round 20",
+      "expectedReturnRound": 20,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Round 20"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Round 20"
+        }
+      ],
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 20,
+      "returnWindowMaxRound": 20,
+      "cleared": false
+    },
+    "Corey Jensen": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Lung",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Lung",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Lung",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
+    },
+    "Ezra Mam": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Shoulder",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
+    },
+    "Deine Mariner": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Thigh",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Thigh",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Thigh",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
+    },
+    "Billy Walters": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "ACL",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
+    },
+    "Kurt Mann": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Ear",
       "expectedReturn": "Round 16",
       "expectedReturnRound": 16,
       "sourceConfidence": "high",
@@ -94,7 +227,7 @@
           "confidence": "high",
           "status": "out",
           "playProbability": 0,
-          "reason": "Ankle",
+          "reason": "Ear",
           "expectedReturn": "Round 16"
         },
         {
@@ -102,299 +235,116 @@
           "confidence": "medium",
           "status": "out",
           "playProbability": 0,
-          "reason": "Ankle",
+          "reason": "Ear",
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": 16,
       "returnWindowMaxRound": 16,
-      "cleared": false,
-      "carriedForward": true,
-      "updated": "2026-06-08T22:11:30.534133+00:00"
-    },
-    "Gehamat Shibasaki": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "27 brisbane broncos managing a lengthy list with pat carrigan now out until round 20 north queensland cowboys without tom dearden until round 16-18 updated timelines changes from previous pat carrigan ankle now round 20 gehamat shibasaki knee round 18-20 mitch moses hamstring round 15-16 xavier coates achilles next season multiple tweaks across clubs e g sio",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 20,
-            "outUntilRound": 19,
-            "riskUntilRound": 21,
-            "summary": "return/available from Round 20"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 20,
-            "outUntilRound": 19,
-            "riskUntilRound": 21,
-            "summary": "return/available from Round 20"
-          },
-          "returnRound": 20,
-          "returnWindowMinRound": 20,
-          "returnWindowMaxRound": 21
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 20,
-        "outUntilRound": 19,
-        "riskUntilRound": 21,
-        "summary": "return/available from Round 20"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 20,
-        "outUntilRound": 19,
-        "riskUntilRound": 21,
-        "summary": "return/available from Round 20"
-      },
-      "returnRound": 20,
-      "returnWindowMinRound": 20,
-      "returnWindowMaxRound": 21,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Corey Jensen": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "ub-by-club brisbane broncos player injury return delouise hoeter leg round 16-17 gehamat shibasaki knee round 18-20 pat carrigan ankle round 20 jordan riki foot tbc antonio verhoeven shoulder tbc deine mariner thigh tbc corey jensen pulmonary embolism tbc billy walters acl tbc va 8217 a semu chest tbc canberra raiders player injury return savelio tamale hia ",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Deine Mariner": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": " full nrl injury list club-by-club brisbane broncos player injury return delouise hoeter leg round 16-17 gehamat shibasaki knee round 18-20 pat carrigan ankle round 20 jordan riki foot tbc antonio verhoeven shoulder tbc deine mariner thigh tbc corey jensen pulmonary embolism tbc billy walters acl tbc va 8217 a semu chest tbc canberra raiders player injury re",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Jordan Riki": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "ins hand round 15 bradman best knights calf round 15 full nrl injury list club-by-club brisbane broncos player injury return delouise hoeter leg round 16-17 gehamat shibasaki knee round 18-20 pat carrigan ankle round 20 jordan riki foot tbc antonio verhoeven shoulder tbc deine mariner thigh tbc corey jensen pulmonary embolism tbc billy walters acl tbc va 821",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Antonio Verhoeven": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "dman best knights calf round 15 full nrl injury list club-by-club brisbane broncos player injury return delouise hoeter leg round 16-17 gehamat shibasaki knee round 18-20 pat carrigan ankle round 20 jordan riki foot tbc antonio verhoeven shoulder tbc deine mariner thigh tbc corey jensen pulmonary embolism tbc billy walters acl tbc va 8217 a semu chest tbc ca",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Billy Walters": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "njury return delouise hoeter leg round 16-17 gehamat shibasaki knee round 18-20 pat carrigan ankle round 20 jordan riki foot tbc antonio verhoeven shoulder tbc deine mariner thigh tbc corey jensen pulmonary embolism tbc billy walters acl tbc va 8217 a semu chest tbc canberra raiders player injury return savelio tamale hia tbc ethan sanders glute tbc joe rodd",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "cleared": false
     },
     "Jacob Preston": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Arm",
+      "expectedReturn": "Round 19",
+      "expectedReturnRound": 19,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "s concussion round 15 simi sasagi shoulder round 15-16 noah martin ankle tbc matty nicholson shoulder tbc canterbury-bankstown bulldogs player injury return connor tracey hamstring round 14 marcelo montoya knee round 14 jacob preston arm round 19-20 viliame kikau pectoral round 20 mitchell woods hamstring tbc sam hughes neck tbc jake turpin biceps tbc cronul",
-          "reason": "Injury source indicates out/injured/unavailable."
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Arm",
+          "expectedReturn": "Round 19"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Arm",
+          "expectedReturn": "Round 19"
         }
       ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 19,
+      "returnWindowMaxRound": 19,
+      "cleared": false
     },
     "Viliame Kikau": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Pectoral",
+      "expectedReturn": "Round 20",
+      "expectedReturnRound": 20,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "agi shoulder round 15-16 noah martin ankle tbc matty nicholson shoulder tbc canterbury-bankstown bulldogs player injury return connor tracey hamstring round 14 marcelo montoya knee round 14 jacob preston arm round 19-20 viliame kikau pectoral round 20 mitchell woods hamstring tbc sam hughes neck tbc jake turpin biceps tbc cronulla sharks player injury return",
-          "reason": "Injury source indicates out/injured/unavailable."
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Pectoral",
+          "expectedReturn": "Round 20"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Pectoral",
+          "expectedReturn": "Round 20"
         }
       ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 20,
+      "returnWindowMaxRound": 20,
+      "cleared": false
+    },
+    "Stephen Crichton": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Shoulder",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "Samuel Hughes": {
       "status": "out",
@@ -421,20 +371,18 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": null,
       "returnWindowMaxRound": null,
-      "cleared": false,
-      "carriedForward": true,
-      "updated": "2026-06-08T22:11:30.534133+00:00"
+      "cleared": false
     },
-    "Kurt Mann": {
+    "Jake Turpin": {
       "status": "out",
       "playProbability": 0,
-      "reason": "Ear",
+      "reason": "Biceps",
       "expectedReturn": "TBC",
       "expectedReturnRound": null,
       "sourceConfidence": "high",
@@ -444,7 +392,7 @@
           "confidence": "high",
           "status": "out",
           "playProbability": 0,
-          "reason": "Ear",
+          "reason": "Biceps",
           "expectedReturn": "TBC"
         },
         {
@@ -452,281 +400,182 @@
           "confidence": "medium",
           "status": "out",
           "playProbability": 0,
-          "reason": "Ear",
+          "reason": "Biceps",
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": null,
       "returnWindowMaxRound": null,
-      "cleared": false,
-      "carriedForward": true,
-      "updated": "2026-06-08T22:11:30.534133+00:00"
-    },
-    "Jake Turpin": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "rbury-bankstown bulldogs player injury return connor tracey hamstring round 14 marcelo montoya knee round 14 jacob preston arm round 19-20 viliame kikau pectoral round 20 mitchell woods hamstring tbc sam hughes neck tbc jake turpin biceps tbc cronulla sharks player injury return blayke brailey arm tbc sione katoa ankle tbc nicho hynes calf round 18 dolphins ",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "cleared": false
     },
     "Mitchell Woods": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Hamstring",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "rtin ankle tbc matty nicholson shoulder tbc canterbury-bankstown bulldogs player injury return connor tracey hamstring round 14 marcelo montoya knee round 14 jacob preston arm round 19-20 viliame kikau pectoral round 20 mitchell woods hamstring tbc sam hughes neck tbc jake turpin biceps tbc cronulla sharks player injury return blayke brailey arm tbc sione ka",
-          "reason": "Injury source indicates out/injured/unavailable."
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "TBC"
         }
       ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "Jeremiah Nanai": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Shoulder",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": " episode tbc xavier coates achilles next season newcastle knights player injury return phoenix crossland head knock tbc bradman best calf round 15 sandon smith calf round 16 north queensland cowboys player injury return jeremiah nanai shoulder tbc braidon burns hamstring tbc tom dearden ankle round 16-18 john bateman wrist foot tbc parramatta eels player inj",
-          "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-          "timeline": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnWindow": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnRound": 27,
-          "returnWindowMinRound": 27,
-          "returnWindowMaxRound": 114
-        }
-      ],
-      "timeline": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnWindow": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnRound": 27,
-      "returnWindowMinRound": 27,
-      "returnWindowMaxRound": 114,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Jake Averillo": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "TBC"
+        },
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
           "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "sion round 15 mitch barnett warriors rested round 15 kurt capewell warriors rested round 15 charnze nicoll-klokstad warriors neck round 15 sione fainu tigers concussion round 15 patrick herbert tigers suspended round 15 jake averillo dolphins hand round 15 bradman best knights calf round 15 full nrl injury list club-by-club brisbane broncos player injury ret",
-          "reason": "Injury source indicates out/injured/unavailable."
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "TBC"
         }
       ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Christian Tuipulotu": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "ed players returning soon next fortnight player club injury return connor tracey bulldogs hamstring round 14 marcelo montoya bulldogs knee round 14 josh papalii raiders calf round 15 seb kris raiders concussion round 15 christian tuipulotu dragons hamstring round 15 eddie ieremia-toeava warriors concussion round 15 mitch barnett warriors rested round 15 kurt",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "David Fale": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Hamstring",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 18; out through R17, risk through R19.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "ighton arm round 18 talanoa penitani hamstring round 26-27 adam elliott ankle 2027 isaiah tass acl tbc st george illawarra dragons player injury return jaydn su 8217 a pectoral tbc christian tuipulotu hamstring round 15 david fale hamstring round 16 hayden buchanan shoulder round 17-18 kade reed finger round 20-22 cyrus stanley-traill ankle tbc connor muhlei",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 18; out through R17, risk through R19.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 18,
-            "outUntilRound": 17,
-            "riskUntilRound": 19,
-            "summary": "return/available from Round 18"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 18,
-            "outUntilRound": 17,
-            "riskUntilRound": 19,
-            "summary": "return/available from Round 18"
-          },
-          "returnRound": 18,
-          "returnWindowMinRound": 18,
-          "returnWindowMaxRound": 19
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 16"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 18,
-        "outUntilRound": 17,
-        "riskUntilRound": 19,
-        "summary": "return/available from Round 18"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 18,
-        "outUntilRound": 17,
-        "riskUntilRound": 19,
-        "summary": "return/available from Round 18"
-      },
-      "returnRound": 18,
-      "returnWindowMinRound": 18,
-      "returnWindowMaxRound": 19,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 16,
+      "returnWindowMaxRound": 16,
+      "cleared": false
     },
     "Hayden Buchanan": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Shoulder",
+      "expectedReturn": "Round 17",
+      "expectedReturnRound": 17,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 26; out through R25, risk through R27.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "nitani hamstring round 26-27 adam elliott ankle 2027 isaiah tass acl tbc st george illawarra dragons player injury return jaydn su 8217 a pectoral tbc christian tuipulotu hamstring round 15 david fale hamstring round 16 hayden buchanan shoulder round 17-18 kade reed finger round 20-22 cyrus stanley-traill ankle tbc connor muhleisen acl tbc sydney roosters pl",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 26; out through R25, risk through R27.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 26,
-            "outUntilRound": 25,
-            "riskUntilRound": 27,
-            "summary": "return/available from Round 26"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 26,
-            "outUntilRound": 25,
-            "riskUntilRound": 27,
-            "summary": "return/available from Round 26"
-          },
-          "returnRound": 26,
-          "returnWindowMinRound": 26,
-          "returnWindowMaxRound": 27
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 17"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 17"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 26,
-        "outUntilRound": 25,
-        "riskUntilRound": 27,
-        "summary": "return/available from Round 26"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 26,
-        "outUntilRound": 25,
-        "riskUntilRound": 27,
-        "summary": "return/available from Round 26"
-      },
-      "returnRound": 26,
-      "returnWindowMinRound": 26,
-      "returnWindowMaxRound": 27,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 17,
+      "returnWindowMaxRound": 17,
+      "cleared": false
     },
     "Kade Reed": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Finger",
+      "expectedReturn": "Round 20",
+      "expectedReturnRound": 20,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "iott ankle 2027 isaiah tass acl tbc st george illawarra dragons player injury return jaydn su 8217 a pectoral tbc christian tuipulotu hamstring round 15 david fale hamstring round 16 hayden buchanan shoulder round 17-18 kade reed finger round 20-22 cyrus stanley-traill ankle tbc connor muhleisen acl tbc sydney roosters player injury return cody ramsey illnes",
-          "reason": "Injury source indicates out/injured/unavailable."
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Finger",
+          "expectedReturn": "Round 20"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Finger",
+          "expectedReturn": "Round 20"
         }
       ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 20,
+      "returnWindowMaxRound": 20,
+      "cleared": false
     },
     "Jaydn Su'A": {
       "status": "out",
@@ -753,578 +602,482 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": null,
       "returnWindowMaxRound": null,
-      "cleared": false,
-      "carriedForward": true,
-      "updated": "2026-06-08T22:11:30.534133+00:00"
+      "cleared": false
     },
     "Jonah Pezet": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Hamstring",
+      "expectedReturn": "Round 18",
+      "expectedReturnRound": 18,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "w of who is sidelined and when they could return to the field updated nrl injury list as at monday 8 june 2026 key injury news parramatta eels halves crisis continues with mitch moses hamstring out until round 15-16 and jonah pezet sidelined longer term long-term blows with j maine hopgood and matt doorey both acl 2027 manly sea eagles without tom trbojevic ",
-          "reason": "Injury source indicates out/injured/unavailable."
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 18"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 18"
         }
       ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 18,
+      "returnWindowMaxRound": 18,
+      "cleared": false
     },
     "Junior Paulo": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Knee",
+      "expectedReturn": "Round 21",
+      "expectedReturnRound": 21,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": " jeremiah nanai shoulder tbc braidon burns hamstring tbc tom dearden ankle round 16-18 john bateman wrist foot tbc parramatta eels player injury return mitch moses hamstring round 15-16 jonah pezet hamstring round 18-19 junior paulo knee round 21 bailey simonsson ankle round 23 will penisini osteitis pubis round 21-23 j 8217 maine hopgood acl 2027 matt doore",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 21"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 21"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 21,
+      "returnWindowMaxRound": 21,
+      "cleared": false
     },
     "Will Penisini": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Groin",
+      "expectedReturn": "Round 21",
+      "expectedReturnRound": 21,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "m dearden ankle round 16-18 john bateman wrist foot tbc parramatta eels player injury return mitch moses hamstring round 15-16 jonah pezet hamstring round 18-19 junior paulo knee round 21 bailey simonsson ankle round 23 will penisini osteitis pubis round 21-23 j 8217 maine hopgood acl 2027 matt doorey acl 2027 penrith panthers player injury return casey mcle",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Groin",
+          "expectedReturn": "Round 21"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Groin",
+          "expectedReturn": "Round 21"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 21,
+      "returnWindowMaxRound": 21,
+      "cleared": false
     },
     "Bailey Simonsson": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Ankle",
+      "expectedReturn": "Round 23",
+      "expectedReturnRound": 23,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "c braidon burns hamstring tbc tom dearden ankle round 16-18 john bateman wrist foot tbc parramatta eels player injury return mitch moses hamstring round 15-16 jonah pezet hamstring round 18-19 junior paulo knee round 21 bailey simonsson ankle round 23 will penisini osteitis pubis round 21-23 j 8217 maine hopgood acl 2027 matt doorey acl 2027 penrith panthers",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Bradman Best": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Round 23"
+        },
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
           "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "rested round 15 kurt capewell warriors rested round 15 charnze nicoll-klokstad warriors neck round 15 sione fainu tigers concussion round 15 patrick herbert tigers suspended round 15 jake averillo dolphins hand round 15 bradman best knights calf round 15 full nrl injury list club-by-club brisbane broncos player injury return delouise hoeter leg round 16-17 g",
-          "reason": "Injury source indicates out/injured/unavailable."
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Round 23"
         }
       ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 23,
+      "returnWindowMaxRound": 23,
+      "cleared": false
     },
     "Sandon Smith": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Calf",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 18; out through R17, risk through R19.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "meaney calf round 18 tui kamikamica medical episode tbc eli katoa medical episode tbc xavier coates achilles next season newcastle knights player injury return phoenix crossland head knock tbc bradman best calf round 15 sandon smith calf round 16 north queensland cowboys player injury return jeremiah nanai shoulder tbc braidon burns hamstring tbc tom dearden",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 18; out through R17, risk through R19.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 18,
-            "outUntilRound": 17,
-            "riskUntilRound": 19,
-            "summary": "return/available from Round 18"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 18,
-            "outUntilRound": 17,
-            "riskUntilRound": 19,
-            "summary": "return/available from Round 18"
-          },
-          "returnRound": 18,
-          "returnWindowMinRound": 18,
-          "returnWindowMaxRound": 19
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 16"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 18,
-        "outUntilRound": 17,
-        "riskUntilRound": 19,
-        "summary": "return/available from Round 18"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 18,
-        "outUntilRound": 17,
-        "riskUntilRound": 19,
-        "summary": "return/available from Round 18"
-      },
-      "returnRound": 18,
-      "returnWindowMinRound": 18,
-      "returnWindowMaxRound": 19,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 16,
+      "returnWindowMaxRound": 16,
+      "cleared": false
     },
-    "Casey McLean": {
+    "Jermaine McEwen": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Stood down",
+      "expectedReturn": "Round 17",
+      "expectedReturnRound": 17,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 18; out through R17, risk through R19.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "ah pezet hamstring round 18-19 junior paulo knee round 21 bailey simonsson ankle round 23 will penisini osteitis pubis round 21-23 j 8217 maine hopgood acl 2027 matt doorey acl 2027 penrith panthers player injury return casey mclean ankle tbc mitch kenny leg round 16-17 south sydney rabbitohs player injury return latrell mitchell back round 17 jack wighton a",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 18; out through R17, risk through R19.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 18,
-            "outUntilRound": 17,
-            "riskUntilRound": 19,
-            "summary": "return/available from Round 18"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 18,
-            "outUntilRound": 17,
-            "riskUntilRound": 19,
-            "summary": "return/available from Round 18"
-          },
-          "returnRound": 18,
-          "returnWindowMinRound": 18,
-          "returnWindowMaxRound": 19
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Stood down",
+          "expectedReturn": "Round 17"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Stood down",
+          "expectedReturn": "Round 17"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 18,
-        "outUntilRound": 17,
-        "riskUntilRound": 19,
-        "summary": "return/available from Round 18"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 18,
-        "outUntilRound": 17,
-        "riskUntilRound": 19,
-        "summary": "return/available from Round 18"
-      },
-      "returnRound": 18,
-      "returnWindowMinRound": 18,
-      "returnWindowMaxRound": 19,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 17,
+      "returnWindowMaxRound": 17,
+      "cleared": false
     },
     "Latrell Mitchell": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Back",
+      "expectedReturn": "Round 17",
+      "expectedReturnRound": 17,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "d longer term long-term blows with j maine hopgood and matt doorey both acl 2027 manly sea eagles without tom trbojevic hamstring until round 16 with other key forwards also sidelined south sydney rabbitohs dealing with latrell mitchell back round 17 jack wighton arm and multiple long-term cases melbourne storm have several key players out including xavier c",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Back",
+          "expectedReturn": "Round 17"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Back",
+          "expectedReturn": "Round 17"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 17,
       "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "cleared": false
     },
     "Jack Wighton": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Arm",
+      "expectedReturn": "Round 17",
+      "expectedReturnRound": 17,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "ith j maine hopgood and matt doorey both acl 2027 manly sea eagles without tom trbojevic hamstring until round 16 with other key forwards also sidelined south sydney rabbitohs dealing with latrell mitchell back round 17 jack wighton arm and multiple long-term cases melbourne storm have several key players out including xavier coates achilles next season and ",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Arm",
+          "expectedReturn": "Round 17"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Arm",
+          "expectedReturn": "Round 17"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 17,
       "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "cleared": false
+    },
+    "Campbell Graham": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Calf",
+      "expectedReturn": "Round 19",
+      "expectedReturnRound": 19,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 19"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 19"
+        }
+      ],
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 19,
+      "returnWindowMaxRound": 19,
+      "cleared": false
+    },
+    "Sean Keppie": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Thumb",
+      "expectedReturn": "Round 23",
+      "expectedReturnRound": 23,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Thumb",
+          "expectedReturn": "Round 23"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Thumb",
+          "expectedReturn": "Round 23"
+        }
+      ],
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 23,
+      "returnWindowMaxRound": 23,
+      "cleared": false
     },
     "Talanoa Penitani": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Hamstring",
+      "expectedReturn": "Round 26",
+      "expectedReturnRound": 26,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "acl 2027 matt doorey acl 2027 penrith panthers player injury return casey mclean ankle tbc mitch kenny leg round 16-17 south sydney rabbitohs player injury return latrell mitchell back round 17 jack wighton arm round 18 talanoa penitani hamstring round 26-27 adam elliott ankle 2027 isaiah tass acl tbc st george illawarra dragons player injury return jaydn su",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 26"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 26"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 26,
+      "returnWindowMaxRound": 26,
+      "cleared": false
     },
     "Isaiah Tass": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "ACL",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "turn casey mclean ankle tbc mitch kenny leg round 16-17 south sydney rabbitohs player injury return latrell mitchell back round 17 jack wighton arm round 18 talanoa penitani hamstring round 26-27 adam elliott ankle 2027 isaiah tass acl tbc st george illawarra dragons player injury return jaydn su 8217 a pectoral tbc christian tuipulotu hamstring round 15 dav",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "Adam Elliott": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Ankle",
+      "expectedReturn": "Next Season",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "anthers player injury return casey mclean ankle tbc mitch kenny leg round 16-17 south sydney rabbitohs player injury return latrell mitchell back round 17 jack wighton arm round 18 talanoa penitani hamstring round 26-27 adam elliott ankle 2027 isaiah tass acl tbc st george illawarra dragons player injury return jaydn su 8217 a pectoral tbc christian tuipulot",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Next Season"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Next Season"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
-    "Sebastian Kris": {
+    "Simi Sasagi": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Shoulder",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 16"
+        }
+      ],
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 16,
+      "returnWindowMaxRound": 16,
+      "cleared": false
+    },
+    "Savelio Tamale": {
       "status": "out",
       "playProbability": 0,
       "reason": "Concussion",
-      "expectedReturn": "Round 15",
-      "expectedReturnRound": 15,
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
       "sourceConfidence": "high",
       "sources": [
         {
@@ -1333,7 +1086,7 @@
           "status": "out",
           "playProbability": 0,
           "reason": "Concussion",
-          "expectedReturn": "Round 15"
+          "expectedReturn": "Round 16"
         },
         {
           "source": "zerotackle-injuries-suspensions",
@@ -1341,404 +1094,247 @@
           "status": "out",
           "playProbability": 0,
           "reason": "Concussion",
-          "expectedReturn": "Round 15"
+          "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
-      "returnWindowMinRound": 15,
-      "returnWindowMaxRound": 15,
-      "cleared": false,
-      "carriedForward": true,
-      "updated": "2026-06-08T22:11:30.534133+00:00"
-    },
-    "Josh Papalii": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": " e g sione katoa braidon burns etc now tbc or shifted jump to team related players returning soon next fortnight player club injury return connor tracey bulldogs hamstring round 14 marcelo montoya bulldogs knee round 14 josh papalii raiders calf round 15 seb kris raiders concussion round 15 christian tuipulotu dragons hamstring round 15 eddie ieremia-toeava ",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Simi Sasagi": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "embolism tbc billy walters acl tbc va 8217 a semu chest tbc canberra raiders player injury return savelio tamale hia tbc ethan sanders glute tbc joe roddy hand tbc josh papalii calf round 15 seb kris concussion round 15 simi sasagi shoulder round 15-16 noah martin ankle tbc matty nicholson shoulder tbc canterbury-bankstown bulldogs player injury return conno",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "returnWindowMinRound": 16,
+      "returnWindowMaxRound": 16,
+      "cleared": false
     },
     "Noah Martin": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Ankle",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "c va 8217 a semu chest tbc canberra raiders player injury return savelio tamale hia tbc ethan sanders glute tbc joe roddy hand tbc josh papalii calf round 15 seb kris concussion round 15 simi sasagi shoulder round 15-16 noah martin ankle tbc matty nicholson shoulder tbc canterbury-bankstown bulldogs player injury return connor tracey hamstring round 14 marce",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Ethan Sanders": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "TBC"
+        },
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
           "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "jordan riki foot tbc antonio verhoeven shoulder tbc deine mariner thigh tbc corey jensen pulmonary embolism tbc billy walters acl tbc va 8217 a semu chest tbc canberra raiders player injury return savelio tamale hia tbc ethan sanders glute tbc joe roddy hand tbc josh papalii calf round 15 seb kris concussion round 15 simi sasagi shoulder round 15-16 noah mar",
-          "reason": "Injury source indicates out/injured/unavailable."
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "TBC"
         }
       ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Savelio Tamale": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "arrigan ankle round 20 jordan riki foot tbc antonio verhoeven shoulder tbc deine mariner thigh tbc corey jensen pulmonary embolism tbc billy walters acl tbc va 8217 a semu chest tbc canberra raiders player injury return savelio tamale hia tbc ethan sanders glute tbc joe roddy hand tbc josh papalii calf round 15 seb kris concussion round 15 simi sasagi should",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 20,
-            "outUntilRound": 19,
-            "riskUntilRound": 21,
-            "summary": "return/available from Round 20"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 20,
-            "outUntilRound": 19,
-            "riskUntilRound": 21,
-            "summary": "return/available from Round 20"
-          },
-          "returnRound": 20,
-          "returnWindowMinRound": 20,
-          "returnWindowMaxRound": 21
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 20,
-        "outUntilRound": 19,
-        "riskUntilRound": 21,
-        "summary": "return/available from Round 20"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 20,
-        "outUntilRound": 19,
-        "riskUntilRound": 21,
-        "summary": "return/available from Round 20"
-      },
-      "returnRound": 20,
-      "returnWindowMinRound": 20,
-      "returnWindowMaxRound": 21,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Cody Ramsey": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "n tuipulotu hamstring round 15 david fale hamstring round 16 hayden buchanan shoulder round 17-18 kade reed finger round 20-22 cyrus stanley-traill ankle tbc connor muhleisen acl tbc sydney roosters player injury return cody ramsey illness round 15 daniel tupou calf tbc blake steep knee 2027 new zealand warriors player injury return leka halasima hamstring t",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "Daniel Tupou": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Calf",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "5 david fale hamstring round 16 hayden buchanan shoulder round 17-18 kade reed finger round 20-22 cyrus stanley-traill ankle tbc connor muhleisen acl tbc sydney roosters player injury return cody ramsey illness round 15 daniel tupou calf tbc blake steep knee 2027 new zealand warriors player injury return leka halasima hamstring tbc eddie ieremia-toeava concu",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "TBC"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "Blake Steep": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "ACL",
+      "expectedReturn": "Next Season",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": " round 16 hayden buchanan shoulder round 17-18 kade reed finger round 20-22 cyrus stanley-traill ankle tbc connor muhleisen acl tbc sydney roosters player injury return cody ramsey illness round 15 daniel tupou calf tbc blake steep knee 2027 new zealand warriors player injury return leka halasima hamstring tbc eddie ieremia-toeava concussion round 15 mitch b",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "Next Season"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "Next Season"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "Tom Trbojevic": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Hamstring",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": " parramatta eels halves crisis continues with mitch moses hamstring out until round 15-16 and jonah pezet sidelined longer term long-term blows with j maine hopgood and matt doorey both acl 2027 manly sea eagles without tom trbojevic hamstring until round 16 with other key forwards also sidelined south sydney rabbitohs dealing with latrell mitchell back roun",
-          "reason": "Injury source indicates out/injured/unavailable."
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 16"
         }
       ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 16,
+      "returnWindowMaxRound": 16,
+      "cleared": false
     },
     "Corey Waddell": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Pectoral",
+      "expectedReturn": "Round 21",
+      "expectedReturnRound": 21,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "urn siale faeamani knee round 16 tuki simpkins knee round 16 brock gray acl tbc jaimin jolliffe knee 2027 chris randall concussion hia tbc manly-warringah sea eagles player injury return tom trbojevic hamstring round 16 corey waddell pectoral round 21-22 caleb navale acl round 26-27 siosiua taukeiaho leg tbc melbourne storm player injury return tyran wishart",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Pectoral",
+          "expectedReturn": "Round 21"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Pectoral",
+          "expectedReturn": "Round 21"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 21,
+      "returnWindowMaxRound": 21,
+      "cleared": false
     },
     "Caleb Navale": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "ACL",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "ki simpkins knee round 16 brock gray acl tbc jaimin jolliffe knee 2027 chris randall concussion hia tbc manly-warringah sea eagles player injury return tom trbojevic hamstring round 16 corey waddell pectoral round 21-22 caleb navale acl round 26-27 siosiua taukeiaho leg tbc melbourne storm player injury return tyran wishart ankle round 16 jack howarth quad r",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "Blayke Brailey": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Arm",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "hamstring round 14 marcelo montoya knee round 14 jacob preston arm round 19-20 viliame kikau pectoral round 20 mitchell woods hamstring tbc sam hughes neck tbc jake turpin biceps tbc cronulla sharks player injury return blayke brailey arm tbc sione katoa ankle tbc nicho hynes calf round 18 dolphins player injury return jake averillo hand round 15 gold coast ",
-          "reason": "Injury source indicates out/injured/unavailable."
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Arm",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Arm",
+          "expectedReturn": "TBC"
         }
       ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "Liam Ison": {
       "status": "out",
@@ -1765,275 +1361,178 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": null,
       "returnWindowMaxRound": null,
-      "cleared": false,
-      "carriedForward": true,
-      "updated": "2026-06-08T22:11:30.534133+00:00"
+      "cleared": false
     },
     "Tyran Wishart": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Ankle",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "ion hia tbc manly-warringah sea eagles player injury return tom trbojevic hamstring round 16 corey waddell pectoral round 21-22 caleb navale acl round 26-27 siosiua taukeiaho leg tbc melbourne storm player injury return tyran wishart ankle round 16 jack howarth quad round 16 hugo peel knee round 17 marion seve triceps round 17 nick meaney calf round 18 tui k",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Ankle",
+          "expectedReturn": "Round 16"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
       "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "returnWindowMaxRound": 16,
+      "cleared": false
     },
     "Hugo Peel": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Knee",
+      "expectedReturn": "Round 17",
+      "expectedReturnRound": 17,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "urn tom trbojevic hamstring round 16 corey waddell pectoral round 21-22 caleb navale acl round 26-27 siosiua taukeiaho leg tbc melbourne storm player injury return tyran wishart ankle round 16 jack howarth quad round 16 hugo peel knee round 17 marion seve triceps round 17 nick meaney calf round 18 tui kamikamica medical episode tbc eli katoa medical episode ",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 17"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 17"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 17,
       "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "cleared": false
     },
     "Nick Meaney": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Calf",
+      "expectedReturn": "Round 18",
+      "expectedReturnRound": 18,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 21; out through R20, risk through R22.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "ctoral round 21-22 caleb navale acl round 26-27 siosiua taukeiaho leg tbc melbourne storm player injury return tyran wishart ankle round 16 jack howarth quad round 16 hugo peel knee round 17 marion seve triceps round 17 nick meaney calf round 18 tui kamikamica medical episode tbc eli katoa medical episode tbc xavier coates achilles next season newcastle knig",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 21; out through R20, risk through R22.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 21,
-            "outUntilRound": 20,
-            "riskUntilRound": 22,
-            "summary": "return/available from Round 21"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 21,
-            "outUntilRound": 20,
-            "riskUntilRound": 22,
-            "summary": "return/available from Round 21"
-          },
-          "returnRound": 21,
-          "returnWindowMinRound": 21,
-          "returnWindowMaxRound": 22
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 18"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 18"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 21,
-        "outUntilRound": 20,
-        "riskUntilRound": 22,
-        "summary": "return/available from Round 21"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 21,
-        "outUntilRound": 20,
-        "riskUntilRound": 22,
-        "summary": "return/available from Round 21"
-      },
-      "returnRound": 21,
-      "returnWindowMinRound": 21,
-      "returnWindowMaxRound": 22,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 18,
+      "returnWindowMaxRound": 18,
+      "cleared": false
     },
     "Tui Kamikamica": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Medical Episode",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 17; out through R16, risk through R18.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "bitohs dealing with latrell mitchell back round 17 jack wighton arm and multiple long-term cases melbourne storm have several key players out including xavier coates achilles next season and ongoing medical episodes for tui kamikamica and eli katoa new zealand warriors season-ending blow with roger tuivasa-sheck acl plus tanah boyd acl 2027 brisbane broncos ",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 17; out through R16, risk through R18.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 17,
-            "outUntilRound": 16,
-            "riskUntilRound": 18,
-            "summary": "return/available from Round 17"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 17,
-            "outUntilRound": 16,
-            "riskUntilRound": 18,
-            "summary": "return/available from Round 17"
-          },
-          "returnRound": 17,
-          "returnWindowMinRound": 17,
-          "returnWindowMaxRound": 18
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Medical Episode",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Medical Episode",
+          "expectedReturn": "TBC"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 17,
-        "outUntilRound": 16,
-        "riskUntilRound": 18,
-        "summary": "return/available from Round 17"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 17,
-        "outUntilRound": 16,
-        "riskUntilRound": 18,
-        "summary": "return/available from Round 17"
-      },
-      "returnRound": 17,
-      "returnWindowMinRound": 17,
-      "returnWindowMaxRound": 18,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "Xavier Coates": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Achilles",
+      "expectedReturn": "Next Season",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "til round 16 with other key forwards also sidelined south sydney rabbitohs dealing with latrell mitchell back round 17 jack wighton arm and multiple long-term cases melbourne storm have several key players out including xavier coates achilles next season and ongoing medical episodes for tui kamikamica and eli katoa new zealand warriors season-ending blow wit",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Achilles",
+          "expectedReturn": "Next Season"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Achilles",
+          "expectedReturn": "Next Season"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "Eliesa Katoa": {
       "status": "out",
@@ -2060,15 +1559,46 @@
           "expectedReturn": "Indefinite"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": null,
       "returnWindowMaxRound": null,
-      "cleared": false,
-      "carriedForward": true,
-      "updated": "2026-06-08T22:11:30.534133+00:00"
+      "cleared": false
+    },
+    "Chris Randall": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Concussion",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Concussion",
+          "expectedReturn": "Round 16"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Concussion",
+          "expectedReturn": "Round 16"
+        }
+      ],
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 16,
+      "returnWindowMaxRound": 16,
+      "cleared": false
     },
     "Tukimihia Simpkins": {
       "status": "out",
@@ -2095,259 +1625,172 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": 16,
       "returnWindowMaxRound": 16,
-      "cleared": false,
-      "carriedForward": true,
-      "updated": "2026-06-08T22:11:30.534133+00:00"
+      "cleared": false
     },
     "Brock Gray": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "ACL",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 18; out through R17, risk through R19.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "e brailey arm tbc sione katoa ankle tbc nicho hynes calf round 18 dolphins player injury return jake averillo hand round 15 gold coast titans player injury return siale faeamani knee round 16 tuki simpkins knee round 16 brock gray acl tbc jaimin jolliffe knee 2027 chris randall concussion hia tbc manly-warringah sea eagles player injury return tom trbojevic ",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 18; out through R17, risk through R19.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 18,
-            "outUntilRound": 17,
-            "riskUntilRound": 19,
-            "summary": "return/available from Round 18"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 18,
-            "outUntilRound": 17,
-            "riskUntilRound": 19,
-            "summary": "return/available from Round 18"
-          },
-          "returnRound": 18,
-          "returnWindowMinRound": 18,
-          "returnWindowMaxRound": 19
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "TBC"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 18,
-        "outUntilRound": 17,
-        "riskUntilRound": 19,
-        "summary": "return/available from Round 18"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 18,
-        "outUntilRound": 17,
-        "riskUntilRound": 19,
-        "summary": "return/available from Round 18"
-      },
-      "returnRound": 18,
-      "returnWindowMinRound": 18,
-      "returnWindowMaxRound": 19,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "Jaimin Jolliffe": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Knee",
+      "expectedReturn": "Next Season",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 18; out through R17, risk through R19.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "ione katoa ankle tbc nicho hynes calf round 18 dolphins player injury return jake averillo hand round 15 gold coast titans player injury return siale faeamani knee round 16 tuki simpkins knee round 16 brock gray acl tbc jaimin jolliffe knee 2027 chris randall concussion hia tbc manly-warringah sea eagles player injury return tom trbojevic hamstring round 16 ",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 18; out through R17, risk through R19.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 18,
-            "outUntilRound": 17,
-            "riskUntilRound": 19,
-            "summary": "return/available from Round 18"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 18,
-            "outUntilRound": 17,
-            "riskUntilRound": 19,
-            "summary": "return/available from Round 18"
-          },
-          "returnRound": 18,
-          "returnWindowMinRound": 18,
-          "returnWindowMaxRound": 19
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 18,
-        "outUntilRound": 17,
-        "riskUntilRound": 19,
-        "summary": "return/available from Round 18"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 18,
-        "outUntilRound": 17,
-        "riskUntilRound": 19,
-        "summary": "return/available from Round 18"
-      },
-      "returnRound": 18,
-      "returnWindowMinRound": 18,
-      "returnWindowMaxRound": 19,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Eddie Ieremia-Toeava": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Next Season"
+        },
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
           "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": " club injury return connor tracey bulldogs hamstring round 14 marcelo montoya bulldogs knee round 14 josh papalii raiders calf round 15 seb kris raiders concussion round 15 christian tuipulotu dragons hamstring round 15 eddie ieremia-toeava warriors concussion round 15 mitch barnett warriors rested round 15 kurt capewell warriors rested round 15 charnze nico",
-          "reason": "Injury source indicates out/injured/unavailable."
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Next Season"
         }
       ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "Sam Healey": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Thumb",
+      "expectedReturn": "Round 17",
+      "expectedReturnRound": 17,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": " knee 2027 new zealand warriors player injury return leka halasima hamstring tbc eddie ieremia-toeava concussion round 15 mitch barnett rested round 15 kurt capewell rested round 15 charnze nicoll-klokstad neck round 15 sam healey thumb round 17-18 morgan gannon personal leave tbc tanah boyd acl 2027 roger tuivasa-sheck acl season wests tigers player injury ",
-          "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-          "timeline": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnWindow": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnRound": 27,
-          "returnWindowMinRound": 27,
-          "returnWindowMaxRound": 114
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Thumb",
+          "expectedReturn": "Round 17"
         }
       ],
-      "timeline": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnWindow": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnRound": 27,
-      "returnWindowMinRound": 27,
-      "returnWindowMaxRound": 114,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Leka Halasima": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "round 20-22 cyrus stanley-traill ankle tbc connor muhleisen acl tbc sydney roosters player injury return cody ramsey illness round 15 daniel tupou calf tbc blake steep knee 2027 new zealand warriors player injury return leka halasima hamstring tbc eddie ieremia-toeava concussion round 15 mitch barnett rested round 15 kurt capewell rested round 15 charnze nic",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 20,
-            "outUntilRound": 19,
-            "riskUntilRound": 21,
-            "summary": "return/available from Round 20"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 20,
-            "outUntilRound": 19,
-            "riskUntilRound": 21,
-            "summary": "return/available from Round 20"
-          },
-          "returnRound": 20,
-          "returnWindowMinRound": 20,
-          "returnWindowMaxRound": 21
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 20,
-        "outUntilRound": 19,
-        "riskUntilRound": 21,
-        "summary": "return/available from Round 20"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 20,
-        "outUntilRound": 19,
-        "riskUntilRound": 21,
-        "summary": "return/available from Round 20"
-      },
-      "returnRound": 20,
-      "returnWindowMinRound": 20,
-      "returnWindowMaxRound": 21,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 17,
+      "returnWindowMaxRound": 17,
+      "cleared": false
     },
     "Haizyn Mellars": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Hamstring",
+      "expectedReturn": "Round 17",
+      "expectedReturnRound": 17,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 17"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "Round 17"
+        }
+      ],
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 17,
+      "returnWindowMaxRound": 17,
+      "cleared": false
+    },
+    "James Fisher-Harris": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Calf",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
+    },
+    "Leka Halasima": {
       "status": "out",
       "playProbability": 0,
       "reason": "Hamstring",
@@ -2372,568 +1815,183 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": null,
       "returnWindowMaxRound": null,
-      "cleared": false,
-      "carriedForward": true,
-      "updated": "2026-06-08T22:11:30.534133+00:00"
-    },
-    "Charnze Nicoll-Klokstad": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "ound 15 seb kris raiders concussion round 15 christian tuipulotu dragons hamstring round 15 eddie ieremia-toeava warriors concussion round 15 mitch barnett warriors rested round 15 kurt capewell warriors rested round 15 charnze nicoll-klokstad warriors neck round 15 sione fainu tigers concussion round 15 patrick herbert tigers suspended round 15 jake averill",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "cleared": false
     },
     "Tanah Boyd": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "ACL",
+      "expectedReturn": "Next Season",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "rne storm have several key players out including xavier coates achilles next season and ongoing medical episodes for tui kamikamica and eli katoa new zealand warriors season-ending blow with roger tuivasa-sheck acl plus tanah boyd acl 2027 brisbane broncos managing a lengthy list with pat carrigan now out until round 20 north queensland cowboys without tom d",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 20,
-            "outUntilRound": 19,
-            "riskUntilRound": 21,
-            "summary": "return/available from Round 20"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 20,
-            "outUntilRound": 19,
-            "riskUntilRound": 21,
-            "summary": "return/available from Round 20"
-          },
-          "returnRound": 20,
-          "returnWindowMinRound": 20,
-          "returnWindowMaxRound": 21
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "Next Season"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "ACL",
+          "expectedReturn": "Next Season"
         }
       ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 20,
-        "outUntilRound": 19,
-        "riskUntilRound": 21,
-        "summary": "return/available from Round 20"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 20,
-        "outUntilRound": 19,
-        "riskUntilRound": 21,
-        "summary": "return/available from Round 20"
-      },
-      "returnRound": 20,
-      "returnWindowMinRound": 20,
-      "returnWindowMaxRound": 21,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "Roger Tuivasa-Sheck": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Knee",
+      "expectedReturn": "Next Season",
+      "expectedReturnRound": null,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "ltiple long-term cases melbourne storm have several key players out including xavier coates achilles next season and ongoing medical episodes for tui kamikamica and eli katoa new zealand warriors season-ending blow with roger tuivasa-sheck acl plus tanah boyd acl 2027 brisbane broncos managing a lengthy list with pat carrigan now out until round 20 north que",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 20,
-            "outUntilRound": 19,
-            "riskUntilRound": 21,
-            "summary": "return/available from Round 20"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 20,
-            "outUntilRound": 19,
-            "riskUntilRound": 21,
-            "summary": "return/available from Round 20"
-          },
-          "returnRound": 20,
-          "returnWindowMinRound": 20,
-          "returnWindowMaxRound": 21
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 20,
-        "outUntilRound": 19,
-        "riskUntilRound": 21,
-        "summary": "return/available from Round 20"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 20,
-        "outUntilRound": 19,
-        "riskUntilRound": 21,
-        "summary": "return/available from Round 20"
-      },
-      "returnRound": 20,
-      "returnWindowMinRound": 20,
-      "returnWindowMaxRound": 21,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Sione Fainu": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Next Season"
+        },
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
           "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "ristian tuipulotu dragons hamstring round 15 eddie ieremia-toeava warriors concussion round 15 mitch barnett warriors rested round 15 kurt capewell warriors rested round 15 charnze nicoll-klokstad warriors neck round 15 sione fainu tigers concussion round 15 patrick herbert tigers suspended round 15 jake averillo dolphins hand round 15 bradman best knights c",
-          "reason": "Injury source indicates out/injured/unavailable."
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Next Season"
         }
       ],
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
     },
     "Adam Doueihi": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Shoulder",
+      "expectedReturn": "Round 16",
+      "expectedReturnRound": 16,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "nnon personal leave tbc tanah boyd acl 2027 roger tuivasa-sheck acl season wests tigers player injury return jock madden arm tbc royce hunt pectoral tbc sione fainu concussion round 15 patrick herbert suspended round 15 adam doueihi shoulder round 16-17 taylan may shoulder round 16-17 alex twal knee round 18-20 samuela fainu foot round 20-21 related 2026 sta",
-          "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-          "timeline": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnWindow": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnRound": 27,
-          "returnWindowMinRound": 27,
-          "returnWindowMaxRound": 114
-        }
-      ],
-      "timeline": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnWindow": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnRound": 27,
-      "returnWindowMinRound": 27,
-      "returnWindowMaxRound": 114,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Taylan May": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-      "sources": [
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 16"
+        },
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
           "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": " acl 2027 roger tuivasa-sheck acl season wests tigers player injury return jock madden arm tbc royce hunt pectoral tbc sione fainu concussion round 15 patrick herbert suspended round 15 adam doueihi shoulder round 16-17 taylan may shoulder round 16-17 alex twal knee round 18-20 samuela fainu foot round 20-21 related 2026 state of origin series https rugbylea",
-          "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-          "timeline": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnWindow": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnRound": 27,
-          "returnWindowMinRound": 27,
-          "returnWindowMaxRound": 114
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "Round 16"
         }
       ],
-      "timeline": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnWindow": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnRound": 27,
-      "returnWindowMinRound": 27,
-      "returnWindowMaxRound": 114,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 16,
+      "returnWindowMaxRound": 16,
+      "cleared": false
     },
     "Alex Twal": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Knee",
+      "expectedReturn": "Round 18",
+      "expectedReturnRound": 18,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "l season wests tigers player injury return jock madden arm tbc royce hunt pectoral tbc sione fainu concussion round 15 patrick herbert suspended round 15 adam doueihi shoulder round 16-17 taylan may shoulder round 16-17 alex twal knee round 18-20 samuela fainu foot round 20-21 related 2026 state of origin series https rugbyleaguezone com state-of-origin 2026",
-          "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-          "timeline": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnWindow": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnRound": 27,
-          "returnWindowMinRound": 27,
-          "returnWindowMaxRound": 114
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 18"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Knee",
+          "expectedReturn": "Round 18"
         }
       ],
-      "timeline": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnWindow": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnRound": 27,
-      "returnWindowMinRound": 27,
-      "returnWindowMaxRound": 114,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 18,
+      "returnWindowMaxRound": 18,
+      "cleared": false
     },
     "Samuela Fainu": {
       "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Foot",
+      "expectedReturn": "Round 20",
+      "expectedReturnRound": 20,
       "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
       "sources": [
         {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
+          "source": "nrl-casualty-ward",
           "confidence": "high",
-          "label": "Out",
-          "context": "r injury return jock madden arm tbc royce hunt pectoral tbc sione fainu concussion round 15 patrick herbert suspended round 15 adam doueihi shoulder round 16-17 taylan may shoulder round 16-17 alex twal knee round 18-20 samuela fainu foot round 20-21 related 2026 state of origin series https rugbyleaguezone com state-of-origin 2026-series nrl 2026 season htt",
-          "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-          "timeline": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnWindow": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnRound": 27,
-          "returnWindowMinRound": 27,
-          "returnWindowMaxRound": 114
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Foot",
+          "expectedReturn": "Round 20"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Foot",
+          "expectedReturn": "Round 20"
         }
       ],
-      "timeline": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnWindow": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnRound": 27,
-      "returnWindowMinRound": 27,
-      "returnWindowMaxRound": 114,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": 20,
+      "returnWindowMaxRound": 20,
+      "cleared": false
     },
     "Royce Hunt": {
       "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "ested round 15 charnze nicoll-klokstad neck round 15 sam healey thumb round 17-18 morgan gannon personal leave tbc tanah boyd acl 2027 roger tuivasa-sheck acl season wests tigers player injury return jock madden arm tbc royce hunt pectoral tbc sione fainu concussion round 15 patrick herbert suspended round 15 adam doueihi shoulder round 16-17 taylan may shou",
-          "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-          "timeline": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnWindow": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnRound": 27,
-          "returnWindowMinRound": 27,
-          "returnWindowMaxRound": 114
-        }
-      ],
-      "timeline": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnWindow": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnRound": 27,
-      "returnWindowMinRound": 27,
-      "returnWindowMaxRound": 114,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Jock Madden": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "d 15 kurt capewell rested round 15 charnze nicoll-klokstad neck round 15 sam healey thumb round 17-18 morgan gannon personal leave tbc tanah boyd acl 2027 roger tuivasa-sheck acl season wests tigers player injury return jock madden arm tbc royce hunt pectoral tbc sione fainu concussion round 15 patrick herbert suspended round 15 adam doueihi shoulder round 1",
-          "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-          "timeline": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnWindow": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnRound": 27,
-          "returnWindowMinRound": 27,
-          "returnWindowMaxRound": 114
-        }
-      ],
-      "timeline": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnWindow": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnRound": 27,
-      "returnWindowMinRound": 27,
-      "returnWindowMaxRound": 114,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Heamasi Makasini": {
-      "status": "out",
       "playProbability": 0,
-      "reason": "Shoulder",
+      "reason": "Pectoral",
       "expectedReturn": "TBC",
       "expectedReturnRound": null,
       "sourceConfidence": "high",
@@ -2943,7 +2001,7 @@
           "confidence": "high",
           "status": "out",
           "playProbability": 0,
-          "reason": "Shoulder",
+          "reason": "Pectoral",
           "expectedReturn": "TBC"
         },
         {
@@ -2951,832 +2009,55 @@
           "confidence": "medium",
           "status": "out",
           "playProbability": 0,
-          "reason": "Shoulder",
+          "reason": "Pectoral",
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-08T22:11:30.534133+00:00",
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
       "returnWindowMinRound": null,
       "returnWindowMaxRound": null,
-      "cleared": false,
-      "carriedForward": true,
-      "updated": "2026-06-08T22:11:30.534133+00:00"
+      "cleared": false
     },
     "Nicho Hynes": {
       "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 19; out through R18, risk through R20.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": " 14 jacob preston arm round 19-20 viliame kikau pectoral round 20 mitchell woods hamstring tbc sam hughes neck tbc jake turpin biceps tbc cronulla sharks player injury return blayke brailey arm tbc sione katoa ankle tbc nicho hynes calf round 18 dolphins player injury return jake averillo hand round 15 gold coast titans player injury return siale faeamani kn",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 19; out through R18, risk through R20.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 19,
-            "outUntilRound": 18,
-            "riskUntilRound": 20,
-            "summary": "return/available from Round 19"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 19,
-            "outUntilRound": 18,
-            "riskUntilRound": 20,
-            "summary": "return/available from Round 19"
-          },
-          "returnRound": 19,
-          "returnWindowMinRound": 19,
-          "returnWindowMaxRound": 20
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 19,
-        "outUntilRound": 18,
-        "riskUntilRound": 20,
-        "summary": "return/available from Round 19"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 19,
-        "outUntilRound": 18,
-        "riskUntilRound": 20,
-        "summary": "return/available from Round 19"
-      },
-      "returnRound": 19,
-      "returnWindowMinRound": 19,
-      "returnWindowMaxRound": 20,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Braidon Burns": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "pdated timelines changes from previous pat carrigan ankle now round 20 gehamat shibasaki knee round 18-20 mitch moses hamstring round 15-16 xavier coates achilles next season multiple tweaks across clubs e g sione katoa braidon burns etc now tbc or shifted jump to team related players returning soon next fortnight player club injury return connor tracey bull",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 20,
-            "outUntilRound": 19,
-            "riskUntilRound": 21,
-            "summary": "return/available from Round 20"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 20,
-            "outUntilRound": 19,
-            "riskUntilRound": 21,
-            "summary": "return/available from Round 20"
-          },
-          "returnRound": 20,
-          "returnWindowMinRound": 20,
-          "returnWindowMaxRound": 21
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 20,
-        "outUntilRound": 19,
-        "riskUntilRound": 21,
-        "summary": "return/available from Round 20"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 20,
-        "outUntilRound": 19,
-        "riskUntilRound": 21,
-        "summary": "return/available from Round 20"
-      },
-      "returnRound": 20,
-      "returnWindowMinRound": 20,
-      "returnWindowMaxRound": 21,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Brandon Smith": {
-      "status": "out",
-      "label": "Out",
+      "playProbability": 0,
+      "reason": "Calf",
+      "expectedReturn": "Round 18",
+      "expectedReturnRound": 18,
       "sourceConfidence": "medium",
-      "reason": "players.json indicates out/unavailable.",
       "sources": [
         {
-          "source": "players_json",
-          "status": "out",
+          "source": "zerotackle-injuries-suspensions",
           "confidence": "medium",
-          "label": "Out",
-          "context": "injuryNote: DNP in screenshot treated as not-yet-played, not an injury/out.",
-          "reason": "players.json indicates out/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Braydon Trindall": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://www.zerotackle.com/hynes-to-miss-more-time-as-calf-injury-plays-havoc-234398/",
           "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "th the sharks keen to avoid a more serious injury by playing through it the halfback will likely continue to be replaced by niwhai puru after he did a solid job against manly in replacing him while normal halves partner braydon trindall stole the show with a sensational performance hynes being out for the coming games means he won't suit up against the st ge",
-          "reason": "Injury source indicates out/injured/unavailable."
+          "playProbability": 0,
+          "reason": "Calf",
+          "expectedReturn": "Round 18"
         }
       ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Chris Randall": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 18; out through R17, risk through R19.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": " hynes calf round 18 dolphins player injury return jake averillo hand round 15 gold coast titans player injury return siale faeamani knee round 16 tuki simpkins knee round 16 brock gray acl tbc jaimin jolliffe knee 2027 chris randall concussion hia tbc manly-warringah sea eagles player injury return tom trbojevic hamstring round 16 corey waddell pectoral rou",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 18; out through R17, risk through R19.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 18,
-            "outUntilRound": 17,
-            "riskUntilRound": 19,
-            "summary": "return/available from Round 18"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 18,
-            "outUntilRound": 17,
-            "riskUntilRound": 19,
-            "summary": "return/available from Round 18"
-          },
-          "returnRound": 18,
-          "returnWindowMinRound": 18,
-          "returnWindowMaxRound": 19
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 18,
-        "outUntilRound": 17,
-        "riskUntilRound": 19,
-        "summary": "return/available from Round 18"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 18,
-        "outUntilRound": 17,
-        "riskUntilRound": 19,
-        "summary": "return/available from Round 18"
-      },
-      "returnRound": 18,
+      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "returnType": "round",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
       "returnWindowMinRound": 18,
-      "returnWindowMaxRound": 19,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Cody Walker": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "medium",
-      "reason": "players.json indicates out/unavailable.",
-      "sources": [
-        {
-          "source": "players_json",
-          "status": "out",
-          "confidence": "medium",
-          "label": "Out",
-          "context": "injuryNote: DNP in screenshot treated as not-yet-played, not an injury/out.",
-          "reason": "players.json indicates out/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Connor Tracey": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "tring round 15-16 xavier coates achilles next season multiple tweaks across clubs e g sione katoa braidon burns etc now tbc or shifted jump to team related players returning soon next fortnight player club injury return connor tracey bulldogs hamstring round 14 marcelo montoya bulldogs knee round 14 josh papalii raiders calf round 15 seb kris raiders concuss",
-          "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-          "timeline": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnWindow": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnRound": 27,
-          "returnWindowMinRound": 27,
-          "returnWindowMaxRound": 114
-        }
-      ],
-      "timeline": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnWindow": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnRound": 27,
-      "returnWindowMinRound": 27,
-      "returnWindowMaxRound": 114,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Cyrus Stanley-Traill": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "cl tbc st george illawarra dragons player injury return jaydn su 8217 a pectoral tbc christian tuipulotu hamstring round 15 david fale hamstring round 16 hayden buchanan shoulder round 17-18 kade reed finger round 20-22 cyrus stanley-traill ankle tbc connor muhleisen acl tbc sydney roosters player injury return cody ramsey illness round 15 daniel tupou calf ",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Herbie Farnworth": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "medium",
-      "reason": "players.json indicates out/unavailable.",
-      "sources": [
-        {
-          "source": "players_json",
-          "status": "out",
-          "confidence": "medium",
-          "label": "Out",
-          "context": "injuryNote: DNP in screenshot treated as not-yet-played, not an injury/out.",
-          "reason": "players.json indicates out/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Jack Bostock": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "medium",
-      "reason": "players.json indicates out/unavailable.",
-      "sources": [
-        {
-          "source": "players_json",
-          "status": "out",
-          "confidence": "medium",
-          "label": "Out",
-          "context": "injuryNote: DNP in screenshot treated as not-yet-played, not an injury/out.",
-          "reason": "players.json indicates out/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Jack Howarth": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "ea eagles player injury return tom trbojevic hamstring round 16 corey waddell pectoral round 21-22 caleb navale acl round 26-27 siosiua taukeiaho leg tbc melbourne storm player injury return tyran wishart ankle round 16 jack howarth quad round 16 hugo peel knee round 17 marion seve triceps round 17 nick meaney calf round 18 tui kamikamica medical episode tbc",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 16; out through R15, risk through R17.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 16,
-            "outUntilRound": 15,
-            "riskUntilRound": 17,
-            "summary": "return/available from Round 16"
-          },
-          "returnRound": 16,
-          "returnWindowMinRound": 16,
-          "returnWindowMaxRound": 17
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 16,
-        "outUntilRound": 15,
-        "riskUntilRound": 17,
-        "summary": "return/available from Round 16"
-      },
-      "returnRound": 16,
-      "returnWindowMinRound": 16,
-      "returnWindowMaxRound": 17,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Joe Roddy": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "onio verhoeven shoulder tbc deine mariner thigh tbc corey jensen pulmonary embolism tbc billy walters acl tbc va 8217 a semu chest tbc canberra raiders player injury return savelio tamale hia tbc ethan sanders glute tbc joe roddy hand tbc josh papalii calf round 15 seb kris concussion round 15 simi sasagi shoulder round 15-16 noah martin ankle tbc matty nich",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "John Bateman": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": " phoenix crossland head knock tbc bradman best calf round 15 sandon smith calf round 16 north queensland cowboys player injury return jeremiah nanai shoulder tbc braidon burns hamstring tbc tom dearden ankle round 16-18 john bateman wrist foot tbc parramatta eels player injury return mitch moses hamstring round 15-16 jonah pezet hamstring round 18-19 junior ",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Kayal Iro": {
-      "status": "risk",
-      "label": "Monitor",
-      "sourceConfidence": "low",
-      "reason": "players.json monitor note.",
-      "sources": [
-        {
-          "source": "players_json",
-          "status": "risk",
-          "confidence": "low",
-          "label": "Monitor",
-          "context": "injuryNote: Question mark indicator in Joel screenshot",
-          "reason": "players.json monitor note."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Kurt Capewell": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "ee round 14 josh papalii raiders calf round 15 seb kris raiders concussion round 15 christian tuipulotu dragons hamstring round 15 eddie ieremia-toeava warriors concussion round 15 mitch barnett warriors rested round 15 kurt capewell warriors rested round 15 charnze nicoll-klokstad warriors neck round 15 sione fainu tigers concussion round 15 patrick herbert",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Marcelo Montoya": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "ext season multiple tweaks across clubs e g sione katoa braidon burns etc now tbc or shifted jump to team related players returning soon next fortnight player club injury return connor tracey bulldogs hamstring round 14 marcelo montoya bulldogs knee round 14 josh papalii raiders calf round 15 seb kris raiders concussion round 15 christian tuipulotu dragons h",
-          "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-          "timeline": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnWindow": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnRound": 27,
-          "returnWindowMinRound": 27,
-          "returnWindowMaxRound": 114
-        }
-      ],
-      "timeline": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnWindow": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnRound": 27,
-      "returnWindowMinRound": 27,
-      "returnWindowMaxRound": 114,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Matty Nicholson": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": " tbc canberra raiders player injury return savelio tamale hia tbc ethan sanders glute tbc joe roddy hand tbc josh papalii calf round 15 seb kris concussion round 15 simi sasagi shoulder round 15-16 noah martin ankle tbc matty nicholson shoulder tbc canterbury-bankstown bulldogs player injury return connor tracey hamstring round 14 marcelo montoya knee round ",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Morgan Gannon": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "rs player injury return leka halasima hamstring tbc eddie ieremia-toeava concussion round 15 mitch barnett rested round 15 kurt capewell rested round 15 charnze nicoll-klokstad neck round 15 sam healey thumb round 17-18 morgan gannon personal leave tbc tanah boyd acl 2027 roger tuivasa-sheck acl season wests tigers player injury return jock madden arm tbc ro",
-          "reason": "Injury source indicates out/injured/unavailable. 12-99 week injury window; out through R26, risk through R113.",
-          "timeline": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnWindow": {
-            "type": "weeks",
-            "minWeeks": 12,
-            "maxWeeks": 99,
-            "returnRound": 27,
-            "returnWindowMinRound": 27,
-            "returnWindowMaxRound": 114,
-            "outUntilRound": 26,
-            "riskUntilRound": 113,
-            "summary": "12-99 week injury window"
-          },
-          "returnRound": 27,
-          "returnWindowMinRound": 27,
-          "returnWindowMaxRound": 114
-        }
-      ],
-      "timeline": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnWindow": {
-        "type": "weeks",
-        "minWeeks": 12,
-        "maxWeeks": 99,
-        "returnRound": 27,
-        "returnWindowMinRound": 27,
-        "returnWindowMaxRound": 114,
-        "outUntilRound": 26,
-        "riskUntilRound": 113,
-        "summary": "12-99 week injury window"
-      },
-      "returnRound": 27,
-      "returnWindowMinRound": 27,
-      "returnWindowMaxRound": 114,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Myles Martin": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "medium",
-      "reason": "players.json indicates out/unavailable.",
-      "sources": [
-        {
-          "source": "players_json",
-          "status": "out",
-          "confidence": "medium",
-          "label": "Out",
-          "context": "injuryNote: DNP in screenshot treated as not-yet-played, not an injury/out.",
-          "reason": "players.json indicates out/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Niwhai Puru": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. 2-3 week injury window; out through R16, risk through R17.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://www.zerotackle.com/hynes-to-miss-more-time-as-calf-injury-plays-havoc-234398/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "by news corp that hynes could miss another two or three weeks as he gets back to full fitness with the sharks keen to avoid a more serious injury by playing through it the halfback will likely continue to be replaced by niwhai puru after he did a solid job against manly in replacing him while normal halves partner braydon trindall stole the show with a sensa",
-          "reason": "Injury source indicates out/injured/unavailable. 2-3 week injury window; out through R16, risk through R17.",
-          "timeline": {
-            "type": "weeks",
-            "minWeeks": 2,
-            "maxWeeks": 3,
-            "returnRound": 17,
-            "returnWindowMinRound": 17,
-            "returnWindowMaxRound": 18,
-            "outUntilRound": 16,
-            "riskUntilRound": 17,
-            "summary": "2-3 week injury window"
-          },
-          "returnWindow": {
-            "type": "weeks",
-            "minWeeks": 2,
-            "maxWeeks": 3,
-            "returnRound": 17,
-            "returnWindowMinRound": 17,
-            "returnWindowMaxRound": 18,
-            "outUntilRound": 16,
-            "riskUntilRound": 17,
-            "summary": "2-3 week injury window"
-          },
-          "returnRound": 17,
-          "returnWindowMinRound": 17,
-          "returnWindowMaxRound": 18
-        }
-      ],
-      "timeline": {
-        "type": "weeks",
-        "minWeeks": 2,
-        "maxWeeks": 3,
-        "returnRound": 17,
-        "returnWindowMinRound": 17,
-        "returnWindowMaxRound": 18,
-        "outUntilRound": 16,
-        "riskUntilRound": 17,
-        "summary": "2-3 week injury window"
-      },
-      "returnWindow": {
-        "type": "weeks",
-        "minWeeks": 2,
-        "maxWeeks": 3,
-        "returnRound": 17,
-        "returnWindowMinRound": 17,
-        "returnWindowMaxRound": 18,
-        "outUntilRound": 16,
-        "riskUntilRound": 17,
-        "summary": "2-3 week injury window"
-      },
-      "returnRound": 17,
-      "returnWindowMinRound": 17,
       "returnWindowMaxRound": 18,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Patrick Herbert": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "nd 15 eddie ieremia-toeava warriors concussion round 15 mitch barnett warriors rested round 15 kurt capewell warriors rested round 15 charnze nicoll-klokstad warriors neck round 15 sione fainu tigers concussion round 15 patrick herbert tigers suspended round 15 jake averillo dolphins hand round 15 bradman best knights calf round 15 full nrl injury list club-",
-          "reason": "Injury source indicates out/injured/unavailable."
-        }
-      ],
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Phoenix Crossland": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 17; out through R16, risk through R18.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "6 hugo peel knee round 17 marion seve triceps round 17 nick meaney calf round 18 tui kamikamica medical episode tbc eli katoa medical episode tbc xavier coates achilles next season newcastle knights player injury return phoenix crossland head knock tbc bradman best calf round 15 sandon smith calf round 16 north queensland cowboys player injury return jeremia",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 17; out through R16, risk through R18.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 17,
-            "outUntilRound": 16,
-            "riskUntilRound": 18,
-            "summary": "return/available from Round 17"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 17,
-            "outUntilRound": 16,
-            "riskUntilRound": 18,
-            "summary": "return/available from Round 17"
-          },
-          "returnRound": 17,
-          "returnWindowMinRound": 17,
-          "returnWindowMaxRound": 18
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 17,
-        "outUntilRound": 16,
-        "riskUntilRound": 18,
-        "summary": "return/available from Round 17"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 17,
-        "outUntilRound": 16,
-        "riskUntilRound": 18,
-        "summary": "return/available from Round 17"
-      },
-      "returnRound": 17,
-      "returnWindowMinRound": 17,
-      "returnWindowMaxRound": 18,
-      "updated": "2026-06-10T11:12:35.134Z"
-    },
-    "Sione Katoa": {
-      "status": "out",
-      "label": "Out",
-      "sourceConfidence": "high",
-      "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
-      "sources": [
-        {
-          "source": "injury_source",
-          "url": "https://rugbyleaguezone.com/nrl/injuries/",
-          "status": "out",
-          "confidence": "high",
-          "label": "Out",
-          "context": "ound 16-18 updated timelines changes from previous pat carrigan ankle now round 20 gehamat shibasaki knee round 18-20 mitch moses hamstring round 15-16 xavier coates achilles next season multiple tweaks across clubs e g sione katoa braidon burns etc now tbc or shifted jump to team related players returning soon next fortnight player club injury return connor",
-          "reason": "Injury source indicates out/injured/unavailable. return/available from Round 20; out through R19, risk through R21.",
-          "timeline": {
-            "type": "return_round",
-            "returnRound": 20,
-            "outUntilRound": 19,
-            "riskUntilRound": 21,
-            "summary": "return/available from Round 20"
-          },
-          "returnWindow": {
-            "type": "return_round",
-            "returnRound": 20,
-            "outUntilRound": 19,
-            "riskUntilRound": 21,
-            "summary": "return/available from Round 20"
-          },
-          "returnRound": 20,
-          "returnWindowMinRound": 20,
-          "returnWindowMaxRound": 21
-        }
-      ],
-      "timeline": {
-        "type": "return_round",
-        "returnRound": 20,
-        "outUntilRound": 19,
-        "riskUntilRound": 21,
-        "summary": "return/available from Round 20"
-      },
-      "returnWindow": {
-        "type": "return_round",
-        "returnRound": 20,
-        "outUntilRound": 19,
-        "riskUntilRound": 21,
-        "summary": "return/available from Round 20"
-      },
-      "returnRound": 20,
-      "returnWindowMinRound": 20,
-      "returnWindowMaxRound": 21,
-      "updated": "2026-06-10T11:12:35.134Z"
+      "cleared": false
     }
   },
-  "lastChecked": "2026-06-11T10:59:35.051Z"
+  "unmatched": [
+    "J'maine Hopgood",
+    "Jake Tago",
+    "Marion Seve",
+    "Matt Doorey",
+    "Mitch Kenny",
+    "Nicholas Hynes",
+    "No current injuries or suspensions.",
+    "Samuel Healey",
+    "Siosiua Taukeiaho",
+    "Tom Dearden",
+    "Va'a Semu"
+  ]
 }
