@@ -741,8 +741,9 @@ if(currentInGroup>=reserveTargetCount(group)){
   return toast(`${group} reserves are already full`);
 }
 
-if(App.myTeam.length>=26){
-  return toast('Team already has 26 players');
+if((teamRenderState().reserveNames||[]).length>=12){
+  return toast('Reserves are already full');
+}
 }
 App.myTeam.push(p.name);
  App.emptyReserveGroup='';
