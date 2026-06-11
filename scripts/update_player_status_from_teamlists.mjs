@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 function chooseStatus(evidences) {
   const named = evidences.find(e => e.status === 'available' && e.confidence === 'high');
 
@@ -73,3 +75,28 @@ function chooseStatus(evidences) {
 
   return null;
 }
+
+const now = new Date().toISOString();
+
+let existing = {};
+try {
+  existing = JSON.parse(fs.readFileSync('player_status.json', 'utf8'));
+} catch (err) {
+  existing = {};
+}
+
+const output = {
+  ...existing,
+  updated: now,
+  lastChecked: now
+};
+
+fs.writeFileSync('player_status.json', JSON.stringify(output, null, 2) + '\n');
+
+fs.writeFileSync('status_update_report.json', JSON.stringify({
+  updated: now,
+  lastChecked: now,
+  message: 'Status timestamp refreshed by scheduled workflow.'
+}, null, 2) + '\n');
+
+console.log(`player_status.json timestamp refreshed at ${now}`);
