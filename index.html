@@ -571,6 +571,7 @@ function teamRenderState(){
   'FULLBACK'
  ];
 
+ // First pass: fill normal reserve targets
  for(const group of reserveSections){
   const target=reserveTargetCount(group);
 
@@ -587,6 +588,19 @@ function teamRenderState(){
   });
  }
 
+ // Second pass: fill remaining reserve spots up to 12
+ rawReserves.forEach(name=>{
+  if(reserveNames.length>=12)return;
+  if(usedReserve.has(name))return;
+
+  const p=getPlayer(name);
+  if(!p)return;
+
+  usedReserve.add(name);
+  reserveNames.push(name);
+ });
+
+ // Overflow should only happen if there are more than 12 reserves
  const overflowNames=rawReserves.filter(name=>!usedReserve.has(name));
 
  return {
