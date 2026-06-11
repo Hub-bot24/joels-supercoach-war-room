@@ -96,7 +96,7 @@ fs.writeFileSync('player_status.json', JSON.stringify(output, null, 2) + '\n');
 fs.writeFileSync('status_update_report.json', JSON.stringify({
   updated: now,
   lastChecked: now,
-  message: 'Status timestamp refreshed by scheduled workflow.'
+  message: 'Scheduled status heartbeat completed successfully.'
 }, null, 2) + '\n');
 
-console.log(`player_status.json timestamp refreshed at ${now}`);
+console.log(`player_status.json refreshed at ${now}`);
