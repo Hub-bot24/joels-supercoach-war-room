@@ -702,15 +702,15 @@ function formationReserveCard(p){
  </div>`
 }
 
-function reserveTargetCount(group){
- return group==='HOOKER'?1:
-        group==='FRONT ROWERS'?2:
-        group==='2ND ROW FORWARDS'?3:
-        group==='HALFBACK'?1:
-        group==='5/8'?1:
-        group==='WINGS / CENTRES'?3:
-        group==='FULLBACK'?1:0
-}
+const reserveSections=[
+ 'HOOKER',
+ 'FRONT ROWERS',
+ '2ND ROW FORWARDS',
+ 'HALFBACK',
+ '5/8',
+ 'WINGS / CENTRES',
+ 'FULLBACK'
+];
 function reserveGroupAccept(group){
  return group==='HOOKER'?['HOK']:
         group==='FRONT ROWERS'?['FRF']:
