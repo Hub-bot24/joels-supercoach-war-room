@@ -16,16 +16,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          node-version: "20"
+          python-version: "3.11"
 
-      - name: Run team-list and Origin status updater
-        run: node scripts/update_player_status_from_teamlists.mjs
+      - name: Install Python dependencies
+        run: pip install pandas requests beautifulsoup4 lxml
+
+      - name: Run player status updater
+        run: python scripts/update_player_status.py
 
       - name: Commit updated status files
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: Update player availability status from team lists
-          file_pattern: player_status.json status_update_report.json
+          commit_message: Update player availability status
+          file_pattern: player_status.json
