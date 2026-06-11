@@ -655,7 +655,7 @@ function emptyReserveTrade(group){
 const currentInGroup=(teamRenderState().reserveNames||[])
   .map(n=>getPlayer(n))
   .filter(Boolean)
-  .filter(r=>accepts.some(pos=>positions(r).includes(pos)))
+  .filter(r=>reserveBucket(r)===group)
   .length;
 
 if(currentInGroup>=reserveTargetCount(group)){
