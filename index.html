@@ -545,7 +545,17 @@ function proj(p){if(!p)return {floor:0,expected:0,ceiling:0,raw:0,goal:'No data'
 function roundProj(p){const pr=proj(p),st=availabilityStatus(p);if(!st.available)return {...pr,expected:0,floor:0,ceiling:0};if(st.key==='risk')return {...pr,expected:Math.round(pr.expected*.72),floor:Math.round(pr.floor*.55),ceiling:Math.round(pr.ceiling*.9)};return pr}
 function usedOnField(){const used=new Set();for(const slot of SLOT_DEFS){const name=App.lineup?.[slot.id];if(name&&App.myTeam.includes(name)&&getPlayer(name))used.add(name)}return used}
 function reserves(){const used=usedOnField();return App.myTeam.map(getPlayer).filter(p=>p&&!used.has(p.name))}
-function teamRenderState(){
+function reserveTargetCount(group){
+ if(group==='HOOKER') return 1;
+ if(group==='FRONT ROWERS') return 3;
+ if(group==='2ND ROW FORWARDS') return 2;
+ if(group==='HALFBACK') return 1;
+ if(group==='5/8') return 1;
+ if(group==='WINGS / CENTRES') return 3;
+ if(group==='FULLBACK') return 1;
+ return 0;
+}
+  function teamRenderState(){
  const fieldSlots=[],fieldNames=[],fieldSet=new Set(),fieldBySlot={};
 
  for(const slot of SLOT_DEFS){
