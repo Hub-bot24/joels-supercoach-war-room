@@ -696,7 +696,7 @@ function emptyReserveTrade(group){
  App.teamActionMode='emptyReserveTrade';
  renderTeam();
 }
-  function applyEmptyReserveTrade(group,name){
+function applyEmptyReserveTrade(group,name){
  const p=getPlayer(name);
  const accepts=reserveGroupAccept(group);
 
@@ -717,7 +717,6 @@ if(App.myTeam.length>=26){
   return toast('Team already has 26 players');
 }
 App.myTeam.push(p.name);
-App.myTeam=[...new Set([...teamRenderState().fieldNames,...teamRenderState().reserveNames])];
  App.emptyReserveGroup='';
  App.teamActionMode='';
 
