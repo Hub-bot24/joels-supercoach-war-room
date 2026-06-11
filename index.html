@@ -652,7 +652,19 @@ function emptyReserveTrade(group){
  if(!p || App.myTeam.includes(p.name) || !accepts.some(pos=>positions(p).includes(pos))){
   return toast('Invalid empty reserve trade');
  }
+const currentInGroup=(teamRenderState().reserveNames||[])
+  .map(n=>getPlayer(n))
+  .filter(Boolean)
+  .filter(r=>accepts.some(pos=>positions(r).includes(pos)))
+  .length;
 
+if(currentInGroup>=reserveTargetCount(group)){
+  return toast(`${group} reserves are already full`);
+}
+
+if(App.myTeam.length>=26){
+  return toast('Team already has 26 players');
+}
  App.myTeam.push(p.name);
  App.emptyReserveGroup='';
  App.teamActionMode='';
