@@ -667,7 +667,7 @@ function formationReservesHtml(reserveSections,groups){
  return `<aside class="formation-reserves"><h3>Reserves</h3>${reserveSections.map(g=>{
   const players=groups[g]||[];
   const target=reserveTargetCount(g);
-  const cards=[...players.slice(0,target).map(formationReserveCard)];
+const cards=[...players.map(formationReserveCard)];
   while(cards.length<target)cards.push(emptyFormationReserveCard(g));
   return `<section class="formation-reserve-section"><div class="formation-reserve-title">${esc(g)} RESERVES</div><div class="formation-reserve-list">${cards.join('')}</div></section>`
  }).join('')}</aside>`
@@ -685,7 +685,7 @@ function mobileTeamHtml(state=teamRenderState()){
  });
 
  const totalProjected=teamProjection();
- return `<div class="mobile-team-layout formation-page"><div class="mobile-team-head"><h2>My Team</h2>${trustBannerHtml()}<div class="team-score-hero"><span>Total Projected Score</span><b>${totalProjected}</b></div><div class="mobile-counts"><span>Field ${state.fieldSlots.length}/14</span><span>Reserves ${Math.min(rs.length,12)}/12</span><span>Projected ${totalProjected}</span></div><div id="teamActionPanel" class="small">${teamActionHtml()}</div><div class="side-actions"><button onclick="resetTeamFromFile()">Reset Team From File</button></div></div><div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot)}</main>${formationReservesHtml(reserveSections,groups)}</div></div>`
+ return `<div class="mobile-team-layout formation-page"><div class="mobile-team-head"><h2>My Team</h2>${trustBannerHtml()}<div class="team-score-hero"><span>Total Projected Score</span><b>${totalProjected}</b></div><div class="mobile-counts"><span>Field ${state.fieldSlots.length}/14</span><span>Reserves ${state.reserveNames.length}/12</span><span>Projected ${totalProjected}</span></div><div id="teamActionPanel" class="small">${teamActionHtml()}</div><div class="side-actions"><button onclick="resetTeamFromFile()">Reset Team From File</button></div></div><div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot)}</main>${formationReservesHtml(reserveSections,groups)}</div></div>`
 }
 
 function playerTradePositions(p){const ps=positions(p);return ps.length?ps:[]}
