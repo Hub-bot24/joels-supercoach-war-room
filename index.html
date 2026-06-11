@@ -545,7 +545,58 @@ function proj(p){if(!p)return {floor:0,expected:0,ceiling:0,raw:0,goal:'No data'
 function roundProj(p){const pr=proj(p),st=availabilityStatus(p);if(!st.available)return {...pr,expected:0,floor:0,ceiling:0};if(st.key==='risk')return {...pr,expected:Math.round(pr.expected*.72),floor:Math.round(pr.floor*.55),ceiling:Math.round(pr.ceiling*.9)};return pr}
 function usedOnField(){const used=new Set();for(const slot of SLOT_DEFS){const name=App.lineup?.[slot.id];if(name&&App.myTeam.includes(name)&&getPlayer(name))used.add(name)}return used}
 function reserves(){const used=usedOnField();return App.myTeam.map(getPlayer).filter(p=>p&&!used.has(p.name))}
-function teamRenderState(){const fieldSlots=[],fieldNames=[],fieldSet=new Set(),fieldBySlot={};for(const slot of SLOT_DEFS){const name=String(App.lineup?.[slot.id]||'').trim();if(!name||fieldSet.has(name)||!App.myTeam.includes(name)||!getPlayer(name))continue;fieldSet.add(name);fieldNames.push(name);fieldBySlot[slot.id]=name;fieldSlots.push({slot,name,player:getPlayer(name)})}const reserveNames=App.myTeam.filter(name=>!fieldSet.has(name)&&getPlayer(name));return {fieldSlots,fieldNames,reserveNames,fieldBySlot}}
+function teamRenderState(){
+ const fieldSlots=[],fieldNames=[],fieldSet=new Set(),fieldBySlot={};
+
+ for(const slot of SLOT_DEFS){
+  const name=String(App.lineup?.[slot.id]||'').trim();
+  if(!name||fieldSet.has(name)||!App.myTeam.includes(name)||!getPlayer(name))continue;
+  fieldSet.add(name);
+  fieldNames.push(name);
+  fieldBySlot[slot.id]=name;
+  fieldSlots.push({slot,name,player:getPlayer(name)});
+ }
+
+ const rawReserves=App.myTeam.filter(name=>!fieldSet.has(name)&&getPlayer(name));
+ const reserveNames=[];
+ const usedReserve=new Set();
+
+ const reserveSections=[
+  'HOOKER',
+  'FRONT ROWERS',
+  '2ND ROW FORWARDS',
+  'HALFBACK',
+  '5/8',
+  'WINGS / CENTRES',
+  'FULLBACK'
+ ];
+
+ for(const group of reserveSections){
+  const target=reserveTargetCount(group);
+
+  const matches=rawReserves
+   .filter(name=>!usedReserve.has(name))
+   .map(name=>getPlayer(name))
+   .filter(Boolean)
+   .filter(p=>reserveBucket(p)===group)
+   .slice(0,target);
+
+  matches.forEach(p=>{
+   usedReserve.add(p.name);
+   reserveNames.push(p.name);
+  });
+ }
+
+ const overflowNames=rawReserves.filter(name=>!usedReserve.has(name));
+
+ return {
+  fieldSlots,
+  fieldNames,
+  reserveNames,
+  fieldBySlot,
+  overflowNames
+ };
+}
 function teamProjection(){return SLOT_DEFS.reduce((s,slot)=>s+roundProj(getPlayer(App.lineup?.[slot.id])).expected,0)}
 function availableStarters(){return SLOT_DEFS.filter(slot=>availabilityStatus(getPlayer(App.lineup?.[slot.id])).available).length}
 function fieldCount(){return usedOnField().size}
