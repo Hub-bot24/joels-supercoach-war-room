@@ -755,12 +755,40 @@ App.myTeam.push(p.name);
  renderTeam();
 
  toast(`${p.name} added to ${group} reserves`);
-}
 function formationReservesHtml(reserveSections,groups){
- return `<aside class="formation-reserves"><h3>Reserves</h3>${reserveSections.map(g=>{
-  const players=groups[g]||[];
+ const targets={
+  'HOOKER':1,
+  'FRONT ROWERS':3,
+  '2ND ROW FORWARDS':2,
+  'HALFBACK':1,
+  '5/8':1,
+  'WINGS / CENTRES':3,
+  'FULLBACK':1
+ };
 
-  const cards=players.map(formationReserveCard);
+ const fixedSections=[
+  'HOOKER',
+  'FRONT ROWERS',
+  '2ND ROW FORWARDS',
+  'HALFBACK',
+  '5/8',
+  'WINGS / CENTRES',
+  'FULLBACK'
+ ];
+
+ return `<aside class="formation-reserves"><h3>Reserves</h3>${fixedSections.map(g=>{
+  const players=groups[g]||[];
+  const target=targets[g]||0;
+
+  const shown=players.slice(0,target);
+  const cards=shown.map(formationReserveCard);
+
+  while(cards.length<target){
+   cards.push(`<div class="formation-reserve-card formation-empty">
+    <div class="formation-reserve-pos">${esc(g)}</div>
+    <div class="formation-reserve-name">Empty</div>
+   </div>`);
+  }
 
   return `<section class="formation-reserve-section">
    <div class="formation-reserve-title">${esc(g)} RESERVES</div>
