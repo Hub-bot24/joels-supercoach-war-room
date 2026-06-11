@@ -743,11 +743,17 @@ App.myTeam.push(p.name);
 function formationReservesHtml(reserveSections,groups){
  return `<aside class="formation-reserves"><h3>Reserves</h3>${reserveSections.map(g=>{
   const players=groups[g]||[];
-  const target=reserveTargetCount(g);
-  const cards=[...players.slice(0,target).map(formationReserveCard)];
-  const overflow=players.slice(target);
-  while(cards.length<target)cards.push(emptyFormationReserveCard(g));
-  const overflowHtml=overflow.length?`<div class="small bad">Overflow hidden from legal reserves: ${overflow.map(p=>esc(p.name)).join(', ')}</div>`:'';
+
+  const cards=players.map(formationReserveCard);
+
+  return `<section class="formation-reserve-section">
+   <div class="formation-reserve-title">${esc(g)} RESERVES</div>
+   <div class="formation-reserve-list">${cards.join('')}</div>
+  </section>`;
+ }).join('')}</aside>`;
+}
+
+const overflowHtml='';
   return `<section class="formation-reserve-section"><div class="formation-reserve-title">${esc(g)} RESERVES</div><div class="formation-reserve-list">${cards.join('')}</div>${overflowHtml}</section>`
  }).join('')}</aside>`
 }
