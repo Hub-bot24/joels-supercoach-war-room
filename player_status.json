@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-11T11:40:51.493963+00:00",
+  "updated": "2026-06-11T14:00:21.072882+00:00",
   "source": "multi-source (NRL Casualty Ward + zerotackle)",
   "sourceUrls": [
     "https://www.nrl.com/casualty-ward/",
@@ -19,8 +19,8 @@
     }
   ],
   "generated": {
-    "rowsFound": 140,
-    "matched": 62,
+    "rowsFound": 143,
+    "matched": 63,
     "unmatched": 11
   },
   "players": {
@@ -49,7 +49,7 @@
           "expectedReturn": "Round 18"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -82,7 +82,7 @@
           "expectedReturn": "Round 20"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -115,7 +115,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -138,9 +138,17 @@
           "playProbability": 0,
           "reason": "Shoulder",
           "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Shoulder",
+          "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -173,7 +181,40 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
+      "returnType": "indefinite",
+      "returnWindowMinWeeks": null,
+      "returnWindowMaxWeeks": null,
+      "returnWindowMinRound": null,
+      "returnWindowMaxRound": null,
+      "cleared": false
+    },
+    "Adam Reynolds": {
+      "status": "out",
+      "playProbability": 0,
+      "reason": "Hamstring",
+      "expectedReturn": "TBC",
+      "expectedReturnRound": null,
+      "sourceConfidence": "high",
+      "sources": [
+        {
+          "source": "nrl-casualty-ward",
+          "confidence": "high",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "TBC"
+        },
+        {
+          "source": "zerotackle-injuries-suspensions",
+          "confidence": "medium",
+          "status": "out",
+          "playProbability": 0,
+          "reason": "Hamstring",
+          "expectedReturn": "TBC"
+        }
+      ],
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -206,7 +247,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -239,7 +280,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -272,7 +313,7 @@
           "expectedReturn": "Round 19"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -305,7 +346,7 @@
           "expectedReturn": "Round 20"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -338,7 +379,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -371,7 +412,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -404,7 +445,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -437,7 +478,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -470,7 +511,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -503,7 +544,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -536,7 +577,7 @@
           "expectedReturn": "Round 17"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -569,7 +610,7 @@
           "expectedReturn": "Round 20"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -602,7 +643,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -635,7 +676,7 @@
           "expectedReturn": "Round 18"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -668,7 +709,7 @@
           "expectedReturn": "Round 21"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -701,7 +742,7 @@
           "expectedReturn": "Round 21"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -734,7 +775,7 @@
           "expectedReturn": "Round 23"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -767,7 +808,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -800,7 +841,7 @@
           "expectedReturn": "Round 17"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -833,7 +874,7 @@
           "expectedReturn": "Round 17"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -845,8 +886,8 @@
       "status": "out",
       "playProbability": 0,
       "reason": "Arm",
-      "expectedReturn": "Round 17",
-      "expectedReturnRound": 17,
+      "expectedReturn": "Round 18",
+      "expectedReturnRound": 18,
       "sourceConfidence": "high",
       "sources": [
         {
@@ -855,7 +896,7 @@
           "status": "out",
           "playProbability": 0,
           "reason": "Arm",
-          "expectedReturn": "Round 17"
+          "expectedReturn": "Round 18"
         },
         {
           "source": "zerotackle-injuries-suspensions",
@@ -863,15 +904,15 @@
           "status": "out",
           "playProbability": 0,
           "reason": "Arm",
-          "expectedReturn": "Round 17"
+          "expectedReturn": "Round 18"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
-      "returnWindowMinRound": 17,
-      "returnWindowMaxRound": 17,
+      "returnWindowMinRound": 18,
+      "returnWindowMaxRound": 18,
       "cleared": false
     },
     "Campbell Graham": {
@@ -899,7 +940,7 @@
           "expectedReturn": "Round 19"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -932,7 +973,7 @@
           "expectedReturn": "Round 23"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -965,7 +1006,7 @@
           "expectedReturn": "Round 26"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -998,7 +1039,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1031,7 +1072,7 @@
           "expectedReturn": "Next Season"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1064,7 +1105,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1097,7 +1138,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1130,7 +1171,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1163,7 +1204,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1196,7 +1237,7 @@
           "expectedReturn": "Next Season"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1229,7 +1270,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1262,7 +1303,7 @@
           "expectedReturn": "Round 21"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1295,7 +1336,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1328,7 +1369,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1361,7 +1402,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1394,7 +1435,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1427,7 +1468,7 @@
           "expectedReturn": "Round 17"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1460,7 +1501,7 @@
           "expectedReturn": "Round 18"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1493,7 +1534,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1526,7 +1567,7 @@
           "expectedReturn": "Next Season"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1559,7 +1600,7 @@
           "expectedReturn": "Indefinite"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1592,7 +1633,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1625,7 +1666,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1658,7 +1699,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1691,7 +1732,7 @@
           "expectedReturn": "Next Season"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1716,7 +1757,7 @@
           "expectedReturn": "Round 17"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1749,7 +1790,7 @@
           "expectedReturn": "Round 17"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1782,7 +1823,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1815,7 +1856,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1848,7 +1889,7 @@
           "expectedReturn": "Next Season"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1881,7 +1922,7 @@
           "expectedReturn": "Next Season"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1914,7 +1955,7 @@
           "expectedReturn": "Round 16"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1947,7 +1988,7 @@
           "expectedReturn": "Round 18"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -1980,7 +2021,7 @@
           "expectedReturn": "Round 20"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -2013,7 +2054,7 @@
           "expectedReturn": "TBC"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "indefinite",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
@@ -2038,7 +2079,7 @@
           "expectedReturn": "Round 18"
         }
       ],
-      "lastUpdated": "2026-06-11T11:40:51.493963+00:00",
+      "lastUpdated": "2026-06-11T14:00:21.072882+00:00",
       "returnType": "round",
       "returnWindowMinWeeks": null,
       "returnWindowMaxWeeks": null,
