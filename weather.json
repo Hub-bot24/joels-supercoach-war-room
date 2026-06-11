@@ -1,35 +1,8 @@
 {
-  "updated": "2026-06-11T14:45:21.763006+00:00",
+  "updated": "2026-06-11T21:26:44.752822+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
-    {
-      "round": 15,
-      "match": "Rabbitohs v Broncos",
-      "homeTeam": "STH",
-      "awayTeam": "BRO",
-      "venue": "Accor Stadium",
-      "kickoffLocal": "2026-06-11T19:50:00",
-      "city": "Sydney",
-      "lat": -33.8472,
-      "lon": 151.0634,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-06-11T19:20:00",
-        "to": "2026-06-11T21:40:00",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "label": "Unknown",
-        "score": 0,
-        "reasons": [
-          "No hourly forecast available"
-        ],
-        "captainImpact": "Unknown weather risk."
-      }
-    },
     {
       "round": 15,
       "match": "Dolphins v Roosters",
@@ -472,6 +445,158 @@
             "maxScore": 0
           },
           "second_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          }
+        },
+        "reasons": [],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 16,
+      "match": "Warriors v Cowboys",
+      "homeTeam": "NZL",
+      "awayTeam": "NQC",
+      "venue": "One NZ Stadium",
+      "kickoffLocal": "2026-06-21T16:00:00",
+      "city": "Christchurch",
+      "lat": -43.533,
+      "lon": 172.6203,
+      "timezone": "Pacific/Auckland",
+      "weatherStatus": "missing_venue",
+      "gameWindowWeather": [],
+      "weatherRisk": {
+        "score": 0,
+        "label": "Unknown",
+        "reasons": [
+          "Venue missing from venues.json"
+        ]
+      }
+    },
+    {
+      "round": 16,
+      "match": "Storm v Raiders",
+      "homeTeam": "MEL",
+      "awayTeam": "CBR",
+      "venue": "AAMI Park",
+      "kickoffLocal": "2026-06-21T16:05:00",
+      "city": "Melbourne",
+      "lat": -37.824,
+      "lon": 144.9834,
+      "timezone": "Australia/Melbourne",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-06-21T15:35:00",
+        "to": "2026-06-21T17:55:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-06-21T16:00",
+          "phase": "pre_game",
+          "temperature_2m": 12.7,
+          "precipitation_probability": 18,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 6.3,
+          "wind_gusts_10m": 16.2
+        },
+        {
+          "time": "2026-06-21T17:00",
+          "phase": "halftime_period",
+          "temperature_2m": 12.5,
+          "precipitation_probability": 18,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 6.3,
+          "wind_gusts_10m": 15.8
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 0,
+        "maxRainProbability": 18.0,
+        "totalGameRainMm": 0.0,
+        "maxWindKmh": 6.3,
+        "maxGustKmh": 16.2,
+        "avgTemp": 12.6,
+        "phaseRisk": {
+          "pre_game": {
+            "avgScore": 0,
+            "maxScore": 0
+          },
+          "halftime_period": {
+            "avgScore": 0,
+            "maxScore": 0
+          }
+        },
+        "reasons": [],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 16,
+      "match": "Roosters v Sharks",
+      "homeTeam": "SYD",
+      "awayTeam": "SHA",
+      "venue": "Allianz Stadium",
+      "kickoffLocal": "2026-06-21T18:15:00",
+      "city": "Sydney",
+      "lat": -33.889,
+      "lon": 151.225,
+      "timezone": "Australia/Sydney",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-06-21T17:45:00",
+        "to": "2026-06-21T20:05:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-06-21T18:00",
+          "phase": "pre_game",
+          "temperature_2m": 14.1,
+          "precipitation_probability": 18,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 16.2,
+          "wind_gusts_10m": 31.7
+        },
+        {
+          "time": "2026-06-21T19:00",
+          "phase": "halftime_period",
+          "temperature_2m": 13.4,
+          "precipitation_probability": 18,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 12.8,
+          "wind_gusts_10m": 28.1
+        },
+        {
+          "time": "2026-06-21T20:00",
+          "phase": "final_20_or_late",
+          "temperature_2m": 12.6,
+          "precipitation_probability": 18,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 9.7,
+          "wind_gusts_10m": 24.1
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 0,
+        "maxRainProbability": 18.0,
+        "totalGameRainMm": 0.0,
+        "maxWindKmh": 16.2,
+        "maxGustKmh": 31.7,
+        "avgTemp": 13.4,
+        "phaseRisk": {
+          "pre_game": {
+            "avgScore": 0,
+            "maxScore": 0
+          },
+          "halftime_period": {
+            "avgScore": 0,
+            "maxScore": 0
+          },
+          "final_20_or_late": {
             "avgScore": 0,
             "maxScore": 0
           }
