@@ -797,13 +797,18 @@ function formationReservesHtml(reserveSections,groups){
   const cards=shown.map(formationReserveCard);
 
   while(cards.length<target){
-   cards.push(
-    '<div class="formation-reserve-card formation-empty">'+
-     '<div class="formation-reserve-pos">'+esc(g)+'</div>'+
-     '<div class="formation-reserve-name">Empty</div>'+
-    '</div>'
-   );
+   cards.push(emptyFormationReserveCard(g));
   }
+
+  html+='<section class="formation-reserve-section">';
+  html+='<div class="formation-reserve-title">'+esc(g)+' RESERVES</div>';
+  html+='<div class="formation-reserve-list">'+cards.join('')+'</div>';
+  html+='</section>';
+ });
+
+ html+='</aside>';
+ return html;
+}
 
   html+='<section class="formation-reserve-section">';
   html+='<div class="formation-reserve-title">'+esc(g)+' RESERVES</div>';
