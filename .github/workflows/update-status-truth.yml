@@ -1,0 +1,37 @@
+name: Update Status Truth
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-status-truth:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run status truth updater
+        run: node scripts/update-status.mjs
+
+      - name: Commit updated truth files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update status truth data
+          file_pattern: |
+            data/status_truth.json
+            data/teamlists.json
+            data/injuries.json
+            data/suspensions.json
+            data/origin.json
+            data/current_round.json
