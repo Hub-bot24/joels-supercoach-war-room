@@ -412,24 +412,56 @@ function compactTextForPlayerScan(text){
     .replace(/\u00a0/g, ' ')
     .trim();
 }
-function playerNameNearJerseyRegex(name){
-  const full = escapedRe(String(name || '').trim()).replace(/\s+/g, '\\s+');
+function surnameKeyForName(name){
   const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
-  const surname = parts.length >= 2 ? escapedRe(parts.slice(1).join(' ')).replace(/\s+/g, '\\s+') : '';
-  const initialSurname = surname ? `[A-Z]\\.?\\s+${surname}\\s+${full}` : full;
-  const playerLabel = `(?:${full}\\s+${full}|${initialSurname}|${full})`;
-  // Zero Tackle/NRL stripped article text can appear as either:
-  //   1 Player Name Player Name
-  //   Player Name Player Name 1
-  //   J. Surname Player Full Name 9
-  // This remains generic: it only accepts a player name next to a jersey number on a team-list page.
+  return normName(parts.length >= 2 ? parts.slice(1).join(' ') : String(name || ''));
+}
+function surnameFrequency(players){
+  const m = new Map();
+  for(const p of players || []){
+    const k = surnameKeyForName(p.name);
+    if(!k) continue;
+    m.set(k, (m.get(k)||0) + 1);
+  }
+  return m;
+}
+function playerNameNearJerseyRegex(name, surnameCounts){
+  const raw = String(name || '').trim();
+  const full = escapedRe(raw).replace(/\s+/g, '\\s+');
+  const parts = raw.split(/\s+/).filter(Boolean);
+  const surnameRaw = parts.length >= 2 ? parts.slice(1).join(' ') : raw;
+  const surname = escapedRe(surnameRaw).replace(/\s+/g, '\\s+');
+  const surnameKey = surnameKeyForName(raw);
+  const isUniqueSurname = surnameKey && (surnameCounts?.get(surnameKey) || 0) === 1;
+
+  const labels = [
+    `${full}\\s+${full}`,
+    full
+  ];
+
+  // Generic initial/surname support for source pages that strip full names down to labels like:
+  //   KL Iro KL Iro 4
+  //   D. Watene-Zelezniak Dallin Watene-Zelezniak 2
+  // Use broad 1–3 initial letters ONLY where the surname is unique in the player database.
+  // This avoids dangerous B Smith-style collisions.
+  if(parts.length >= 2 && isUniqueSurname){
+    labels.push(`[A-Z]{1,3}\\.?\\s+${surname}`);
+    labels.push(`[A-Z]{1,3}\\.?\\s+${surname}\\s+[A-Z]{1,3}\\.?\\s+${surname}`);
+  } else if(parts.length >= 2){
+    const firstInitial = escapedRe(parts[0][0] || '');
+    labels.push(`${firstInitial}\\.?\\s+${surname}\\s+${full}`);
+  }
+
+  const playerLabel = `(?:${labels.join('|')})`;
+  // Zero Tackle/NRL stripped article text can appear with jersey number before or after name.
   return new RegExp(`(?:^|\\s)([1-9]|1[0-9]|2[0-5])\\s+${playerLabel}(?=\\s|$)|(?:^|\\s)${playerLabel}\\s+([1-9]|1[0-9]|2[0-5])(?=\\s|$)`, 'i');
 }
 function fromKnownPlayerJerseyPatterns(players, page){
   const text = compactTextForPlayerScan(page.text);
   const rows = [];
+  const surnameCounts = surnameFrequency(players);
   for(const p of players){
-    const re = playerNameNearJerseyRegex(p.name);
+    const re = playerNameNearJerseyRegex(p.name, surnameCounts);
     const m = re.exec(text);
     if(!m) continue;
     const jersey = Number(m[1] || m[2]);
