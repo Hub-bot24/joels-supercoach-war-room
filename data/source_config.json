@@ -1,28 +1,61 @@
-{
-  "teamlistIndexUrls": [
-    "https://www.nrl.com/news/",
-    "https://www.zerotackle.com/category/nrl/nrl-team-lists/",
-    "https://www.zerotackle.com/nrl/team-lists/",
-    "https://www.zerotackle.com/nrl-team-lists/"
-  ],
-  "casualtyWardUrls": [
-    "https://www.nrl.com/casualty-ward/",
-    "https://www.zerotackle.com/nrl/injuries-suspensions/"
-  ],
-  "suspensionUrls": [
-    "https://www.nrl.com/news/topic/judiciary/"
-  ],
-  "backupStatusFiles": [
-    "player_status.json",
-    "teamlist_sources.json",
-    "origin_players.json",
-    "status_update_report.json"
-  ],
-  "rules": [
-    "No hardcoded player fixes",
-    "No individual player overrides",
-    "Current club team-list truth is required for NAMED/GREEN",
-    "Previous week can only produce EXPECTED/YELLOW, never NAMED/GREEN",
-    "Origin is ORANGE only until club team-list truth confirms NAMED or NOT NAMED"
-  ]
-}
+name: Update Status Truth
+
+on:
+  workflow_dispatch:
+    inputs:
+      active_round:
+        description: "NRL/SuperCoach round to build. Leave blank to infer from files."
+        required: false
+        default: ""
+  schedule:
+    # Baseline update. The script itself is source-first and will fail safe if data is missing.
+    - cron: "*/30 * * * *"
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  update-status-truth:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run core status truth updater
+        env:
+          ACTIVE_ROUND: ${{ github.event.inputs.active_round }}
+        run: node scripts/update-status.mjs
+
+      - name: Commit updated truth files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update status truth data
+          file_pattern: |
+            data/status_truth.json
+            data/current_round.json
+            data/teamlists.json
+            data/injuries.json
+            data/suspensions.json
+            data/origin.json
+            data/status_previous.json
+            data/teamlist_baseline_tuesday.json
+            data/teamlist_changes.json
+            data/notifications.json
+            data/notification_message.md
+            data/history/*.json
+
+      - name: Create notification issue for new changes
+        if: hashFiles('data/notification_message.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "War Room status changes - $(date -u +'%Y-%m-%d %H:%M UTC')" \
+            --body-file data/notification_message.md || true
