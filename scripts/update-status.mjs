@@ -686,17 +686,41 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
   }
   return {totalFound, loadedTeams:[...loadedTeams], parser:'section_parser_plus_guarded_jersey_patterns_with_source_priority_v22', sectionFound, knownPatternFound, pageLevelMissingCount};
 }
+function localWindowAroundName(text, name, before=360, after=520){
+  const src = String(text || '').replace(/\s+/g,' ');
+  const re = nameRegex(name);
+  if(!re) return '';
+  const m = re.exec(src);
+  if(!m) return '';
+  const start = Math.max(0, m.index - before);
+  const end = Math.min(src.length, m.index + String(m[0]).length + after);
+  return src.slice(start, end);
+}
+function injuryWindowHasPlayerEvidence(windowText){
+  const txt = String(windowText || '').toLowerCase();
+  if(!hasInjuryWords(txt)) return false;
+  // Do not assign a player an injury just because their name appears on a giant casualty page.
+  // The injury word must be near that player, and the window must look like an injury/return row.
+  return /injur|hamstring|calf|knee|shoulder|ankle|hia|concussion|groin|quad|neck|back|wrist|rib|return|round|week|tbc|indefinite|test|monitor|ruled out/i.test(txt);
+}
 function fromFetchedInjuries(players, pages, injuriesOut){
   let count = 0;
+  let skippedBroadPageMentions = 0;
   for(const page of pages){
     const found = findPlayerNamesInText(players, page.text);
     for(const p of found){
+      const window = localWindowAroundName(page.text, p.name);
+      if(!injuryWindowHasPlayerEvidence(window)){
+        skippedBroadPageMentions++;
+        continue;
+      }
       const src = sourceObj('injury', page.sourceName, page.url, NOW_ISO);
-      addOrMerge(injuriesOut, p, makeStatus(STATUS.INJURED, `Name found on injury/casualty source page (${page.sourceName}).`, [src], {...injuryReturnMetaFromRecord({reason:page.text, source:page.sourceName, url:page.url, updatedAt:NOW_ISO}, null), injuryStatus:'injury_source_match', team:p.team, teamCanonical:playerTeam(p)}));
+      const meta = injuryReturnMetaFromRecord({reason:window, source:page.sourceName, url:page.url, updatedAt:NOW_ISO}, null);
+      addOrMerge(injuriesOut, p, makeStatus(STATUS.INJURED, `${meta.injuryType || 'Injury'} context found near player on injury/casualty source page (${page.sourceName}).`, [src], {...meta, injuryStatus:'injury_local_context_match', team:p.team, teamCanonical:playerTeam(p)}));
       count++;
     }
   }
-  return {count};
+  return {count, skippedBroadPageMentions};
 }
 
 function fromFetchedOriginContext(players, pages){
@@ -736,17 +760,41 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
       rec = makeStatus(STATUS.BYE, `Bye round ${round}`, [sourceObj('fixture','players.json bye data','players.json')], {selectionStatus:'bye', team:p.team});
     } else if(s){
       rec = {...s, selectionStatus:'suspended'};
-    } else if(i && (!t || t.displayStatus !== STATUS.NAMED)){
+    } else if(t){
+      rec = t;
+      if(i){
+        const phase = injuryPhaseForRound(i, round);
+        const injuryExtra = {
+          injuryNote:i.reason,
+          injurySources:i.sources,
+          injuryType:i.injuryType,
+          expectedReturnText:i.expectedReturnText,
+          expectedReturnRoundMin:i.expectedReturnRoundMin,
+          expectedReturnRoundMax:i.expectedReturnRoundMax,
+          injuryRedUntilRound:i.injuryRedUntilRound,
+          injuryRiskUntilRound:i.injuryRiskUntilRound
+        };
+        if(t.displayStatus === STATUS.NAMED){
+          rec = {...t, ...injuryExtra, reason:`${t.reason}; injury note: ${i.reason}`, sources:[...(t.sources||[]), ...(i.sources||[])]};
+        } else if(t.displayStatus === STATUS.EXPECTED){
+          rec = {...t, ...injuryExtra, reason:`${t.reason}; injury note: ${i.reason}`, sources:[...(t.sources||[]), ...(i.sources||[])]};
+        } else if(t.displayStatus === STATUS.NOT_NAMED){
+          // Current team-list truth beats a return-risk injury note.
+          // A player not in the current club list is grey, not yellow, even if an injury page says return/test this round.
+          // Only a still-active red injury window can override the grey not-named status.
+          if(phase === 'red'){
+            rec = {...i, selectionStatus:'injured'};
+          } else {
+            rec = {...t, ...injuryExtra, reason:`${t.reason}; injury/return note: ${i.reason}`, sources:[...(t.sources||[]), ...(i.sources||[])]};
+          }
+        }
+      }
+    } else if(i){
       const phase = injuryPhaseForRound(i, round);
-      if(phase === 'yellow'){
+      if(phase === 'yellow' && i.injuryReturnKnown){
         rec = makeStatus(STATUS.EXPECTED, `${i.reason || 'Injury return window'}; return risk${i.expectedReturnText ? ` (${i.expectedReturnText})` : ''}`, i.sources || [], {...i, displayStatus:STATUS.EXPECTED, colour:COLOUR[STATUS.EXPECTED], available:true, selectionStatus:'injury_return_risk'});
       } else {
         rec = {...i, selectionStatus:'injured'};
-      }
-    } else if(t){
-      rec = t;
-      if(i && t.displayStatus === STATUS.NAMED){
-        rec = {...t, injuryNote:i.reason, injurySources:i.sources, reason:`${t.reason}; injury note: ${i.reason}`, sources:[...(t.sources||[]), ...(i.sources||[])]};
       }
       if(o){
         const originReason = o.originContextOnly ? 'Origin/representative-duty context present' : 'Origin note present';
@@ -875,7 +923,9 @@ async function main(){
       'All not-named output must use NOT_NAMED internally, not NOT NAMED',
       'Origin/representative-duty context can explain NOT_NAMED, but cannot make a player GREEN/NAMED by itself',
       'Yellow/EXPECTED is allowed only for real extended squad, confirmed return-risk windows, or explicit test/monitor status; missing team-list data must be grey/source_missing, not yellow',
-      'Injury windows use red through minimum weeks out, then yellow during the return-risk window until maximum weeks/round'
+      'Injury windows use red through minimum weeks out, then yellow during the return-risk window until maximum weeks/round',
+      'Injury pages are scoped to text near the player name; a broad casualty page mention cannot create a player injury/return status',
+      'Current team-list NOT_NAMED beats injury return-risk yellow unless the injury window is still red/ruled out'
     ],
     players: playersOut
   };
