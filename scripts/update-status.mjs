@@ -165,7 +165,8 @@ function injuryReturnMetaFromRecord(rec, round){
     injuryType: injuryTypeFromText(`${directText} ${blob}`),
     injurySourceText: rec?.source || rec?.sourceName || rec?.provider || rec?.url || '',
     injuryUpdatedAt: rec?.updatedAt || rec?.updated || rec?.lastUpdated || NOW_ISO,
-    injuryStartRound: startRound
+    injuryStartRound: startRound,
+    injuryReturnKnown: false
   };
 
   const weeks = firstMatchText(txt, [
@@ -179,6 +180,7 @@ function injuryReturnMetaFromRecord(rec, round){
     meta.injuryMinWeeks = minW;
     meta.injuryMaxWeeks = maxW;
     meta.expectedReturnText = `${minW}-${maxW} weeks`;
+    meta.injuryReturnKnown = true;
     if(startRound){
       meta.injuryRedUntilRound = startRound + minW - 1;
       meta.injuryRiskUntilRound = startRound + maxW - 1;
@@ -193,6 +195,7 @@ function injuryReturnMetaFromRecord(rec, round){
     meta.injuryMinWeeks = w;
     meta.injuryMaxWeeks = w;
     meta.expectedReturnText = `${w} week${w===1?'':'s'}`;
+    meta.injuryReturnKnown = true;
     if(startRound){
       meta.injuryRedUntilRound = startRound + w - 1;
       meta.injuryRiskUntilRound = startRound + w - 1;
@@ -205,6 +208,7 @@ function injuryReturnMetaFromRecord(rec, round){
   if(roundMatch){
     const rr = Number(roundMatch[1]);
     meta.expectedReturnText = `Round ${rr}`;
+    meta.injuryReturnKnown = true;
     meta.expectedReturnRoundMin = rr;
     meta.expectedReturnRoundMax = rr;
     meta.injuryRedUntilRound = Math.max(0, rr - 1);
