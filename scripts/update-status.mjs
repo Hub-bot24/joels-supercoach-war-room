@@ -388,14 +388,52 @@ function parseTeamSectionsFromPage(text){
   }
   return found;
 }
+
+function compactTextForPlayerScan(text){
+  return String(text || '')
+    .replace(/\s+/g, ' ')
+    .replace(/\u00a0/g, ' ')
+    .trim();
+}
+function playerNameNearJerseyRegex(name){
+  const full = escapedRe(String(name || '').trim()).replace(/\s+/g, '\\s+');
+  const parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+  const surname = parts.length >= 2 ? escapedRe(parts.slice(1).join(' ')).replace(/\s+/g, '\\s+') : '';
+  const initialSurname = surname ? `[A-Z]\\.?\\s+${surname}\\s+${full}` : full;
+  const playerLabel = `(?:${full}\\s+${full}|${initialSurname}|${full})`;
+  // Zero Tackle/NRL stripped article text can appear as either:
+  //   1 Player Name Player Name
+  //   Player Name Player Name 1
+  //   J. Surname Player Full Name 9
+  // This remains generic: it only accepts a player name next to a jersey number on a team-list page.
+  return new RegExp(`(?:^|\\s)([1-9]|1[0-9]|2[0-5])\\s+${playerLabel}(?=\\s|$)|(?:^|\\s)${playerLabel}\\s+([1-9]|1[0-9]|2[0-5])(?=\\s|$)`, 'i');
+}
+function fromKnownPlayerJerseyPatterns(players, page){
+  const text = compactTextForPlayerScan(page.text);
+  const rows = [];
+  for(const p of players){
+    const re = playerNameNearJerseyRegex(p.name);
+    const m = re.exec(text);
+    if(!m) continue;
+    const jersey = Number(m[1] || m[2]);
+    if(!Number.isFinite(jersey) || jersey < 1 || jersey > 25) continue;
+    rows.push({player:p, jersey});
+  }
+  return rows;
+}
+
 function fromFetchedTeamlists(players, pages, teamlistsOut){
   const lookup = playerLookupByName(players);
   const teamFound = new Map();
   let totalFound = 0;
+  let sectionFound = 0;
+  let knownPatternFound = 0;
   for(const page of pages){
+    const src = sourceObj('teamlist', page.sourceName, page.url, NOW_ISO);
+
+    // Parser 1: structured team-heading numbered sections.
     const sections = parseTeamSectionsFromPage(page.text);
     for(const [teamCanon, numbered] of Object.entries(sections)){
-      const src = sourceObj('teamlist', page.sourceName, page.url, NOW_ISO);
       let matchedForTeam = 0;
       for(const row of numbered){
         const p = lookup.get(normName(row.name));
@@ -406,8 +444,28 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
         addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: row.jersey <= 17 ? 'named' : 'extended', team:p.team, teamCanonical:teamCanon, jersey:row.jersey}));
         matchedForTeam++;
         totalFound++;
+        sectionFound++;
       }
-      if(matchedForTeam >= 10) teamFound.set(teamCanon, matchedForTeam);
+      if(matchedForTeam >= 10) teamFound.set(teamCanon, Math.max(teamFound.get(teamCanon)||0, matchedForTeam));
+    }
+
+    // Parser 2: generic known-player + jersey-number patterns from stripped team-list article text.
+    // This is needed because some source pages render rows as "1 Player Player" or "Player Player 1" rather than "1. Player".
+    const jerseyRows = fromKnownPlayerJerseyPatterns(players, page);
+    const pageTeamCounts = new Map();
+    for(const row of jerseyRows){
+      const p = row.player;
+      const teamCanon = playerTeam(p);
+      if(!teamCanon) continue;
+      pageTeamCounts.set(teamCanon, (pageTeamCounts.get(teamCanon)||0) + 1);
+      const status = row.jersey <= 17 ? STATUS.NAMED : STATUS.EXPECTED;
+      const label = row.jersey <= 17 ? 'Named in team-list article final 17' : 'Named in team-list article extended squad only';
+      addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: row.jersey <= 17 ? 'named' : 'extended', team:p.team, teamCanonical:teamCanon, jersey:row.jersey}));
+      totalFound++;
+      knownPatternFound++;
+    }
+    for(const [teamCanon, n] of pageTeamCounts.entries()){
+      if(n >= 10) teamFound.set(teamCanon, Math.max(teamFound.get(teamCanon)||0, n));
     }
   }
   // Only infer NOT NAMED for teams where a real numbered team list was parsed.
@@ -415,10 +473,10 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
   for(const p of players){
     const t = playerTeam(p);
     if(loadedTeams.has(t) && !teamlistsOut[p.name]){
-      teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, 'Numbered club team list loaded for club and player was not in that list.', [sourceObj('teamlist','Parsed numbered team-list source','',NOW_ISO)], {selectionStatus:'not_named', team:p.team, teamCanonical:t});
+      teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, 'Current club team list loaded for club and player was not in that list.', [sourceObj('teamlist','Parsed current team-list source','',NOW_ISO)], {selectionStatus:'not_named', team:p.team, teamCanonical:t});
     }
   }
-  return {totalFound, loadedTeams:[...loadedTeams], parser:'numbered_team_sections_only'};
+  return {totalFound, loadedTeams:[...loadedTeams], parser:'section_parser_plus_known_player_jersey_patterns', sectionFound, knownPatternFound};
 }
 function fromFetchedInjuries(players, pages, injuriesOut){
   let count = 0;
