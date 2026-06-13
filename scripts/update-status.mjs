@@ -36,7 +36,7 @@ const STATUS = {
   NAMED: 'NAMED',
   EXPECTED: 'EXPECTED',
   ORIGIN: 'ORIGIN',
-  NOT_NAMED: 'NOT NAMED',
+  NOT_NAMED: 'NOT_NAMED',
   INJURED: 'INJURED',
   SUSPENDED: 'SUSPENDED',
   BYE: 'BYE'
@@ -46,6 +46,7 @@ const COLOUR = {
   NAMED: 'green',
   EXPECTED: 'yellow',
   ORIGIN: 'orange',
+  NOT_NAMED: 'grey',
   'NOT NAMED': 'grey',
   INJURED: 'red',
   SUSPENDED: 'pink',
@@ -134,14 +135,20 @@ function textOf(v){
   try{ return JSON.stringify(v || {}).toLowerCase(); }catch{ return String(v || '').toLowerCase(); }
 }
 function hasAny(txt, words){ return words.some(w => txt.includes(w)); }
+const INJURY_WORDS = ['ruled out','injured','injury','hamstring','calf','knee','shoulder','ankle','hia','concussion','casualty ward','syndesmosis','acl','mcl','fracture','broken','pec','pectoral','adductor','quad','quadriceps','groin','neck','back','wrist','foot','toe','rib'];
+const SUSPENSION_WORDS = ['suspended','suspension','judiciary','ban','banned','charge','charged','guilty plea','dangerous contact','high tackle','grade 1','grade 2','grade 3'];
+function hasInjuryWords(txt){ return hasAny(txt, INJURY_WORDS); }
+function hasSuspensionWords(txt){ return hasAny(txt, SUSPENSION_WORDS); }
 function statusFromRecord(rec){
   const blob = textOf(rec);
   const direct = String(rec?.displayStatus || rec?.status || rec?.selectionStatus || rec?.availabilityStatus || rec?.label || rec?.colour || rec?.color || '').toLowerCase();
-  const combo = `${direct} ${blob}`;
+  const reason = String(rec?.reason || rec?.injury || rec?.note || rec?.details || '').toLowerCase();
+  const combo = `${direct} ${reason} ${blob}`;
   if(hasAny(combo, ['bye'])) return STATUS.BYE;
-  if(hasAny(combo, ['suspended','suspension','judiciary','ban','banned'])) return STATUS.SUSPENDED;
-  // Injury must beat NOT NAMED. If a player is absent because of an injury, the card must be RED/INJURED, not grey.
-  if(hasAny(combo, ['ruled out','injured','injury','hamstring','calf','knee','shoulder','ankle','hia','concussion','casualty ward','syndesmosis','acl','mcl','fracture','broken','pec','pectoral','adductor','quad','quadriceps','groin','neck','back','wrist','foot','toe','ankle','rib'])) return STATUS.INJURED;
+  // CORE RULE: body-part/recovery words are injury, not suspension. This prevents legacy files
+  // with bad labels like "suspended" + "Calf" from creating pink cards.
+  if(hasInjuryWords(combo)) return STATUS.INJURED;
+  if(hasSuspensionWords(combo)) return STATUS.SUSPENDED;
   if(hasAny(combo, ['not named','not selected','omitted','cut from squad','not in team','dropped'])) return STATUS.NOT_NAMED;
   if(hasAny(combo, ['origin'])) return STATUS.ORIGIN;
   if(hasAny(combo, ['final 17','final17','named','confirmed','selected','starting','interchange','bench'])) return STATUS.NAMED;
@@ -182,8 +189,18 @@ function isStrongInjuryEvidence(rec){
   if(!rec) return false;
   const blob = textOf(rec);
   const officialish = /casualty|injur|club|nrl|official/i.test(blob);
-  const injuryWords = hasAny(blob, ['ruled out','injured','injury','hamstring','calf','knee','shoulder','ankle','hia','concussion','casualty ward','syndesmosis','acl','mcl','fracture','broken','pec','pectoral','adductor','quad','quadriceps','groin','neck','back','wrist','foot','toe','rib']);
+  const injuryWords = hasInjuryWords(blob);
   return injuryWords && officialish;
+}
+function isStrongSuspensionEvidence(rec){
+  if(!rec) return false;
+  const blob = textOf(rec);
+  const direct = String(rec.displayStatus || rec.status || rec.selectionStatus || rec.label || '').toLowerCase();
+  const combo = `${direct} ${blob}`;
+  // Must be an actual judiciary/suspension source, not a generic legacy status label.
+  // Injury words explicitly block suspension classification.
+  if(hasInjuryWords(combo)) return false;
+  return hasSuspensionWords(combo) && /judiciary|suspension|suspended|ban|charge|nrl|official|match review/i.test(combo);
 }
 function confidenceFromSources(sources){
   const official = sources.some(s => /nrl|club|official/i.test(`${s.name} ${s.url}`));
@@ -313,8 +330,8 @@ function fromBackupStatus(players, playerStatus, teamlistsOut, injuriesOut, susp
     const st = statusFromRecord(rec);
     const srcName = rec.source || rec.sourceName || rec.provider || 'Existing player_status.json updater';
     const src = sourceObj(isTeamListEvidence(rec) ? 'teamlist' : 'status', srcName, rec.sourceUrl || rec.url || 'player_status.json', rec.updatedAt || rec.updated || NOW_ISO);
-    if(st === STATUS.SUSPENDED){
-      suspensionsOut[p.name] = makeStatus(STATUS.SUSPENDED, rec.reason || rec.note || 'Suspension from source status file', [src], {raw:rec});
+    if(st === STATUS.SUSPENDED && isStrongSuspensionEvidence(rec)){
+      suspensionsOut[p.name] = makeStatus(STATUS.SUSPENDED, rec.reason || rec.note || 'Suspension from reliable judiciary/suspension source status file', [src], {raw:rec});
       suspensionCount++;
     } else if(st === STATUS.INJURED && isStrongInjuryEvidence(rec)){
       injuriesOut[p.name] = makeStatus(STATUS.INJURED, rec.reason || rec.injury || rec.note || 'Injury from reliable source status file', [src], {raw:rec});
@@ -616,7 +633,7 @@ async function main(){
       fetchedInjuryPages: injuryPages.map(p => p.url),
       backupStats,
       fetchedTeamStats,
-      fetchedInjuryStats
+      fetchedInjuryStats,
     },
     rules: [
       'No hardcoded player fixes',
@@ -625,7 +642,10 @@ async function main(){
       'Origin is ORANGE unless club team-list truth confirms NAMED or NOT NAMED',
       'One official injury source can mark INJURED; one unofficial source only is an injury watch/reference',
       'A raw name mention on a team-list article is never enough to mark NAMED',
-      'Backup player_status can support NAMED only when it contains explicit team-list selection evidence'
+      'Backup player_status can support NAMED only when it contains explicit team-list selection evidence',
+      'Backup player_status can support SUSPENDED only with explicit judiciary/suspension evidence',
+      'Injury body-part words such as calf, shoulder, knee, HIA classify as INJURED, never SUSPENDED',
+      'All not-named output must use NOT_NAMED internally, not NOT NAMED'
     ],
     players: playersOut
   };
