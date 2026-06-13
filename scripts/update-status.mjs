@@ -519,7 +519,19 @@ async function main(){
 
   const backupStats = fromBackupStatus(players, oldPlayerStatus, teamlists, injuries, suspensions);
 
-  const teamPages = await discoverPages(config.teamlistIndexUrls || [], 'teamlist');
+  // CORE FIX: direct round article URLs must be included. Previously the updater only read
+  // teamlistIndexUrls, so teamlistArticleUrls in data/source_config.json were ignored and
+  // data/teamlists.json stayed empty even after the config was corrected.
+  const teamSourceUrls = [
+    ...asArray(config.teamlistArticleUrls),
+    ...asArray(config.teamlistUrls),
+    ...asArray(config.lateMailUrls),
+    ...asArray(config.teamlistIndexUrls)
+  ].filter(Boolean);
+
+  const teamPages = await discoverPages(teamSourceUrls, 'teamlist');
+  console.log(JSON.stringify({step:'teamlist_sources', configured:teamSourceUrls.length, fetched:teamPages.length, urls:teamPages.map(p=>p.url)}, null, 2));
+
   const injuryPages = await discoverPages(config.casualtyWardUrls || [], 'injury');
   const fetchedTeamStats = fromFetchedTeamlists(players, teamPages, teamlists);
   const fetchedInjuryStats = fromFetchedInjuries(players, injuryPages, injuries);
