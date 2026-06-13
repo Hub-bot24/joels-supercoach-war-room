@@ -406,7 +406,7 @@ function addOrMerge(map, player, statusRec){
   if(a > b) map[key] = {...prev, ...statusRec, sources:[...(prev.sources||[]), ...(statusRec.sources||[])]};
   else map[key] = {...prev, sources:[...(prev.sources||[]), ...(statusRec.sources||[])]};
 }
-function fromBackupStatus(players, playerStatus, teamlistsOut, injuriesOut, suspensionsOut){
+function fromBackupStatus(players, playerStatus, teamlistsOut, injuriesOut, suspensionsOut, round){
   const pool = getPool(playerStatus);
   let namedCount = 0, injuryCount = 0, suspensionCount = 0;
   for(const p of players){
