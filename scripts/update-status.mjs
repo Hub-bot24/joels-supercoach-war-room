@@ -401,14 +401,34 @@ function sourceNameFromUrl(url){
   if(/zerotackle/i.test(url)) return 'Zero Tackle';
   return new URL(url).hostname.replace(/^www\./,'');
 }
+function teamlistSourcePriority(page){
+  const url = String(page?.url || page || '').toLowerCase();
+  const text = norm(String(page?.text || '')).slice(0, 20000);
+  // Generic source order. No player names. Later/final club-team evidence must beat the Tuesday baseline.
+  if(url.includes('updated-team-lists') || text.includes('updated team lists') || text.includes('late mail') || text.includes('final team') || text.includes('final 17') || text.includes('final 19') || text.includes('one hour') || text.includes('1 hour')) return 4;
+  if(url.includes('late-mail') || text.includes('late mail')) return 3;
+  if(url.includes('team-lists-round') || url.includes('round-') || text.includes('team lists')) return 2;
+  return 1;
+}
+function sourcePriorityOf(rec){
+  return Number(rec?.sourcePriority || rec?.sources?.[0]?.priority || 0) || 0;
+}
 function addOrMerge(map, player, statusRec){
   const key = player.name;
   const prev = map[key];
   if(!prev){ map[key] = statusRec; return; }
+  const newPriority = sourcePriorityOf(statusRec);
+  const oldPriority = sourcePriorityOf(prev);
+  const mergedSources = [...(prev.sources||[]), ...(statusRec.sources||[])];
+  if(newPriority !== oldPriority){
+    if(newPriority > oldPriority) map[key] = {...prev, ...statusRec, sources: mergedSources};
+    else map[key] = {...prev, sources: mergedSources};
+    return;
+  }
   const rank = {[STATUS.BYE]:6,[STATUS.SUSPENDED]:5,[STATUS.INJURED]:4,[STATUS.NAMED]:3,[STATUS.NOT_NAMED]:2,[STATUS.ORIGIN]:1,[STATUS.EXPECTED]:0};
   const a = rank[statusRec.displayStatus] ?? 0, b = rank[prev.displayStatus] ?? 0;
-  if(a > b) map[key] = {...prev, ...statusRec, sources:[...(prev.sources||[]), ...(statusRec.sources||[])]};
-  else map[key] = {...prev, sources:[...(prev.sources||[]), ...(statusRec.sources||[])]};
+  if(a > b) map[key] = {...prev, ...statusRec, sources: mergedSources};
+  else map[key] = {...prev, sources: mergedSources};
 }
 function fromBackupStatus(players, playerStatus, teamlistsOut, injuriesOut, suspensionsOut, round){
   const pool = getPool(playerStatus);
@@ -566,8 +586,22 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
   let totalFound = 0;
   let sectionFound = 0;
   let knownPatternFound = 0;
+  let pageLevelMissingCount = 0;
+
   for(const page of pages){
+    const priority = teamlistSourcePriority(page);
     const src = sourceObj('teamlist', page.sourceName, page.url, NOW_ISO);
+    src.priority = priority;
+    const pageTeamCounts = new Map();
+    const pageSeenByTeam = new Map();
+
+    function markSeen(teamCanon, playerName){
+      if(!pageSeenByTeam.has(teamCanon)) pageSeenByTeam.set(teamCanon, new Set());
+      pageSeenByTeam.get(teamCanon).add(playerName);
+    }
+    function addTeamCount(teamCanon){
+      pageTeamCounts.set(teamCanon, (pageTeamCounts.get(teamCanon)||0) + 1);
+    }
 
     // Parser 1: structured team-heading numbered sections.
     const sections = parseTeamSectionsFromPage(page.text);
@@ -579,7 +613,9 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
         if(playerTeam(p) !== teamCanon) continue;
         const status = row.jersey <= 17 ? STATUS.NAMED : STATUS.EXPECTED;
         const label = row.jersey <= 17 ? 'Named in numbered team-list final 17' : 'Named in numbered extended squad only';
-        addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: row.jersey <= 17 ? 'named' : 'extended', team:p.team, teamCanonical:teamCanon, jersey:row.jersey}));
+        addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: row.jersey <= 17 ? 'named' : 'extended', team:p.team, teamCanonical:teamCanon, jersey:row.jersey, sourcePriority:priority}));
+        markSeen(teamCanon, p.name);
+        addTeamCount(teamCanon);
         matchedForTeam++;
         totalFound++;
         sectionFound++;
@@ -590,31 +626,47 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
     // Parser 2: generic known-player + jersey-number patterns from stripped team-list article text.
     // This is needed because some source pages render rows as "1 Player Player" or "Player Player 1" rather than "1. Player".
     const jerseyRows = fromKnownPlayerJerseyPatterns(players, page);
-    const pageTeamCounts = new Map();
     for(const row of jerseyRows){
       const p = row.player;
       const teamCanon = playerTeam(p);
       if(!teamCanon) continue;
-      pageTeamCounts.set(teamCanon, (pageTeamCounts.get(teamCanon)||0) + 1);
+      addTeamCount(teamCanon);
+      markSeen(teamCanon, p.name);
       const status = row.jersey <= 17 ? STATUS.NAMED : STATUS.EXPECTED;
       const label = row.jersey <= 17 ? 'Named in team-list article final 17' : 'Named in team-list article extended squad only';
-      addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: row.jersey <= 17 ? 'named' : 'extended', team:p.team, teamCanonical:teamCanon, jersey:row.jersey}));
+      addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: row.jersey <= 17 ? 'named' : 'extended', team:p.team, teamCanonical:teamCanon, jersey:row.jersey, sourcePriority:priority}));
       totalFound++;
       knownPatternFound++;
     }
+
+    // CORE SOURCE-PRIORITY FIX:
+    // If a newer updated/final/late-mail page contains a real club list (10+ players), that page is
+    // the current truth for that club. Players from that club who are absent from this newer page
+    // must be downgraded to NOT_NAMED at the same high priority. This lets final-team/late-mail
+    // evidence override older Tuesday lists without hardcoding any player.
     for(const [teamCanon, n] of pageTeamCounts.entries()){
-      if(n >= 10) teamFound.set(teamCanon, Math.max(teamFound.get(teamCanon)||0, n));
+      if(n >= 10){
+        teamFound.set(teamCanon, Math.max(teamFound.get(teamCanon)||0, n));
+        const seen = pageSeenByTeam.get(teamCanon) || new Set();
+        for(const p of players){
+          if(playerTeam(p) !== teamCanon) continue;
+          if(seen.has(p.name)) continue;
+          addOrMerge(teamlistsOut, p, makeStatus(STATUS.NOT_NAMED, `Not present in higher-priority current team-list source (${page.sourceName}).`, [src], {selectionStatus:'not_named', team:p.team, teamCanonical:teamCanon, sourcePriority:priority}));
+          pageLevelMissingCount++;
+        }
+      }
     }
   }
-  // Only infer NOT NAMED for teams where a real numbered team list was parsed.
+
+  // Only infer NOT_NAMED for teams where a real numbered team list was parsed.
   const loadedTeams = new Set([...teamFound.entries()].filter(([,n]) => n >= 10).map(([t]) => t));
   for(const p of players){
     const t = playerTeam(p);
     if(loadedTeams.has(t) && !teamlistsOut[p.name]){
-      teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, 'Current club team list loaded for club and player was not in that list.', [sourceObj('teamlist','Parsed current team-list source','',NOW_ISO)], {selectionStatus:'not_named', team:p.team, teamCanonical:t});
+      teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, 'Current club team list loaded for club and player was not in that list.', [sourceObj('teamlist','Parsed current team-list source','',NOW_ISO)], {selectionStatus:'not_named', team:p.team, teamCanonical:t, sourcePriority:1});
     }
   }
-  return {totalFound, loadedTeams:[...loadedTeams], parser:'section_parser_plus_known_player_jersey_patterns', sectionFound, knownPatternFound};
+  return {totalFound, loadedTeams:[...loadedTeams], parser:'section_parser_plus_known_player_jersey_patterns_with_source_priority', sectionFound, knownPatternFound, pageLevelMissingCount};
 }
 function fromFetchedInjuries(players, pages, injuriesOut){
   let count = 0;
