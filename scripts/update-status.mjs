@@ -228,6 +228,83 @@ function injuryPhaseForRound(rec, round){
   if(r && riskUntil && r <= riskUntil) return 'yellow';
   return 'red';
 }
+
+function suspensionMetaFromRecord(rec, round){
+  const blob = textOf(rec);
+  const directText = [rec?.reason, rec?.note, rec?.details, rec?.suspension, rec?.suspensionText, rec?.duration, rec?.expectedReturn, rec?.return, rec?.timeframe, rec?.expectedReturnText].filter(Boolean).join(' ');
+  const txt = `${directText} ${blob}`.toLowerCase();
+  const startRound = Number(rec?.suspensionStartRound || rec?.startRound || rec?.round || round || 0) || Number(round || 0) || null;
+  const meta = {
+    suspensionSourceText: rec?.source || rec?.sourceName || rec?.provider || rec?.url || '',
+    suspensionUpdatedAt: rec?.updatedAt || rec?.updated || rec?.lastUpdated || NOW_ISO,
+    suspensionStartRound: startRound,
+    suspensionReturnKnown: false
+  };
+
+  const matchCount = firstMatchText(txt, [
+    /\b(\d{1,2})\s*(?:match|matches|game|games)\b/i,
+    /\b(?:suspended|suspension|ban|banned)\s*(?:for)?\s*(\d{1,2})\b/i
+  ]);
+  if(matchCount){
+    const n = Number(matchCount[1]);
+    meta.suspensionMatches = n;
+    meta.suspensionReturnKnown = true;
+    meta.expectedReturnText = `${n} match${n===1?'':'es'}`;
+    if(startRound){
+      meta.suspensionEndRound = startRound + n - 1;
+      meta.expectedReturnRoundMin = startRound + n;
+      meta.expectedReturnRoundMax = startRound + n;
+    }
+    return meta;
+  }
+
+  const weekCount = firstMatchText(txt, [/\b(\d{1,2})\s*(?:week|weeks|wks?)\b/i]);
+  if(weekCount){
+    const n = Number(weekCount[1]);
+    meta.suspensionWeeks = n;
+    meta.suspensionReturnKnown = true;
+    meta.expectedReturnText = `${n} week${n===1?'':'s'}`;
+    if(startRound){
+      meta.suspensionEndRound = startRound + n - 1;
+      meta.expectedReturnRoundMin = startRound + n;
+      meta.expectedReturnRoundMax = startRound + n;
+    }
+    return meta;
+  }
+
+  const roundMatch = firstMatchText(txt, [/(?:round|rd|r)\s*(\d{1,2})\b/i, /\breturn\s*r\s*(\d{1,2})\b/i]);
+  if(roundMatch){
+    const rr = Number(roundMatch[1]);
+    meta.expectedReturnText = `Round ${rr}`;
+    meta.suspensionReturnKnown = true;
+    meta.expectedReturnRoundMin = rr;
+    meta.expectedReturnRoundMax = rr;
+    meta.suspensionEndRound = Math.max(0, rr - 1);
+    return meta;
+  }
+
+  if(/\btbc\b|indefinite|unknown|no timeline|yet to be confirmed/i.test(txt)){
+    meta.expectedReturnText = /indefinite/i.test(txt) ? 'Indefinite' : 'TBC';
+  }
+
+  // Safety rule: if a suspension source gives no duration, do not poison future rounds forever.
+  // Mark the current round only; a later source/run can extend it when duration becomes available.
+  if(startRound){
+    meta.suspensionEndRound = startRound;
+  }
+  return meta;
+}
+function suspensionPhaseForRound(rec, round){
+  const r = Number(round || 0);
+  const start = Number(rec?.suspensionStartRound || rec?.round || 0);
+  const end = Number(rec?.suspensionEndRound || 0);
+  if(!r) return '';
+  if(start && r < start) return '';
+  if(end && r <= end) return 'pink';
+  if(!end && String(rec?.displayStatus || '').toUpperCase() === STATUS.SUSPENDED && (!start || r === start)) return 'pink';
+  return '';
+}
+
 function statusFromRecord(rec){
   const blob = textOf(rec);
   const direct = String(rec?.displayStatus || rec?.status || rec?.selectionStatus || rec?.availabilityStatus || rec?.label || rec?.colour || rec?.color || '').toLowerCase();
@@ -453,7 +530,7 @@ function fromBackupStatus(players, playerStatus, teamlistsOut, injuriesOut, susp
     const srcName = rec.source || rec.sourceName || rec.provider || 'Existing player_status.json updater';
     const src = sourceObj(isTeamListEvidence(rec) ? 'teamlist' : 'status', srcName, rec.sourceUrl || rec.url || 'player_status.json', rec.updatedAt || rec.updated || NOW_ISO);
     if(st === STATUS.SUSPENDED && isStrongSuspensionEvidence(rec)){
-      suspensionsOut[p.name] = makeStatus(STATUS.SUSPENDED, rec.reason || rec.note || 'Suspension from reliable judiciary/suspension source status file', [src], {raw:rec});
+      suspensionsOut[p.name] = makeStatus(STATUS.SUSPENDED, rec.reason || rec.note || 'Suspension from reliable judiciary/suspension source status file', [src], {...suspensionMetaFromRecord(rec, round), raw:rec});
       suspensionCount++;
     } else if(st === STATUS.INJURED && isStrongInjuryEvidence(rec)){
       injuriesOut[p.name] = makeStatus(STATUS.INJURED, rec.reason || rec.injury || rec.note || 'Injury from reliable source status file', [src], {...injuryReturnMetaFromRecord(rec, round), raw:rec});
@@ -758,7 +835,7 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
     let rec;
     if(bye){
       rec = makeStatus(STATUS.BYE, `Bye round ${round}`, [sourceObj('fixture','players.json bye data','players.json')], {selectionStatus:'bye', team:p.team});
-    } else if(s){
+    } else if(s && suspensionPhaseForRound(s, round) === 'pink'){
       rec = {...s, selectionStatus:'suspended'};
     } else if(t){
       rec = t;
@@ -921,6 +998,7 @@ async function main(){
       'Backup player_status can support SUSPENDED only with explicit judiciary/suspension evidence',
       'Injury body-part words such as calf, shoulder, knee, HIA classify as INJURED, never SUSPENDED',
       'All not-named output must use NOT_NAMED internally, not NOT NAMED',
+      'Suspension windows behave like injury windows in Bye Planner: pink only for suspended rounds, then clear',
       'Origin/representative-duty context can explain NOT_NAMED, but cannot make a player GREEN/NAMED by itself',
       'Yellow/EXPECTED is allowed only for real extended squad, confirmed return-risk windows, or explicit test/monitor status; missing team-list data must be grey/source_missing, not yellow',
       'Injury windows use red through minimum weeks out, then yellow during the return-risk window until maximum weeks/round',
