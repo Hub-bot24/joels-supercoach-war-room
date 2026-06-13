@@ -1,9 +1,28 @@
 {
   "teamlistIndexUrls": [
+    "https://www.nrl.com/news/",
     "https://www.zerotackle.com/category/nrl/nrl-team-lists/",
+    "https://www.zerotackle.com/nrl/team-lists/",
     "https://www.zerotackle.com/nrl-team-lists/"
   ],
   "casualtyWardUrls": [
-    "https://www.nrl.com/casualty-ward/"
+    "https://www.nrl.com/casualty-ward/",
+    "https://www.zerotackle.com/nrl/injuries-suspensions/"
+  ],
+  "suspensionUrls": [
+    "https://www.nrl.com/news/topic/judiciary/"
+  ],
+  "backupStatusFiles": [
+    "player_status.json",
+    "teamlist_sources.json",
+    "origin_players.json",
+    "status_update_report.json"
+  ],
+  "rules": [
+    "No hardcoded player fixes",
+    "No individual player overrides",
+    "Current club team-list truth is required for NAMED/GREEN",
+    "Previous week can only produce EXPECTED/YELLOW, never NAMED/GREEN",
+    "Origin is ORANGE only until club team-list truth confirms NAMED or NOT NAMED"
   ]
 }
