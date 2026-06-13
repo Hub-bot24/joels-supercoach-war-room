@@ -139,6 +139,91 @@ const INJURY_WORDS = ['ruled out','injured','injury','hamstring','calf','knee','
 const SUSPENSION_WORDS = ['suspended','suspension','judiciary','ban','banned','charge','charged','guilty plea','dangerous contact','high tackle','grade 1','grade 2','grade 3'];
 function hasInjuryWords(txt){ return hasAny(txt, INJURY_WORDS); }
 function hasSuspensionWords(txt){ return hasAny(txt, SUSPENSION_WORDS); }
+
+function titleCaseWords(s){
+  return String(s||'').replace(/[_-]+/g,' ').replace(/\s+/g,' ').trim().replace(/\b\w/g,c=>c.toUpperCase());
+}
+function firstMatchText(txt, patterns){
+  for(const re of patterns){
+    const m = re.exec(txt);
+    if(m) return m;
+  }
+  return null;
+}
+function injuryTypeFromText(txt){
+  const bodyParts = ['hamstring','calf','knee','shoulder','ankle','hia','concussion','syndesmosis','acl','mcl','fracture','broken','pec','pectoral','adductor','quad','quadriceps','groin','neck','back','wrist','foot','toe','rib'];
+  const lower = String(txt||'').toLowerCase();
+  const hit = bodyParts.find(w => lower.includes(w));
+  return hit ? titleCaseWords(hit === 'hia' ? 'HIA' : hit) : '';
+}
+function injuryReturnMetaFromRecord(rec, round){
+  const blob = textOf(rec);
+  const directText = [rec?.reason, rec?.injury, rec?.note, rec?.details, rec?.expectedReturn, rec?.return, rec?.timeframe, rec?.expectedReturnText].filter(Boolean).join(' ');
+  const txt = `${directText} ${blob}`.toLowerCase();
+  const startRound = Number(rec?.injuryStartRound || rec?.startRound || rec?.round || round || 0) || Number(round || 0) || null;
+  const meta = {
+    injuryType: injuryTypeFromText(`${directText} ${blob}`),
+    injurySourceText: rec?.source || rec?.sourceName || rec?.provider || rec?.url || '',
+    injuryUpdatedAt: rec?.updatedAt || rec?.updated || rec?.lastUpdated || NOW_ISO,
+    injuryStartRound: startRound
+  };
+
+  const weeks = firstMatchText(txt, [
+    /\b(\d{1,2})\s*(?:-|–|to)\s*(\d{1,2})\s*(?:weeks?|wks?)\b/i,
+    /\b(\d{1,2})\s*(?:weeks?|wks?)\s*(?:-|–|to)\s*(\d{1,2})\b/i
+  ]);
+  if(weeks){
+    let minW = Number(weeks[1]);
+    let maxW = Number(weeks[2]);
+    if(maxW < minW) [minW,maxW] = [maxW,minW];
+    meta.injuryMinWeeks = minW;
+    meta.injuryMaxWeeks = maxW;
+    meta.expectedReturnText = `${minW}-${maxW} weeks`;
+    if(startRound){
+      meta.injuryRedUntilRound = startRound + minW - 1;
+      meta.injuryRiskUntilRound = startRound + maxW - 1;
+      meta.expectedReturnRoundMin = startRound + minW;
+      meta.expectedReturnRoundMax = startRound + maxW;
+    }
+    return meta;
+  }
+  const oneWeeks = firstMatchText(txt, [/\b(\d{1,2})\s*(?:weeks?|wks?)\b/i]);
+  if(oneWeeks){
+    const w = Number(oneWeeks[1]);
+    meta.injuryMinWeeks = w;
+    meta.injuryMaxWeeks = w;
+    meta.expectedReturnText = `${w} week${w===1?'':'s'}`;
+    if(startRound){
+      meta.injuryRedUntilRound = startRound + w - 1;
+      meta.injuryRiskUntilRound = startRound + w - 1;
+      meta.expectedReturnRoundMin = startRound + w;
+      meta.expectedReturnRoundMax = startRound + w;
+    }
+    return meta;
+  }
+  const roundMatch = firstMatchText(txt, [/(?:round|rd|r)\s*(\d{1,2})\b/i, /\breturn\s*r\s*(\d{1,2})\b/i]);
+  if(roundMatch){
+    const rr = Number(roundMatch[1]);
+    meta.expectedReturnText = `Round ${rr}`;
+    meta.expectedReturnRoundMin = rr;
+    meta.expectedReturnRoundMax = rr;
+    meta.injuryRedUntilRound = Math.max(0, rr - 1);
+    meta.injuryRiskUntilRound = rr;
+    return meta;
+  }
+  if(/\btbc\b|indefinite|unknown|no timeline|yet to be confirmed/i.test(txt)){
+    meta.expectedReturnText = /indefinite/i.test(txt) ? 'Indefinite' : 'TBC';
+  }
+  return meta;
+}
+function injuryPhaseForRound(rec, round){
+  const r = Number(round || 0);
+  const redUntil = Number(rec?.injuryRedUntilRound || 0);
+  const riskUntil = Number(rec?.injuryRiskUntilRound || 0);
+  if(r && redUntil && r <= redUntil) return 'red';
+  if(r && riskUntil && r <= riskUntil) return 'yellow';
+  return 'red';
+}
 function statusFromRecord(rec){
   const blob = textOf(rec);
   const direct = String(rec?.displayStatus || rec?.status || rec?.selectionStatus || rec?.availabilityStatus || rec?.label || rec?.colour || rec?.color || '').toLowerCase();
@@ -334,7 +419,7 @@ function fromBackupStatus(players, playerStatus, teamlistsOut, injuriesOut, susp
       suspensionsOut[p.name] = makeStatus(STATUS.SUSPENDED, rec.reason || rec.note || 'Suspension from reliable judiciary/suspension source status file', [src], {raw:rec});
       suspensionCount++;
     } else if(st === STATUS.INJURED && isStrongInjuryEvidence(rec)){
-      injuriesOut[p.name] = makeStatus(STATUS.INJURED, rec.reason || rec.injury || rec.note || 'Injury from reliable source status file', [src], {raw:rec});
+      injuriesOut[p.name] = makeStatus(STATUS.INJURED, rec.reason || rec.injury || rec.note || 'Injury from reliable source status file', [src], {...injuryReturnMetaFromRecord(rec, round), raw:rec});
       injuryCount++;
     } else if(st === STATUS.NAMED && isStrongNamedEvidence(rec)){
       teamlistsOut[p.name] = makeStatus(STATUS.NAMED, rec.reason || rec.note || 'Explicitly named from team-list source status file', [src], {selectionStatus:'named', team:p.team, teamCanonical:playerTeam(p), raw:rec});
@@ -533,7 +618,7 @@ function fromFetchedInjuries(players, pages, injuriesOut){
     const found = findPlayerNamesInText(players, page.text);
     for(const p of found){
       const src = sourceObj('injury', page.sourceName, page.url, NOW_ISO);
-      addOrMerge(injuriesOut, p, makeStatus(STATUS.INJURED, `Name found on injury/casualty source page (${page.sourceName}).`, [src], {injuryStatus:'injury_source_match', team:p.team, teamCanonical:playerTeam(p)}));
+      addOrMerge(injuriesOut, p, makeStatus(STATUS.INJURED, `Name found on injury/casualty source page (${page.sourceName}).`, [src], {...injuryReturnMetaFromRecord({reason:page.text, source:page.sourceName, url:page.url, updatedAt:NOW_ISO}, null), injuryStatus:'injury_source_match', team:p.team, teamCanonical:playerTeam(p)}));
       count++;
     }
   }
@@ -554,7 +639,12 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
     } else if(s){
       rec = {...s, selectionStatus:'suspended'};
     } else if(i && (!t || t.displayStatus !== STATUS.NAMED)){
-      rec = {...i, selectionStatus:'injured'};
+      const phase = injuryPhaseForRound(i, round);
+      if(phase === 'yellow'){
+        rec = makeStatus(STATUS.EXPECTED, `${i.reason || 'Injury return window'}; return risk${i.expectedReturnText ? ` (${i.expectedReturnText})` : ''}`, i.sources || [], {...i, displayStatus:STATUS.EXPECTED, colour:COLOUR[STATUS.EXPECTED], available:true, selectionStatus:'injury_return_risk'});
+      } else {
+        rec = {...i, selectionStatus:'injured'};
+      }
     } else if(t){
       rec = t;
       if(i && t.displayStatus === STATUS.NAMED){
@@ -624,7 +714,7 @@ async function main(){
   const suspensions = {};
   const origin = {...fromOriginFile(players, existingOrigin), ...fromOriginFile(players, originFile)};
 
-  const backupStats = fromBackupStatus(players, oldPlayerStatus, teamlists, injuries, suspensions);
+  const backupStats = fromBackupStatus(players, oldPlayerStatus, teamlists, injuries, suspensions, round);
 
   // CORE FIX: direct round article URLs must be included. Previously the updater only read
   // teamlistIndexUrls, so teamlistArticleUrls in data/source_config.json were ignored and
@@ -677,7 +767,8 @@ async function main(){
       'Backup player_status can support NAMED only when it contains explicit team-list selection evidence',
       'Backup player_status can support SUSPENDED only with explicit judiciary/suspension evidence',
       'Injury body-part words such as calf, shoulder, knee, HIA classify as INJURED, never SUSPENDED',
-      'All not-named output must use NOT_NAMED internally, not NOT NAMED'
+      'All not-named output must use NOT_NAMED internally, not NOT NAMED',
+      'Injury windows use red through minimum weeks out, then yellow during the return-risk window until maximum weeks/round'
     ],
     players: playersOut
   };
