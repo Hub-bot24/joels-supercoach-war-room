@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-13T04:24:17.108602+00:00",
+  "updated": "2026-06-13T08:27:58.980385+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -261,67 +261,21 @@
       "lat": -28.0678,
       "lon": 153.3789,
       "timezone": "Australia/Brisbane",
-      "weatherStatus": "updated",
+      "weatherStatus": "api_timeout",
+      "weatherError": "HTTPSConnectionPool(host='api.open-meteo.com', port=443): Read timed out. (read timeout=10)",
       "gameWindow": {
         "from": "2026-06-20T17:00:00",
         "to": "2026-06-20T19:20:00",
         "gameMinutes": 110
       },
-      "gameWindowWeather": [
-        {
-          "time": "2026-06-20T17:00",
-          "phase": "pre_game",
-          "temperature_2m": 20.1,
-          "precipitation_probability": 36,
-          "precipitation_mm": 0.0,
-          "wind_speed_10m": 13.3,
-          "wind_gusts_10m": 35.6
-        },
-        {
-          "time": "2026-06-20T18:00",
-          "phase": "first_half",
-          "temperature_2m": 19.6,
-          "precipitation_probability": 32,
-          "precipitation_mm": 0.0,
-          "wind_speed_10m": 12.5,
-          "wind_gusts_10m": 34.6
-        },
-        {
-          "time": "2026-06-20T19:00",
-          "phase": "second_half",
-          "temperature_2m": 19.0,
-          "precipitation_probability": 29,
-          "precipitation_mm": 0.0,
-          "wind_speed_10m": 11.5,
-          "wind_gusts_10m": 32.8
-        }
-      ],
+      "gameWindowWeather": [],
       "weatherRisk": {
-        "label": "Low",
-        "score": 9,
-        "maxRainProbability": 36.0,
-        "totalGameRainMm": 0.0,
-        "maxWindKmh": 13.3,
-        "maxGustKmh": 35.6,
-        "avgTemp": 19.6,
-        "phaseRisk": {
-          "pre_game": {
-            "avgScore": 15,
-            "maxScore": 15
-          },
-          "first_half": {
-            "avgScore": 0,
-            "maxScore": 0
-          },
-          "second_half": {
-            "avgScore": 0,
-            "maxScore": 0
-          }
-        },
+        "score": 0,
+        "label": "Unknown",
         "reasons": [
-          "moderate wind/gusts"
+          "HTTPSConnectionPool(host='api.open-meteo.com', port=443): Read timed out. (read timeout=10)"
         ],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+        "captainImpact": "Unknown weather risk."
       }
     },
     {
@@ -347,7 +301,7 @@
           "phase": "pre_game",
           "temperature_2m": 19.2,
           "precipitation_probability": 11,
-          "precipitation_mm": 0.6,
+          "precipitation_mm": 0.0,
           "wind_speed_10m": 11.3,
           "wind_gusts_10m": 32.4
         },
@@ -356,7 +310,7 @@
           "phase": "first_half",
           "temperature_2m": 18.3,
           "precipitation_probability": 13,
-          "precipitation_mm": 0.6,
+          "precipitation_mm": 0.0,
           "wind_speed_10m": 13.7,
           "wind_gusts_10m": 33.8
         },
@@ -365,36 +319,34 @@
           "phase": "second_half",
           "temperature_2m": 17.5,
           "precipitation_probability": 14,
-          "precipitation_mm": 0.6,
+          "precipitation_mm": 0.0,
           "wind_speed_10m": 15.8,
           "wind_gusts_10m": 34.9
         }
       ],
       "weatherRisk": {
         "label": "Low",
-        "score": 25,
+        "score": 0,
         "maxRainProbability": 14.0,
-        "totalGameRainMm": 1.8,
+        "totalGameRainMm": 0.0,
         "maxWindKmh": 15.8,
         "maxGustKmh": 34.9,
         "avgTemp": 18.3,
         "phaseRisk": {
           "pre_game": {
-            "avgScore": 25,
-            "maxScore": 25
+            "avgScore": 0,
+            "maxScore": 0
           },
           "first_half": {
-            "avgScore": 25,
-            "maxScore": 25
+            "avgScore": 0,
+            "maxScore": 0
           },
           "second_half": {
-            "avgScore": 25,
-            "maxScore": 25
+            "avgScore": 0,
+            "maxScore": 0
           }
         },
-        "reasons": [
-          "moderate rain"
-        ],
+        "reasons": [],
         "captainImpact": "Low weather risk over game window. Normal captain logic applies."
       }
     },
@@ -442,7 +394,7 @@
           "phase": "pre_game",
           "temperature_2m": 12.4,
           "precipitation_probability": 33,
-          "precipitation_mm": 0.3,
+          "precipitation_mm": 0.2,
           "wind_speed_10m": 18.0,
           "wind_gusts_10m": 41.0
         },
@@ -451,7 +403,7 @@
           "phase": "halftime_period",
           "temperature_2m": 12.3,
           "precipitation_probability": 33,
-          "precipitation_mm": 0.4,
+          "precipitation_mm": 0.1,
           "wind_speed_10m": 18.9,
           "wind_gusts_10m": 41.0
         }
@@ -460,7 +412,7 @@
         "label": "Low",
         "score": 15,
         "maxRainProbability": 33.0,
-        "totalGameRainMm": 0.7,
+        "totalGameRainMm": 0.3,
         "maxWindKmh": 18.9,
         "maxGustKmh": 41.0,
         "avgTemp": 12.4,
