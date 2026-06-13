@@ -53,16 +53,16 @@ const COLOUR = {
 };
 
 const TEAM_ALIASES = {
-  BRISBANE: ['BRI','BRONCOS','BRISBANE BRONCOS'],
+  BRISBANE: ['BRI','BRO','BRONCOS','BRISBANE','BRISBANE BRONCOS'],
   CANBERRA: ['CBR','RAIDERS','CANBERRA RAIDERS'],
-  CANTERBURY: ['CBY','BULLDOGS','CANTERBURY','CANTERBURY-BANKSTOWN'],
+  CANTERBURY: ['CBY','BUL','BULLDOGS','CANTERBURY','CANTERBURY-BANKSTOWN'],
   CRONULLA: ['SHA','SHARKS','CRONULLA','CRONULLA-SUTHERLAND'],
   GOLDCOAST: ['GLD','TITANS','GOLD COAST','GOLD COAST TITANS'],
   MANLY: ['MAN','SEA EAGLES','MANLY','MANLY WARRINGAH'],
   MELBOURNE: ['MEL','STORM','MELBOURNE STORM'],
   NEWCASTLE: ['NEW','KNIGHTS','NEWCASTLE KNIGHTS'],
-  NZWARRIORS: ['NZL','NZ','WARRIORS','NEW ZEALAND WARRIORS','NZ WARRIORS'],
-  NORTHQLD: ['NQL','NQC','COWBOYS','NORTH QUEENSLAND'],
+  NZWARRIORS: ['NZL','NZ','NZW','WAR','WARRIORS','NEW ZEALAND WARRIORS','NZ WARRIORS'],
+  NORTHQLD: ['NQL','NQC','COW','COWBOYS','NORTH QUEENSLAND'],
   PARRAMATTA: ['PAR','EELS','PARRAMATTA EELS'],
   PENRITH: ['PEN','PANTHERS','PENRITH PANTHERS'],
   SOUTHS: ['STH','SOU','RABBITOHS','SOUTH SYDNEY','SOUTHS'],
@@ -140,8 +140,9 @@ function statusFromRecord(rec){
   const combo = `${direct} ${blob}`;
   if(hasAny(combo, ['bye'])) return STATUS.BYE;
   if(hasAny(combo, ['suspended','suspension','judiciary','ban','banned'])) return STATUS.SUSPENDED;
+  // Injury must beat NOT NAMED. If a player is absent because of an injury, the card must be RED/INJURED, not grey.
+  if(hasAny(combo, ['ruled out','injured','injury','hamstring','calf','knee','shoulder','ankle','hia','concussion','casualty ward','syndesmosis','acl','mcl','fracture','broken','pec','pectoral','adductor','quad','quadriceps','groin','neck','back','wrist','foot','toe','ankle','rib'])) return STATUS.INJURED;
   if(hasAny(combo, ['not named','not selected','omitted','cut from squad','not in team','dropped'])) return STATUS.NOT_NAMED;
-  if(hasAny(combo, ['ruled out','injured','injury','hamstring','calf','knee','shoulder','ankle','hia','concussion','casualty ward'])) return STATUS.INJURED;
   if(hasAny(combo, ['origin'])) return STATUS.ORIGIN;
   if(hasAny(combo, ['final 17','final17','named','confirmed','selected','starting','interchange','bench'])) return STATUS.NAMED;
   if(hasAny(combo, ['available','expected','likely','played last week','previous week','fit','cleared'])) return STATUS.EXPECTED;
@@ -307,29 +308,84 @@ function fromOriginFile(players, originJson){
   }
   return out;
 }
+function escapedRe(s){ return String(s).replace(/[.*+?^${}()|[\\]\\]/g,'\\$&'); }
+function playerLookupByName(players){
+  const map = new Map();
+  for(const p of players){
+    map.set(normName(p.name), p);
+    const parts = String(p.name||'').trim().split(/\s+/);
+    if(parts.length >= 2) map.set(normName(`${parts[0][0]} ${parts.slice(1).join(' ')}`), p);
+  }
+  return map;
+}
+function extractNumberedPlayers(segment){
+  const clean = String(segment||'').replace(/\s+/g,' ');
+  const out = [];
+  // Pull true numbered team-list entries only: 1. Player Name ... 2. Next Player.
+  const re = /(?:^|\s)([1-9]|1[0-9]|2[0-9])\.\s+([A-Z][A-Za-zÀ-ÿ'’.-]+(?:\s+(?:[A-Z][A-Za-zÀ-ÿ'’.-]+|[a-z]{2,})){0,4})(?=\s+(?:[1-9]|1[0-9]|2[0-9])\.|\s+(?:Coach|Analysis|Late Mail|Reserves|Interchange|Team|Ins:|Outs:|Extended|Squad|Updated)|$)/g;
+  let m;
+  while((m = re.exec(clean))){
+    const jersey = Number(m[1]);
+    const name = String(m[2]||'').replace(/\b(?:captain|coach|analysis|late|mail|reserves|interchange|updated)$/i,'').trim();
+    if(name.length > 2) out.push({jersey, name});
+  }
+  const seen = new Set();
+  return out.filter(p => {
+    const k = `${p.jersey}|${normName(p.name)}`;
+    if(seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
+}
+function aliasPatternsForTeam(canon){
+  const aliases = TEAM_ALIASES[canon] || [canon];
+  return aliases.map(a => escapedRe(String(a).replace(/-/g,' '))).join('|');
+}
+function parseTeamSectionsFromPage(text){
+  const sourceText = String(text||'').replace(/\s+/g,' ');
+  const found = {};
+  for(const canon of Object.keys(TEAM_ALIASES)){
+    const aliases = aliasPatternsForTeam(canon);
+    // Look for a team heading/label and only inspect the nearby numbered list block.
+    const re = new RegExp(`(?:${aliases})(?:\\s+(?:team|line[- ]?up|squad|final team|late mail|team list))?\\s*[:\\-]?\\s*([\\s\\S]{0,4200}?)(?=(?:BRISBANE|BRONCOS|CANBERRA|RAIDERS|BULLDOGS|CANTERBURY|CRONULLA|SHARKS|TITANS|GOLD COAST|MANLY|SEA EAGLES|MELBOURNE|STORM|NEWCASTLE|KNIGHTS|WARRIORS|NORTH QUEENSLAND|COWBOYS|PARRAMATTA|EELS|PENRITH|PANTHERS|SOUTH SYDNEY|RABBITOHS|SOUTHS|DRAGONS|ROOSTERS|DOLPHINS|TIGERS)\\s+(?:team|line[- ]?up|squad|final team|late mail|team list)|$)`, 'i');
+    const m = sourceText.match(re);
+    if(!m) continue;
+    const players = extractNumberedPlayers(m[1]);
+    if(players.length >= 10) found[canon] = players;
+  }
+  return found;
+}
 function fromFetchedTeamlists(players, pages, teamlistsOut){
+  const lookup = playerLookupByName(players);
   const teamFound = new Map();
   let totalFound = 0;
   for(const page of pages){
-    const found = findPlayerNamesInText(players, page.text);
-    if(found.length < 8) continue; // avoid tiny news mentions becoming team lists
-    totalFound += found.length;
-    for(const p of found){
-      const t = playerTeam(p);
-      teamFound.set(t, (teamFound.get(t) || 0) + 1);
+    const sections = parseTeamSectionsFromPage(page.text);
+    for(const [teamCanon, numbered] of Object.entries(sections)){
       const src = sourceObj('teamlist', page.sourceName, page.url, NOW_ISO);
-      addOrMerge(teamlistsOut, p, makeStatus(STATUS.NAMED, `Name found on team-list source page (${page.sourceName}).`, [src], {selectionStatus:'named', team:p.team, teamCanonical:t}));
+      let matchedForTeam = 0;
+      for(const row of numbered){
+        const p = lookup.get(normName(row.name));
+        if(!p) continue;
+        if(playerTeam(p) !== teamCanon) continue;
+        const status = row.jersey <= 17 ? STATUS.NAMED : STATUS.EXPECTED;
+        const label = row.jersey <= 17 ? 'Named in numbered team-list final 17' : 'Named in numbered extended squad only';
+        addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: row.jersey <= 17 ? 'named' : 'extended', team:p.team, teamCanonical:teamCanon, jersey:row.jersey}));
+        matchedForTeam++;
+        totalFound++;
+      }
+      if(matchedForTeam >= 10) teamFound.set(teamCanon, matchedForTeam);
     }
   }
-  // Only infer NOT NAMED for teams where enough named players were found.
+  // Only infer NOT NAMED for teams where a real numbered team list was parsed.
   const loadedTeams = new Set([...teamFound.entries()].filter(([,n]) => n >= 10).map(([t]) => t));
   for(const p of players){
     const t = playerTeam(p);
     if(loadedTeams.has(t) && !teamlistsOut[p.name]){
-      teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, 'Team-list source loaded for club and player name was not found.', [sourceObj('teamlist','Team-list source set','',NOW_ISO)], {selectionStatus:'not_named', team:p.team, teamCanonical:t});
+      teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, 'Numbered club team list loaded for club and player was not in that list.', [sourceObj('teamlist','Parsed numbered team-list source','',NOW_ISO)], {selectionStatus:'not_named', team:p.team, teamCanonical:t});
     }
   }
-  return {totalFound, loadedTeams:[...loadedTeams]};
+  return {totalFound, loadedTeams:[...loadedTeams], parser:'numbered_team_sections_only'};
 }
 function fromFetchedInjuries(players, pages, injuriesOut){
   let count = 0;
