@@ -698,6 +698,30 @@ function fromFetchedInjuries(players, pages, injuriesOut){
   }
   return {count};
 }
+
+function fromFetchedOriginContext(players, pages){
+  const out = {};
+  let count = 0;
+  const originWords = ['origin duty','origin duties','state of origin','origin camp','origin squad','origin selection','representative duty','rep duty','unavailable due to origin','rested after origin','rested following origin'];
+  for(const page of pages || []){
+    const text = String(page.text || '').replace(/\s+/g,' ');
+    for(const p of players){
+      const re = nameRegex(p.name);
+      if(!re) continue;
+      const m = re.exec(text);
+      if(!m) continue;
+      const start = Math.max(0, m.index - 260);
+      const end = Math.min(text.length, m.index + String(m[0]).length + 260);
+      const window = text.slice(start, end).toLowerCase();
+      if(!originWords.some(w => window.includes(w))) continue;
+      const src = sourceObj('origin_context', page.sourceName, page.url, NOW_ISO);
+      out[p.name] = makeStatus(STATUS.ORIGIN, `Origin/representative-duty context found in current team-list source (${page.sourceName}).`, [src], {originContextOnly:true, team:p.team, teamCanonical:playerTeam(p)});
+      count++;
+    }
+  }
+  return {players:out, count};
+}
+
 function combineTruth(players, round, teamlists, injuries, suspensions, origin, existingStatus){
   const playersOut = {};
   const teamsWithLoadedList = new Set(Object.values(teamlists).map(r => r.teamCanonical).filter(Boolean));
@@ -724,10 +748,11 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
       if(i && t.displayStatus === STATUS.NAMED){
         rec = {...t, injuryNote:i.reason, injurySources:i.sources, reason:`${t.reason}; injury note: ${i.reason}`, sources:[...(t.sources||[]), ...(i.sources||[])]};
       }
-      if(o && t.displayStatus === STATUS.NAMED){
-        rec = {...rec, originStatus:'origin_context', reason:`${rec.reason}; Origin note present`, sources:[...(rec.sources||[]), ...(o.sources||[])]};
+      if(o){
+        const originReason = o.originContextOnly ? 'Origin/representative-duty context present' : 'Origin note present';
+        rec = {...rec, originStatus:'origin_context', originContextOnly:!!o.originContextOnly, reason:`${rec.reason}; ${originReason}`, sources:[...(rec.sources||[]), ...(o.sources||[])]};
       }
-    } else if(o){
+    } else if(o && !o.originContextOnly){
       rec = {...o, selectionStatus:'origin_context'};
     } else {
       // Previous week/reference fallback only: never green.
@@ -736,7 +761,10 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
       if(oldStatus === STATUS.NOT_NAMED){
         rec = makeStatus(STATUS.NOT_NAMED, 'No current club team-list truth. Previous/source reference suggests not named.', [sourceObj('previous_week','Reference layer','player_status.json')], {selectionStatus:'previous_reference'});
       } else {
-        rec = makeStatus(STATUS.EXPECTED, 'No current club team-list truth. Previous-week/reference layer only; not confirmed named.', [sourceObj('previous_week','Reference layer','player_status.json')], {selectionStatus:'expected_reference'});
+        // STRICT COLOUR RULE: missing/uncertain current team-list truth is NOT yellow.
+        // Yellow is reserved for real extended squad (18-25) or injury return-risk windows only.
+        // If we cannot confirm the current club list, show a grey data-unknown/not-confirmed state.
+        rec = makeStatus(STATUS.NOT_NAMED, 'No current club team-list truth. Source missing/uncertain; not confirmed named.', [sourceObj('source_missing','Current club team-list not confirmed','data/status_truth.json')], {selectionStatus:'source_missing', dataUnknown:true});
       }
     }
     playersOut[p.name] = {
@@ -806,6 +834,8 @@ async function main(){
   const injuryPages = await discoverPages(config.casualtyWardUrls || [], 'injury');
   const fetchedTeamStats = fromFetchedTeamlists(players, teamPages, teamlists);
   const fetchedInjuryStats = fromFetchedInjuries(players, injuryPages, injuries);
+  const fetchedOriginContext = fromFetchedOriginContext(players, teamPages);
+  Object.assign(origin, fetchedOriginContext.players);
 
   const {playersOut, teamlistsLoaded, teamsWithLoadedList} = combineTruth(players, round, teamlists, injuries, suspensions, origin, oldPlayerStatus);
   const summary = summarise(playersOut);
@@ -830,6 +860,7 @@ async function main(){
       backupStats,
       fetchedTeamStats,
       fetchedInjuryStats,
+      fetchedOriginContextStats: {count:fetchedOriginContext.count},
     },
     rules: [
       'No hardcoded player fixes',
@@ -842,6 +873,8 @@ async function main(){
       'Backup player_status can support SUSPENDED only with explicit judiciary/suspension evidence',
       'Injury body-part words such as calf, shoulder, knee, HIA classify as INJURED, never SUSPENDED',
       'All not-named output must use NOT_NAMED internally, not NOT NAMED',
+      'Origin/representative-duty context can explain NOT_NAMED, but cannot make a player GREEN/NAMED by itself',
+      'Yellow/EXPECTED is allowed only for real extended squad, confirmed return-risk windows, or explicit test/monitor status; missing team-list data must be grey/source_missing, not yellow',
       'Injury windows use red through minimum weeks out, then yellow during the return-risk window until maximum weeks/round'
     ],
     players: playersOut
