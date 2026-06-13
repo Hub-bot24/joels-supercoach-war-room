@@ -148,9 +148,42 @@ function statusFromRecord(rec){
   if(hasAny(combo, ['available','expected','likely','played last week','previous week','fit','cleared'])) return STATUS.EXPECTED;
   return '';
 }
+function isWeakNameFoundEvidence(rec){
+  const blob = textOf(rec);
+  return hasAny(blob, [
+    'name found on team-list source page',
+    'name found on team list source page',
+    'found on team-list source page',
+    'found on team list source page',
+    'name found on source page',
+    'name match on team-list page',
+    'source page mention'
+  ]);
+}
 function isTeamListEvidence(rec){
   const blob = textOf(rec);
   return hasAny(blob, ['teamlist','team list','team-list','final 17','final17','named in team','selected in team','tuesday team','late mail','final team','source_type":"teamlist','sourceType":"teamlist'.toLowerCase()]) || rec?.teamListLoaded === true || rec?.teamlistLoaded === true || rec?.sourceType === 'teamlist' || rec?.sourceType === 'final_team';
+}
+function isStrongNamedEvidence(rec){
+  if(!rec || isWeakNameFoundEvidence(rec)) return false;
+  const direct = String(rec.displayStatus || rec.status || rec.selectionStatus || rec.label || '').toLowerCase();
+  const blob = textOf(rec);
+  // GREEN/NAMED must come from explicit selection language, not generic available or a name mention.
+  const explicitNamed = /\b(named|selected|final\s*17|starting|interchange|bench)\b/i.test(`${direct} ${blob}`);
+  const genericOnly = /\b(available|expected|likely|fit|cleared)\b/i.test(direct) && !explicitNamed;
+  return isTeamListEvidence(rec) && explicitNamed && !genericOnly;
+}
+function isStrongNotNamedEvidence(rec){
+  if(!rec || isWeakNameFoundEvidence(rec)) return false;
+  const blob = textOf(rec);
+  return isTeamListEvidence(rec) && hasAny(blob, ['not named','not selected','omitted','cut from squad','not in team','dropped']);
+}
+function isStrongInjuryEvidence(rec){
+  if(!rec) return false;
+  const blob = textOf(rec);
+  const officialish = /casualty|injur|club|nrl|official/i.test(blob);
+  const injuryWords = hasAny(blob, ['ruled out','injured','injury','hamstring','calf','knee','shoulder','ankle','hia','concussion','casualty ward','syndesmosis','acl','mcl','fracture','broken','pec','pectoral','adductor','quad','quadriceps','groin','neck','back','wrist','foot','toe','rib']);
+  return injuryWords && officialish;
 }
 function confidenceFromSources(sources){
   const official = sources.some(s => /nrl|club|official/i.test(`${s.name} ${s.url}`));
@@ -283,14 +316,14 @@ function fromBackupStatus(players, playerStatus, teamlistsOut, injuriesOut, susp
     if(st === STATUS.SUSPENDED){
       suspensionsOut[p.name] = makeStatus(STATUS.SUSPENDED, rec.reason || rec.note || 'Suspension from source status file', [src], {raw:rec});
       suspensionCount++;
-    } else if(st === STATUS.INJURED){
-      injuriesOut[p.name] = makeStatus(STATUS.INJURED, rec.reason || rec.injury || rec.note || 'Injury from source status file', [src], {raw:rec});
+    } else if(st === STATUS.INJURED && isStrongInjuryEvidence(rec)){
+      injuriesOut[p.name] = makeStatus(STATUS.INJURED, rec.reason || rec.injury || rec.note || 'Injury from reliable source status file', [src], {raw:rec});
       injuryCount++;
-    } else if(st === STATUS.NAMED && isTeamListEvidence(rec)){
-      teamlistsOut[p.name] = makeStatus(STATUS.NAMED, rec.reason || rec.note || 'Named from team-list source status file', [src], {selectionStatus:'named', team:p.team, teamCanonical:playerTeam(p), raw:rec});
+    } else if(st === STATUS.NAMED && isStrongNamedEvidence(rec)){
+      teamlistsOut[p.name] = makeStatus(STATUS.NAMED, rec.reason || rec.note || 'Explicitly named from team-list source status file', [src], {selectionStatus:'named', team:p.team, teamCanonical:playerTeam(p), raw:rec});
       namedCount++;
-    } else if(st === STATUS.NOT_NAMED && isTeamListEvidence(rec)){
-      teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, rec.reason || rec.note || 'Not named from team-list source status file', [src], {selectionStatus:'not_named', team:p.team, teamCanonical:playerTeam(p), raw:rec});
+    } else if(st === STATUS.NOT_NAMED && isStrongNotNamedEvidence(rec)){
+      teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, rec.reason || rec.note || 'Explicitly not named from team-list source status file', [src], {selectionStatus:'not_named', team:p.team, teamCanonical:playerTeam(p), raw:rec});
     }
   }
   return {namedCount, injuryCount, suspensionCount};
@@ -520,7 +553,9 @@ async function main(){
       'Current club team-list truth is required for GREEN/NAMED',
       'Previous week is reference only and can never make a player GREEN',
       'Origin is ORANGE unless club team-list truth confirms NAMED or NOT NAMED',
-      'One official injury source can mark INJURED; one unofficial source only is an injury watch/reference'
+      'One official injury source can mark INJURED; one unofficial source only is an injury watch/reference',
+      'A raw name mention on a team-list article is never enough to mark NAMED',
+      'Backup player_status can support NAMED only when it contains explicit team-list selection evidence'
     ],
     players: playersOut
   };
