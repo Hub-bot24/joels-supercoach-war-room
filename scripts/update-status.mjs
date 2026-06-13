@@ -403,12 +403,25 @@ function sourceNameFromUrl(url){
 }
 function teamlistSourcePriority(page){
   const url = String(page?.url || page || '').toLowerCase();
-  const text = norm(String(page?.text || '')).slice(0, 20000);
   // Generic source order. No player names. Later/final club-team evidence must beat the Tuesday baseline.
-  if(url.includes('updated-team-lists') || text.includes('updated team lists') || text.includes('late mail') || text.includes('final team') || text.includes('final 17') || text.includes('final 19') || text.includes('one hour') || text.includes('1 hour')) return 4;
-  if(url.includes('late-mail') || text.includes('late mail')) return 3;
-  if(url.includes('team-lists-round') || url.includes('round-') || text.includes('team lists')) return 2;
+  // IMPORTANT: priority must be URL/type driven. The original Tuesday NRL article can contain words
+  // like "late mail" in its body/sidebar, but that must not promote it above updated/final pages.
+  if(url.includes('updated-team-lists')) return 4;
+  if(url.includes('late-mail')) return 3;
+  if(url.includes('nrl-team-lists-round') || url.includes('round-') || url.includes('team-lists')) return 2;
   return 1;
+}
+function allowWholeArticleJerseyScan(page){
+  const url = String(page?.url || '').toLowerCase();
+  // Avoid whole-page scans on the official Tuesday NRL article because it can preserve old named
+  // players and mix in social/share/sidebar content. Use structured/team-block parsing there only.
+  if(url.includes('nrl-team-lists-round')) return false;
+  if(url.includes('updated-team-lists')) return true;
+  if(url.includes('late-mail')) return true;
+  // Zero Tackle round team-list pages are more regular and are still needed as a broad source,
+  // but any later updated-team-list page will override them through sourcePriority.
+  if(url.includes('zerotackle.com/round-') && url.includes('team-lists')) return true;
+  return false;
 }
 function sourcePriorityOf(rec){
   return Number(rec?.sourcePriority || rec?.sources?.[0]?.priority || 0) || 0;
@@ -514,23 +527,6 @@ function parseTeamSectionsFromPage(text){
   }
   return found;
 }
-
-function teamSegmentFromPage(text, canon){
-  const sourceText = String(text||'').replace(/\s+/g,' ');
-  const aliases = aliasPatternsForTeam(canon);
-  const nextTeamHeading = '(?:BRISBANE|BRONCOS|CANBERRA|RAIDERS|BULLDOGS|CANTERBURY|CRONULLA|SHARKS|TITANS|GOLD COAST|MANLY|SEA EAGLES|MELBOURNE|STORM|NEWCASTLE|KNIGHTS|WARRIORS|NORTH QUEENSLAND|COWBOYS|PARRAMATTA|EELS|PENRITH|PANTHERS|SOUTH SYDNEY|RABBITOHS|SOUTHS|DRAGONS|ROOSTERS|DOLPHINS|TIGERS)';
-  const re = new RegExp(`(?:${aliases})(?:\\s+(?:team|line[- ]?up|squad|final team|late mail|team list))?\\s*[:\\-]?\\s*([\\s\\S]{0,5200}?)(?=${nextTeamHeading}\\s+(?:team|line[- ]?up|squad|final team|late mail|team list)|$)`, 'i');
-  const m = sourceText.match(re);
-  return m ? m[1] : '';
-}
-
-function teamScopedKnownPlayerRows(players, page, teamCanon){
-  const segment = teamSegmentFromPage(page.text, teamCanon);
-  if(!segment) return [];
-  const teamPlayers = players.filter(p => playerTeam(p) === teamCanon);
-  return fromKnownPlayerJerseyPatterns(teamPlayers, {...page, text:segment}).map(r => ({...r, teamCanon}));
-}
-
 
 function compactTextForPlayerScan(text){
   return String(text || '')
@@ -640,19 +636,21 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
       if(matchedForTeam >= 10) teamFound.set(teamCanon, Math.max(teamFound.get(teamCanon)||0, matchedForTeam));
     }
 
-    // Parser 2: team-scoped known-player + jersey-number patterns.
-    // Important: never scan the whole article for every player. Some pages contain older
-    // Tuesday lists, Origin mentions, share text, or other teams. A player can only be
-    // matched inside that player's own club/team block. This prevents false greens from
-    // stale or unrelated page mentions, without hardcoding any player.
-    for(const teamCanon of Object.keys(TEAM_ALIASES)){
-      const jerseyRows = teamScopedKnownPlayerRows(players, page, teamCanon);
+    // Parser 2: generic known-player + jersey-number patterns from stripped team-list article text.
+    // This is needed because some source pages render rows as "1 Player Player" or "Player Player 1" rather than "1. Player".
+    // v22 guard: never whole-scan the official Tuesday NRL team-list article; that caused stale
+    // Tuesday selections to stay green after late-mail changes. Updated/final pages still override
+    // older pages using sourcePriority.
+    if(allowWholeArticleJerseyScan(page)){
+      const jerseyRows = fromKnownPlayerJerseyPatterns(players, page);
       for(const row of jerseyRows){
         const p = row.player;
+        const teamCanon = playerTeam(p);
+        if(!teamCanon) continue;
         addTeamCount(teamCanon);
         markSeen(teamCanon, p.name);
         const status = row.jersey <= 17 ? STATUS.NAMED : STATUS.EXPECTED;
-        const label = row.jersey <= 17 ? 'Named in team-scoped team-list final 17' : 'Named in team-scoped extended squad only';
+        const label = row.jersey <= 17 ? 'Named in team-list article final 17' : 'Named in team-list article extended squad only';
         addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: row.jersey <= 17 ? 'named' : 'extended', team:p.team, teamCanonical:teamCanon, jersey:row.jersey, sourcePriority:priority}));
         totalFound++;
         knownPatternFound++;
@@ -686,7 +684,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
       teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, 'Current club team list loaded for club and player was not in that list.', [sourceObj('teamlist','Parsed current team-list source','',NOW_ISO)], {selectionStatus:'not_named', team:p.team, teamCanonical:t, sourcePriority:1});
     }
   }
-  return {totalFound, loadedTeams:[...loadedTeams], parser:'section_parser_plus_team_scoped_jersey_patterns_with_source_priority', sectionFound, knownPatternFound, pageLevelMissingCount};
+  return {totalFound, loadedTeams:[...loadedTeams], parser:'section_parser_plus_guarded_jersey_patterns_with_source_priority_v22', sectionFound, knownPatternFound, pageLevelMissingCount};
 }
 function fromFetchedInjuries(players, pages, injuriesOut){
   let count = 0;
