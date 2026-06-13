@@ -6,14 +6,12 @@ on:
       active_round:
         description: "NRL/SuperCoach round to build. Leave blank to infer from files."
         required: false
-        default: ""
+        default: "15"
   schedule:
-    # Baseline update. The script itself is source-first and will fail safe if data is missing.
-    - cron: "*/30 * * * *"
+    - cron: "*/15 * * * *"
 
 permissions:
   contents: write
-  issues: write
 
 jobs:
   update-status-truth:
@@ -28,10 +26,10 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Run core status truth updater
-        env:
-          ACTIVE_ROUND: ${{ github.event.inputs.active_round }}
+      - name: Run status truth updater
         run: node scripts/update-status.mjs
+        env:
+          ACTIVE_ROUND: ${{ github.event.inputs.active_round || '15' }}
 
       - name: Commit updated truth files
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -39,23 +37,12 @@ jobs:
           commit_message: Update status truth data
           file_pattern: |
             data/status_truth.json
-            data/current_round.json
+            data/status_previous.json
             data/teamlists.json
             data/injuries.json
             data/suspensions.json
             data/origin.json
-            data/status_previous.json
+            data/current_round.json
             data/teamlist_baseline_tuesday.json
             data/teamlist_changes.json
             data/notifications.json
-            data/notification_message.md
-            data/history/*.json
-
-      - name: Create notification issue for new changes
-        if: hashFiles('data/notification_message.md') != ''
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh issue create \
-            --title "War Room status changes - $(date -u +'%Y-%m-%d %H:%M UTC')" \
-            --body-file data/notification_message.md || true
