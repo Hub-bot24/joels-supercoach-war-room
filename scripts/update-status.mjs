@@ -661,11 +661,25 @@ function fromKnownPlayerJerseyPatterns(players, page){
   const surnameCounts = surnameFrequency(players);
   for(const p of players){
     const re = playerNameNearJerseyRegex(p.name, surnameCounts);
-    const m = re.exec(text);
-    if(!m) continue;
-    const jersey = Number(m[1] || m[2]);
-    if(!Number.isFinite(jersey) || jersey < 1 || jersey > 25) continue;
-    rows.push({player:p, jersey});
+    // CORE v30: scan every occurrence, not just the first one.
+    // Updated/final-team pages can contain both an older extended-squad listing and a final-17 listing
+    // for the same player. A first-match-only parser wrongly leaves promoted players yellow.
+    // Generic rule: on a trusted updated/final page, any 1-17 occurrence beats 18-25; otherwise keep
+    // the best numbered listing found. No player names, no one-off overrides.
+    const globalRe = new RegExp(re.source, re.flags.includes('g') ? re.flags : re.flags + 'g');
+    const jerseys = [];
+    let m;
+    while((m = globalRe.exec(text))){
+      const jersey = Number(m[1] || m[2]);
+      if(Number.isFinite(jersey) && jersey >= 1 && jersey <= 25) jerseys.push(jersey);
+      // Safety against zero-length regex loops.
+      if(globalRe.lastIndex === m.index) globalRe.lastIndex++;
+    }
+    if(!jerseys.length) continue;
+    const final17 = jerseys.filter(j => j <= 17).sort((a,b)=>a-b);
+    const extended = jerseys.filter(j => j > 17).sort((a,b)=>a-b);
+    const jersey = final17.length ? final17[0] : extended[0];
+    rows.push({player:p, jersey, seenJerseys:jerseys});
   }
   return rows;
 }
@@ -761,7 +775,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
       teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, 'Current club team list loaded for club and player was not in that list.', [sourceObj('teamlist','Parsed current team-list source','',NOW_ISO)], {selectionStatus:'not_named', team:p.team, teamCanonical:t, sourcePriority:1});
     }
   }
-  return {totalFound, loadedTeams:[...loadedTeams], parser:'section_parser_plus_guarded_jersey_patterns_with_source_priority_v22', sectionFound, knownPatternFound, pageLevelMissingCount};
+  return {totalFound, loadedTeams:[...loadedTeams], parser:'section_parser_plus_guarded_all_occurrence_jersey_patterns_with_source_priority_v30', sectionFound, knownPatternFound, pageLevelMissingCount};
 }
 function localWindowAroundName(text, name, before=360, after=520){
   const src = String(text || '').replace(/\s+/g,' ');
@@ -998,6 +1012,7 @@ async function main(){
       'Backup player_status can support SUSPENDED only with explicit judiciary/suspension evidence',
       'Injury body-part words such as calf, shoulder, knee, HIA classify as INJURED, never SUSPENDED',
       'All not-named output must use NOT_NAMED internally, not NOT NAMED',
+      'Updated/final team-list pages scan all player jersey occurrences; any 1-17 occurrence beats 18-25 for the same player',
       'Suspension windows behave like injury windows in Bye Planner: pink only for suspended rounds, then clear',
       'Origin/representative-duty context can explain NOT_NAMED, but cannot make a player GREEN/NAMED by itself',
       'Yellow/EXPECTED is allowed only for real extended squad, confirmed return-risk windows, or explicit test/monitor status; missing team-list data must be grey/source_missing, not yellow',
