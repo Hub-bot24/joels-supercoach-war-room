@@ -18,7 +18,6 @@ permissions:
 jobs:
   update-status-truth:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -49,6 +48,7 @@ jobs:
             data/teamlist_changes.json
             data/notifications.json
             data/notification_message.md
+            data/source_audit.json
             data/history/*.json
 
       - name: Create notification issue for new changes
