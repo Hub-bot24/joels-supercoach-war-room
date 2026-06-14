@@ -49,6 +49,7 @@ jobs:
             data/notifications.json
             data/notification_message.md
             data/source_audit.json
+            data/source_discovery_test.json
             data/history/*.json
 
       - name: Create notification issue for new changes
