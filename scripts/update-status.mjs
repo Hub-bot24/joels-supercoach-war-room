@@ -981,6 +981,126 @@ function summarise(playersOut){
   for(const r of Object.values(playersOut)) out[r.displayStatus] = (out[r.displayStatus] || 0) + 1;
   return out;
 }
+
+function classifyAuditUrl(url){
+  const u = String(url || '').toLowerCase();
+  const reasons = [];
+  if(!u) reasons.push('empty_url');
+  if(u.startsWith('mailto:')) reasons.push('mailto_share_link');
+  if(u.startsWith('whatsapp:')) reasons.push('whatsapp_share_link');
+  if(/twitter\.com\/intent|x\.com\/intent/.test(u)) reasons.push('twitter_share_link');
+  if(/facebook\.com\/sharer/.test(u)) reasons.push('facebook_share_link');
+  if(/reddit\.com\/submit/.test(u)) reasons.push('reddit_share_link');
+  if(/\/account\/login|wp-login\.php/.test(u)) reasons.push('login_link');
+  if(/#respond$|#comments?$|#main-content$|#$/.test(u)) reasons.push('fragment_or_comment_link');
+  if(/\/news\/$|\/nrl\/team-lists\/?$|\/news\/topic\/team-lists\/?$/.test(u)) reasons.push('broad_index_page');
+  if(/round-14|round\s*14|late-mail-round-14/.test(u)) reasons.push('wrong_round_candidate');
+  if(/game-2-team-lists|state-of-origin|origin/.test(u)) reasons.push('origin_or_rep_page_candidate');
+  if(/2027|squad-tracker|signings|rumours/.test(u)) reasons.push('future_squad_tracker_candidate');
+  const truthLike = /nrl-team-lists-round|round-\d+-team-lists|late-mail-round|updated-team-lists/.test(u);
+  return {url, truthLike, reasons, isSuspicious: reasons.length > 0 && !truthLike};
+}
+function auditPageCoverage(players, page){
+  const teams = {};
+  const ensure = team => {
+    if(!teams[team]) teams[team] = {team, final17:0, extended:0, total:0, parserHits:{sections:0, localJersey:0}, samplePlayers:[]};
+    return teams[team];
+  };
+  const sections = parseTeamSectionsFromPage(page.text);
+  const lookup = playerLookupByName(players);
+  for(const [teamCanon, numbered] of Object.entries(sections)){
+    const bucket = ensure(teamCanon);
+    for(const row of numbered){
+      const p = lookup.get(normName(row.name));
+      if(!p || playerTeam(p) !== teamCanon) continue;
+      bucket.total++;
+      bucket.parserHits.sections++;
+      if(row.jersey <= 17) bucket.final17++; else bucket.extended++;
+      if(bucket.samplePlayers.length < 8) bucket.samplePlayers.push(`${p.name} (${row.jersey})`);
+    }
+  }
+  if(allowWholeArticleJerseyScan(page)){
+    const jerseyRows = fromKnownPlayerJerseyPatterns(players, page);
+    const seen = new Set();
+    for(const row of jerseyRows){
+      const p = row.player;
+      const teamCanon = playerTeam(p);
+      if(!teamCanon) continue;
+      const key = `${teamCanon}|${p.name}|${row.jersey}`;
+      if(seen.has(key)) continue;
+      seen.add(key);
+      const bucket = ensure(teamCanon);
+      bucket.total++;
+      bucket.parserHits.localJersey++;
+      if(row.jersey <= 17) bucket.final17++; else bucket.extended++;
+      if(bucket.samplePlayers.length < 8) bucket.samplePlayers.push(`${p.name} (${row.jersey})`);
+    }
+  }
+  return Object.values(teams).sort((a,b)=>a.team.localeCompare(b.team));
+}
+function buildSourceAudit({round, configuredUrls, teamPages, injuryPages, teamlists, playersOut, changes, players}){
+  const fetchedTeamUrls = teamPages.map(p => p.url);
+  const fetchedInjuryUrls = injuryPages.map(p => p.url);
+  const urlAudit = fetchedTeamUrls.map(url => classifyAuditUrl(url));
+  const pageAudits = teamPages.map((page, idx) => {
+    const coverage = auditPageCoverage(players, page);
+    const warnings = [];
+    for(const c of coverage){
+      if(c.final17 > 0 && c.final17 < 17) warnings.push(`${c.team}: only ${c.final17} final-17 players parsed`);
+      if(c.total > 0 && c.total < 10) warnings.push(`${c.team}: only ${c.total} total players parsed`);
+      if(c.total > 30) warnings.push(`${c.team}: ${c.total} rows parsed; possible duplicate/page contamination`);
+    }
+    return {
+      order: idx + 1,
+      url: page.url,
+      sourceName: page.sourceName,
+      priority: teamlistSourcePriority(page),
+      allowWholeArticleJerseyScan: allowWholeArticleJerseyScan(page),
+      urlClassification: classifyAuditUrl(page.url),
+      teams: coverage,
+      warnings
+    };
+  });
+  const teamSummary = {};
+  for(const rec of Object.values(teamlists || {})){
+    const team = rec.teamCanonical || canonicalTeam(rec.team || '');
+    if(!team) continue;
+    if(!teamSummary[team]) teamSummary[team] = {team, named:0, expected:0, notNamed:0, total:0};
+    teamSummary[team].total++;
+    if(rec.displayStatus === STATUS.NAMED) teamSummary[team].named++;
+    else if(rec.displayStatus === STATUS.EXPECTED) teamSummary[team].expected++;
+    else if(rec.displayStatus === STATUS.NOT_NAMED) teamSummary[team].notNamed++;
+  }
+  const statusChangeFocus = asArray(changes).filter(c =>
+    (c.from === STATUS.EXPECTED && c.to === STATUS.NAMED) ||
+    (c.from === STATUS.NAMED && c.to === STATUS.EXPECTED) ||
+    (c.to === STATUS.NOT_NAMED)
+  );
+  const warnings = [];
+  const suspicious = urlAudit.filter(u => u.isSuspicious).map(u => ({url:u.url, reasons:u.reasons}));
+  if(suspicious.length) warnings.push(`${suspicious.length} suspicious/junk team-list URLs were fetched; audit only, statuses unchanged.`);
+  for(const [team, s] of Object.entries(teamSummary)){
+    if(s.named > 0 && s.named < 17) warnings.push(`${team}: status truth has only ${s.named} NAMED players from loaded lists.`);
+  }
+  return {
+    updated: NOW_ISO,
+    round,
+    mode: 'audit_only_no_status_logic_changes',
+    note: 'This file reports source/link/parser health only. It does not change player statuses.',
+    configuredTeamSourceCount: configuredUrls.length,
+    fetchedTeamSourceCount: fetchedTeamUrls.length,
+    fetchedInjurySourceCount: fetchedInjuryUrls.length,
+    configuredTeamSourceUrls: configuredUrls,
+    fetchedTeamUrls,
+    fetchedInjuryUrls,
+    suspiciousFetchedTeamUrls: suspicious,
+    pageAudits,
+    teamSummary: Object.values(teamSummary).sort((a,b)=>a.team.localeCompare(b.team)),
+    focusedStatusChanges: statusChangeFocus,
+    warnings
+  };
+}
+
 function changedStatus(prevPlayers, nextPlayers){
   const changes = [];
   for(const [name,next] of Object.entries(nextPlayers || {})){
@@ -1088,8 +1208,11 @@ async function main(){
   const newChanges = changes.filter(c => !prevChangeIds.has(`${c.player}|${c.from}|${c.to}|${round}`)).map(c => ({...c, round}));
   const allChanges = [...asArray(existingChanges), ...newChanges].slice(-500);
 
+  const sourceAudit = buildSourceAudit({round, configuredUrls:teamSourceUrls, teamPages, injuryPages, teamlists, playersOut, changes, players});
+
   await writeJson('data/status_previous.json', previousTruth || {});
   await writeJson('data/status_truth.json', truth);
+  await writeJson('data/source_audit.json', sourceAudit);
   await writeJson('data/current_round.json', {round, phase: teamlistsLoaded ? 'teamlists_loaded' : 'waiting_for_teamlists', updated: NOW_ISO, teamlistsLoaded});
   await writeJson('data/teamlists.json', {updated: NOW_ISO, round, loaded: teamlistsLoaded, teamsWithLoadedList, players: teamlists});
   await writeJson('data/injuries.json', {updated: NOW_ISO, round, players: injuries});
@@ -1122,7 +1245,7 @@ async function main(){
     await removeFile('data/notification_message.md');
   }
 
-  console.log(JSON.stringify({ok:true, round, players:players.length, teamlistsLoaded, summary, newChanges:newChanges.length, warnings:truth.dataHealth.warnings}, null, 2));
+  console.log(JSON.stringify({ok:true, round, players:players.length, teamlistsLoaded, summary, newChanges:newChanges.length, sourceAuditWarnings:sourceAudit.warnings.length, warnings:truth.dataHealth.warnings}, null, 2));
 }
 
 main().catch(err => {
