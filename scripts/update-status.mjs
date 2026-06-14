@@ -32,18 +32,6 @@ const NOW = new Date();
 const NOW_ISO = NOW.toISOString();
 const USER_AGENT = 'Mozilla/5.0 (compatible; SuperCoachWarRoomBot/1.0; +https://github.com/Hub-bot24/joels-supercoach-war-room)';
 
-const SOURCE_AUDIT = {
-  updatedAt: NOW_ISO,
-  round: null,
-  mode: 'auto-discovery with audit protection',
-  configuredUrls: [],
-  fetchedUrls: [],
-  truthUrls: [],
-  discoveryOnlyUrls: [],
-  rejectedUrls: [],
-  warnings: []
-};
-
 const STATUS = {
   NAMED: 'NAMED',
   EXPECTED: 'EXPECTED',
@@ -456,165 +444,34 @@ function findPlayerNamesInText(players, text){
   }
   return out;
 }
-function cleanCandidateUrl(raw, baseUrl=''){
-  try{
-    const u = new URL(String(raw || ''), baseUrl || undefined);
-    if(['http:', 'https:'].includes(u.protocol) === false) return String(raw || '');
-    if(['#', '#respond', '#main-content'].includes(u.hash)) u.hash = '';
-    return u.href;
-  }catch{ return String(raw || ''); }
-}
-function roundPatterns(round){
-  const r = Number(round || 0);
-  if(!r) return [];
-  return [
-    `round-${r}`, `round_${r}`, `round ${r}`, `round%20${r}`,
-    `rd-${r}`, `rd ${r}`, `r${r}`
-  ];
-}
-function urlHasRound(url, round){
-  const u = String(url || '').toLowerCase();
-  return roundPatterns(round).some(p => u.includes(p));
-}
-function textHasRound(text, round){
-  const t = norm(String(text || '').slice(0, 8000));
-  return t.includes(`round ${Number(round || 0)}`);
-}
-function isTeamlistIndexUrl(url){
-  const u = String(url || '').toLowerCase().replace(/\/+$/,'');
-  return /nrl\.com\/news\/topic\/team-lists/i.test(u)
-    || /zerotackle\.com\/nrl\/team-lists/i.test(u);
-}
-function isHomePageUrl(url){
-  try{
-    const u = new URL(url);
-    const path = u.pathname.replace(/\/+$/,'');
-    return path === '' || path === '/news';
-  }catch{ return false; }
-}
-function urlRejectReason(url, kind, round){
-  const raw = String(url || '');
-  const u = raw.toLowerCase();
-  if(!raw) return 'empty_url';
-  if(/^(mailto:|whatsapp:|tel:|javascript:)/i.test(raw)) return 'non_http_or_share_protocol';
-  if(/(?:twitter\.com\/intent|x\.com\/intent|facebook\.com\/sharer|reddit\.com\/submit|linkedin\.com\/share|\/share\?)/i.test(u)) return 'social_share_link';
-  if(/(?:\/account\/login|wp-login\.php|\/login\b|\/register\b)/i.test(u)) return 'login_link';
-  if(/#respond\b|#comments\b/i.test(u)) return 'comment_fragment';
-  if(/perth-bears|2027|signings|squad-tracker|rumours/i.test(u)) return 'future_squad_or_news_tracker';
-  if(/game-\d+-team-lists|state-of-origin|origin-game/i.test(u)) return 'origin_or_rep_team_list_not_club_round';
-  if(kind === 'teamlist'){
-    if(isHomePageUrl(raw)) return 'home_or_news_index';
-    const m = u.match(/round[-%20\s_]+(\d{1,2})/i);
-    if(m && round && Number(m[1]) !== Number(round)) return `wrong_round_${m[1]}`;
-  }
-  return '';
-}
-function sameRoundContext(url, text, round){
-  return !!round && (urlHasRound(url, round) || textHasRound(text, round));
-}
-function isTeamlistTruthUrl(url, text, round, parentSameRound=false){
-  if(!pageLooksLikeTeamList(url, text)) return false;
-  if(isTeamlistIndexUrl(url) || isHomePageUrl(url)) return false;
-  const u = String(url || '').toLowerCase();
-  if(sameRoundContext(url, text, round)) return true;
-  // Updated match pages often omit "round-15" from the slug. They are accepted only when
-  // discovered from a same-round team-list article. Older same-round evidence cannot beat newer source order later.
-  if(parentSameRound && /updated-team-lists/i.test(u)) return true;
-  return false;
-}
-function isPotentialTeamlistLink(link, round, parentSameRound=false){
-  const all = norm(`${link.href || ''} ${link.label || ''}`);
-  const href = String(link.href || '').toLowerCase();
-  if(isTeamlistIndexUrl(link.href)) return true; // discovery only
-  if(urlHasRound(link.href, round) && (all.includes('team list') || all.includes('team lists') || all.includes('team-lists') || all.includes('late mail'))) return true;
-  if(parentSameRound && href.includes('updated-team-lists')) return true;
-  return false;
-}
-function auditReject(url, reason, parentUrl='', label=''){
-  SOURCE_AUDIT.rejectedUrls.push({url, reason, parentUrl, label});
-}
-async function discoverPages(urls, kind, round=0){
+async function discoverPages(urls, kind){
   const pages = [];
-  const fetched = new Set();
-  const queued = [];
-  const enqueue = (url, meta={}) => {
-    const cleaned = cleanCandidateUrl(url, meta.parentUrl || '');
-    if(!cleaned || fetched.has(cleaned)) return;
-    queued.push({url:cleaned, ...meta});
-  };
-  for(const url of urls || []) enqueue(url, {configured:true, parentUrl:'', parentSameRound:false});
-
-  while(queued.length){
-    const item = queued.shift();
-    const url = item.url;
-    if(fetched.has(url)) continue;
-    fetched.add(url);
-
-    if(kind === 'teamlist' && item.configured) SOURCE_AUDIT.configuredUrls.push(url);
-    const reject = urlRejectReason(url, kind, round);
-    if(reject){
-      if(kind === 'teamlist') auditReject(url, reject, item.parentUrl || '', item.label || '');
-      continue;
-    }
-
+  for(const url of urls || []){
     try{
       const html = await fetchText(url);
       const text = stripHtml(html);
-      if(kind === 'teamlist') SOURCE_AUDIT.fetchedUrls.push(url);
-
-      const parentSameRound = !!item.parentSameRound;
-      const thisSameRound = sameRoundContext(url, text, round) || parentSameRound;
-      const isIndex = kind === 'teamlist' && isTeamlistIndexUrl(url);
-
-      if(kind === 'teamlist'){
-        if(isTeamlistTruthUrl(url, text, round, parentSameRound)){
-          pages.push({url, html, text, sourceName: sourceNameFromUrl(url)});
-          SOURCE_AUDIT.truthUrls.push(url);
-        } else if(isIndex || pageLooksLikeTeamList(url, text)){
-          SOURCE_AUDIT.discoveryOnlyUrls.push({url, reason:isIndex ? 'teamlist_index_discovery_only' : 'not_same_round_truth'});
-        }
-      } else if(kind === 'injury' && pageLooksLikeCasualty(url, text)){
-        pages.push({url, html, text, sourceName:sourceNameFromUrl(url)});
+      if((kind === 'teamlist' && pageLooksLikeTeamList(url, text)) || (kind === 'injury' && pageLooksLikeCasualty(url, text))){
+        pages.push({url, html, text, sourceName: sourceNameFromUrl(url)});
       }
-
-      const links = extractLinks(html, url)
-        .map(l => ({...l, href:cleanCandidateUrl(l.href, url)}))
-        .filter(l => l.href && !fetched.has(l.href));
-
-      let linkCount = 0;
+      const links = extractLinks(html, url).filter(l => {
+        const all = norm(`${l.href} ${l.label}`);
+        if(kind === 'teamlist') return all.includes('team list') || all.includes('team lists') || all.includes('team-lists') || (all.includes('round') && all.includes('teams'));
+        if(kind === 'injury') return all.includes('casualty') || all.includes('injur');
+        return false;
+      }).slice(0, 12);
       for(const l of links){
-        const linkReject = urlRejectReason(l.href, kind, round);
-        if(linkReject){
-          if(kind === 'teamlist') auditReject(l.href, linkReject, url, l.label || '');
-          continue;
-        }
-        let ok = false;
-        if(kind === 'teamlist') ok = isPotentialTeamlistLink(l, round, thisSameRound);
-        else if(kind === 'injury'){
-          const all = norm(`${l.href} ${l.label}`);
-          ok = all.includes('casualty') || all.includes('injur');
-        }
-        if(!ok) continue;
-        enqueue(l.href, {configured:false, parentUrl:url, parentSameRound:thisSameRound, label:l.label || ''});
-        linkCount++;
-        if(linkCount >= 40) break;
+        try{
+          const pageHtml = await fetchText(l.href);
+          const pageText = stripHtml(pageHtml);
+          if((kind === 'teamlist' && pageLooksLikeTeamList(l.href, pageText)) || (kind === 'injury' && pageLooksLikeCasualty(l.href, pageText))){
+            pages.push({url:l.href, html:pageHtml, text:pageText, sourceName:sourceNameFromUrl(l.href)});
+          }
+        }catch(e){ console.warn(`[warn] Could not fetch linked ${kind} page: ${l.href} :: ${e.message}`); }
       }
-    }catch(e){
-      const msg = `[warn] Could not fetch ${item.configured ? '' : 'linked '}${kind} page: ${url} :: ${e.message}`;
-      console.warn(msg);
-      if(kind === 'teamlist') auditReject(url, `fetch_failed: ${e.message}`, item.parentUrl || '', item.label || '');
-    }
+    }catch(e){ console.warn(`[warn] Could not fetch ${kind} source: ${url} :: ${e.message}`); }
   }
-
   const seen = new Set();
-  const deduped = pages.filter(p => !seen.has(p.url) && seen.add(p.url));
-  if(kind === 'teamlist'){
-    SOURCE_AUDIT.fetchedCount = SOURCE_AUDIT.fetchedUrls.length;
-    SOURCE_AUDIT.truthCount = deduped.length;
-    SOURCE_AUDIT.rejectedCount = SOURCE_AUDIT.rejectedUrls.length;
-    if(!deduped.length) SOURCE_AUDIT.warnings.push('No same-round team-list truth pages were accepted. Check source_config.json or active_round.');
-  }
-  return deduped;
+  return pages.filter(p => !seen.has(p.url) && seen.add(p.url));
 }
 function sourceNameFromUrl(url){
   if(/nrl\.com/i.test(url)) return 'Official NRL';
@@ -1168,11 +1025,10 @@ async function main(){
     ...asArray(config.teamlistIndexUrls)
   ].filter(Boolean);
 
-  SOURCE_AUDIT.round = round;
-  const teamPages = await discoverPages(teamSourceUrls, 'teamlist', round);
-  console.log(JSON.stringify({step:'teamlist_sources', configured:teamSourceUrls.length, fetched:teamPages.length, urls:teamPages.map(p=>p.url), rejected:SOURCE_AUDIT.rejectedCount || 0, auditWarnings:SOURCE_AUDIT.warnings.length}, null, 2));
+  const teamPages = await discoverPages(teamSourceUrls, 'teamlist');
+  console.log(JSON.stringify({step:'teamlist_sources', configured:teamSourceUrls.length, fetched:teamPages.length, urls:teamPages.map(p=>p.url)}, null, 2));
 
-  const injuryPages = await discoverPages(config.casualtyWardUrls || [], 'injury', round);
+  const injuryPages = await discoverPages(config.casualtyWardUrls || [], 'injury');
   const fetchedTeamStats = fromFetchedTeamlists(players, teamPages, teamlists);
   const fetchedInjuryStats = fromFetchedInjuries(players, injuryPages, injuries);
   const fetchedOriginContext = fromFetchedOriginContext(players, teamPages);
@@ -1197,7 +1053,6 @@ async function main(){
         ...(players.length ? [] : ['players.json empty'])
       ],
       fetchedTeamListPages: teamPages.map(p => p.url),
-      sourceAuditWarnings: SOURCE_AUDIT.warnings.length,
       fetchedInjuryPages: injuryPages.map(p => p.url),
       backupStats,
       fetchedTeamStats,
@@ -1242,18 +1097,6 @@ async function main(){
   await writeJson('data/origin.json', {updated: NOW_ISO, round, players: origin});
   await writeJson('data/teamlist_changes.json', allChanges);
   await writeJson('data/notifications.json', {updated: NOW_ISO, round, newChanges, allChangeCount: allChanges.length});
-  await writeJson('data/source_audit.json', {
-    ...SOURCE_AUDIT,
-    summary: {
-      configured: teamSourceUrls.length,
-      fetched: SOURCE_AUDIT.fetchedUrls.length,
-      acceptedTruth: teamPages.length,
-      discoveryOnly: SOURCE_AUDIT.discoveryOnlyUrls.length,
-      rejected: SOURCE_AUDIT.rejectedUrls.length,
-      warnings: SOURCE_AUDIT.warnings.length
-    },
-    acceptedTruthUrls: teamPages.map(p => p.url)
-  });
   await writeJson(`data/history/round_${round || 'unknown'}_status.json`, truth);
 
   // Establish Tuesday/teamlist baseline only when real teamlist data has loaded and no baseline exists for round.
@@ -1279,7 +1122,7 @@ async function main(){
     await removeFile('data/notification_message.md');
   }
 
-  console.log(JSON.stringify({ok:true, round, players:players.length, teamlistsLoaded, summary, newChanges:newChanges.length, sourceAuditWarnings:SOURCE_AUDIT.warnings.length, sourceAuditRejected:SOURCE_AUDIT.rejectedUrls.length, warnings:truth.dataHealth.warnings}, null, 2));
+  console.log(JSON.stringify({ok:true, round, players:players.length, teamlistsLoaded, summary, newChanges:newChanges.length, warnings:truth.dataHealth.warnings}, null, 2));
 }
 
 main().catch(err => {
