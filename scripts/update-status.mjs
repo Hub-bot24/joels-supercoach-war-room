@@ -421,6 +421,33 @@ function extractLinks(html, baseUrl){
   }
   return links;
 }
+function roundNumbersFromUrlText(text){
+  return [...String(text || '').matchAll(/(?:^|[^a-z])round[-\s]*(\d{1,2})(?:[^a-z]|$)/gi)].map(m => Number(m[1])).filter(Number.isFinite);
+}
+function rejectTeamlistCandidateLink(href, label, activeRound){
+  const raw = String(href || '').trim();
+  if(!raw || /^#?$|#respond|#comment/i.test(raw)) return 'anchor_or_comment_link';
+  if(/^(mailto:|tel:|sms:|javascript:)/i.test(raw) || /whatsapp/i.test(raw)) return 'non_http_or_share_link';
+  let u;
+  try{ u = new URL(raw); }catch{ return 'invalid_url'; }
+  if(u.hash) return 'anchor_or_fragment_link';
+  if(!['http:', 'https:'].includes(u.protocol)) return 'non_http_or_share_link';
+  const lower = u.href.toLowerCase();
+  const haystack = norm(`${u.hostname} ${u.pathname} ${label}`);
+  if(/twitter\.com|x\.com|facebook\.com\/sharer|reddit\.com\/submit|whatsapp|mailto:/i.test(lower)) return 'social_or_share_link';
+  if(/\/wp-login|\/login|\/account|my-account/i.test(lower)) return 'login_or_account_page';
+  if(/\bstate of origin\b|\borigin\b|\bgame [123]\b/.test(haystack)) return 'origin_page';
+  if(/\brumou?r\b|\brumours\b|\bsigning\b|\bsignings\b|\bcontract\b|\btransfer\b|\bsquad tracker\b|\bbest 17\b/.test(haystack)) return 'non_teamlist_news_page';
+  if(Number(activeRound)){
+    const rounds = roundNumbersFromUrlText(haystack);
+    if(rounds.some(r => r < Number(activeRound))) return 'older_round_url';
+    if(rounds.some(r => r > Number(activeRound))) return 'future_round_url';
+    const isTeamlist = haystack.includes('team list') || haystack.includes('team lists') || haystack.includes('teamlists') || haystack.includes('team');
+    const isLateMail = haystack.includes('late mail') || haystack.includes('updated team lists');
+    if((isTeamlist || isLateMail) && rounds.length && !rounds.includes(Number(activeRound))) return 'wrong_round_url';
+  }
+  return '';
+}
 function stripHtml(html){ return String(html || '').replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]+>/g,' ').replace(/&[a-z0-9#]+;/gi,' ').replace(/\s+/g,' ').trim(); }
 function pageLooksLikeTeamList(url, text){
   const u = norm(url);
@@ -444,7 +471,7 @@ function findPlayerNamesInText(players, text){
   }
   return out;
 }
-async function discoverPages(urls, kind){
+async function discoverPages(urls, kind, activeRound=0){
   const pages = [];
   for(const url of urls || []){
     try{
@@ -454,6 +481,7 @@ async function discoverPages(urls, kind){
         pages.push({url, html, text, sourceName: sourceNameFromUrl(url)});
       }
       const links = extractLinks(html, url).filter(l => {
+        if(kind === 'teamlist' && rejectTeamlistCandidateLink(l.href, l.label, activeRound)) return false;
         const all = norm(`${l.href} ${l.label}`);
         if(kind === 'teamlist') return all.includes('team list') || all.includes('team lists') || all.includes('team-lists') || (all.includes('round') && all.includes('teams'));
         if(kind === 'injury') return all.includes('casualty') || all.includes('injur');
@@ -1025,7 +1053,7 @@ async function main(){
     ...asArray(config.teamlistIndexUrls)
   ].filter(Boolean);
 
-  const teamPages = await discoverPages(teamSourceUrls, 'teamlist');
+  const teamPages = await discoverPages(teamSourceUrls, 'teamlist', round);
   console.log(JSON.stringify({step:'teamlist_sources', configured:teamSourceUrls.length, fetched:teamPages.length, urls:teamPages.map(p=>p.url)}, null, 2));
 
   const injuryPages = await discoverPages(config.casualtyWardUrls || [], 'injury');
