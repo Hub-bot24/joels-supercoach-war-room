@@ -503,6 +503,9 @@ function allowWholeArticleJerseyScan(page){
 function sourcePriorityOf(rec){
   return Number(rec?.sourcePriority || rec?.sources?.[0]?.priority || 0) || 0;
 }
+function sourceOrderOf(rec){
+  return Number(rec?.sourceOrder || rec?.sources?.[0]?.order || 0) || 0;
+}
 function addOrMerge(map, player, statusRec){
   const key = player.name;
   const prev = map[key];
@@ -515,6 +518,19 @@ function addOrMerge(map, player, statusRec){
     else map[key] = {...prev, sources: mergedSources};
     return;
   }
+
+  // CORE v33: when two team-list records have the same priority, the later fetched/source-ordered
+  // team-list evidence wins. This prevents an older same-priority mention/duplicate article block
+  // from staying green if a later current/final source moves the player to extended/not named.
+  // This is generic source ordering, not a player override.
+  const newOrder = sourceOrderOf(statusRec);
+  const oldOrder = sourceOrderOf(prev);
+  if(newOrder !== oldOrder){
+    if(newOrder > oldOrder) map[key] = {...prev, ...statusRec, sources: mergedSources};
+    else map[key] = {...prev, sources: mergedSources};
+    return;
+  }
+
   const rank = {[STATUS.BYE]:6,[STATUS.SUSPENDED]:5,[STATUS.INJURED]:4,[STATUS.NAMED]:3,[STATUS.NOT_NAMED]:2,[STATUS.ORIGIN]:1,[STATUS.EXPECTED]:0};
   const a = rank[statusRec.displayStatus] ?? 0, b = rank[prev.displayStatus] ?? 0;
   if(a > b) map[key] = {...prev, ...statusRec, sources: mergedSources};
@@ -669,39 +685,48 @@ function collectJerseysNearPlayerName(text, playerName, surnameCounts){
     if(globalRe.lastIndex === m.index) globalRe.lastIndex++;
   }
 
-  // Parser B: normalised local-window scan. Some pages strip HTML so rows become:
-  //   "braydon trindall braydon trindall 6"
-  //   "20 sione katoa ... braydon trindall 6"
-  // The old regex could miss the second occurrence and leave the player as 18-25.
-  // This stays generic: it only looks for jersey numbers immediately around the player's own name.
+  // Parser B: normalised local-window scan.
+  // CORE v32: source pages often render rows like:
+  //   Full NameFull Name | 6
+  //   Full Name Full Name 6
+  //   6 Full Name
+  // The previous template-regex accidentally used non-escaped \s in string building and could
+  // miss the "name name number" pattern, leaving older 18-25 evidence in control.
+  // This remains fully generic: it only reads jersey numbers immediately around that player's name.
   const nText = norm(rawText);
   const nName = normName(playerName);
   if(nName){
     let idx = 0;
     while((idx = nText.indexOf(nName, idx)) !== -1){
-      const before = nText.slice(Math.max(0, idx - 55), idx).trim();
-      const after = nText.slice(idx + nName.length, idx + nName.length + 75).trim();
+      const before = nText.slice(Math.max(0, idx - 90), idx).trim();
+      const after = nText.slice(idx + nName.length, idx + nName.length + 140).trim();
 
       const beforeMatch = before.match(/(?:^|\s)([1-9]|1[0-9]|2[0-5])\s*$/);
       if(beforeMatch) jerseys.push(Number(beforeMatch[1]));
 
-      const repeatedName = nName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\s+');
-      const afterRe = new RegExp(`^(?:${repeatedName}\s+)?([1-9]|1[0-9]|2[0-5])(?:\s|$)`);
-      const afterMatch = after.match(afterRe);
-      if(afterMatch) jerseys.push(Number(afterMatch[1]));
+      const escapedName = nName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+');
+      const afterPatterns = [
+        new RegExp(`^(?:${escapedName}\\s+)?([1-9]|1[0-9]|2[0-5])(?:\\s|$)`),
+        new RegExp(`^.{0,45}?(?:${escapedName}\\s+)?([1-9]|1[0-9]|2[0-5])(?:\\s|$)`)
+      ];
+      for(const afterRe of afterPatterns){
+        const afterMatch = after.match(afterRe);
+        if(afterMatch) jerseys.push(Number(afterMatch[1]));
+      }
 
-      idx += nName.length;
+      idx += Math.max(1, nName.length);
     }
   }
 
   return [...new Set(jerseys)].filter(j => Number.isFinite(j) && j >= 1 && j <= 25);
 }
 
+
 function fromKnownPlayerJerseyPatterns(players, page){
   const rows = [];
   const surnameCounts = surnameFrequency(players);
   for(const p of players){
-    // CORE v31: collect all jersey numbers from strict regex + local normalised windows.
+    // CORE v32: collect all jersey numbers from strict regex + fixed local normalised windows.
     // If a player appears as both extended and final-17 in the same updated source, final-17 wins.
     // No player names, no one-off overrides.
     const jerseys = collectJerseysNearPlayerName(page.text, p.name, surnameCounts);
@@ -721,11 +746,14 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
   let sectionFound = 0;
   let knownPatternFound = 0;
   let pageLevelMissingCount = 0;
+  let pageOrder = 0;
 
   for(const page of pages){
+    pageOrder++;
     const priority = teamlistSourcePriority(page);
     const src = sourceObj('teamlist', page.sourceName, page.url, NOW_ISO);
     src.priority = priority;
+    src.order = pageOrder;
     const pageTeamCounts = new Map();
     const pageSeenByTeam = new Map();
 
@@ -747,7 +775,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
         if(playerTeam(p) !== teamCanon) continue;
         const status = row.jersey <= 17 ? STATUS.NAMED : STATUS.EXPECTED;
         const label = row.jersey <= 17 ? 'Named in numbered team-list final 17' : 'Named in numbered extended squad only';
-        addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: row.jersey <= 17 ? 'named' : 'extended', team:p.team, teamCanonical:teamCanon, jersey:row.jersey, sourcePriority:priority}));
+        addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: row.jersey <= 17 ? 'named' : 'extended', team:p.team, teamCanonical:teamCanon, jersey:row.jersey, sourcePriority:priority, sourceOrder:pageOrder}));
         markSeen(teamCanon, p.name);
         addTeamCount(teamCanon);
         matchedForTeam++;
@@ -772,7 +800,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
         markSeen(teamCanon, p.name);
         const status = row.jersey <= 17 ? STATUS.NAMED : STATUS.EXPECTED;
         const label = row.jersey <= 17 ? 'Named in team-list article final 17' : 'Named in team-list article extended squad only';
-        addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: row.jersey <= 17 ? 'named' : 'extended', team:p.team, teamCanonical:teamCanon, jersey:row.jersey, sourcePriority:priority}));
+        addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: row.jersey <= 17 ? 'named' : 'extended', team:p.team, teamCanonical:teamCanon, jersey:row.jersey, sourcePriority:priority, sourceOrder:pageOrder}));
         totalFound++;
         knownPatternFound++;
       }
@@ -790,7 +818,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
         for(const p of players){
           if(playerTeam(p) !== teamCanon) continue;
           if(seen.has(p.name)) continue;
-          addOrMerge(teamlistsOut, p, makeStatus(STATUS.NOT_NAMED, `Not present in higher-priority current team-list source (${page.sourceName}).`, [src], {selectionStatus:'not_named', team:p.team, teamCanonical:teamCanon, sourcePriority:priority}));
+          addOrMerge(teamlistsOut, p, makeStatus(STATUS.NOT_NAMED, `Not present in higher-priority current team-list source (${page.sourceName}).`, [src], {selectionStatus:'not_named', team:p.team, teamCanonical:teamCanon, sourcePriority:priority, sourceOrder:pageOrder}));
           pageLevelMissingCount++;
         }
       }
@@ -805,7 +833,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
       teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, 'Current club team list loaded for club and player was not in that list.', [sourceObj('teamlist','Parsed current team-list source','',NOW_ISO)], {selectionStatus:'not_named', team:p.team, teamCanonical:t, sourcePriority:1});
     }
   }
-  return {totalFound, loadedTeams:[...loadedTeams], parser:'section_parser_plus_local_window_jersey_patterns_with_source_priority_v31', sectionFound, knownPatternFound, pageLevelMissingCount};
+  return {totalFound, loadedTeams:[...loadedTeams], parser:'section_parser_plus_local_window_jersey_patterns_with_source_priority_v33_latest_same_priority_wins', sectionFound, knownPatternFound, pageLevelMissingCount};
 }
 function localWindowAroundName(text, name, before=360, after=520){
   const src = String(text || '').replace(/\s+/g,' ');
@@ -1042,7 +1070,7 @@ async function main(){
       'Backup player_status can support SUSPENDED only with explicit judiciary/suspension evidence',
       'Injury body-part words such as calf, shoulder, knee, HIA classify as INJURED, never SUSPENDED',
       'All not-named output must use NOT_NAMED internally, not NOT NAMED',
-      'Updated/final team-list pages scan all player jersey occurrences and local name windows; any 1-17 occurrence beats 18-25 for the same player',
+      'Team-list status is decided by source priority first, then latest source order; older 1-17 evidence must not beat newer extended/not-named evidence',
       'Suspension windows behave like injury windows in Bye Planner: pink only for suspended rounds, then clear',
       'Origin/representative-duty context can explain NOT_NAMED, but cannot make a player GREEN/NAMED by itself',
       'Yellow/EXPECTED is allowed only for real extended squad, confirmed return-risk windows, or explicit test/monitor status; missing team-list data must be grey/source_missing, not yellow',
