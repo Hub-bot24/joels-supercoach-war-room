@@ -420,6 +420,7 @@ function isJunkFetchUrl(rawUrl, kind=''){
   if(!url) return true;
   const u = new URL(url);
   const host = u.hostname.replace(/^www\./i,'').toLowerCase();
+  const pathOnly = u.pathname.toLowerCase().replace(/\/+$/,'/');
   const path = `${u.pathname}${u.search}`.toLowerCase();
   const full = url.toLowerCase();
 
@@ -430,11 +431,21 @@ function isJunkFetchUrl(rawUrl, kind=''){
   if(path.includes('mailto:') || full.startsWith('mailto:') || full.startsWith('whatsapp:')) return true;
   if(path.includes('#respond') || path.includes('#comments')) return true;
 
-  // Avoid fetching homepages/category shells as if they were match team lists.
+  // Avoid fetching homepages/category/index shells as if they were match team lists.
   const isHome = u.pathname === '/' || u.pathname === '';
-  if(kind === 'teamlist' && isHome) return true;
+  if(kind === 'teamlist'){
+    if(isHome) return true;
+    if(host === 'nrl.com' && (pathOnly === '/news/' || pathOnly === '/news/topic/team-lists/')) return true;
+    if(host === 'zerotackle.com' && (pathOnly === '/nrl/team-lists/' || pathOnly === '/category/nrl/nrl-team-lists/')) return true;
+  }
 
   return false;
+}
+function urlHasRound(rawUrl, activeRound){
+  const round = Number(activeRound || 0);
+  if(!round) return false;
+  const url = String(rawUrl || '').toLowerCase();
+  return new RegExp(`(?:round|rd)[-_\s%]*${round}(?:\D|$)`, 'i').test(url);
 }
 function urlHasDifferentRound(rawUrl, activeRound){
   const round = Number(activeRound || 0);
@@ -456,9 +467,14 @@ function linkLooksRelevant(l, kind, activeRound){
     if(/game[-_\s]*\d+[-_\s]*team[-_\s]*lists/i.test(href)) return false;
     if(/best[-_\s]*17|squad[-_\s]*tracker|rumours|signings|2027/i.test(href)) return false;
 
-    const urlLooksTeamList = urln.includes('team-lists') || urln.includes('teamlists') || urln.includes('updated-team-lists') || urln.includes('late-mail') || urln.includes('nrl-team-lists-round');
-    const labelLooksTeamList = labeln.includes('team list') || labeln.includes('team lists') || labeln.includes('late mail');
-    return urlLooksTeamList || labelLooksTeamList;
+    // CORE v35: only crawl actual round articles/late-mail match pages.
+    // Do not crawl broad indexes like /news/, /news/topic/team-lists/, or /nrl/team-lists/.
+    const activeRoundUrl = urlHasRound(href, activeRound);
+    const isUpdatedMatchPage = urln.includes('updated-team-lists-');
+    const isRoundTeamList = activeRoundUrl && (urln.includes('nrl-team-lists-round') || urln.includes('round-') && urln.includes('team-lists'));
+    const isLateMail = activeRoundUrl && urln.includes('late-mail');
+    const labelLooksCurrent = labeln.includes(`round ${activeRound}`) || labeln.includes(`round-${activeRound}`) || labeln.includes('late mail') || labeln.includes('updated team');
+    return isUpdatedMatchPage || isRoundTeamList || isLateMail || (activeRoundUrl && labelLooksCurrent);
   }
 
   if(kind === 'injury'){
@@ -525,7 +541,9 @@ async function discoverPages(urls, kind, activeRound=0){
       const links = extractLinks(html, url)
         .filter(l => linkLooksRelevant(l, kind, activeRound))
         .filter(l => !seenFetchUrls.has(l.href))
-        .slice(0, 12);
+        // CORE v35: keep all relevant same-round updated team-list pages.
+        // The old limit could drop later valid match pages like Warriors/Sharks.
+        .slice(0, 40);
       for(const l of links){
         seenFetchUrls.add(l.href);
         try{
