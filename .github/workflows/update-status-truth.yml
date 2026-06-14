@@ -7,9 +7,6 @@ on:
         description: "NRL/SuperCoach round to build. Leave blank to infer from files."
         required: false
         default: ""
-  schedule:
-    # Baseline update. The script itself is source-first and will fail safe if data is missing.
-    - cron: "*/30 * * * *"
 
 permissions:
   contents: write
