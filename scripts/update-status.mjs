@@ -421,6 +421,144 @@ function extractLinks(html, baseUrl){
   }
   return links;
 }
+function normalizeDiscoveryUrl(rawUrl, baseUrl=''){
+  try{
+    const u = new URL(rawUrl, baseUrl || undefined);
+    if(!['http:', 'https:'].includes(u.protocol)) return '';
+    u.hash = '';
+    for(const key of [...u.searchParams.keys()]){
+      if(/^(utm_|fbclid$|gclid$|mc_|ref$|ref_src$|cmpid$|cid$|share$|output$)/i.test(key)) u.searchParams.delete(key);
+    }
+    if([...u.searchParams.keys()].length === 0) u.search = '';
+    u.pathname = u.pathname.replace(/\/{2,}/g, '/').replace(/\/$/, '');
+    return u.href;
+  }catch{
+    return '';
+  }
+}
+function sourceDiscoveryRoundNumbers(text){
+  return [...String(text || '').matchAll(/(?:^|[^a-z])round[-\s]*(\d{1,2})(?:[^a-z]|$)/gi)].map(m => Number(m[1])).filter(Number.isFinite);
+}
+function sourceDiscoveryLooksCurrentRoundTeamlist(url, label, activeRound){
+  const haystack = norm(`${url} ${label}`);
+  const r = String(activeRound);
+  return [
+    `nrl team lists round ${r}`,
+    `round ${r} team lists`,
+    `late mail round ${r}`,
+    'updated team lists'
+  ].some(pattern => haystack.includes(pattern));
+}
+function rejectDiscoveredSourceUrl(url, label, activeRound){
+  let parsed;
+  try{ parsed = new URL(url); }catch{ return 'invalid_url'; }
+  const lowerUrl = String(url || '').toLowerCase();
+  const haystack = norm(`${parsed.hostname} ${parsed.pathname} ${label}`);
+  const rounds = sourceDiscoveryRoundNumbers(haystack);
+  if(/twitter\.com|x\.com|facebook\.com\/sharer|reddit\.com\/submit|whatsapp|mailto:/i.test(lowerUrl)) return 'social_or_share_link';
+  if(/\/wp-login|\/login|\/account|my-account/i.test(lowerUrl)) return 'login_or_account_page';
+  if(/\bstate of origin\b|\bgame [123]\b/.test(haystack)) return 'origin_page';
+  if(/\bsigning\b|\bsquad tracker\b|\brumour\b|\brumours\b|\bbest 17\b|\btransfer\b|\bcontract\b/.test(haystack)) return 'excluded_non_teamlist_page';
+  if(rounds.some(x => x < Number(activeRound))) return 'older_round_url';
+  if(rounds.some(x => x > Number(activeRound))) return 'future_round_url';
+  if(!rounds.includes(Number(activeRound))) return 'not_current_round_url';
+  if(!sourceDiscoveryLooksCurrentRoundTeamlist(url, label, activeRound)) return 'does_not_match_current_round_teamlist_pattern';
+  return '';
+}
+function configuredSourceDiscoveryUrls(config){
+  return {
+    teamlistArticleUrls: asArray(config.teamlistArticleUrls),
+    teamlistUrls: asArray(config.teamlistUrls),
+    lateMailUrls: asArray(config.lateMailUrls),
+    teamlistIndexUrls: asArray(config.teamlistIndexUrls),
+    casualtyWardUrls: asArray(config.casualtyWardUrls),
+    suspensionUrls: asArray(config.suspensionUrls)
+  };
+}
+async function runSourceDiscoveryDryRun(config, activeRound){
+  const configured = configuredSourceDiscoveryUrls(config);
+  const configuredTeamUrls = [
+    ...configured.teamlistArticleUrls,
+    ...configured.teamlistUrls,
+    ...configured.lateMailUrls,
+    ...configured.teamlistIndexUrls
+  ].filter(Boolean);
+  const rawCandidates = [];
+  const rejectedUrls = [];
+  const warnings = [];
+  for(const sourceUrl of configuredTeamUrls){
+    const normalizedSource = normalizeDiscoveryUrl(sourceUrl);
+    if(normalizedSource) rawCandidates.push({url:sourceUrl, normalizedUrl:normalizedSource, label:'configured source url', discoveredFrom:'data/source_config.json'});
+    try{
+      const html = await fetchText(sourceUrl);
+      for(const link of extractLinks(html, sourceUrl)){
+        rawCandidates.push({url:link.href, normalizedUrl:normalizeDiscoveryUrl(link.href, sourceUrl), label:link.label, discoveredFrom:sourceUrl});
+      }
+    }catch(e){
+      warnings.push({url:sourceUrl, reason:`fetch_failed: ${e.message}`});
+    }
+  }
+  const seen = new Set();
+  const duplicateUrlsRemoved = [];
+  const discoveredCandidateUrls = [];
+  const acceptedUrls = [];
+  for(const candidate of rawCandidates){
+    if(/^#?$|#respond|#comment/i.test(String(candidate.url || ''))){
+      rejectedUrls.push({...candidate, reason:'comment_or_fragment_link'});
+      continue;
+    }
+    if(!candidate.normalizedUrl){
+      rejectedUrls.push({...candidate, reason:'invalid_or_unsupported_url'});
+      continue;
+    }
+    if(seen.has(candidate.normalizedUrl)){
+      duplicateUrlsRemoved.push(candidate.normalizedUrl);
+      continue;
+    }
+    seen.add(candidate.normalizedUrl);
+    discoveredCandidateUrls.push(candidate.normalizedUrl);
+    const reason = rejectDiscoveredSourceUrl(candidate.normalizedUrl, candidate.label, activeRound);
+    if(reason) rejectedUrls.push({...candidate, reason});
+    else acceptedUrls.push(candidate.normalizedUrl);
+  }
+  const unsafeReasons = [];
+  if(!Number(activeRound)) unsafeReasons.push('active_round_missing');
+  if(acceptedUrls.length === 0) unsafeReasons.push('accepted_discovery_urls_zero');
+  if(acceptedUrls.length > 20) unsafeReasons.push('accepted_discovery_urls_too_many');
+  for(const url of acceptedUrls){
+    const reason = rejectDiscoveredSourceUrl(url, '', activeRound);
+    if(reason) unsafeReasons.push(`accepted_url_failed_safety_recheck:${reason}`);
+  }
+  const output = {
+    activeRound: Number(activeRound) || null,
+    timestamp: NOW_ISO,
+    configuredUrls: configured,
+    discoveredCandidateUrls,
+    acceptedUrls,
+    rejectedUrls: rejectedUrls.map(x => ({url:x.url, normalizedUrl:x.normalizedUrl || '', discoveredFrom:x.discoveredFrom || '', reason:x.reason})),
+    duplicateUrlsRemoved: [...new Set(duplicateUrlsRemoved)],
+    summaryCounts: {
+      configuredUrls: Object.values(configured).flat().filter(Boolean).length,
+      configuredTeamDiscoveryUrls: configuredTeamUrls.length,
+      discoveredCandidateUrls: discoveredCandidateUrls.length,
+      acceptedUrls: acceptedUrls.length,
+      rejectedUrls: rejectedUrls.length,
+      duplicateUrlsRemoved: new Set(duplicateUrlsRemoved).size,
+      warnings: warnings.length
+    },
+    warningCount: warnings.length + unsafeReasons.length,
+    safeEnoughToUseLater: unsafeReasons.length === 0,
+    safety: {
+      dryRunOnly: true,
+      feedsRealUpdater: false,
+      maxAcceptedUrls: 20,
+      unsafeReasons
+    },
+    warnings
+  };
+  await writeJson('data/source_discovery_test.json', output);
+  return output;
+}
 function stripHtml(html){ return String(html || '').replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]+>/g,' ').replace(/&[a-z0-9#]+;/gi,' ').replace(/\s+/g,' ').trim(); }
 function pageLooksLikeTeamList(url, text){
   const u = norm(url);
@@ -1007,6 +1145,8 @@ async function main(){
 
   const roundInfo = currentRoundFromFiles(process.env.ACTIVE_ROUND ? {round:process.env.ACTIVE_ROUND} : null, currentRoundMeta, previousTruth, oldPlayerStatus, statusReport);
   const round = roundInfo.round;
+  const sourceDiscoveryDryRun = await runSourceDiscoveryDryRun(config, round);
+  console.log(JSON.stringify({step:'source_discovery_dry_run', accepted:sourceDiscoveryDryRun.acceptedUrls.length, rejected:sourceDiscoveryDryRun.rejectedUrls.length, safeEnoughToUseLater:sourceDiscoveryDryRun.safeEnoughToUseLater}, null, 2));
 
   const teamlists = {};
   const injuries = {};
