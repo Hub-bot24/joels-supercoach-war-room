@@ -1,29 +1,8 @@
 {
-  "updated": "2026-06-14T15:10:45.863167+00:00",
+  "updated": "2026-06-14T17:25:57.071080+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
-    {
-      "round": 15,
-      "match": "Tigers v Titans",
-      "homeTeam": "WST",
-      "awayTeam": "GLD",
-      "venue": "Leichhardt Oval",
-      "kickoffLocal": "2026-06-14T16:05:00",
-      "city": "Sydney",
-      "lat": -33.8794,
-      "lon": 151.1567,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "missing_venue",
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "score": 0,
-        "label": "Unknown",
-        "reasons": [
-          "Venue missing from venues.json"
-        ]
-      }
-    },
     {
       "round": 16,
       "match": "Knights v Dragons",
