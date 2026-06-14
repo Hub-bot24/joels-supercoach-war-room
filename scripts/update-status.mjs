@@ -404,9 +404,74 @@ function currentRoundFromFiles(...objs){
   }
   return {round:0, source:'unknown'};
 }
+function normaliseFetchUrl(rawUrl, baseUrl=''){
+  try{
+    const u = new URL(String(rawUrl || '').trim(), baseUrl || undefined);
+    if(!/^https?:$/i.test(u.protocol)) return '';
+    // Fragments like #respond/#comments/#main-content produce duplicate or junk fetches.
+    u.hash = '';
+    return u.href;
+  }catch{
+    return '';
+  }
+}
+function isJunkFetchUrl(rawUrl, kind=''){
+  const url = normaliseFetchUrl(rawUrl);
+  if(!url) return true;
+  const u = new URL(url);
+  const host = u.hostname.replace(/^www\./i,'').toLowerCase();
+  const path = `${u.pathname}${u.search}`.toLowerCase();
+  const full = url.toLowerCase();
+
+  // Never fetch share/login/comment/action links as source pages.
+  if(/(^|\.)(twitter\.com|x\.com|facebook\.com|reddit\.com|whatsapp\.com|linkedin\.com|instagram\.com)$/i.test(host)) return true;
+  if(path.includes('/account/login') || path.includes('wp-login') || path.includes('/login')) return true;
+  if(path.includes('intent/tweet') || path.includes('/sharer/') || path.includes('/sharer.php') || path.includes('/submit?')) return true;
+  if(path.includes('mailto:') || full.startsWith('mailto:') || full.startsWith('whatsapp:')) return true;
+  if(path.includes('#respond') || path.includes('#comments')) return true;
+
+  // Avoid fetching homepages/category shells as if they were match team lists.
+  const isHome = u.pathname === '/' || u.pathname === '';
+  if(kind === 'teamlist' && isHome) return true;
+
+  return false;
+}
+function urlHasDifferentRound(rawUrl, activeRound){
+  const round = Number(activeRound || 0);
+  if(!round) return false;
+  const url = String(rawUrl || '').toLowerCase();
+  const matches = [...url.matchAll(/(?:round|rd)[-_\s%]*(\d{1,2})/gi)].map(m => Number(m[1])).filter(Boolean);
+  return matches.length > 0 && !matches.includes(round);
+}
+function linkLooksRelevant(l, kind, activeRound){
+  const href = normaliseFetchUrl(l?.href || '');
+  if(!href || isJunkFetchUrl(href, kind)) return false;
+  const urln = norm(href);
+  const labeln = norm(l?.label || '');
+  const all = `${urln} ${labeln}`;
+
+  if(kind === 'teamlist'){
+    if(urlHasDifferentRound(href, activeRound)) return false;
+    // Reject Origin/game/team-tracker articles and evergreen signing trackers as club team-list truth.
+    if(/game[-_\s]*\d+[-_\s]*team[-_\s]*lists/i.test(href)) return false;
+    if(/best[-_\s]*17|squad[-_\s]*tracker|rumours|signings|2027/i.test(href)) return false;
+
+    const urlLooksTeamList = urln.includes('team-lists') || urln.includes('teamlists') || urln.includes('updated-team-lists') || urln.includes('late-mail') || urln.includes('nrl-team-lists-round');
+    const labelLooksTeamList = labeln.includes('team list') || labeln.includes('team lists') || labeln.includes('late mail');
+    return urlLooksTeamList || labelLooksTeamList;
+  }
+
+  if(kind === 'injury'){
+    return all.includes('casualty') || all.includes('injur') || all.includes('suspension') || all.includes('judiciary');
+  }
+
+  return false;
+}
 async function fetchText(url){
-  const r = await fetch(url, {headers:{'user-agent': USER_AGENT}});
-  if(!r.ok) throw new Error(`${r.status} ${url}`);
+  const cleanUrl = normaliseFetchUrl(url);
+  if(!cleanUrl || isJunkFetchUrl(cleanUrl)) throw new Error(`blocked junk url ${url}`);
+  const r = await fetch(cleanUrl, {headers:{'user-agent': USER_AGENT}});
+  if(!r.ok) throw new Error(`${r.status} ${cleanUrl}`);
   return await r.text();
 }
 function extractLinks(html, baseUrl){
@@ -414,10 +479,9 @@ function extractLinks(html, baseUrl){
   const re = /<a\s+[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
   let m;
   while((m = re.exec(html))){
-    let href = m[1];
     const label = stripHtml(m[2]);
-    try{ href = new URL(href, baseUrl).href; }catch{}
-    links.push({href, label});
+    const href = normaliseFetchUrl(m[1], baseUrl);
+    if(href) links.push({href, label});
   }
   return links;
 }
@@ -444,22 +508,26 @@ function findPlayerNamesInText(players, text){
   }
   return out;
 }
-async function discoverPages(urls, kind){
+async function discoverPages(urls, kind, activeRound=0){
   const pages = [];
-  for(const url of urls || []){
+  const seenFetchUrls = new Set();
+  for(const rawUrl of urls || []){
+    const url = normaliseFetchUrl(rawUrl);
+    if(!url || isJunkFetchUrl(url, kind) || (kind === 'teamlist' && urlHasDifferentRound(url, activeRound))) continue;
+    if(seenFetchUrls.has(url)) continue;
+    seenFetchUrls.add(url);
     try{
       const html = await fetchText(url);
       const text = stripHtml(html);
       if((kind === 'teamlist' && pageLooksLikeTeamList(url, text)) || (kind === 'injury' && pageLooksLikeCasualty(url, text))){
         pages.push({url, html, text, sourceName: sourceNameFromUrl(url)});
       }
-      const links = extractLinks(html, url).filter(l => {
-        const all = norm(`${l.href} ${l.label}`);
-        if(kind === 'teamlist') return all.includes('team list') || all.includes('team lists') || all.includes('team-lists') || (all.includes('round') && all.includes('teams'));
-        if(kind === 'injury') return all.includes('casualty') || all.includes('injur');
-        return false;
-      }).slice(0, 12);
+      const links = extractLinks(html, url)
+        .filter(l => linkLooksRelevant(l, kind, activeRound))
+        .filter(l => !seenFetchUrls.has(l.href))
+        .slice(0, 12);
       for(const l of links){
+        seenFetchUrls.add(l.href);
         try{
           const pageHtml = await fetchText(l.href);
           const pageText = stripHtml(pageHtml);
@@ -1025,7 +1093,7 @@ async function main(){
     ...asArray(config.teamlistIndexUrls)
   ].filter(Boolean);
 
-  const teamPages = await discoverPages(teamSourceUrls, 'teamlist');
+  const teamPages = await discoverPages(teamSourceUrls, 'teamlist', round);
   console.log(JSON.stringify({step:'teamlist_sources', configured:teamSourceUrls.length, fetched:teamPages.length, urls:teamPages.map(p=>p.url)}, null, 2));
 
   const injuryPages = await discoverPages(config.casualtyWardUrls || [], 'injury');
