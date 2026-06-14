@@ -2,8 +2,6 @@ name: Update Player Status
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "*/30 * * * *"
 
 permissions:
   contents: write
