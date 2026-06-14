@@ -448,6 +448,40 @@ function rejectTeamlistCandidateLink(href, label, activeRound){
   }
   return '';
 }
+function normalizedTeamPageUrl(url){
+  try{
+    const u = new URL(url);
+    if(u.hash) return '';
+    if((u.pathname === '/' || u.pathname === '') && !u.search) return '';
+    u.hash = '';
+    u.pathname = u.pathname.replace(/\/{2,}/g, '/').replace(/\/$/, '');
+    return u.href;
+  }catch{
+    return '';
+  }
+}
+function teamPageDedupeKey(url){
+  const cleanUrl = normalizedTeamPageUrl(url);
+  if(!cleanUrl) return '';
+  try{
+    const u = new URL(cleanUrl);
+    const finalId = u.pathname.match(/(\d+)(?:\/)?$/)?.[1];
+    if(/(^|\.)zerotackle\.com$/i.test(u.hostname) && finalId) return `zerotackle.com:${finalId}`;
+  }catch{}
+  return cleanUrl;
+}
+function cleanTeamPages(pages){
+  const seen = new Set();
+  const out = [];
+  for(const page of pages || []){
+    const cleanUrl = normalizedTeamPageUrl(page?.url);
+    const key = teamPageDedupeKey(cleanUrl);
+    if(!cleanUrl || !key || seen.has(key)) continue;
+    seen.add(key);
+    out.push({...page, url:cleanUrl});
+  }
+  return out;
+}
 function stripHtml(html){ return String(html || '').replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]+>/g,' ').replace(/&[a-z0-9#]+;/gi,' ').replace(/\s+/g,' ').trim(); }
 function pageLooksLikeTeamList(url, text){
   const u = norm(url);
@@ -1053,7 +1087,7 @@ async function main(){
     ...asArray(config.teamlistIndexUrls)
   ].filter(Boolean);
 
-  const teamPages = await discoverPages(teamSourceUrls, 'teamlist', round);
+  const teamPages = cleanTeamPages(await discoverPages(teamSourceUrls, 'teamlist', round));
   console.log(JSON.stringify({step:'teamlist_sources', configured:teamSourceUrls.length, fetched:teamPages.length, urls:teamPages.map(p=>p.url)}, null, 2));
 
   const injuryPages = await discoverPages(config.casualtyWardUrls || [], 'injury');
