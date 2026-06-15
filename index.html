@@ -414,10 +414,11 @@
   padding:10px 14px;
 }
 #team .wr-freshness-row{
+  width:100%;
+  box-sizing:border-box;
   display:flex;
   align-items:center;
   justify-content:flex-end;
-  gap:8px;
   min-height:30px;
   padding:5px 14px;
   border:1px solid rgba(148,163,184,.16);
@@ -427,6 +428,9 @@
 }
 #team .wr-freshness-row .dataFreshnessText{font-weight:850;color:#dbeafe}
 #team .wr-freshness-row button{flex:0 0 auto}
+@media (orientation:landscape) and (max-height:620px){
+ #team .wr-freshness-row{min-height:22px;padding:2px 8px;font-size:10px}
+}
 #team .wr-action-panel{
   max-width:760px;
   margin:8px auto;
@@ -862,7 +866,6 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
  .screen{height:calc(100vh - 44px)!important;min-height:0!important;padding:0!important;overflow:hidden!important}
  #team .wr-team-room{height:calc(100vh - 44px)!important}
  #team .wr-topbar{height:54px!important;min-height:54px!important;grid-template-columns:140px 145px 100px 105px 110px 160px 80px!important}
- #team .wr-freshness-row{min-height:24px!important;padding:3px 8px!important;font-size:10px!important;justify-content:flex-end!important}
  #team .wr-brand{padding:6px 8px!important}.wr-logo-mark{width:34px!important;height:34px!important}#team .wr-brand b{font-size:20px!important}#team .wr-title{padding:8px 10px!important}#team .wr-title h2{font-size:22px!important}#team .wr-title span{font-size:11px!important;margin-top:3px!important}#team .wr-metric span{font-size:9px!important}#team .wr-metric b{font-size:24px!important}#team .wr-top-actions button{font-size:13px!important;padding:7px 9px!important}
  #team .formation-layout{grid-template-columns:minmax(0,1.45fr) minmax(330px,.9fr)!important;gap:6px!important}
  #team .formation-field{padding:18px 16px 8px!important}
@@ -953,7 +956,6 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 #team .wr-round-actions{display:flex!important;gap:5px!important;align-items:center!important;justify-content:flex-end!important;white-space:nowrap!important;overflow:visible!important}
 #team .wr-round-actions button{padding:7px 9px!important;font-size:12px!important;border-radius:9px!important;min-width:0!important}
 #team .wr-round-actions button:nth-child(3){max-width:68px!important;overflow:hidden!important;text-overflow:ellipsis!important}
-#team .wr-freshness-row{position:relative!important;z-index:50!important}
 #team .formation-actions,#team .formation-reserve-actions{display:none!important}
 #team .player-detail-card,#team .wr-action-panel{z-index:2147483000!important;pointer-events:auto!important;transform:none!important}
 #team .player-detail-card button{pointer-events:auto!important;touch-action:manipulation!important;position:relative!important;z-index:2147483001!important}
@@ -969,7 +971,6 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   #team .wr-team-room{height:100%!important;min-height:0!important;width:100%!important;min-width:0!important;max-width:none!important;margin:0!important;padding:0!important;display:flex!important;flex-direction:column!important;gap:5px!important;overflow:hidden!important}
 
   #team .wr-topbar{height:52px!important;min-height:52px!important;flex:0 0 52px!important;display:grid!important;grid-template-columns:118px 128px 76px 84px 92px minmax(122px,1fr) 205px!important;border-radius:0!important;margin:0!important;overflow:hidden!important}
-  #team .wr-freshness-row{min-height:22px!important;flex:0 0 22px!important;padding:2px 8px!important;font-size:10px!important;justify-content:flex-end!important}
   #team .wr-brand{padding:5px 7px!important;gap:6px!important;min-width:0!important}
   #team .wr-logo-mark{width:32px!important;height:32px!important;font-size:10px!important;flex:0 0 32px!important}
   #team .wr-brand b{font-size:18px!important;line-height:.88!important;white-space:nowrap!important}
@@ -1062,7 +1063,6 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
   /* Compact top summary so field gets the space */
   #team .wr-topbar{height:49px!important;min-height:49px!important;flex:0 0 49px!important;display:grid!important;grid-template-columns:110px 150px 74px 82px 88px minmax(122px,1fr) 158px!important;border-radius:0!important;margin:0!important;overflow:hidden!important;background:linear-gradient(180deg,#07101d,#040810)!important;}
-  #team .wr-freshness-row{min-height:21px!important;flex:0 0 21px!important;padding:2px 8px!important;font-size:10px!important;justify-content:flex-end!important;}
   #team .wr-brand{padding:4px 7px!important;gap:5px!important;min-width:0!important;overflow:hidden!important;}
   #team .wr-logo-mark{width:29px!important;height:29px!important;flex:0 0 29px!important;font-size:9px!important;}
   #team .wr-brand b{font-size:16px!important;line-height:.88!important;white-space:nowrap!important;}
@@ -1586,7 +1586,6 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   #team,#team .wr-team-room{height:100%!important;min-height:0!important;width:100%!important;min-width:0!important;max-width:none!important;margin:0!important;padding:0!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;}
 
   #team .wr-topbar{height:48px!important;min-height:48px!important;flex:0 0 48px!important;display:grid!important;grid-template-columns:118px 150px 74px 82px 88px minmax(116px,1fr) 130px!important;margin:0!important;border-radius:0!important;overflow:hidden!important;}
-  #team .wr-freshness-row{min-height:21px!important;flex:0 0 21px!important;padding:2px 8px!important;font-size:10px!important;justify-content:flex-end!important;}
   #team .wr-brand{padding:4px 7px!important;gap:5px!important;overflow:hidden!important;}
   #team .wr-logo-mark{width:28px!important;height:28px!important;font-size:9px!important;flex:0 0 28px!important;}
   #team .wr-brand b{font-size:16px!important;line-height:.88!important;white-space:nowrap!important;}
@@ -2265,15 +2264,16 @@ function recordAgeHours(rec){const t=firstDate(rec);return Number.isFinite(t)?(D
 function isFreshRecord(rec,maxHours=36){return recordAgeHours(rec)<=maxHours}
 function dataAgeLabel(rec){const h=recordAgeHours(rec);if(!Number.isFinite(h)||h>9000)return 'unknown age';if(h<1)return 'updated under 1h ago';if(h<48)return `updated ${Math.round(h)}h ago`;return `updated ${Math.round(h/24)}d ago`}
 function compactAgeLabel(rec){const h=recordAgeHours(rec);if(!Number.isFinite(h)||h>9000)return 'unknown';if(h<1)return '<1h ago';if(h<48)return `${Math.round(h)}h ago`;return `${Math.round(h/24)}d ago`}
+function compactOldLabel(rec){const age=compactAgeLabel(rec);return age==='unknown'?'unknown age':`${age} old`}
 function dateTimeLabelFromRecord(rec){const t=firstDate(rec);if(!Number.isFinite(t))return 'unknown';return new Date(t).toLocaleString('en-AU',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})}
 function dataSourceLabels(rec){const srcs=Array.isArray(rec?.sources)?rec.sources:[];const names=srcs.map(s=>s?.name||s?.source||s?.label||s?.url).filter(Boolean);for(const k of ['source','sourceLabel','provider','generatedBy'])if(rec?.[k])names.push(rec[k]);return [...new Set(names)].slice(0,4)}
 function bestStatusFreshnessRecord(){return App.statusTruth?.updated||App.statusTruth?.updatedAt||App.statusTruth?.generatedAt?App.statusTruth:(App.playerStatus||{})}
 function weatherFreshnessRecord(){return App.weather?.updated||App.weather?.updatedAt||App.weather?.generatedAt?App.weather:null}
 function teamlistsLoaded(){return typeof App.statusTruth?.teamlistsLoaded==='boolean'?App.statusTruth.teamlistsLoaded:!!(App.teamLists||App.officialTeamLists)}
-function dataFreshnessSummary(){const weather=weatherFreshnessRecord();return `Lists ${compactAgeLabel(bestStatusFreshnessRecord())}${weather?` · Weather ${compactAgeLabel(weather)}`:''}`}
+function dataFreshnessSummary(){const weather=weatherFreshnessRecord();return `Lists ${compactOldLabel(bestStatusFreshnessRecord())}${weather?` · Weather ${compactOldLabel(weather)}`:''}`}
 function dataFreshnessPanelHtml(){
  const status=bestStatusFreshnessRecord(),weather=weatherFreshnessRecord(),sources=dataSourceLabels(status);
- return `<div class="dataFreshnessPanel small" style="display:none;position:absolute;right:0;top:calc(100% + 6px);z-index:10002;width:280px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#071222;box-shadow:0 18px 50px rgba(0,0,0,.5);line-height:1.45;text-align:left"><b>Update details</b><br>Team lists/status updated: ${esc(compactAgeLabel(status))} · ${esc(dateTimeLabelFromRecord(status))}<br>Status truth round: R${esc(App.statusTruth?.round??'unknown')}<br>Selected round: R${esc(App.round)}<br>Team lists loaded: ${teamlistsLoaded()?'true':'false'}${weather?`<br>Weather: ${esc(compactAgeLabel(weather))} · ${esc(dateTimeLabelFromRecord(weather))}`:''}${sources.length?`<br>Sources: ${sources.map(esc).join(' + ')}`:''}</div>`;
+ return `<div class="dataFreshnessPanel small" style="display:none;position:absolute;right:0;top:calc(100% + 6px);z-index:10002;width:280px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#071222;box-shadow:0 18px 50px rgba(0,0,0,.5);line-height:1.45;text-align:left"><b>Update details</b><br>Team lists/status updated: ${esc(compactOldLabel(status))} · ${esc(dateTimeLabelFromRecord(status))}<br>Status truth round: R${esc(App.statusTruth?.round??'unknown')}<br>Selected round: R${esc(App.round)}<br>Team lists loaded: ${teamlistsLoaded()?'true':'false'}${weather?`<br>Weather: ${esc(compactOldLabel(weather))} · ${esc(dateTimeLabelFromRecord(weather))}`:''}${sources.length?`<br>Sources: ${sources.map(esc).join(' + ')}`:''}</div>`;
 }
 function dataFreshnessControlHtml(){return `<span style="position:relative;display:inline-flex;align-items:center;gap:5px;white-space:nowrap"><span class="dataFreshnessText">${esc(dataFreshnessSummary())}</span><button type="button" aria-label="Data update details" onclick="toggleDataFreshnessDetails(event)" style="width:22px;height:22px;padding:0;border-radius:999px;font-size:12px;line-height:1;display:inline-grid;place-items:center">ⓘ</button>${dataFreshnessPanelHtml()}</span>`}
 function toggleDataFreshnessDetails(ev){if(ev){ev.preventDefault();ev.stopPropagation()}const wrap=ev?.currentTarget?.parentElement;const panel=wrap?.querySelector?.('.dataFreshnessPanel');if(panel)panel.style.display=panel.style.display==='block'?'none':'block'}
@@ -2314,7 +2314,7 @@ async function boot(){
  App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};validateLineup();ensureLineup();wireTabs();renderActive();
  updateStatusFreshnessLabel();startLiveStatusRefresh();
 }
-function updateStatusFreshnessLabel(){const fe=$('statusFreshness');if(fe)fe.innerHTML=dataFreshnessControlHtml()}
+function updateStatusFreshnessLabel(){const fe=$('statusFreshness');if(fe)fe.textContent=''}
 async function refreshTrustDataNow(){const oldUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';App.playerStatus=await fetchJson('player_status.json',App.playerStatus||{players:{}});App.statusTruth=await fetchJson('data/status_truth.json',App.statusTruth||null);App.availabilityOverrides=await fetchJson('availability_overrides.json',App.availabilityOverrides||{players:{}});App.teamLists=await fetchJson('data/teamlists.json',App.teamLists||null);App.officialTeamLists=await fetchJson('official_teamlists.json',App.officialTeamLists||null);App.originUnavailable=await fetchJson('origin_unavailable.json',App.originUnavailable||null);App.fixtures=await fetchJson('fixtures.json',App.fixtures||null);syncCurrentRound();App.projectionCache.clear();updateStatusFreshnessLabel();renderActive();const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed')}
 function startLiveStatusRefresh(){if(App._statusRefreshTimer)return;App._statusRefreshTimer=setInterval(refreshTrustDataNow,10*60*1000)}
 
