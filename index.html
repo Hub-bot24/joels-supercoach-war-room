@@ -2520,8 +2520,33 @@ function statusDotClass(st){
  return 'notnamed';
 }
 
-function statusDot(p){const st=availabilityStatus(p);return `<span class="status-dot ${statusDotClass(st)}" title="${esc(st.reason||st.label||'')}"></span>`}
-function statusPill(p){const st=availabilityStatus(p);const cls=st.key==='good'?'good':st.key==='bye'?'bye':(st.key==='expected'||st.key==='risk')?'warn':(st.key==='injured'||st.key==='suspended'||st.key==='notnamed')?'bad':statusDotClass(st);const ss=statusFor(p);const tip=ss?`${st.reason} [${ss.sourceConfidence||'?'}conf${ss.sources?', '+ss.sources.map(s=>s.source.replace(/-/g,' ')).join(' + '):''}]`:st.reason;return `<span class="pill ${cls}" title="${esc(tip)}">${esc(st.label)}</span>`}
+function statusSourceFromRecord(st){
+ const srcs=Array.isArray(st?.truth?.sources)?st.truth.sources:[];
+ const src=srcs[0]||{};
+ return {sourceLabel:st?.source||src.name||src.source||src.url||'',sourceUrl:src.url||''};
+}
+function statusBadgeForPlayer(p,round=App.round){
+ const st=availabilityStatus(p,round);
+ const requested=Number(round||App.round||0);
+ const key=String(st?.key||'').toLowerCase().replace(/[\s-]+/g,'_');
+ const labelText=String(st?.label||'').toLowerCase();
+ const truthRound=Number(st?.truth?.round||App.statusTruth?.round||0);
+ const currentTruth=!!st?.truth&&(!truthRound||truthRound===requested);
+ const officialTruth=String(st?.reason||'').toLowerCase().includes(`official r${requested} team list`);
+ let colourName='GREY',label='NOT NAMED',displayKey='notnamed',cls='',category='not_named';
+ if(key==='bye'){colourName='PURPLE';label='BYE';displayKey='bye';cls='bye';category='bye'}
+ else if(key==='suspended'||labelText.includes('suspended')){colourName='PINK';label='SUSPENDED';displayKey='suspended';cls='bad';category='suspended'}
+ else if(key==='injured'||key==='injury'||labelText.includes('injured')){colourName='RED';label='INJURED';displayKey='injured';cls='bad';category='injured'}
+ else if(key==='origin'||labelText.includes('origin')){colourName='ORANGE';label='ORIGIN RISK';displayKey='origin';cls='warn';category='expected'}
+ else if(key==='notnamed'||key==='not_named'||key==='out'||labelText.includes('not named')){colourName='GREY';label='NOT NAMED';displayKey='notnamed';cls='';category='not_named'}
+ else if(key==='good'&&(currentTruth||officialTruth)&&(labelText.includes('named')||labelText.includes('played')||labelText.includes('locked'))){colourName='GREEN';label='NAMED';displayKey='good';cls='good';category='named'}
+ else {colourName='YELLOW';label='EXPECTED';displayKey='expected';cls='warn';category='expected'}
+ const source=statusSourceFromRecord(st);
+ const reason=st?.reason||`${label} status for Round ${requested}`;
+ return {...source,colourName,label,round:requested,reason,key:displayKey,cls,category,text:`${colourName} · ${label} · Round ${requested}`,available:!!st?.available,raw:st};
+}
+function statusDot(p){const badge=statusBadgeForPlayer(p);return `<span class="status-dot ${statusDotClass({key:badge.key})}" title="${esc(badge.reason||badge.text)}"></span>`}
+function statusPill(p,round=App.round){const badge=statusBadgeForPlayer(p,round);const source=badge.sourceLabel?` Source: ${badge.sourceLabel}`:'';const colour={GREEN:'var(--good)',YELLOW:'var(--warn)',ORANGE:'#f97316',GREY:'#94a3b8',RED:'var(--bad)',PINK:'#ec4899',PURPLE:'var(--bye)'}[badge.colourName]||'var(--muted)';return `<span class="pill ${badge.cls}" style="border-color:${colour};color:${colour}" title="${esc(`${badge.reason||''}${source}`.trim())}">${esc(badge.text)}</span>`}
 function getPlayerNextWeather(player){const st=availabilityStatus(player);if(st.key==='bye')return null;const team=String(player?.team||player?.club||'').toUpperCase().trim();if(!team)return null;const now=Date.now()-3*60*60*1000;return (App.weather?.matches||[]).filter(m=>m?.kickoffLocal&&(String(m.homeTeam||'').toUpperCase()===team||String(m.awayTeam||'').toUpperCase()===team)).filter(m=>{const t=new Date(m.kickoffLocal).getTime();return Number.isFinite(t)&&t>=now}).sort((a,b)=>new Date(a.kickoffLocal)-new Date(b.kickoffLocal))[0]||null}
 function weatherHours(match){return Array.isArray(match?.gameWindowWeather)?match.gameWindowWeather:[]}
 function tempSummary(match){const hours=weatherHours(match);const temps=hours.map(h=>safeNum(h.temperature_2m)).filter(n=>Number.isFinite(n));if(!temps.length)return null;return `${Math.round(temps.reduce((s,n)=>s+n,0)/temps.length)}°C`}
@@ -3266,7 +3291,7 @@ availabilityStatus = function(p,round=App.round){
     if(phase==='red')return {key:'injured',available:false,label:'INJURED',reason:richStatusReasonFromTruth(rec,requested)||'Injury window active',source:'data/status_truth.json',truth:rec};
     if(phase==='yellow')return {key:'expected',available:true,label:'EXPECTED',reason:richStatusReasonFromTruth(rec,requested)||'Injury return-risk window',source:'data/status_truth.json',truth:rec};
     if(suspPhase==='pink')return {key:'suspended',available:false,label:'SUSPENDED',reason:richStatusReasonFromTruth(rec,requested)||'Suspension window active',source:'data/status_truth.json',truth:rec};
-    return {key:'good',available:true,label:'Available',reason:`Future round ${requested}: current R${truthRound} team-list status not carried forward`};
+    return {key:'expected',available:true,label:'Projected available',reason:`Future round ${requested}: current R${truthRound} team-list status not carried forward`};
   }
 
   const truth=enhancedStatusFromTruth(p,requested);
@@ -3320,19 +3345,8 @@ function updateExplorer(){
    UI only. No player-specific hard fixes.
    ========================================================= */
 function explorerStatusCategory(p){
-  const st=availabilityStatus(p);
-  const rec=st?.truth||truthRecordAnyRound(p)||{};
-  const key=String(st?.key||rec.displayStatus||'').toLowerCase().replace(/[\s-]+/g,'_');
-  const label=String(st?.label||rec.displayStatus||'').toLowerCase().replace(/[\s-]+/g,'_');
-  const reason=norm(`${st?.reason||''} ${rec.reason||''} ${rec.originStatus||''} ${rec.selectionStatus||''}`);
-  if(key==='injured'||label==='injured')return 'injured';
-  if(key==='suspended'||key==='suspension'||label==='suspended')return 'suspended';
-  if(key==='bye'||label==='bye')return 'bye';
-  if(key==='not_named'||key==='notnamed'||label==='not_named'||label==='notnamed')return 'not_named';
-  if(key==='origin'||label==='origin'||reason.includes('origin note')||reason.includes('origin context'))return 'not_named';
-  if(key==='expected'||key==='extended'||key==='risk'||label==='expected'||label==='extended')return 'expected';
-  if(key==='good'||key==='named'||label==='named')return 'named';
-  return 'other';
+  const badge=statusBadgeForPlayer(p);
+  return badge.category||'other';
 }
 function explorerFilterLabel(id){
   return ({all:'All',named:'Named',expected:'Expected',not_named:'Not named',injured:'Injured',suspended:'Suspended'})[id]||id;
@@ -3360,11 +3374,11 @@ function updateExplorer(){
   if(!box)return;
   const filter=App.explorerFilter||'all';
   let res=App.players.filter(p=>{
-    const st=availabilityStatus(p), rec=st?.truth||truthRecordAnyRound(p)||{};
+    const st=availabilityStatus(p), rec=st?.truth||truthRecordAnyRound(p)||{}, badge=statusBadgeForPlayer(p);
     const cat=explorerStatusCategory(p);
     if(filter!=='all'&&cat!==filter)return false;
     if(!q)return filter!=='all';
-    const hay=norm([p.name,p.pos,p.team,st?.label,st?.reason,rec.displayStatus,rec.reason,rec.selectionStatus,rec.originStatus].filter(Boolean).join(' '));
+    const hay=norm([p.name,p.pos,p.team,badge.text,badge.label,badge.colourName,badge.reason,st?.label,st?.reason,rec.displayStatus,rec.reason,rec.selectionStatus,rec.originStatus].filter(Boolean).join(' '));
     return hay.includes(q);
   });
   res=res.sort((a,b)=>roundProj(b).expected-roundProj(a).expected).slice(0,120);
