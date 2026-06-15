@@ -413,6 +413,30 @@
   border-radius:12px;
   padding:10px 14px;
 }
+#team .wr-freshness-row{
+  display:flex;
+  width:100%;
+  position:static;
+  clear:both;
+  grid-column:1 / -1;
+  transform:none;
+  margin:0;
+  min-height:22px;
+  padding:3px 12px;
+  align-items:center;
+  justify-content:flex-end;
+  box-sizing:border-box;
+  border:1px solid rgba(148,163,184,.16);
+  border-top:0;
+  background:rgba(7,18,34,.96);
+  overflow:visible;
+  font-size:12px;
+}
+#team .wr-freshness-row .dataFreshnessText{font-weight:850;color:#dbeafe}
+#team .wr-freshness-row button{flex:0 0 auto}
+@media (orientation:landscape) and (max-height:620px){
+ #team .wr-freshness-row{justify-content:flex-start!important;font-size:11px!important;min-height:22px!important;padding:2px 8px!important}
+}
 #team .wr-action-panel{
   max-width:760px;
   margin:8px auto;
@@ -2246,15 +2270,16 @@ function recordAgeHours(rec){const t=firstDate(rec);return Number.isFinite(t)?(D
 function isFreshRecord(rec,maxHours=36){return recordAgeHours(rec)<=maxHours}
 function dataAgeLabel(rec){const h=recordAgeHours(rec);if(!Number.isFinite(h)||h>9000)return 'unknown age';if(h<1)return 'updated under 1h ago';if(h<48)return `updated ${Math.round(h)}h ago`;return `updated ${Math.round(h/24)}d ago`}
 function compactAgeLabel(rec){const h=recordAgeHours(rec);if(!Number.isFinite(h)||h>9000)return 'unknown';if(h<1)return '<1h ago';if(h<48)return `${Math.round(h)}h ago`;return `${Math.round(h/24)}d ago`}
+function compactOldLabel(rec){const age=compactAgeLabel(rec);return age==='unknown'?'unknown age':`${age} old`}
 function dateTimeLabelFromRecord(rec){const t=firstDate(rec);if(!Number.isFinite(t))return 'unknown';return new Date(t).toLocaleString('en-AU',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})}
 function dataSourceLabels(rec){const srcs=Array.isArray(rec?.sources)?rec.sources:[];const names=srcs.map(s=>s?.name||s?.source||s?.label||s?.url).filter(Boolean);for(const k of ['source','sourceLabel','provider','generatedBy'])if(rec?.[k])names.push(rec[k]);return [...new Set(names)].slice(0,4)}
 function bestStatusFreshnessRecord(){return App.statusTruth?.updated||App.statusTruth?.updatedAt||App.statusTruth?.generatedAt?App.statusTruth:(App.playerStatus||{})}
 function weatherFreshnessRecord(){return App.weather?.updated||App.weather?.updatedAt||App.weather?.generatedAt?App.weather:null}
 function teamlistsLoaded(){return typeof App.statusTruth?.teamlistsLoaded==='boolean'?App.statusTruth.teamlistsLoaded:!!(App.teamLists||App.officialTeamLists)}
-function dataFreshnessSummary(){return `Data ${compactAgeLabel(bestStatusFreshnessRecord())}`}
+function dataFreshnessSummary(){const weather=weatherFreshnessRecord();return `Lists ${compactOldLabel(bestStatusFreshnessRecord())}${weather?` · Weather ${compactOldLabel(weather)}`:''}`}
 function dataFreshnessPanelHtml(){
  const status=bestStatusFreshnessRecord(),weather=weatherFreshnessRecord(),sources=dataSourceLabels(status);
- return `<div class="dataFreshnessPanel small" style="display:none;position:absolute;right:0;top:calc(100% + 6px);z-index:10002;width:280px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#071222;box-shadow:0 18px 50px rgba(0,0,0,.5);line-height:1.45;text-align:left"><b>Data details</b><br>Status updated: ${esc(compactAgeLabel(status))} · ${esc(dateTimeLabelFromRecord(status))}<br>Status truth round: ${esc(App.statusTruth?.round??'unknown')}<br>Selected app round: ${esc(App.round)}<br>teamlistsLoaded: ${teamlistsLoaded()?'true':'false'}${weather?`<br>Weather updated: ${esc(compactAgeLabel(weather))} · ${esc(dateTimeLabelFromRecord(weather))}`:''}${sources.length?`<br>Sources: ${sources.map(esc).join(' + ')}`:''}</div>`;
+ return `<div class="dataFreshnessPanel small" style="display:none;position:absolute;right:0;top:calc(100% + 6px);z-index:10002;width:280px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#071222;box-shadow:0 18px 50px rgba(0,0,0,.5);line-height:1.45;text-align:left"><b>Update details</b><br>Team lists/status updated: ${esc(compactOldLabel(status))} · ${esc(dateTimeLabelFromRecord(status))}<br>Status truth round: R${esc(App.statusTruth?.round??'unknown')}<br>Selected round: R${esc(App.round)}<br>Team lists loaded: ${teamlistsLoaded()?'true':'false'}${weather?`<br>Weather: ${esc(compactOldLabel(weather))} · ${esc(dateTimeLabelFromRecord(weather))}`:''}${sources.length?`<br>Sources: ${sources.map(esc).join(' + ')}`:''}</div>`;
 }
 function dataFreshnessControlHtml(){return `<span style="position:relative;display:inline-flex;align-items:center;gap:5px;white-space:nowrap"><span class="dataFreshnessText">${esc(dataFreshnessSummary())}</span><button type="button" aria-label="Data update details" onclick="toggleDataFreshnessDetails(event)" style="width:22px;height:22px;padding:0;border-radius:999px;font-size:12px;line-height:1;display:inline-grid;place-items:center">ⓘ</button>${dataFreshnessPanelHtml()}</span>`}
 function toggleDataFreshnessDetails(ev){if(ev){ev.preventDefault();ev.stopPropagation()}const wrap=ev?.currentTarget?.parentElement;const panel=wrap?.querySelector?.('.dataFreshnessPanel');if(panel)panel.style.display=panel.style.display==='block'?'none':'block'}
@@ -2295,7 +2320,7 @@ async function boot(){
  App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};validateLineup();ensureLineup();wireTabs();renderActive();
  updateStatusFreshnessLabel();startLiveStatusRefresh();
 }
-function updateStatusFreshnessLabel(){const fe=$('statusFreshness');if(fe)fe.innerHTML=dataFreshnessControlHtml()}
+function updateStatusFreshnessLabel(){const fe=$('statusFreshness');if(fe)fe.textContent=''}
 async function refreshTrustDataNow(){const oldUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';App.playerStatus=await fetchJson('player_status.json',App.playerStatus||{players:{}});App.statusTruth=await fetchJson('data/status_truth.json',App.statusTruth||null);App.availabilityOverrides=await fetchJson('availability_overrides.json',App.availabilityOverrides||{players:{}});App.teamLists=await fetchJson('data/teamlists.json',App.teamLists||null);App.officialTeamLists=await fetchJson('official_teamlists.json',App.officialTeamLists||null);App.originUnavailable=await fetchJson('origin_unavailable.json',App.originUnavailable||null);App.fixtures=await fetchJson('fixtures.json',App.fixtures||null);syncCurrentRound();App.projectionCache.clear();updateStatusFreshnessLabel();renderActive();const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed')}
 function startLiveStatusRefresh(){if(App._statusRefreshTimer)return;App._statusRefreshTimer=setInterval(refreshTrustDataNow,10*60*1000)}
 
@@ -2904,8 +2929,9 @@ function mobileTeamHtml(state=teamRenderState()){
    <div class="wr-metric"><span>RESERVES</span><b>${reserveCount}/12</b></div>
    <div class="wr-metric"><span>PROJECTED</span><b>${totalProjected}</b></div>
    <div class="wr-metric"><span>TEAM VALUE</span><b>${money(teamValue)}</b></div>
-   <div class="wr-top-actions wr-round-actions"><div class="small" style="margin-bottom:5px">${dataFreshnessControlHtml()}</div><button type="button" onclick="setRound(App.round-1)">R-</button><button type="button" onclick="setRound(App.round+1)">R+</button><button type="button" onclick="refreshTrustDataNow()">Refresh</button><button type="button" onclick="resetTeamFromFile()">Reset</button></div>
+   <div class="wr-top-actions wr-round-actions"><button type="button" onclick="setRound(App.round-1)">R-</button><button type="button" onclick="setRound(App.round+1)">R+</button><button type="button" onclick="refreshTrustDataNow()">Refresh</button><button type="button" onclick="resetTeamFromFile()">Reset</button></div>
   </div>
+  <div class="wr-freshness-row">${dataFreshnessControlHtml()}</div>
   ${(App.teamActionMode||App.selectedTeamSlot||App.selectedReserveTradeName) ? '<div id="teamActionPanel" class="small wr-action-panel">'+teamActionHtml()+'</div>' : ''}
   <div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot)}</main>${formationReservesHtml(reserveSections,groups)}</div>
   <div class="wr-status-legend"><span><i class="status-dot"></i> Available</span><span><i class="status-dot warn"></i> Risk</span><span><i class="status-dot bad"></i> Out</span><span><i class="status-dot bye"></i> Bye</span></div>
