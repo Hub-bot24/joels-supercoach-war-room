@@ -1276,9 +1276,15 @@ async function main(){
   await writeJson('data/status_truth.json', truth);
   await writeJson('data/current_round.json', {round, phase: teamlistsLoaded ? 'teamlists_loaded' : 'waiting_for_teamlists', updated: NOW_ISO, teamlistsLoaded});
   await writeJson('data/teamlists.json', {updated: NOW_ISO, round, loaded: teamlistsLoaded, teamsWithLoadedList, players: teamlists});
+  console.log('writing data/weather.json');
   await writeJson('data/weather.json', await weatherContract(round));
+  console.log('wrote data/weather.json');
+  console.log('writing data/official_teamlists.json');
   await writeJson('data/official_teamlists.json', contractDefaults.officialTeamlists);
+  console.log('wrote data/official_teamlists.json');
+  console.log('writing data/origin_unavailable.json');
   await writeJson('data/origin_unavailable.json', contractDefaults.originUnavailable);
+  console.log('wrote data/origin_unavailable.json');
   await writeJson('data/injuries.json', playersContract(round, injuries, 'core truth engine injuries'));
   await writeJson('data/suspensions.json', playersContract(round, suspensions, 'core truth engine suspensions'));
   await writeJson('data/origin.json', playersContract(round, origin, 'core truth engine origin context'));
