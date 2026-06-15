@@ -13,6 +13,9 @@
   - data/status_truth.json
   - data/current_round.json
   - data/teamlists.json
+  - data/weather.json
+  - data/official_teamlists.json
+  - data/origin_unavailable.json
   - data/injuries.json
   - data/suspensions.json
   - data/origin.json
@@ -98,6 +101,122 @@ async function writeJson(rel, data){
   const abs = path.join(ROOT, rel);
   await ensureDir(path.dirname(abs));
   await fs.writeFile(abs, JSON.stringify(data, null, 2) + '\n');
+}
+function generatedEmptyContract(extra={}){
+  return {updated: NOW_ISO, round: null, ...extra, source: 'generated-empty', status: 'empty'};
+}
+function playersContract(round, players, source='core truth engine'){
+  const hasPlayers = Object.keys(players || {}).length > 0;
+  return {updated: NOW_ISO, round: round || null, players: players || {}, source: hasPlayers ? source : 'generated-empty', status: hasPlayers ? 'generated' : 'empty'};
+}
+function hasWeatherData(weather){
+  return Boolean(weather && ((Array.isArray(weather.matches) && weather.matches.length) || (Array.isArray(weather.games) && weather.games.length) || (isObj(weather.fixtures) && Object.keys(weather.fixtures).length)));
+}
+function weatherRiskFromHours(hours){
+  const probs = hours.map(h => Number(h.precipitation_probability)).filter(Number.isFinite);
+  const rain = hours.map(h => Number(h.precipitation_mm)).filter(Number.isFinite);
+  const winds = hours.map(h => Number(h.wind_speed_10m)).filter(Number.isFinite);
+  const gusts = hours.map(h => Number(h.wind_gusts_10m)).filter(Number.isFinite);
+  const temps = hours.map(h => Number(h.temperature_2m)).filter(Number.isFinite);
+  const maxRainProbability = Math.max(0, ...probs);
+  const totalGameRainMm = rain.reduce((s,n) => s + n, 0);
+  const maxWindKmh = Math.max(0, ...winds);
+  const maxGustKmh = Math.max(0, ...gusts);
+  let score = 0;
+  const reasons = [];
+  if(maxRainProbability >= 70 || totalGameRainMm >= 5){ score += 45; reasons.push('high rain risk'); }
+  else if(maxRainProbability >= 40 || totalGameRainMm >= 1){ score += 25; reasons.push('rain risk'); }
+  if(maxGustKmh >= 45 || maxWindKmh >= 30){ score += 30; reasons.push('strong wind/gusts'); }
+  else if(maxGustKmh >= 30 || maxWindKmh >= 20){ score += 15; reasons.push('moderate wind/gusts'); }
+  const label = score >= 60 ? 'High' : (score >= 30 ? 'Medium' : 'Low');
+  return {label, score, maxRainProbability, totalGameRainMm:Number(totalGameRainMm.toFixed(1)), maxWindKmh, maxGustKmh, avgTemp:temps.length ? Number((temps.reduce((s,n)=>s+n,0)/temps.length).toFixed(1)) : null, reasons, captainImpact: label === 'Low' ? 'Low weather risk over game window. Normal captain logic applies.' : `${label} weather risk over game window. Review outdoor captain/ceiling assumptions.`};
+}
+function venueMapFromJson(venuesJson){
+  return new Map(asArray(venuesJson?.venues).map(v => [norm(v.venue), v]).filter(([k]) => k));
+}
+function datePart(localDateTime){
+  return String(localDateTime || '').slice(0, 10);
+}
+function addMinutes(localDateTime, minutes){
+  const d = new Date(String(localDateTime || ''));
+  if(!Number.isFinite(d.getTime())) return '';
+  d.setMinutes(d.getMinutes() + minutes);
+  return d.toISOString().slice(0, 16);
+}
+async function fetchJsonUrl(url){
+  return JSON.parse(await fetchText(url));
+}
+async function fetchOpenMeteoGameWeather(fixture, venue){
+  const lat = Number(fixture.lat ?? venue?.lat);
+  const lon = Number(fixture.lon ?? venue?.lon);
+  const kickoffLocal = fixture.kickoffLocal || fixture.kickoff || fixture.startTime || '';
+  const timezone = fixture.timezone || venue?.timezone || 'Australia/Sydney';
+  if(!Number.isFinite(lat) || !Number.isFinite(lon) || !kickoffLocal) throw new Error(`missing weather coordinates or kickoff for ${fixture.match || fixture.venue || 'fixture'}`);
+  const startDate = datePart(kickoffLocal);
+  const url = new URL('https://api.open-meteo.com/v1/forecast');
+  url.searchParams.set('latitude', String(lat));
+  url.searchParams.set('longitude', String(lon));
+  url.searchParams.set('hourly', 'temperature_2m,precipitation_probability,precipitation,wind_speed_10m,wind_gusts_10m');
+  url.searchParams.set('timezone', timezone);
+  url.searchParams.set('start_date', startDate);
+  url.searchParams.set('end_date', startDate);
+  const data = await fetchJsonUrl(url.href);
+  const hourly = data?.hourly || {};
+  const times = hourly.time || [];
+  const from = addMinutes(kickoffLocal, -30);
+  const to = addMinutes(kickoffLocal, 110);
+  const gameWindowWeather = times.map((time, i) => ({time, phase: i === 0 ? 'pre_game' : 'game_window', temperature_2m:hourly.temperature_2m?.[i], precipitation_probability:hourly.precipitation_probability?.[i], precipitation_mm:hourly.precipitation?.[i], wind_speed_10m:hourly.wind_speed_10m?.[i], wind_gusts_10m:hourly.wind_gusts_10m?.[i]})).filter(h => h.time >= from && h.time <= to);
+  if(!gameWindowWeather.length) throw new Error(`no hourly weather returned for ${fixture.match || fixture.venue || 'fixture'}`);
+  return {...fixture, city:fixture.city || venue?.city || '', lat, lon, timezone, weatherStatus:'updated', gameWindow:{from, to, gameMinutes:110}, gameWindowWeather, weatherRisk:weatherRiskFromHours(gameWindowWeather)};
+}
+async function generateFreshWeatherContract(round){
+  const fixturesJson = await readJson('fixtures.json', {});
+  const venuesJson = await readJson('venues.json', {});
+  const venues = venueMapFromJson(venuesJson);
+  const fixtures = asArray(fixturesJson.fixtures).filter(f => Number(f.round) === Number(round) && (f.kickoffLocal || f.kickoff || f.startTime));
+  if(!round) throw new Error('active round unavailable for weather generation');
+  if(!fixtures.length) throw new Error(`no fixtures with kickoff times found for round ${round}`);
+  const matches = [];
+  const failures = [];
+  for(const fixture of fixtures){
+    const venue = venues.get(norm(fixture.venue));
+    try{
+      matches.push(await fetchOpenMeteoGameWeather(fixture, venue));
+    }catch(e){
+      failures.push({match:fixture.match || '', venue:fixture.venue || '', reason:e.message});
+      matches.push({...fixture, weatherStatus:'source_failed', gameWindowWeather:[], weatherRisk:{score:0,label:'Unknown',reasons:[e.message]}});
+    }
+  }
+  if(!matches.some(m => Array.isArray(m.gameWindowWeather) && m.gameWindowWeather.length)) throw new Error(`fresh weather failed for all round ${round} fixtures`);
+  return {updated: NOW_ISO, round, source:'Open-Meteo hourly forecast API', status:'fresh', note:'Weather covers pre-game through full game window. Forecast updates when workflow runs.', fixtures:{}, games:matches, matches, failures};
+}
+function staleWeather(weather, staleReason, fallbackSource){
+  return {...weather, updated: weather.updated || NOW_ISO, round: weather.round ?? null, source: weather.source || fallbackSource, status:'stale', staleReason};
+}
+async function weatherContract(round){
+  let freshError = null;
+  try{
+    return await generateFreshWeatherContract(round);
+  }catch(e){
+    freshError = e;
+  }
+  const dataWeather = await readJson('data/weather.json', null);
+  if(hasWeatherData(dataWeather)){
+    return staleWeather(dataWeather, freshError.message, 'data/weather.json');
+  }
+  const rootWeather = await readJson('weather.json', null);
+  if(hasWeatherData(rootWeather)){
+    return staleWeather(rootWeather, freshError.message, 'weather.json');
+  }
+  return generatedEmptyContract({fixtures:{}, games:[], staleReason:freshError?.message || 'weather generation unavailable and no previous weather file exists'});
+}
+function appDataContractDefaults(){
+  return {
+    officialTeamlists: generatedEmptyContract({teamlistsLoaded:false, teams:{}, players:{}}),
+    originUnavailable: generatedEmptyContract({players:{}}),
+    injuries: generatedEmptyContract({players:{}}),
+    suspensions: generatedEmptyContract({players:{}})
+  };
 }
 async function writeText(rel, text){
   const abs = path.join(ROOT, rel);
@@ -1056,6 +1175,9 @@ function changedStatus(prevPlayers, nextPlayers){
 }
 async function main(){
   await ensureDir(DATA_DIR);
+  // Data contract: the browser reads generated JSON from /data, and this script owns creating it.
+  // Missing or unavailable upstream sources must become valid generated JSON, not missing files.
+  const contractDefaults = appDataContractDefaults();
   const config = await readJson('data/source_config.json', {});
   const players = toPlayersArray(await readJson('players.json', []));
   if(!players.length) throw new Error('players.json missing or empty. Cannot build status truth.');
@@ -1154,9 +1276,12 @@ async function main(){
   await writeJson('data/status_truth.json', truth);
   await writeJson('data/current_round.json', {round, phase: teamlistsLoaded ? 'teamlists_loaded' : 'waiting_for_teamlists', updated: NOW_ISO, teamlistsLoaded});
   await writeJson('data/teamlists.json', {updated: NOW_ISO, round, loaded: teamlistsLoaded, teamsWithLoadedList, players: teamlists});
-  await writeJson('data/injuries.json', {updated: NOW_ISO, round, players: injuries});
-  await writeJson('data/suspensions.json', {updated: NOW_ISO, round, players: suspensions});
-  await writeJson('data/origin.json', {updated: NOW_ISO, round, players: origin});
+  await writeJson('data/weather.json', await weatherContract(round));
+  await writeJson('data/official_teamlists.json', contractDefaults.officialTeamlists);
+  await writeJson('data/origin_unavailable.json', contractDefaults.originUnavailable);
+  await writeJson('data/injuries.json', playersContract(round, injuries, 'core truth engine injuries'));
+  await writeJson('data/suspensions.json', playersContract(round, suspensions, 'core truth engine suspensions'));
+  await writeJson('data/origin.json', playersContract(round, origin, 'core truth engine origin context'));
   await writeJson('data/teamlist_changes.json', allChanges);
   await writeJson('data/notifications.json', {updated: NOW_ISO, round, newChanges, allChangeCount: allChanges.length});
   await writeJson(`data/history/round_${round || 'unknown'}_status.json`, truth);

@@ -35,10 +35,13 @@ jobs:
           commit_message: Update status truth data
           file_pattern: |
             data/status_truth.json
-            data/current_round.json
             data/teamlists.json
+            data/weather.json
+            data/official_teamlists.json
+            data/origin_unavailable.json
             data/injuries.json
             data/suspensions.json
+            data/current_round.json
             data/origin.json
             data/status_previous.json
             data/teamlist_baseline_tuesday.json
