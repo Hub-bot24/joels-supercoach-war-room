@@ -2910,7 +2910,7 @@ function teamActionHtml(){
  if(App.teamActionMode==='trade'){
   const slot=slotById[App.selectedTeamSlot],p=getPlayer(App.lineup?.[App.selectedTeamSlot]);
   if(!slot||!p)return '<span style="opacity:.75">Tap a player for stats/trade. Press and hold to drag/swap.</span>';
-  const opts=App.players.filter(r=>!App.myTeam.includes(r.name)&&eligible(r,slot)).sort((a,b)=>roundProj(b).expected-roundProj(a).expected).slice(0,200);
+  const opts=App.players.filter(r=>!App.myTeam.includes(r.name)&&eligible(r,slot)).sort((a,b)=>roundProj(b).expected-roundProj(a).expected);
   return tradePopupHtml(`TRADE OUT ${slot.short} · ${opts.length} OPTIONS`,p.name,opts,r=>`applyTeamTradeOut('${slot.id}','${window.jsq(r.name)}')`);
  }
  if(App.selectedReserveTradeName){
