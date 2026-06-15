@@ -2106,7 +2106,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 <script src="level3-projection-engine.js"></script>
 <script>
 'use strict';
-const App={players:[],playerMap:new Map(),myTeam:[],weather:null,fixtures:null,goalKickers:null,teamRoles:null,availabilityOverrides:null,playerStatus:null,statusTruth:null,playerPhotos:null,
+const App={players:[],playerMap:new Map(),playerNameMap:new Map(),ambiguousPlayerNameMap:new Map(),myTeam:[],weather:null,fixtures:null,goalKickers:null,teamRoles:null,availabilityOverrides:null,playerStatus:null,statusTruth:null,playerPhotos:null,
 teamLists:null,officialTeamLists:null,originUnavailable:null,
 dualPositions:{players:{}},projectionCache:new Map(),active:'team',rendered:new Set(),round:Number(localStorage.getItem('sc_round')||14),roundSource:'stored',trustWarnings:[],lineup:null,drag:null};
 const $=id=>document.getElementById(id);const safeNum=v=>Number.isFinite(Number(v))?Number(v):0;const money=n=>'$'+safeNum(n).toLocaleString();
@@ -2193,7 +2193,42 @@ function positions(p){
 }
 function eligible(p,slot){if(!p||!slot)return false;if(slot.accept.includes('ANY'))return true;const ps=positions(p);return slot.accept.some(a=>ps.includes(POS_ALIAS[a]||a))}
 function primaryGroup(p){const ps=positions(p);if(ps.includes('HOK'))return 'HOOKER';if(ps.includes('FRF'))return 'FRONT ROW';if(ps.includes('2RF'))return '2ND ROW / FORWARDS';if(ps.includes('HFB')||ps.includes('5/8'))return 'HALVES';if(ps.includes('CTW'))return 'CENTRES / WINGS';if(ps.includes('FLB'))return 'FULLBACK';return 'UTILITY'}
-function getPlayer(name){if(!name)return null;return App.playerMap.get(String(name).trim())||null}
+function playerNameKey(value){return String(value||'').toLowerCase().replace(/[^a-z0-9]/g,'')}
+function addPlayerNameAlias(alias,name){
+ const key=playerNameKey(alias);
+ if(!key||!name)return;
+ const existing=App.playerNameMap.get(key);
+ if(!existing){App.playerNameMap.set(key,name);return}
+ if(existing===name)return;
+ const names=new Set([existing,name,...(App.ambiguousPlayerNameMap.get(key)||[])]);
+ App.ambiguousPlayerNameMap.set(key,[...names]);
+ App.playerNameMap.delete(key);
+}
+function buildPlayerNameMap(){
+ App.playerNameMap=new Map();
+ App.ambiguousPlayerNameMap=new Map();
+ for(const p of App.players){
+  if(!p?.name)continue;
+  addPlayerNameAlias(p.sourceName,p.name);
+  addPlayerNameAlias(p.statsSourceName,p.name);
+  const parts=String(p.name).trim().split(/\s+/).filter(Boolean);
+  if(parts.length>=2)addPlayerNameAlias(`${parts[0][0]} ${parts[parts.length-1]}`,p.name);
+ }
+}
+function resolvePlayerName(name){
+ const raw=String(name||'').trim();
+ if(!raw)return '';
+ if(App.playerMap.has(raw))return raw;
+ const key=playerNameKey(raw);
+ const exact=App.players.find(p=>playerNameKey(p.name)===key)?.name||'';
+ if(exact)return exact;
+ const ambiguous=App.ambiguousPlayerNameMap.get(key);
+ if(ambiguous?.length){console.warn('Ambiguous player name alias',raw,ambiguous);return ''}
+ const resolved=App.playerNameMap.get(key)||'';
+ if(!resolved&&raw)console.warn('Unresolved player name:',raw);
+ return resolved;
+}
+function getPlayer(name){const resolved=resolvePlayerName(name);return resolved?App.playerMap.get(resolved)||null:null}
 function cleanPlayer(p){
  if(!p || typeof p !== 'object') return {name:'',pos:'',team:'',price:0,avg:0,proj:0,bye:[]};
  const rawName = p.name ?? p.player ?? p.fullName ?? p.playerName ?? '';
@@ -2236,13 +2271,14 @@ function safeLocalGet(key,fallback){
 }
 
 async function boot(){
- const rawPlayers=await fetchJson('players.json',[]);let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));
+ const rawPlayers=await fetchJson('players.json',[]);let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));buildPlayerNameMap();
  App.weather=await fetchJson('weather.json',null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);App.playerStatus=await fetchJson('player_status.json',{players:{}});App.statusTruth=await fetchJson('data/status_truth.json',await fetchJson('status_truth.json',null));App.playerPhotos=await fetchJson('player_photos.json',{players:{}});App.teamLists=await fetchJson('data/teamlists.json',await fetchJson('teamlists.json',null));App.officialTeamLists=await fetchJson('official_teamlists.json',null);App.originUnavailable=await fetchJson('origin_unavailable.json',null);App.dualPositions=await fetchJson('position_overrides.json',{players:{}});syncCurrentRound();
  const localTeam=safeJsonParse(safeLocalGet('sc_myTeam','null'),null);const teamJson=await fetchJson('my_team.json',null);let names=Array.isArray(localTeam)&&localTeam.length?localTeam:(teamJson?.players||teamJson?.team||[]);if(!Array.isArray(names))names=[];
  names = names.map(x => typeof x === 'string' ? x.trim() : (x?.name || x?.player || '')).filter(Boolean);
- const missingNames = names.filter(n=>!App.playerMap.has(n));
+ const resolvedNames = names.map(n=>resolvePlayerName(n)).filter(Boolean);
+ const missingNames = names.filter(n=>!resolvePlayerName(n));
  if(missingNames.length) console.warn('Players in my_team.json not found in players.json:', missingNames);
- App.myTeam=[...new Set(names.filter(n=>App.playerMap.has(n)))];
+ App.myTeam=[...new Set(resolvedNames)];
  App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};validateLineup();ensureLineup();wireTabs();renderActive();
  updateStatusFreshnessLabel();startLiveStatusRefresh();
 }
@@ -2273,9 +2309,10 @@ function statusTruthRecordFor(p,round=App.round){
  if(!p||!p.name||!App.statusTruth)return null;
  const players=App.statusTruth.players||App.statusTruth;
  if(!players||typeof players!=='object')return null;
- let rec=players[p.name];
+ const canonicalName=resolvePlayerName(p.name)||p.name;
+ let rec=players[canonicalName];
  if(!rec){
-  const key=playerKeyName(p.name);
+  const key=playerKeyName(canonicalName);
   for(const [name,value] of Object.entries(players)){
    if(playerKeyName(name)===key){rec=value;break;}
   }
