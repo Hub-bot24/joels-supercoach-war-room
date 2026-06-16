@@ -29,6 +29,16 @@ jobs:
           ACTIVE_ROUND: ${{ github.event.inputs.active_round }}
         run: node scripts/update-status.mjs
 
+      - name: Show generated contract files
+        run: |
+          ls -la data || true
+          test -f data/weather.json && echo "FOUND data/weather.json" || echo "MISSING data/weather.json"
+          test -f data/official_teamlists.json && echo "FOUND data/official_teamlists.json" || echo "MISSING data/official_teamlists.json"
+          test -f data/origin_unavailable.json && echo "FOUND data/origin_unavailable.json" || echo "MISSING data/origin_unavailable.json"
+          git status --short
+          git add data/weather.json data/official_teamlists.json data/origin_unavailable.json || true
+          git status --short
+
       - name: Commit updated truth files
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
