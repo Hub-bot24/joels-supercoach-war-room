@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-16T17:09:43.814401+00:00",
+  "updated": "2026-06-16T21:11:36.816938+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -432,6 +432,126 @@
             "maxScore": 0
           },
           "second_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          }
+        },
+        "reasons": [],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 17,
+      "match": "Titans v Bulldogs",
+      "homeTeam": "GLD",
+      "awayTeam": "CAN",
+      "venue": "Cbus Super Stadium",
+      "kickoffLocal": "2026-06-26T18:00:00",
+      "city": "Gold Coast",
+      "lat": -28.0678,
+      "lon": 153.3789,
+      "timezone": "Australia/Brisbane",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-06-26T17:30:00",
+        "to": "2026-06-26T19:50:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-06-26T18:00",
+          "phase": "first_half",
+          "temperature_2m": 16.6,
+          "precipitation_probability": 37,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 14.0,
+          "wind_gusts_10m": 43.9
+        },
+        {
+          "time": "2026-06-26T19:00",
+          "phase": "halftime_period",
+          "temperature_2m": 16.0,
+          "precipitation_probability": 34,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 14.1,
+          "wind_gusts_10m": 41.8
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 15,
+        "maxRainProbability": 37.0,
+        "totalGameRainMm": 0.0,
+        "maxWindKmh": 14.1,
+        "maxGustKmh": 43.9,
+        "avgTemp": 16.3,
+        "phaseRisk": {
+          "first_half": {
+            "avgScore": 15,
+            "maxScore": 15
+          },
+          "halftime_period": {
+            "avgScore": 15,
+            "maxScore": 15
+          }
+        },
+        "reasons": [
+          "moderate wind/gusts"
+        ],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 17,
+      "match": "Broncos v Roosters",
+      "homeTeam": "BRO",
+      "awayTeam": "SYD",
+      "venue": "Suncorp Stadium",
+      "kickoffLocal": "2026-06-26T20:00:00",
+      "city": "Brisbane",
+      "lat": -27.4648,
+      "lon": 153.0095,
+      "timezone": "Australia/Brisbane",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-06-26T19:30:00",
+        "to": "2026-06-26T21:50:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-06-26T20:00",
+          "phase": "first_half",
+          "temperature_2m": 13.8,
+          "precipitation_probability": 26,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 5.2,
+          "wind_gusts_10m": 14.8
+        },
+        {
+          "time": "2026-06-26T21:00",
+          "phase": "halftime_period",
+          "temperature_2m": 13.0,
+          "precipitation_probability": 19,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 6.1,
+          "wind_gusts_10m": 13.7
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 0,
+        "maxRainProbability": 26.0,
+        "totalGameRainMm": 0.0,
+        "maxWindKmh": 6.1,
+        "maxGustKmh": 14.8,
+        "avgTemp": 13.4,
+        "phaseRisk": {
+          "first_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          },
+          "halftime_period": {
             "avgScore": 0,
             "maxScore": 0
           }
