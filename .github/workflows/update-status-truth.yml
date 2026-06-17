@@ -1,3 +1,5 @@
+name: Update Status Truth
+
 on:
   push:
     branches:
@@ -9,7 +11,6 @@ on:
       - "data/status_sources.json"
   schedule:
     - cron: "*/15 * * * *"
-  workflow_dispatch:
   workflow_dispatch:
     inputs:
       active_round:
