@@ -574,21 +574,26 @@ function toPlayersArray(playersJson){
     return {...x, name, team:x?.team || x?.club || x?.squad || '', pos:x?.pos || x?.position || x?.positions || ''};
   }).filter(p => p.name);
 }
-function currentRoundFromFiles(...objs){
-  const env = Number(process.env.ACTIVE_ROUND || process.env.ROUND || process.env.NRL_ROUND || 0);
-  if(Number.isFinite(env) && env > 0) return {round:env, source:'env'};
-  for(const obj of objs){
-    const candidates = [obj?.round, obj?.activeRound, obj?.currentRound, obj?.meta?.round, obj?.meta?.activeRound];
-    for(const v of candidates){ const n = Number(v); if(Number.isFinite(n) && n > 0) return {round:n, source:'file'}; }
-  }
-  return {round:0, source:'unknown'};
-}
 function fixtureRoundFromDate(fixturesJson, now=NOW){
   const fixtures = asArray(fixturesJson?.fixtures).map(f => ({...f, round:Number(f.round), kickoff:f.kickoffLocal || f.kickoff || f.startTime || ''})).filter(f => Number.isFinite(f.round) && f.round > 0 && f.kickoff);
   const upcoming = fixtures.map(f => ({...f, time:new Date(f.kickoff)})).filter(f => Number.isFinite(f.time.getTime()) && f.time.getTime() >= now.getTime()).sort((a,b) => a.time - b.time);
   if(upcoming.length) return {round:upcoming[0].round, source:'fixtures'};
   const past = fixtures.map(f => ({...f, time:new Date(f.kickoff)})).filter(f => Number.isFinite(f.time.getTime()) && f.time.getTime() < now.getTime()).sort((a,b) => b.time - a.time);
   return past.length ? {round:past[0].round, source:'fixtures'} : {round:0, source:'unknown'};
+}
+function resolveActiveRound({teamlistRound, fixtureRound, storedRound, envRound}) {
+  const candidates = [
+    Number(envRound),
+    Number(teamlistRound),
+    Number(fixtureRound),
+    Number(storedRound)
+  ].filter(n => Number.isFinite(n) && n > 0);
+
+  if (!candidates.length) {
+    throw new Error("No valid active round could be resolved");
+  }
+
+  return Math.max(...candidates);
 }
 async function fetchText(url){
   const r = await fetch(url, {headers:{'user-agent': USER_AGENT}});
@@ -1272,13 +1277,11 @@ async function main(){
   const previousTruth = await readJson('data/status_truth.json', {});
   const currentRoundMeta = await readJson('data/current_round.json', {});
   const oldPlayerStatus = await readJson('player_status.json', {});
-  const statusReport = await readJson('status_update_report.json', {});
   const fixturesJson = await readJson('fixtures.json', {});
   const originFile = await readJson('origin_players.json', {});
   const existingOrigin = await readJson('data/origin.json', {});
 
-  let roundInfo = currentRoundFromFiles(process.env.ACTIVE_ROUND ? {round:process.env.ACTIVE_ROUND} : null, currentRoundMeta);
-  if(!Number(roundInfo.round)) roundInfo = fixtureRoundFromDate(fixturesJson);
+  const fixtureInference = fixtureRoundFromDate(fixturesJson);
 
   const teamlists = {};
   const injuries = {};
@@ -1297,11 +1300,15 @@ async function main(){
 
   const discoveredTeamPages = cleanTeamPages(await discoverPages(teamSourceUrls, 'teamlist', 0));
   const detectedRound = detectedTeamlistRound(discoveredTeamPages);
-  if(detectedRound) roundInfo = {round:detectedRound, source:'detected_teamlist'};
-  const round = roundInfo.round;
+  const round = resolveActiveRound({
+    teamlistRound: detectedRound,
+    fixtureRound: fixtureInference?.round,
+    storedRound: currentRoundMeta?.round,
+    envRound: process.env.ACTIVE_ROUND
+  });
   const filteredTeamPages = filterTeamPagesForRound(discoveredTeamPages, round);
   const teamPages = filteredTeamPages.used;
-  console.log(JSON.stringify({step:'teamlist_sources', configured:teamSourceUrls.length, fetched:discoveredTeamPages.length, used:teamPages.length, detectedRound, round, urls:teamPages.map(p=>p.url), rejected:filteredTeamPages.rejected}, null, 2));
+  console.log(JSON.stringify({step:'teamlist_sources', configured:teamSourceUrls.length, fetched:discoveredTeamPages.length, used:teamPages.length, detectedRound, fixtureRound:fixtureInference?.round || 0, storedRound:currentRoundMeta?.round || 0, envRound:process.env.ACTIVE_ROUND || '', round, urls:teamPages.map(p=>p.url), rejected:filteredTeamPages.rejected}, null, 2));
 
   const backupStats = fromBackupStatus(players, oldPlayerStatus, teamlists, injuries, suspensions, round);
 
@@ -1314,13 +1321,14 @@ async function main(){
   const {playersOut, teamlistsLoaded, teamsWithLoadedList} = combineTruth(players, round, teamlists, injuries, suspensions, origin, oldPlayerStatus);
   const summary = summarise(playersOut);
   const weather = await weatherContract(round);
-  const currentRoundContract = {round, phase:teamlistsLoaded ? 'teamlists_loaded' : 'waiting_for_teamlists', updated:NOW_ISO, teamlistsLoaded, detectedRound:detectedRound || null, roundSource:roundInfo.source, status:'fresh'};
+  if(Number(weather?.round) !== Number(round)) throw new Error("Weather round mismatch after resolution");
+  const currentRoundContract = {round, phase:teamlistsLoaded ? 'teamlists_loaded' : 'waiting_for_teamlists', updated:NOW_ISO, teamlistsLoaded, detectedRound:detectedRound || null, roundSource:'single_resolver', status:'fresh'};
   const weatherRoundMismatch = Number(weather?.round) !== Number(round);
 
   const truth = {
     updated: NOW_ISO,
     round,
-    roundSource: roundInfo.source,
+    roundSource: 'single_resolver',
     source: 'core truth engine - source pages + existing updater files; no hardcoded player fixes',
     teamlistsLoaded,
     teamsWithLoadedList,
@@ -1334,7 +1342,7 @@ async function main(){
         ...(weatherRoundMismatch ? [`Weather round ${weather?.round ?? 'unknown'} does not match active round ${round || 'unknown'}`] : [])
       ],
       detectedRound,
-      roundSource: roundInfo.source,
+      roundSource: 'single_resolver',
       fetchedTeamListPages: teamPages.map(p => p.url),
       usedTeamListPages: teamPages.map(p => p.url),
       rejectedTeamListPages: filteredTeamPages.rejected,
