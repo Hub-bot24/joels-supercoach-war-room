@@ -38,7 +38,7 @@ jobs:
           test -f data/official_teamlists.json && echo "FOUND data/official_teamlists.json" || echo "MISSING data/official_teamlists.json"
           test -f data/origin_unavailable.json && echo "FOUND data/origin_unavailable.json" || echo "MISSING data/origin_unavailable.json"
           git status --short
-          git add data/weather.json data/official_teamlists.json data/origin_unavailable.json || true
+          git add data/current_round.json data/status_truth.json data/teamlists.json data/weather.json data/official_teamlists.json data/origin_unavailable.json data/injuries.json data/suspensions.json data/origin.json data/status_previous.json data/teamlist_baseline_tuesday.json data/teamlist_changes.json data/notifications.json data/notification_message.md data/source_audit.json data/history/*.json || true
           git status --short
 
       - name: Commit updated truth files
@@ -71,4 +71,5 @@ jobs:
           gh issue create \
             --title "War Room status changes - $(date -u +'%Y-%m-%d %H:%M UTC')" \
             --body-file data/notification_message.md || true
+
 
