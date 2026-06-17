@@ -125,40 +125,32 @@ async function readBackRoundContract(file, round, options = {}) {
 
   return data;
 }
-function enforceRoundContract(file, data, round, options = {}) {
-  const actualRound = Number(data?.round);
-  const expectedRound = Number(round);
-  const allowNoRound = options.allowNoRound === true;
-
-  if (allowNoRound && !Number.isFinite(actualRound)) return data;
-
-  if (!Number.isFinite(expectedRound) || expectedRound <= 0) {
-    return {
-      updated: NOW_ISO,
-      round: null,
-      status: "invalid_round",
-      error: `Blocked ${file}: active round is invalid`,
-      games: [],
-      matches: [],
-      players: {},
-      source: "contract_guard"
-    };
+function requireContractShape(file, data) {
+  if (!data || typeof data !== 'object') {
+    throw new Error(`${file}: contract is null or invalid object`);
   }
 
-  if (Number.isFinite(actualRound) && actualRound === expectedRound) return data;
+  if (file === 'data/current_round.json') {
+    if (!Number(data.round)) throw new Error('current_round missing round');
+    if (!data.status) throw new Error('current_round missing status');
+  }
 
-  return {
-    updated: NOW_ISO,
-    round: expectedRound,
-    status: "round_mismatch_blocked",
-    error: `Blocked ${file}: contract round ${data?.round ?? "unknown"} does not match active round ${expectedRound}`,
-    previousRound: data?.round ?? null,
-    previousUpdated: data?.updated || null,
-    games: [],
-    matches: [],
-    players: {},
-    source: "contract_guard"
-  };
+  if (file === 'data/weather.json') {
+    if (!Number(data.round)) throw new Error('weather missing round');
+    if (!Array.isArray(data.games)) throw new Error('weather missing games');
+    if (!data.games.length) throw new Error('weather games empty');
+  }
+
+  return data;
+}
+function enforceRoundContract(file, data, round) {
+  if (!data || Number(data.round) !== Number(round)) {
+    throw new Error(`${file}: round mismatch or missing. expected ${round}, got ${data?.round}`);
+  }
+  return data;
+}
+function strictRoundContract(file, data, round) {
+  return enforceRoundContract(file, requireContractShape(file, data), round);
 }
 function generatedEmptyContract(extra={}){
   return {updated: NOW_ISO, round: null, ...extra, source: 'generated-empty', status: 'empty'};
@@ -1380,6 +1372,7 @@ async function main(){
   const prevChangeIds = new Set(asArray(existingChanges).map(c => `${c.player}|${c.from}|${c.to}|${c.round||round}`));
   const newChanges = changes.filter(c => !prevChangeIds.has(`${c.player}|${c.from}|${c.to}|${round}`)).map(c => ({...c, round}));
   const allChanges = [...asArray(existingChanges), ...newChanges].slice(-500);
+  if(!Number(round)) throw new Error(`Invalid active round before contract writes: ${round}`);
   const roundSpecificContracts = [
     {file:'data/current_round.json', data:currentRoundContract},
     {file:'data/teamlists.json', data:{updated: NOW_ISO, round, loaded: teamlistsLoaded, teamsWithLoadedList, players: teamlists}},
@@ -1388,18 +1381,10 @@ async function main(){
     {file:'data/suspensions.json', data:playersContract(round, suspensions, 'core truth engine suspensions')},
     {file:'data/origin.json', data:playersContract(round, origin, 'core truth engine origin context')},
     {file:'data/notifications.json', data:{updated: NOW_ISO, round, newChanges, allChangeCount: allChanges.length}}
-  ].map(c => ({...c, data:enforceRoundContract(c.file, c.data, round)}));
+  ].map(c => ({...c, data:strictRoundContract(c.file, c.data, round)}));
   const guardedContracts = Object.fromEntries(roundSpecificContracts.map(c => [c.file, c.data]));
-  const blockedContracts = roundSpecificContracts.filter(c => c.data?.status === 'round_mismatch_blocked' || c.data?.status === 'invalid_round');
   const baseline = await readJson('data/teamlist_baseline_tuesday.json', {});
-  const nextBaseline = teamlistsLoaded && (!baseline?.round || Number(baseline.round) !== Number(round)) ? enforceRoundContract('data/teamlist_baseline_tuesday.json', {round, capturedAt: NOW_ISO, players: playersOut}, round) : null;
-  const guardedWeather = guardedContracts['data/weather.json'];
-  const weatherUnavailable = ['unavailable', 'stale', 'round_mismatch_blocked', 'invalid_round'].includes(String(guardedWeather?.status || '')) && !hasWeatherData(guardedWeather);
-  truth.dataHealth.warnings.push(
-    ...(weatherUnavailable ? [`Weather unavailable for active round ${round || 'unknown'}: ${guardedWeather?.staleReason || guardedWeather?.error || 'weather contract unavailable'}`] : []),
-    ...(guardedWeather?.status === 'round_mismatch_blocked' ? [guardedWeather.error] : []),
-    ...blockedContracts.filter(c => c.file !== 'data/weather.json').map(c => c.data.error).filter(Boolean)
-  );
+  const nextBaseline = teamlistsLoaded && (!baseline?.round || Number(baseline.round) !== Number(round)) ? strictRoundContract('data/teamlist_baseline_tuesday.json', {round, capturedAt: NOW_ISO, players: playersOut}, round) : null;
 
   await writeJson('data/status_previous.json', previousTruth || {});
   await writeJson('data/status_truth.json', truth);
@@ -1444,11 +1429,11 @@ async function main(){
   const validatedCurrentRound = await readJson('data/current_round.json', {});
   const validatedWeather = await readJson('data/weather.json', {});
   console.log(JSON.stringify({
-    step: 'contract_validation',
+    step: 'contract_validation_passed',
     round,
-    currentRoundFile: validatedCurrentRound.round,
-    weatherRound: validatedWeather.round,
-    weatherStatus: validatedWeather.status
+    current_round: validatedCurrentRound.round,
+    weather_round: validatedWeather.round,
+    weather_status: validatedWeather.status
   }, null, 2));
 
   console.log(JSON.stringify({ok:true, round, players:players.length, teamlistsLoaded, summary, newChanges:newChanges.length, warnings:truth.dataHealth.warnings}, null, 2));
