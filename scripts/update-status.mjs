@@ -102,6 +102,29 @@ async function writeJson(rel, data){
   await ensureDir(path.dirname(abs));
   await fs.writeFile(abs, JSON.stringify(data, null, 2) + '\n');
 }
+async function readBackRoundContract(file, round, options = {}) {
+  const data = await readJson(file, null);
+  const expectedRound = Number(round);
+  const actualRound = Number(data?.round);
+
+  if (!Number.isFinite(expectedRound) || expectedRound <= 0) {
+    throw new Error(`Invalid active round while validating ${file}: ${round}`);
+  }
+
+  if (!data || !Number.isFinite(actualRound) || actualRound !== expectedRound) {
+    throw new Error(`Round contract write failed for ${file}: expected round ${expectedRound}, got ${data?.round ?? 'missing'}`);
+  }
+
+  if (file === 'data/current_round.json' && data.status !== 'fresh') {
+    throw new Error(`current_round contract is not fresh after write: ${data.status ?? 'missing'}`);
+  }
+
+  if (file === 'data/weather.json' && data.status === 'fresh' && actualRound !== expectedRound) {
+    throw new Error(`weather contract is falsely fresh for wrong round: ${actualRound} vs ${expectedRound}`);
+  }
+
+  return data;
+}
 function enforceRoundContract(file, data, round, options = {}) {
   const actualRound = Number(data?.round);
   const expectedRound = Number(round);
@@ -1410,6 +1433,23 @@ async function main(){
   } else {
     await removeFile('data/notification_message.md');
   }
+
+  await readBackRoundContract('data/current_round.json', round);
+  await readBackRoundContract('data/teamlists.json', round);
+  await readBackRoundContract('data/weather.json', round);
+  await readBackRoundContract('data/injuries.json', round);
+  await readBackRoundContract('data/suspensions.json', round);
+  await readBackRoundContract('data/origin.json', round);
+  await readBackRoundContract('data/notifications.json', round);
+  const validatedCurrentRound = await readJson('data/current_round.json', {});
+  const validatedWeather = await readJson('data/weather.json', {});
+  console.log(JSON.stringify({
+    step: 'contract_validation',
+    round,
+    currentRoundFile: validatedCurrentRound.round,
+    weatherRound: validatedWeather.round,
+    weatherStatus: validatedWeather.status
+  }, null, 2));
 
   console.log(JSON.stringify({ok:true, round, players:players.length, teamlistsLoaded, summary, newChanges:newChanges.length, warnings:truth.dataHealth.warnings}, null, 2));
 }
