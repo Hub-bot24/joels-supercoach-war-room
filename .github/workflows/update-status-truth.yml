@@ -9,8 +9,10 @@ on:
       - ".github/workflows/update-status-truth.yml"
       - "fixtures.json"
       - "data/status_sources.json"
+
   schedule:
     - cron: "*/15 * * * *"
+
   workflow_dispatch:
     inputs:
       active_round:
@@ -25,6 +27,7 @@ permissions:
 jobs:
   update-status-truth:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -45,7 +48,9 @@ jobs:
           test -f data/weather.json && echo "FOUND data/weather.json" || echo "MISSING data/weather.json"
           test -f data/official_teamlists.json && echo "FOUND data/official_teamlists.json" || echo "MISSING data/official_teamlists.json"
           test -f data/origin_unavailable.json && echo "FOUND data/origin_unavailable.json" || echo "MISSING data/origin_unavailable.json"
+
           git status --short
+
           git add \
             data/current_round.json \
             data/status_truth.json \
@@ -60,11 +65,16 @@ jobs:
             data/teamlist_baseline_tuesday.json \
             data/teamlist_changes.json \
             data/notifications.json \
-            data/source_audit.json \
-            data/history/*.json
+            data/history/*.json || true
+
+          if [ -f data/source_audit.json ]; then
+            git add data/source_audit.json
+          fi
+
           if [ -f data/notification_message.md ]; then
             git add data/notification_message.md
           fi
+
           git status --short
 
       - name: Commit updated truth files
@@ -97,5 +107,3 @@ jobs:
           gh issue create \
             --title "War Room status changes - $(date -u +'%Y-%m-%d %H:%M UTC')" \
             --body-file data/notification_message.md || true
-
-
