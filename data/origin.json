@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-17T21:06:38.659Z",
+  "updated": "2026-06-17T22:02:38.400Z",
   "round": 16,
   "players": {
     "Kulikefu Finefeuiaki": {
@@ -10,16 +10,32 @@
       "confidence": "medium",
       "sources": [
         {
-          "type": "origin_context",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-nsw-qld-10396293-234891",
+          "type": "origin",
+          "name": "origin_players.json",
+          "url": "origin_players.json",
           "updatedAt": "2026-06-17T21:06:38.659Z"
         }
       ],
-      "updatedAt": "2026-06-17T21:06:38.659Z",
-      "originContextOnly": true,
-      "team": "DOL",
-      "teamCanonical": "DOLPHINS"
+      "updatedAt": "2026-06-17T22:02:38.400Z",
+      "raw": {
+        "displayStatus": "ORIGIN",
+        "colour": "orange",
+        "available": true,
+        "reason": "Origin/representative-duty context found in current team-list source (Zero Tackle).",
+        "confidence": "medium",
+        "sources": [
+          {
+            "type": "origin_context",
+            "name": "Zero Tackle",
+            "url": "https://www.zerotackle.com/updated-team-lists-nsw-qld-10396293-234891",
+            "updatedAt": "2026-06-17T21:06:38.659Z"
+          }
+        ],
+        "updatedAt": "2026-06-17T21:06:38.659Z",
+        "originContextOnly": true,
+        "team": "DOL",
+        "teamCanonical": "DOLPHINS"
+      }
     },
     "Murray Taulagi": {
       "displayStatus": "ORIGIN",
@@ -32,10 +48,10 @@
           "type": "origin_context",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/updated-team-lists-nsw-qld-10396293-234891",
-          "updatedAt": "2026-06-17T21:06:38.659Z"
+          "updatedAt": "2026-06-17T22:02:38.400Z"
         }
       ],
-      "updatedAt": "2026-06-17T21:06:38.659Z",
+      "updatedAt": "2026-06-17T22:02:38.400Z",
       "originContextOnly": true,
       "team": "NQC",
       "teamCanonical": "NORTHQLD"
@@ -51,10 +67,10 @@
           "type": "origin_context",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/updated-team-lists-nsw-qld-10396293-234891",
-          "updatedAt": "2026-06-17T21:06:38.659Z"
+          "updatedAt": "2026-06-17T22:02:38.400Z"
         }
       ],
-      "updatedAt": "2026-06-17T21:06:38.659Z",
+      "updatedAt": "2026-06-17T22:02:38.400Z",
       "originContextOnly": true,
       "team": "BRO",
       "teamCanonical": "BRISBANE"
@@ -67,16 +83,32 @@
       "confidence": "medium",
       "sources": [
         {
-          "type": "origin_context",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-nsw-qld-10396293-234891",
+          "type": "origin",
+          "name": "origin_players.json",
+          "url": "origin_players.json",
           "updatedAt": "2026-06-17T21:06:38.659Z"
         }
       ],
-      "updatedAt": "2026-06-17T21:06:38.659Z",
-      "originContextOnly": true,
-      "team": "MEL",
-      "teamCanonical": "MELBOURNE"
+      "updatedAt": "2026-06-17T22:02:38.400Z",
+      "raw": {
+        "displayStatus": "ORIGIN",
+        "colour": "orange",
+        "available": true,
+        "reason": "Origin/representative-duty context found in current team-list source (Zero Tackle).",
+        "confidence": "medium",
+        "sources": [
+          {
+            "type": "origin_context",
+            "name": "Zero Tackle",
+            "url": "https://www.zerotackle.com/updated-team-lists-nsw-qld-10396293-234891",
+            "updatedAt": "2026-06-17T21:06:38.659Z"
+          }
+        ],
+        "updatedAt": "2026-06-17T21:06:38.659Z",
+        "originContextOnly": true,
+        "team": "MEL",
+        "teamCanonical": "MELBOURNE"
+      }
     }
   },
   "source": "core truth engine origin context",
