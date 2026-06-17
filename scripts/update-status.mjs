@@ -543,6 +543,26 @@ function extractLinks(html, baseUrl){
 function roundNumbersFromUrlText(text){
   return [...String(text || '').matchAll(/(?:^|[^a-z])round[-\s]*(\d{1,2})(?:[^a-z]|$)/gi)].map(m => Number(m[1])).filter(Number.isFinite);
 }
+function teamlistPageRoundNumbers(page){
+  const urlRounds = roundNumbersFromUrlText(page?.url || '');
+  if(urlRounds.length) return urlRounds;
+  return roundNumbersFromUrlText(String(page?.text || '').slice(0, 30000));
+}
+function detectedTeamlistRound(pages){
+  const rounds = (pages || []).flatMap(teamlistPageRoundNumbers).filter(n => Number.isFinite(n) && n > 0);
+  return rounds.length ? Math.max(...rounds) : 0;
+}
+function filterTeamPagesForRound(pages, round){
+  if(!Number(round)) return {used:pages || [], rejected:[]};
+  const used = [];
+  const rejected = [];
+  for(const page of pages || []){
+    const rounds = teamlistPageRoundNumbers(page);
+    if(rounds.length && !rounds.includes(Number(round))) rejected.push({url:page.url, rounds, reason:'wrong_round_page'});
+    else used.push(page);
+  }
+  return {used, rejected};
+}
 function rejectTeamlistCandidateLink(href, label, activeRound){
   const raw = String(href || '').trim();
   if(!raw || /^#?$|#respond|#comment/i.test(raw)) return 'anchor_or_comment_link';
@@ -1189,15 +1209,12 @@ async function main(){
   const originFile = await readJson('origin_players.json', {});
   const existingOrigin = await readJson('data/origin.json', {});
 
-  const roundInfo = currentRoundFromFiles(process.env.ACTIVE_ROUND ? {round:process.env.ACTIVE_ROUND} : null, currentRoundMeta, previousTruth, oldPlayerStatus, statusReport);
-  const round = roundInfo.round;
+  let roundInfo = currentRoundFromFiles(process.env.ACTIVE_ROUND ? {round:process.env.ACTIVE_ROUND} : null, currentRoundMeta, oldPlayerStatus, statusReport);
 
   const teamlists = {};
   const injuries = {};
   const suspensions = {};
   const origin = {...fromOriginFile(players, existingOrigin), ...fromOriginFile(players, originFile)};
-
-  const backupStats = fromBackupStatus(players, oldPlayerStatus, teamlists, injuries, suspensions, round);
 
   // CORE FIX: direct round article URLs must be included. Previously the updater only read
   // teamlistIndexUrls, so teamlistArticleUrls in data/source_config.json were ignored and
@@ -1209,8 +1226,15 @@ async function main(){
     ...asArray(config.teamlistIndexUrls)
   ].filter(Boolean);
 
-  const teamPages = cleanTeamPages(await discoverPages(teamSourceUrls, 'teamlist', round));
-  console.log(JSON.stringify({step:'teamlist_sources', configured:teamSourceUrls.length, fetched:teamPages.length, urls:teamPages.map(p=>p.url)}, null, 2));
+  const discoveredTeamPages = cleanTeamPages(await discoverPages(teamSourceUrls, 'teamlist', 0));
+  const detectedRound = detectedTeamlistRound(discoveredTeamPages);
+  if(detectedRound && detectedRound > Number(roundInfo.round || 0)) roundInfo = {round:detectedRound, source:'detected_teamlist'};
+  const round = roundInfo.round;
+  const filteredTeamPages = filterTeamPagesForRound(discoveredTeamPages, round);
+  const teamPages = filteredTeamPages.used;
+  console.log(JSON.stringify({step:'teamlist_sources', configured:teamSourceUrls.length, fetched:discoveredTeamPages.length, used:teamPages.length, detectedRound, round, urls:teamPages.map(p=>p.url), rejected:filteredTeamPages.rejected}, null, 2));
+
+  const backupStats = fromBackupStatus(players, oldPlayerStatus, teamlists, injuries, suspensions, round);
 
   const injuryPages = await discoverPages(config.casualtyWardUrls || [], 'injury');
   const fetchedTeamStats = fromFetchedTeamlists(players, teamPages, teamlists);
@@ -1236,7 +1260,11 @@ async function main(){
         ...(teamlistsLoaded ? [] : ['No current team-list data was loaded. No player can be GREEN/NAMED from fallback data.']),
         ...(players.length ? [] : ['players.json empty'])
       ],
+      detectedRound,
+      roundSource: roundInfo.source,
       fetchedTeamListPages: teamPages.map(p => p.url),
+      usedTeamListPages: teamPages.map(p => p.url),
+      rejectedTeamListPages: filteredTeamPages.rejected,
       fetchedInjuryPages: injuryPages.map(p => p.url),
       backupStats,
       fetchedTeamStats,
