@@ -190,25 +190,35 @@ async function generateFreshWeatherContract(round){
   if(!matches.some(m => Array.isArray(m.gameWindowWeather) && m.gameWindowWeather.length)) throw new Error(`fresh weather failed for all round ${round} fixtures`);
   return {updated: NOW_ISO, round, source:'Open-Meteo hourly forecast API', status:'fresh', note:'Weather covers pre-game through full game window. Forecast updates when workflow runs.', fixtures:{}, games:matches, matches, failures};
 }
-function staleWeather(weather, staleReason, fallbackSource){
-  return {...weather, updated: weather.updated || NOW_ISO, round: weather.round ?? null, source: weather.source || fallbackSource, status:'stale', staleReason};
+function sameRoundWeather(weather, round){
+  return Number(weather?.round) === Number(round);
+}
+function unavailableWeather(round, staleReason, oldWeather=null){
+  return {updated: NOW_ISO, round: round || null, fixtures:{}, games:[], matches:[], source:'generated-weather-contract', status: oldWeather ? 'stale' : 'unavailable', staleReason, previousRound: oldWeather?.round ?? null, previousUpdated: oldWeather?.updated || null};
+}
+function staleWeather(weather, round, staleReason, fallbackSource){
+  return {...weather, updated:weather.updated || NOW_ISO, round, source:weather.source || fallbackSource, status:'stale', staleReason};
 }
 async function weatherContract(round){
   let freshError = null;
   try{
-    return await generateFreshWeatherContract(round);
+    const freshWeather = await generateFreshWeatherContract(round);
+    if(!sameRoundWeather(freshWeather, round)) return unavailableWeather(round, `fresh weather round ${freshWeather?.round ?? 'unknown'} did not match active round ${round}`);
+    return freshWeather;
   }catch(e){
     freshError = e;
   }
   const dataWeather = await readJson('data/weather.json', null);
   if(hasWeatherData(dataWeather)){
-    return staleWeather(dataWeather, freshError.message, 'data/weather.json');
+    if(sameRoundWeather(dataWeather, round)) return staleWeather(dataWeather, round, freshError.message, 'data/weather.json');
+    return unavailableWeather(round, freshError.message, dataWeather);
   }
   const rootWeather = await readJson('weather.json', null);
   if(hasWeatherData(rootWeather)){
-    return staleWeather(rootWeather, freshError.message, 'weather.json');
+    if(sameRoundWeather(rootWeather, round)) return staleWeather(rootWeather, round, freshError.message, 'weather.json');
+    return unavailableWeather(round, freshError.message, rootWeather);
   }
-  return generatedEmptyContract({fixtures:{}, games:[], staleReason:freshError?.message || 'weather generation unavailable and no previous weather file exists'});
+  return unavailableWeather(round, freshError?.message || 'weather generation unavailable and no previous weather file exists');
 }
 function appDataContractDefaults(){
   return {
@@ -522,6 +532,13 @@ function currentRoundFromFiles(...objs){
     for(const v of candidates){ const n = Number(v); if(Number.isFinite(n) && n > 0) return {round:n, source:'file'}; }
   }
   return {round:0, source:'unknown'};
+}
+function fixtureRoundFromDate(fixturesJson, now=NOW){
+  const fixtures = asArray(fixturesJson?.fixtures).map(f => ({...f, round:Number(f.round), kickoff:f.kickoffLocal || f.kickoff || f.startTime || ''})).filter(f => Number.isFinite(f.round) && f.round > 0 && f.kickoff);
+  const upcoming = fixtures.map(f => ({...f, time:new Date(f.kickoff)})).filter(f => Number.isFinite(f.time.getTime()) && f.time.getTime() >= now.getTime()).sort((a,b) => a.time - b.time);
+  if(upcoming.length) return {round:upcoming[0].round, source:'fixtures'};
+  const past = fixtures.map(f => ({...f, time:new Date(f.kickoff)})).filter(f => Number.isFinite(f.time.getTime()) && f.time.getTime() < now.getTime()).sort((a,b) => b.time - a.time);
+  return past.length ? {round:past[0].round, source:'fixtures'} : {round:0, source:'unknown'};
 }
 async function fetchText(url){
   const r = await fetch(url, {headers:{'user-agent': USER_AGENT}});
@@ -1206,10 +1223,12 @@ async function main(){
   const currentRoundMeta = await readJson('data/current_round.json', {});
   const oldPlayerStatus = await readJson('player_status.json', {});
   const statusReport = await readJson('status_update_report.json', {});
+  const fixturesJson = await readJson('fixtures.json', {});
   const originFile = await readJson('origin_players.json', {});
   const existingOrigin = await readJson('data/origin.json', {});
 
-  let roundInfo = currentRoundFromFiles(process.env.ACTIVE_ROUND ? {round:process.env.ACTIVE_ROUND} : null, currentRoundMeta, oldPlayerStatus, statusReport);
+  let roundInfo = currentRoundFromFiles(process.env.ACTIVE_ROUND ? {round:process.env.ACTIVE_ROUND} : null, currentRoundMeta);
+  if(!Number(roundInfo.round)) roundInfo = fixtureRoundFromDate(fixturesJson);
 
   const teamlists = {};
   const injuries = {};
@@ -1228,7 +1247,7 @@ async function main(){
 
   const discoveredTeamPages = cleanTeamPages(await discoverPages(teamSourceUrls, 'teamlist', 0));
   const detectedRound = detectedTeamlistRound(discoveredTeamPages);
-  if(detectedRound && detectedRound > Number(roundInfo.round || 0)) roundInfo = {round:detectedRound, source:'detected_teamlist'};
+  if(detectedRound) roundInfo = {round:detectedRound, source:'detected_teamlist'};
   const round = roundInfo.round;
   const filteredTeamPages = filterTeamPagesForRound(discoveredTeamPages, round);
   const teamPages = filteredTeamPages.used;
@@ -1244,6 +1263,9 @@ async function main(){
 
   const {playersOut, teamlistsLoaded, teamsWithLoadedList} = combineTruth(players, round, teamlists, injuries, suspensions, origin, oldPlayerStatus);
   const summary = summarise(playersOut);
+  const weather = await weatherContract(round);
+  const currentRoundContract = {round, phase:teamlistsLoaded ? 'teamlists_loaded' : 'waiting_for_teamlists', updated:NOW_ISO, teamlistsLoaded, detectedRound:detectedRound || null, roundSource:roundInfo.source};
+  const weatherRoundMismatch = Number(weather?.round) !== Number(round);
 
   const truth = {
     updated: NOW_ISO,
@@ -1258,7 +1280,8 @@ async function main(){
       warnings: [
         ...(round ? [] : ['Round could not be inferred. Set ACTIVE_ROUND in workflow or data/current_round.json.']),
         ...(teamlistsLoaded ? [] : ['No current team-list data was loaded. No player can be GREEN/NAMED from fallback data.']),
-        ...(players.length ? [] : ['players.json empty'])
+        ...(players.length ? [] : ['players.json empty']),
+        ...(weatherRoundMismatch ? [`Weather round ${weather?.round ?? 'unknown'} does not match active round ${round || 'unknown'}`] : [])
       ],
       detectedRound,
       roundSource: roundInfo.source,
@@ -1302,9 +1325,9 @@ async function main(){
 
   await writeJson('data/status_previous.json', previousTruth || {});
   await writeJson('data/status_truth.json', truth);
-  await writeJson('data/current_round.json', {round, phase: teamlistsLoaded ? 'teamlists_loaded' : 'waiting_for_teamlists', updated: NOW_ISO, teamlistsLoaded});
+  await writeJson('data/current_round.json', currentRoundContract);
   await writeJson('data/teamlists.json', {updated: NOW_ISO, round, loaded: teamlistsLoaded, teamsWithLoadedList, players: teamlists});
-  await writeJson('data/weather.json', await weatherContract(round));
+  await writeJson('data/weather.json', weather);
   await writeJson('data/official_teamlists.json', contractDefaults.officialTeamlists);
   await writeJson('data/origin_unavailable.json', contractDefaults.originUnavailable);
   await writeJson('data/injuries.json', playersContract(round, injuries, 'core truth engine injuries'));
