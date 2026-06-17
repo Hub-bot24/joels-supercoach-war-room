@@ -102,6 +102,41 @@ async function writeJson(rel, data){
   await ensureDir(path.dirname(abs));
   await fs.writeFile(abs, JSON.stringify(data, null, 2) + '\n');
 }
+function enforceRoundContract(file, data, round, options = {}) {
+  const actualRound = Number(data?.round);
+  const expectedRound = Number(round);
+  const allowNoRound = options.allowNoRound === true;
+
+  if (allowNoRound && !Number.isFinite(actualRound)) return data;
+
+  if (!Number.isFinite(expectedRound) || expectedRound <= 0) {
+    return {
+      updated: NOW_ISO,
+      round: null,
+      status: "invalid_round",
+      error: `Blocked ${file}: active round is invalid`,
+      games: [],
+      matches: [],
+      players: {},
+      source: "contract_guard"
+    };
+  }
+
+  if (Number.isFinite(actualRound) && actualRound === expectedRound) return data;
+
+  return {
+    updated: NOW_ISO,
+    round: expectedRound,
+    status: "round_mismatch_blocked",
+    error: `Blocked ${file}: contract round ${data?.round ?? "unknown"} does not match active round ${expectedRound}`,
+    previousRound: data?.round ?? null,
+    previousUpdated: data?.updated || null,
+    games: [],
+    matches: [],
+    players: {},
+    source: "contract_guard"
+  };
+}
 function generatedEmptyContract(extra={}){
   return {updated: NOW_ISO, round: null, ...extra, source: 'generated-empty', status: 'empty'};
 }
@@ -1264,7 +1299,7 @@ async function main(){
   const {playersOut, teamlistsLoaded, teamsWithLoadedList} = combineTruth(players, round, teamlists, injuries, suspensions, origin, oldPlayerStatus);
   const summary = summarise(playersOut);
   const weather = await weatherContract(round);
-  const currentRoundContract = {round, phase:teamlistsLoaded ? 'teamlists_loaded' : 'waiting_for_teamlists', updated:NOW_ISO, teamlistsLoaded, detectedRound:detectedRound || null, roundSource:roundInfo.source};
+  const currentRoundContract = {round, phase:teamlistsLoaded ? 'teamlists_loaded' : 'waiting_for_teamlists', updated:NOW_ISO, teamlistsLoaded, detectedRound:detectedRound || null, roundSource:roundInfo.source, status:'fresh'};
   const weatherRoundMismatch = Number(weather?.round) !== Number(round);
 
   const truth = {
@@ -1322,26 +1357,42 @@ async function main(){
   const prevChangeIds = new Set(asArray(existingChanges).map(c => `${c.player}|${c.from}|${c.to}|${c.round||round}`));
   const newChanges = changes.filter(c => !prevChangeIds.has(`${c.player}|${c.from}|${c.to}|${round}`)).map(c => ({...c, round}));
   const allChanges = [...asArray(existingChanges), ...newChanges].slice(-500);
+  const roundSpecificContracts = [
+    {file:'data/current_round.json', data:currentRoundContract},
+    {file:'data/teamlists.json', data:{updated: NOW_ISO, round, loaded: teamlistsLoaded, teamsWithLoadedList, players: teamlists}},
+    {file:'data/weather.json', data:weather},
+    {file:'data/injuries.json', data:playersContract(round, injuries, 'core truth engine injuries')},
+    {file:'data/suspensions.json', data:playersContract(round, suspensions, 'core truth engine suspensions')},
+    {file:'data/origin.json', data:playersContract(round, origin, 'core truth engine origin context')},
+    {file:'data/notifications.json', data:{updated: NOW_ISO, round, newChanges, allChangeCount: allChanges.length}}
+  ].map(c => ({...c, data:enforceRoundContract(c.file, c.data, round)}));
+  const guardedContracts = Object.fromEntries(roundSpecificContracts.map(c => [c.file, c.data]));
+  const blockedContracts = roundSpecificContracts.filter(c => c.data?.status === 'round_mismatch_blocked' || c.data?.status === 'invalid_round');
+  const baseline = await readJson('data/teamlist_baseline_tuesday.json', {});
+  const nextBaseline = teamlistsLoaded && (!baseline?.round || Number(baseline.round) !== Number(round)) ? enforceRoundContract('data/teamlist_baseline_tuesday.json', {round, capturedAt: NOW_ISO, players: playersOut}, round) : null;
+  const guardedWeather = guardedContracts['data/weather.json'];
+  const weatherUnavailable = ['unavailable', 'stale', 'round_mismatch_blocked', 'invalid_round'].includes(String(guardedWeather?.status || '')) && !hasWeatherData(guardedWeather);
+  truth.dataHealth.warnings.push(
+    ...(weatherUnavailable ? [`Weather unavailable for active round ${round || 'unknown'}: ${guardedWeather?.staleReason || guardedWeather?.error || 'weather contract unavailable'}`] : []),
+    ...(guardedWeather?.status === 'round_mismatch_blocked' ? [guardedWeather.error] : []),
+    ...blockedContracts.filter(c => c.file !== 'data/weather.json').map(c => c.data.error).filter(Boolean)
+  );
 
   await writeJson('data/status_previous.json', previousTruth || {});
   await writeJson('data/status_truth.json', truth);
-  await writeJson('data/current_round.json', currentRoundContract);
-  await writeJson('data/teamlists.json', {updated: NOW_ISO, round, loaded: teamlistsLoaded, teamsWithLoadedList, players: teamlists});
-  await writeJson('data/weather.json', weather);
+  await writeJson('data/current_round.json', guardedContracts['data/current_round.json']);
+  await writeJson('data/teamlists.json', guardedContracts['data/teamlists.json']);
+  await writeJson('data/weather.json', guardedContracts['data/weather.json']);
   await writeJson('data/official_teamlists.json', contractDefaults.officialTeamlists);
   await writeJson('data/origin_unavailable.json', contractDefaults.originUnavailable);
-  await writeJson('data/injuries.json', playersContract(round, injuries, 'core truth engine injuries'));
-  await writeJson('data/suspensions.json', playersContract(round, suspensions, 'core truth engine suspensions'));
-  await writeJson('data/origin.json', playersContract(round, origin, 'core truth engine origin context'));
+  await writeJson('data/injuries.json', guardedContracts['data/injuries.json']);
+  await writeJson('data/suspensions.json', guardedContracts['data/suspensions.json']);
+  await writeJson('data/origin.json', guardedContracts['data/origin.json']);
   await writeJson('data/teamlist_changes.json', allChanges);
-  await writeJson('data/notifications.json', {updated: NOW_ISO, round, newChanges, allChangeCount: allChanges.length});
+  await writeJson('data/notifications.json', guardedContracts['data/notifications.json']);
   await writeJson(`data/history/round_${round || 'unknown'}_status.json`, truth);
 
-  // Establish Tuesday/teamlist baseline only when real teamlist data has loaded and no baseline exists for round.
-  const baseline = await readJson('data/teamlist_baseline_tuesday.json', {});
-  if(teamlistsLoaded && (!baseline?.round || Number(baseline.round) !== Number(round))){
-    await writeJson('data/teamlist_baseline_tuesday.json', {round, capturedAt: NOW_ISO, players: playersOut});
-  }
+  if(nextBaseline) await writeJson('data/teamlist_baseline_tuesday.json', nextBaseline);
 
   if(newChanges.length){
     const lines = [];
