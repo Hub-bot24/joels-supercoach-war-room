@@ -1,8 +1,15 @@
-name: Update Status Truth
-
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/update-status.mjs"
+      - ".github/workflows/update-status-truth.yml"
+      - "fixtures.json"
+      - "data/status_sources.json"
   schedule:
     - cron: "*/15 * * * *"
+  workflow_dispatch:
   workflow_dispatch:
     inputs:
       active_round:
