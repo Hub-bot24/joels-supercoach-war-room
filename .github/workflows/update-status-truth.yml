@@ -1,6 +1,8 @@
 name: Update Status Truth
 
 on:
+  schedule:
+    - cron: "*/15 * * * *"
   workflow_dispatch:
     inputs:
       active_round:
@@ -69,3 +71,4 @@ jobs:
           gh issue create \
             --title "War Room status changes - $(date -u +'%Y-%m-%d %H:%M UTC')" \
             --body-file data/notification_message.md || true
+
