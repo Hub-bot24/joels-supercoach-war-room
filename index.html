@@ -2278,7 +2278,7 @@ const SUPABASE_ANON_KEY='sb_publishable_qiYjFGGj7wATTniFIW42og_2oCNqoU_';
 const TEAM_SYNC_TABLE='user_teams';
 function cloudConfigured(){return /^https:\/\/.+\.supabase\.co$/i.test(SUPABASE_URL)&&SUPABASE_ANON_KEY&&!SUPABASE_ANON_KEY.includes('PASTE_')}
 function syncSetStatus(status,msg=''){
- App.sync.status=status;
+ App.sync.status=status; App.sync.message=msg||({saved:'Saved',syncing:'Syncing...',offline:'Offline',signedout:'Sign in',conflict:'Sync conflict',error:'Sync error',local:'Local save'}[status]||status);
  const el=$('syncStatus');
  if(el){
   el.className='wr-sync-pill '+(status==='saved'?'good':status==='syncing'?'warn':status==='conflict'||status==='error'||status==='offline'?'bad':'warn');
@@ -2302,7 +2302,7 @@ function saveLocal(opts={}){
 function authPanelHtml(){
  const email=App.sync.user?.email||'';
  if(!cloudConfigured())return `<div class="wr-auth-panel"><b>Cloud sync not configured</b><span class="small">Add your Supabase URL and anon key in index.html.</span></div>`;
- if(email)return `<div class="wr-auth-panel"><b>Signed in:</b> <span>${esc(email)}</span><span class="small">${esc($('syncStatus')?.textContent||App.sync.status||'')}</span><button type="button" onclick="manualCloudSave(true,true)">Save now</button><button type="button" onclick="exportTeamBackup()">Backup</button><button class="danger" type="button" onclick="signOutWarRoom()">Sign out</button></div>`;
+ if(email)return `<div class="wr-auth-panel"><b>Signed in:</b> <span>${esc(email)}</span><span class="small">${esc(App.sync.message||App.sync.status||'')}</span><button type="button" onclick="manualCloudSave(true,true)">Save now</button><button type="button" onclick="exportTeamBackup()">Backup</button><button class="danger" type="button" onclick="signOutWarRoom()">Sign out</button></div>`;
  return `<div class="wr-auth-panel"><b>Sign in to sync</b><input id="authEmail" type="email" placeholder="Email"><input id="authPassword" type="password" placeholder="Password"><button type="button" onclick="signInWarRoom()">Sign in</button><button type="button" onclick="signUpWarRoom()">Create account</button><button type="button" onclick="exportTeamBackup()">Backup</button></div>`;
 }
 async function initCloudSync(){
@@ -3597,6 +3597,7 @@ document.addEventListener('click', function(e){
 </script>
 </body>
 </html>
+
 
 
 
