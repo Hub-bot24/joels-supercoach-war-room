@@ -2302,7 +2302,7 @@ function saveLocal(opts={}){
 function authPanelHtml(){
  const email=App.sync.user?.email||'';
  if(!cloudConfigured())return `<div class="wr-auth-panel"><b>Cloud sync not configured</b><span class="small">Add your Supabase URL and anon key in index.html.</span></div>`;
- if(email)return `<div class="wr-auth-panel"><b>Signed in:</b> <span>${esc(email)}</span><span class="small">${esc($('syncStatus')?.textContent||App.sync.status||'')}</span><button type="button" onclick="manualCloudSave()">Save now</button><button type="button" onclick="exportTeamBackup()">Backup</button><button class="danger" type="button" onclick="signOutWarRoom()">Sign out</button></div>`;
+ if(email)return `<div class="wr-auth-panel"><b>Signed in:</b> <span>${esc(email)}</span><span class="small">${esc($('syncStatus')?.textContent||App.sync.status||'')}</span><button type="button" onclick="manualCloudSave(true,true)">Save now</button><button type="button" onclick="exportTeamBackup()">Backup</button><button class="danger" type="button" onclick="signOutWarRoom()">Sign out</button></div>`;
  return `<div class="wr-auth-panel"><b>Sign in to sync</b><input id="authEmail" type="email" placeholder="Email"><input id="authPassword" type="password" placeholder="Password"><button type="button" onclick="signInWarRoom()">Sign in</button><button type="button" onclick="signUpWarRoom()">Create account</button><button type="button" onclick="exportTeamBackup()">Backup</button></div>`;
 }
 async function initCloudSync(){
@@ -2346,14 +2346,20 @@ function scheduleCloudSave(){
  syncSetStatus('syncing','Syncing...');
  App.sync.timer=setTimeout(()=>manualCloudSave(false),900);
 }
-async function manualCloudSave(showToast=true){
+async function manualCloudSave(showToast=true,forceSave=false){
  if(!App.sync.client||!App.sync.user){syncSetStatus('signedout','Sign in');if(showToast)toast('Sign in to cloud sync');return false;}
  const bundle=teamBundle();
+ if(forceSave){
+  bundle.updated_at=new Date().toISOString();
+  bundle.client_id=App.sync.clientId;
+  App.sync.localUpdatedAt=bundle.updated_at;
+  writeLocalMeta({updated_at:bundle.updated_at,client_id:App.sync.clientId});
+ }
  const {data:existing,error:readErr}=await App.sync.client.from(TEAM_SYNC_TABLE).select('team_json,updated_at').eq('user_id',App.sync.user.id).maybeSingle();
  if(readErr){console.warn('Cloud read before save failed',readErr);syncSetStatus('error','Sync error');return false;}
  const cloudAt=Date.parse(existing?.updated_at||existing?.team_json?.updated_at||0)||0;
  const localAt=Date.parse(bundle.updated_at)||0;
- if(existing?.team_json&&cloudAt>localAt+1500&&existing.team_json.client_id!==App.sync.clientId){
+ if(!forceSave&&existing?.team_json&&cloudAt>localAt+1500&&existing.team_json.client_id!==App.sync.clientId){
   syncSetStatus('conflict','Conflict');
   if(confirm('Cloud team is newer than this device. Load cloud team instead of overwriting it?')){applyCloudTeam({...existing.team_json,updated_at:existing.updated_at||existing.team_json.updated_at});renderActive();syncSetStatus('saved','Cloud loaded');}
   return false;
@@ -3583,3 +3589,4 @@ document.addEventListener('click', function(e){
 </script>
 </body>
 </html>
+
