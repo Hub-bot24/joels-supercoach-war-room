@@ -2371,6 +2371,7 @@ async function manualCloudSave(showToast=true,forceSave=false){
   const {error}=await App.sync.client.from(TEAM_SYNC_TABLE).upsert(payload,{onConflict:'user_id'});
   if(error){console.warn('Cloud save failed',error);syncSetStatus('error','Sync error');return false;}
   syncSetStatus('saved','Saved');
+  renderActive();
   if(showToast)toast('Team saved to cloud');
   return true;
  }finally{
@@ -3596,5 +3597,6 @@ document.addEventListener('click', function(e){
 </script>
 </body>
 </html>
+
 
 
