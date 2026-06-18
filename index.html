@@ -3193,7 +3193,8 @@ function addAnyPlayer(){const n=$('quickAdd')?.value?.trim();if(!n||!App.playerM
 async function resetTeamFromFile(){localStorage.removeItem('sc_myTeam');localStorage.removeItem('sc_lineup');const teamJson=await fetchJson('my_team.json',null);let names=teamJson?.players||teamJson?.team||[];if(!Array.isArray(names))names=[];names=names.map(x=>typeof x==='string'?x.trim():(x?.name||x?.player||'')).filter(Boolean);App.myTeam=[...new Set(names.filter(n=>App.playerMap.has(n)))];App.lineup={};ensureLineup();validateLineup();ensureLineup();saveLocal();renderTeam();toast('Team reset from my_team.json')}
 function renderBye(){
  const tp=teamPlayers();
- const rounds=Array.from({length:27},(_,i)=>i+1);
+ const currentRound=Number(App.round||1);
+ const rounds=Array.from({length:27-currentRound+1},(_,i)=>currentRound+i);
  const classifyByeStatus=(st)=>{
   const key=String(st?.key||'').toLowerCase().replace(/[\s-]+/g,'_');
   if(key==='good'||key==='named'||key==='played'||key==='locked')return 'good';
@@ -3487,7 +3488,8 @@ function statusDetailHtml(p,round=App.round){
 }
 function renderBye(){
  const tp=teamPlayers();
- const rounds=Array.from({length:27},(_,i)=>i+1);
+ const currentRound=Number(App.round||1);
+ const rounds=Array.from({length:27-currentRound+1},(_,i)=>currentRound+i);
 
  const classify=(st)=>{
   const key=String(st?.key||'').toLowerCase().replace(/[\s-]+/g,'_');
@@ -3563,7 +3565,7 @@ function renderBye(){
   return {filled:best.filled,missing,used:best.used};
  };
 
- const pill=(item,cls)=>`<span class="miss ${cls}" title="${esc(item.detail||'')}">${esc(item.player.name)} - ${esc(item.reason)}</span>`;
+ const pill=(item,cls)=>`<span class="miss ${item.cls||cls}" title="${esc(item.detail||'')}">${esc(item.player.name)} - ${esc(item.reason)}</span>`;
 
  const group=(title,items,cls)=>{
   if(!items.length)return '';
@@ -3579,7 +3581,7 @@ function renderBye(){
    tp.forEach(p=>{
     const st=availabilityStatus(p,r);
     const k=classify(st);
-    const item={player:p,reason:reasonLabel(st),detail:st?.reason||''};
+    const item={player:p,reason:reasonLabel(st),detail:st?.reason||'',cls:classify(st)==='unavailable'&&String(st?.key||'').toLowerCase().includes('not')?'notnamed':null};
     (buckets[k]||buckets.unavailable).push(item);
    });
 
@@ -3618,7 +3620,7 @@ function renderBye(){
     <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:10px">
      <h2 style="margin:0">Round ${r}</h2>${status}
     </div>
-    <div class="metric ${shortfall>0?'bad':'good'}">${covered} / ${target}</div>
+    <div class="metric ${shortfall>0?'bad':'good'}">${Math.min(target,covered)} / ${playable.length}</div>
     <p><b>${major?'Major bye':'Normal/minor round'} - ${shortfall>0?`Short ${shortfall}`:'Covered'}</b></p>
     <p class="small">${esc(detail)}</p>
     <p class="small">Bye: <b>${buckets.bye.length}</b>  Unavailable: <b>${buckets.unavailable.length}</b>  Risk: <b>${buckets.risk.length}</b>  Playable: <b>${playable.length}</b></p>
@@ -3725,6 +3727,8 @@ document.addEventListener('click', function(e){
 </script>
 </body>
 </html>
+
+
 
 
 
