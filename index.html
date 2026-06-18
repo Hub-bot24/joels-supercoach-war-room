@@ -3488,7 +3488,6 @@ function statusDetailHtml(p,round=App.round){
 function renderBye(){
  const tp=teamPlayers();
  const rounds=Array.from({length:27},(_,i)=>i+1);
- const TARGET=17;
 
  const classify=(st)=>{
   const key=String(st?.key||'').toLowerCase().replace(/[\s-]+/g,'_');
@@ -3513,7 +3512,58 @@ function renderBye(){
   return st?.label||'Unavailable';
  };
 
- const pill=(item,cls)=>`<span class="miss ${cls}" title="${esc(item.detail||'')}">${esc(item.player.name)}  ${esc(item.reason)}</span>`;
+ const byeTeamCount=(round)=>{
+  const teams=new Set();
+  App.players.forEach(p=>{
+   const byes=(p.bye||p.byes||[]).map(Number);
+   if(byes.includes(Number(round))){
+    const t=String(p.team||p.club||'').trim();
+    if(t)teams.add(t);
+   }
+  });
+  return teams.size;
+ };
+
+ const isMajorByeRound=(round)=>byeTeamCount(round)>=6;
+
+ const legalStarterCover=(playable)=>{
+  const slots=[...SLOT_DEFS].map(slot=>({
+   slot,
+   candidates:playable.filter(item=>eligible(item.player,slot))
+  })).sort((a,b)=>a.candidates.length-b.candidates.length);
+
+  let best={filled:[],used:new Set()};
+
+  function search(i,filled,used){
+   if(filled.length>best.filled.length){
+    best={filled:[...filled],used:new Set(used)};
+   }
+   if(i>=slots.length)return;
+   if(filled.length+(slots.length-i)<=best.filled.length)return;
+
+   const {slot,candidates}=slots[i];
+
+   for(const item of candidates){
+    if(used.has(item.player.name))continue;
+    used.add(item.player.name);
+    filled.push({slot,item});
+    search(i+1,filled,used);
+    filled.pop();
+    used.delete(item.player.name);
+   }
+
+   search(i+1,filled,used);
+  }
+
+  search(0,[],new Set());
+
+  const filledSlotIds=new Set(best.filled.map(x=>x.slot.id));
+  const missing=SLOT_DEFS.filter(slot=>!filledSlotIds.has(slot.id));
+
+  return {filled:best.filled,missing,used:best.used};
+ };
+
+ const pill=(item,cls)=>`<span class="miss ${cls}" title="${esc(item.detail||'')}">${esc(item.player.name)} - ${esc(item.reason)}</span>`;
 
  const group=(title,items,cls)=>{
   if(!items.length)return '';
@@ -3522,7 +3572,7 @@ function renderBye(){
 
  $('bye').innerHTML=`<div class="panel">
   <h2>Bye Planner</h2>
-  <p class="small">Decision view: can you field 17, how short are you, who is hurting the round, and why.</p>
+  <p class="small">Legal-team view: major bye rounds need 13 playable players anywhere. Normal and minor bye rounds need a legal 18-player squad: 14 starters by position plus 4 reserves.</p>
   ${rounds.map(r=>{
    const buckets={available:[],risk:[],unavailable:[],bye:[]};
 
@@ -3533,18 +3583,45 @@ function renderBye(){
     (buckets[k]||buckets.unavailable).push(item);
    });
 
-   const canField=Math.min(TARGET,buckets.available.length+buckets.risk.length);
-   const shortfall=Math.max(0,TARGET-canField);
+   const playable=[...buckets.available,...buckets.risk];
+   const major=isMajorByeRound(r);
+   const target=major?13:18;
+   let covered=0;
+   let shortfall=0;
+   let action='';
+   let detail='';
+
+   if(major){
+    covered=Math.min(target,playable.length);
+    shortfall=Math.max(0,target-playable.length);
+    detail=`Major bye: position structure not required. Playable bodies: ${playable.length}.`;
+    action=shortfall>0
+     ? `Fix priority: add ${shortfall} playable player${shortfall===1?'':'s'} for this major bye round.`
+     : 'Major bye target covered.';
+   }else{
+    const legal=legalStarterCover(playable);
+    const remaining=playable.filter(item=>!legal.used.has(item.player.name));
+    const reserveCover=Math.min(4,remaining.length);
+    const reserveShort=Math.max(0,4-reserveCover);
+    covered=legal.filled.length+reserveCover;
+    shortfall=legal.missing.length+reserveShort;
+    const missingText=legal.missing.map(s=>s.short).join(', ');
+    detail=`Normal/minor bye: starters ${legal.filled.length}/14, reserves ${reserveCover}/4.`;
+    action=shortfall>0
+     ? `Fix priority: ${legal.missing.length?`cover ${missingText}`:''}${legal.missing.length&&reserveShort?' + ':''}${reserveShort?`add ${reserveShort} reserve cover`:''}.`
+     : 'Legal 18-player squad covered.';
+   }
+
    const status=shortfall>0?'<span class="pill bad">Danger</span>':'<span class="pill good">Covered</span>';
-   const action=shortfall>0?`Fix priority: cover ${shortfall} player${shortfall===1?'':'s'} before this round.`:'Full 17 covered. No urgent bye cover needed.';
 
    return `<div class="result" style="margin-bottom:14px">
     <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:10px">
      <h2 style="margin:0">Round ${r}</h2>${status}
     </div>
-    <div class="metric ${shortfall>0?'bad':'good'}">${canField} / 17</div>
-    <p><b>${shortfall>0?`Short ${shortfall} player${shortfall===1?'':'s'}`:'Full 17 covered'}</b></p>
-    <p class="small">Bye: <b>${buckets.bye.length}</b>  Unavailable: <b>${buckets.unavailable.length}</b>  Risk: <b>${buckets.risk.length}</b></p>
+    <div class="metric ${shortfall>0?'bad':'good'}">${covered} / ${target}</div>
+    <p><b>${major?'Major bye':'Normal/minor round'} - ${shortfall>0?`Short ${shortfall}`:'Covered'}</b></p>
+    <p class="small">${esc(detail)}</p>
+    <p class="small">Bye: <b>${buckets.bye.length}</b>  Unavailable: <b>${buckets.unavailable.length}</b>  Risk: <b>${buckets.risk.length}</b>  Playable: <b>${playable.length}</b></p>
     ${group('Bye',buckets.bye,'bye')}
     ${group('Unavailable',buckets.unavailable,'bad')}
     ${group('Risk',buckets.risk,'warn')}
