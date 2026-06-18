@@ -2438,7 +2438,7 @@ async function boot(){
  const missingNames = names.filter(n=>!resolvePlayerName(n));
  if(missingNames.length) console.warn('Players in my_team.json not found in players.json:', missingNames);
  App.myTeam=[...new Set(resolvedNames)];
- App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};validateLineup();ensureLineup();await initCloudSync();wireTabs();renderActive();
+App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};validateLineup();ensureLineup();wireTabs();renderActive();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
  updateStatusFreshnessLabel();startLiveStatusRefresh();
 }
 function updateStatusFreshnessLabel(){const fe=$('statusFreshness');if(fe)fe.textContent=''}
