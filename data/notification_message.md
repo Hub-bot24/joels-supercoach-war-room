@@ -1,49 +1,79 @@
 # SuperCoach War Room status changes — Round 16
 
-Detected: 2026-06-18T03:26:49.445Z
+Detected: 2026-06-18T03:54:55.244Z
 
-- **Apisai Koroisau** (WST): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
+- **Apisai Koroisau** (WST): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 9).
+  - Source: Zero Tackle
+- **Brian To'o** (PEN): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 21).
+  - Source: Zero Tackle
+- **Charlie Murray** (WST): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 17).
+  - Source: Zero Tackle
+- **Cody Hopwood** (NEW): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 17).
+  - Source: Zero Tackle
+- **Emre Guler** (STG): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 17).
+  - Source: Zero Tackle
+- **Ethan Strange** (CBR): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 5).
+  - Source: Zero Tackle
+- **Hamiso Tabuai-Fidow** (DOL): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
   - Source: Zero Tackle, Zero Tackle
-- **Charlie Murray** (WST): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
+- **Hohepa Puru** (SHA): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 17).
   - Source: Zero Tackle
-- **Cody Hopwood** (NEW): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
-  - Source: Zero Tackle
-- **Emre Guler** (STG): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
-  - Source: Zero Tackle
-- **Hohepa Puru** (SHA): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
-  - Source: Zero Tackle
-- **Jack Cole** (PEN): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
-  - Source: Zero Tackle
-- **Jack Howarth** (MEL): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
-  - Source: Zero Tackle, Zero Tackle
-- **Jaylan De Groot** (GLD): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
-  - Source: Zero Tackle
-- **Jed Stuart** (CBR): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
-  - Source: Zero Tackle
-- **Josh Feledy** (MAN): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
-  - Source: Zero Tackle
-- **Josiah Pahulu** (MEL): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
-  - Source: Zero Tackle
-- **Junior Tupou** (SYD): NAMED → EXPECTED
+- **Isaah Yeo** (PEN): NAMED → EXPECTED
   - Named in team-list article extended squad only (Zero Tackle, jersey 20).
+  - Source: Zero Tackle
+- **Jack Bostock** (DOL): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 3).
   - Source: Zero Tackle, Zero Tackle
-- **Kayliss Fatialofa** (NZL): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
+- **Jack Cole** (PEN): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 17).
   - Source: Zero Tackle
-- **Liam Sutton** (NQC): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
+- **Jack Howarth** (MEL): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 3).
   - Source: Zero Tackle
-- **Ray Stone** (DOL): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
+- **James Tedesco** (SYD): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle
+- **Jaylan De Groot** (GLD): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 17).
+  - Source: Zero Tackle
+- **Jed Stuart** (CBR): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 17).
+  - Source: Zero Tackle
+- **Josh Feledy** (MAN): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 17).
+  - Source: Zero Tackle
+- **Josiah Pahulu** (MEL): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 17).
+  - Source: Zero Tackle
+- **Junior Tupou** (SYD): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 16).
+  - Source: Zero Tackle, Zero Tackle
+- **Kayliss Fatialofa** (NZL): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 17).
+  - Source: Zero Tackle
+- **Kulikefu Finefeuiaki** (DOL): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle
+- **Kurt Capewell** (NZL): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 23).
+  - Source: Zero Tackle
+- **Liam Sutton** (NQC): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 17).
+  - Source: Zero Tackle
+- **Murray Taulagi** (NQC): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 4).
+  - Source: Zero Tackle
+- **Nathan Cleary** (PEN): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 22).
+  - Source: Zero Tackle
+- **Ray Stone** (DOL): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 17).
   - Source: Zero Tackle, Zero Tackle
