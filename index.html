@@ -2284,7 +2284,25 @@ function syncSetStatus(status,msg=''){
 function teamBundle(){return {myTeam:App.myTeam,lineup:App.lineup||{},round:App.round,client_id:App.sync.clientId,updated_at:App.sync.localUpdatedAt||new Date().toISOString(),version:1}}
 function readLocalMeta(){return safeJsonParse(safeLocalGet('sc_team_meta','{}'),{})||{}}
 function writeLocalMeta(meta){try{localStorage.setItem('sc_team_meta',JSON.stringify(meta||{}))}catch(e){}}
+function sanitizeSquadState(){
+ if(!Array.isArray(App.myTeam))App.myTeam=[];
+ const seen=new Set();
+ App.myTeam=App.myTeam
+  .map(n=>getPlayer(n)?.name||String(n||'').trim())
+  .filter(n=>n&&getPlayer(n)&&!seen.has(n)&&seen.add(n));
+
+ if(App.myTeam.length>26){
+  const visible=[...new Set([...Object.values(App.lineup||{}),...(typeof teamRenderState==='function'?teamRenderState().reserveNames||[]:[])])]
+   .filter(n=>getPlayer(n));
+  App.myTeam=visible.length?visible.slice(0,26):App.myTeam.slice(0,26);
+ }
+
+ for(const k of Object.keys(App.lineup||{})){
+  if(!App.myTeam.includes(App.lineup[k]))delete App.lineup[k];
+ }
+}
 function saveLocal(opts={}){
+ sanitizeSquadState();
  const touch=opts.touch!==false;
  const cloud=opts.cloud!==false;
  if(!App.sync.clientId){App.sync.clientId=safeLocalGet('sc_client_id','')||crypto.randomUUID?.()||String(Date.now())+Math.random();try{localStorage.setItem('sc_client_id',App.sync.clientId)}catch(e){}}
@@ -3727,6 +3745,7 @@ document.addEventListener('click', function(e){
 </script>
 </body>
 </html>
+
 
 
 
