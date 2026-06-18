@@ -615,6 +615,17 @@ function extractLinks(html, baseUrl){
 function roundNumbersFromUrlText(text){
   return [...String(text || '').matchAll(/(?:^|[^a-z])round[-\s]*(\d{1,2})(?:[^a-z]|$)/gi)].map(m => Number(m[1])).filter(Number.isFinite);
 }
+
+function looksLikeRepresentativeTeamList(input){
+  const haystack = norm(input);
+  // Club team-list truth must not be built from State of Origin / representative team pages.
+  // This is systemic: it filters source type, not individual players.
+  if(/\bstate of origin\b|\borigin\b/.test(haystack)) return true;
+  if(/\bnsw\b/.test(haystack) && /\bqld\b/.test(haystack)) return true;
+  if(/\bnew south wales\b/.test(haystack) && /\bqueensland\b/.test(haystack)) return true;
+  if(/\bblues\b/.test(haystack) && /\bmaroons\b/.test(haystack)) return true;
+  return false;
+}
 function teamlistPageRoundNumbers(page){
   const urlRounds = roundNumbersFromUrlText(page?.url || '');
   if(urlRounds.length) return urlRounds;
@@ -647,7 +658,7 @@ function rejectTeamlistCandidateLink(href, label, activeRound){
   const haystack = norm(`${u.hostname} ${u.pathname} ${label}`);
   if(/twitter\.com|x\.com|facebook\.com\/sharer|reddit\.com\/submit|whatsapp|mailto:/i.test(lower)) return 'social_or_share_link';
   if(/\/wp-login|\/login|\/account|my-account/i.test(lower)) return 'login_or_account_page';
-  if(/\bstate of origin\b|\borigin\b|\bgame [123]\b/.test(haystack)) return 'origin_page';
+  if(looksLikeRepresentativeTeamList(haystack) || /\bgame [123]\b/.test(haystack)) return 'representative_teamlist_page';
   if(/\brumou?r\b|\brumours\b|\bsigning\b|\bsignings\b|\bcontract\b|\btransfer\b|\bsquad tracker\b|\bbest 17\b/.test(haystack)) return 'non_teamlist_news_page';
   if(Number(activeRound)){
     const rounds = roundNumbersFromUrlText(haystack);
@@ -688,6 +699,7 @@ function cleanTeamPages(pages){
     const cleanUrl = normalizedTeamPageUrl(page?.url);
     const key = teamPageDedupeKey(cleanUrl);
     if(!cleanUrl || !key || seen.has(key)) continue;
+    if(looksLikeRepresentativeTeamList(`${cleanUrl} ${page?.text || ''}`)) continue;
     seen.add(key);
     out.push({...page, url:cleanUrl});
   }
@@ -697,6 +709,7 @@ function stripHtml(html){ return String(html || '').replace(/<script[\s\S]*?<\/s
 function pageLooksLikeTeamList(url, text){
   const u = norm(url);
   const t = norm(text).slice(0, 30000);
+  if(looksLikeRepresentativeTeamList(`${u} ${t}`)) return false;
   return (u.includes('team list') || u.includes('team lists') || u.includes('team-lists') || u.includes('teamlists') || t.includes('team lists') || t.includes('team list')) && (u.includes('round') || t.includes('round'));
 }
 function pageLooksLikeCasualty(url, text){
@@ -779,7 +792,19 @@ function sourcePriorityOf(rec){
 function sourceOrderOf(rec){
   return Number(rec?.sourceOrder || rec?.sources?.[0]?.order || 0) || 0;
 }
+function normalizeTeamlistStatusByJersey(rec){
+  const jersey = Number(rec?.jersey);
+  if(!Number.isFinite(jersey)) return rec;
+  if(jersey >= 1 && jersey <= 17 && rec.displayStatus !== STATUS.NAMED){
+    return {...rec, displayStatus:STATUS.NAMED, colour:COLOUR[STATUS.NAMED], available:true, selectionStatus:'named', reason:String(rec.reason || '').replace(/extended squad only|reserve/gi, 'final 17')};
+  }
+  if(jersey >= 18 && rec.displayStatus === STATUS.NAMED){
+    return {...rec, displayStatus:STATUS.EXPECTED, colour:COLOUR[STATUS.EXPECTED], available:true, selectionStatus:'extended', reason:`Jersey ${jersey} is outside final 17; treated as extended squad only.`};
+  }
+  return rec;
+}
 function addOrMerge(map, player, statusRec){
+  statusRec = normalizeTeamlistStatusByJersey(statusRec);
   const key = player.name;
   const prev = map[key];
   if(!prev){ map[key] = statusRec; return; }
