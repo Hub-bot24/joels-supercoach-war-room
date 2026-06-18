@@ -3487,22 +3487,69 @@ function statusDetailHtml(p,round=App.round){
 function renderBye(){
  const tp=teamPlayers();
  const rounds=Array.from({length:27},(_,i)=>i+1);
- const classifyByeStatus=(st)=>{
+ const TARGET=17;
+
+ const classify=(st)=>{
   const key=String(st?.key||'').toLowerCase().replace(/[\s-]+/g,'_');
-  if(key==='good'||key==='named'||key==='played'||key==='locked')return 'good';
   if(key==='bye')return 'bye';
-  if(key==='notnamed'||key==='not_named'||key==='omitted'||key==='out_of_side')return 'notnamed';
+  if(key==='injured'||key==='injury'||key==='suspended'||key==='suspension'||key==='susp'||key==='out')return 'unavailable';
+  if(key==='notnamed'||key==='not_named'||key==='omitted'||key==='out_of_side')return 'unavailable';
   if(key==='expected'||key==='extended'||key==='reserve'||key==='risk'||key==='origin'||key==='origin_risk'||key==='expected_reference')return 'risk';
-  if(key==='injured'||key==='injury'||key==='suspended'||key==='suspension'||key==='susp'||key==='out')return 'out';
-  return st?.available?'risk':'notnamed';
+  if(st?.available)return 'available';
+  return 'unavailable';
  };
- $('bye').innerHTML=`<div class="panel"><h2>Bye Planner</h2><p class="small">Injury and suspension windows are round-specific. Injuries use red through the minimum weeks out, then yellow during return risk. Suspensions show pink only for suspended rounds, then clear.</p><table><thead><tr><th>Round</th><th>Confirmed</th><th>Risk</th><th>Out</th><th>Not Named</th><th>Bye</th><th>Status</th><th>Missing</th></tr></thead><tbody>${rounds.map(r=>{
-  const buckets={good:[],risk:[],out:[],notnamed:[],bye:[]};
-  tp.forEach(p=>{const st=availabilityStatus(p,r);const k=classifyByeStatus(st);(buckets[k]||buckets.notnamed).push(p)});
-  const conf=buckets.good.length;
-  const chip=(p,cls)=>{const st=availabilityStatus(p,r);return `<span class="miss ${cls}" title="${esc(st.reason||'')}">${esc(p.name)}</span>`};
-  const miss=[...buckets.out.map(p=>chip(p,'bad')),...buckets.notnamed.map(p=>chip(p,'notnamed')),...buckets.bye.map(p=>chip(p,'bye')),...buckets.risk.map(p=>chip(p,'warn'))].join(' ');
-  return `<tr><td data-label="Round">${r}</td><td data-label="Confirmed">${conf}</td><td data-label="Risk">${buckets.risk.length?'<span class="pill warn">'+buckets.risk.length+'</span>':'-'}</td><td data-label="Out">${buckets.out.length?'<span class="pill bad">'+buckets.out.length+'</span>':'-'}</td><td data-label="Not Named">${buckets.notnamed.length?'<span class="pill">'+buckets.notnamed.length+'</span>':'-'}</td><td data-label="Bye">${buckets.bye.length?'<span class="pill bye">'+buckets.bye.length+'</span>':'-'}</td><td data-label="Status">${conf>=17?'<span class="pill good">OK</span>':conf>=15?'<span class="pill warn">Thin</span>':'<span class="pill bad">Danger</span>'}</td><td data-label="Missing">${miss||'None'}</td></tr>`}).join('')}</tbody></table><p class="small bye-legend"><span class="miss bad">Injured / Suspended / Out</span> <span class="miss notnamed">Not Named</span> <span class="miss warn">Expected / Extended / Return risk</span> <span class="miss bye">Bye</span></p></div>`;
+
+ const reasonLabel=(st)=>{
+  const key=String(st?.key||'').toLowerCase().replace(/[\s-]+/g,'_');
+  if(key==='bye')return 'Bye';
+  if(key==='injured'||key==='injury')return 'Injured';
+  if(key==='suspended'||key==='suspension'||key==='susp')return 'Suspended';
+  if(key==='notnamed'||key==='not_named'||key==='omitted'||key==='out_of_side')return 'Not named';
+  if(key==='origin'||key==='origin_risk')return 'Origin watch';
+  if(key==='expected'||key==='expected_reference')return 'Expected';
+  if(key==='extended'||key==='reserve'||key==='risk')return 'Selection risk';
+  return st?.label||'Unavailable';
+ };
+
+ const pill=(item,cls)=>`<span class="miss ${cls}" title="${esc(item.detail||'')}">${esc(item.player.name)}  ${esc(item.reason)}</span>`;
+
+ const group=(title,items,cls)=>{
+  if(!items.length)return '';
+  return `<div class="result"><b>${title} (${items.length})</b><br>${items.map(x=>pill(x,cls)).join(' ')}</div>`;
+ };
+
+ $('bye').innerHTML=`<div class="panel">
+  <h2>Bye Planner</h2>
+  <p class="small">Decision view: can you field 17, how short are you, who is hurting the round, and why.</p>
+  ${rounds.map(r=>{
+   const buckets={available:[],risk:[],unavailable:[],bye:[]};
+
+   tp.forEach(p=>{
+    const st=availabilityStatus(p,r);
+    const k=classify(st);
+    const item={player:p,reason:reasonLabel(st),detail:st?.reason||''};
+    (buckets[k]||buckets.unavailable).push(item);
+   });
+
+   const canField=Math.min(TARGET,buckets.available.length+buckets.risk.length);
+   const shortfall=Math.max(0,TARGET-canField);
+   const status=shortfall>0?'<span class="pill bad">Danger</span>':'<span class="pill good">Covered</span>';
+   const action=shortfall>0?`Fix priority: cover ${shortfall} player${shortfall===1?'':'s'} before this round.`:'Full 17 covered. No urgent bye cover needed.';
+
+   return `<div class="result" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:10px">
+     <h2 style="margin:0">Round ${r}</h2>${status}
+    </div>
+    <div class="metric ${shortfall>0?'bad':'good'}">${canField} / 17</div>
+    <p><b>${shortfall>0?`Short ${shortfall} player${shortfall===1?'':'s'}`:'Full 17 covered'}</b></p>
+    <p class="small">Bye: <b>${buckets.bye.length}</b>  Unavailable: <b>${buckets.unavailable.length}</b>  Risk: <b>${buckets.risk.length}</b></p>
+    ${group('Bye',buckets.bye,'bye')}
+    ${group('Unavailable',buckets.unavailable,'bad')}
+    ${group('Risk',buckets.risk,'warn')}
+    <div class="result"><b>Action:</b> ${esc(action)}</div>
+   </div>`;
+  }).join('')}
+ </div>`;
 }
 function renderLevel3(){
   const rows=App.players.slice().sort((a,b)=>roundProj(b).expected-roundProj(a).expected).slice(0,220);
@@ -3599,6 +3646,8 @@ document.addEventListener('click', function(e){
 </script>
 </body>
 </html>
+
+
 
 
 
