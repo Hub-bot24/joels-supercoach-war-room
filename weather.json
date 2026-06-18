@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-18T15:41:15.788534+00:00",
+  "updated": "2026-06-18T18:30:24.720241+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -810,6 +810,67 @@
         "avgTemp": 11.6,
         "phaseRisk": {
           "first_half": {
+            "avgScore": 25,
+            "maxScore": 25
+          },
+          "halftime_period": {
+            "avgScore": 25,
+            "maxScore": 25
+          }
+        },
+        "reasons": [
+          "moderate rain"
+        ],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 17,
+      "match": "Knights v Tigers",
+      "homeTeam": "NEW",
+      "awayTeam": "WST",
+      "venue": "McDonald Jones Stadium",
+      "kickoffLocal": "2026-06-28T16:05:00",
+      "city": "Newcastle",
+      "lat": -32.9189,
+      "lon": 151.7264,
+      "timezone": "Australia/Sydney",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-06-28T15:35:00",
+        "to": "2026-06-28T17:55:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-06-28T16:00",
+          "phase": "pre_game",
+          "temperature_2m": 16.4,
+          "precipitation_probability": 24,
+          "precipitation_mm": 0.9,
+          "wind_speed_10m": 3.9,
+          "wind_gusts_10m": 20.9
+        },
+        {
+          "time": "2026-06-28T17:00",
+          "phase": "halftime_period",
+          "temperature_2m": 16.4,
+          "precipitation_probability": 23,
+          "precipitation_mm": 0.9,
+          "wind_speed_10m": 4.6,
+          "wind_gusts_10m": 21.6
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 25,
+        "maxRainProbability": 24.0,
+        "totalGameRainMm": 1.8,
+        "maxWindKmh": 4.6,
+        "maxGustKmh": 21.6,
+        "avgTemp": 16.4,
+        "phaseRisk": {
+          "pre_game": {
             "avgScore": 25,
             "maxScore": 25
           },
