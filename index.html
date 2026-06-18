@@ -1046,11 +1046,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   #team .player-detail-actions button,#team .player-detail-head button{height:38px!important;padding:8px 10px!important;touch-action:manipulation!important}
 }
 
-/* portrait phones: force rotate prompt but do not affect desktop/portrait debug */
-@media (orientation: portrait) and (max-width: 720px){
-  #team::before{content:'Rotate your phone to landscape for War Room';position:fixed;inset:0;z-index:99999;background:#02050b;color:#8eea18;display:grid;place-items:center;text-align:center;font-size:24px;font-weight:950;padding:24px}
-  #team>*{visibility:hidden!important}
-}
+/* portrait phone blocker removed: My Team now allowed in portrait */
 
 
 
@@ -3603,6 +3599,7 @@ document.addEventListener('click', function(e){
 </script>
 </body>
 </html>
+
 
 
 
