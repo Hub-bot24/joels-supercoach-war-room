@@ -1431,7 +1431,7 @@ async function main(){
   await readBackRoundContract('data/teamlists.json', round);
   await readBackRoundContract('data/weather.json', round);
   await readBackRoundContract('data/injuries.json', round);
-  await readBackRoundContract('data/suspensions. Son', round);
+  await readBackRoundContract('data/suspensions.json', round);
   await readBackRoundContract('data/origin.json', round);
   await readBackRoundContract('data/notifications.json', round);
   const validatedCurrentRound = await readJson('data/current_round.json', {});
