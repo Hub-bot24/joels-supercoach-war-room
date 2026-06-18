@@ -2273,8 +2273,8 @@ function cleanPlayer(p){
  return {...p,name,pos:p.pos||p.position||'',team:p.team||p.club||'',price:safeNum(p.price),avg:safeNum(p.avg??p.average??p.seasonAvg),proj:safeNum(p.proj??p.projected??p.expected),bye};
 }
 function teamPlayers(){return App.myTeam.map(getPlayer).filter(Boolean)}
-const SUPABASE_URL='PASTE_YOUR_SUPABASE_PROJECT_URL_HERE';
-const SUPABASE_ANON_KEY='PASTE_YOUR_SUPABASE_ANON_KEY_HERE';
+const SUPABASE_URL='https://yebypdkiciwxqeckcish.supabase.co';
+const SUPABASE_ANON_KEY='sb_publishable_qiYjFGGj7wATTniFIW42og_2oCNqoU_';
 const TEAM_SYNC_TABLE='user_teams';
 function cloudConfigured(){return /^https:\/\/.+\.supabase\.co$/i.test(SUPABASE_URL)&&SUPABASE_ANON_KEY&&!SUPABASE_ANON_KEY.includes('PASTE_')}
 function syncSetStatus(status,msg=''){
