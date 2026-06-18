@@ -999,15 +999,15 @@ function fromKnownPlayerJerseyPatterns(players, page){
   const rows = [];
   const surnameCounts = surnameFrequency(players);
   for(const p of players){
-    // CORE v32: collect all jersey numbers from strict regex + fixed local normalised windows.
-    // If a player appears as both extended and final-17 in the same updated source, final-17 wins.
+    // CORE v34: collect all jersey numbers from strict regex + fixed local normalised windows.
+    // If one source page contains multiple jersey numbers for the same player, use the LAST
+    // nearby jersey seen in the article text. Updated/final pages often preserve stale Tuesday
+    // rows before the corrected team list, so "any 1-17 wins" is unsafe.
     // No player names, no one-off overrides.
     const jerseys = collectJerseysNearPlayerName(page.text, p.name, surnameCounts);
     if(!jerseys.length) continue;
-    const final17 = jerseys.filter(j => j <= 17).sort((a,b)=>a-b);
-    const extended = jerseys.filter(j => j > 17).sort((a,b)=>a-b);
-    const jersey = final17.length ? final17[0] : extended[0];
-    rows.push({player:p, jersey, seenJerseys:jerseys});
+    const jersey = jerseys[jerseys.length - 1];
+    rows.push({player:p, jersey, seenJerseys:jerseys, jerseyRule:'last_nearby_jersey_on_source_page'});
   }
   return rows;
 }
@@ -1431,7 +1431,7 @@ async function main(){
   await readBackRoundContract('data/teamlists.json', round);
   await readBackRoundContract('data/weather.json', round);
   await readBackRoundContract('data/injuries.json', round);
-  await readBackRoundContract('data/suspensions.json', round);
+  await readBackRoundContract('data/suspensions. Son', round);
   await readBackRoundContract('data/origin.json', round);
   await readBackRoundContract('data/notifications.json', round);
   const validatedCurrentRound = await readJson('data/current_round.json', {});
