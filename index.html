@@ -2368,8 +2368,14 @@ async function manualCloudSave(showToast=true,forceSave=false){
   App.sync.localUpdatedAt=bundle.updated_at;
   writeLocalMeta({updated_at:bundle.updated_at,client_id:App.sync.clientId});
   const payload={user_id:App.sync.user.id,team_json:bundle,updated_at:bundle.updated_at};
-  const {error}=await App.sync.client.from(TEAM_SYNC_TABLE).upsert(payload,{onConflict:'user_id'});
-  if(error){console.warn('Cloud save failed',error);syncSetStatus('error','Sync error');return false;}
+  const savePromise=App.sync.client.from(TEAM_SYNC_TABLE).upsert(payload,{onConflict:'user_id'});
+const timeoutPromise=new Promise((_,reject)=>setTimeout(()=>reject(new Error('Sync timeout')),4000));
+const {error}=await Promise.race([savePromise,timeoutPromise]);
+  if(error){
+ console.warn('Cloud save failed',error);
+ syncSetStatus('offline','Offline');
+ return false;
+}
   syncSetStatus('saved','Saved');
   renderActive();
   if(showToast)toast('Team saved to cloud');
@@ -3597,6 +3603,7 @@ document.addEventListener('click', function(e){
 </script>
 </body>
 </html>
+
 
 
 
