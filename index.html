@@ -2330,46 +2330,53 @@ function applyCloudTeam(teamJson){
 }
 async function syncTeamFromCloud(){
  if(!App.sync.client||!App.sync.user)return;
+ if(App.sync.loading||App.sync.saving)return;
+ App.sync.loading=true;
  syncSetStatus('syncing','Syncing...');
- const {data,error}=await App.sync.client.from(TEAM_SYNC_TABLE).select('team_json,updated_at').eq('user_id',App.sync.user.id).maybeSingle();
- if(error){console.warn('Cloud load failed',error);syncSetStatus('error','Sync error');return;}
- const localAt=Date.parse(App.sync.localUpdatedAt||0)||0;
- const cloudAt=Date.parse(data?.updated_at||data?.team_json?.updated_at||0)||0;
- if(data?.team_json&&cloudAt>localAt){applyCloudTeam({...data.team_json,updated_at:data.updated_at||data.team_json.updated_at});syncSetStatus('saved','Cloud loaded');return;}
- if(!data && App.myTeam.length){await manualCloudSave(false);return;}
- if(data?.team_json&&localAt>cloudAt+1500){await manualCloudSave(false);return;}
- syncSetStatus('saved','Saved');
+ try{
+  const {data,error}=await App.sync.client.from(TEAM_SYNC_TABLE).select('team_json,updated_at').eq('user_id',App.sync.user.id).maybeSingle();
+  if(error){console.warn('Cloud load failed',error);syncSetStatus('error','Sync error');return;}
+  const localAt=Date.parse(App.sync.localUpdatedAt||0)||0;
+  const cloudAt=Date.parse(data?.updated_at||data?.team_json?.updated_at||0)||0;
+  if(data?.team_json&&cloudAt>localAt){
+   App.sync.applying=true;
+   applyCloudTeam({...data.team_json,updated_at:data.updated_at||data.team_json.updated_at});
+   App.sync.applying=false;
+   syncSetStatus('saved','Cloud loaded');
+   return;
+  }
+  syncSetStatus('saved','Saved');
+ }finally{
+  App.sync.loading=false;
+  App.sync.applying=false;
+ }
 }
 function scheduleCloudSave(){
- if(!App.sync.client||!App.sync.user)return;
+ if(!App.sync.client||!App.sync.user||App.sync.loading||App.sync.saving||App.sync.applying)return;
  clearTimeout(App.sync.timer);
  syncSetStatus('syncing','Syncing...');
- App.sync.timer=setTimeout(()=>manualCloudSave(false),900);
+ App.sync.timer=setTimeout(()=>manualCloudSave(false,true),1200);
 }
 async function manualCloudSave(showToast=true,forceSave=false){
  if(!App.sync.client||!App.sync.user){syncSetStatus('signedout','Sign in');if(showToast)toast('Sign in to cloud sync');return false;}
- const bundle=teamBundle();
- if(forceSave){
+ if(App.sync.saving)return false;
+ App.sync.saving=true;
+ try{
+  const bundle=teamBundle();
   bundle.updated_at=new Date().toISOString();
   bundle.client_id=App.sync.clientId;
   App.sync.localUpdatedAt=bundle.updated_at;
   writeLocalMeta({updated_at:bundle.updated_at,client_id:App.sync.clientId});
+  const payload={user_id:App.sync.user.id,team_json:bundle,updated_at:bundle.updated_at};
+  const {error}=await App.sync.client.from(TEAM_SYNC_TABLE).upsert(payload,{onConflict:'user_id'});
+  if(error){console.warn('Cloud save failed',error);syncSetStatus('error','Sync error');return false;}
+  syncSetStatus('saved','Saved');
+  if(showToast)toast('Team saved to cloud');
+  return true;
+ }finally{
+  App.sync.saving=false;
+  App.sync.applying=false;
  }
- const {data:existing,error:readErr}=await App.sync.client.from(TEAM_SYNC_TABLE).select('team_json,updated_at').eq('user_id',App.sync.user.id).maybeSingle();
- if(readErr){console.warn('Cloud read before save failed',readErr);syncSetStatus('error','Sync error');return false;}
- const cloudAt=Date.parse(existing?.updated_at||existing?.team_json?.updated_at||0)||0;
- const localAt=Date.parse(bundle.updated_at)||0;
- if(!forceSave&&existing?.team_json&&cloudAt>localAt+1500&&existing.team_json.client_id!==App.sync.clientId){
-  syncSetStatus('conflict','Conflict');
-  if(confirm('Cloud team is newer than this device. Load cloud team instead of overwriting it?')){applyCloudTeam({...existing.team_json,updated_at:existing.updated_at||existing.team_json.updated_at});renderActive();syncSetStatus('saved','Cloud loaded');}
-  return false;
- }
- const payload={user_id:App.sync.user.id,team_json:bundle,updated_at:bundle.updated_at};
- const {error}=await App.sync.client.from(TEAM_SYNC_TABLE).upsert(payload,{onConflict:'user_id'});
- if(error){console.warn('Cloud save failed',error);syncSetStatus('error','Sync error');return false;}
- syncSetStatus('saved','Saved');
- if(showToast)toast('Team saved to cloud');
- return true;
 }
 async function signInWarRoom(){
  const email=$('authEmail')?.value?.trim(),password=$('authPassword')?.value||'';
@@ -3589,4 +3596,5 @@ document.addEventListener('click', function(e){
 </script>
 </body>
 </html>
+
 
