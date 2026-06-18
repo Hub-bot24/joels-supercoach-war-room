@@ -3199,7 +3199,8 @@ function renderBye(){
   if(key==='good'||key==='named'||key==='played'||key==='locked')return 'good';
   if(key==='bye')return 'bye';
   if(key==='notnamed'||key==='not_named'||key==='omitted'||key==='out_of_side')return 'notnamed';
-  if(key==='expected'||key==='extended'||key==='reserve'||key==='risk'||key==='origin'||key==='origin_risk'||key==='expected_reference')return 'risk';
+  if(key==='expected'||key==='expected_reference')return 'available';
+  if(key==='extended'||key==='reserve'||key==='risk'||key==='origin'||key==='origin_risk')return 'risk';
   if(key==='injured'||key==='injury'||key==='suspended'||key==='suspension'||key==='susp'||key==='out')return 'out';
   return st?.available?'risk':'notnamed';
  };
@@ -3494,7 +3495,8 @@ function renderBye(){
   if(key==='bye')return 'bye';
   if(key==='injured'||key==='injury'||key==='suspended'||key==='suspension'||key==='susp'||key==='out')return 'unavailable';
   if(key==='notnamed'||key==='not_named'||key==='omitted'||key==='out_of_side')return 'unavailable';
-  if(key==='expected'||key==='extended'||key==='reserve'||key==='risk'||key==='origin'||key==='origin_risk'||key==='expected_reference')return 'risk';
+  if(key==='expected'||key==='expected_reference')return 'available';
+  if(key==='extended'||key==='reserve'||key==='risk'||key==='origin'||key==='origin_risk')return 'risk';
   if(st?.available)return 'available';
   return 'unavailable';
  };
@@ -3646,6 +3648,7 @@ document.addEventListener('click', function(e){
 </script>
 </body>
 </html>
+
 
 
 
