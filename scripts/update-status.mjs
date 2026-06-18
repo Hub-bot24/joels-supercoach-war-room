@@ -624,11 +624,28 @@ function detectedTeamlistRound(pages){
   const rounds = (pages || []).flatMap(teamlistPageRoundNumbers).filter(n => Number.isFinite(n) && n > 0);
   return rounds.length ? Math.max(...rounds) : 0;
 }
+function representativeTeamlistPageReason(pageOrUrl, label=''){
+  // Reject representative/Origin pages from club team-list truth.
+  // Generic rule: this blocks NSW v QLD / Blues v Maroons / Origin pages,
+  // but it does not block normal club pages like Cowboys, Broncos, Dolphins, etc.
+  const haystack = norm(`${typeof pageOrUrl === 'string' ? pageOrUrl : pageOrUrl?.url || ''} ${label}`);
+  const isRepMatch =
+    haystack.includes('state of origin') ||
+    haystack.includes('origin') ||
+    (haystack.includes('nsw') && haystack.includes('qld')) ||
+    (haystack.includes('blues') && haystack.includes('maroons'));
+  return isRepMatch ? 'origin_or_representative_page' : '';
+}
 function filterTeamPagesForRound(pages, round){
   if(!Number(round)) return {used:pages || [], rejected:[]};
   const used = [];
   const rejected = [];
   for(const page of pages || []){
+    const repReason = representativeTeamlistPageReason(page);
+    if(repReason){
+      rejected.push({url:page.url, rounds:teamlistPageRoundNumbers(page), reason:repReason});
+      continue;
+    }
     const rounds = teamlistPageRoundNumbers(page);
     if(rounds.length && !rounds.includes(Number(round))) rejected.push({url:page.url, rounds, reason:'wrong_round_page'});
     else used.push(page);
@@ -647,7 +664,9 @@ function rejectTeamlistCandidateLink(href, label, activeRound){
   const haystack = norm(`${u.hostname} ${u.pathname} ${label}`);
   if(/twitter\.com|x\.com|facebook\.com\/sharer|reddit\.com\/submit|whatsapp|mailto:/i.test(lower)) return 'social_or_share_link';
   if(/\/wp-login|\/login|\/account|my-account/i.test(lower)) return 'login_or_account_page';
-  if(/\bstate of origin\b|\borigin\b|\bgame [123]\b/.test(haystack)) return 'origin_page';
+  const repReason = representativeTeamlistPageReason(u.href, label);
+  if(repReason) return repReason;
+  if(/\bgame [123]\b/.test(haystack)) return 'origin_page';
   if(/\brumou?r\b|\brumours\b|\bsigning\b|\bsignings\b|\bcontract\b|\btransfer\b|\bsquad tracker\b|\bbest 17\b/.test(haystack)) return 'non_teamlist_news_page';
   if(Number(activeRound)){
     const rounds = roundNumbersFromUrlText(haystack);
@@ -999,15 +1018,15 @@ function fromKnownPlayerJerseyPatterns(players, page){
   const rows = [];
   const surnameCounts = surnameFrequency(players);
   for(const p of players){
-    // CORE v34: collect all jersey numbers from strict regex + fixed local normalised windows.
-    // If one source page contains multiple jersey numbers for the same player, use the LAST
-    // nearby jersey seen in the article text. Updated/final pages often preserve stale Tuesday
-    // rows before the corrected team list, so "any 1-17 wins" is unsafe.
+    // CORE v32: collect all jersey numbers from strict regex + fixed local normalised windows.
+    // If a player appears as both extended and final-17 in the same updated source, final-17 wins.
     // No player names, no one-off overrides.
     const jerseys = collectJerseysNearPlayerName(page.text, p.name, surnameCounts);
     if(!jerseys.length) continue;
-    const jersey = jerseys[jerseys.length - 1];
-    rows.push({player:p, jersey, seenJerseys:jerseys, jerseyRule:'last_nearby_jersey_on_source_page'});
+    const final17 = jerseys.filter(j => j <= 17).sort((a,b)=>a-b);
+    const extended = jerseys.filter(j => j > 17).sort((a,b)=>a-b);
+    const jersey = final17.length ? final17[0] : extended[0];
+    rows.push({player:p, jersey, seenJerseys:jerseys});
   }
   return rows;
 }
