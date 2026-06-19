@@ -1,73 +1,5 @@
 [
   {
-    "player": "Sam McIntyre",
-    "team": "NQC",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
-    "detectedAt": "2026-06-18T02:47:19.463Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      }
-    ],
-    "round": 16
-  },
-  {
-    "player": "Sam Stonestreet",
-    "team": "SHA",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
-    "detectedAt": "2026-06-18T02:47:19.463Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      }
-    ],
-    "round": 16
-  },
-  {
-    "player": "Sam Verrills",
-    "team": "GLD",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
-    "detectedAt": "2026-06-18T02:47:19.463Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      }
-    ],
-    "round": 16
-  },
-  {
-    "player": "Sam Walker",
-    "team": "SYD",
-    "from": "NAMED",
-    "to": "NOT_NAMED",
-    "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
-    "detectedAt": "2026-06-18T02:47:19.463Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      }
-    ],
-    "round": 16
-  },
-  {
     "player": "Savelio Tamale",
     "team": "CBR",
     "from": "NAMED",
@@ -12705,6 +12637,82 @@
         "updatedAt": "2026-06-19T11:54:37.599Z",
         "priority": 4,
         "order": 5
+      }
+    ],
+    "round": 16
+  },
+  {
+    "player": "Ethan Strange",
+    "team": "CBR",
+    "from": "NOT_NAMED",
+    "to": "NAMED",
+    "reason": "Named in team-list article final 17 (Zero Tackle, jersey 5).",
+    "detectedAt": "2026-06-19T22:06:03.814Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+        "updatedAt": "2026-06-19T22:06:03.814Z",
+        "priority": 2,
+        "order": 11
+      }
+    ],
+    "round": 16
+  },
+  {
+    "player": "Kurt Capewell",
+    "team": "NZL",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 23).",
+    "detectedAt": "2026-06-19T22:06:03.814Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+        "updatedAt": "2026-06-19T22:06:03.814Z",
+        "priority": 2,
+        "order": 11
+      }
+    ],
+    "round": 16
+  },
+  {
+    "player": "Luke Metcalf",
+    "team": "NZL",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 20).",
+    "detectedAt": "2026-06-19T22:06:03.814Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+        "updatedAt": "2026-06-19T22:06:03.814Z",
+        "priority": 2,
+        "order": 11
+      }
+    ],
+    "round": 16
+  },
+  {
+    "player": "Murray Taulagi",
+    "team": "NQC",
+    "from": "ORIGIN",
+    "to": "NAMED",
+    "reason": "Named in team-list article final 17 (Zero Tackle, jersey 4).",
+    "detectedAt": "2026-06-19T22:06:03.814Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+        "updatedAt": "2026-06-19T22:06:03.814Z",
+        "priority": 2,
+        "order": 11
       }
     ],
     "round": 16
