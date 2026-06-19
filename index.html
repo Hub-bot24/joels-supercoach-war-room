@@ -2776,7 +2776,8 @@ function reserveTargetCount(group){
  }
 
  const rawReserves=App.myTeam.filter(name=>!fieldSet.has(name)&&getPlayer(name));
- const reserveNames=[];
+    if(!App.reserveOrder) App.reserveOrder={};
+const reserveNames=Object.values(App.reserveOrder||{}).filter(name=>rawReserves.includes(name));
  const usedReserve=new Set();
 
  const reserveSections=[
