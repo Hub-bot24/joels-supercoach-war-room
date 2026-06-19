@@ -2281,7 +2281,7 @@ function syncSetStatus(status,msg=''){
   el.textContent=msg||({saved:'Saved',syncing:'Syncing...',offline:'Offline',signedout:'Sign in',conflict:'Sync conflict',error:'Sync error',local:'Local save'}[status]||status);
  }
 }
-function teamBundle(){return {myTeam:App.myTeam,lineup:App.lineup||{},round:App.round,client_id:App.sync.clientId,updated_at:App.sync.localUpdatedAt||new Date().toISOString(),version:1}}
+function teamBundle(){return {myTeam:App.myTeam,lineup:App.lineup||{},reserveOrder:App.reserveOrder||{},round:App.round,client_id:App.sync.clientId,updated_at:App.sync.localUpdatedAt||new Date().toISOString(),version:1}}
 function readLocalMeta(){return safeJsonParse(safeLocalGet('sc_team_meta','{}'),{})||{}}
 function writeLocalMeta(meta){try{localStorage.setItem('sc_team_meta',JSON.stringify(meta||{}))}catch(e){}}
 function sanitizeSquadState(){
@@ -2310,6 +2310,7 @@ function saveLocal(opts={}){
  localStorage.setItem('sc_round',String(App.round));
  localStorage.setItem('sc_myTeam',JSON.stringify(App.myTeam));
  localStorage.setItem('sc_lineup',JSON.stringify(App.lineup||{}));
+ localStorage.setItem('sc_reserveOrder',JSON.stringify(App.reserveOrder||{}));
  writeLocalMeta({updated_at:App.sync.localUpdatedAt,client_id:App.sync.clientId});
  if(cloud)scheduleCloudSave();
 }
@@ -2336,6 +2337,7 @@ function applyCloudTeam(teamJson){
  if(!resolved.length)return false;
  App.myTeam=resolved;
  App.lineup=teamJson.lineup&&typeof teamJson.lineup==='object'?teamJson.lineup:{};
+ App.reserveOrder=teamJson.reserveOrder&&typeof teamJson.reserveOrder==='object'?teamJson.reserveOrder:{};
  App.round=Number(teamJson.round)||App.round;
  App.sync.localUpdatedAt=teamJson.updated_at||new Date().toISOString();
  validateLineup();ensureLineup();
@@ -2472,7 +2474,7 @@ async function boot(){
  const missingNames = names.filter(n=>!resolvePlayerName(n));
  if(missingNames.length) console.warn('Players in my_team.json not found in players.json:', missingNames);
  App.myTeam=[...new Set(resolvedNames)];
-App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};validateLineup();ensureLineup();wireTabs();renderActive();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
+App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};App.reserveOrder=safeJsonParse(safeLocalGet('sc_reserveOrder','{}'),{})||{};validateLineup();ensureLineup();wireTabs();renderActive();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
  updateStatusFreshnessLabel();startLiveStatusRefresh();
 }
 function updateStatusFreshnessLabel(){const fe=$('statusFreshness');if(fe)fe.textContent=''}
@@ -3208,7 +3210,7 @@ function autoFillLineup(){App.lineup={};ensureLineup();renderTeam();toast('Auto-
 function optimizeLineup(){App.lineup={};const names=[...App.myTeam].sort((a,b)=>roundProj(getPlayer(b)).expected-roundProj(getPlayer(a)).expected);const used=new Set();for(const slot of SLOT_DEFS){const n=names.find(x=>!used.has(x)&&eligible(getPlayer(x),slot));if(n){App.lineup[slot.id]=n;used.add(n)}}saveLocal();renderTeam();toast('Optimized by projection and eligibility')}
 function applyQuickTrade(){const out=$('quickOut')?.value?.trim(),inn=$('quickIn')?.value?.trim();if(!out||!inn){toast('Pick OUT and IN players');return}if(!App.myTeam.includes(out)){toast('OUT player is not in your team');return}if(!App.playerMap.has(inn)){toast('IN player is not in players.json');return}if(App.myTeam.includes(inn)){toast('IN player already in team');return}App.myTeam=App.myTeam.map(n=>n===out?inn:n);for(const k of Object.keys(App.lineup)){if(App.lineup[k]===out){const slot=slotById[k];if(eligible(getPlayer(inn),slot))App.lineup[k]=inn;else delete App.lineup[k]}}ensureLineup();saveLocal();renderTeam();toast(`Trade applied: ${out} → ${inn}`)}
 function addAnyPlayer(){const n=$('quickAdd')?.value?.trim();if(!n||!App.playerMap.has(n)){toast('Pick a valid player');return}if(App.myTeam.includes(n)){toast('Player already in team');return}App.myTeam.push(n);ensureLineup();saveLocal();renderTeam();toast(`${n} added`) }
-async function resetTeamFromFile(){localStorage.removeItem('sc_myTeam');localStorage.removeItem('sc_lineup');const teamJson=await fetchJson('my_team.json',null);let names=teamJson?.players||teamJson?.team||[];if(!Array.isArray(names))names=[];names=names.map(x=>typeof x==='string'?x.trim():(x?.name||x?.player||'')).filter(Boolean);App.myTeam=[...new Set(names.filter(n=>App.playerMap.has(n)))];App.lineup={};ensureLineup();validateLineup();ensureLineup();saveLocal();renderTeam();toast('Team reset from my_team.json')}
+async function resetTeamFromFile(){localStorage.removeItem('sc_myTeam');localStorage.removeItem('sc_lineup');localStorage.removeItem('sc_reserveOrder');App.reserveOrder={};const teamJson=await fetchJson('my_team.json',null);let names=teamJson?.players||teamJson?.team||[];if(!Array.isArray(names))names=[];names=names.map(x=>typeof x==='string'?x.trim():(x?.name||x?.player||'')).filter(Boolean);App.myTeam=[...new Set(names.filter(n=>App.playerMap.has(n)))];App.lineup={};ensureLineup();validateLineup();ensureLineup();saveLocal();renderTeam();toast('Team reset from my_team.json')}
 function renderBye(){
  const tp=teamPlayers();
  const currentRound=Number(App.round||1);
