@@ -2205,10 +2205,21 @@ function normalisePosList(value){
  if(value==null)return [];
  const raw=Array.isArray(value)?value.join('/'):String(value);
  const out=[];
- raw.toUpperCase().replace(/5\s*\/\s*8/g,'FE').split(/[|,\/ ]+/).forEach(x=>{
-  const v=POS_ALIAS[x]||x;
-  if(v&&!out.includes(v))out.push(v);
- });
+
+ raw
+  .toUpperCase()
+  .replace(/SECOND\s*ROW|2ND\s*ROW|BACK\s*ROW|EDGE|EDG/g,'2RF')
+  .replace(/PROP|MIDDLE|MID|FRONT\s*ROW/g,'FRF')
+  .replace(/HALF\s*BACK|HALF-BACK/g,'HFB')
+  .replace(/FIVE\s*EIGHTH|FIVE-EIGHTH|5\s*\/\s*8|5-8/g,'FE')
+  .replace(/CENTRE|CENTER|WING|WINGER/g,'CTW')
+  .replace(/FULL\s*BACK|FULL-BACK/g,'FLB')
+  .split(/[|,\/\s-]+/)
+  .forEach(x=>{
+   const v=POS_ALIAS[x]||x;
+   if(v&&!out.includes(v))out.push(v);
+  });
+
  return out;
 }
 function positions(p){
