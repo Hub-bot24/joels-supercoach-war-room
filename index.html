@@ -3043,25 +3043,47 @@ function formationReservesHtml(reserveSections,groups){
   'FULLBACK'
  ];
 
- let rows=[];
- fixedSections.forEach(g=>{
-  const players=(groups[g]||[]).slice(0,targets[g]||0);
-  players.forEach(p=>rows.push({type:'player',group:g,p}));
-  while(rows.filter(r=>r.group===g).length<(targets[g]||0)){
-   rows.push({type:'empty',group:g});
-  }
- });
+const reserveSlots=[
+ {label:'HOK',pos:'HOK'},
+ {label:'FRF1',pos:'FRF'},
+ {label:'FRF2',pos:'FRF'},
+ {label:'2RF1',pos:'2RF'},
+ {label:'2RF2',pos:'2RF'},
+ {label:'2RF3',pos:'2RF'},
+ {label:'HFB',pos:'HFB'},
+ {label:'5/8',pos:'5/8'},
+ {label:'CTW1',pos:'CTW'},
+ {label:'CTW2',pos:'CTW'},
+ {label:'CTW3',pos:'CTW'},
+ {label:'FLB',pos:'FLB'}
+];
 
- return `<aside class="formation-reserves wr-reserve-panel">
+let used=new Set();
+let rows=reserveSlots.map(s=>{
+ const p=App.myTeam.reserves.find(x=>{
+  if(used.has(x.name)) return false;
+  const positions=String(x.pos||'').split('/').map(v=>v.trim());
+  return positions.includes(s.pos);
+ });
+ if(p){
+  used.add(p.name);
+  return {type:'player',group:s.pos,slot:s.label,p};
+ }
+ return {type:'empty',group:s.pos,slot:s.label};
+});
+
+return `<aside class="formation-reserves wr-reserve-panel">
   <div class="wr-reserve-head"><span>RESERVES</span><b>1–12</b></div>
   <div class="wr-reserve-list">
- ${rows.map((r,i)=>{
- const reserveSlots=['HOK','FRF1','FRF2','2RF1','2RF2','2RF3','HFB','5/8','CTW1','CTW2','CTW3','FLB'];
- const slot=reserveSlots[i]||'';
- return r.type==='player'
-  ? formationReserveCard({...r.p,reserveSlot:slot},i+1)
-  : emptyFormationReserveCard(slot||r.group,i+1);
-}).join('')}
+   ${rows.map((r,i)=>{
+    const slot=r.slot||'';
+    return r.type==='player'
+     ? formationReserveCard({...r.p,reserveSlot:slot},i+1)
+     : emptyFormationReserveCard(slot||r.group,i+1);
+   }).join('')}
+  </div>
+ </aside>`;
+}
   </div>
  </aside>`;
 }
