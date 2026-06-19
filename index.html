@@ -2307,9 +2307,10 @@ function saveLocal(opts={}){
  const cloud=opts.cloud!==false;
  if(!App.sync.clientId){App.sync.clientId=safeLocalGet('sc_client_id','')||crypto.randomUUID?.()||String(Date.now())+Math.random();try{localStorage.setItem('sc_client_id',App.sync.clientId)}catch(e){}}
  if(touch)App.sync.localUpdatedAt=new Date().toISOString();
- localStorage.setItem('sc_round',String(App.round));
- localStorage.setItem('sc_myTeam',JSON.stringify(App.myTeam));
- localStorage.setItem('sc_lineup',JSON.stringify(App.lineup||{}));
+localStorage.setItem('sc_round',String(App.round));
+localStorage.setItem('sc_myTeam',JSON.stringify(App.myTeam));
+localStorage.setItem('sc_lineup',JSON.stringify(App.lineup||{}));
+localStorage.setItem('sc_reserveOrder',JSON.stringify(App.reserveOrder||{}));
  writeLocalMeta({updated_at:App.sync.localUpdatedAt,client_id:App.sync.clientId});
  if(cloud)scheduleCloudSave();
 }
@@ -2472,7 +2473,8 @@ async function boot(){
  const missingNames = names.filter(n=>!resolvePlayerName(n));
  if(missingNames.length) console.warn('Players in my_team.json not found in players.json:', missingNames);
  App.myTeam=[...new Set(resolvedNames)];
-App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};validateLineup();ensureLineup();wireTabs();renderActive();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
+App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};
+App.reserveOrder=safeJsonParse(safeLocalGet('sc_reserveOrder','{}'),{})||{};validateLineup();ensureLineup();wireTabs();renderActive();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
  updateStatusFreshnessLabel();startLiveStatusRefresh();
 }
 function updateStatusFreshnessLabel(){const fe=$('statusFreshness');if(fe)fe.textContent=''}
