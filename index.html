@@ -3043,20 +3043,14 @@ function formationReservesHtml(reserveSections,groups){
   'FULLBACK'
  ];
 
-const reserveSlots=[
- {label:'HOK',pos:'HOK'},
- {label:'FRF1',pos:'FRF'},
- {label:'FRF2',pos:'FRF'},
- {label:'2RF1',pos:'2RF'},
- {label:'2RF2',pos:'2RF'},
- {label:'2RF3',pos:'2RF'},
- {label:'HFB',pos:'HFB'},
- {label:'5/8',pos:'5/8'},
- {label:'CTW1',pos:'CTW'},
- {label:'CTW2',pos:'CTW'},
- {label:'CTW3',pos:'CTW'},
- {label:'FLB',pos:'FLB'}
-];
+let rows=[];
+fixedSections.forEach(g=>{
+ const players=(groups[g]||[]).slice(0,targets[g]||0);
+ players.forEach(p=>rows.push({type:'player',group:g,p}));
+ while(rows.filter(r=>r.group===g).length<(targets[g]||0)){
+  rows.push({type:'empty',group:g});
+ }
+});
 
 let used=new Set();
 let rows=reserveSlots.map(s=>{
