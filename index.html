@@ -2765,7 +2765,45 @@ function reserveTargetCount(group){
  if(group==='FULLBACK') return 1;
  return 0;
 }
-  function teamRenderState(){
+const RESERVE_SLOT_IDS=['HOK','FRF1','FRF2','2RF1','2RF2','2RF3','HFB','5/8','CTW1','CTW2','CTW3','FLB'];
+
+function reserveSlotBase(id){
+ if(id==='5/8')return '5/8';
+ return String(id||'').replace(/[0-9]/g,'');
+}
+
+function reserveSlotLabel(id){
+ return reserveSlotBase(id);
+}
+
+function reserveSlotAccepts(id,p){
+ return !!p&&positions(p).includes(reserveSlotBase(id));
+}
+
+function reserveSlotForPlayerName(name){
+ const order=App.reserveOrder||{};
+ return RESERVE_SLOT_IDS.find(id=>order[id]===name)||'';
+}
+
+function cleanReserveOrder(rawReserves=[]){
+ const reserveSet=new Set(rawReserves);
+ const used=new Set();
+ const cleaned={};
+ const order=App.reserveOrder&&typeof App.reserveOrder==='object'?App.reserveOrder:{};
+
+ RESERVE_SLOT_IDS.forEach(id=>{
+  const name=String(order[id]||'').trim();
+  const p=getPlayer(name);
+  if(!name||!reserveSet.has(name)||used.has(name)||!reserveSlotAccepts(id,p))return;
+  cleaned[id]=p.name;
+  used.add(p.name);
+ });
+
+ App.reserveOrder=cleaned;
+ return used;
+}
+
+function teamRenderState(){
  const fieldSlots=[],fieldNames=[],fieldSet=new Set(),fieldBySlot={};
 
  for(const slot of SLOT_DEFS){
@@ -2778,43 +2816,37 @@ function reserveTargetCount(group){
  }
 
  const rawReserves=App.myTeam.filter(name=>!fieldSet.has(name)&&getPlayer(name));
- const reserveNames=[];
- const usedReserve=new Set();
+ const usedReserve=cleanReserveOrder(rawReserves);
 
- const reserveSections=[
-  'HOOKER',
-  'FRONT ROWERS',
-  '2ND ROW FORWARDS',
-  'HALFBACK',
-  '5/8',
-  'WINGS / CENTRES',
-  'FULLBACK'
- ];
-
- // First pass: fill normal reserve targets
- for(const group of reserveSections){
-  const target=reserveTargetCount(group);
-
-  const matches=rawReserves
-   .filter(name=>!usedReserve.has(name))
+ RESERVE_SLOT_IDS.forEach(slotId=>{
+  if(App.reserveOrder?.[slotId])return;
+  const next=rawReserves
    .map(name=>getPlayer(name))
    .filter(Boolean)
-   .filter(p=>reserveBucket(p)===group)
-   .slice(0,target);
+   .find(p=>!usedReserve.has(p.name)&&reserveSlotAccepts(slotId,p));
 
-  matches.forEach(p=>{
-   usedReserve.add(p.name);
-   reserveNames.push(p.name);
-  });
- }
+  if(next){
+   App.reserveOrder[slotId]=next.name;
+   usedReserve.add(next.name);
+  }
+ });
 
- // Overflow should only happen if there are more than 12 reserves
-const overflowNames=[];
+ const reserveRows=RESERVE_SLOT_IDS.map((slotId,idx)=>({
+  slotId,
+  idx:idx+1,
+  name:App.reserveOrder?.[slotId]||'',
+  player:getPlayer(App.reserveOrder?.[slotId]||'')||null
+ }));
+
+ const reserveNames=reserveRows.map(r=>r.name).filter(Boolean);
+ const overflowNames=rawReserves.filter(name=>!reserveNames.includes(name));
 
  return {
   fieldSlots,
   fieldNames,
   reserveNames,
+  reserveRows,
+  reserveBySlot:{...(App.reserveOrder||{})},
   fieldBySlot,
   overflowNames
  };
