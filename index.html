@@ -2776,7 +2776,45 @@ function reserveTargetCount(group){
  if(group==='FULLBACK') return 1;
  return 0;
 }
-  function teamRenderState(){
+ const RESERVE_SLOT_IDS=['HOK','FRF1','FRF2','2RF1','2RF2','2RF3','HFB','5/8','CTW1','CTW2','CTW3','FLB'];
+
+function reserveSlotBase(id){
+ if(id==='5/8')return '5/8';
+ return String(id||'').replace(/[0-9]/g,'');
+}
+
+function reserveSlotLabel(id){
+ return reserveSlotBase(id);
+}
+
+function reserveSlotAccepts(id,p){
+ return !!p&&positions(p).includes(reserveSlotBase(id));
+}
+
+function reserveSlotForPlayerName(name){
+ const order=App.reserveOrder||{};
+ return RESERVE_SLOT_IDS.find(id=>order[id]===name)||'';
+}
+
+function cleanReserveOrder(rawReserves=[]){
+ const reserveSet=new Set(rawReserves);
+ const used=new Set();
+ const cleaned={};
+ const order=App.reserveOrder&&typeof App.reserveOrder==='object'?App.reserveOrder:{};
+
+ RESERVE_SLOT_IDS.forEach(id=>{
+  const name=String(order[id]||'').trim();
+  const p=getPlayer(name);
+  if(!name||!reserveSet.has(name)||used.has(name)||!reserveSlotAccepts(id,p))return;
+  cleaned[id]=p.name;
+  used.add(p.name);
+ });
+
+ App.reserveOrder=cleaned;
+ return used;
+}
+
+function teamRenderState(){
  const fieldSlots=[],fieldNames=[],fieldSet=new Set(),fieldBySlot={};
 
  for(const slot of SLOT_DEFS){
@@ -2788,36 +2826,38 @@ function reserveTargetCount(group){
   fieldSlots.push({slot,name,player:getPlayer(name)});
  }
 
-const rawReserves=App.myTeam.filter(name=>!fieldSet.has(name)&&getPlayer(name));
-if(!App.reserveOrder)App.reserveOrder={};
+ const rawReserves=App.myTeam.filter(name=>!fieldSet.has(name)&&getPlayer(name));
+ const usedReserve=cleanReserveOrder(rawReserves);
 
-const reserveSlots=['HOK','FRF1','FRF2','2RF1','2RF2','2RF3','HFB','5/8','CTW1','CTW2','CTW3','FLB'];
-const reserveNames=[];
-const usedReserve=new Set();
+ RESERVE_SLOT_IDS.forEach(slotId=>{
+  if(App.reserveOrder?.[slotId])return;
+  const next=rawReserves
+   .map(name=>getPlayer(name))
+   .filter(Boolean)
+   .find(p=>!usedReserve.has(p.name)&&reserveSlotAccepts(slotId,p));
 
-reserveSlots.forEach(slot=>{
- const name=App.reserveOrder?.[slot];
- if(name&&rawReserves.includes(name)&&!usedReserve.has(name)){
-  reserveNames.push(name);
-  usedReserve.add(name);
- }
-});
+  if(next){
+   App.reserveOrder[slotId]=next.name;
+   usedReserve.add(next.name);
+  }
+ });
 
-rawReserves.forEach(name=>{
- if(!usedReserve.has(name)){
-  reserveNames.push(name);
-  usedReserve.add(name);
- }
-});
+ const reserveRows=RESERVE_SLOT_IDS.map((slotId,idx)=>({
+  slotId,
+  idx:idx+1,
+  name:App.reserveOrder?.[slotId]||'',
+  player:getPlayer(App.reserveOrder?.[slotId]||'')||null
+ }));
 
-reserveNames.length=12;
-
-const overflowNames=[];
+ const reserveNames=reserveRows.map(r=>r.name).filter(Boolean);
+ const overflowNames=rawReserves.filter(name=>!reserveNames.includes(name));
 
  return {
   fieldSlots,
   fieldNames,
   reserveNames,
+  reserveRows,
+  reserveBySlot:{...(App.reserveOrder||{})},
   fieldBySlot,
   overflowNames
  };
