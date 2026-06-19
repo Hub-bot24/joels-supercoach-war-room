@@ -3052,20 +3052,6 @@ fixedSections.forEach(g=>{
  }
 });
 
-let used=new Set();
-let rows=reserveSlots.map(s=>{
- const p=App.myTeam.reserves.find(x=>{
-  if(used.has(x.name)) return false;
-  const positions=String(x.pos||'').split('/').map(v=>v.trim());
-  return positions.includes(s.pos);
- });
- if(p){
-  used.add(p.name);
-  return {type:'player',group:s.pos,slot:s.label,p};
- }
- return {type:'empty',group:s.pos,slot:s.label};
-});
-
 return `<aside class="formation-reserves wr-reserve-panel">
   <div class="wr-reserve-head"><span>RESERVES</span><b>1–12</b></div>
   <div class="wr-reserve-list">
