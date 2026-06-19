@@ -2971,32 +2971,33 @@ function formationFieldHtml(fieldBySlot={}){
  ];
  return `<div class="formation-field"><div class="formation-watermark left">WAR</div><div class="formation-watermark right">ROOM</div><div class="formation-grid">${slots.map(([id,area])=>formationSlot(id,area)).join('')}</div></div>`
 }
-function formationReserveCard(p,idx=0){
+function formationReserveCard(p,idx=0,slotId=""){
  const pr=roundProj(p),st=availabilityStatus(p),cls=statusDotClass(st);
- const accent=teamAccent(p),pa=posAccent(p.pos||''),opp=esc(p.opponent||p.opp||p.vs||'');
- const team=esc((p.team||p.club||'SC').slice(0,3).toUpperCase());
- return `<div class="formation-reserve-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-reserve="${esc(p.name)}" onpointerdown="pressDragStart(event,'reserve','', '${window.jsq(p.name)}')" ondragstart="dragReserve(event,'${window.jsq(p.name)}')" ondragover="allowDropOnReserveCard(event,'${window.jsq(p.name)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(p.name)}')">
+ const accent=teamAccent(p),pa=posAccent(p.pos||""),opp=esc(p.opponent||p.opp||p.vs||"");
+ const team=esc((p.team||p.club||"SC").slice(0,3).toUpperCase());
+ return `<div class="formation-reserve-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-reserve-slot="${esc(slotId)}" data-reserve="${esc(p.name)}" onpointerdown="pressDragStart(event,'reserve','${window.jsq(slotId)}','${window.jsq(p.name)}')" ondragstart="dragReserve(event,'${window.jsq(p.name)}')" ondragover="allowDropOnReserveCard(event,'${window.jsq(slotId)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(slotId)}')">
   <div class="wr-reserve-no">${idx}</div>
   ${teamIconHtml(p,'wr-reserve-logo')}
   <div class="formation-reserve-main">
    <div class="formation-reserve-name" title="${esc(p.name)}">${esc(shortName(p.name))}</div>
-   <div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(p.pos||'')}</b> · R${App.round}${opp?' · '+opp:''}</div>
+   <div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(p.pos||"")}</b>  R${App.round}${opp?"  "+opp:""}</div>
   </div>
   <div class="formation-reserve-score">${pr.expected}</div>
   <span class="status-dot ${cls}" title="${esc(st.reason)}"></span>
  </div>`;
 }
-  function emptyFormationReserveCard(group,idx=0){
- return `<div class="formation-reserve-card formation-empty" style="--accent:#64748b;--pos:#94a3b8" onclick="emptyReserveTrade('${window.jsq(group)}')">
+function emptyFormationReserveCard(slotId,idx=0){
+ const label=reserveSlotLabel(slotId);
+ return `<div class="formation-reserve-card formation-empty" style="--accent:#64748b;--pos:#94a3b8" data-reserve-slot="${esc(slotId)}" ondragover="allowDropOnReserveCard(event,'${window.jsq(slotId)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(slotId)}')" onclick="emptyReserveTrade('${window.jsq(slotId)}')">
   <div class="wr-reserve-no">${idx}</div>
   <div class="wr-reserve-logo">+</div>
   <div class="formation-reserve-main">
    <div class="formation-reserve-name">Empty</div>
-   <div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(group)}</b> · tap Trade</div>
+   <div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(label)}</b>  tap Trade</div>
   </div>
   <div class="formation-reserve-score">--</div>
   <span class="status-dot"></span>
-  <div class="formation-reserve-actions"><button class="formation-reserve-trade" type="button" onclick="event.stopPropagation();emptyReserveTrade('${window.jsq(group)}')">Trade</button></div>
+  <div class="formation-reserve-actions"><button class="formation-reserve-trade" type="button" onclick="event.stopPropagation();emptyReserveTrade('${window.jsq(slotId)}')">Trade</button></div>
  </div>`;
 }
 
@@ -3178,12 +3179,57 @@ function clearDrop(ev){ev.currentTarget.classList.remove('drop-ok','drop-no')}
 function commitDragToSlot(d,slotId){const p=getPlayer(d?.name),slot=slotById[slotId];if(!p||!slot)return false;if(!eligible(p,slot)){toast(`${p.name} cannot play ${slot.short}`);return false}if(d.type==='field'){const from=d.slotId;if(from===slotId)return true;const target=App.lineup[slotId];if(target&&!eligible(getPlayer(target),slotById[from])){toast(`${target} cannot swap into ${slotById[from].short}`);return false}App.lineup[slotId]=p.name;if(target)App.lineup[from]=target;else delete App.lineup[from];}
  else {for(const k of Object.keys(App.lineup||{})){if(App.lineup[k]===p.name)delete App.lineup[k]}App.lineup[slotId]=p.name;}
 saveLocal();renderTeam();toast(`${p.name} moved to ${slot.short}`);return true}
-function commitDragToReserveCard(d,reserveName){if(!d||d.type!=='field')return false;const reservePlayer=getPlayer(reserveName),fromSlot=slotById[d.slotId];if(!reservePlayer||!eligible(reservePlayer,fromSlot)){toast(`${reserveName} cannot play ${fromSlot.short}`);return false}App.lineup[d.slotId]=reserveName;saveLocal();renderTeam();toast(`${reserveName} swapped into ${fromSlot.short}`);return true}
+function commitDragToReserveCard(d,targetSlotId){
+ if(!d||!RESERVE_SLOT_IDS.includes(targetSlotId))return false;
+ App.reserveOrder=App.reserveOrder||{};
+ const movingPlayer=getPlayer(d.name);
+ const targetName=App.reserveOrder[targetSlotId]||"";
+ const targetPlayer=getPlayer(targetName);
+ if(!movingPlayer)return false;
+ if(!reserveSlotAccepts(targetSlotId,movingPlayer)){toast(`${movingPlayer.name} cannot play ${reserveSlotLabel(targetSlotId)}`);return false}
+
+ if(d.type==="field"){
+  const fromSlot=slotById[d.slotId];
+  if(!fromSlot)return false;
+  if(targetPlayer&&!eligible(targetPlayer,fromSlot)){toast(`${targetPlayer.name} cannot play ${fromSlot.short}`);return false}
+  if(targetPlayer)App.lineup[d.slotId]=targetPlayer.name;else delete App.lineup[d.slotId];
+  App.reserveOrder[targetSlotId]=movingPlayer.name;
+  saveLocal();renderTeam();toast(`${movingPlayer.name} moved to ${targetSlotId}`);return true;
+ }
+
+ if(d.type==="reserve"){
+  const sourceSlotId=reserveSlotForPlayerName(movingPlayer.name);
+  if(!sourceSlotId)return false;
+  if(sourceSlotId===targetSlotId)return true;
+  if(targetPlayer&&!reserveSlotAccepts(sourceSlotId,targetPlayer)){toast(`${targetPlayer.name} cannot play ${reserveSlotLabel(sourceSlotId)}`);return false}
+  App.reserveOrder[targetSlotId]=movingPlayer.name;
+  if(targetPlayer)App.reserveOrder[sourceSlotId]=targetPlayer.name;else delete App.reserveOrder[sourceSlotId];
+  saveLocal();renderTeam();toast(`${movingPlayer.name} moved to ${targetSlotId}`);return true;
+ }
+
+ return false;
+}
 function commitDragToReserveGroup(d){if(!d||d.type!=='field')return false;delete App.lineup[d.slotId];ensureLineup();saveLocal();renderTeam();toast(`${d.name} moved to reserves`);return true}
 function allowDropOnSlot(ev,slotId){ev.preventDefault();const d=App.drag;const p=getPlayer(d?.name);const slot=slotById[slotId];const ok=!!p&&eligible(p,slot);ev.currentTarget.classList.toggle('drop-ok',ok);ev.currentTarget.classList.toggle('drop-no',!ok)}
 function dropOnSlot(ev,slotId){ev.preventDefault();clearDrop(ev);commitDragToSlot(getDrag(ev),slotId)}
-function allowDropOnReserveCard(ev,reserveName){ev.preventDefault();const d=App.drag;if(!d||d.type!=='field'){ev.currentTarget.classList.remove('drop-ok','drop-no');return}const fieldPlayer=getPlayer(d.name),reservePlayer=getPlayer(reserveName),fromSlot=slotById[d.slotId];const ok=!!fieldPlayer&&!!reservePlayer&&eligible(reservePlayer,fromSlot);ev.currentTarget.classList.toggle('drop-ok',ok);ev.currentTarget.classList.toggle('drop-no',!ok)}
-function dropOnReserveCard(ev,reserveName){ev.preventDefault();clearDrop(ev);commitDragToReserveCard(getDrag(ev),reserveName)}
+function allowDropOnReserveCard(ev,targetSlotId){
+ ev.preventDefault();
+ const d=App.drag;
+ const movingPlayer=getPlayer(d?.name);
+ let ok=!!movingPlayer&&RESERVE_SLOT_IDS.includes(targetSlotId)&&reserveSlotAccepts(targetSlotId,movingPlayer);
+ if(ok&&d?.type==="field"){
+  const targetPlayer=getPlayer(App.reserveOrder?.[targetSlotId]);
+  const fromSlot=slotById[d.slotId];
+  ok=!!fromSlot&&(!targetPlayer||eligible(targetPlayer,fromSlot));
+ } else if(ok&&d?.type==="reserve"){
+  const sourceSlotId=reserveSlotForPlayerName(movingPlayer.name);
+  const targetPlayer=getPlayer(App.reserveOrder?.[targetSlotId]);
+  ok=!!sourceSlotId&&(!targetPlayer||reserveSlotAccepts(sourceSlotId,targetPlayer));
+ } else ok=false;
+ ev.currentTarget.classList.toggle("drop-ok",ok);
+ ev.currentTarget.classList.toggle("drop-no",!ok);
+}
+function dropOnReserveCard(ev,targetSlotId){ev.preventDefault();clearDrop(ev);commitDragToReserveCard(getDrag(ev),targetSlotId)}
 function allowDropOnReserveGroup(ev){ev.preventDefault();const d=App.drag;const ok=d?.type==='field';ev.currentTarget.classList.toggle('drop-ok',ok);ev.currentTarget.classList.toggle('drop-no',!ok)}
 function dropOnReserveGroup(ev){ev.preventDefault();clearDrop(ev);commitDragToReserveGroup(getDrag(ev))}
 function pressDragStart(ev,type,slotId,name){
@@ -3197,7 +3243,7 @@ function pressDragStart(ev,type,slotId,name){
  function cleanup(){clearTimeout(startTimer);window.removeEventListener('pointermove',move,{capture:true});window.removeEventListener('pointerup',up,{capture:true});window.removeEventListener('pointercancel',cancel,{capture:true});el.classList.remove('press-dragging');el.style.transform='';el.style.zIndex=''}
  function move(e){const dx=e.clientX-startX,dy=e.clientY-startY;if(Math.hypot(dx,dy)>7)moved=true;if(started){e.preventDefault();el.style.transform=`translate(${dx}px,${dy}px) scale(.98)`;el.style.zIndex='10000';}}
  function cancel(){cleanup()}
- function up(e){const wasStarted=started;cleanup();if(wasStarted){const target=document.elementFromPoint(e.clientX,e.clientY);const slot=target?.closest?.('[data-slot]')?.getAttribute('data-slot');const reserve=target?.closest?.('[data-reserve]')?.getAttribute('data-reserve');if(type==='reserve'&&slot){commitDragToSlot(d,slot);return}if(type==='field'&&reserve){commitDragToReserveCard(d,reserve);return}if(type==='field'&&target?.closest?.('.formation-reserves,.wr-reserve-panel')){commitDragToReserveGroup(d);return}toast('Drop on an eligible player/slot');return;}if(!moved){if(type==='field')selectTeamSlot(slotId);else selectReservePlayer(name);}}
+ function up(e){const wasStarted=started;cleanup();if(wasStarted){const target=document.elementFromPoint(e.clientX,e.clientY);const slot=target?.closest?.('[data-slot]')?.getAttribute('data-slot');const reserve=target?.closest?.('[data-reserve-slot]')?.getAttribute('data-reserve-slot');if(type==='reserve'&&slot){commitDragToSlot(d,slot);return}if((type==='field'||type==='reserve')&&reserve){commitDragToReserveCard(d,reserve);return}if(type==='field'&&target?.closest?.('.formation-reserves,.wr-reserve-panel')){commitDragToReserveGroup(d);return}toast('Drop on an eligible player/slot');return;}if(!moved){if(type==='field')selectTeamSlot(slotId);else selectReservePlayer(name);}}
  window.addEventListener('pointermove',move,{capture:true,passive:false});window.addEventListener('pointerup',up,{capture:true});window.addEventListener('pointercancel',cancel,{capture:true});
 }
 
