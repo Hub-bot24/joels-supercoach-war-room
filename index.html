@@ -2788,40 +2788,29 @@ function reserveTargetCount(group){
   fieldSlots.push({slot,name,player:getPlayer(name)});
  }
 
- const rawReserves=App.myTeam.filter(name=>!fieldSet.has(name)&&getPlayer(name));
-    if(!App.reserveOrder) App.reserveOrder={};
-const reserveNames=Object.values(App.reserveOrder||{}).filter(name=>rawReserves.includes(name));
- const usedReserve=new Set();
+const rawReserves=App.myTeam.filter(name=>!fieldSet.has(name)&&getPlayer(name));
+if(!App.reserveOrder)App.reserveOrder={};
 
- const reserveSections=[
-  'HOOKER',
-  'FRONT ROWERS',
-  '2ND ROW FORWARDS',
-  'HALFBACK',
-  '5/8',
-  'WINGS / CENTRES',
-  'FULLBACK'
- ];
+const reserveSlots=['HOK','FRF1','FRF2','2RF1','2RF2','2RF3','HFB','5/8','CTW1','CTW2','CTW3','FLB'];
+const reserveNames=[];
+const usedReserve=new Set();
 
- // First pass: fill normal reserve targets
- for(const group of reserveSections){
-  const target=reserveTargetCount(group);
-
-  const matches=rawReserves
-   .filter(name=>!usedReserve.has(name))
-   .map(name=>getPlayer(name))
-   .filter(Boolean)
-   .filter(p=>reserveBucket(p)===group)
-   .slice(0,target);
-
-  matches.forEach(p=>{
-   usedReserve.add(p.name);
-   reserveNames.push(p.name);
-  });
+reserveSlots.forEach(slot=>{
+ const name=App.reserveOrder?.[slot];
+ if(name&&rawReserves.includes(name)&&!usedReserve.has(name)){
+  reserveNames.push(name);
+  usedReserve.add(name);
  }
+});
 
- // Overflow should only happen if there are more than 12 reserves
-const overflowNames=[];
+rawReserves.forEach(name=>{
+ if(!usedReserve.has(name)){
+  reserveNames.push(name);
+  usedReserve.add(name);
+ }
+});
+
+reserveNames.length=12;
 
  return {
   fieldSlots,
