@@ -2946,7 +2946,7 @@ function formationReserveCard(p,idx=0){
   ${teamIconHtml(p,'wr-reserve-logo')}
   <div class="formation-reserve-main">
    <div class="formation-reserve-name" title="${esc(p.name)}">${esc(shortName(p.name))}</div>
-   <div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(p.pos||'')}</b> · R${App.round}${opp?' · '+opp:''}</div>
+  <div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(p.reserveSlot||p.slot||'')}</b> · R${App.round}${opp?' · '+opp:''}</div>
   </div>
   <div class="formation-reserve-score">${pr.expected}</div>
   <span class="status-dot ${cls}" title="${esc(st.reason)}"></span>
@@ -3055,7 +3055,13 @@ function formationReservesHtml(reserveSections,groups){
  return `<aside class="formation-reserves wr-reserve-panel">
   <div class="wr-reserve-head"><span>RESERVES</span><b>1–12</b></div>
   <div class="wr-reserve-list">
-   ${rows.map((r,i)=>r.type==='player'?formationReserveCard(r.p,i+1):emptyFormationReserveCard(r.group,i+1)).join('')}
+ ${rows.map((r,i)=>{
+ const reserveSlots=['HOK','FRF1','FRF2','2RF1','2RF2','2RF3','HFB','5/8','CTW1','CTW2','CTW3','FLB'];
+ const slot=reserveSlots[i]||'';
+ return r.type==='player'
+  ? formationReserveCard({...r.p,reserveSlot:slot},i+1)
+  : emptyFormationReserveCard(slot||r.group,i+1);
+}).join('')}
   </div>
  </aside>`;
 }
