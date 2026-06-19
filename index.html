@@ -3023,26 +3023,8 @@ toast(`${p.name} added to ${group} reserves`);
 }
 
 function formationReservesHtml(reserveSections,groups){
- const targets={
-  'HOOKER':1,
-  'FRONT ROWERS':3,
-  '2ND ROW FORWARDS':2,
-  'HALFBACK':1,
-  '5/8':1,
-  'WINGS / CENTRES':3,
-  'FULLBACK':1
- };
-
- const fixedSections=[
-  'HOOKER',
-  'FRONT ROWERS',
-  '2ND ROW FORWARDS',
-  'HALFBACK',
-  '5/8',
-  'WINGS / CENTRES',
-  'FULLBACK'
- ];
-
+ const targets={'HOOKER':1,'FRONT ROWERS':3,'2ND ROW FORWARDS':2,'HALFBACK':1,'5/8':1,'WINGS / CENTRES':3,'FULLBACK':1};
+ const fixedSections=['HOOKER','FRONT ROWERS','2ND ROW FORWARDS','HALFBACK','5/8','WINGS / CENTRES','FULLBACK'];
  const reserveSlots=['HOK','FRF1','FRF2','2RF1','2RF2','2RF3','HFB','5/8','CTW1','CTW2','CTW3','FLB'];
 
  let rows=[];
