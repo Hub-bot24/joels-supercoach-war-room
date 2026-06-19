@@ -3056,55 +3056,18 @@ App.myTeam.push(p.name);
 toast(`${p.name} added to ${group} reserves`);
 }
 
-function formationReservesHtml(reserveSections,groups){
- const targets={
-  'HOOKER':1,
-  'FRONT ROWERS':3,
-  '2ND ROW FORWARDS':2,
-  'HALFBACK':1,
-  '5/8':1,
-  'WINGS / CENTRES':3,
-  'FULLBACK':1
- };
-
- const fixedSections=[
-  'HOOKER',
-  'FRONT ROWERS',
-  '2ND ROW FORWARDS',
-  'HALFBACK',
-  '5/8',
-  'WINGS / CENTRES',
-  'FULLBACK'
- ];
-
- let rows=[];
- fixedSections.forEach(g=>{
-  const players=(groups[g]||[]).slice(0,targets[g]||0);
-  players.forEach(p=>rows.push({type:'player',group:g,p}));
-  while(rows.filter(r=>r.group===g).length<(targets[g]||0)){
-   rows.push({type:'empty',group:g});
-  }
- });
-
+function formationReservesHtml(state){
+ const rows=state.reserveRows||RESERVE_SLOT_IDS.map((slotId,idx)=>({slotId,idx:idx+1,name:"",player:null}));
  return `<aside class="formation-reserves wr-reserve-panel">
-  <div class="wr-reserve-head"><span>RESERVES</span><b>1–12</b></div>
+  <div class="wr-reserve-head"><span>RESERVES</span><b>1-12</b></div>
   <div class="wr-reserve-list">
-   ${rows.map((r,i)=>r.type==='player'?formationReserveCard(r.p,i+1):emptyFormationReserveCard(r.group,i+1)).join('')}
+   ${rows.map(r=>r.player?formationReserveCard(r.player,r.idx,r.slotId):emptyFormationReserveCard(r.slotId,r.idx)).join("")}
   </div>
  </aside>`;
 }
-  
+
 function mobileTeamHtml(state=teamRenderState()){
- const sections=[['HOOKER',['HOK1']],['FRONT ROWERS',['FRF1','FRF2']],['2ND ROW FORWARDS',['2RF1','2RF2','2RF3']],['HALFBACK',['HFB1']],['5/8',['FE1']],['WINGS / CENTRES',['CTW1','CTW2','CTW3','CTW4']],['FULLBACK',['FLB1']],['FLEX',['FLEX1']]],
- reserveSections=sections.map(s=>s[0]).filter(g=>g!=='FLEX'),
- rs=state.reserveNames.map(name=>getPlayer(name)).filter(Boolean),
- groups=Object.fromEntries(reserveSections.map(g=>[g,[]]));
-
- rs.forEach(p=>{
-  const bucket=reserveBucket(p);
-  if(groups[bucket])groups[bucket].push(p);
- });
-
+ const sections=[["HOOKER",["HOK1"]],["FRONT ROWERS",["FRF1","FRF2"]],["2ND ROW FORWARDS",["2RF1","2RF2","2RF3"]],["HALFBACK",["HFB1"]],["5/8",["FE1"]],["WINGS / CENTRES",["CTW1","CTW2","CTW3","CTW4"]],["FULLBACK",["FLB1"]],["FLEX",["FLEX1"]]];
  const totalProjected=teamProjection();
  const players=teamPlayers();
  const teamValue=players.reduce((sum,p)=>sum+safeNum(p.price),0);
@@ -3123,7 +3086,7 @@ function mobileTeamHtml(state=teamRenderState()){
   <div class="wr-freshness-row">${dataFreshnessControlHtml()}</div>
   ${authPanelHtml()}
   ${(App.teamActionMode||App.selectedTeamSlot||App.selectedReserveTradeName) ? '<div id="teamActionPanel" class="small wr-action-panel">'+teamActionHtml()+'</div>' : ''}
-  <div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot)}</main>${formationReservesHtml(reserveSections,groups)}</div>
+  <div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot)}</main>${formationReservesHtml(state)}</div>
   <div class="wr-status-legend"><span><i class="status-dot"></i> Available</span><span><i class="status-dot warn"></i> Risk</span><span><i class="status-dot bad"></i> Out</span><span><i class="status-dot bye"></i> Bye</span></div>
  </div>`;
 }
