@@ -3249,7 +3249,13 @@ function commitDragToReserveCard(d,reserveName){
 function commitDragToReserveGroup(d){if(!d||d.type!=='field')return false;delete App.lineup[d.slotId];ensureLineup();saveLocal();renderTeam();toast(`${d.name} moved to reserves`);return true}
 function allowDropOnSlot(ev,slotId){ev.preventDefault();const d=App.drag;const p=getPlayer(d?.name);const slot=slotById[slotId];const ok=!!p&&eligible(p,slot);ev.currentTarget.classList.toggle('drop-ok',ok);ev.currentTarget.classList.toggle('drop-no',!ok)}
 function dropOnSlot(ev,slotId){ev.preventDefault();clearDrop(ev);commitDragToSlot(getDrag(ev),slotId)}
-function allowDropOnReserveCard(ev,reserveName){ev.preventDefault();const d=App.drag;if(!d||d.type!=='field'){ev.currentTarget.classList.remove('drop-ok','drop-no');return}const fieldPlayer=getPlayer(d.name),reservePlayer=getPlayer(reserveName),fromSlot=slotById[d.slotId];const ok=!!fieldPlayer&&!!reservePlayer&&eligible(reservePlayer,fromSlot);ev.currentTarget.classList.toggle('drop-ok',ok);ev.currentTarget.classList.toggle('drop-no',!ok)}
+function allowDropOnReserveCard(ev,reserveName){
+ ev.preventDefault();
+ const d=App.drag;
+ const ok=!!d&&(d.type==='field'||d.type==='reserve')&&d.name!==reserveName;
+ ev.currentTarget.classList.toggle('drop-ok',ok);
+ ev.currentTarget.classList.toggle('drop-no',!ok);
+}
 function dropOnReserveCard(ev,reserveName){ev.preventDefault();clearDrop(ev);commitDragToReserveCard(getDrag(ev),reserveName)}
 function allowDropOnReserveGroup(ev){ev.preventDefault();const d=App.drag;const ok=d?.type==='field';ev.currentTarget.classList.toggle('drop-ok',ok);ev.currentTarget.classList.toggle('drop-no',!ok)}
 function dropOnReserveGroup(ev){ev.preventDefault();clearDrop(ev);commitDragToReserveGroup(getDrag(ev))}
@@ -3264,7 +3270,7 @@ function pressDragStart(ev,type,slotId,name){
  function cleanup(){clearTimeout(startTimer);window.removeEventListener('pointermove',move,{capture:true});window.removeEventListener('pointerup',up,{capture:true});window.removeEventListener('pointercancel',cancel,{capture:true});el.classList.remove('press-dragging');el.style.transform='';el.style.zIndex=''}
  function move(e){const dx=e.clientX-startX,dy=e.clientY-startY;if(Math.hypot(dx,dy)>7)moved=true;if(started){e.preventDefault();el.style.transform=`translate(${dx}px,${dy}px) scale(.98)`;el.style.zIndex='10000';}}
  function cancel(){cleanup()}
- function up(e){const wasStarted=started;cleanup();if(wasStarted){const target=document.elementFromPoint(e.clientX,e.clientY);const slot=target?.closest?.('[data-slot]')?.getAttribute('data-slot');const reserve=target?.closest?.('[data-reserve]')?.getAttribute('data-reserve');if(type==='reserve'&&slot){commitDragToSlot(d,slot);return}if(type==='field'&&reserve){commitDragToReserveCard(d,reserve);return}if(type==='field'&&target?.closest?.('.formation-reserves,.wr-reserve-panel')){commitDragToReserveGroup(d);return}toast('Drop on an eligible player/slot');return;}if(!moved){if(type==='field')selectTeamSlot(slotId);else selectReservePlayer(name);}}
+ function up(e){const wasStarted=started;cleanup();if(wasStarted){const target=document.elementFromPoint(e.clientX,e.clientY);const slot=target?.closest?.('[data-slot]')?.getAttribute('data-slot');const reserve=target?.closest?.('[data-reserve]')?.getAttribute('data-reserve');if(type==='reserve'&&slot){commitDragToSlot(d,slot);return}if((type==='field'||type==='reserve')&&reserve){commitDragToReserveCard(d,reserve);return}if(type==='field'&&target?.closest?.('.formation-reserves,.wr-reserve-panel')){commitDragToReserveGroup(d);return}toast('Drop on an eligible player/slot');return;}if(!moved){if(type==='field')selectTeamSlot(slotId);else selectReservePlayer(name);}}
  window.addEventListener('pointermove',move,{capture:true,passive:false});window.addEventListener('pointerup',up,{capture:true});window.addEventListener('pointercancel',cancel,{capture:true});
 }
 
