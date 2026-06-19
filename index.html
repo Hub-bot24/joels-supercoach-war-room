@@ -3144,7 +3144,27 @@ function applyReserveSwap(reserveName,slotId){
 function cancelTeamAction(){App.selectedTeamSlot='';App.selectedReserveTradeName='';App.teamActionMode='';renderTeam()}
 function applyTeamSwap(slotId,name){const slot=slotById[slotId],p=getPlayer(name);if(!slot||!p||!App.myTeam.includes(p.name)||!eligible(p,slot))return toast('Invalid swap');for(const k of Object.keys(App.lineup||{})){if(App.lineup[k]===p.name)delete App.lineup[k]}App.lineup[slotId]=p.name;App.teamActionMode='';saveLocal();renderTeam();toast(`${p.name} swapped in`)}
 function applyTeamTradeOut(slotId,name){const slot=slotById[slotId],oldName=App.lineup?.[slotId],p=getPlayer(name);if(!slot||!oldName||!p||App.myTeam.includes(p.name)||!eligible(p,slot))return toast('Invalid trade');App.myTeam=App.myTeam.map(n=>n===oldName?p.name:n);App.lineup[slotId]=p.name;App.selectedReserveTradeName='';App.teamActionMode='';validateLineup();ensureLineup();saveLocal();renderTeam();toast(`Trade applied: ${oldName} → ${p.name}`)}
-function applyReserveTrade(oldName,newName){const oldP=getPlayer(oldName),newP=getPlayer(newName);if(!oldP||!newP||!App.myTeam.includes(oldP.name)||App.myTeam.includes(newP.name)||!tradeEligibleForPlayer(newP,oldP))return toast('Invalid reserve trade');App.myTeam=App.myTeam.map(n=>n===oldP.name?newP.name:n);for(const k of Object.keys(App.lineup||{})){if(App.lineup[k]===oldP.name)App.lineup[k]=newP.name}App.selectedTeamSlot='';App.selectedReserveTradeName='';App.teamActionMode='';validateLineup();ensureLineup();saveLocal();renderTeam();toast(`Traded out ${oldP.name} for ${newP.name}`)}
+function applyReserveTrade(oldName,newName){
+ const oldP=getPlayer(oldName),newP=getPlayer(newName);
+ const slotId=reserveSlotForPlayerName(oldP?.name);
+ if(!oldP||!newP||!slotId||!App.myTeam.includes(oldP.name)||App.myTeam.includes(newP.name)||!reserveSlotAccepts(slotId,newP)){
+  return toast("Invalid reserve trade");
+ }
+ App.myTeam=App.myTeam.map(n=>n===oldP.name?newP.name:n);
+ App.reserveOrder=App.reserveOrder||{};
+ App.reserveOrder[slotId]=newP.name;
+ for(const k of Object.keys(App.lineup||{})){
+  if(App.lineup[k]===oldP.name)App.lineup[k]=newP.name;
+ }
+ App.selectedTeamSlot="";
+ App.selectedReserveTradeName="";
+ App.teamActionMode="";
+ validateLineup();
+ ensureLineup();
+ saveLocal();
+ renderTeam();
+ toast(`Traded ${oldP.name} to ${newP.name} in ${slotId}`);
+}
 function dragReserve(ev,name){App.drag={type:'reserve',name};if(ev.dataTransfer)ev.dataTransfer.setData('text/plain',JSON.stringify(App.drag))}
 function dragField(ev,slotId,name){App.drag={type:'field',slotId,name};if(ev.dataTransfer)ev.dataTransfer.setData('text/plain',JSON.stringify(App.drag))}
 function getDrag(ev){try{return JSON.parse(ev.dataTransfer.getData('text/plain'))||App.drag}catch(e){return App.drag}}
