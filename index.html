@@ -3173,7 +3173,68 @@ function clearDrop(ev){ev.currentTarget.classList.remove('drop-ok','drop-no')}
 function commitDragToSlot(d,slotId){const p=getPlayer(d?.name),slot=slotById[slotId];if(!p||!slot)return false;if(!eligible(p,slot)){toast(`${p.name} cannot play ${slot.short}`);return false}if(d.type==='field'){const from=d.slotId;if(from===slotId)return true;const target=App.lineup[slotId];if(target&&!eligible(getPlayer(target),slotById[from])){toast(`${target} cannot swap into ${slotById[from].short}`);return false}App.lineup[slotId]=p.name;if(target)App.lineup[from]=target;else delete App.lineup[from];}
  else {for(const k of Object.keys(App.lineup||{})){if(App.lineup[k]===p.name)delete App.lineup[k]}App.lineup[slotId]=p.name;}
 saveLocal();renderTeam();toast(`${p.name} moved to ${slot.short}`);return true}
-function commitDragToReserveCard(d,reserveName){if(!d||d.type!=='field')return false;const reservePlayer=getPlayer(reserveName),fromSlot=slotById[d.slotId];if(!reservePlayer||!eligible(reservePlayer,fromSlot)){toast(`${reserveName} cannot play ${fromSlot.short}`);return false}App.lineup[d.slotId]=reserveName;saveLocal();renderTeam();toast(`${reserveName} swapped into ${fromSlot.short}`);return true}
+function commitDragToReserveCard(d,reserveName){
+ if(!d)return false;
+
+ const reservePlayer=getPlayer(reserveName);
+
+ // Field player dropped onto reserve player
+ if(d.type==='field'){
+  const fromSlot=slotById[d.slotId];
+  if(!reservePlayer||!eligible(reservePlayer,fromSlot)){
+   toast(`${reserveName} cannot play ${fromSlot.short}`);
+   return false;
+  }
+  App.lineup[d.slotId]=reserveName;
+  saveLocal();
+  renderTeam();
+  toast(`${reserveName} swapped into ${fromSlot.short}`);
+  return true;
+ }
+
+ // Reserve player dropped onto another reserve player
+ if(d.type==='reserve'){
+  const fromName=d.name;
+  const toName=reserveName;
+  if(!fromName||!toName||fromName===toName)return false;
+
+  const current=teamRenderState().reserveNames||[];
+  const fromIndex=current.indexOf(fromName);
+  const toIndex=current.indexOf(toName);
+  if(fromIndex<0||toIndex<0)return false;
+
+  const reserveSlots=['HOK','FRF1','FRF2','2RF1','2RF2','2RF3','HFB','5/8','CTW1','CTW2','CTW3','FLB'];
+  const fromSlot=reserveSlots[fromIndex];
+  const toSlot=reserveSlots[toIndex];
+
+  const base=s=>String(s||'').replace(/[0-9]/g,'');
+  const can=(name,slot)=>{
+   const p=getPlayer(name);
+   if(!p)return false;
+   return positions(p).includes(base(slot));
+  };
+
+  if(!can(fromName,toSlot)||!can(toName,fromSlot)){
+   toast('That reserve swap is not valid');
+   return false;
+  }
+
+  current[fromIndex]=toName;
+  current[toIndex]=fromName;
+
+  App.reserveOrder={};
+  reserveSlots.forEach((slot,i)=>{
+   if(current[i])App.reserveOrder[slot]=current[i];
+  });
+
+  saveLocal();
+  renderTeam();
+  toast(`${fromName} swapped with ${toName}`);
+  return true;
+ }
+
+ return false;
+}
 function commitDragToReserveGroup(d){if(!d||d.type!=='field')return false;delete App.lineup[d.slotId];ensureLineup();saveLocal();renderTeam();toast(`${d.name} moved to reserves`);return true}
 function allowDropOnSlot(ev,slotId){ev.preventDefault();const d=App.drag;const p=getPlayer(d?.name);const slot=slotById[slotId];const ok=!!p&&eligible(p,slot);ev.currentTarget.classList.toggle('drop-ok',ok);ev.currentTarget.classList.toggle('drop-no',!ok)}
 function dropOnSlot(ev,slotId){ev.preventDefault();clearDrop(ev);commitDragToSlot(getDrag(ev),slotId)}
