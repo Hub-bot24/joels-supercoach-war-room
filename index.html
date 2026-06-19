@@ -3001,60 +3001,34 @@ function emptyFormationReserveCard(slotId,idx=0){
  </div>`;
 }
 
-const reserveSections=[
- 'HOOKER',
- 'FRONT ROWERS',
- '2ND ROW FORWARDS',
- 'HALFBACK',
- '5/8',
- 'WINGS / CENTRES',
- 'FULLBACK'
-];
-function reserveGroupAccept(group){
- return group==='HOOKER'?['HOK']:
-        group==='FRONT ROWERS'?['FRF']:
-        group==='2ND ROW FORWARDS'?['2RF']:
-        group==='HALFBACK'?['HFB']:
-        group==='5/8'?['5/8']:
-        group==='WINGS / CENTRES'?['CTW']:
-        group==='FULLBACK'?['FLB']:[];
-}
-
-function emptyReserveTrade(group){
- App.emptyReserveGroup=group;
- App.teamActionMode='emptyReserveTrade';
+function emptyReserveTrade(slotId){
+ if(!RESERVE_SLOT_IDS.includes(slotId))return toast("Invalid reserve slot");
+ App.emptyReserveSlot=slotId;
+ App.emptyReserveGroup="";
+ App.teamActionMode="emptyReserveTrade";
  renderTeam();
 }
-function applyEmptyReserveTrade(group,name){
+function applyEmptyReserveTrade(slotId,name){
  const p=getPlayer(name);
- const accepts=reserveGroupAccept(group);
-
- if(!p || App.myTeam.includes(p.name) || !accepts.some(pos=>positions(p).includes(pos))){
-  return toast('Invalid empty reserve trade');
+ if(!RESERVE_SLOT_IDS.includes(slotId)||!p||App.myTeam.includes(p.name)||!reserveSlotAccepts(slotId,p)){
+  return toast("Invalid empty reserve trade");
  }
-const currentInGroup=(teamRenderState().reserveNames||[])
-  .map(n=>getPlayer(n))
-  .filter(Boolean)
-  .filter(r=>reserveBucket(r)===group)
-  .length;
-
-if(currentInGroup>=reserveTargetCount(group)){
-  return toast(`${group} reserves are already full`);
-}
-
-if((teamRenderState().reserveNames||[]).length>=12){
-  return toast('Reserves are already full');
-}
-  
-App.myTeam.push(p.name);
- App.emptyReserveGroup='';
- App.teamActionMode='';
-
+ App.reserveOrder=App.reserveOrder||{};
+ if(App.reserveOrder[slotId]){
+  return toast(`${slotId} is already full`);
+ }
+ if((teamRenderState().reserveNames||[]).length>=12){
+  return toast("Reserves are already full");
+ }
+ App.myTeam.push(p.name);
+ App.reserveOrder[slotId]=p.name;
+ App.emptyReserveSlot="";
+ App.emptyReserveGroup="";
+ App.teamActionMode="";
  validateLineup();
  saveLocal();
  renderTeam();
-
-toast(`${p.name} added to ${group} reserves`);
+ toast(`${p.name} added to ${slotId}`);
 }
 
 function formationReservesHtml(state){
@@ -3104,32 +3078,32 @@ function playerDetailHtml(p,subtitle,tradeCall){
  return `<div class="player-detail-card"><div class="player-detail-head"><div><div class="player-detail-sub">${esc(subtitle)}</div><div class="player-detail-title">${esc(p.name)}</div></div><button type="button" onclick="cancelTeamAction()">Close</button></div><div class="small">${esc(p.team||'')} · ${esc(p.pos||'')} · ${esc(st.reason||st.label||'')}</div><div class="player-detail-grid"><div class="player-detail-stat"><span>Proj</span><b>${pr.expected}</b></div><div class="player-detail-stat"><span>Avg</span><b>${avg||'-'}</b></div><div class="player-detail-stat"><span>BE</span><b>${be||'-'}</b></div><div class="player-detail-stat"><span>Price</span><b style="font-size:16px">${price}</b></div><div class="player-detail-stat"><span>Status</span><b style="font-size:16px">${esc(st.label||'')}</b></div><div class="player-detail-stat"><span>Round</span><b>${App.round}</b></div></div><div class="player-detail-actions"><button type="button" onclick="${tradeCall}">Trade</button><button type="button" onclick="cancelTeamAction()">Cancel</button></div></div>`;
 }
 function teamActionHtml(){
- if(App.teamActionMode==='emptyReserveTrade'){
-  const group=App.emptyReserveGroup||'';
-  const accepts=reserveGroupAccept(group);
+ if(App.teamActionMode==="emptyReserveTrade"){
+  const slotId=App.emptyReserveSlot||"";
+  const label=reserveSlotLabel(slotId);
   const opts=App.players
-   .filter(r=>!App.myTeam.includes(r.name)&&accepts.some(pos=>positions(r).includes(pos)))
+   .filter(r=>!App.myTeam.includes(r.name)&&reserveSlotAccepts(slotId,r))
    .sort((a,b)=>roundProj(b).expected-roundProj(a).expected)
    .slice(0,200);
   return tradePopupHtml(
-   `TRADE INTO ${group} · ${opts.length} OPTIONS`,
-   'Empty reserve slot',
+   `TRADE INTO ${label} - ${opts.length} OPTIONS`,
+   `Empty ${slotId} reserve slot`,
    opts,
-   r=>`applyEmptyReserveTrade('${window.jsq(group)}','${window.jsq(r.name)}')`
+   r=>`applyEmptyReserveTrade('${window.jsq(slotId)}','${window.jsq(r.name)}')`
   );
  }
- if(App.teamActionMode==='reserveTrade'){
+ if(App.teamActionMode==="reserveTrade"){
   const p=getPlayer(App.selectedReserveTradeName);
   if(!p)return '<span style="opacity:.75">Tap a player for stats/trade. Press and hold to drag/swap.</span>';
-  const posLabel=(playerTradePositions(p).join('/')||p.pos||'RESERVE');
+  const posLabel=(playerTradePositions(p).join("/")||p.pos||"RESERVE");
   const opts=App.players.filter(r=>!App.myTeam.includes(r.name)&&tradeEligibleForPlayer(r,p)).sort((a,b)=>roundProj(b).expected-roundProj(a).expected).slice(0,200);
-  return tradePopupHtml(`TRADE OUT ${posLabel} · ${opts.length} OPTIONS`,p.name,opts,r=>`applyReserveTrade('${window.jsq(p.name)}','${window.jsq(r.name)}')`);
+  return tradePopupHtml(`TRADE OUT ${posLabel} - ${opts.length} OPTIONS`,p.name,opts,r=>`applyReserveTrade('${window.jsq(p.name)}','${window.jsq(r.name)}')`);
  }
- if(App.teamActionMode==='trade'){
+ if(App.teamActionMode==="trade"){
   const slot=slotById[App.selectedTeamSlot],p=getPlayer(App.lineup?.[App.selectedTeamSlot]);
   if(!slot||!p)return '<span style="opacity:.75">Tap a player for stats/trade. Press and hold to drag/swap.</span>';
   const opts=App.players.filter(r=>!App.myTeam.includes(r.name)&&eligible(r,slot)).sort((a,b)=>roundProj(b).expected-roundProj(a).expected);
-  return tradePopupHtml(`TRADE OUT ${slot.short} · ${opts.length} OPTIONS`,p.name,opts,r=>`applyTeamTradeOut('${slot.id}','${window.jsq(r.name)}')`);
+  return tradePopupHtml(`TRADE OUT ${slot.short} - ${opts.length} OPTIONS`,p.name,opts,r=>`applyTeamTradeOut('${slot.id}','${window.jsq(r.name)}')`);
  }
  if(App.selectedReserveTradeName){
   const p=getPlayer(App.selectedReserveTradeName);
@@ -3139,7 +3113,6 @@ function teamActionHtml(){
  if(slot&&p)return playerDetailHtml(p,`${slot.short} field player`,`teamActionTradeOut('${slot.id}')`);
  return '<span style="opacity:.75">Tap player for stats/trade. Press and hold and drag to swap/move.</span>';
 }
-
 
 function selectTeamSlot(slotId){App.selectedTeamSlot=slotId;App.selectedReserveTradeName='';App.teamActionMode='';renderTeam()}
 function selectReservePlayer(name){const p=getPlayer(name);if(!p)return;App.selectedTeamSlot='';App.selectedReserveTradeName=p.name;App.teamActionMode='';renderTeam()}
