@@ -1251,8 +1251,12 @@ function validateTeamlistCompleteness(players, fixturesJson, round, teamlists, t
     .filter(([team,count]) => count >= 8 && !loaded.has(team))
     .map(([team,count]) => ({team, count}))
     .sort((a,b) => a.team.localeCompare(b.team));
-  const ok = missingExpectedTeams.length === 0;
-  return {ok, expectedTeams:expected, loadedTeams:[...loaded].sort(), missingExpectedTeams, suspiciousMissingTeams};
+  const incompleteTeams = [...new Set([
+    ...missingExpectedTeams,
+    ...suspiciousMissingTeams.map(x => x.team)
+  ])].sort();
+  const ok = incompleteTeams.length === 0;
+  return {ok, expectedTeams:expected, loadedTeams:[...loaded].sort(), missingExpectedTeams, suspiciousMissingTeams, incompleteTeams};
 }
 
 function combineTruth(players, round, teamlists, injuries, suspensions, origin, existingStatus){
@@ -1426,7 +1430,7 @@ async function main(){
       warnings: [
         ...(round ? [] : ['Round could not be inferred. Set ACTIVE_ROUND in workflow or data/current_round.json.']),
         ...(teamlistsLoaded ? [] : ['No current team-list data was loaded. No player can be GREEN/NAMED from fallback data.']),
-        ...(teamlistCompleteness.missingExpectedTeams.length ? [`Incomplete current team-list truth. Missing expected clubs: ${teamlistCompleteness.missingExpectedTeams.join(', ')}`] : []),
+        ...(teamlistCompleteness.incompleteTeams.length ? [`Incomplete current team-list truth. Missing/suspicious clubs: ${teamlistCompleteness.incompleteTeams.join(', ')}`] : []),
         ...(players.length ? [] : ['players.json empty']),
         ...(weatherRoundMismatch ? [`Weather round ${weather?.round ?? 'unknown'} does not match active round ${round || 'unknown'}`] : [])
       ],
@@ -1460,13 +1464,14 @@ async function main(){
       'Injury windows use red through minimum weeks out, then yellow during the return-risk window until maximum weeks/round',
       'Injury pages are scoped to text near the player name; a broad casualty page mention cannot create a player injury/return status',
       'Current team-list NOT_NAMED beats injury return-risk yellow unless the injury window is still red/ruled out',
-      'A run with missing expected club team lists must fail before writing generated status truth'
+      'A run with missing expected club team lists must fail before writing generated status truth',
+      'A run with suspicious source_missing clusters by club must fail even when fixture team extraction is incomplete'
     ],
     players: playersOut
   };
 
-  if(teamlistCompleteness.missingExpectedTeams.length){
-    throw new Error(`Incomplete current team-list truth for round ${round}. Missing expected clubs: ${teamlistCompleteness.missingExpectedTeams.join(', ')}. Refusing to write status_truth because source_missing would hide real named/not-named states.`);
+  if(teamlistCompleteness.incompleteTeams.length){
+    throw new Error(`Incomplete current team-list truth for round ${round}. Missing/suspicious clubs: ${teamlistCompleteness.incompleteTeams.join(', ')}. Refusing to write status_truth because source_missing would hide real named/not-named states.`);
   }
   const prevPlayers = previousTruth?.players || {};
   const changes = changedStatus(prevPlayers, playersOut);
