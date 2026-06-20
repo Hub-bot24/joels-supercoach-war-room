@@ -1,16 +1,16 @@
 # SuperCoach War Room status changes — Round 16
 
-Detected: 2026-06-19T22:06:03.814Z
+Detected: 2026-06-20T01:35:58.014Z
 
-- **Ethan Strange** (CBR): NOT_NAMED → NAMED
-  - Named in team-list article final 17 (Zero Tackle, jersey 5).
-  - Source: Zero Tackle
-- **Kurt Capewell** (NZL): NOT_NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 23).
-  - Source: Zero Tackle
-- **Luke Metcalf** (NZL): NOT_NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 20).
-  - Source: Zero Tackle
-- **Murray Taulagi** (NQC): ORIGIN → NAMED
-  - Named in team-list article final 17 (Zero Tackle, jersey 4).
-  - Source: Zero Tackle
+- **Isaiya Katoa** (DOL): INJURED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 7).; injury note: Hamstring context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **John Fineanganofo** (DOL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle
+- **Kulikefu Finefeuiaki** (DOL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle
+- **Moses Suli** (STG): INJURED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 20).; injury note: Hamstring context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
