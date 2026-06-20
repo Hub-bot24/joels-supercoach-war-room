@@ -2494,6 +2494,34 @@ window.addEventListener('resize', ()=>requestAnimationFrame(scaleField));
 
 function wireTabs(){document.querySelectorAll('nav button[data-tab]').forEach(b=>b.onclick=()=>{
 document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active-tab'));App.active=b.dataset.tab;$(App.active).classList.add('active-tab');renderActive()})}
+function movePlayerCore(name, toSlot, type){
+ const p=getPlayer(name);
+ if(!p||!toSlot)return false;
+
+ if(!App.lineup)App.lineup={};
+ App.reserveOrder=App.reserveOrder||{};
+
+ for(const k of Object.keys(App.lineup||{})){
+  if(App.lineup[k]===p.name)delete App.lineup[k];
+ }
+
+ for(const k in App.reserveOrder){
+  if(App.reserveOrder[k]===p.name)delete App.reserveOrder[k];
+ }
+
+ if(type==="field"){
+  App.lineup[toSlot]=p.name;
+ }
+
+ if(type==="reserve"){
+  setReserveSlot(toSlot,p.name);
+ }
+
+ saveLocal();
+ renderTeam();
+
+ return true;
+}
 function validateLineup(){if(!App.lineup)App.lineup={};const seen=new Set();for(const [id,name] of Object.entries(App.lineup)){const slot=slotById[id],p=name?getPlayer(name):null;if(!slot||!name||!p||!App.myTeam.includes(name)||!eligible(p,slot)||seen.has(name))delete App.lineup[id];else seen.add(name)}}
 function ensureLineup(){if(!App.lineup)App.lineup={};validateLineup();const used=usedOnField();for(const id of Object.keys(App.lineup)){if(!slotById[id]||!App.myTeam.includes(App.lineup[id]))delete App.lineup[id]}
  const candidates=[...App.myTeam].filter(n=>!used.has(n)).sort((a,b)=>proj(getPlayer(b)).expected-proj(getPlayer(a)).expected);
@@ -2768,8 +2796,17 @@ function reserveTargetCount(group){
 const RESERVE_SLOT_IDS=['HOK','FRF1','FRF2','2RF1','2RF2','2RF3','HFB','5/8','CTW1','CTW2','CTW3','FLB'];
 
 function reserveSlotBase(id){
- if(id==='5/8')return '5/8';
- return String(id||'').replace(/[0-9]/g,'');
+ const key=String(id||'').trim().toUpperCase();
+ const fixed={
+  HOK:'HOK',
+  FRF1:'FRF',FRF2:'FRF',
+  '2RF1':'2RF','2RF2':'2RF','2RF3':'2RF',
+  HFB:'HFB',
+  '5/8':'5/8',
+  CTW1:'CTW',CTW2:'CTW',CTW3:'CTW',
+  FLB:'FLB'
+ };
+ return fixed[key]||key.replace(/\d+$/,'');
 }
 
 function reserveSlotLabel(id){
@@ -2777,7 +2814,33 @@ function reserveSlotLabel(id){
 }
 
 function reserveSlotAccepts(id,p){
- return !!p&&positions(p).includes(reserveSlotBase(id));
+ const base=reserveSlotBase(id);
+ return !!p&&positions(p).includes(base);
+}
+
+function setReserveSlot(slotId,name){
+ App.reserveOrder=App.reserveOrder||{};
+ if(slotId&&!RESERVE_SLOT_IDS.includes(slotId))return App.reserveOrder;
+
+ if(name){
+  const p=getPlayer(name);
+  if(!p)return App.reserveOrder;
+  name=p.name;
+  for(const k in App.reserveOrder){
+   if(App.reserveOrder[k]===name)delete App.reserveOrder[k];
+  }
+ }
+
+ if(slotId&&!name){
+  delete App.reserveOrder[slotId];
+  return App.reserveOrder;
+ }
+
+ if(slotId&&name){
+  App.reserveOrder[slotId]=name;
+ }
+
+ return App.reserveOrder;
 }
 
 function reserveSlotForPlayerName(name){
@@ -2826,7 +2889,7 @@ function teamRenderState(){
    .find(p=>!usedReserve.has(p.name)&&reserveSlotAccepts(slotId,p));
 
   if(next){
-   App.reserveOrder[slotId]=next.name;
+   setReserveSlot(slotId,next.name);
    usedReserve.add(next.name);
   }
  });
@@ -2993,11 +3056,11 @@ function emptyFormationReserveCard(slotId,idx=0){
   <div class="wr-reserve-logo">+</div>
   <div class="formation-reserve-main">
    <div class="formation-reserve-name">Empty</div>
-   <div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(label)}</b>  tap Trade</div>
+   <div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(label)}</b>  tap Move / Trade</div>
   </div>
   <div class="formation-reserve-score">--</div>
   <span class="status-dot"></span>
-  <div class="formation-reserve-actions"><button class="formation-reserve-trade" type="button" onclick="event.stopPropagation();emptyReserveTrade('${window.jsq(slotId)}')">Trade</button></div>
+  <div class="formation-reserve-actions"><button class="formation-reserve-trade" type="button" onclick="event.stopPropagation();emptyReserveTrade('${window.jsq(slotId)}')">Move / Trade</button></div>
  </div>`;
 }
 
@@ -3021,7 +3084,7 @@ function applyEmptyReserveTrade(slotId,name){
   return toast("Reserves are already full");
  }
  App.myTeam.push(p.name);
- App.reserveOrder[slotId]=p.name;
+ setReserveSlot(slotId,p.name);
  App.emptyReserveSlot="";
  App.emptyReserveGroup="";
  App.teamActionMode="";
@@ -3030,6 +3093,35 @@ function applyEmptyReserveTrade(slotId,name){
  renderTeam();
  toast(`${p.name} added to ${slotId}`);
 }
+
+function moveEmptyReserveTeamPlayer(slotId,name){
+ const p=getPlayer(name);
+ if(!RESERVE_SLOT_IDS.includes(slotId)||!p||!App.myTeam.includes(p.name)||!reserveSlotAccepts(slotId,p)){
+  return toast("Invalid reserve move");
+ }
+ App.reserveOrder=App.reserveOrder||{};
+ if(App.reserveOrder[slotId]){
+  return toast(`${slotId} is already full`);
+ }
+
+ for(const k of Object.keys(App.lineup||{})){
+  if(App.lineup[k]===p.name)delete App.lineup[k];
+ }
+
+ for(const k in App.reserveOrder){
+  if(App.reserveOrder[k]===p.name)delete App.reserveOrder[k];
+ }
+
+ setReserveSlot(slotId,p.name);
+ App.emptyReserveSlot="";
+ App.emptyReserveGroup="";
+ App.teamActionMode="";
+ validateLineup();
+ saveLocal();
+ renderTeam();
+ toast(`${p.name} moved to ${slotId}`);
+}
+
 
 function formationReservesHtml(state){
  const rows=state.reserveRows||RESERVE_SLOT_IDS.map((slotId,idx)=>({slotId,idx:idx+1,name:"",player:null}));
@@ -3081,16 +3173,24 @@ function teamActionHtml(){
  if(App.teamActionMode==="emptyReserveTrade"){
   const slotId=App.emptyReserveSlot||"";
   const label=reserveSlotLabel(slotId);
-  const opts=App.players
+  const currentOpts=App.myTeam
+   .map(n=>getPlayer(n))
+   .filter(Boolean)
+   .filter(p=>reserveSlotAccepts(slotId,p))
+   .sort((a,b)=>roundProj(b).expected-roundProj(a).expected)
+   .slice(0,120);
+  const tradeOpts=App.players
    .filter(r=>!App.myTeam.includes(r.name)&&reserveSlotAccepts(slotId,r))
    .sort((a,b)=>roundProj(b).expected-roundProj(a).expected)
    .slice(0,200);
-  return tradePopupHtml(
-   `TRADE INTO ${label} - ${opts.length} OPTIONS`,
-   `Empty ${slotId} reserve slot`,
-   opts,
-   r=>`applyEmptyReserveTrade('${window.jsq(slotId)}','${window.jsq(r.name)}')`
-  );
+  const button=(p,fn)=>`<button type="button" onclick="${fn}" style="width:100%;display:grid;grid-template-columns:1fr auto;gap:8px;text-align:left;margin:6px 0"><span><b>${esc(p.name)}</b><br><span class="small">${esc(p.team||"")} · ${esc((positions(p)||[]).join("/")||p.pos||"")}</span></span><b>${roundProj(p).expected}</b></button>`;
+  const moveButtons=currentOpts.length
+   ? `<div class="result"><b>Move current team player (${currentOpts.length})</b><p class="small">Moves a valid player already in your squad into this empty ${esc(label)} reserve slot.</p>${currentOpts.map(p=>button(p,`moveEmptyReserveTeamPlayer('${window.jsq(slotId)}','${window.jsq(p.name)}')`)).join("")}</div>`
+   : `<div class="result"><b>Move current team player (0)</b><p class="small">No current squad player is eligible for this empty ${esc(label)} reserve slot.</p></div>`;
+  const tradeButtons=tradeOpts.length
+   ? `<div class="result"><b>Trade in new player (${tradeOpts.length})</b>${tradeOpts.map(p=>button(p,`applyEmptyReserveTrade('${window.jsq(slotId)}','${window.jsq(p.name)}')`)).join("")}</div>`
+   : `<div class="result"><b>Trade in new player (0)</b><p class="small">No outside player is eligible for this empty ${esc(label)} reserve slot.</p></div>`;
+  return `<div style="position:fixed;right:18px;bottom:18px;z-index:9999;width:min(760px,calc(100vw - 28px));max-height:min(720px,82vh);overflow:auto;background:#071222;border:1px solid #58a6ff;border-radius:18px;padding:14px;box-shadow:0 24px 80px rgba(0,0,0,.72)"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;position:sticky;top:-14px;background:#071222;padding:4px 0 10px"><div><div style="font-size:12px;color:#bfd0e8;font-weight:800">EMPTY ${esc(label)} SLOT</div><div style="font-size:18px;font-weight:950">Move / Trade into ${esc(slotId)}</div></div><button type="button" onclick="cancelTeamAction()" style="padding:7px 10px;border-radius:10px">Close</button></div>${moveButtons}${tradeButtons}</div>`;
  }
  if(App.teamActionMode==="reserveTrade"){
   const p=getPlayer(App.selectedReserveTradeName);
@@ -3152,7 +3252,7 @@ function applyReserveTrade(oldName,newName){
  }
  App.myTeam=App.myTeam.map(n=>n===oldP.name?newP.name:n);
  App.reserveOrder=App.reserveOrder||{};
- App.reserveOrder[slotId]=newP.name;
+ setReserveSlot(slotId,newP.name);
  for(const k of Object.keys(App.lineup||{})){
   if(App.lineup[k]===oldP.name)App.lineup[k]=newP.name;
  }
@@ -3186,7 +3286,7 @@ function commitDragToReserveCard(d,targetSlotId){
   if(!fromSlot)return false;
   if(targetPlayer&&!eligible(targetPlayer,fromSlot)){toast(`${targetPlayer.name} cannot play ${fromSlot.short}`);return false}
   if(targetPlayer)App.lineup[d.slotId]=targetPlayer.name;else delete App.lineup[d.slotId];
-  App.reserveOrder[targetSlotId]=movingPlayer.name;
+  setReserveSlot(targetSlotId,movingPlayer.name);
   saveLocal();renderTeam();toast(`${movingPlayer.name} moved to ${targetSlotId}`);return true;
  }
 
@@ -3195,8 +3295,8 @@ function commitDragToReserveCard(d,targetSlotId){
   if(!sourceSlotId)return false;
   if(sourceSlotId===targetSlotId)return true;
   if(targetPlayer&&!reserveSlotAccepts(sourceSlotId,targetPlayer)){toast(`${targetPlayer.name} cannot play ${reserveSlotLabel(sourceSlotId)}`);return false}
-  App.reserveOrder[targetSlotId]=movingPlayer.name;
-  if(targetPlayer)App.reserveOrder[sourceSlotId]=targetPlayer.name;else delete App.reserveOrder[sourceSlotId];
+  setReserveSlot(targetSlotId,movingPlayer.name);
+  if(targetPlayer)setReserveSlot(sourceSlotId,targetPlayer.name);else setReserveSlot(sourceSlotId,null);
   saveLocal();renderTeam();toast(`${movingPlayer.name} moved to ${targetSlotId}`);return true;
  }
 
