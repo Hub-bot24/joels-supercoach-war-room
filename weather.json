@@ -1,35 +1,8 @@
 {
-  "updated": "2026-06-20T16:25:03.069296+00:00",
+  "updated": "2026-06-20T18:18:19.389901+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
-    {
-      "round": 16,
-      "match": "Titans v Panthers",
-      "homeTeam": "GLD",
-      "awayTeam": "PEN",
-      "venue": "Cbus Super Stadium",
-      "kickoffLocal": "2026-06-20T17:30:00",
-      "city": "Gold Coast",
-      "lat": -28.0678,
-      "lon": 153.3789,
-      "timezone": "Australia/Brisbane",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-06-20T17:00:00",
-        "to": "2026-06-20T19:20:00",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "label": "Unknown",
-        "score": 0,
-        "reasons": [
-          "No hourly forecast available"
-        ],
-        "captainImpact": "Unknown weather risk."
-      }
-    },
     {
       "round": 16,
       "match": "Bulldogs v Sea Eagles",
