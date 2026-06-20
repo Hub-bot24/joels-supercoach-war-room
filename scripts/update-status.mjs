@@ -59,7 +59,7 @@ const COLOUR = {
 const TEAM_ALIASES = {
   BRISBANE: ['BRI','BRO','BRONCOS','BRISBANE','BRISBANE BRONCOS'],
   CANBERRA: ['CBR','RAIDERS','CANBERRA RAIDERS'],
-  CANTERBURY: ['CBY','BUL','BULLDOGS','CANTERBURY','CANTERBURY-BANKSTOWN'],
+  CANTERBURY: ['CAN','CBY','BUL','BULLDOGS','CANTERBURY','CANTERBURY-BANKSTOWN','CANTERBURY BANKSTOWN','CANTERBURY BANKSTOWN BULLDOGS'],
   CRONULLA: ['SHA','SHARKS','CRONULLA','CRONULLA-SUTHERLAND'],
   GOLDCOAST: ['GLD','TITANS','GOLD COAST','GOLD COAST TITANS'],
   MANLY: ['MAN','SEA EAGLES','MANLY','MANLY WARRINGAH'],
@@ -77,7 +77,7 @@ const TEAM_ALIASES = {
   WARRIORS: ['WAR','NZW','WARRIORS']
 };
 
-const TEAM_CANON = Object.entries(TEAM_ALIASES).flatMap(([canon, aliases]) => aliases.map(a => [normTeam(a), canon]));
+const TEAM_CANON = Object.entries(TEAM_ALIASES).flatMap(([canon, aliases]) => [[normTeam(canon), canon], ...aliases.map(a => [normTeam(a), canon])]);
 const TEAM_CANON_MAP = new Map(TEAM_CANON);
 
 function norm(s){
@@ -716,7 +716,12 @@ function stripHtml(html){ return String(html || '').replace(/<script[\s\S]*?<\/s
 function pageLooksLikeTeamList(url, text){
   const u = norm(url);
   const t = norm(text).slice(0, 30000);
-  return (u.includes('team list') || u.includes('team lists') || u.includes('team-lists') || u.includes('teamlists') || t.includes('team lists') || t.includes('team list')) && (u.includes('round') || t.includes('round'));
+  const teamListSignal =
+    u.includes('team list') || u.includes('team lists') || u.includes('team-lists') || u.includes('teamlists') ||
+    u.includes('final-teams') || u.includes('final teams') ||
+    t.includes('team lists') || t.includes('team list') ||
+    t.includes('team lists and selections') || t.includes('final teams') || t.includes('final team');
+  return teamListSignal && (u.includes('round') || t.includes('round'));
 }
 function pageLooksLikeCasualty(url, text){
   const u = norm(url), t = norm(text).slice(0, 30000);
@@ -747,10 +752,15 @@ async function discoverPages(urls, kind, activeRound=0){
       const links = extractLinks(html, url).filter(l => {
         if(kind === 'teamlist' && rejectTeamlistCandidateLink(l.href, l.label, activeRound)) return false;
         const all = norm(`${l.href} ${l.label}`);
-        if(kind === 'teamlist') return all.includes('team list') || all.includes('team lists') || all.includes('team-lists') || (all.includes('round') && all.includes('teams'));
+        if(kind === 'teamlist'){
+          const hasTeamListSignal = all.includes('team list') || all.includes('team lists') || all.includes('team-lists') || all.includes('teamlists') || all.includes('team lists and selections');
+          const hasFinalTeamSignal = all.includes('final teams') || all.includes('final team') || all.includes('final-teams');
+          const hasUpdatedTeamSignal = all.includes('updated team lists') || all.includes('updated-team-lists');
+          return hasTeamListSignal || hasFinalTeamSignal || hasUpdatedTeamSignal || (all.includes('round') && all.includes('teams'));
+        }
         if(kind === 'injury') return all.includes('casualty') || all.includes('injur');
         return false;
-      }).slice(0, 12);
+      }).slice(0, 40);
       for(const l of links){
         try{
           const pageHtml = await fetchText(l.href);
@@ -775,6 +785,7 @@ function teamlistSourcePriority(page){
   // Generic source order. No player names. Later/final club-team evidence must beat the Tuesday baseline.
   // IMPORTANT: priority must be URL/type driven. The original Tuesday NRL article can contain words
   // like "late mail" in its body/sidebar, but that must not promote it above updated/final pages.
+  if(url.includes('final-teams')) return 5;
   if(url.includes('updated-team-lists')) return 4;
   if(url.includes('late-mail')) return 3;
   if(url.includes('nrl-team-lists-round') || url.includes('round-') || url.includes('team-lists')) return 2;
@@ -785,6 +796,7 @@ function allowWholeArticleJerseyScan(page){
   // Avoid whole-page scans on the official Tuesday NRL article because it can preserve old named
   // players and mix in social/share/sidebar content. Use structured/team-block parsing there only.
   if(url.includes('nrl-team-lists-round')) return false;
+  if(url.includes('final-teams')) return true;
   if(url.includes('updated-team-lists')) return true;
   if(url.includes('late-mail')) return true;
   // Zero Tackle round team-list pages are more regular and are still needed as a broad source,
