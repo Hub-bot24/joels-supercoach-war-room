@@ -1249,14 +1249,73 @@ function expectedTeamsForRound(fixturesJson, round){
   }
   return [...out].filter(Boolean).sort();
 }
+function fixtureTeamsFromMatchRecord(f){
+  const out = new Set();
+  const directFields = [
+    f.homeTeam, f.awayTeam, f.home, f.away, f.homeName, f.awayName,
+    f.homeTeamName, f.awayTeamName, f.homeAbbr, f.awayAbbr,
+    f.teamA, f.teamB, f.team1, f.team2
+  ];
+  for(const v of directFields){
+    const canon = fixtureTeamCanonFromValue(v);
+    if(canon) out.add(canon);
+  }
+  const textFields = [f.match, f.game, f.title, f.name, f.description].filter(Boolean);
+  for(const text of textFields){
+    for(const canon of teamsFromFixtureText(text)) out.add(canon);
+  }
+  return [...out];
+}
+function allTeamsSeenInFixtures(fixturesJson){
+  const out = new Set();
+  for(const f of asArray(fixturesJson?.fixtures)){
+    for(const canon of fixtureTeamsFromMatchRecord(f)) out.add(canon);
+  }
+  const byes = fixturesJson?.byes || fixturesJson?.byeRounds || fixturesJson?.byeTeams || {};
+  for(const list of Object.values(byes || {})){
+    for(const item of asArray(list)){
+      const v = typeof item === 'string' ? item : (item?.team || item?.teamCode || item?.name || item?.club);
+      const canon = fixtureTeamCanonFromValue(v);
+      if(canon) out.add(canon);
+    }
+  }
+  return out;
+}
+function byeTeamsForRound(fixturesJson, round){
+  const out = new Set();
+  const byes = fixturesJson?.byes || fixturesJson?.byeRounds || fixturesJson?.byeTeams || {};
+  const raw = asArray(byes?.[String(round)] ?? byes?.[Number(round)] ?? []);
+  for(const item of raw){
+    const v = typeof item === 'string' ? item : (item?.team || item?.teamCode || item?.name || item?.club);
+    const canon = fixtureTeamCanonFromValue(v);
+    if(canon) out.add(canon);
+  }
+  return out;
+}
 function validateTeamlistCompleteness(players, fixturesJson, round, teamlists, teamsWithLoadedList){
   const loaded = new Set(asArray(teamsWithLoadedList).map(fixtureTeamCanonFromValue).filter(Boolean));
   const expected = expectedTeamsForRound(fixturesJson, round);
+  const expectedSet = new Set(expected);
+  const allFixtureTeams = allTeamsSeenInFixtures(fixturesJson);
+  const byeTeams = byeTeamsForRound(fixturesJson, round);
+  // Season-safe fallback: if the draw knows a club exists but it is not in the active-round fixture list,
+  // it is not required to have a current team list for this round. This prevents bye teams from failing
+  // the source_missing cluster guard while still failing clubs that are actually playing.
+  for(const team of allFixtureTeams){
+    if(!expectedSet.has(team)) byeTeams.add(team);
+  }
   const sourceMissingByTeam = {};
+  const byeSourceMissingByTeam = {};
+  const ignoredNonFixtureSourceMissingByTeam = {};
   for(const p of players || []){
     const team = fixtureTeamCanonFromValue(playerTeam(p));
     if(!team) continue;
-    if(!teamlists?.[p.name]) sourceMissingByTeam[team] = (sourceMissingByTeam[team] || 0) + 1;
+    const bye = byeTeams.has(team) || playerByeRounds(p).includes(Number(round));
+    if(!teamlists?.[p.name]){
+      if(bye) byeSourceMissingByTeam[team] = (byeSourceMissingByTeam[team] || 0) + 1;
+      else if(expectedSet.has(team)) sourceMissingByTeam[team] = (sourceMissingByTeam[team] || 0) + 1;
+      else ignoredNonFixtureSourceMissingByTeam[team] = (ignoredNonFixtureSourceMissingByTeam[team] || 0) + 1;
+    }
   }
   const missingExpectedTeams = expected.filter(t => !loaded.has(t));
   const suspiciousMissingTeams = Object.entries(sourceMissingByTeam)
@@ -1268,7 +1327,23 @@ function validateTeamlistCompleteness(players, fixturesJson, round, teamlists, t
     ...suspiciousMissingTeams.map(x => x.team)
   ])].sort();
   const ok = incompleteTeams.length === 0;
-  return {ok, expectedTeams:expected, loadedTeams:[...loaded].sort(), missingExpectedTeams, suspiciousMissingTeams, incompleteTeams};
+  const ignoredByeSourceMissingTeams = Object.entries(byeSourceMissingByTeam)
+    .map(([team,count]) => ({team, count}))
+    .sort((a,b) => a.team.localeCompare(b.team));
+  const ignoredNonFixtureSourceMissingTeams = Object.entries(ignoredNonFixtureSourceMissingByTeam)
+    .map(([team,count]) => ({team, count}))
+    .sort((a,b) => a.team.localeCompare(b.team));
+  return {
+    ok,
+    expectedTeams:expected,
+    loadedTeams:[...loaded].sort(),
+    byeTeams:[...byeTeams].sort(),
+    missingExpectedTeams,
+    suspiciousMissingTeams,
+    ignoredByeSourceMissingTeams,
+    ignoredNonFixtureSourceMissingTeams,
+    incompleteTeams
+  };
 }
 
 function combineTruth(players, round, teamlists, injuries, suspensions, origin, existingStatus){
@@ -1477,7 +1552,9 @@ async function main(){
       'Injury pages are scoped to text near the player name; a broad casualty page mention cannot create a player injury/return status',
       'Current team-list NOT_NAMED beats injury return-risk yellow unless the injury window is still red/ruled out',
       'A run with missing expected club team lists must fail before writing generated status truth',
-      'A run with suspicious source_missing clusters by club must fail even when fixture team extraction is incomplete'
+      'A run with suspicious source_missing clusters by club must fail even when fixture team extraction is incomplete',
+      'Bye-round clubs are excluded from source_missing cluster failure because no current team list is expected for a bye club',
+      'Source-missing cluster failure is limited to clubs playing in the active round fixture list; non-fixture clubs are recorded but do not fail the run'
     ],
     players: playersOut
   };
