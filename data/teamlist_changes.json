@@ -1,162 +1,5 @@
 [
   {
-    "player": "Selwyn Cobbo",
-    "team": "DOL",
-    "from": "NAMED",
-    "to": "NOT_NAMED",
-    "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
-    "detectedAt": "2026-06-18T02:47:19.463Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      }
-    ],
-    "round": 16
-  },
-  {
-    "player": "Setu Tu",
-    "team": "STG",
-    "from": "NAMED",
-    "to": "NOT_NAMED",
-    "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
-    "detectedAt": "2026-06-18T02:47:19.463Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      }
-    ],
-    "round": 16
-  },
-  {
-    "player": "Shawn Blore",
-    "team": "MEL",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
-    "detectedAt": "2026-06-18T02:47:19.463Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      }
-    ],
-    "round": 16
-  },
-  {
-    "player": "Simi Sasagi",
-    "team": "CBR",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "Shoulder",
-    "detectedAt": "2026-06-18T02:47:19.463Z",
-    "sources": [
-      {
-        "type": "status",
-        "name": "Existing player_status.json updater",
-        "url": "player_status.json",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      }
-    ],
-    "round": 16
-  },
-  {
-    "player": "Simione Laiafi",
-    "team": "MAN",
-    "from": "NAMED",
-    "to": "NOT_NAMED",
-    "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
-    "detectedAt": "2026-06-18T02:47:19.463Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-18T02:47:19.463Z"
-      }
-    ],
-    "round": 16
-  },
-  {
     "player": "Sione Fainu",
     "team": "WST",
     "from": "NAMED",
@@ -12833,6 +12676,197 @@
         "name": "Zero Tackle",
         "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
         "updatedAt": "2026-06-20T01:35:58.014Z"
+      }
+    ],
+    "round": 16
+  },
+  {
+    "player": "Greg Marzhew",
+    "team": "NEW",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 20).",
+    "detectedAt": "2026-06-20T06:03:43.851Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-vs-broncos-10396426-234700",
+        "updatedAt": "2026-06-20T06:03:43.851Z",
+        "priority": 4,
+        "order": 7
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+        "updatedAt": "2026-06-20T06:03:43.851Z",
+        "priority": 2,
+        "order": 10
+      }
+    ],
+    "round": 16
+  },
+  {
+    "player": "Kalani Going",
+    "team": "PEN",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+    "detectedAt": "2026-06-20T06:03:43.851Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-titans-panthers-10396440-235030",
+        "updatedAt": "2026-06-20T06:03:43.851Z",
+        "priority": 4,
+        "order": 9
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+        "updatedAt": "2026-06-20T06:03:43.851Z",
+        "priority": 2,
+        "order": 10
+      }
+    ],
+    "round": 16
+  },
+  {
+    "player": "Lachlan Ilias",
+    "team": "GLD",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+    "detectedAt": "2026-06-20T06:03:43.851Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-titans-panthers-10396440-235030",
+        "updatedAt": "2026-06-20T06:03:43.851Z",
+        "priority": 4,
+        "order": 9
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+        "updatedAt": "2026-06-20T06:03:43.851Z",
+        "priority": 2,
+        "order": 10
+      }
+    ],
+    "round": 16
+  },
+  {
+    "player": "Latu Fainu",
+    "team": "WST",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+    "detectedAt": "2026-06-20T06:03:43.851Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+        "updatedAt": "2026-06-20T06:03:43.851Z",
+        "priority": 4,
+        "order": 5
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+        "updatedAt": "2026-06-20T06:03:43.851Z",
+        "priority": 2,
+        "order": 10
+      }
+    ],
+    "round": 16
+  },
+  {
+    "player": "Moses Suli",
+    "team": "STG",
+    "from": "EXPECTED",
+    "to": "INJURED",
+    "reason": "Hamstring context found near player on injury/casualty source page (Zero Tackle).",
+    "detectedAt": "2026-06-20T06:03:43.851Z",
+    "sources": [
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
+        "updatedAt": "2026-06-20T06:03:43.851Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
+        "updatedAt": "2026-06-20T06:03:43.851Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
+        "updatedAt": "2026-06-20T06:03:43.851Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
+        "updatedAt": "2026-06-20T06:03:43.851Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
+        "updatedAt": "2026-06-20T06:03:43.851Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
+        "updatedAt": "2026-06-20T06:03:43.851Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
+        "updatedAt": "2026-06-20T06:03:43.851Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
+        "updatedAt": "2026-06-20T06:03:43.851Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
+        "updatedAt": "2026-06-20T06:03:43.851Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
+        "updatedAt": "2026-06-20T06:03:43.851Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
+        "updatedAt": "2026-06-20T06:03:43.851Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
+        "updatedAt": "2026-06-20T06:03:43.851Z"
       }
     ],
     "round": 16
