@@ -3591,6 +3591,24 @@ function enhancedStatusFromTruth(p,round=App.round){
     return null;
   }
   let key=truthKeyFromRecord(rec);
+
+  const missingTruthText = `${rec?.selectionStatus||''} ${rec?.displayStatus||''} ${rec?.status||''} ${rec?.reason||''} ${truthSourceText(rec)||''}`.toLowerCase();
+  const isMissingTeamListTruth = key==='notnamed' && (
+    missingTruthText.includes('source missing') ||
+    missingTruthText.includes('not confirmed') ||
+    missingTruthText.includes('no current club team-list truth')
+  );
+
+  if(isMissingTeamListTruth){
+    return {
+      key:'expected',
+      available:true,
+      label:'EXPECTED',
+      reason:richStatusReasonFromTruth(rec,round)||'Current club team-list truth missing; treated as expected, not confirmed NOT NAMED.',
+      source:'data/status_truth.json',
+      truth:rec
+    };
+  }
   if(key==='injured'){
     if(phase==='yellow')key='expected';
     if(phase==='red')key='injured';
