@@ -2778,9 +2778,90 @@ function windSummary(match){const hours=weatherHours(match);const winds=hours.ma
 function weatherIconFromMatch(match){const hours=weatherHours(match);const risk=String(match?.weatherRisk?.label||'').toLowerCase();const rain=Math.max(0,...hours.map(h=>safeNum(h.precipitation||h.precipitation_mm)));const rainProb=Math.max(0,...hours.map(h=>safeNum(h.precipitation_probability)));const wind=Math.max(0,...hours.map(h=>safeNum(h.wind_speed_10m)),...hours.map(h=>safeNum(h.wind_gusts_10m)));const temps=hours.map(h=>safeNum(h.temperature_2m)).filter(n=>Number.isFinite(n));const temp=temps.length?temps.reduce((s,n)=>s+n,0)/temps.length:0;if(risk.includes('high')||rain>=4||rainProb>=80||wind>=45)return '⛈️';if(rainProb<25)return temp&&temp<16?'☁️':'🌤️';if(rain>=2||rainProb>=45)return '🌧️';if(temp>=28)return '☀️';if(temp&&temp<16)return '☁️';return '🌤️'}
 function weatherRiskBadge(match){const key=String(match?.weatherRisk?.label||'Unknown').toLowerCase();if(key.includes('high'))return 'Weather risk';if(key.includes('medium'))return 'Caution';if(key.includes('low'))return 'No concern';return 'Weather unavailable'}
 function weatherLine(player){const match=getPlayerNextWeather(player);if(!match)return '';if(match.weatherStatus!=='updated')return 'Kickoff weather: Weather unavailable';const temp=tempSummary(match),rain=rainSummary(match),wind=windSummary(match);if(!temp||!wind)return 'Kickoff weather: Weather unavailable';return `Kickoff weather: <span style="font-size:1.3em;line-height:0;vertical-align:-0.08em">${weatherIconFromMatch(match)}</span> ${[temp,rain,wind,weatherRiskBadge(match)].filter(Boolean).join(' · ')}`}
+
+/* =========================================================
+   V40: War Room Projection Engine v2
+   System logic only. No player-specific fixes or overrides.
+   Produces expected/floor/ceiling/confidence/risk/reasons/components.
+   ========================================================= */
+function wrClamp(n,min,max){n=Number(n);if(!Number.isFinite(n))n=0;return Math.max(min,Math.min(max,n))}
+function wrRound(n){return Math.max(0,Math.round(Number.isFinite(Number(n))?Number(n):0))}
+function wrNum(v){const n=Number(v);return Number.isFinite(n)?n:0}
+function wrText(v){return String(v==null?'':v)}
+function wrPosList(p){try{return typeof positions==='function'?positions(p):wrText(p?.pos).split(/[\/|, ]+/).filter(Boolean)}catch{return wrText(p?.pos).split(/[\/|, ]+/).filter(Boolean)}}
+function wrPrimaryPos(p){const ps=wrPosList(p).map(x=>String(x).toUpperCase());return ps.includes('HOK')?'HOK':ps.includes('FRF')?'FRF':ps.includes('2RF')?'2RF':ps.includes('HFB')?'HFB':ps.includes('5/8')?'5/8':ps.includes('FLB')?'FLB':ps.includes('CTW')?'CTW':(ps[0]||'UNK')}
+function wrTruth(p){try{return typeof truthRecordAnyRound==='function'?truthRecordAnyRound(p):null}catch{return null}}
+function wrStatus(p){try{return typeof availabilityStatus==='function'?availabilityStatus(p):{available:true,key:'ok',reason:'No status data'}}catch{return {available:true,key:'ok',reason:'No status data'}}}
+function wrGoalKicker(p){return Boolean(App.goalKickers?.players?.[p?.name]||App.goalKickers?.[p?.name])}
+function wrJersey(rec,p){return wrNum(rec?.jersey||p?.jersey||p?.shirtNo||p?.number)}
+function wrBaseProjection(p,reasons,components){
+  const seeds=[];
+  const avg=wrNum(p.avg||p.average), last3=wrNum(p.last3Avg||p.last3||p.l3), last5=wrNum(p.last5Avg||p.last5||p.l5), listed=wrNum(p.proj||p.projected||p.expected), priceSeed=p.price?Math.round(wrNum(p.price)/9000):0;
+  if(avg>0)seeds.push(['Season avg',avg,.40]);
+  if(last3>0)seeds.push(['Last 3 form',last3,.32]);
+  if(last5>0)seeds.push(['Last 5 form',last5,.20]);
+  if(listed>0)seeds.push(['Existing projection seed',listed,.08]);
+  if(!seeds.length&&priceSeed>0)seeds.push(['Price-derived seed',priceSeed,1]);
+  const w=seeds.reduce((s,x)=>s+x[2],0)||1;
+  const base=seeds.reduce((s,x)=>s+x[1]*x[2],0)/w||0;
+  components.push({name:'base',value:Math.round(base),detail:seeds.map(x=>`${x[0]} ${Math.round(x[1])}`).join(' | ')||'No base data'});
+  if(last3&&avg){const delta=last3-avg;if(delta>=8)reasons.push('Recent form is above season base');else if(delta<=-8)reasons.push('Recent form is below season base');else reasons.push('Recent form is close to season base')}
+  else if(avg)reasons.push('Projection anchored to season average');
+  else if(priceSeed)reasons.push('Projection uses price-derived fallback because scoring history is thin');
+  return base;
+}
+function wrMinutesEstimate(p,rec,pos,reasons,components){
+  const supplied=wrNum(p.expectedMinutes||p.minutes||p.avgMinutes||p.minuteAvg||p.mins), jersey=wrJersey(rec,p);let est=supplied;
+  if(!est){
+    if(jersey>=1&&jersey<=13){est=pos==='FRF'?52:pos==='HOK'?64:pos==='2RF'?72:80;reasons.push('Named starter role supports minutes')}
+    else if(jersey>=14&&jersey<=17){est=pos==='FRF'?36:pos==='HOK'?38:pos==='2RF'?42:28;reasons.push('Bench role caps minutes upside')}
+    else if(jersey>=18){est=18;reasons.push('Extended squad role carries selection risk')}
+  }else reasons.push(`Minutes input ${Math.round(est)} used`);
+  const baseline=pos==='FRF'?50:pos==='HOK'?64:pos==='2RF'?70:80;
+  const rate=pos==='FRF'?.45:pos==='HOK'?.35:pos==='2RF'?.32:(pos==='HFB'||pos==='5/8')?.20:.18;
+  const adj=est?wrClamp((est-baseline)*rate,-16,12):0;
+  components.push({name:'minutes',value:Math.round(adj),detail:est?`${Math.round(est)} min estimate vs ${baseline} baseline`:'No minutes estimate'});
+  return {est,adj};
+}
+function wrRoleAdjustment(p,rec,pos,reasons,components){
+  const jersey=wrJersey(rec,p);let adj=0,detail='No jersey role found';
+  if(jersey>=1&&jersey<=13){adj+=pos==='FRF'?2:4;detail=`Starting jersey ${jersey}`}
+  else if(jersey>=14&&jersey<=17){adj-=pos==='HOK'?8:pos==='FRF'?7:6;detail=`Bench jersey ${jersey}`}
+  else if(jersey>=18){adj-=18;detail=`Extended squad jersey ${jersey}`}
+  components.push({name:'role',value:Math.round(adj),detail});return adj;
+}
+function wrWeatherAdjustment(p,pos,reasons,components){
+  let adj=0,detail='No kickoff weather adjustment';
+  try{if(typeof getPlayerNextWeather==='function'){const match=getPlayerNextWeather(p);if(match&&match.weatherStatus==='updated'){const hours=typeof weatherHours==='function'?weatherHours(match):[];const rainProb=Math.max(0,...hours.map(h=>wrNum(h.precipitation_probability))),rain=Math.max(0,...hours.map(h=>wrNum(h.precipitation||h.precipitation_mm))),wind=Math.max(0,...hours.map(h=>wrNum(h.wind_speed_10m)),...hours.map(h=>wrNum(h.wind_gusts_10m)));if(rainProb>=70||rain>=3||wind>=40){adj=(pos==='FRF'||pos==='2RF'||pos==='HOK')?1:-5;detail=`High weather risk: rain ${Math.round(rainProb)}%, wind/gust ${Math.round(wind)}km/h`;reasons.push('Weather risk affects attacking upside')}else if(rainProb>=45||rain>=1.5||wind>=30){adj=(pos==='FRF'||pos==='2RF'||pos==='HOK')?0:-2;detail=`Medium weather risk: rain ${Math.round(rainProb)}%, wind/gust ${Math.round(wind)}km/h`;reasons.push('Weather creates mild scoring caution')}else{detail='Weather check has no downgrade';reasons.push('No weather downgrade')}}}}catch{}
+  components.push({name:'weather',value:Math.round(adj),detail});return adj;
+}
+function wrGoalAdjustment(p,reasons,components){const adj=wrGoalKicker(p)?3:0;components.push({name:'goal-kicking',value:adj,detail:adj?'Goal-kicker boost':'No goal-kicking boost'});if(adj)reasons.push('Goal kicking adds scoring floor');return adj}
+function wrVolatility(pos,expected,rec){let v=pos==='CTW'?.42:pos==='FLB'?.38:(pos==='HFB'||pos==='5/8')?.34:(pos==='FRF'?.28:.30);const jersey=wrJersey(rec,{});if(jersey>=14&&jersey<=17)v+=.08;if(jersey>=18)v+=.18;if(expected<35)v+=.10;return wrClamp(v,.22,.70)}
+function wrProjectionRisk(p,rec,status,components,reasons){const jersey=wrJersey(rec,p);let factor=1,risk='Low',confidencePenalty=0;const key=String(status?.key||'').toLowerCase(),sel=String(rec?.selectionStatus||rec?.displayStatus||'').toLowerCase();if(jersey>=18||sel.includes('extended')){factor=.38;risk='High';confidencePenalty=30;reasons.push('Extended squad only: projection discounted until promoted')}else if(key==='risk'||sel.includes('expected')){factor=.78;risk='Medium';confidencePenalty=18;reasons.push('Expected/risk status discounts projection')}components.push({name:'selection-risk',value:Math.round((factor-1)*100),detail:`${risk} risk factor ${Math.round(factor*100)}%`});return {factor,risk,confidencePenalty}}
+function wrConfidence(p,rec,minutes,status,riskPenalty){let c=55;if(wrNum(p.avg||p.average)>0)c+=12;if(wrNum(p.last3Avg||p.last5Avg)>0)c+=10;if(minutes.est)c+=10;const jersey=wrJersey(rec,p);if(jersey>=1&&jersey<=17)c+=15;else if(jersey>=18)c-=15;if(rec?.sources?.length)c+=8;if(status?.available===false)c=95;c-=riskPenalty||0;return wrClamp(Math.round(c),15,98)}
+function wrConfidenceLabel(score){return score>=78?'High':score>=55?'Medium':'Low'}
+function wrProjectionReasons(reasons){return [...new Set(reasons.filter(Boolean))].slice(0,6)}
+window.calculateLevel3Projection=function calculateLevel3Projection(p,ctx={}){
+  if(!p)return {floor:0,expected:0,ceiling:0,raw:0,goal:'No data',confidence:'Low',risk:'High',reasons:['No player data'],components:[],version:'projection-v2'};
+  const reasons=[],components=[],rec=wrTruth(p)||{},status=wrStatus(p),pos=wrPrimaryPos(p);
+  const base=wrBaseProjection(p,reasons,components),minutes=wrMinutesEstimate(p,rec,pos,reasons,components);
+  let total=base+minutes.adj+wrRoleAdjustment(p,rec,pos,reasons,components)+wrGoalAdjustment(p,reasons,components)+wrWeatherAdjustment(p,pos,reasons,components);
+  const riskAdj=wrProjectionRisk(p,rec,status,components,reasons);total*=riskAdj.factor;
+  const expected=wrRound(total),vol=wrVolatility(pos,expected,rec);let floor=wrRound(expected*(1-vol)),ceiling=wrRound(expected*(1+vol));
+  if(wrJersey(rec,p)>=18){floor=0;ceiling=wrRound(Math.max(ceiling,base*.95))}
+  if(status?.available===false){floor=0;ceiling=0}
+  const confScore=wrConfidence(p,rec,minutes,status,riskAdj.confidencePenalty);
+  return {floor,expected,ceiling,raw:wrRound(base),goal:wrGoalKicker(p)?'Goal kicker boost':'No GK boost',confidence:wrConfidenceLabel(confScore),confidenceScore:confScore,risk:riskAdj.risk,reasons:wrProjectionReasons(reasons),components,version:'projection-v2'};
+};
 function projectionCacheKey(p){if(!p||!p.name)return '';const values=[p.name,App.round,safeNum(p.avg||p.average||0),safeNum(p.last3Avg||0),safeNum(p.last5Avg||0),safeNum(p.proj||p.projected||p.expected||0),safeNum(p.expectedMinutes||p.minutes||0),String(p.injuryStatus||p.status||'').trim().toUpperCase(),safeNum(p.playProbability==null?100:p.playProbability),JSON.stringify(p.bye||p.byes||[])];const gk=App.goalKickers?.players?.[p.name]||App.goalKickers?.[p.name];values.push(Boolean(gk));return values.join('|')}
 function proj(p){if(!p)return {floor:0,expected:0,ceiling:0,raw:0,goal:'No data'};const cacheKey=projectionCacheKey(p);if(cacheKey&&App.projectionCache.has(cacheKey))return App.projectionCache.get(cacheKey);let out=null;if(typeof window.calculateLevel3Projection==='function'){try{out=window.calculateLevel3Projection(p,{round:App.round,opponent:p.opponent||p.opp||p.vs,isFuture:true});if(!out||typeof out.expected!=='number'||typeof out.floor!=='number'||typeof out.ceiling!=='number'){throw new Error('Invalid engine projection result')}}catch(err){console.warn('Level 3 projection engine failed, falling back to inline projection',err);out=null}}if(!out){let base=safeNum(p.proj||p.avg||p.average||0);if(!base&&p.price)base=Math.round(p.price/9000);const recent=safeNum(p.last3Avg||p.last5Avg||0);if(recent)base=Math.round(base*.75+recent*.25);let goal='No GK boost';const gk=App.goalKickers?.players?.[p.name]||App.goalKickers?.[p.name];if(gk){base+=3;goal='Goal kicker boost'}let role=safeNum(p.expectedMinutes||p.minutes||0);if(role&&role<45)base-=8;out={floor:Math.max(0,Math.round(base*.68)),expected:Math.max(0,Math.round(base)),ceiling:Math.max(0,Math.round(base*1.45)),raw:Math.round(base),goal}}if(cacheKey)App.projectionCache.set(cacheKey,out);return out}
-function roundProj(p){const pr=proj(p),st=availabilityStatus(p);if(!st.available)return {...pr,expected:0,floor:0,ceiling:0};if(st.key==='risk')return {...pr,expected:Math.round(pr.expected*.72),floor:Math.round(pr.floor*.55),ceiling:Math.round(pr.ceiling*.9)};return pr}
+function roundProj(p){
+ const pr=proj(p),st=availabilityStatus(p);
+ if(!st.available)return {...pr,expected:0,floor:0,ceiling:0,reasons:[...(pr.reasons||[]),st.reason||'Unavailable']};
+ if(pr&&pr.version==='projection-v2')return pr;
+ if(st.key==='risk')return {...pr,expected:Math.round(pr.expected*.72),floor:Math.round(pr.floor*.55),ceiling:Math.round(pr.ceiling*.9)};
+ return pr;
+}
 function usedOnField(){const used=new Set();for(const slot of SLOT_DEFS){const name=App.lineup?.[slot.id];if(name&&App.myTeam.includes(name)&&getPlayer(name))used.add(name)}return used}
 function reserves(){const used=usedOnField();return App.myTeam.map(getPlayer).filter(p=>p&&!used.has(p.name))}
 function reserveTargetCount(group){
@@ -3896,6 +3977,36 @@ document.addEventListener('click', function(e){
   }
 }, true);
 
+/* =========================================================
+   V40: Projection v2 UI detail overrides
+   ========================================================= */
+function projectionReasonHtml(pr){return pr?.reasons?.length?`<div class="small">Why: ${pr.reasons.map(esc).join(' | ')}</div>`:''}
+function projectionRiskPill(pr){return `<span class="pill ${pr.risk==='High'?'bad':pr.risk==='Medium'?'warn':'good'}">${esc(pr.confidence||'Medium')} confidence | ${esc(pr.risk||'Medium')} risk</span>`}
+function renderLevel3(){
+  const rows=App.players.slice().sort((a,b)=>roundProj(b).expected-roundProj(a).expected).slice(0,220);
+  $('level3').innerHTML=`<div class="panel"><h2>Level 3</h2><p class="small">Projection v2 uses form, role, minutes, status truth, weather and selection risk. Same engine feeds My Team, Explorer and Trade Lab.</p><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Risk</th><th>Status</th><th>Why</th></tr></thead><tbody>${rows.map(p=>{const pr=roundProj(p);return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b>${esc(p.name)}</b></span></td><td>${esc(p.pos||'')}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${projectionRiskPill(pr)}</td><td>${statusPill(p)}</td><td class="small">${(pr.reasons||[]).slice(0,3).map(esc).join(' | ')}</td></tr>`}).join('')}</tbody></table></div></div>`;
+}
+function updateExplorer(){
+  const input=$('explorerInput');
+  const q=norm(input?.value||'');
+  const box=$('explorerResults');
+  if(!box)return;
+  const filter=App.explorerFilter||'all';
+  let res=App.players.filter(p=>{
+    const st=availabilityStatus(p), rec=typeof truthRecordAnyRound==='function'?(truthRecordAnyRound(p)||{}):{}, badge=statusBadgeForPlayer(p);
+    const cat=typeof explorerStatusCategory==='function'?explorerStatusCategory(p):(badge.category||'other');
+    if(filter!=='all'&&cat!==filter)return false;
+    if(!q)return filter!=='all';
+    const hay=norm([p.name,p.pos,p.team,badge.text,badge.label,badge.colourName,badge.reason,st?.label,st?.reason,rec.displayStatus,rec.reason,rec.selectionStatus,rec.originStatus].filter(Boolean).join(' '));
+    return hay.includes(q);
+  });
+  res=res.sort((a,b)=>roundProj(b).expected-roundProj(a).expected).slice(0,120);
+  if(!q&&filter==='all'){
+    box.innerHTML='<p class="small">Search a player, team, position, or use a simple status filter above.</p>';
+    return;
+  }
+  box.innerHTML=res.map(p=>{const pr=roundProj(p),raw=proj(p),weather=weatherLine(p),detail=typeof statusDetailHtml==='function'?statusDetailHtml(p):'';return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b>${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(p.pos||'')} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling} ${projectionRiskPill(pr)}<br>${projectionReasonHtml(pr)}${weather?`<span class="small">${weather}</span><br>`:''}${detail?detail+'<br>':''}<span class="small">If available: ${raw.expected} | ${esc(raw.goal||'')}</span></div>`}).join('')||'<p class="small">No matches.</p>';
+}
 </script>
 </body>
 </html>
