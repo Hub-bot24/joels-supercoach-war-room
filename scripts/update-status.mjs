@@ -1250,10 +1250,10 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
       if(oldStatus === STATUS.NOT_NAMED){
         rec = makeStatus(STATUS.NOT_NAMED, 'No current club team-list truth. Previous/source reference suggests not named.', [sourceObj('previous_week','Reference layer','player_status.json')], {selectionStatus:'previous_reference'});
       } else {
-        // STRICT COLOUR RULE: missing/uncertain current team-list truth is NOT yellow.
-        // Yellow is reserved for real extended squad (18-25) or injury return-risk windows only.
-        // If we cannot confirm the current club list, show a grey data-unknown/not-confirmed state.
-        rec = makeStatus(STATUS.NOT_NAMED, 'No current club team-list truth. Source missing/uncertain; not confirmed named.', [sourceObj('source_missing','Current club team-list not confirmed','data/status_truth.json')], {selectionStatus:'source_missing', dataUnknown:true});
+        // Missing/uncertain current team-list truth is not confirmed NOT_NAMED.
+        // Treat it as EXPECTED/unknown so source gaps do not create false grey status.
+        // Verified current team-list omissions still remain NOT_NAMED elsewhere.
+        rec = makeStatus(STATUS.EXPECTED, 'No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.', [sourceObj('source_missing','Current club team-list not confirmed','data/status_truth.json')], {selectionStatus:'source_missing', dataUnknown:true});
       }
     }
     playersOut[p.name] = {
@@ -1385,7 +1385,7 @@ async function main(){
       'Team-list status is decided by source priority first, then latest source order; older 1-17 evidence must not beat newer extended/not-named evidence',
       'Suspension windows behave like injury windows in Bye Planner: pink only for suspended rounds, then clear',
       'Origin/representative-duty context can explain NOT_NAMED, but cannot make a player GREEN/NAMED by itself',
-      'Yellow/EXPECTED is allowed only for real extended squad, confirmed return-risk windows, or explicit test/monitor status; missing team-list data must be grey/source_missing, not yellow',
+      'Yellow/EXPECTED is allowed for real extended squad, confirmed return-risk windows, explicit test/monitor status, or missing/unconfirmed current team-list truth; verified current team-list omissions remain NOT_NAMED',
       'Injury windows use red through minimum weeks out, then yellow during the return-risk window until maximum weeks/round',
       'Injury pages are scoped to text near the player name; a broad casualty page mention cannot create a player injury/return status',
       'Current team-list NOT_NAMED beats injury return-risk yellow unless the injury window is still red/ruled out'
