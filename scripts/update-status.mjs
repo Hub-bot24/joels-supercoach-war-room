@@ -64,16 +64,16 @@ const TEAM_ALIASES = {
   GOLDCOAST: ['GLD','TITANS','GOLD COAST','GOLD COAST TITANS'],
   MANLY: ['MAN','SEA EAGLES','MANLY','MANLY WARRINGAH'],
   MELBOURNE: ['MEL','STORM','MELBOURNE STORM'],
-  NEWCASTLE: ['NEW','KNIGHTS','NEWCASTLE KNIGHTS'],
+  NEWCASTLE: ['NEW','NEWC','NCL','KNIGHTS','NEWCASTLE','NEWCASTLE KNIGHTS'],
   NZWARRIORS: ['NZL','NZ','NZW','WAR','WARRIORS','NEW ZEALAND WARRIORS','NZ WARRIORS'],
   NORTHQLD: ['NQL','NQC','COW','COWBOYS','NORTH QUEENSLAND'],
   PARRAMATTA: ['PAR','EELS','PARRAMATTA EELS'],
   PENRITH: ['PEN','PANTHERS','PENRITH PANTHERS'],
   SOUTHS: ['STH','SOU','RABBITOHS','SOUTH SYDNEY','SOUTHS'],
-  STGEORGE: ['SGI','DRAGONS','ST GEORGE','ST GEORGE ILLAWARRA'],
+  STGEORGE: ['STG','SGI','SGD','STI','DRAGONS','ST GEORGE','ST GEORGE ILLAWARRA','ST GEORGE ILLAWARRA DRAGONS'],
   ROOSTERS: ['SYD','SYDNEY','ROOSTERS','SYDNEY ROOSTERS'],
   DOLPHINS: ['DOL','DOLPHINS'],
-  TIGERS: ['WST','Wests','TIGERS','WESTS TIGERS'],
+  TIGERS: ['WST','WTI','WES','WESTS','Wests','TIGERS','WESTS TIGERS'],
   WARRIORS: ['WAR','NZW','WARRIORS']
 };
 
@@ -1187,6 +1187,74 @@ function fromFetchedOriginContext(players, pages){
   return {players:out, count};
 }
 
+function fixtureTeamCanonFromValue(value){
+  const canon = canonicalTeam(value);
+  if(!canon) return '';
+  // Normalise the duplicate Warriors alias to the player/team canonical used elsewhere.
+  if(canon === 'WARRIORS') return 'NZWARRIORS';
+  return canon;
+}
+function teamsFromFixtureText(text){
+  const found = new Set();
+  const raw = String(text || '');
+  const parts = raw.split(/\b(?:v|vs|versus|at|@)\b|[-–—]/i).map(x => x.trim()).filter(Boolean);
+  for(const part of parts){
+    const canon = fixtureTeamCanonFromValue(part);
+    if(canon) found.add(canon);
+  }
+  // Fallback: scan all aliases in free text when no clean separator exists.
+  if(!found.size){
+    const hay = norm(raw);
+    for(const [canon, aliases] of Object.entries(TEAM_ALIASES)){
+      for(const alias of aliases){
+        const a = norm(alias);
+        if(a && new RegExp(`(?:^| )${a.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}(?: |$)`, 'i').test(hay)){
+          found.add(canon === 'WARRIORS' ? 'NZWARRIORS' : canon);
+          break;
+        }
+      }
+    }
+  }
+  return [...found];
+}
+function expectedTeamsForRound(fixturesJson, round){
+  const out = new Set();
+  const fixtures = asArray(fixturesJson?.fixtures).filter(f => Number(f.round) === Number(round));
+  for(const f of fixtures){
+    const directFields = [
+      f.homeTeam, f.awayTeam, f.home, f.away, f.homeName, f.awayName,
+      f.homeTeamName, f.awayTeamName, f.homeAbbr, f.awayAbbr,
+      f.teamA, f.teamB, f.team1, f.team2
+    ];
+    for(const v of directFields){
+      const canon = fixtureTeamCanonFromValue(v);
+      if(canon) out.add(canon);
+    }
+    const textFields = [f.match, f.game, f.title, f.name, f.description].filter(Boolean);
+    for(const text of textFields){
+      for(const canon of teamsFromFixtureText(text)) out.add(canon);
+    }
+  }
+  return [...out].filter(Boolean).sort();
+}
+function validateTeamlistCompleteness(players, fixturesJson, round, teamlists, teamsWithLoadedList){
+  const loaded = new Set(asArray(teamsWithLoadedList).map(fixtureTeamCanonFromValue).filter(Boolean));
+  const expected = expectedTeamsForRound(fixturesJson, round);
+  const sourceMissingByTeam = {};
+  for(const p of players || []){
+    const team = fixtureTeamCanonFromValue(playerTeam(p));
+    if(!team) continue;
+    if(!teamlists?.[p.name]) sourceMissingByTeam[team] = (sourceMissingByTeam[team] || 0) + 1;
+  }
+  const missingExpectedTeams = expected.filter(t => !loaded.has(t));
+  const suspiciousMissingTeams = Object.entries(sourceMissingByTeam)
+    .filter(([team,count]) => count >= 8 && !loaded.has(team))
+    .map(([team,count]) => ({team, count}))
+    .sort((a,b) => a.team.localeCompare(b.team));
+  const ok = missingExpectedTeams.length === 0;
+  return {ok, expectedTeams:expected, loadedTeams:[...loaded].sort(), missingExpectedTeams, suspiciousMissingTeams};
+}
+
 function combineTruth(players, round, teamlists, injuries, suspensions, origin, existingStatus){
   const playersOut = {};
   const teamsWithLoadedList = new Set(Object.values(teamlists).map(r => r.teamCanonical).filter(Boolean));
@@ -1338,6 +1406,7 @@ async function main(){
   Object.assign(origin, fetchedOriginContext.players);
 
   const {playersOut, teamlistsLoaded, teamsWithLoadedList} = combineTruth(players, round, teamlists, injuries, suspensions, origin, oldPlayerStatus);
+  const teamlistCompleteness = validateTeamlistCompleteness(players, fixturesJson, round, teamlists, teamsWithLoadedList);
   const summary = summarise(playersOut);
   const weather = await weatherContract(round);
   if(Number(weather?.round) !== Number(round)) throw new Error("Weather round mismatch after resolution");
@@ -1357,6 +1426,7 @@ async function main(){
       warnings: [
         ...(round ? [] : ['Round could not be inferred. Set ACTIVE_ROUND in workflow or data/current_round.json.']),
         ...(teamlistsLoaded ? [] : ['No current team-list data was loaded. No player can be GREEN/NAMED from fallback data.']),
+        ...(teamlistCompleteness.missingExpectedTeams.length ? [`Incomplete current team-list truth. Missing expected clubs: ${teamlistCompleteness.missingExpectedTeams.join(', ')}`] : []),
         ...(players.length ? [] : ['players.json empty']),
         ...(weatherRoundMismatch ? [`Weather round ${weather?.round ?? 'unknown'} does not match active round ${round || 'unknown'}`] : [])
       ],
@@ -1370,6 +1440,7 @@ async function main(){
       fetchedTeamStats,
       fetchedInjuryStats,
       fetchedOriginContextStats: {count:fetchedOriginContext.count},
+      teamlistCompleteness,
     },
     rules: [
       'No hardcoded player fixes',
@@ -1388,11 +1459,15 @@ async function main(){
       'Yellow/EXPECTED is allowed for real extended squad, confirmed return-risk windows, explicit test/monitor status, or missing/unconfirmed current team-list truth; verified current team-list omissions remain NOT_NAMED',
       'Injury windows use red through minimum weeks out, then yellow during the return-risk window until maximum weeks/round',
       'Injury pages are scoped to text near the player name; a broad casualty page mention cannot create a player injury/return status',
-      'Current team-list NOT_NAMED beats injury return-risk yellow unless the injury window is still red/ruled out'
+      'Current team-list NOT_NAMED beats injury return-risk yellow unless the injury window is still red/ruled out',
+      'A run with missing expected club team lists must fail before writing generated status truth'
     ],
     players: playersOut
   };
 
+  if(teamlistCompleteness.missingExpectedTeams.length){
+    throw new Error(`Incomplete current team-list truth for round ${round}. Missing expected clubs: ${teamlistCompleteness.missingExpectedTeams.join(', ')}. Refusing to write status_truth because source_missing would hide real named/not-named states.`);
+  }
   const prevPlayers = previousTruth?.players || {};
   const changes = changedStatus(prevPlayers, playersOut);
   const existingChanges = await readJson('data/teamlist_changes.json', []);
