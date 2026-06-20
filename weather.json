@@ -1,29 +1,8 @@
 {
-  "updated": "2026-06-20T14:19:29.997318+00:00",
+  "updated": "2026-06-20T16:25:03.069296+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
-    {
-      "round": 16,
-      "match": "Tigers v Dolphins",
-      "homeTeam": "WST",
-      "awayTeam": "DOL",
-      "venue": "Campbelltown Stadium",
-      "kickoffLocal": "2026-06-20T15:00:00",
-      "city": "Sydney",
-      "lat": -34.0537,
-      "lon": 150.8334,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "missing_venue",
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "score": 0,
-        "label": "Unknown",
-        "reasons": [
-          "Venue missing from venues.json"
-        ]
-      }
-    },
     {
       "round": 16,
       "match": "Titans v Panthers",
