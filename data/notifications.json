@@ -1,194 +1,1153 @@
 {
-  "updated": "2026-06-20T06:03:43.851Z",
+  "updated": "2026-06-20T09:43:01.773Z",
   "round": 16,
   "newChanges": [
     {
-      "player": "Greg Marzhew",
-      "team": "NEW",
-      "from": "NAMED",
-      "to": "EXPECTED",
-      "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 20).",
-      "detectedAt": "2026-06-20T06:03:43.851Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-vs-broncos-10396426-234700",
-          "updatedAt": "2026-06-20T06:03:43.851Z",
-          "priority": 4,
-          "order": 7
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
-          "updatedAt": "2026-06-20T06:03:43.851Z",
-          "priority": 2,
-          "order": 10
-        }
-      ],
-      "round": 16
-    },
-    {
-      "player": "Kalani Going",
-      "team": "PEN",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
-      "detectedAt": "2026-06-20T06:03:43.851Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-titans-panthers-10396440-235030",
-          "updatedAt": "2026-06-20T06:03:43.851Z",
-          "priority": 4,
-          "order": 9
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
-          "updatedAt": "2026-06-20T06:03:43.851Z",
-          "priority": 2,
-          "order": 10
-        }
-      ],
-      "round": 16
-    },
-    {
-      "player": "Lachlan Ilias",
-      "team": "GLD",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
-      "detectedAt": "2026-06-20T06:03:43.851Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-titans-panthers-10396440-235030",
-          "updatedAt": "2026-06-20T06:03:43.851Z",
-          "priority": 4,
-          "order": 9
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
-          "updatedAt": "2026-06-20T06:03:43.851Z",
-          "priority": 2,
-          "order": 10
-        }
-      ],
-      "round": 16
-    },
-    {
-      "player": "Latu Fainu",
+      "player": "Adam Doueihi",
       "team": "WST",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
-      "detectedAt": "2026-06-20T06:03:43.851Z",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "Shoulder",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
       "sources": [
         {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
-          "updatedAt": "2026-06-20T06:03:43.851Z",
-          "priority": 4,
-          "order": 5
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
         },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
-          "updatedAt": "2026-06-20T06:03:43.851Z",
-          "priority": 2,
-          "order": 10
-        }
-      ],
-      "round": 16
-    },
-    {
-      "player": "Moses Suli",
-      "team": "STG",
-      "from": "EXPECTED",
-      "to": "INJURED",
-      "reason": "Hamstring context found near player on injury/casualty source page (Zero Tackle).",
-      "detectedAt": "2026-06-20T06:03:43.851Z",
-      "sources": [
         {
           "type": "injury",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
-          "updatedAt": "2026-06-20T06:03:43.851Z"
+          "updatedAt": "2026-06-20T09:43:01.773Z"
         },
         {
           "type": "injury",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
-          "updatedAt": "2026-06-20T06:03:43.851Z"
+          "updatedAt": "2026-06-20T09:43:01.773Z"
         },
         {
           "type": "injury",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
-          "updatedAt": "2026-06-20T06:03:43.851Z"
+          "updatedAt": "2026-06-20T09:43:01.773Z"
         },
         {
           "type": "injury",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
-          "updatedAt": "2026-06-20T06:03:43.851Z"
+          "updatedAt": "2026-06-20T09:43:01.773Z"
         },
         {
           "type": "injury",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
-          "updatedAt": "2026-06-20T06:03:43.851Z"
+          "updatedAt": "2026-06-20T09:43:01.773Z"
         },
         {
           "type": "injury",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
-          "updatedAt": "2026-06-20T06:03:43.851Z"
+          "updatedAt": "2026-06-20T09:43:01.773Z"
         },
         {
           "type": "injury",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
-          "updatedAt": "2026-06-20T06:03:43.851Z"
+          "updatedAt": "2026-06-20T09:43:01.773Z"
         },
         {
           "type": "injury",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
-          "updatedAt": "2026-06-20T06:03:43.851Z"
+          "updatedAt": "2026-06-20T09:43:01.773Z"
         },
         {
           "type": "injury",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
-          "updatedAt": "2026-06-20T06:03:43.851Z"
+          "updatedAt": "2026-06-20T09:43:01.773Z"
         },
         {
           "type": "injury",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
-          "updatedAt": "2026-06-20T06:03:43.851Z"
+          "updatedAt": "2026-06-20T09:43:01.773Z"
         },
         {
           "type": "injury",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
-          "updatedAt": "2026-06-20T06:03:43.851Z"
+          "updatedAt": "2026-06-20T09:43:01.773Z"
         },
         {
           "type": "injury",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
-          "updatedAt": "2026-06-20T06:03:43.851Z"
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Alex Seyfarth",
+      "team": "WST",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Apisai Koroisau",
+      "team": "WST",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Blake Lawrie",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Blayke Brailey",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 8).; injury note: Arm",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-sharks-10396444-235064",
+          "updatedAt": "2026-06-20T09:43:01.773Z",
+          "priority": 4,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Bradman Best",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Calf",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Bunty Afoa",
+      "team": "WST",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Charlie Murray",
+      "team": "WST",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Christian Tuipulotu",
+      "team": "STG",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "Hamstring",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Cody Hopwood",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Damien Cook",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Dane Gagai",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Daniel Atkinson",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "David Fale",
+      "team": "STG",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "Hamstring",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Dominic Young",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Dylan Brown",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Dylan Egan",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Emre Guler",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Fletcher Hunt",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Fletcher Sharpe",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Fonua Pole",
+      "team": "WST",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Francis Manuleleua",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Greg Marzhew",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Hamish Stewart",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Harrison Graham",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Heamasi Makasini",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Heath Mason",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Hugo Hart",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-bulldogs-sea-eagles-10396441-235034",
+          "updatedAt": "2026-06-20T09:43:01.773Z",
+          "priority": 4,
+          "order": 5
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Jacob Liddle",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Jacob Saifiti",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Jahream Bula",
+      "team": "WST",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "James Schiller",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Jarome Luai",
+      "team": "WST",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Jed Reardon",
+      "team": "CAN",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-bulldogs-sea-eagles-10396441-235034",
+          "updatedAt": "2026-06-20T09:43:01.773Z",
+          "priority": 4,
+          "order": 5
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Jethro Rinakama",
+      "team": "CAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 6).",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-bulldogs-sea-eagles-10396441-235034",
+          "updatedAt": "2026-06-20T09:43:01.773Z",
+          "priority": 4,
+          "order": 5
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Jock Madden",
+      "team": "WST",
+      "from": "NAMED",
+      "to": "INJURED",
+      "reason": "Calf context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Josh Kerr",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Kyle Flanagan",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Loko Pasifiki Tonga",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Luciano Leilua",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Lyhkan King-Togia",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Mathew Feagai",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Matt Croker",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Mavrik Geyer",
+      "team": "WST",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Nicho Hynes",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 6).; injury note: Calf",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-sharks-10396444-235064",
+          "updatedAt": "2026-06-20T09:43:01.773Z",
+          "priority": 4,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Patrick Herbert",
+      "team": "WST",
+      "from": "NAMED",
+      "to": "INJURED",
+      "reason": "Calf context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Phoenix Crossland",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Preston Conn",
+      "team": "MEL",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-storm-vs-raiders-10396443-235058",
+          "updatedAt": "2026-06-20T09:43:01.773Z",
+          "priority": 4,
+          "order": 9
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Ryan Couchman",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Sam Stonestreet",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-sharks-10396444-235064",
+          "updatedAt": "2026-06-20T09:43:01.773Z",
+          "priority": 4,
+          "order": 4
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Sam Verrills",
+      "team": "GLD",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-titans-panthers-10396440-235030",
+          "updatedAt": "2026-06-20T09:43:01.773Z",
+          "priority": 4,
+          "order": 10
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Sandon Smith",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Calf",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Setu Tu",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Tyrell Sloan",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "No current club team-list truth. Source missing/uncertain; not confirmed named.",
+      "detectedAt": "2026-06-20T09:43:01.773Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-06-20T09:43:01.773Z"
         }
       ],
       "round": 16
