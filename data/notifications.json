@@ -1,37 +1,69 @@
 {
-  "updated": "2026-06-20T11:26:24.159Z",
+  "updated": "2026-06-20T12:25:47.870Z",
   "round": 16,
   "newChanges": [
     {
-      "player": "Alex Seyfarth",
-      "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "player": "Alekolasimi Jones",
+      "team": "CAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 3).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-bulldogs-sea-eagles-10396441-235034",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 5
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
     },
     {
-      "player": "Apisai Koroisau",
+      "player": "Alex Seyfarth",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 10).; injury note: Shoulder context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/wests-tigers-forward-chasing-early-return-after-mcl-injury-234912/",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/kai-pearce-paul-set-for-long-sideline-stint-after-injury-234803/",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
         }
       ],
       "round": 16
@@ -39,16 +71,26 @@
     {
       "player": "Asu Kepaoa",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -56,16 +98,59 @@
     {
       "player": "Blake Lawrie",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 16).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Bradman Best",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 4).; injury note: Calf",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
         }
       ],
       "round": 16
@@ -73,16 +158,26 @@
     {
       "player": "Brodie Jones",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -90,33 +185,26 @@
     {
       "player": "Bunty Afoa",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 11).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
-        }
-      ],
-      "round": 16
-    },
-    {
-      "player": "Charlie Murray",
-      "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
-      "sources": [
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -124,33 +212,26 @@
     {
       "player": "Clint Gutherson",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
-        }
-      ],
-      "round": 16
-    },
-    {
-      "player": "Cody Hopwood",
-      "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
-      "sources": [
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -158,16 +239,26 @@
     {
       "player": "Connor Votano",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -175,16 +266,26 @@
     {
       "player": "Cyrus Stanley-Traill",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -192,16 +293,26 @@
     {
       "player": "Damien Cook",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 8).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -209,16 +320,26 @@
     {
       "player": "Dane Gagai",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 3).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -226,16 +347,59 @@
     {
       "player": "Daniel Atkinson",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "David Fale",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).; injury/return note: Hamstring",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
         }
       ],
       "round": 16
@@ -243,16 +407,26 @@
     {
       "player": "Dominic Young",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 2).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -260,16 +434,26 @@
     {
       "player": "Dylan Brown",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 7).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -277,16 +461,26 @@
     {
       "player": "Dylan Egan",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 10).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -294,16 +488,26 @@
     {
       "player": "Dylan Lucas",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -311,33 +515,26 @@
     {
       "player": "Elijah Salesa-Leaumoana",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
-        }
-      ],
-      "round": 16
-    },
-    {
-      "player": "Emre Guler",
-      "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
-      "sources": [
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -345,16 +542,26 @@
     {
       "player": "Ethan Roberts",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -362,16 +569,26 @@
     {
       "player": "Faaletino Tavana",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -379,16 +596,26 @@
     {
       "player": "Fletcher Sharpe",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 2).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -396,16 +623,26 @@
     {
       "player": "Fonua Pole",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 10).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -413,16 +650,26 @@
     {
       "player": "Greg Marzhew",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -430,16 +677,26 @@
     {
       "player": "Hamish Stewart",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 11).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -447,16 +704,53 @@
     {
       "player": "Harrison Graham",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Heath Mason",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 16).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -464,16 +758,26 @@
     {
       "player": "Jack Bird",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -481,16 +785,26 @@
     {
       "player": "Jacob Halangahu",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -498,16 +812,26 @@
     {
       "player": "Jacob Liddle",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -515,16 +839,26 @@
     {
       "player": "Jacob Saifiti",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 8).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -532,16 +866,26 @@
     {
       "player": "Jahream Bula",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -549,16 +893,26 @@
     {
       "player": "Jared Haywood",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -566,16 +920,26 @@
     {
       "player": "Jarome Luai",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 6).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -583,16 +947,26 @@
     {
       "player": "Javon Andrews",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -600,16 +974,179 @@
     {
       "player": "Jeral Skelton",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Jock Madden",
+      "team": "WST",
+      "from": "INJURED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 7).; injury note: Calf context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#parramatta-eels",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#penrith-panthers",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#perth-bears",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#png-chiefs",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#south-sydney-rabbitohs",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#st-george-illawarra-dragons",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#sydney-roosters",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#wests-tigers",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
         }
       ],
       "round": 16
@@ -617,16 +1154,26 @@
     {
       "player": "Jordan Miller",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -634,16 +1181,26 @@
     {
       "player": "Joseph ONeill",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -651,16 +1208,26 @@
     {
       "player": "Josh Kerr",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 15).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -668,16 +1235,26 @@
     {
       "player": "Kalyn Ponga",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -685,16 +1262,61 @@
     {
       "player": "Kit Laulilii",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Kulikefu Finefeuiaki",
+      "team": "DOL",
+      "from": "NOT_NAMED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dolphins-vs-roosters-10396427-234728",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 6
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -702,16 +1324,26 @@
     {
       "player": "Kyle Flanagan",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 6).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -719,16 +1351,26 @@
     {
       "player": "Kyle McCarthy",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -736,16 +1378,26 @@
     {
       "player": "Lachlan Broederlow",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -753,16 +1405,26 @@
     {
       "player": "Lachlan Crouch",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -770,16 +1432,26 @@
     {
       "player": "Loko Pasifiki Tonga",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 7).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -787,16 +1459,26 @@
     {
       "player": "Luciano Leilua",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -804,16 +1486,26 @@
     {
       "player": "Luke Laulilii",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -821,16 +1513,26 @@
     {
       "player": "Mathew Feagai",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -838,16 +1540,26 @@
     {
       "player": "Matt Arthur",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -855,16 +1567,26 @@
     {
       "player": "Matt Croker",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 13).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -872,16 +1594,26 @@
     {
       "player": "Matthew Hunter",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -889,16 +1621,32 @@
     {
       "player": "Mavrik Geyer",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 16).; injury note: Quad context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/kai-pearce-paul-set-for-long-sideline-stint-after-injury-234803/",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
         }
       ],
       "round": 16
@@ -906,16 +1654,26 @@
     {
       "player": "Nathan Lawson",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -923,16 +1681,26 @@
     {
       "player": "Nick Tsougranis",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -940,16 +1708,179 @@
     {
       "player": "Pasami Saulo",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Patrick Herbert",
+      "team": "WST",
+      "from": "INJURED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 4).; injury note: Calf context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#parramatta-eels",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#penrith-panthers",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#perth-bears",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#png-chiefs",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#south-sydney-rabbitohs",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#st-george-illawarra-dragons",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#sydney-roosters",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#wests-tigers",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
         }
       ],
       "round": 16
@@ -957,16 +1888,26 @@
     {
       "player": "Peter Hola",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -974,16 +1915,43 @@
     {
       "player": "Phoenix Crossland",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 9).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
+        }
+      ],
+      "round": 16
+    },
+    {
+      "player": "Reece Robson",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "INJURED",
+      "reason": "Pec context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
+      "sources": [
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/benji-confirms-adam-doueihi-injury-return-schedule-234994/",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
         }
       ],
       "round": 16
@@ -991,16 +1959,26 @@
     {
       "player": "Ryan Couchman",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 12).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -1008,16 +1986,26 @@
     {
       "player": "Setu Tu",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -1025,16 +2013,38 @@
     {
       "player": "Sione Fainu",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 12).; injury note: Shoulder context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/wests-tigers-forward-chasing-early-return-after-mcl-injury-234912/",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/kai-pearce-paul-set-for-long-sideline-stint-after-injury-234803/",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
         }
       ],
       "round": 16
@@ -1042,16 +2052,26 @@
     {
       "player": "Solomone Saukuru",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -1059,16 +2079,26 @@
     {
       "player": "Starford To'a",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -1076,16 +2106,26 @@
     {
       "player": "Sunia Turuva",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 2).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -1093,16 +2133,26 @@
     {
       "player": "Terrell May",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 8).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -1110,16 +2160,26 @@
     {
       "player": "Thomas Cant",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 12).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -1127,16 +2187,26 @@
     {
       "player": "Toby Couchman",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 9).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -1144,16 +2214,32 @@
     {
       "player": "Tony Sukkar",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 11).; injury note: Quad context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/kai-pearce-paul-set-for-long-sideline-stint-after-injury-234803/",
+          "updatedAt": "2026-06-20T12:25:47.870Z"
         }
       ],
       "round": 16
@@ -1161,16 +2247,26 @@
     {
       "player": "Trey Mooney",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 10).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -1178,16 +2274,26 @@
     {
       "player": "Tristan Hope",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -1195,16 +2301,26 @@
     {
       "player": "Tyson Frizell",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 15).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -1212,16 +2328,26 @@
     {
       "player": "Valentine Holmes",
       "team": "STG",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article final 17 (Zero Tackle, jersey 2).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -1229,16 +2355,26 @@
     {
       "player": "Wil Sullivan",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
@@ -1246,16 +2382,26 @@
     {
       "player": "Will Craig",
       "team": "WST",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-wests-tigers-dolphins-10396439-235022",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
         }
       ],
       "round": 16
@@ -1263,16 +2409,26 @@
     {
       "player": "Wilson DeCourcey",
       "team": "NEW",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-20T11:26:24.159Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-20T12:25:47.870Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-20T11:26:24.159Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-16-team-lists-2026-234863",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 2,
+          "order": 13
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-dragons-10396438-234998",
+          "updatedAt": "2026-06-20T12:25:47.870Z",
+          "priority": 4,
+          "order": 14
         }
       ],
       "round": 16
