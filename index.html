@@ -4007,6 +4007,92 @@ function updateExplorer(){
   }
   box.innerHTML=res.map(p=>{const pr=roundProj(p),raw=proj(p),weather=weatherLine(p),detail=typeof statusDetailHtml==='function'?statusDetailHtml(p):'';return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b>${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(p.pos||'')} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling} ${projectionRiskPill(pr)}<br>${projectionReasonHtml(pr)}${weather?`<span class="small">${weather}</span><br>`:''}${detail?detail+'<br>':''}<span class="small">If available: ${raw.expected} | ${esc(raw.goal||'')}</span></div>`}).join('')||'<p class="small">No matches.</p>';
 }
+/* =========================================================
+   V41: Final Status Arbitration Guard
+   System logic only. No player-specific fixes or overrides.
+   Prevents GREEN/unavailable contradictions and fixes zero-projection risk text.
+   ========================================================= */
+const wrOriginalAvailabilityStatusV41 = availabilityStatus;
+const wrOriginalRoundProjV41 = roundProj;
+const wrOriginalProjectionRiskPillV41 = projectionRiskPill;
+
+function wrV41Text(v){return String(v==null?'':v)}
+function wrV41Num(v){const n=Number(v);return Number.isFinite(n)?n:0}
+function wrV41Key(v){return wrV41Text(v).toLowerCase().replace(/[\s-]+/g,'_')}
+function wrV41Truth(p){try{return typeof truthRecordAnyRound==='function'?(truthRecordAnyRound(p)||{}):{}}catch{return {}}}
+function wrV41StatusRec(p){try{return typeof statusFor==='function'?(statusFor(p)||{}):{}}catch{return {}}}
+function wrV41OverrideRec(p){try{return typeof overrideFor==='function'?(overrideFor(p)||{}):{}}catch{return {}}}
+function wrV41Jersey(rec,p){return wrV41Num(rec?.jersey||rec?.shirtNo||rec?.number||p?.jersey||p?.shirtNo||p?.number)}
+function wrV41InjuryText(rec){try{return typeof truthInjuryText==='function'?(truthInjuryText(rec)||''):''}catch{return ''}}
+function wrV41ReturnRound(text){
+  text=wrV41Text(text);
+  const m=text.match(/return\s*:?\s*(?:round\s*)?r?\s*(\d+)/i)||text.match(/back\s*(?:around|in)?\s*r?\s*(\d+)/i);
+  return m?Number(m[1]):null;
+}
+function wrV41RedThroughRound(text){
+  text=wrV41Text(text);
+  const m=text.match(/red\s+through\s+r?\s*(\d+)/i)||text.match(/out\s+through\s+r?\s*(\d+)/i);
+  return m?Number(m[1]):null;
+}
+function wrV41HardUnavailableForRound(p,round,base){
+  const rec=wrV41Truth(p), ss=wrV41StatusRec(p), ov=wrV41OverrideRec(p);
+  const text=[base?.reason,rec?.reason,rec?.displayStatus,rec?.selectionStatus,rec?.injuryStatus,rec?.injury,rec?.status,wrV41InjuryText(rec),ss?.reason,ss?.status,ov?.reason,ov?.status].filter(Boolean).join(' | ');
+  const lower=text.toLowerCase();
+  const minRounds=[rec?.returnWindowMinRound,ss?.returnWindowMinRound,ov?.returnWindowMinRound,wrV41ReturnRound(text)].map(Number).filter(Number.isFinite);
+  const redThrough=wrV41RedThroughRound(text);
+  const selected=Number(round||App.round||0);
+  if(redThrough!=null&&selected<=redThrough)return {kind:'injured',reason:text||`Unavailable through R${redThrough}`};
+  if(minRounds.some(r=>selected<r)&&(lower.includes('injur')||lower.includes('calf')||lower.includes('hamstring')||lower.includes('knee')||lower.includes('shoulder')||lower.includes('return')||lower.includes('red through'))){
+    const r=Math.min(...minRounds.filter(r=>selected<r));
+    return {kind:'injured',reason:text||`Expected return R${r}`};
+  }
+  if(lower.includes('suspended'))return {kind:'suspended',reason:text||'Suspended'};
+  return null;
+}
+function wrV41ArbitrateStatus(p,round,base){
+  if(!p||!base)return base;
+  const rec=wrV41Truth(p);
+  const jersey=wrV41Jersey(rec,p);
+  const hard=wrV41HardUnavailableForRound(p,round,base);
+  if(hard){
+    if(hard.kind==='suspended')return {...base,key:'suspended',available:false,label:'Suspended',reason:hard.reason||base.reason||'Suspended'};
+    return {...base,key:'injured',available:false,label:'Injured',reason:hard.reason||base.reason||'Injured/unavailable for selected round'};
+  }
+  const key=wrV41Key(base.key);
+  if((key==='good'||key==='named'||base.available===true)&&jersey>=18&&jersey<=19){
+    return {...base,key:'risk',available:true,label:'Emergency',reason:`Emergency jersey ${jersey}; not a confirmed playable 17`};
+  }
+  if((key==='good'||key==='named'||base.available===true)&&jersey>=20){
+    return {...base,key:'notnamed',available:false,label:'Not named',reason:`Extended squad jersey ${jersey}; projection held at 0 unless promoted`};
+  }
+  return base;
+}
+availabilityStatus = function availabilityStatusV41(p,round=App.round){
+  const base=wrOriginalAvailabilityStatusV41(p,round);
+  return wrV41ArbitrateStatus(p,round,base);
+};
+
+roundProj = function roundProjV41(p){
+  const pr=wrOriginalRoundProjV41(p);
+  const st=availabilityStatus(p);
+  if(!st?.available){
+    const key=wrV41Key(st.key||st.label);
+    let risk='Unavailable', confidence='No projection';
+    if(key.includes('bye'))risk='Bye';
+    else if(key.includes('suspended'))risk='Suspended';
+    else if(key.includes('injur'))risk='Injured';
+    else if(key.includes('not'))risk='Not named';
+    return {...pr,expected:0,floor:0,ceiling:0,risk,confidence,projectionUnavailable:true,reasons:[...(pr?.reasons||[]),st.reason||st.label||'Unavailable']};
+  }
+  return pr;
+};
+
+projectionRiskPill = function projectionRiskPillV41(pr){
+  if(pr?.projectionUnavailable||String(pr?.confidence||'').toLowerCase()==='no projection'){
+    return `<span class="pill bad">${esc(pr.confidence||'No projection')} | ${esc(pr.risk||'Unavailable')}</span>`;
+  }
+  return wrOriginalProjectionRiskPillV41(pr);
+};
 </script>
 </body>
 </html>
