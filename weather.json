@@ -1,56 +1,8 @@
 {
-  "updated": "2026-06-21T15:59:26.583823+00:00",
+  "updated": "2026-06-21T17:48:08.870573+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
-    {
-      "round": 16,
-      "match": "Warriors v Cowboys",
-      "homeTeam": "NZL",
-      "awayTeam": "NQC",
-      "venue": "One NZ Stadium",
-      "kickoffLocal": "2026-06-21T16:00:00",
-      "city": "Christchurch",
-      "lat": -43.533,
-      "lon": 172.6203,
-      "timezone": "Pacific/Auckland",
-      "weatherStatus": "missing_venue",
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "score": 0,
-        "label": "Unknown",
-        "reasons": [
-          "Venue missing from venues.json"
-        ]
-      }
-    },
-    {
-      "round": 16,
-      "match": "Storm v Raiders",
-      "homeTeam": "MEL",
-      "awayTeam": "CBR",
-      "venue": "AAMI Park",
-      "kickoffLocal": "2026-06-21T16:05:00",
-      "city": "Melbourne",
-      "lat": -37.824,
-      "lon": 144.9834,
-      "timezone": "Australia/Melbourne",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-06-21T15:35:00",
-        "to": "2026-06-21T17:55:00",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "label": "Unknown",
-        "score": 0,
-        "reasons": [
-          "No hourly forecast available"
-        ],
-        "captainImpact": "Unknown weather risk."
-      }
-    },
     {
       "round": 16,
       "match": "Roosters v Sharks",
