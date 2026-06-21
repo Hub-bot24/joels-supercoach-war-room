@@ -2811,24 +2811,41 @@ function wrBaseProjection(p,reasons,components){
   return base;
 }
 function wrMinutesEstimate(p,rec,pos,reasons,components){
-  const supplied=wrNum(p.expectedMinutes||p.minutes||p.avgMinutes||p.minuteAvg||p.mins), jersey=wrJersey(rec,p);let est=supplied;
+  const supplied=wrNum(p.expectedMinutes||p.minutes||p.avgMinutes||p.minuteAvg||p.mins), jersey=wrJersey(rec,p), role=wrLineupRole(rec);
+  let est=supplied;
   if(!est){
-    if(jersey>=1&&jersey<=13){est=pos==='FRF'?52:pos==='HOK'?64:pos==='2RF'?72:80;reasons.push('Named starter role supports minutes')}
-    else if(jersey>=14&&jersey<=17){est=pos==='FRF'?36:pos==='HOK'?38:pos==='2RF'?42:28;reasons.push('Bench role caps minutes upside')}
-    else if(jersey>=18){est=18;reasons.push('Extended squad role carries selection risk')}
-  }else reasons.push(`Minutes input ${Math.round(est)} used`);
+    if(role==='starter'||(!role&&jersey>=1&&jersey<=13)){
+      est=pos==='FRF'?52:pos==='HOK'?64:pos==='2RF'?72:80;
+      reasons.push('Named starter role supports minutes');
+    }else if(role==='interchange'||(!role&&jersey>=14&&jersey<=17)){
+      est=pos==='FRF'?36:pos==='HOK'?38:pos==='2RF'?42:28;
+      reasons.push('Bench role caps minutes upside');
+    }else if(wrExtendedLineupRole(rec)){
+      est=18;
+      reasons.push('Extended squad role carries selection risk');
+    }
+  }else reasons.push('Minutes input '+Math.round(est)+' used');
   const baseline=pos==='FRF'?50:pos==='HOK'?64:pos==='2RF'?70:80;
   const rate=pos==='FRF'?.45:pos==='HOK'?.35:pos==='2RF'?.32:(pos==='HFB'||pos==='5/8')?.20:.18;
   const adj=est?wrClamp((est-baseline)*rate,-16,12):0;
-  components.push({name:'minutes',value:Math.round(adj),detail:est?`${Math.round(est)} min estimate vs ${baseline} baseline`:'No minutes estimate'});
+  components.push({name:'minutes',value:Math.round(adj),detail:est?Math.round(est)+' min estimate vs '+baseline+' baseline':'No minutes estimate'});
   return {est,adj};
 }
 function wrRoleAdjustment(p,rec,pos,reasons,components){
-  const jersey=wrJersey(rec,p);let adj=0,detail='No jersey role found';
-  if(jersey>=1&&jersey<=13){adj+=pos==='FRF'?2:4;detail=`Starting jersey ${jersey}`}
-  else if(jersey>=14&&jersey<=17){adj-=pos==='HOK'?8:pos==='FRF'?7:6;detail=`Bench jersey ${jersey}`}
-  else if(jersey>=18){adj-=18;detail=`Extended squad jersey ${jersey}`}
-  components.push({name:'role',value:Math.round(adj),detail});return adj;
+  const role=wrLineupRole(rec), jersey=wrJersey(rec,p);
+  let adj=0, detail='No lineup role found';
+  if(role==='starter'||(!role&&jersey>=1&&jersey<=13)){
+    adj+=pos==='FRF'?2:4;
+    detail=role==='starter'?'Starting lineup role':'Starting jersey '+jersey;
+  }else if(role==='interchange'||(!role&&jersey>=14&&jersey<=17)){
+    adj-=pos==='HOK'?8:pos==='FRF'?7:6;
+    detail=role==='interchange'?'Interchange lineup role':'Bench jersey '+jersey;
+  }else if(wrExtendedLineupRole(rec)){
+    adj-=18;
+    detail='Extended squad role';
+  }
+  components.push({name:'role',value:Math.round(adj),detail});
+  return adj;
 }
 function wrWeatherAdjustment(p,pos,reasons,components){
   let adj=0,detail='No kickoff weather adjustment';
@@ -2836,9 +2853,9 @@ function wrWeatherAdjustment(p,pos,reasons,components){
   components.push({name:'weather',value:Math.round(adj),detail});return adj;
 }
 function wrGoalAdjustment(p,reasons,components){const adj=wrGoalKicker(p)?3:0;components.push({name:'goal-kicking',value:adj,detail:adj?'Goal-kicker boost':'No goal-kicking boost'});if(adj)reasons.push('Goal kicking adds scoring floor');return adj}
-function wrVolatility(pos,expected,rec){let v=pos==='CTW'?.42:pos==='FLB'?.38:(pos==='HFB'||pos==='5/8')?.34:(pos==='FRF'?.28:.30);const jersey=wrJersey(rec,{});if(jersey>=14&&jersey<=17)v+=.08;if(jersey>=18)v+=.18;if(expected<35)v+=.10;return wrClamp(v,.22,.70)}
-function wrProjectionRisk(p,rec,status,components,reasons){const jersey=wrJersey(rec,p);let factor=1,risk='Low',confidencePenalty=0;const key=String(status?.key||'').toLowerCase(),sel=String(rec?.selectionStatus||rec?.displayStatus||'').toLowerCase();if(jersey>=18||sel.includes('extended')){factor=.38;risk='High';confidencePenalty=30;reasons.push('Extended squad only: projection discounted until promoted')}else if(key==='risk'||sel.includes('expected')){factor=.78;risk='Medium';confidencePenalty=18;reasons.push('Expected/risk status discounts projection')}components.push({name:'selection-risk',value:Math.round((factor-1)*100),detail:`${risk} risk factor ${Math.round(factor*100)}%`});return {factor,risk,confidencePenalty}}
-function wrConfidence(p,rec,minutes,status,riskPenalty){let c=55;if(wrNum(p.avg||p.average)>0)c+=12;if(wrNum(p.last3Avg||p.last5Avg)>0)c+=10;if(minutes.est)c+=10;const jersey=wrJersey(rec,p);if(jersey>=1&&jersey<=17)c+=15;else if(jersey>=18)c-=15;if(rec?.sources?.length)c+=8;if(status?.available===false)c=95;c-=riskPenalty||0;return wrClamp(Math.round(c),15,98)}
+function wrLineupRole(rec){return String(rec?.lineupRole||rec?.selectionRole||'').toLowerCase()}function wrPlayableLineupRole(rec){const role=wrLineupRole(rec);return role==='starter'||role==='interchange'}function wrExtendedLineupRole(rec){const role=wrLineupRole(rec);if(role==='starter'||role==='interchange')return false;if(role==='extended')return true;return String(rec?.selectionStatus||'').toLowerCase().includes('extended')}function wrVolatility(pos,expected,rec){let v=pos==='CTW'?.42:pos==='FLB'?.38:(pos==='HFB'||pos==='5/8')?.34:(pos==='FRF'?.28:.30);const role=wrLineupRole(rec),jersey=wrJersey(rec,{});if(role==='interchange'||(!role&&jersey>=14&&jersey<=17))v+=.08;if(wrExtendedLineupRole(rec))v+=.18;if(expected<35)v+=.10;return wrClamp(v,.22,.70)}
+function wrProjectionRisk(p,rec,status,components,reasons){let factor=1,risk='Low',confidencePenalty=0;const key=String(status?.key||'').toLowerCase(),sel=String(rec?.selectionStatus||rec?.displayStatus||'').toLowerCase();if(wrExtendedLineupRole(rec)){factor=.38;risk='High';confidencePenalty=30;reasons.push('Extended squad only: projection discounted until promoted')}else if(key==='risk'||sel.includes('expected')){factor=.78;risk='Medium';confidencePenalty=18;reasons.push('Expected/risk status discounts projection')}components.push({name:'selection-risk',value:Math.round((factor-1)*100),detail:`${risk} risk factor ${Math.round(factor*100)}%`});return {factor,risk,confidencePenalty}}
+function wrConfidence(p,rec,minutes,status,riskPenalty){let c=55;if(wrNum(p.avg||p.average)>0)c+=12;if(wrNum(p.last3Avg||p.last5Avg)>0)c+=10;if(minutes.est)c+=10;const role=wrLineupRole(rec),jersey=wrJersey(rec,p);if(wrPlayableLineupRole(rec)||(!role&&jersey>=1&&jersey<=17))c+=15;else if(wrExtendedLineupRole(rec))c-=15;if(rec?.sources?.length)c+=8;if(status?.available===false)c=95;c-=riskPenalty||0;return wrClamp(Math.round(c),15,98)}
 function wrConfidenceLabel(score){return score>=78?'High':score>=55?'Medium':'Low'}
 function wrProjectionReasons(reasons){return [...new Set(reasons.filter(Boolean))].slice(0,6)}
 window.calculateLevel3Projection=function calculateLevel3Projection(p,ctx={}){
@@ -2848,7 +2865,7 @@ window.calculateLevel3Projection=function calculateLevel3Projection(p,ctx={}){
   let total=base+minutes.adj+wrRoleAdjustment(p,rec,pos,reasons,components)+wrGoalAdjustment(p,reasons,components)+wrWeatherAdjustment(p,pos,reasons,components);
   const riskAdj=wrProjectionRisk(p,rec,status,components,reasons);total*=riskAdj.factor;
   const expected=wrRound(total),vol=wrVolatility(pos,expected,rec);let floor=wrRound(expected*(1-vol)),ceiling=wrRound(expected*(1+vol));
-  if(wrJersey(rec,p)>=18){floor=0;ceiling=wrRound(Math.max(ceiling,base*.95))}
+  if(wrExtendedLineupRole(rec)){floor=0;ceiling=wrRound(Math.max(ceiling,base*.95))}
   if(status?.available===false){floor=0;ceiling=0}
   const confScore=wrConfidence(p,rec,minutes,status,riskAdj.confidencePenalty);
   return {floor,expected,ceiling,raw:wrRound(base),goal:wrGoalKicker(p)?'Goal kicker boost':'No GK boost',confidence:wrConfidenceLabel(confScore),confidenceScore:confScore,risk:riskAdj.risk,reasons:wrProjectionReasons(reasons),components,version:'projection-v2'};
