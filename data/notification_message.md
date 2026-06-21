@@ -1,22 +1,52 @@
 # SuperCoach War Room status changes — Round 16
 
-Detected: 2026-06-21T06:32:26.353Z
+Detected: 2026-06-21T10:22:14.127Z
 
-- **Angus Crichton** (SYD): NOT_NAMED → INJURED
-  - Hamstring context found near player on injury/casualty source page (Zero Tackle).
-  - Source: Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
-- **Jack Hetherington** (MEL): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
+- **Angus Crichton** (SYD): INJURED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 10).; injury note: Hamstring context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Benaiah Ioelu** (SYD): NOT_NAMED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 14).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Cody Ramsey** (SYD): NOT_NAMED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 1).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Demitric Vaimauga** (NZL): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 21).
   - Source: Zero Tackle, Zero Tackle
-- **Josiah Pahulu** (MEL): EXPECTED → NOT_NAMED
+- **Hugo Savala** (SYD): INJURED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 6).; injury note: Head knock
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle, Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Lindsay Collins** (SYD): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Mark Nawaqanitawase** (SYD): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Matthew Lodge** (NQC): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 20).
+  - Source: Zero Tackle, Zero Tackle
+- **Niwhai Puru** (SHA): NAMED → NOT_NAMED
   - Not present in higher-priority current team-list source (Zero Tackle).
   - Source: Zero Tackle, Zero Tackle
-- **Liam Sutton** (NQC): EXPECTED → NOT_NAMED
+- **Reece Robson** (SYD): NAMED → INJURED
+  - Pec context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle
+- **Rex Bassingthwaighte** (SYD): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 3).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Robert Toia** (SYD): NAMED → NOT_NAMED
   - Not present in higher-priority current team-list source (Zero Tackle).
-  - Source: Zero Tackle, Zero Tackle
-- **Rocco Berry** (NZL): EXPECTED → NOT_NAMED
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Salesi Foketi** (SYD): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 12).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Sam Walker** (SYD): NAMED → NOT_NAMED
   - Not present in higher-priority current team-list source (Zero Tackle).
-  - Source: Zero Tackle, Zero Tackle
-- **Wayde Egan** (NZL): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 22).
-  - Source: Zero Tackle, Zero Tackle
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Siua Wong** (SYD): EXPECTED → NAMED
+  - Named in team-list article final 17 (Zero Tackle, jersey 11).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Victor Radley** (SYD): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
