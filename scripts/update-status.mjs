@@ -1030,15 +1030,30 @@ function fromKnownPlayerJerseyPatterns(players, page){
   const rows = [];
   const surnameCounts = surnameFrequency(players);
   for(const p of players){
-    // CORE v32: collect all jersey numbers from strict regex + fixed local normalised windows.
-    // If a player appears as both extended and final-17 in the same updated source, final-17 wins.
+    // CORE v34: collect all jersey numbers from strict regex + fixed local normalised windows.
+    // Do not blindly prefer final-17 numbers when mixed evidence exists.
+    // Head-to-head pages can place the opposition jersey beside a player's name.
     // No player names, no one-off overrides.
     const jerseys = collectJerseysNearPlayerName(page.text, p.name, surnameCounts);
     if(!jerseys.length) continue;
-    const final17 = jerseys.filter(j => j <= 17).sort((a,b)=>a-b);
-    const extended = jerseys.filter(j => j > 17).sort((a,b)=>a-b);
-    const jersey = final17.length ? final17[0] : extended[0];
-    rows.push({player:p, jersey, seenJerseys:jerseys});
+
+    const unique = [...new Set(jerseys)].filter(j => Number.isFinite(j) && j >= 1 && j <= 25);
+    const final17 = unique.filter(j => j <= 17).sort((a,b)=>a-b);
+    const extended = unique.filter(j => j > 17).sort((a,b)=>a-b);
+
+    let jersey = null;
+    let ambiguous = false;
+
+    if(unique.length === 1){
+      jersey = unique[0];
+    }else if(extended.length && final17.length){
+      jersey = extended[0];
+      ambiguous = true;
+    }else{
+      jersey = final17.length ? final17[0] : extended[0];
+    }
+
+    rows.push({player:p, jersey, seenJerseys:unique, ambiguousJerseyEvidence:ambiguous});
   }
   return rows;
 }
