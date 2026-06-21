@@ -1178,6 +1178,11 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
         for(const p of players){
           if(playerTeam(p) !== teamCanon) continue;
           if(seen.has(p.name)) continue;
+          const existing = teamlistsOut[p.name];
+          const existingRole = String(existing?.lineupRole || existing?.selectionRole || '').toLowerCase();
+          const existingPlayable = existing?.displayStatus === STATUS.NAMED && (existingRole === 'starter' || existingRole === 'interchange');
+          const existingPriority = Number(existing?.sourcePriority || 0);
+          if(existingPlayable && priority <= existingPriority) continue;
           addOrMerge(teamlistsOut, p, makeStatus(STATUS.NOT_NAMED, `Not present in higher-priority current team-list source (${page.sourceName}).`, [src], {selectionStatus:'not_named', team:p.team, teamCanonical:teamCanon, sourcePriority:priority, sourceOrder:pageOrder}));
           pageLevelMissingCount++;
         }
@@ -1479,6 +1484,11 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
       pos: p.pos || p.position || '',
       round
     };
+  }
+  const impossibleLineupConflicts = Object.entries(playersOut).filter(([,r]) => r?.displayStatus === STATUS.NOT_NAMED && ['starter','interchange'].includes(String(r?.lineupRole || r?.selectionRole || '').toLowerCase()));
+  if(impossibleLineupConflicts.length){
+    const sample = impossibleLineupConflicts.slice(0,10).map(([n,r]) => n+':'+(r.lineupRole || r.selectionRole || '')).join(', ');
+    throw new Error('Team-list arbitration invariant failed: '+impossibleLineupConflicts.length+' players are NOT_NAMED but have playable lineupRole: '+sample);
   }
   const teamlistsLoaded = teamsWithLoadedList.size > 0 || Object.values(teamlists).some(r => r.displayStatus === STATUS.NAMED || r.displayStatus === STATUS.NOT_NAMED);
   return {playersOut, teamlistsLoaded, teamsWithLoadedList:[...teamsWithLoadedList]};
