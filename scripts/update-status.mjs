@@ -1053,9 +1053,31 @@ function fromKnownPlayerJerseyPatterns(players, page){
       jersey = final17.length ? final17[0] : extended[0];
     }
 
-    rows.push({player:p, jersey, seenJerseys:unique, ambiguousJerseyEvidence:ambiguous});
+    rows.push({player:p, jersey, seenJerseys:unique, ambiguousJerseyEvidence:ambiguous, pageIndex:norm(compactTextForPlayerScan(page.text)).indexOf(normName(p.name))});
   }
   return rows;
+}
+
+function lineupRoleForIndex(index){
+  const n = Number(index || 0);
+  if(n >= 1 && n <= 13) return 'starter';
+  if(n >= 14 && n <= 17) return 'interchange';
+  if(n >= 18) return 'extended';
+  return '';
+}
+
+function statusForLineupRole(role){
+  return role === 'starter' || role === 'interchange' ? STATUS.NAMED : STATUS.EXPECTED;
+}
+
+function selectionStatusForLineupRole(role){
+  return role === 'extended' ? 'extended' : 'named';
+}
+
+function labelForLineupRole(role, sourceKind){
+  if(role === 'starter') return `Named in ${sourceKind} starting side`;
+  if(role === 'interchange') return `Named in ${sourceKind} interchange`;
+  return `Named in ${sourceKind} extended squad only`;
 }
 
 function fromFetchedTeamlists(players, pages, teamlistsOut){
@@ -1092,12 +1114,14 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
         const p = lookup.get(normName(row.name));
         if(!p) continue;
         if(playerTeam(p) !== teamCanon) continue;
-        const status = row.jersey <= 17 ? STATUS.NAMED : STATUS.EXPECTED;
-        const label = row.jersey <= 17 ? 'Named in numbered team-list final 17' : 'Named in numbered extended squad only';
-        addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: row.jersey <= 17 ? 'named' : 'extended', team:p.team, teamCanonical:teamCanon, jersey:row.jersey, sourcePriority:priority, sourceOrder:pageOrder}));
+        matchedForTeam++;
+        const lineupIndex = matchedForTeam;
+        const lineupRole = lineupRoleForIndex(lineupIndex);
+        const status = statusForLineupRole(lineupRole);
+        const label = labelForLineupRole(lineupRole, 'numbered team-list');
+        addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: selectionStatusForLineupRole(lineupRole), lineupRole, lineupIndex, team:p.team, teamCanonical:teamCanon, jersey:row.jersey, sourcePriority:priority, sourceOrder:pageOrder}));
         markSeen(teamCanon, p.name);
         addTeamCount(teamCanon);
-        matchedForTeam++;
         totalFound++;
         sectionFound++;
       }
@@ -1111,17 +1135,34 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
     // older pages using sourcePriority.
     if(allowWholeArticleJerseyScan(page)){
       const jerseyRows = fromKnownPlayerJerseyPatterns(players, page);
+      const rowsByTeam = new Map();
       for(const row of jerseyRows){
-        const p = row.player;
-        const teamCanon = playerTeam(p);
+        const teamCanon = playerTeam(row.player);
         if(!teamCanon) continue;
-        addTeamCount(teamCanon);
-        markSeen(teamCanon, p.name);
-        const status = row.jersey <= 17 ? STATUS.NAMED : STATUS.EXPECTED;
-        const label = row.jersey <= 17 ? 'Named in team-list article final 17' : 'Named in team-list article extended squad only';
-        addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: row.jersey <= 17 ? 'named' : 'extended', team:p.team, teamCanonical:teamCanon, jersey:row.jersey, sourcePriority:priority, sourceOrder:pageOrder}));
-        totalFound++;
-        knownPatternFound++;
+        if(!rowsByTeam.has(teamCanon)) rowsByTeam.set(teamCanon, []);
+        rowsByTeam.get(teamCanon).push(row);
+      }
+
+      for(const [teamCanon, teamRows] of rowsByTeam.entries()){
+        const orderedRows = [...teamRows].sort((a,b) => {
+          const ai = Number.isFinite(a.pageIndex) && a.pageIndex >= 0 ? a.pageIndex : Number.MAX_SAFE_INTEGER;
+          const bi = Number.isFinite(b.pageIndex) && b.pageIndex >= 0 ? b.pageIndex : Number.MAX_SAFE_INTEGER;
+          return ai - bi;
+        });
+
+        let lineupIndex = 0;
+        for(const row of orderedRows){
+          lineupIndex++;
+          const p = row.player;
+          addTeamCount(teamCanon);
+          markSeen(teamCanon, p.name);
+          const lineupRole = lineupRoleForIndex(lineupIndex);
+          const status = statusForLineupRole(lineupRole);
+          const label = labelForLineupRole(lineupRole, 'team-list article');
+          addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: selectionStatusForLineupRole(lineupRole), lineupRole, lineupIndex, team:p.team, teamCanonical:teamCanon, jersey:row.jersey, seenJerseys:row.seenJerseys, ambiguousJerseyEvidence:row.ambiguousJerseyEvidence, sourcePriority:priority, sourceOrder:pageOrder}));
+          totalFound++;
+          knownPatternFound++;
+        }
       }
     }
 
