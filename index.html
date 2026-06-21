@@ -4062,9 +4062,7 @@ function wrV41ArbitrateStatus(p,round,base){
   if((key==='good'||key==='named'||base.available===true)&&jersey>=18&&jersey<=19){
     return {...base,key:'risk',available:true,label:'Emergency',reason:`Emergency jersey ${jersey}; not a confirmed playable 17`};
   }
-  if((key==='good'||key==='named'||base.available===true)&&jersey>=20){
-    return {...base,key:'notnamed',available:false,label:'Not named',reason:`Extended squad jersey ${jersey}; projection held at 0 unless promoted`};
-  }
+  // Jersey number alone does not decide team-list role; do not mark 20+ as not named here.
   return base;
 }
 availabilityStatus = function availabilityStatusV41(p,round=App.round){
