@@ -582,18 +582,19 @@ function fixtureRoundFromDate(fixturesJson, now=NOW){
   return past.length ? {round:past[0].round, source:'fixtures'} : {round:0, source:'unknown'};
 }
 function resolveActiveRound({teamlistRound, fixtureRound, storedRound, envRound}) {
-  const candidates = [
-    Number(envRound),
-    Number(teamlistRound),
-    Number(fixtureRound),
-    Number(storedRound)
-  ].filter(n => Number.isFinite(n) && n > 0);
+  const explicit = Number(envRound);
+  if(Number.isFinite(explicit) && explicit > 0) return explicit;
 
-  if (!candidates.length) {
-    throw new Error("No valid active round could be resolved");
-  }
+  const tl = Number(teamlistRound);
+  if(Number.isFinite(tl) && tl > 0) return tl;
 
-  return Math.max(...candidates);
+  const stored = Number(storedRound);
+  const fixture = Number(fixtureRound);
+
+  if(Number.isFinite(stored) && stored > 0) return stored;
+  if(Number.isFinite(fixture) && fixture > 0) return fixture;
+
+  throw new Error("No valid active round could be resolved");
 }
 async function fetchText(url){
   const r = await fetch(url, {headers:{'user-agent': USER_AGENT}});
