@@ -4041,6 +4041,10 @@ function wrV41HardUnavailableForRound(p,round,base){
   const minRounds=[rec?.returnWindowMinRound,ss?.returnWindowMinRound,ov?.returnWindowMinRound,wrV41ReturnRound(text)].map(Number).filter(Number.isFinite);
   const redThrough=wrV41RedThroughRound(text);
   const selected=Number(round||App.round||0);
+  const playableRole=String(rec?.lineupRole||rec?.selectionRole||'').toLowerCase();
+  const playableNamed=(rec?.available!==false)&&String(rec?.displayStatus||rec?.status||'').toUpperCase()==='NAMED'&&(playableRole==='starter'||playableRole==='interchange');
+  if(lower.includes('suspended'))return {kind:'suspended',reason:text||'Suspended'};
+  if(playableNamed)return null;
   if(redThrough!=null&&selected<=redThrough)return {kind:'injured',reason:text||`Unavailable through R${redThrough}`};
   if(minRounds.some(r=>selected<r)&&(lower.includes('injur')||lower.includes('calf')||lower.includes('hamstring')||lower.includes('knee')||lower.includes('shoulder')||lower.includes('return')||lower.includes('red through'))){
     const r=Math.min(...minRounds.filter(r=>selected<r));
