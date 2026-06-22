@@ -2792,7 +2792,63 @@ function wrPosList(p){try{return typeof positions==='function'?positions(p):wrTe
 function wrPrimaryPos(p){const ps=wrPosList(p).map(x=>String(x).toUpperCase());return ps.includes('HOK')?'HOK':ps.includes('FRF')?'FRF':ps.includes('2RF')?'2RF':ps.includes('HFB')?'HFB':ps.includes('5/8')?'5/8':ps.includes('FLB')?'FLB':ps.includes('CTW')?'CTW':(ps[0]||'UNK')}
 function wrTruth(p){try{return typeof truthRecordAnyRound==='function'?truthRecordAnyRound(p):null}catch{return null}}
 function wrStatus(p){try{return typeof availabilityStatus==='function'?availabilityStatus(p):{available:true,key:'ok',reason:'No status data'}}catch{return {available:true,key:'ok',reason:'No status data'}}}
-function wrGoalKicker(p){return Boolean(App.goalKickers?.players?.[p?.name]||App.goalKickers?.[p?.name])}
+function wrGkCurrentSeason(){
+  const raw=String(App.statusTruth?.updated||App.teamLists?.updated||App.goalKickers?.updated||new Date().toISOString());
+  const y=Number(raw.slice(0,4));
+  return Number.isFinite(y)&&y>2000?y:new Date().getFullYear();
+}
+function wrGkTeamCode(p,rec){
+  return String(rec?.teamCanonical||rec?.team||p?.teamCanonical||p?.teamCode||p?.team||p?.club||'').toUpperCase().trim();
+}
+function wrGkTeamData(p,rec){
+  const gk=App.goalKickers||{};
+  const keys=[rec?.teamCanonical,rec?.team,p?.teamCanonical,p?.teamCode,p?.team,p?.club].map(x=>String(x||'').toUpperCase().trim()).filter(Boolean);
+  const seen=[...new Set(keys)];
+  for(const k of seen){if(gk.teams?.[k])return {key:k,data:gk.teams[k]};}
+  for(const [code,data] of Object.entries(gk.teams||{})){
+    const aliases=[code,...(data.aliases||[]),data.name,data.team].map(x=>String(x||'').toUpperCase().trim()).filter(Boolean);
+    if(seen.some(k=>aliases.includes(k)))return {key:code,data};
+  }
+  return {key:seen[0]||'',data:null};
+}
+function wrGkNamed(rec,status){
+  if(status?.available===false)return false;
+  if(wrPlayableLineupRole(rec))return true;
+  const ds=String(rec?.displayStatus||rec?.selectionStatus||'').toLowerCase();
+  return ds.includes('named');
+}
+function wrGkNameMatch(a,b){return norm(a)===norm(b)}
+function wrGkPickList(teamData){
+  if(!teamData)return [];
+  if(Array.isArray(teamData.ladder))return teamData.ladder.map(x=>typeof x==='string'?{name:x,confidence:'medium',source:'ladder'}:x).filter(x=>x&&x.name);
+  const out=[];
+  const primary=teamData.primary||teamData.main||teamData.kicker;
+  if(primary)out.push({name:primary,confidence:'high',source:'primary'});
+  for(const n of (teamData.backups||teamData.backup||[]))out.push({name:n,confidence:'medium',source:'backup'});
+  for(const n of (teamData.active||[]))out.push({name:n,confidence:'high',source:'active'});
+  return out.filter(x=>x&&x.name);
+}
+function wrGoalKickerInfo(p,rec=wrTruth(p)||{},status=wrStatus(p)){
+  const gk=App.goalKickers||{};
+
+  const teamInfo=wrGkTeamData(p,rec);
+  const team=teamInfo.key;
+  const teamData=teamInfo.data;
+  const ladder=wrGkPickList(teamData);
+  const season=Number(gk.season||wrGkCurrentSeason());
+  const stale=season&&season!==wrGkCurrentSeason();
+  if(!team||!ladder.length)return {isGk:false,boost:0,confidence:'none',label:'No GK boost',detail:'No team goal-kicker ladder'};
+  const named=ladder.filter(x=>{const resolved=(typeof resolvePlayerName==='function'?resolvePlayerName(x.name):'')||x.name;const pl=getPlayer(resolved);if(!pl)return false;const r=wrTruth(pl)||{};return wrGkNamed(r,wrStatus(pl));});
+  const chosen=named[0]||ladder[0];
+  const chosenName=chosen?((typeof resolvePlayerName==='function'?resolvePlayerName(chosen.name):'')||chosen.name):'';
+  const match=chosen&&wrGkNameMatch(chosenName,p?.name);
+  if(!match)return {isGk:false,boost:0,confidence:'none',label:'No GK boost',detail:chosen?`Team GK currently projects to ${chosen.name}`:'No available team GK'};
+  const conf=String(chosen.confidence||'medium').toLowerCase();
+  const high=conf==='high'&&!stale;
+  const boost=high?3:2;
+  return {isGk:true,boost,confidence:stale?'low':conf,label:high?'GK boost':'Possible GK boost',detail:`${chosen.source||'team ladder'}${stale?' - stale season data downgraded':''}`};
+}
+function wrGoalKicker(p){return wrGoalKickerInfo(p).isGk}
 function wrJersey(rec,p){return wrNum(rec?.jersey||p?.jersey||p?.shirtNo||p?.number)}
 function wrBaseProjection(p,reasons,components){
   const seeds=[];
@@ -2852,7 +2908,7 @@ function wrWeatherAdjustment(p,pos,reasons,components){
   try{if(typeof getPlayerNextWeather==='function'){const match=getPlayerNextWeather(p);if(match&&match.weatherStatus==='updated'){const hours=typeof weatherHours==='function'?weatherHours(match):[];const rainProb=Math.max(0,...hours.map(h=>wrNum(h.precipitation_probability))),rain=Math.max(0,...hours.map(h=>wrNum(h.precipitation||h.precipitation_mm))),wind=Math.max(0,...hours.map(h=>wrNum(h.wind_speed_10m)),...hours.map(h=>wrNum(h.wind_gusts_10m)));if(rainProb>=70||rain>=3||wind>=40){adj=(pos==='FRF'||pos==='2RF'||pos==='HOK')?1:-5;detail=`High weather risk: rain ${Math.round(rainProb)}%, wind/gust ${Math.round(wind)}km/h`;reasons.push('Weather risk affects attacking upside')}else if(rainProb>=45||rain>=1.5||wind>=30){adj=(pos==='FRF'||pos==='2RF'||pos==='HOK')?0:-2;detail=`Medium weather risk: rain ${Math.round(rainProb)}%, wind/gust ${Math.round(wind)}km/h`;reasons.push('Weather creates mild scoring caution')}else{detail='Weather check has no downgrade';reasons.push('No weather downgrade')}}}}catch{}
   components.push({name:'weather',value:Math.round(adj),detail});return adj;
 }
-function wrGoalAdjustment(p,reasons,components){const adj=wrGoalKicker(p)?3:0;components.push({name:'goal-kicking',value:adj,detail:adj?'Goal-kicker boost':'No goal-kicking boost'});if(adj)reasons.push('Goal kicking adds scoring floor');return adj}
+function wrGoalAdjustment(p,reasons,components){const info=wrGoalKickerInfo(p);const adj=wrNum(info.boost);components.push({name:'goal-kicking',value:adj,detail:info.detail||info.label});if(adj)reasons.push(info.label||'Goal kicking adds scoring floor');return adj}
 function wrLineupRole(rec){return String(rec?.lineupRole||rec?.selectionRole||'').toLowerCase()}function wrPlayableLineupRole(rec){const role=wrLineupRole(rec);return role==='starter'||role==='interchange'}function wrExtendedLineupRole(rec){const role=wrLineupRole(rec);if(role==='starter'||role==='interchange')return false;if(role==='extended')return true;return String(rec?.selectionStatus||'').toLowerCase().includes('extended')}function wrVolatility(pos,expected,rec){let v=pos==='CTW'?.42:pos==='FLB'?.38:(pos==='HFB'||pos==='5/8')?.34:(pos==='FRF'?.28:.30);const role=wrLineupRole(rec),jersey=wrJersey(rec,{});if(role==='interchange'||(!role&&jersey>=14&&jersey<=17))v+=.08;if(wrExtendedLineupRole(rec))v+=.18;if(expected<35)v+=.10;return wrClamp(v,.22,.70)}
 function wrProjectionRisk(p,rec,status,components,reasons){let factor=1,risk='Low',confidencePenalty=0;const key=String(status?.key||'').toLowerCase(),sel=String(rec?.selectionStatus||rec?.displayStatus||'').toLowerCase();if(wrExtendedLineupRole(rec)){factor=.38;risk='High';confidencePenalty=30;reasons.push('Extended squad only: projection discounted until promoted')}else if(key==='risk'||sel.includes('expected')){factor=.78;risk='Medium';confidencePenalty=18;reasons.push('Expected/risk status discounts projection')}components.push({name:'selection-risk',value:Math.round((factor-1)*100),detail:`${risk} risk factor ${Math.round(factor*100)}%`});return {factor,risk,confidencePenalty}}
 function wrConfidence(p,rec,minutes,status,riskPenalty){let c=55;if(wrNum(p.avg||p.average)>0)c+=12;if(wrNum(p.last3Avg||p.last5Avg)>0)c+=10;if(minutes.est)c+=10;const role=wrLineupRole(rec),jersey=wrJersey(rec,p);if(wrPlayableLineupRole(rec)||(!role&&jersey>=1&&jersey<=17))c+=15;else if(wrExtendedLineupRole(rec))c-=15;if(rec?.sources?.length)c+=8;if(status?.available===false)c=95;c-=riskPenalty||0;return wrClamp(Math.round(c),15,98)}
@@ -2868,10 +2924,10 @@ window.calculateLevel3Projection=function calculateLevel3Projection(p,ctx={}){
   if(wrExtendedLineupRole(rec)){floor=0;ceiling=wrRound(Math.max(ceiling,base*.95))}
   if(status?.available===false){floor=0;ceiling=0}
   const confScore=wrConfidence(p,rec,minutes,status,riskAdj.confidencePenalty);
-  return {floor,expected,ceiling,raw:wrRound(base),goal:wrGoalKicker(p)?'Goal kicker boost':'No GK boost',confidence:wrConfidenceLabel(confScore),confidenceScore:confScore,risk:riskAdj.risk,reasons:wrProjectionReasons(reasons),components,version:'projection-v2'};
+  return {floor,expected,ceiling,raw:wrRound(base),goal:wrGoalKickerInfo(p,rec,status).label,confidence:wrConfidenceLabel(confScore),confidenceScore:confScore,risk:riskAdj.risk,reasons:wrProjectionReasons(reasons),components,version:'projection-v2'};
 };
-function projectionCacheKey(p){if(!p||!p.name)return '';const values=[p.name,App.round,safeNum(p.avg||p.average||0),safeNum(p.last3Avg||0),safeNum(p.last5Avg||0),safeNum(p.proj||p.projected||p.expected||0),safeNum(p.expectedMinutes||p.minutes||0),String(p.injuryStatus||p.status||'').trim().toUpperCase(),safeNum(p.playProbability==null?100:p.playProbability),JSON.stringify(p.bye||p.byes||[])];const gk=App.goalKickers?.players?.[p.name]||App.goalKickers?.[p.name];values.push(Boolean(gk));return values.join('|')}
-function proj(p){if(!p)return {floor:0,expected:0,ceiling:0,raw:0,goal:'No data'};const cacheKey=projectionCacheKey(p);if(cacheKey&&App.projectionCache.has(cacheKey))return App.projectionCache.get(cacheKey);let out=null;if(typeof window.calculateLevel3Projection==='function'){try{out=window.calculateLevel3Projection(p,{round:App.round,opponent:p.opponent||p.opp||p.vs,isFuture:true});if(!out||typeof out.expected!=='number'||typeof out.floor!=='number'||typeof out.ceiling!=='number'){throw new Error('Invalid engine projection result')}}catch(err){console.warn('Level 3 projection engine failed, falling back to inline projection',err);out=null}}if(!out){let base=safeNum(p.proj||p.avg||p.average||0);if(!base&&p.price)base=Math.round(p.price/9000);const recent=safeNum(p.last3Avg||p.last5Avg||0);if(recent)base=Math.round(base*.75+recent*.25);let goal='No GK boost';const gk=App.goalKickers?.players?.[p.name]||App.goalKickers?.[p.name];if(gk){base+=3;goal='Goal kicker boost'}let role=safeNum(p.expectedMinutes||p.minutes||0);if(role&&role<45)base-=8;out={floor:Math.max(0,Math.round(base*.68)),expected:Math.max(0,Math.round(base)),ceiling:Math.max(0,Math.round(base*1.45)),raw:Math.round(base),goal}}if(cacheKey)App.projectionCache.set(cacheKey,out);return out}
+function projectionCacheKey(p){if(!p||!p.name)return '';const values=[p.name,App.round,safeNum(p.avg||p.average||0),safeNum(p.last3Avg||0),safeNum(p.last5Avg||0),safeNum(p.proj||p.projected||p.expected||0),safeNum(p.expectedMinutes||p.minutes||0),String(p.injuryStatus||p.status||'').trim().toUpperCase(),safeNum(p.playProbability==null?100:p.playProbability),JSON.stringify(p.bye||p.byes||[])];values.push(JSON.stringify(wrGoalKickerInfo(p)));return values.join('|')}
+function proj(p){if(!p)return {floor:0,expected:0,ceiling:0,raw:0,goal:'No data'};const cacheKey=projectionCacheKey(p);if(cacheKey&&App.projectionCache.has(cacheKey))return App.projectionCache.get(cacheKey);let out=null;if(typeof window.calculateLevel3Projection==='function'){try{out=window.calculateLevel3Projection(p,{round:App.round,opponent:p.opponent||p.opp||p.vs,isFuture:true});if(!out||typeof out.expected!=='number'||typeof out.floor!=='number'||typeof out.ceiling!=='number'){throw new Error('Invalid engine projection result')}}catch(err){console.warn('Level 3 projection engine failed, falling back to inline projection',err);out=null}}if(!out){let base=safeNum(p.proj||p.avg||p.average||0);if(!base&&p.price)base=Math.round(p.price/9000);const recent=safeNum(p.last3Avg||p.last5Avg||0);if(recent)base=Math.round(base*.75+recent*.25);let goal='No GK boost';const gkInfo=wrGoalKickerInfo(p);if(gkInfo.boost){base+=wrNum(gkInfo.boost);goal=gkInfo.label||'GK boost'}else{goal=gkInfo.label||'No GK boost'}let role=safeNum(p.expectedMinutes||p.minutes||0);if(role&&role<45)base-=8;out={floor:Math.max(0,Math.round(base*.68)),expected:Math.max(0,Math.round(base)),ceiling:Math.max(0,Math.round(base*1.45)),raw:Math.round(base),goal}}if(cacheKey)App.projectionCache.set(cacheKey,out);return out}
 function roundProj(p){
  const pr=proj(p),st=availabilityStatus(p);
  if(!st.available)return {...pr,expected:0,floor:0,ceiling:0,reasons:[...(pr.reasons||[]),st.reason||'Unavailable']};

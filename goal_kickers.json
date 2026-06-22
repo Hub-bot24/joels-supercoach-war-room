@@ -1,46 +1,330 @@
 {
-  "updated": "2026-06-03T11:23:20.990414+00:00",
-  "source": "manual trusted goal-kicker roles; no guessed kicking bonus",
-  "rule": "A player gets goal-kicking uplift only if listed as active kicker for their team. Everyone else gets 0.",
-  "teams": {
-    "NQC": {
-      "active": [],
-      "notes": "No guessed kicker set"
-    },
-    "DOL": {
-      "active": [],
-      "notes": "No guessed kicker set"
-    },
-    "BRO": {
-      "active": [],
-      "notes": "No guessed kicker set"
-    },
-    "MEL": {
-      "active": [],
-      "notes": "No guessed kicker set"
-    },
-    "STH": {
-      "active": [],
-      "notes": "No guessed kicker set"
-    },
-    "NZL": {
-      "active": [],
-      "notes": "No guessed kicker set"
-    },
-    "WST": {
-      "active": [],
-      "notes": "No guessed kicker set"
-    },
-    "SHA": {
-      "active": [],
-      "notes": "No guessed kicker set"
-    }
-  },
-  "player_overrides": {
-    "Scott Drinkwater": {
-      "goalKicker": false,
-      "goalKickAdjustment": 0,
-      "reason": "Not confirmed as active goal kicker; no bonus allowed."
-    }
-  }
+    "season":  2026,
+    "updated":  "2026-06-21T00:00:00.000Z",
+    "source":  "team-level goal-kicker ladder seeded from 2026 goal stats and public role previews; weekly boost depends on named availability",
+    "rule":  "Temporary GK v1 role ladder. Not a permanent player override. Only the first named and available player in a team\u0027s ladder receives the GK boost. If the primary is out, the first named backup can receive a possible GK boost. Old-season data is downgraded. GK v2 must generate this file from recent goal-kicking evidence.",
+    "teams":  {
+                  "BRO":  {
+                              "name":  "Brisbane Broncos",
+                              "aliases":  [
+                                              "BRISBANE",
+                                              "BRONCOS",
+                                              "BRISBANE BRONCOS"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Adam Reynolds",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 role preview / goal stats"
+                                             },
+                                             {
+                                                 "name":  "Reece Walsh",
+                                                 "confidence":  "medium",
+                                                 "source":  "backup role preview"
+                                             }
+                                         ]
+                          },
+                  "CBR":  {
+                              "name":  "Canberra Raiders",
+                              "aliases":  [
+                                              "CANBERRA",
+                                              "RAIDERS",
+                                              "CANBERRA RAIDERS"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Ethan Sanders",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             },
+                                             {
+                                                 "name":  "Jamal Fogarty",
+                                                 "confidence":  "medium",
+                                                 "source":  "backup / historical role"
+                                             }
+                                         ]
+                          },
+                  "CBY":  {
+                              "name":  "Canterbury-Bankstown Bulldogs",
+                              "aliases":  [
+                                              "CANTERBURY",
+                                              "BULLDOGS",
+                                              "CANTERBURY BULLDOGS",
+                                              "CANTERBURY-BANKSTOWN"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Stephen Crichton",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             },
+                                             {
+                                                 "name":  "Matt Burton",
+                                                 "confidence":  "medium",
+                                                 "source":  "2026 goal stats / backup"
+                                             }
+                                         ]
+                          },
+                  "SHA":  {
+                              "name":  "Cronulla Sharks",
+                              "aliases":  [
+                                              "CRONULLA",
+                                              "SHARKS",
+                                              "CRONULLA SHARKS",
+                                              "CRONULLA-SUTHERLAND"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Nicho Hynes",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             },
+                                             {
+                                                 "name":  "Braydon Trindall",
+                                                 "confidence":  "medium",
+                                                 "source":  "2026 goal stats / backup"
+                                             }
+                                         ]
+                          },
+                  "GLD":  {
+                              "name":  "Gold Coast Titans",
+                              "aliases":  [
+                                              "GOLD COAST",
+                                              "TITANS",
+                                              "GOLD COAST TITANS"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Jayden Campbell",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             }
+                                         ]
+                          },
+                  "MAN":  {
+                              "name":  "Manly Sea Eagles",
+                              "aliases":  [
+                                              "MANLY",
+                                              "SEA EAGLES",
+                                              "MANLY SEA EAGLES",
+                                              "MANLY WARRINGAH"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Reuben Garrick",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             }
+                                         ]
+                          },
+                  "MEL":  {
+                              "name":  "Melbourne Storm",
+                              "aliases":  [
+                                              "MELBOURNE",
+                                              "STORM",
+                                              "MELBOURNE STORM"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Nick Meaney",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             },
+                                             {
+                                                 "name":  "Sua Fa\u0027alogo",
+                                                 "confidence":  "medium",
+                                                 "source":  "alias"
+                                             }
+                                         ]
+                          },
+                  "NEW":  {
+                              "name":  "Newcastle Knights",
+                              "aliases":  [
+                                              "NEWCASTLE",
+                                              "KNIGHTS",
+                                              "NEWCASTLE KNIGHTS"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Kalyn Ponga",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             }
+                                         ]
+                          },
+                  "NZL":  {
+                              "name":  "New Zealand Warriors",
+                              "aliases":  [
+                                              "WARRIORS",
+                                              "NZ WARRIORS",
+                                              "NEW ZEALAND WARRIORS"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Tanah Boyd",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             },
+                                             {
+                                                 "name":  "Chanel Harris-Tavita",
+                                                 "confidence":  "medium",
+                                                 "source":  "2026 goal stats / backup"
+                                             },
+                                             {
+                                                 "name":  "Taine Tuaupiki",
+                                                 "confidence":  "medium",
+                                                 "source":  "2026 goal stats / backup"
+                                             },
+                                             {
+                                                 "name":  "Adam Pompey",
+                                                 "confidence":  "low",
+                                                 "source":  "2026 goal stats / emergency"
+                                             }
+                                         ]
+                          },
+                  "NQC":  {
+                              "name":  "North Queensland Cowboys",
+                              "aliases":  [
+                                              "NORTH QUEENSLAND",
+                                              "COWBOYS",
+                                              "NORTH QUEENSLAND COWBOYS"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Jake Clifford",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             }
+                                         ]
+                          },
+                  "PAR":  {
+                              "name":  "Parramatta Eels",
+                              "aliases":  [
+                                              "PARRAMATTA",
+                                              "EELS",
+                                              "PARRAMATTA EELS"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Mitchell Moses",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             }
+                                         ]
+                          },
+                  "PEN":  {
+                              "name":  "Penrith Panthers",
+                              "aliases":  [
+                                              "PENRITH",
+                                              "PANTHERS",
+                                              "PENRITH PANTHERS"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Nathan Cleary",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             },
+                                             {
+                                                 "name":  "Paul Alamoti",
+                                                 "confidence":  "low",
+                                                 "source":  "2026 goal stats / emergency"
+                                             }
+                                         ]
+                          },
+                  "STH":  {
+                              "name":  "South Sydney Rabbitohs",
+                              "aliases":  [
+                                              "SOUTHS",
+                                              "SOUTH SYDNEY",
+                                              "RABBITOHS",
+                                              "SOUTH SYDNEY RABBITOHS"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Latrell Mitchell",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             },
+                                             {
+                                                 "name":  "Latrell Siegwalt",
+                                                 "confidence":  "medium",
+                                                 "source":  "2026 goal stats / backup"
+                                             }
+                                         ]
+                          },
+                  "SGI":  {
+                              "name":  "St George Illawarra Dragons",
+                              "aliases":  [
+                                              "ST GEORGE",
+                                              "DRAGONS",
+                                              "ST GEORGE ILLAWARRA",
+                                              "ST GEORGE ILLAWARRA DRAGONS"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Valentine Holmes",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             },
+                                             {
+                                                 "name":  "Lachlan Ilias",
+                                                 "confidence":  "low",
+                                                 "source":  "2026 goal stats / backup"
+                                             }
+                                         ]
+                          },
+                  "SYD":  {
+                              "name":  "Sydney Roosters",
+                              "aliases":  [
+                                              "ROOSTERS",
+                                              "SYDNEY",
+                                              "SYDNEY ROOSTERS"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Sam Walker",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             },
+                                             {
+                                                 "name":  "Sandon Smith",
+                                                 "confidence":  "medium",
+                                                 "source":  "2026 goal stats / backup"
+                                             }
+                                         ]
+                          },
+                  "DOL":  {
+                              "name":  "The Dolphins",
+                              "aliases":  [
+                                              "DOLPHINS",
+                                              "THE DOLPHINS"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Jamayne Isaako",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             }
+                                         ]
+                          },
+                  "WST":  {
+                              "name":  "Wests Tigers",
+                              "aliases":  [
+                                              "WESTS",
+                                              "WESTS TIGERS",
+                                              "TIGERS"
+                                          ],
+                              "ladder":  [
+                                             {
+                                                 "name":  "Adam Doueihi",
+                                                 "confidence":  "high",
+                                                 "source":  "2026 goal stats"
+                                             }
+                                         ]
+                          }
+              },
+    "player_overrides":  {
+
+                         }
 }
