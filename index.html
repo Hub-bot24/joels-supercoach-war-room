@@ -2801,24 +2801,15 @@ function wrGkTeamCode(p,rec){
 }
 function wrGkTeamData(p,rec){
   const gk=App.goalKickers||{};
-      const conf=String(ev.confidence||'medium').toLowerCase();
-        : (conf==='high'?'GK boost':'Possible GK boost');
-    }
+  const teams=gk.teams||{};
+  const raw=wrGkTeamCode(p,rec);
+  const aliases={BRISBANE:'BRO',BRONCOS:'BRO',CANBERRA:'CBR',RAIDERS:'CBR',CANTERBURY:'CBY',BULLDOGS:'CBY',CRONULLA:'SHA',SHARKS:'SHA',GOLDCOAST:'GLD',TITANS:'GLD',MANLY:'MAN',SEAEAGLES:'MAN',MELBOURNE:'MEL',STORM:'MEL',NEWCASTLE:'NEW',KNIGHTS:'NEW',WARRIORS:'NZL',NORTHQUEENSLAND:'NQC',COWBOYS:'NQC',PARRAMATTA:'PAR',EELS:'PAR',PENRITH:'PEN',PANTHERS:'PEN',SOUTHSYDNEY:'STH',RABBITOHS:'STH',STGEORGEILLAWARRA:'SGI',DRAGONS:'SGI',SYDNEY:'SYD',ROOSTERS:'SYD',DOLPHINS:'DOL',WESTSTIGERS:'WST',TIGERS:'WST'};
+  const compact=raw.replace(/[^A-Z]/g,'');
+  const keys=[raw,compact,aliases[raw],aliases[compact]].filter(Boolean);
+  for(const key of keys){
+    if(teams[key])return {key,data:teams[key]};
   }
-
-      const conf=String(ev.confidence||'medium').toLowerCase();
-        : (conf==='high'?'GK boost':'Possible GK boost');
-    }
-  }
-
-  const keys=[rec?.teamCanonical,rec?.team,p?.teamCanonical,p?.teamCode,p?.team,p?.club].map(x=>String(x||'').toUpperCase().trim()).filter(Boolean);
-  const seen=[...new Set(keys)];
-  for(const k of seen){if(gk.teams?.[k])return {key:k,data:gk.teams[k]};}
-  for(const [code,data] of Object.entries(gk.teams||{})){
-    const aliases=[code,...(data.aliases||[]),data.name,data.team].map(x=>String(x||'').toUpperCase().trim()).filter(Boolean);
-    if(seen.some(k=>aliases.includes(k)))return {key:code,data};
-  }
-  return {key:seen[0]||'',data:null};
+  return {key:raw,data:null};
 }
 function wrGkNamed(rec,status){
   if(status?.available===false)return false;
