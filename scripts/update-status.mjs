@@ -1117,7 +1117,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
         if(playerTeam(p) !== teamCanon) continue;
         matchedForTeam++;
         const lineupIndex = matchedForTeam;
-        const lineupRole = lineupRoleForIndex(lineupIndex);
+        const lineupRole = lineupRoleForIndex(row.jersey);
         const status = statusForLineupRole(lineupRole);
         const label = labelForLineupRole(lineupRole, 'numbered team-list');
         addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: selectionStatusForLineupRole(lineupRole), lineupRole, lineupIndex, team:p.team, teamCanonical:teamCanon, jersey:row.jersey, sourcePriority:priority, sourceOrder:pageOrder}));
@@ -1157,7 +1157,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
           const p = row.player;
           addTeamCount(teamCanon);
           markSeen(teamCanon, p.name);
-          const lineupRole = lineupRoleForIndex(lineupIndex);
+          const lineupRole = lineupRoleForIndex(row.jersey);
           const status = statusForLineupRole(lineupRole);
           const label = labelForLineupRole(lineupRole, 'team-list article');
           addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: selectionStatusForLineupRole(lineupRole), lineupRole, lineupIndex, team:p.team, teamCanonical:teamCanon, jersey:row.jersey, seenJerseys:row.seenJerseys, ambiguousJerseyEvidence:row.ambiguousJerseyEvidence, sourcePriority:priority, sourceOrder:pageOrder}));
@@ -1486,10 +1486,25 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
       round
     };
   }
-  const impossibleLineupConflicts = Object.entries(playersOut).filter(([,r]) => r?.displayStatus === STATUS.NOT_NAMED && ['starter','interchange'].includes(String(r?.lineupRole || r?.selectionRole || '').toLowerCase()));
+  const impossibleLineupConflicts = Object.entries(playersOut).filter(([,r]) => {
+    const jersey = Number(r?.jersey);
+    const role = String(r?.lineupRole || r?.selectionRole || '').toLowerCase();
+    const status = String(r?.displayStatus || '').toUpperCase();
+
+    if(Number.isFinite(jersey) && jersey >= 1 && jersey <= 13 && role !== 'starter') return true;
+    if(Number.isFinite(jersey) && jersey >= 14 && jersey <= 17 && role !== 'interchange') return true;
+    if(Number.isFinite(jersey) && jersey >= 1 && jersey <= 17 && status !== STATUS.NAMED) return true;
+    if(Number.isFinite(jersey) && jersey >= 18 && role !== 'extended') return true;
+    if(status === STATUS.NOT_NAMED && ['starter','interchange'].includes(role)) return true;
+
+    return false;
+  });
+
   if(impossibleLineupConflicts.length){
-    const sample = impossibleLineupConflicts.slice(0,10).map(([n,r]) => n+':'+(r.lineupRole || r.selectionRole || '')).join(', ');
-    throw new Error('Team-list arbitration invariant failed: '+impossibleLineupConflicts.length+' players are NOT_NAMED but have playable lineupRole: '+sample);
+    const sample = impossibleLineupConflicts.slice(0,10).map(([n,r]) =>
+      n+': jersey '+r.jersey+', status '+r.displayStatus+', role '+(r.lineupRole || r.selectionRole || '')
+    ).join('; ');
+    throw new Error('Team-list arbitration invariant failed: impossible jersey/status/role state: '+sample);
   }
   const teamlistsLoaded = teamsWithLoadedList.size > 0 || Object.values(teamlists).some(r => r.displayStatus === STATUS.NAMED || r.displayStatus === STATUS.NOT_NAMED);
   return {playersOut, teamlistsLoaded, teamsWithLoadedList:[...teamsWithLoadedList]};
