@@ -2958,39 +2958,7 @@ window.calculateLevel3Projection=function calculateLevel3Projection(p,ctx={}){
   return {floor,expected,ceiling,raw:wrRound(base),goal:wrGoalKickerInfo(p,rec,status).label,confidence:wrConfidenceLabel(confScore),confidenceScore:confScore,risk:riskAdj.risk,reasons:wrProjectionReasons(reasons),components,version:'projection-v2'};
 };
 function projectionCacheKey(p){if(!p||!p.name)return '';const values=[p.name,App.round,safeNum(p.avg||p.average||0),safeNum(p.last3Avg||0),safeNum(p.last5Avg||0),safeNum(p.proj||p.projected||p.expected||0),safeNum(p.expectedMinutes||p.minutes||0),String(p.injuryStatus||p.status||'').trim().toUpperCase(),safeNum(p.playProbability==null?100:p.playProbability),JSON.stringify(p.bye||p.byes||[])];values.push(JSON.stringify(wrGoalKickerInfo(p)));return values.join('|')}
-function proj(p){
-  if(!p)return {floor:0,expected:0,ceiling:0,raw:0,goal:'No data'};
-  const cacheKey=projectionCacheKey(p);
-  if(cacheKey&&App.projectionCache.has(cacheKey))return App.projectionCache.get(cacheKey);
-  let out=null;
-  if(typeof window.calculateLevel3Projection==='function'){
-    try{
-      out=window.calculateLevel3Projection(p,{round:App.round,opponent:p.opponent||p.opp||p.vs,isFuture:true});
-      if(!out||typeof out.expected!=='number'||typeof out.floor!=='number'||typeof out.ceiling!=='number')throw new Error('Invalid engine projection result');
-    }catch(err){
-      console.warn('Level 3 projection engine failed, falling back to inline projection',err);
-      out=null;
-    }
-  }
-  if(!out){
-    let base=safeNum(p.proj||p.avg||p.average||0);
-    if(!base&&p.price)base=Math.round(p.price/9000);
-    const recent=safeNum(p.last3Avg||p.last5Avg||0);
-    if(recent)base=Math.round(base*.75+recent*.25);
-    let role=safeNum(p.expectedMinutes||p.minutes||0);
-    if(role&&role<45)base-=8;
-    out={floor:Math.max(0,Math.round(base*.68)),expected:Math.max(0,Math.round(base)),ceiling:Math.max(0,Math.round(base*1.45)),raw:Math.round(base),goal:'No GK boost'};
-  }
-  const gkInfo=wrGoalKickerInfo(p);
-  const gkBoost=wrNum(gkInfo.boost);
-  if(gkBoost){
-    out={...out,floor:Math.max(0,Math.round(wrNum(out.floor)+gkBoost)),expected:Math.max(0,Math.round(wrNum(out.expected)+gkBoost)),ceiling:Math.max(0,Math.round(wrNum(out.ceiling)+gkBoost)),raw:Math.max(0,Math.round(wrNum(out.raw||out.expected)+gkBoost)),goal:gkInfo.label||'GK boost'};
-  }else{
-    out={...out,goal:gkInfo.label||out.goal||'No GK boost'};
-  }
-  if(cacheKey)App.projectionCache.set(cacheKey,out);
-  return out;
-}
+function proj(p){if(!p)return {floor:0,expected:0,ceiling:0,raw:0,goal:'No data'};const cacheKey=projectionCacheKey(p);if(cacheKey&&App.projectionCache.has(cacheKey))return App.projectionCache.get(cacheKey);let out=null;if(typeof window.calculateLevel3Projection==='function'){try{out=window.calculateLevel3Projection(p,{round:App.round,opponent:p.opponent||p.opp||p.vs,isFuture:true});if(!out||typeof out.expected!=='number'||typeof out.floor!=='number'||typeof out.ceiling!=='number'){throw new Error('Invalid engine projection result')}}catch(err){console.warn('Level 3 projection engine failed, falling back to inline projection',err);out=null}}if(!out){let base=safeNum(p.proj||p.avg||p.average||0);if(!base&&p.price)base=Math.round(p.price/9000);const recent=safeNum(p.last3Avg||p.last5Avg||0);if(recent)base=Math.round(base*.75+recent*.25);let goal='No GK boost';const gkInfo=wrGoalKickerInfo(p);if(gkInfo.boost){base+=wrNum(gkInfo.boost);goal=gkInfo.label||'GK boost'}else{goal=gkInfo.label||'No GK boost'}let role=safeNum(p.expectedMinutes||p.minutes||0);if(role&&role<45)base-=8;out={floor:Math.max(0,Math.round(base*.68)),expected:Math.max(0,Math.round(base)),ceiling:Math.max(0,Math.round(base*1.45)),raw:Math.round(base),goal}}if(cacheKey)App.projectionCache.set(cacheKey,out);return out}
 function roundProj(p){
  const pr=proj(p),st=availabilityStatus(p);
  if(!st.available)return {...pr,expected:0,floor:0,ceiling:0,reasons:[...(pr.reasons||[]),st.reason||'Unavailable']};
