@@ -1048,7 +1048,8 @@ function fromKnownPlayerJerseyPatterns(players, page){
     if(unique.length === 1){
       jersey = unique[0];
     }else if(extended.length && final17.length){
-      jersey = extended[0];
+      // CORE RULE: playable jersey evidence beats extended-squad evidence for the same player.
+      jersey = final17[0];
       ambiguous = true;
     }else{
       jersey = final17.length ? final17[0] : extended[0];
