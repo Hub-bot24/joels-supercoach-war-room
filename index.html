@@ -2957,12 +2957,437 @@ window.calculateLevel3Projection=function calculateLevel3Projection(p,ctx={}){
   const confScore=wrConfidence(p,rec,minutes,status,riskAdj.confidencePenalty);
   return {floor,expected,ceiling,raw:wrRound(base),goal:wrGoalKickerInfo(p,rec,status).label,confidence:wrConfidenceLabel(confScore),confidenceScore:confScore,risk:riskAdj.risk,reasons:wrProjectionReasons(reasons),components,version:'projection-v2'};
 };
+
+/* =========================================================
+   Projection v3: date-aware, goal-volume, outlier-safe engine
+   System logic only. No player-specific overrides.
+   ========================================================= */
+
+function wrV3Num(v,fb=0){
+  const n=Number(v);
+  return Number.isFinite(n)?n:fb;
+}
+function wrV3Clamp(n,min,max){
+  return Math.max(min,Math.min(max,Number(n)||0));
+}
+function wrV3Round(n){
+  return Math.max(0,Math.round(Number(n)||0));
+}
+function wrV3Scores(p){
+  const lists=[p?.scores,p?.recentScores,p?.lastScores,p?.gameScores,p?.history,p?.matches];
+  for(const raw of lists){
+    if(!Array.isArray(raw))continue;
+    const arr=raw.map(x=>{
+      if(typeof x==="number")return x;
+      if(!x||typeof x!=="object")return NaN;
+      return Number(x.score??x.sc??x.points??x.supercoach??x.total);
+    }).filter(Number.isFinite);
+    if(arr.length)return arr;
+  }
+  return [];
+}
+function wrV3Median(arr){
+  const a=arr.filter(Number.isFinite).slice().sort((x,y)=>x-y);
+  if(!a.length)return 0;
+  const m=Math.floor(a.length/2);
+  return a.length%2?a[m]:(a[m-1]+a[m])/2;
+}
+function wrV3Pos(p){
+  return (typeof wrPrimaryPos==="function"?wrPrimaryPos(p):"") || String(p?.pos||"").split("/")[0].trim().toUpperCase();
+}
+function wrV3Role(rec,p){
+  const role=typeof wrLineupRole==="function"?wrLineupRole(rec):String(rec?.lineupRole||"").toLowerCase();
+  if(role)return role;
+  const jersey=typeof wrJersey==="function"?wrJersey(rec,p):Number(rec?.jersey||p?.jersey||0);
+  if(jersey>=1&&jersey<=13)return "starter";
+  if(jersey>=14&&jersey<=17)return "interchange";
+  if(jersey>=18&&jersey<=22)return "extended";
+  return "";
+}
+function wrV3Base(p,reasons,components){
+  const avg=wrV3Num(p?.avg||p?.average);
+  const last3=wrV3Num(p?.last3Avg||p?.last3||p?.l3);
+  const last5=wrV3Num(p?.last5Avg||p?.last5||p?.l5);
+  const listed=wrV3Num(p?.proj||p?.projected||p?.expected);
+  const priceSeed=p?.price?Math.round(wrV3Num(p.price)/9000):0;
+  const scores=wrV3Scores(p);
+  const median=wrV3Median(scores);
+
+  const seeds=[];
+  if(avg>0)seeds.push(["Season avg",avg,.50]);
+  if(last5>0)seeds.push(["Last 5",last5,.25]);
+  if(last3>0)seeds.push(["Last 3",last3,.25]);
+  if(scores.length>=3&&median>0)seeds.push(["Median",median,.12]);
+  if(!seeds.length&&listed>0)seeds.push(["Existing projection",listed,1]);
+  if(!seeds.length&&priceSeed>0)seeds.push(["Price fallback",priceSeed,1]);
+
+  const w=seeds.reduce((s,x)=>s+x[2],0)||1;
+  let base=seeds.reduce((s,x)=>s+x[1]*x[2],0)/w||0;
+
+  const max=scores.length?Math.max(...scores):0;
+  const anchor=avg||median||last5||last3||base;
+  const ceilingEvent=max>0&&anchor>0&&max>=Math.max(anchor*2.15,130);
+
+  if(ceilingEvent&&scores.length>=3){
+    const trimmed=scores.filter(s=>s!==max);
+    const trimmedAvg=trimmed.length?trimmed.reduce((s,x)=>s+x,0)/trimmed.length:base;
+    base=(base*.65)+(trimmedAvg*.35);
+    reasons.push("Recent ceiling event capped from expected");
+  }
+
+  components.push({
+    name:"base",
+    value:wrV3Round(base),
+    detail:seeds.map(x=>x[0]+" "+Math.round(x[1])).join(" | ")||"No base data"
+  });
+
+  if(avg&&last3){
+    const d=last3-avg;
+    if(d>=8)reasons.push("Recent form above season base");
+    else if(d<=-8)reasons.push("Recent form below season base");
+    else reasons.push("Recent form near season base");
+  }else if(avg){
+    reasons.push("Anchored to season average");
+  }
+
+  return {base,ceilingEvent,max,anchor};
+}
+function wrV3Recent(p,baseInfo,components){
+  const avg=wrV3Num(p?.avg||p?.average);
+  const last3=wrV3Num(p?.last3Avg||p?.last3||p?.l3);
+  if(!avg||!last3){
+    components.push({name:"recent-form",value:0,detail:"No recent trend adjustment"});
+    return 0;
+  }
+  let adj=wrV3Clamp((last3-avg)*.25,-10,10);
+  if(baseInfo?.ceilingEvent&&adj>0)adj=Math.min(adj,6);
+  components.push({name:"recent-form",value:Math.round(adj),detail:"Last 3 "+Math.round(last3)+" vs avg "+Math.round(avg)});
+  return adj;
+}
+function wrV3Minutes(p,rec,pos,role,reasons,components){
+  const supplied=wrV3Num(p?.expectedMinutes||p?.minutes||p?.avgMinutes||p?.minuteAvg||p?.mins);
+  let est=supplied;
+
+  if(!est){
+    if(role==="starter"){
+      est=pos==="FRF"?52:pos==="HOK"?64:pos==="2RF"?72:80;
+      reasons.push("Starter minutes profile");
+    }else if(role==="interchange"){
+      est=pos==="FRF"?36:pos==="HOK"?38:pos==="2RF"?42:28;
+      reasons.push("Interchange minutes risk");
+    }else if(role==="extended"){
+      est=18;
+      reasons.push("Extended squad selection risk");
+    }
+  }else{
+    reasons.push("Minutes input "+Math.round(est)+" used");
+  }
+
+  const baseline=pos==="FRF"?50:pos==="HOK"?64:pos==="2RF"?70:80;
+  const rate=pos==="FRF"?.45:pos==="HOK"?.35:pos==="2RF"?.32:(pos==="HFB"||pos==="5/8")?.20:.18;
+  const adj=est?wrV3Clamp((est-baseline)*rate,-16,12):0;
+
+  components.push({
+    name:"minutes",
+    value:Math.round(adj),
+    detail:est?Math.round(est)+" min estimate vs "+baseline+" baseline":"No minutes estimate"
+  });
+
+  return {est,adj,baseline};
+}
+function wrV3RoleAdj(pos,role,reasons,components){
+  let adj=0,detail="No lineup role found";
+  if(role==="starter"){
+    adj+=pos==="FRF"?2:4;
+    detail="Starting lineup role";
+    reasons.push("Named starter");
+  }else if(role==="interchange"){
+    adj-=pos==="HOK"?8:pos==="FRF"?7:6;
+    detail="Interchange lineup role";
+    reasons.push("Bench role caps upside");
+  }else if(role==="extended"){
+    adj-=18;
+    detail="Extended squad role";
+    reasons.push("Extended squad only");
+  }
+  components.push({name:"role",value:Math.round(adj),detail});
+  return adj;
+}
+function wrV3Opp(p,ctx){
+  return String(ctx?.opponent||p?.opponent||p?.opp||p?.vs||"").toUpperCase().trim();
+}
+function wrV3Weather(p,pos){
+  const out={level:"none",convRate:.72,expectedAdj:0,ceilingAdj:0,detail:"No kickoff weather adjustment"};
+  try{
+    if(typeof getPlayerNextWeather!=="function")return out;
+    const match=getPlayerNextWeather(p);
+    if(!match||match.weatherStatus!=="updated")return out;
+    const hours=typeof weatherHours==="function"?weatherHours(match):[];
+    const rainProb=Math.max(0,...hours.map(h=>wrV3Num(h.precipitation_probability)));
+    const rain=Math.max(0,...hours.map(h=>wrV3Num(h.precipitation||h.precipitation_mm)));
+    const wind=Math.max(0,...hours.map(h=>wrV3Num(h.wind_speed_10m)),...hours.map(h=>wrV3Num(h.wind_gusts_10m)));
+    const forward=(pos==="FRF"||pos==="2RF"||pos==="HOK");
+
+    if(rainProb>=70||rain>=3||wind>=40){
+      out.level="high";
+      out.convRate=.58;
+      out.expectedAdj=forward?1:-5;
+      out.ceilingAdj=forward?-2:-12;
+      out.detail="High weather risk: rain "+Math.round(rainProb)+"%, wind/gust "+Math.round(wind)+"km/h";
+    }else if(rainProb>=45||rain>=1.5||wind>=30){
+      out.level="medium";
+      out.convRate=.65;
+      out.expectedAdj=forward?0:-2;
+      out.ceilingAdj=forward?-1:-6;
+      out.detail="Medium weather risk: rain "+Math.round(rainProb)+"%, wind/gust "+Math.round(wind)+"km/h";
+    }else{
+      out.level="low";
+      out.detail="Weather check has no downgrade";
+    }
+  }catch{}
+  return out;
+}
+function wrV3TeamCode(p,rec){
+  if(typeof wrGkTeamCode==="function")return wrGkTeamCode(p,rec);
+  return String(rec?.teamCanonical||rec?.team||p?.teamCanonical||p?.teamCode||p?.team||p?.club||"").toUpperCase().trim();
+}
+function wrV3TeamTries(p,rec,ctx,pos){
+  const direct=wrV3Num(ctx?.teamExpectedTries||p?.teamExpectedTries||p?.projectedTeamTries||p?.expectedTeamTries);
+  if(direct>0)return wrV3Clamp(direct,1.2,7.2);
+
+  const team=wrV3TeamCode(p,rec);
+  const opp=wrV3Opp(p,ctx);
+  const attack=wrV3Num(App?.teamAttack?.[team]??App?.teamStrength?.attack?.[team]??0);
+  const defence=wrV3Num(App?.teamDefence?.[opp]??App?.teamStrength?.defence?.[opp]??0);
+  const total=wrV3Num(App?.fixtureTotals?.[team]?.tries??App?.fixtureExpectations?.[team]?.tries??0);
+  if(total>0)return wrV3Clamp(total,1.2,7.2);
+
+  const matchup=wrV3Num(App?.matchupStrength?.[opp]?.[pos]??App?.positionMatchups?.[opp]?.[pos]??0);
+  return wrV3Clamp(3.45 + attack*.18 - defence*.14 + wrV3Clamp(matchup/18,-.35,.45),1.6,6.3);
+}
+function wrV3Goal(p,rec,status,ctx,pos,weather,reasons,components){
+  const info=typeof wrGoalKickerInfo==="function"?wrGoalKickerInfo(p,rec,status):{isGk:false,boost:0,label:"No GK boost",detail:"No GK evidence"};
+  if(!info?.isGk){
+    components.push({name:"goal-kicking",value:0,detail:info?.detail||info?.label||"No GK boost"});
+    return {adj:0,ceiling:0,label:info?.label||"No GK boost"};
+  }
+
+  const teamTries=wrV3TeamTries(p,rec,ctx,pos);
+  const convRate=weather?.convRate||.72;
+  const pen=wrV3Clamp(wrV3Num(ctx?.expectedPenaltyGoals||p?.expectedPenaltyGoals||0.28),0,.9);
+  const evidenceBoost=wrV3Num(info.boost);
+
+  let adj=(teamTries*convRate*4)+(pen*4);
+  if(evidenceBoost>0)adj=(adj*.78)+(evidenceBoost*.22);
+  adj=wrV3Clamp(adj,2,22);
+
+  const ceiling=wrV3Clamp(teamTries*.45*4 + (weather?.level==="high"?-2:2),2,14);
+  const label="Goal kicking +"+Math.round(adj);
+  const detail=(Math.round(teamTries*10)/10)+" projected team tries | "+Math.round(convRate*100)+"% conversion rate | "+pen.toFixed(1)+" penalty goals";
+
+  reasons.push(label);
+  components.push({name:"goal-kicking",value:Math.round(adj),detail});
+
+  return {adj,ceiling,label,teamTries,convRate,detail};
+}
+function wrV3Matchup(p,ctx,pos,reasons,components){
+  const opp=wrV3Opp(p,ctx);
+  let posAdj=wrV3Clamp(wrV3Num(App?.matchupStrength?.[opp]?.[pos]??App?.positionMatchups?.[opp]?.[pos]??0),-8,8);
+  let oppAdj=wrV3Clamp(wrV3Num(App?.opponentStrength?.[opp]??App?.teamStrength?.opponent?.[opp]??0),-6,6);
+  const total=posAdj+oppAdj;
+
+  let detail="No opponent/matchup adjustment";
+  if(opp){
+    detail="Opponent "+opp+": position "+Math.round(posAdj)+", team "+Math.round(oppAdj);
+    if(total>=4)reasons.push("Good matchup");
+    else if(total<=-4)reasons.push("Tough matchup");
+  }
+
+  components.push({name:"matchup",value:Math.round(total),detail});
+  return total;
+}
+function wrV3Venue(p,ctx,components){
+  const flag=String(ctx?.venueSide||p?.venueSide||p?.homeAway||p?.home_away||"").toLowerCase();
+  let adj=0,detail="No venue adjustment";
+  if(flag==="home"||flag==="h"){adj=2;detail="Home venue small boost";}
+  else if(flag==="away"||flag==="a"){adj=-2;detail="Away venue small penalty";}
+  else if(flag==="neutral"||flag==="n"){detail="Neutral venue";}
+  components.push({name:"venue",value:adj,detail});
+  return adj;
+}
+function wrV3Risk(p,rec,status,role,reasons,components){
+  let factor=1,risk="Low",confidencePenalty=0,penalty=0;
+  const key=String(status?.key||"").toLowerCase();
+  const sel=String(rec?.selectionStatus||rec?.displayStatus||"").toLowerCase();
+
+  if(role==="extended"||(typeof wrExtendedLineupRole==="function"&&wrExtendedLineupRole(rec))){
+    factor=.38;
+    risk="High";
+    confidencePenalty=30;
+    reasons.push("Extended squad only: discounted until promoted");
+  }else if(key==="risk"||sel.includes("expected")){
+    factor=.78;
+    risk="Medium";
+    confidencePenalty=18;
+    reasons.push("Expected/risk status discount");
+  }
+
+  const injuryContext=!!(rec?.injuryNote||rec?.injuryType||rec?.expectedReturnText||p?.injuryNote);
+  if(injuryContext&&status?.available!==false&&role!=="extended"){
+    penalty+=3;
+    confidencePenalty+=7;
+    if(risk==="Low")risk="Medium";
+    reasons.push("Injury note risk only");
+  }
+
+  const originText=String(rec?.originRisk||rec?.origin||p?.originRisk||"").toLowerCase();
+  if(originText||key==="origin"||key==="origin_risk"){
+    penalty+=2;
+    confidencePenalty+=6;
+    if(risk==="Low")risk="Medium";
+    reasons.push("Origin/rest watch");
+  }
+
+  components.push({
+    name:"selection-risk",
+    value:Math.round((factor-1)*100)-penalty,
+    detail:risk+" risk | factor "+Math.round(factor*100)+"% | penalty "+penalty
+  });
+
+  return {factor,risk,confidencePenalty,penalty};
+}
+function wrV3Range(p,pos,role,expected,baseInfo,minutes,goal,weather,riskAdj,reasons,components){
+  let vol=pos==="CTW"?.43:pos==="FLB"?.38:(pos==="HFB"||pos==="5/8")?.34:pos==="FRF"?.29:pos==="HOK"?.30:.31;
+
+  if(role==="starter")vol-=.05;
+  if(role==="interchange")vol+=.08;
+  if(role==="extended")vol+=.18;
+
+  if(minutes?.est){
+    const diff=Math.abs(minutes.est-minutes.baseline);
+    if(diff<=6)vol-=.03;
+    if(diff>=22)vol+=.06;
+  }
+
+  if(goal?.adj>0)vol-=.03;
+  if(weather?.level==="medium")vol+=.03;
+  if(weather?.level==="high")vol+=.07;
+  if(riskAdj?.risk==="Medium")vol+=.05;
+  if(riskAdj?.risk==="High")vol+=.13;
+
+  let upside=pos==="CTW"?.62:pos==="FLB"?.52:(pos==="HFB"||pos==="5/8")?.46:pos==="2RF"?.38:.34;
+  if(goal?.ceiling)upside+=goal.ceiling/100;
+  if(baseInfo?.ceilingEvent){
+    upside+=.28;
+    vol+=.06;
+    reasons.push("Recent ceiling event lifts upside, not expected");
+  }
+  if(weather?.ceilingAdj<0)upside+=weather.ceilingAdj/100;
+
+  vol=wrV3Clamp(vol,.20,.78);
+  upside=wrV3Clamp(upside,.25,.95);
+
+  let floor=wrV3Round(expected*(1-vol));
+  let ceiling=wrV3Round(expected*(1+upside));
+
+  if(role==="extended"){
+    floor=0;
+    ceiling=Math.max(ceiling,wrV3Round((baseInfo?.base||expected)*.95));
+  }
+
+  components.push({name:"range",value:ceiling-floor,detail:"volatility "+Math.round(vol*100)+"% | upside "+Math.round(upside*100)+"%"});
+  return {floor,ceiling};
+}
+function wrV3Confidence(p,rec,status,role,minutes,riskAdj,baseInfo,weather){
+  let c=52;
+  if(wrV3Num(p?.avg||p?.average)>0)c+=12;
+  if(wrV3Num(p?.last3Avg||p?.last5Avg)>0)c+=10;
+  if(minutes?.est)c+=10;
+
+  if(role==="starter")c+=16;
+  else if(role==="interchange")c+=8;
+  else if(role==="extended")c-=18;
+
+  if(rec?.sources?.length)c+=8;
+  if(baseInfo?.ceilingEvent)c-=5;
+  if(weather?.level==="medium")c-=4;
+  if(weather?.level==="high")c-=8;
+  if(status?.available===false)c=95;
+
+  c-=riskAdj?.confidencePenalty||0;
+  return wrV3Clamp(Math.round(c),15,98);
+}
+function wrV3ConfidenceLabel(score){
+  return score>=78?"High":score>=55?"Medium":"Low";
+}
+function wrV3Reasons(reasons){
+  return [...new Set(reasons.filter(Boolean))].slice(0,7);
+}
+
+window.calculateLevel3Projection=function calculateLevel3Projection(p,ctx={}){
+  if(!p){
+    return {floor:0,expected:0,ceiling:0,raw:0,goal:"No data",confidence:"Low",risk:"High",reasons:["No player data"],components:[],version:"projection-v3"};
+  }
+
+  const reasons=[];
+  const components=[];
+  const rec=typeof wrTruth==="function"?(wrTruth(p)||{}):{};
+  const status=typeof wrStatus==="function"?wrStatus(p):availabilityStatus(p);
+  const pos=wrV3Pos(p);
+  const role=wrV3Role(rec,p);
+
+  const baseInfo=wrV3Base(p,reasons,components);
+  const recentAdj=wrV3Recent(p,baseInfo,components);
+  const minutes=wrV3Minutes(p,rec,pos,role,reasons,components);
+  const roleAdj=wrV3RoleAdj(pos,role,reasons,components);
+  const weather=wrV3Weather(p,pos);
+
+  if(weather.level==="medium"||weather.level==="high")reasons.push("Weather lowers attacking upside");
+  else if(weather.level==="low")reasons.push("No weather downgrade");
+
+  components.push({name:"weather",value:Math.round(weather.expectedAdj),detail:weather.detail});
+
+  const matchupAdj=wrV3Matchup(p,ctx,pos,reasons,components);
+  const venueAdj=wrV3Venue(p,ctx,components);
+  const goal=wrV3Goal(p,rec,status,ctx,pos,weather,reasons,components);
+  const riskAdj=wrV3Risk(p,rec,status,role,reasons,components);
+
+  let total=baseInfo.base+recentAdj+minutes.adj+roleAdj+matchupAdj+venueAdj+weather.expectedAdj+goal.adj-riskAdj.penalty;
+  total*=riskAdj.factor;
+
+  let expected=wrV3Round(total);
+  let range=wrV3Range(p,pos,role,expected,baseInfo,minutes,goal,weather,riskAdj,reasons,components);
+
+  if(status?.available===false){
+    expected=0;
+    range.floor=0;
+    range.ceiling=0;
+    reasons.unshift(status?.reason||"Unavailable");
+  }
+
+  const confScore=wrV3Confidence(p,rec,status,role,minutes,riskAdj,baseInfo,weather);
+
+  return {
+    floor:range.floor,
+    expected,
+    ceiling:range.ceiling,
+    raw:wrV3Round(baseInfo.base),
+    goal:goal?.adj?goal.label:(typeof wrGoalKickerInfo==="function"?wrGoalKickerInfo(p,rec,status).label:"No GK boost"),
+    confidence:wrV3ConfidenceLabel(confScore),
+    confidenceScore:confScore,
+    risk:riskAdj.risk,
+    reasons:wrV3Reasons(reasons),
+    components,
+    version:"projection-v3"
+  };
+};
+
 function projectionCacheKey(p){if(!p||!p.name)return '';const values=[p.name,App.round,safeNum(p.avg||p.average||0),safeNum(p.last3Avg||0),safeNum(p.last5Avg||0),safeNum(p.proj||p.projected||p.expected||0),safeNum(p.expectedMinutes||p.minutes||0),String(p.injuryStatus||p.status||'').trim().toUpperCase(),safeNum(p.playProbability==null?100:p.playProbability),JSON.stringify(p.bye||p.byes||[])];values.push(JSON.stringify(wrGoalKickerInfo(p)));return values.join('|')}
 function proj(p){if(!p)return {floor:0,expected:0,ceiling:0,raw:0,goal:'No data'};const cacheKey=projectionCacheKey(p);if(cacheKey&&App.projectionCache.has(cacheKey))return App.projectionCache.get(cacheKey);let out=null;if(typeof window.calculateLevel3Projection==='function'){try{out=window.calculateLevel3Projection(p,{round:App.round,opponent:p.opponent||p.opp||p.vs,isFuture:true});if(!out||typeof out.expected!=='number'||typeof out.floor!=='number'||typeof out.ceiling!=='number'){throw new Error('Invalid engine projection result')}}catch(err){console.warn('Level 3 projection engine failed, falling back to inline projection',err);out=null}}if(!out){let base=safeNum(p.proj||p.avg||p.average||0);if(!base&&p.price)base=Math.round(p.price/9000);const recent=safeNum(p.last3Avg||p.last5Avg||0);if(recent)base=Math.round(base*.75+recent*.25);let goal='No GK boost';const gkInfo=wrGoalKickerInfo(p);if(gkInfo.boost){base+=wrNum(gkInfo.boost);goal=gkInfo.label||'GK boost'}else{goal=gkInfo.label||'No GK boost'}let role=safeNum(p.expectedMinutes||p.minutes||0);if(role&&role<45)base-=8;out={floor:Math.max(0,Math.round(base*.68)),expected:Math.max(0,Math.round(base)),ceiling:Math.max(0,Math.round(base*1.45)),raw:Math.round(base),goal}}if(cacheKey)App.projectionCache.set(cacheKey,out);return out}
 function roundProj(p){
  const pr=proj(p),st=availabilityStatus(p);
  if(!st.available)return {...pr,expected:0,floor:0,ceiling:0,reasons:[...(pr.reasons||[]),st.reason||'Unavailable']};
- if(pr&&pr.version==='projection-v2')return pr;
+ if(pr&&String(pr.version||'').startsWith('projection-v'))return pr;
  if(st.key==='risk')return {...pr,expected:Math.round(pr.expected*.72),floor:Math.round(pr.floor*.55),ceiling:Math.round(pr.ceiling*.9)};
  return pr;
 }
