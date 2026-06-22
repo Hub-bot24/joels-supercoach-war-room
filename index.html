@@ -2136,7 +2136,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 <script src="level3-projection-engine.js"></script>
 <script>
 'use strict';
-const App={players:[],playerMap:new Map(),playerNameMap:new Map(),ambiguousPlayerNameMap:new Map(),myTeam:[],weather:null,fixtures:null,goalKickers:null,teamRoles:null,availabilityOverrides:null,playerStatus:null,statusTruth:null,playerPhotos:null,
+const App={players:[],playerMap:new Map(),playerNameMap:new Map(),ambiguousPlayerNameMap:new Map(),myTeam:[],weather:null,fixtures:null,goalKickers:null,goalKickerEvidence:null,teamRoles:null,availabilityOverrides:null,playerStatus:null,statusTruth:null,playerPhotos:null,
 teamLists:null,officialTeamLists:null,originUnavailable:null,
 dualPositions:{players:{}},projectionCache:new Map(),active:'team',rendered:new Set(),round:Number(localStorage.getItem('sc_round')||14),roundSource:'stored',trustWarnings:[],lineup:null,drag:null,sync:{client:null,user:null,enabled:false,status:'offline',lastCloudAt:'',saving:false,timer:null,clientId:null,localUpdatedAt:''}};
 const $=id=>document.getElementById(id);const safeNum=v=>Number.isFinite(Number(v))?Number(v):0;const money=n=>'$'+safeNum(n).toLocaleString();
@@ -2438,7 +2438,6 @@ function dataFreshnessPanelHtml(){
  return `<div class="dataFreshnessPanel small" style="display:none;position:absolute;right:0;top:calc(100% + 6px);z-index:10002;width:280px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#071222;box-shadow:0 18px 50px rgba(0,0,0,.5);line-height:1.45;text-align:left"><b>Update details</b><br>Team lists/status: ${esc(compactUpdatedLabel(status))} · ${esc(dateTimeLabelFromRecord(status))}<br>Status truth round: R${esc(App.statusTruth?.round??'unknown')}<br>Selected round: R${esc(App.round)}<br>Team lists loaded: ${teamlistsLoaded()?'true':'false'}${weather?`<br>Weather: ${esc(compactUpdatedLabel(weather))} · ${esc(dateTimeLabelFromRecord(weather))}`:''}${sources.length?`<br>Sources: ${sources.map(esc).join(' + ')}`:''}</div>`;
 }
 function dataFreshnessControlHtml(){return `<span style="position:relative;display:inline-flex;align-items:center;gap:5px;white-space:nowrap"><span class="dataFreshnessText">${esc(dataFreshnessSummary())}</span><button type="button" aria-label="Data update details" onclick="toggleDataFreshnessDetails(event)" style="width:22px;height:22px;padding:0;border-radius:999px;font-size:12px;line-height:1;display:inline-grid;place-items:center">ⓘ</button>${dataFreshnessPanelHtml()}</span>`}
-function toggleDataFreshnessDetails(ev){if(ev){ev.preventDefault();ev.stopPropagation()}const wrap=ev?.currentTarget?.parentElement;const panel=wrap?.querySelector?.('.dataFreshnessPanel');if(panel)panel.style.display=panel.style.display==='block'?'none':'block'}
 function flattenFixtures(input,out=[]){if(Array.isArray(input)){input.forEach(x=>flattenFixtures(x,out));return out}if(input&&typeof input==='object'){const hasRound=input.round||input.roundNumber||input.round_number||input.scRound||input.nrlRound;const hasDate=input.kickoffLocal||input.kickoff||input.date||input.matchDate||input.startTime||input.start;if(hasRound&&hasDate)out.push(input);for(const v of Object.values(input)){if(v&&typeof v==='object')flattenFixtures(v,out)}}return out}
 function inferCurrentRound(){const matches=flattenFixtures(App.fixtures||[]).map(m=>({round:Number(m.round||m.roundNumber||m.round_number||m.scRound||m.nrlRound),time:firstDate(m)})).filter(m=>Number.isFinite(m.round)&&Number.isFinite(m.time)).sort((a,b)=>a.time-b.time);if(!matches.length)return null;const now=Date.now();const buffer=10*60*60*1000;const upcoming=matches.find(m=>m.time+buffer>=now);if(upcoming)return upcoming.round;return matches[matches.length-1].round}
 function syncCurrentRound(){const stored=Number(localStorage.getItem('sc_round')||0);const truthRound=Number(App.statusTruth?.round||0);const inferred=inferCurrentRound();App.trustWarnings=[];if(Number.isFinite(truthRound)&&truthRound>0){App.round=truthRound;App.roundSource='status truth';localStorage.setItem('sc_round',String(App.round));if(stored&&stored!==truthRound)App.trustWarnings.push('Round auto-set to R'+App.round+' from generated status truth. Old stored round was R'+stored+'.');return}if(Number.isFinite(inferred)&&inferred>0){if(!stored||stored<inferred||stored>inferred+1){App.round=inferred;App.roundSource='fixtures auto';localStorage.setItem('sc_round',String(App.round));App.trustWarnings.push('Round auto-set to R'+App.round+' from fixtures. Old stored round was '+(stored||'blank')+'.')}else{App.round=stored;App.roundSource='stored'}}else{App.round=stored||App.round||14;App.roundSource='stored fallback';App.trustWarnings.push('Could not auto-detect current round from status truth or fixtures; check round manually.')}}
@@ -2467,7 +2466,7 @@ function safeLocalGet(key,fallback){
 async function boot(){
  const rawPlayers=await fetchJson('players.json',[]);let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));buildPlayerNameMap();
  // Browser reads the generated /data contract first; scripts/update-status.mjs owns generation so known contract files are valid JSON, not missing files.
- App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);App.playerStatus=await fetchJson('player_status.json',{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],null);App.playerPhotos=await fetchJson('player_photos.json',{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],null);App.dualPositions=await fetchJson('position_overrides.json',{players:{}});syncCurrentRound();
+ App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.goalKickerEvidence=await fetchJsonFirst(['data/goal_kicker_evidence.json','goal_kicker_evidence.json'],{players:{},teams:{}});App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);App.playerStatus=await fetchJson('player_status.json',{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],null);App.playerPhotos=await fetchJson('player_photos.json',{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],null);App.dualPositions=await fetchJson('position_overrides.json',{players:{}});syncCurrentRound();
  const localTeam=safeJsonParse(safeLocalGet('sc_myTeam','null'),null);const teamJson=await fetchJson('my_team.json',null);let names=Array.isArray(localTeam)&&localTeam.length?localTeam:(teamJson?.players||teamJson?.team||[]);if(!Array.isArray(names))names=[];
  names = names.map(x => typeof x === 'string' ? x.trim() : (x?.name || x?.player || '')).filter(Boolean);
  const resolvedNames = names.map(n=>resolvePlayerName(n)).filter(Boolean);
@@ -2802,6 +2801,16 @@ function wrGkTeamCode(p,rec){
 }
 function wrGkTeamData(p,rec){
   const gk=App.goalKickers||{};
+      const conf=String(ev.confidence||'medium').toLowerCase();
+        : (conf==='high'?'GK boost':'Possible GK boost');
+    }
+  }
+
+      const conf=String(ev.confidence||'medium').toLowerCase();
+        : (conf==='high'?'GK boost':'Possible GK boost');
+    }
+  }
+
   const keys=[rec?.teamCanonical,rec?.team,p?.teamCanonical,p?.teamCode,p?.team,p?.club].map(x=>String(x||'').toUpperCase().trim()).filter(Boolean);
   const seen=[...new Set(keys)];
   for(const k of seen){if(gk.teams?.[k])return {key:k,data:gk.teams[k]};}
@@ -2830,6 +2839,19 @@ function wrGkPickList(teamData){
 }
 function wrGoalKickerInfo(p,rec=wrTruth(p)||{},status=wrStatus(p)){
   const gk=App.goalKickers||{};
+  const ev=App.goalKickerEvidence?.players?.[p?.name];
+  if(ev){
+    if(ev.chosenKicker===true && ev.namedAvailable!==false){
+      const conf=String(ev.confidence||'medium').toLowerCase();
+      const boost=Number.isFinite(Number(ev.recommendedUplift))?Number(ev.recommendedUplift):(conf==='high'?3:2);
+      const label=ev.recentGoalKicksKnown||ev.seasonGoalKicksKnown
+        ? (ev.label||'GK evidence uplift')
+        : (conf==='high'?'GK boost':'Possible GK boost');
+      return {isGk:true,boost,confidence:conf,label,detail:ev.label||'Generated GK evidence'};
+    }
+    return {isGk:false,boost:0,confidence:'none',label:'No GK boost',detail:ev.label||'Generated GK evidence says not current kicker'};
+  }
+
 
   const teamInfo=wrGkTeamData(p,rec);
   const team=teamInfo.key;
