@@ -1,7 +1,7 @@
 {
   "season": 2026,
   "round": 16,
-  "updated": "2026-06-22T12:12:45.226Z",
+  "updated": "2026-06-22T12:58:14.509Z",
   "source": "generated from goal_kickers.json ladder plus current status/teamlists; no match-by-match goals source yet",
   "rule": "Select first named and available kicker from each team ladder. Recent goal-kicking evidence remains unknown until a goals/conversions source is added.",
   "teams": {
@@ -63,15 +63,15 @@
       ]
     },
     "SHA": {
-      "chosenKicker": "Braydon Trindall",
+      "chosenKicker": "Nicho Hynes",
       "chosenRole": null,
-      "chosenConfidence": "medium",
+      "chosenConfidence": "high",
       "ladder": [
         {
           "name": "Nicho Hynes",
           "role": null,
           "confidence": "high",
-          "namedAvailable": false
+          "namedAvailable": true
         },
         {
           "name": "Braydon Trindall",
@@ -268,7 +268,7 @@
           "name": "Sandon Smith",
           "role": null,
           "confidence": "medium",
-          "namedAvailable": false
+          "namedAvailable": true
         }
       ]
     },
@@ -394,21 +394,6 @@
       "team": "SHA",
       "role": null,
       "confidence": "high",
-      "namedAvailable": false,
-      "chosenKicker": false,
-      "recentGoalKicksKnown": false,
-      "seasonGoalKicksKnown": false,
-      "recentGoals": null,
-      "seasonGoals": null,
-      "gamesWithRecentGoals": null,
-      "upliftMode": "not-current-kicker",
-      "recommendedUplift": 0,
-      "label": "No GK uplift"
-    },
-    "Braydon Trindall": {
-      "team": "SHA",
-      "role": null,
-      "confidence": "medium",
       "namedAvailable": true,
       "chosenKicker": true,
       "recentGoalKicksKnown": false,
@@ -419,6 +404,21 @@
       "upliftMode": "role-only-no-goals-source",
       "recommendedUplift": null,
       "label": "GK role identified; goals evidence unavailable"
+    },
+    "Braydon Trindall": {
+      "team": "SHA",
+      "role": null,
+      "confidence": "medium",
+      "namedAvailable": true,
+      "chosenKicker": false,
+      "recentGoalKicksKnown": false,
+      "seasonGoalKicksKnown": false,
+      "recentGoals": null,
+      "seasonGoals": null,
+      "gamesWithRecentGoals": null,
+      "upliftMode": "not-current-kicker",
+      "recommendedUplift": 0,
+      "label": "No GK uplift"
     },
     "Jayden Campbell": {
       "team": "GLD",
@@ -694,7 +694,7 @@
       "team": "SYD",
       "role": null,
       "confidence": "medium",
-      "namedAvailable": false,
+      "namedAvailable": true,
       "chosenKicker": false,
       "recentGoalKicksKnown": false,
       "seasonGoalKicksKnown": false,
