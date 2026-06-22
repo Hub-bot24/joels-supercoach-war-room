@@ -2835,7 +2835,7 @@ function wrGoalKickerInfo(p,rec=wrTruth(p)||{},status=wrStatus(p)){
   if(ev){
     if(ev.chosenKicker===true && ev.namedAvailable!==false){
       const conf=String(ev.confidence||'medium').toLowerCase();
-      const boost=Number.isFinite(Number(ev.recommendedUplift))
+      const boost=(ev.recommendedUplift!==null&&ev.recommendedUplift!==undefined&&Number.isFinite(Number(ev.recommendedUplift)))
         ? Number(ev.recommendedUplift)
         : (conf==='high'?3:2);
       const label=(ev.recentGoalKicksKnown||ev.seasonGoalKicksKnown)
