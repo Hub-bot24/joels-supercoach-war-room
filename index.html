@@ -2839,12 +2839,15 @@ function wrGkPickList(teamData){
 }
 function wrGoalKickerInfo(p,rec=wrTruth(p)||{},status=wrStatus(p)){
   const gk=App.goalKickers||{};
+
   const ev=App.goalKickerEvidence?.players?.[p?.name];
   if(ev){
     if(ev.chosenKicker===true && ev.namedAvailable!==false){
       const conf=String(ev.confidence||'medium').toLowerCase();
-      const boost=Number.isFinite(Number(ev.recommendedUplift))?Number(ev.recommendedUplift):(conf==='high'?3:2);
-      const label=ev.recentGoalKicksKnown||ev.seasonGoalKicksKnown
+      const boost=Number.isFinite(Number(ev.recommendedUplift))
+        ? Number(ev.recommendedUplift)
+        : (conf==='high'?3:2);
+      const label=(ev.recentGoalKicksKnown||ev.seasonGoalKicksKnown)
         ? (ev.label||'GK evidence uplift')
         : (conf==='high'?'GK boost':'Possible GK boost');
       return {isGk:true,boost,confidence:conf,label,detail:ev.label||'Generated GK evidence'};
@@ -2852,22 +2855,37 @@ function wrGoalKickerInfo(p,rec=wrTruth(p)||{},status=wrStatus(p)){
     return {isGk:false,boost:0,confidence:'none',label:'No GK boost',detail:ev.label||'Generated GK evidence says not current kicker'};
   }
 
-
   const teamInfo=wrGkTeamData(p,rec);
   const team=teamInfo.key;
   const teamData=teamInfo.data;
   const ladder=wrGkPickList(teamData);
   const season=Number(gk.season||wrGkCurrentSeason());
   const stale=season&&season!==wrGkCurrentSeason();
-  if(!team||!ladder.length)return {isGk:false,boost:0,confidence:'none',label:'No GK boost',detail:'No team goal-kicker ladder'};
-  const named=ladder.filter(x=>{const resolved=(typeof resolvePlayerName==='function'?resolvePlayerName(x.name):'')||x.name;const pl=getPlayer(resolved);if(!pl)return false;const r=wrTruth(pl)||{};return wrGkNamed(r,wrStatus(pl));});
+
+  if(!team||!ladder.length){
+    return {isGk:false,boost:0,confidence:'none',label:'No GK boost',detail:'No team goal-kicker ladder'};
+  }
+
+  const named=ladder.filter(x=>{
+    const resolved=(typeof resolvePlayerName==='function'?resolvePlayerName(x.name):'')||x.name;
+    const pl=getPlayer(resolved);
+    if(!pl)return false;
+    const r=wrTruth(pl)||{};
+    return wrGkNamed(r,wrStatus(pl));
+  });
+
   const chosen=named[0]||ladder[0];
   const chosenName=chosen?((typeof resolvePlayerName==='function'?resolvePlayerName(chosen.name):'')||chosen.name):'';
   const match=chosen&&wrGkNameMatch(chosenName,p?.name);
-  if(!match)return {isGk:false,boost:0,confidence:'none',label:'No GK boost',detail:chosen?`Team GK currently projects to ${chosen.name}`:'No available team GK'};
+
+  if(!match){
+    return {isGk:false,boost:0,confidence:'none',label:'No GK boost',detail:chosen?`Team GK currently projects to ${chosen.name}`:'No available team GK'};
+  }
+
   const conf=String(chosen.confidence||'medium').toLowerCase();
   const high=conf==='high'&&!stale;
   const boost=high?3:2;
+
   return {isGk:true,boost,confidence:stale?'low':conf,label:high?'GK boost':'Possible GK boost',detail:`${chosen.source||'team ladder'}${stale?' - stale season data downgraded':''}`};
 }
 function wrGoalKicker(p){return wrGoalKickerInfo(p).isGk}
