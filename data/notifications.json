@@ -1,6 +1,316 @@
 {
-  "updated": "2026-06-23T09:11:12.696Z",
+  "updated": "2026-06-23T10:03:34.183Z",
   "round": 17,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Blake Mozer",
+      "team": "BRO",
+      "from": "NAMED",
+      "to": "INJURED",
+      "reason": "Back context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-23T10:03:34.183Z",
+      "sources": [
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154/",
+          "updatedAt": "2026-06-23T10:03:34.183Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Cameron Murray",
+      "team": "STH",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-23T10:03:34.183Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-vs-broncos-10396426-234700",
+          "updatedAt": "2026-06-23T10:03:34.183Z",
+          "priority": 4,
+          "order": 5
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-23T10:03:34.183Z",
+          "priority": 2,
+          "order": 8
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Hamiso Tabuai-Fidow",
+      "team": "DOL",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-23T10:03:34.183Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dolphins-vs-roosters-10396427-234728",
+          "updatedAt": "2026-06-23T10:03:34.183Z",
+          "priority": 4,
+          "order": 4
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-23T10:03:34.183Z",
+          "priority": 2,
+          "order": 8
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Herbie Farnworth",
+      "team": "DOL",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 23).; injury note: Ankle context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-23T10:03:34.183Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dolphins-vs-roosters-10396427-234728",
+          "updatedAt": "2026-06-23T10:03:34.183Z",
+          "priority": 4,
+          "order": 4
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-vs-broncos-10396426-234700",
+          "updatedAt": "2026-06-23T10:03:34.183Z",
+          "priority": 4,
+          "order": 5
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-23T10:03:34.183Z",
+          "priority": 2,
+          "order": 8
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/eels-provide-promising-injury-update-on-moses-and-pezet-235173/",
+          "updatedAt": "2026-06-23T10:03:34.183Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/jackson-fords-injury-and-return-timeline-revealed-in-latest-warriors-blow-235165/",
+          "updatedAt": "2026-06-23T10:03:34.183Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/benji-confirms-adam-doueihi-injury-return-schedule-234994/",
+          "updatedAt": "2026-06-23T10:03:34.183Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/wests-tigers-forward-chasing-early-return-after-mcl-injury-234912/",
+          "updatedAt": "2026-06-23T10:03:34.183Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/sharks-forward-suffers-knee-injury-return-timeline-revealed-234887/",
+          "updatedAt": "2026-06-23T10:03:34.183Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/wests-tigers-provide-update-on-kai-pearce-paul-injury-234871/",
+          "updatedAt": "2026-06-23T10:03:34.183Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/mam-injury-piles-more-misery-on-broncos-nightmare-run-234848/",
+          "updatedAt": "2026-06-23T10:03:34.183Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Kotoni Staggs",
+      "team": "BRO",
+      "from": "NAMED",
+      "to": "INJURED",
+      "reason": "Pec context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-23T10:03:34.183Z",
+      "sources": [
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/mam-injury-piles-more-misery-on-broncos-nightmare-run-234848/",
+          "updatedAt": "2026-06-23T10:03:34.183Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Kulikefu Finefeuiaki",
+      "team": "DOL",
+      "from": "NAMED",
+      "to": "INJURED",
+      "reason": "Back context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-23T10:03:34.183Z",
+      "sources": [
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154/",
+          "updatedAt": "2026-06-23T10:03:34.183Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Max Plath",
+      "team": "DOL",
+      "from": "NAMED",
+      "to": "INJURED",
+      "reason": "Back context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-23T10:03:34.183Z",
+      "sources": [
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154/",
+          "updatedAt": "2026-06-23T10:03:34.183Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Payne Haas",
+      "team": "BRO",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).; injury/return note: Back context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-23T10:03:34.183Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-vs-broncos-10396426-234700",
+          "updatedAt": "2026-06-23T10:03:34.183Z",
+          "priority": 4,
+          "order": 5
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-23T10:03:34.183Z",
+          "priority": 2,
+          "order": 8
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154/",
+          "updatedAt": "2026-06-23T10:03:34.183Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/mam-injury-piles-more-misery-on-broncos-nightmare-run-234848/",
+          "updatedAt": "2026-06-23T10:03:34.183Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Reece Walsh",
+      "team": "BRO",
+      "from": "NAMED",
+      "to": "INJURED",
+      "reason": "Pec context found near player on injury/casualty source page (Zero Tackle).",
+      "detectedAt": "2026-06-23T10:03:34.183Z",
+      "sources": [
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/mam-injury-piles-more-misery-on-broncos-nightmare-run-234848/",
+          "updatedAt": "2026-06-23T10:03:34.183Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Selwyn Cobbo",
+      "team": "DOL",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-23T10:03:34.183Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dolphins-vs-roosters-10396427-234728",
+          "updatedAt": "2026-06-23T10:03:34.183Z",
+          "priority": 4,
+          "order": 4
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-23T10:03:34.183Z",
+          "priority": 2,
+          "order": 8
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Thomas Flegler",
+      "team": "DOL",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-23T10:03:34.183Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dolphins-vs-roosters-10396427-234728",
+          "updatedAt": "2026-06-23T10:03:34.183Z",
+          "priority": 4,
+          "order": 4
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-23T10:03:34.183Z",
+          "priority": 2,
+          "order": 8
+        }
+      ],
+      "round": 17
+    }
+  ],
   "allChangeCount": 500
 }
