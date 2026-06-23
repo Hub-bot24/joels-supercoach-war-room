@@ -1491,6 +1491,29 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
         rec = makeStatus(STATUS.EXPECTED, 'No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.', [sourceObj('source_missing','Current club team-list not confirmed','data/status_truth.json')], {selectionStatus:'source_missing', dataUnknown:true});
       }
     }
+    // System arbitration repair:
+    // If current team-list parsing produced a playable jersey/role, the player cannot remain NOT_NAMED.
+    // This fixes source-order contradictions without any player-specific overrides.
+    {
+      const jersey = Number(rec?.jersey);
+      const role = String(rec?.lineupRole || rec?.selectionRole || '').toLowerCase();
+      const playableRole =
+        (jersey >= 1 && jersey <= 13 && role === 'starter') ||
+        (jersey >= 14 && jersey <= 17 && role === 'interchange');
+
+      if(Number.isFinite(jersey) && playableRole && rec?.displayStatus === STATUS.NOT_NAMED){
+        rec = {
+          ...rec,
+          displayStatus: STATUS.NAMED,
+          status: STATUS.NAMED,
+          available: true,
+          colour: COLOUR[STATUS.NAMED],
+          selectionStatus: 'named',
+          reason: `${rec.reason || 'Team-list evidence'}; playable jersey/role overrides NOT_NAMED contradiction`
+        };
+      }
+    }
+
     playersOut[p.name] = {
       ...rec,
       player: p.name,
