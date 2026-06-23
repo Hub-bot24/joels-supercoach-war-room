@@ -4634,6 +4634,23 @@ function wrV41HardUnavailableForRound(p,round,base){
 function wrV41ArbitrateStatus(p,round,base){
   if(!p||!base)return base;
   const rec=wrV41Truth(p);
+  // Absolute status precedence: BYE is final and cannot be relabelled as injured/suspended
+  // by old injury text, player notes, or fallback status fields.
+  const baseKey=wrV41Key(base.key||base.label);
+  const recKey=(typeof truthKeyFromRecord==='function') ? truthKeyFromRecord(rec) : '';
+  const recColour=wrV41Text(rec?.colour||rec?.color).toLowerCase().trim();
+  const recSelection=wrV41Key(rec?.selectionStatus||rec?.displayStatus||rec?.status);
+  if(baseKey==='bye'||baseKey.includes('bye')||recKey==='bye'||recColour==='purple'||recSelection==='bye'){
+    return {
+      ...base,
+      key:'bye',
+      available:false,
+      label:'BYE',
+      reason:base.reason||rec.reason||`Bye round ${round}`,
+      source:base.source||'data/status_truth.json',
+      truth:base.truth||rec
+    };
+  }
   const jersey=wrV41Jersey(rec,p);
   const hard=wrV41HardUnavailableForRound(p,round,base);
   if(hard){
