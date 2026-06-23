@@ -1186,8 +1186,25 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
     // the current truth for that club. Players from that club who are absent from this newer page
     // must be downgraded to NOT_NAMED at the same high priority. This lets final-team/late-mail
     // evidence override older Tuesday lists without hardcoding any player.
+    const pageSourceName = String(page.sourceName || '').toLowerCase();
+    const pageUrlText = String(page.url || '').toLowerCase();
+
+    // Source-quality guard:
+    // Absence is only strong evidence from trusted official/final/late-mail pages.
+    // Third-party/partial scrapes such as Zero Tackle can name players, but cannot mark players NOT_NAMED
+    // just because they are missing from that page.
+    const canDowngradeAbsentPlayers =
+      !pageSourceName.includes('zero tackle') &&
+      (
+        pageSourceName.includes('nrl') ||
+        pageSourceName.includes('official') ||
+        pageSourceName.includes('late') ||
+        pageSourceName.includes('final') ||
+        pageUrlText.includes('nrl.com')
+      );
+
     for(const [teamCanon, n] of pageTeamCounts.entries()){
-      if(n >= 10){
+      if(n >= 10 && canDowngradeAbsentPlayers){
         teamFound.set(teamCanon, Math.max(teamFound.get(teamCanon)||0, n));
         const seen = pageSeenByTeam.get(teamCanon) || new Set();
         for(const p of players){
