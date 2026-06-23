@@ -2440,7 +2440,38 @@ function dataFreshnessPanelHtml(){
 function dataFreshnessControlHtml(){return `<span style="position:relative;display:inline-flex;align-items:center;gap:5px;white-space:nowrap"><span class="dataFreshnessText">${esc(dataFreshnessSummary())}</span><button type="button" aria-label="Data update details" onclick="toggleDataFreshnessDetails(event)" style="width:22px;height:22px;padding:0;border-radius:999px;font-size:12px;line-height:1;display:inline-grid;place-items:center">ⓘ</button>${dataFreshnessPanelHtml()}</span>`}
 function flattenFixtures(input,out=[]){if(Array.isArray(input)){input.forEach(x=>flattenFixtures(x,out));return out}if(input&&typeof input==='object'){const hasRound=input.round||input.roundNumber||input.round_number||input.scRound||input.nrlRound;const hasDate=input.kickoffLocal||input.kickoff||input.date||input.matchDate||input.startTime||input.start;if(hasRound&&hasDate)out.push(input);for(const v of Object.values(input)){if(v&&typeof v==='object')flattenFixtures(v,out)}}return out}
 function inferCurrentRound(){const matches=flattenFixtures(App.fixtures||[]).map(m=>({round:Number(m.round||m.roundNumber||m.round_number||m.scRound||m.nrlRound),time:firstDate(m)})).filter(m=>Number.isFinite(m.round)&&Number.isFinite(m.time)).sort((a,b)=>a.time-b.time);if(!matches.length)return null;const now=Date.now();const buffer=10*60*60*1000;const upcoming=matches.find(m=>m.time+buffer>=now);if(upcoming)return upcoming.round;return matches[matches.length-1].round}
-function syncCurrentRound(){const stored=Number(localStorage.getItem('sc_round')||0);const truthRound=Number(App.statusTruth?.round||0);const inferred=inferCurrentRound();App.trustWarnings=[];if(Number.isFinite(truthRound)&&truthRound>0){App.round=truthRound;App.roundSource='status truth';localStorage.setItem('sc_round',String(App.round));if(stored&&stored!==truthRound)App.trustWarnings.push('Round auto-set to R'+App.round+' from generated status truth. Old stored round was R'+stored+'.');return}if(Number.isFinite(inferred)&&inferred>0){if(!stored||stored<inferred||stored>inferred+1){App.round=inferred;App.roundSource='fixtures auto';localStorage.setItem('sc_round',String(App.round));App.trustWarnings.push('Round auto-set to R'+App.round+' from fixtures. Old stored round was '+(stored||'blank')+'.')}else{App.round=stored;App.roundSource='stored'}}else{App.round=stored||App.round||14;App.roundSource='stored fallback';App.trustWarnings.push('Could not auto-detect current round from status truth or fixtures; check round manually.')}}
+function syncCurrentRound(){
+ const stored=Number(localStorage.getItem('sc_round')||0);
+ const currentRound=Number(App.currentRoundMeta?.round||0);
+ const truthRound=Number(App.statusTruth?.round||0);
+ const generatedRound=Number.isFinite(currentRound)&&currentRound>0?currentRound:truthRound;
+ const inferred=inferCurrentRound();
+ App.trustWarnings=[];
+
+ if(Number.isFinite(generatedRound)&&generatedRound>0){
+  App.round=generatedRound;
+  App.roundSource=(Number.isFinite(currentRound)&&currentRound>0)?'current_round.json':'status_truth.json';
+  localStorage.setItem('sc_round',String(App.round));
+  if(stored&&stored!==generatedRound)App.trustWarnings.push('Round auto-set to R'+App.round+' from generated truth. Old stored round was R'+stored+'.');
+  return;
+ }
+
+ if(Number.isFinite(inferred)&&inferred>0){
+  if(!stored||stored<inferred||stored>inferred+1){
+   App.round=inferred;
+   App.roundSource='fixtures auto';
+   localStorage.setItem('sc_round',String(App.round));
+   App.trustWarnings.push('Round auto-set to R'+App.round+' from fixtures. Old stored round was '+(stored||'blank')+'.');
+  }else{
+   App.round=stored;
+   App.roundSource='stored';
+  }
+ }else{
+  App.round=stored||App.round||14;
+  App.roundSource='stored fallback';
+  App.trustWarnings.push('Could not auto-detect current round from generated truth or fixtures; check round manually.');
+ }
+}
 function trustBannerHtml(){const statusAge=dataAgeLabel(App.playerStatus||{}),statusStale=!isFreshRecord(App.playerStatus||{},36);const cls=statusStale?'bad':'good';const warnings=[...App.trustWarnings];if(statusStale)warnings.push(`Player status data may be stale (${statusAge}).`);return `<div style="margin:8px 0;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:#081120"><b>Trust check:</b> Round ${App.round} <span class="pill">${esc(App.roundSource||'')}</span> <span class="pill ${cls}">Status ${esc(statusAge)}</span>${warnings.length?`<br><span class="${statusStale?'bad':'warn'}">${warnings.map(esc).join(' ')}</span>`:''}<br><button onclick="setRound(App.round-1)">R-</button> <button onclick="setRound(App.round+1)">R+</button> <button onclick="refreshTrustDataNow()">Refresh status</button></div>`}
 function setRound(r){App.round=Math.max(1,Math.min(27,Number(r)||App.round));App.roundSource='manual';App.projectionCache.clear();saveLocal();renderActive();toast(`Round set to ${App.round}`)}
 
@@ -2466,7 +2497,7 @@ function safeLocalGet(key,fallback){
 async function boot(){
  const rawPlayers=await fetchJson('players.json',[]);let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));buildPlayerNameMap();
  // Browser reads the generated /data contract first; scripts/update-status.mjs owns generation so known contract files are valid JSON, not missing files.
- App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.goalKickerEvidence=await fetchJsonFirst(['data/goal_kicker_evidence.json','goal_kicker_evidence.json'],{players:{},teams:{}});App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);App.playerStatus=await fetchJson('player_status.json',{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],null);App.playerPhotos=await fetchJson('player_photos.json',{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],null);App.dualPositions=await fetchJson('position_overrides.json',{players:{}});syncCurrentRound();
+ App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.goalKickerEvidence=await fetchJsonFirst(['data/goal_kicker_evidence.json','goal_kicker_evidence.json'],{players:{},teams:{}});App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);App.playerStatus=await fetchJson('player_status.json',{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],null);App.currentRoundMeta=await fetchJsonFirst(['data/current_round.json','current_round.json'],null);App.playerPhotos=await fetchJson('player_photos.json',{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],null);App.dualPositions=await fetchJson('position_overrides.json',{players:{}});syncCurrentRound();
  const localTeam=safeJsonParse(safeLocalGet('sc_myTeam','null'),null);const teamJson=await fetchJson('my_team.json',null);let names=Array.isArray(localTeam)&&localTeam.length?localTeam:(teamJson?.players||teamJson?.team||[]);if(!Array.isArray(names))names=[];
  names = names.map(x => typeof x === 'string' ? x.trim() : (x?.name || x?.player || '')).filter(Boolean);
  const resolvedNames = names.map(n=>resolvePlayerName(n)).filter(Boolean);
@@ -2477,7 +2508,7 @@ App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};App.reserveOrder
  updateStatusFreshnessLabel();startLiveStatusRefresh();
 }
 function updateStatusFreshnessLabel(){const fe=$('statusFreshness');if(fe)fe.textContent=''}
-async function refreshTrustDataNow(){const oldUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],App.weather||null);App.playerStatus=await fetchJson('player_status.json',App.playerStatus||{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],App.statusTruth||null);App.availabilityOverrides=await fetchJson('availability_overrides.json',App.availabilityOverrides||{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],App.teamLists||null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],App.officialTeamLists||null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],App.originUnavailable||null);App.fixtures=await fetchJson('fixtures.json',App.fixtures||null);syncCurrentRound();App.projectionCache.clear();updateStatusFreshnessLabel();renderActive();const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed')}
+async function refreshTrustDataNow(){const oldUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],App.weather||null);App.playerStatus=await fetchJson('player_status.json',App.playerStatus||{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],App.statusTruth||null);App.currentRoundMeta=await fetchJsonFirst(['data/current_round.json','current_round.json'],App.currentRoundMeta||null);App.availabilityOverrides=await fetchJson('availability_overrides.json',App.availabilityOverrides||{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],App.teamLists||null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],App.officialTeamLists||null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],App.originUnavailable||null);App.fixtures=await fetchJson('fixtures.json',App.fixtures||null);syncCurrentRound();App.projectionCache.clear();updateStatusFreshnessLabel();renderActive();const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed')}
 function startLiveStatusRefresh(){if(App._statusRefreshTimer)return;App._statusRefreshTimer=setInterval(refreshTrustDataNow,10*60*1000)}
 
 function scaleField(){
