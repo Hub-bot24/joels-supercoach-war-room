@@ -3528,7 +3528,25 @@ function teamProjection(){return SLOT_DEFS.reduce((s,slot)=>s+roundProj(getPlaye
 function availableStarters(){return SLOT_DEFS.filter(slot=>availabilityStatus(getPlayer(App.lineup?.[slot.id])).available).length}
 function fieldCount(){return usedOnField().size}
 function reserveCount(){return reserves().length}
-function renderTeam(){ensureLineup();validateLineup();ensureLineup();const state=teamRenderState();saveLocal({touch:false,cloud:false});$('team').innerHTML=mobileTeamHtml(state)}
+function syncRoundFromGeneratedTruth(){
+  const generatedRound = Number(App.currentRoundMeta?.round || App.statusTruth?.round || 0);
+  if(Number.isFinite(generatedRound) && generatedRound > 0 && App.round !== generatedRound){
+    App.round = generatedRound;
+    App.roundSource = App.currentRoundMeta?.round ? 'current_round.json' : 'status_truth.json';
+    try{ localStorage.setItem('sc_round', String(App.round)); }catch(e){}
+    if(App.projectionCache && typeof App.projectionCache.clear === 'function') App.projectionCache.clear();
+  }
+}
+
+function renderTeam(){
+  syncRoundFromGeneratedTruth();
+  ensureLineup();
+  validateLineup();
+  ensureLineup();
+  const state=teamRenderState();
+  saveLocal({touch:false,cloud:false});
+  $('team').innerHTML=mobileTeamHtml(state);
+}
 function datalists(){return `<datalist id="teamDataList">${App.myTeam.map(n=>`<option value="${esc(n)}">`).join('')}</datalist><datalist id="allDataList">${App.players.map(p=>`<option value="${esc(p.name)}">`).join('')}</datalist>`}
 function fieldLabels(){return `<div class="row-label lbl-hok">HOOKER<br>HOK</div><div class="row-label lbl-frf">FRONT ROW<br>FRF</div><div class="row-label lbl-2rf">2ND ROW<br>2RF</div><div class="row-label lbl-halves">HALVES<br>HFB / 5-8</div><div class="row-label lbl-ctw">CENTRES / WINGS<br>CTW</div><div class="row-label lbl-flb">FULLBACK<br>FLB</div>`}
 function fieldRows(){const rows=['row-flb','row-flex','row-ctw1','row-halves','row-2rf','row-frf','row-frf-extra'];return rows.map(r=>`<div class="slot-row ${r}">${SLOT_DEFS.filter(s=>s.row===r).map(slotCard).join('')}</div>`).join('')}
