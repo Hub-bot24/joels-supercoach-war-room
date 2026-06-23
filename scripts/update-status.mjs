@@ -1439,9 +1439,12 @@ function validateTeamlistCompleteness(players, fixturesJson, round, teamlists, t
   };
 }
 
-function combineTruth(players, round, teamlists, injuries, suspensions, origin, existingStatus){
+function combineTruth(players, round, teamlists, injuries, suspensions, origin, existingStatus, trustedLoadedTeams=[]){
   const playersOut = {};
-  const teamsWithLoadedList = new Set(Object.values(teamlists).map(r => r.teamCanonical).filter(Boolean));
+  const teamsWithLoadedList = new Set([
+    ...asArray(trustedLoadedTeams).map(fixtureTeamCanonFromValue).filter(Boolean),
+    ...Object.values(teamlists).map(r => r.teamCanonical).filter(Boolean)
+  ]);
   for(const p of players){
     const bye = playerByeRounds(p).includes(Number(round));
     const t = teamlists[p.name];
@@ -1512,7 +1515,10 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
       // Previous week/reference fallback only: never green.
       const old = findInPool(getPool(existingStatus), p);
       const oldStatus = statusFromRecord(old);
-      if(oldStatus === STATUS.NOT_NAMED){
+      const teamCanon = playerTeam(p);
+      if(teamsWithLoadedList.has(teamCanon)){
+        rec = makeStatus(STATUS.NOT_NAMED, 'Current club team list loaded for club and player was not in that list.', [sourceObj('teamlist','Parsed current team-list source','data/teamlists.json',NOW_ISO)], {selectionStatus:'not_named', team:p.team, teamCanonical:teamCanon, sourcePriority:1});
+      } else if(oldStatus === STATUS.NOT_NAMED){
         rec = makeStatus(STATUS.NOT_NAMED, 'No current club team-list truth. Previous/source reference suggests not named.', [sourceObj('previous_week','Reference layer','player_status.json')], {selectionStatus:'previous_reference'});
       } else {
         // Missing/uncertain current team-list truth is not confirmed NOT_NAMED.
@@ -1682,7 +1688,7 @@ async function main(){
   const fetchedOriginContext = fromFetchedOriginContext(players, teamPages);
   Object.assign(origin, fetchedOriginContext.players);
 
-  const {playersOut, teamlistsLoaded, teamsWithLoadedList} = combineTruth(players, round, teamlists, injuries, suspensions, origin, oldPlayerStatus);
+  const {playersOut, teamlistsLoaded, teamsWithLoadedList} = combineTruth(players, round, teamlists, injuries, suspensions, origin, oldPlayerStatus, fetchedTeamStats.loadedTeams);
   const teamlistCompleteness = validateTeamlistCompleteness(players, fixturesJson, round, teamlists, teamsWithLoadedList);
   const summary = summarise(playersOut);
   const weather = await weatherContract(round);
