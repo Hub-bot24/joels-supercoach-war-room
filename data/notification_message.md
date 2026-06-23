@@ -1,19 +1,154 @@
-# SuperCoach War Room status changes — Round 16
+# SuperCoach War Room status changes — Round 17
 
-Detected: 2026-06-22T12:57:42.686Z
+Detected: 2026-06-23T07:18:24.395Z
 
-- **Junior Tupou** (SYD): NOT_NAMED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 16).
+- **Aaron Schoupp** (MAN): NOT_NAMED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 17).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle
+- **Adam Doueihi** (WST): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 6).; injury note: Shoulder
+  - Source: Zero Tackle, Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Adam Elliott** (STH): BYE → INJURED
+  - Ankle
+  - Source: Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Adam Reynolds** (BRO): BYE → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 6).; injury note: Hamstring
+  - Source: Zero Tackle, Zero Tackle, Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Addin Fonua-Blake** (SHA): NAMED → BYE
+  - Bye round 17
+  - Source: players.json bye data
+- **Alex Johnston** (STH): BYE → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 2).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Alex Twal** (WST): INJURED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 12).; injury note: Knee
+  - Source: Zero Tackle, Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Angus Hinchey** (MEL): NOT_NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 21).; injury note: Toe context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle
+- **Antonio Verhoeven** (BRO): BYE → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 2).
+  - Source: Zero Tackle, Zero Tackle
+- **Apa Twidle** (PAR): BYE → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
   - Source: Zero Tackle
-- **Matthew Lodge** (NQC): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 16).
+- **Araz Nanva** (PAR): BYE → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
+  - Source: Zero Tackle
+- **Ashton Ward** (STH): BYE → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 7).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Aublix Tawha** (BRO): BYE → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 17).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Bailey Simonsson** (PAR): BYE → INJURED
+  - Ankle
+  - Source: Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Bayleigh Bentley-Hape** (STH): BYE → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
   - Source: Zero Tackle, Zero Tackle
-- **Mawene Hiroti** (SHA): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 15).
+- **Ben Hunt** (BRO): BYE → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 10).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Ben Talty** (BRO): BYE → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 14).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Benjamin TeKura** (BRO): BYE → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
   - Source: Zero Tackle, Zero Tackle
-- **Oregon Kaufusi** (SHA): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 15).
+- **Billy Burns** (SHA): NAMED → BYE
+  - Bye round 17
+  - Source: players.json bye data
+- **Billy Scott** (PEN): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
+  - Source: Zero Tackle
+- **Billy Walters** (BRO): BYE → INJURED
+  - ACL
+  - Source: Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Blake Hosking** (SHA): NOT_NAMED → BYE
+  - Bye round 17
+  - Source: players.json bye data
+- **Blake Lawrie** (STG): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
+  - Source: Zero Tackle
+- **Blake Mozer** (BRO): BYE → INJURED
+  - Back context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle
+- **Blake Wilson** (MAN): NOT_NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 18).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).
   - Source: Zero Tackle, Zero Tackle
-- **Sam McIntyre** (NQC): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 16).
+- **Blayke Brailey** (SHA): NAMED → BYE
+  - Bye round 17
+  - Source: players.json bye data
+- **Braden Uele** (SHA): NOT_NAMED → BYE
+  - Bye round 17
+  - Source: players.json bye data
+- **Brandon Smith** (STH): BYE → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 9).
   - Source: Zero Tackle, Zero Tackle
+- **Brandon Wakeham** (MAN): NAMED → INJURED
+  - Hamstring context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Braydon Trindall** (SHA): NAMED → BYE
+  - Bye round 17
+  - Source: players.json bye data
+- **Brendan Piakura** (BRO): BYE → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 11).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Brian Kelly** (PAR): BYE → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 2).
+  - Source: Zero Tackle
+- **Brian To'o** (PEN): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 4).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle
+- **Briton Nikora** (SHA): NAMED → BYE
+  - Bye round 17
+  - Source: players.json bye data
+- **Bronson Garlick** (STH): BYE → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 14).
+  - Source: Zero Tackle, Zero Tackle
+- **Cameron Bukowski** (BRO): BYE → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle
+- **Cameron McInnes** (SHA): NAMED → BYE
+  - Bye round 17
+  - Source: players.json bye data
+- **Cameron Murray** (STH): BYE → NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).; playable jersey/role overrides NOT_NAMED contradiction
+  - Source: Zero Tackle, Zero Tackle
+- **Campbell Graham** (STH): BYE → INJURED
+  - Calf
+  - Source: Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Charlie Guymer** (PAR): BYE → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 19).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle
+- **Charlie Murray** (WST): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
+  - Source: Zero Tackle
+- **Chevy Stewart** (CBR): NOT_NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 18).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle
+- **Chris Randall** (GLD): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 13).; injury note: Concussion
+  - Source: Zero Tackle, Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Chris Veaila** (SHA): NOT_NAMED → BYE
+  - Bye round 17
+  - Source: players.json bye data
+- **Christian Tuipulotu** (STG): NOT_NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 21).; injury note: Hamstring
+  - Source: Zero Tackle, Existing player_status.json updater
+- **Clayton Faulalo** (MAN): INJURED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 22).; injury note: Hamstring context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Coby Black** (CBR): NOT_NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 20).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle
+- **Cody Walker** (STH): BYE → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 6).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle
+- **Cooper Bai** (GLD): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Zero Tackle).
+  - Source: Zero Tackle
+- **Corey Jensen** (BRO): BYE → INJURED
+  - Lung
+  - Source: Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
