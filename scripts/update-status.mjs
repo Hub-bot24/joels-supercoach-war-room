@@ -586,13 +586,26 @@ function resolveActiveRound({teamlistRound, fixtureRound, storedRound, envRound}
   if(Number.isFinite(explicit) && explicit > 0) return explicit;
 
   const tl = Number(teamlistRound);
-  if(Number.isFinite(tl) && tl > 0) return tl;
-
-  const stored = Number(storedRound);
   const fixture = Number(fixtureRound);
+  const stored = Number(storedRound);
 
-  if(Number.isFinite(stored) && stored > 0) return stored;
-  if(Number.isFinite(fixture) && fixture > 0) return fixture;
+  // Fixture round is the safest anchor. Do not let noisy news/index pages
+  // jump the updater into a future round such as Round 25.
+  if(Number.isFinite(fixture) && fixture > 0) {
+    if(Number.isFinite(tl) && tl > 0 && Math.abs(tl - fixture) > 1) {
+      console.warn(`[round-guard] Ignoring detected teamlist round ${tl}; fixture round is ${fixture}`);
+    }
+    return fixture;
+  }
+
+  if(Number.isFinite(stored) && stored > 0) {
+    if(Number.isFinite(tl) && tl > 0 && Math.abs(tl - stored) > 1) {
+      console.warn(`[round-guard] Ignoring detected teamlist round ${tl}; stored round is ${stored}`);
+    }
+    return stored;
+  }
+
+  if(Number.isFinite(tl) && tl > 0) return tl;
 
   throw new Error("No valid active round could be resolved");
 }
