@@ -1428,7 +1428,20 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
   for(const p of players){
     const bye = playerByeRounds(p).includes(Number(round));
     const t = teamlists[p.name];
-    const i = injuries[p.name];
+    let i = injuries[p.name];
+
+    // Source-quality guard:
+    // Local injury context is weak evidence. It only means an injury word was found near the player's name.
+    // It must never create hard INJURED / red / unavailable / projection 0.
+    const weakInjuryContext =
+      i && (
+        String(i.injuryStatus || '').toLowerCase().includes('local_context') ||
+        String(i.reason || '').toLowerCase().includes('context found near player')
+      );
+
+    if(weakInjuryContext){
+      i = null;
+    }
     const s = suspensions[p.name];
     const o = origin[p.name];
     let rec;
@@ -1543,6 +1556,23 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
       round
     };
   }
+  const weakInjuryHardConflicts = Object.entries(playersOut).filter(([,r]) => {
+    const status = String(r?.displayStatus || '').toUpperCase();
+    const injuryStatus = String(r?.injuryStatus || '').toLowerCase();
+    const reason = String(r?.reason || '').toLowerCase();
+    return status === STATUS.INJURED && (
+      injuryStatus.includes('local_context') ||
+      reason.includes('context found near player')
+    );
+  });
+
+  if(weakInjuryHardConflicts.length){
+    const sample = weakInjuryHardConflicts.slice(0,8).map(([n,r]) =>
+      n+': '+r.displayStatus+' from weak injury context'
+    ).join('; ');
+    throw new Error('Weak injury context cannot publish hard INJURED status: '+sample);
+  }
+
   const impossibleLineupConflicts = Object.entries(playersOut).filter(([,r]) => {
     const jersey = Number(r?.jersey);
     const role = String(r?.lineupRole || r?.selectionRole || '').toLowerCase();
