@@ -1499,9 +1499,12 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
       // Use t as fallback because an injury record can replace rec and hide jersey/role.
       const jersey = Number.isFinite(Number(rec?.jersey)) ? Number(rec?.jersey) : Number(t?.jersey);
       const role = String(rec?.lineupRole || rec?.selectionRole || t?.lineupRole || t?.selectionRole || '').toLowerCase();
+      // Role is stronger than jersey number. Some sources list playable starters/interchange
+      // outside classic 1-17 numbers, so trust explicit role first.
       const playableRole =
-        (jersey >= 1 && jersey <= 13 && role === 'starter') ||
-        (jersey >= 14 && jersey <= 17 && role === 'interchange');
+        role === 'starter' ||
+        role === 'interchange' ||
+        (!role && jersey >= 1 && jersey <= 17);
 
       const playableContradictionStatuses = new Set([
         STATUS.NOT_NAMED,
