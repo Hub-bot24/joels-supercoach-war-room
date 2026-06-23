@@ -1495,21 +1495,38 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
     // If current team-list parsing produced a playable jersey/role, the player cannot remain NOT_NAMED.
     // This fixes source-order contradictions without any player-specific overrides.
     {
-      const jersey = Number(rec?.jersey);
-      const role = String(rec?.lineupRole || rec?.selectionRole || '').toLowerCase();
+      // Final invariant: current playable team-list evidence beats stale unavailable status.
+      // Use t as fallback because an injury record can replace rec and hide jersey/role.
+      const jersey = Number.isFinite(Number(rec?.jersey)) ? Number(rec?.jersey) : Number(t?.jersey);
+      const role = String(rec?.lineupRole || rec?.selectionRole || t?.lineupRole || t?.selectionRole || '').toLowerCase();
       const playableRole =
         (jersey >= 1 && jersey <= 13 && role === 'starter') ||
         (jersey >= 14 && jersey <= 17 && role === 'interchange');
 
-      if(Number.isFinite(jersey) && playableRole && rec?.displayStatus === STATUS.NOT_NAMED){
+      const playableContradictionStatuses = new Set([
+        STATUS.NOT_NAMED,
+        STATUS.INJURED,
+        'OUT',
+        'UNAVAILABLE'
+      ]);
+
+      if(Number.isFinite(jersey) && playableRole && playableContradictionStatuses.has(rec?.displayStatus)){
+        const mergedSources = [
+          ...(t?.sources || []),
+          ...(rec?.sources || [])
+        ];
         rec = {
+          ...(t || {}),
           ...rec,
+          jersey,
+          lineupRole: role,
           displayStatus: STATUS.NAMED,
           status: STATUS.NAMED,
           available: true,
           colour: COLOUR[STATUS.NAMED],
           selectionStatus: 'named',
-          reason: `${rec.reason || 'Team-list evidence'}; playable jersey/role overrides NOT_NAMED contradiction`
+          sources: mergedSources,
+          reason: `${t?.reason || rec?.reason || 'Team-list evidence'}; playable jersey/role overrides unavailable contradiction`
         };
       }
     }
