@@ -33,36 +33,64 @@ function slugName(name){
 
 function cleanUrl(url){
   if(!url) return "";
-  let out = String(url).replace(/&amp;/g,"&").trim();
+  let out = String(url)
+    .replace(/\\u002F/g,"/")
+    .replace(/\\\//g,"/")
+    .replace(/&amp;/g,"&")
+    .replace(/\\u0026/g,"&")
+    .replace(/\\"/g,'"')
+    .trim();
+
   if(out.startsWith("//")) out = "https:" + out;
   if(out.startsWith("/")) out = "https://www.nrl.com" + out;
   return out;
 }
 
+function imageLooksUseful(url){
+  const u = cleanUrl(url);
+  if(!/^https?:\/\//i.test(u)) return false;
+
+  return (
+    /remote\.axd/i.test(u) ||
+    /rugbyimages\.statsperform\.com/i.test(u) ||
+    /nrl\.com\/.*\.(png|jpg|jpeg|webp)/i.test(u) ||
+    /players?|profile|headshot|bodyshot/i.test(u)
+  );
+}
+
 function extractImage(html, playerName=""){
-  const patterns = [
-    /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i,
-    /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i,
-    /<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i,
-    /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']twitter:image["']/i
+  const all = new Set();
+
+  const metaPatterns = [
+    /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/ig,
+    /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/ig,
+    /<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/ig,
+    /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']twitter:image["']/ig
   ];
 
-  for(const re of patterns){
-    const m = html.match(re);
-    const u = cleanUrl(m?.[1]);
-    if(/^https?:\/\//i.test(u) && /player|bodyshot|profile|rugbyimages|remote\.axd/i.test(u)) return u;
+  for(const re of metaPatterns){
+    let m;
+    while((m = re.exec(html))){
+      const u = cleanUrl(m[1]);
+      if(imageLooksUseful(u)) all.add(u);
+    }
   }
 
-  const urls = [];
-  const attrRe = /\b(?:src|href)=["']([^"']+)["']/gi;
+  const attrRe = /\b(?:src|href|content)=["']([^"']+)["']/gi;
   let m;
   while((m = attrRe.exec(html))){
     const u = cleanUrl(m[1]);
-    if(!/^https?:\/\//i.test(u)) continue;
-    if(!/remote\.axd|rugbyimages\.statsperform\.com|Player\+Bodyshots|player-profile/i.test(u)) continue;
-    if(!/\.(png|jpg|jpeg|webp)(\?|$)/i.test(u) && !/remote\.axd/i.test(u)) continue;
-    urls.push(u);
+    if(imageLooksUseful(u)) all.add(u);
   }
+
+  // NRL often stores image URLs inside escaped JSON, not normal img tags.
+  const jsonUrlRe = /https?:\\?\/\\?\/[^"'<>\\\s]+/gi;
+  while((m = jsonUrlRe.exec(html))){
+    const u = cleanUrl(m[0]);
+    if(imageLooksUseful(u)) all.add(u);
+  }
+
+  const urls = [...all];
 
   const nameBits = String(playerName || "")
     .toLowerCase()
@@ -70,14 +98,17 @@ function extractImage(html, playerName=""){
     .split(/\s+/)
     .filter(Boolean);
 
-  const best = urls.find(u => {
-    const low = decodeURIComponent(u).toLowerCase().replace(/['’]/g,"");
+  const nameMatch = urls.find(u => {
+    const low = decodeURIComponent(cleanUrl(u)).toLowerCase().replace(/['’]/g,"");
     return nameBits.length && nameBits.every(part => low.includes(part));
-  }) || urls.find(u => /Player\+Bodyshots|rugbyimages\.statsperform\.com|remote\.axd/i.test(u));
+  });
 
-  return best || "";
+  return nameMatch ||
+    urls.find(u => /remote\.axd/i.test(u)) ||
+    urls.find(u => /rugbyimages\.statsperform\.com/i.test(u)) ||
+    urls[0] ||
+    "";
 }
-
 async function fetchText(url){
   const res = await fetch(url, {
     headers: {
