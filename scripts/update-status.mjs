@@ -1120,13 +1120,42 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
     function addTeamCount(teamCanon){
       pageTeamCounts.set(teamCanon, (pageTeamCounts.get(teamCanon)||0) + 1);
     }
+    function findPlayerForTeamName(rawName, teamCanon){
+      const exact = lookup.get(normName(rawName));
+      if(exact) return exact;
+
+      const rawNorm = normName(rawName);
+      const rawParts = rawNorm.split(' ').filter(Boolean);
+      if(rawParts.length < 2) return null;
+
+      const rawFirst = rawParts[0];
+      const rawLast = rawParts[rawParts.length - 1];
+
+      const candidates = players.filter(p => {
+        if(playerTeam(p) !== teamCanon) return false;
+
+        const playerNorm = normName(p.name);
+        const parts = playerNorm.split(' ').filter(Boolean);
+        if(parts.length < 2) return false;
+
+        const playerFirst = parts[0];
+        const playerLast = parts[parts.length - 1];
+
+        if(playerLast !== rawLast) return false;
+        if(Math.min(rawFirst.length, playerFirst.length) < 3) return false;
+
+        return rawFirst.startsWith(playerFirst) || playerFirst.startsWith(rawFirst);
+      });
+
+      return candidates.length === 1 ? candidates[0] : null;
+    }
 
     // Parser 1: structured team-heading numbered sections.
     const sections = parseTeamSectionsFromPage(page.text);
     for(const [teamCanon, numbered] of Object.entries(sections)){
       let matchedForTeam = 0;
       for(const row of numbered){
-        const p = lookup.get(normName(row.name));
+        const p = findPlayerForTeamName(row.name, teamCanon);
         if(!p) continue;
         if(playerTeam(p) !== teamCanon) continue;
         matchedForTeam++;
