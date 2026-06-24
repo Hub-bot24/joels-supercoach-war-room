@@ -2097,6 +2097,136 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 }
 
 .result .small{line-height:1.35}.miss[title]{cursor:help}
+/* =========================================================
+   PLAYER PROFILE MODAL
+   Click/tap player name opens profile. Card body still drags.
+   ========================================================= */
+.player-name-link{
+  cursor:pointer!important;
+  text-decoration:underline!important;
+  text-decoration-color:rgba(88,166,255,.55)!important;
+  text-underline-offset:2px!important;
+}
+.player-name-link:hover{color:#58a6ff!important}
+.player-profile-backdrop{
+  position:fixed!important;
+  inset:0!important;
+  z-index:99999!important;
+  background:rgba(2,6,23,.72)!important;
+  backdrop-filter:blur(6px)!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:16px!important;
+}
+.player-profile-card{
+  width:min(560px,calc(100vw - 24px))!important;
+  max-height:min(760px,88vh)!important;
+  overflow:auto!important;
+  background:#071222!important;
+  border:1px solid #58a6ff!important;
+  border-radius:22px!important;
+  box-shadow:0 28px 90px rgba(0,0,0,.75)!important;
+  color:#f8fafc!important;
+}
+.player-profile-hero{
+  display:grid!important;
+  grid-template-columns:132px minmax(0,1fr)!important;
+  gap:14px!important;
+  align-items:center!important;
+  padding:16px!important;
+  background:linear-gradient(135deg,rgba(88,166,255,.28),rgba(15,23,42,.85))!important;
+  border-bottom:1px solid rgba(88,166,255,.25)!important;
+}
+.player-profile-photo{
+  width:132px!important;
+  height:132px!important;
+  border-radius:18px!important;
+  object-fit:cover!important;
+  background:#10213a!important;
+  border:1px solid #436180!important;
+}
+.player-profile-photo-fallback{
+  width:132px!important;
+  height:132px!important;
+  border-radius:18px!important;
+  display:grid!important;
+  place-items:center!important;
+  background:#10213a!important;
+  border:1px solid #436180!important;
+  font-size:28px!important;
+  font-weight:950!important;
+}
+.player-profile-title{
+  font-size:26px!important;
+  line-height:1.05!important;
+  font-weight:950!important;
+  margin:0 0 8px!important;
+}
+.player-profile-sub{
+  color:#bfd0e8!important;
+  font-size:13px!important;
+  font-weight:800!important;
+}
+.player-profile-body{padding:14px 16px 16px!important}
+.player-profile-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:9px!important;
+  margin:12px 0!important;
+}
+.player-profile-stat{
+  background:#0b1a2d!important;
+  border:1px solid #29405f!important;
+  border-radius:14px!important;
+  padding:10px!important;
+}
+.player-profile-stat span{
+  display:block!important;
+  color:#bfd0e8!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  text-transform:uppercase!important;
+}
+.player-profile-stat b{
+  display:block!important;
+  margin-top:4px!important;
+  font-size:20px!important;
+  font-weight:950!important;
+}
+.player-profile-reason{
+  background:#081120!important;
+  border:1px solid #29405f!important;
+  border-radius:14px!important;
+  padding:10px!important;
+  color:#dbeafe!important;
+  font-size:13px!important;
+  line-height:1.35!important;
+}
+.player-profile-actions{
+  display:flex!important;
+  gap:8px!important;
+  justify-content:flex-end!important;
+  padding:0 16px 16px!important;
+}
+.player-profile-actions button{
+  padding:8px 12px!important;
+  border-radius:12px!important;
+  border:1px solid #436180!important;
+  background:#10213a!important;
+  color:#fff!important;
+  font-weight:850!important;
+  cursor:pointer!important;
+}
+.player-profile-actions button.primary{
+  border-color:#58a6ff!important;
+  background:#12345a!important;
+}
+@media(max-width:520px){
+  .player-profile-hero{grid-template-columns:92px minmax(0,1fr)!important}
+  .player-profile-photo,.player-profile-photo-fallback{width:92px!important;height:92px!important}
+  .player-profile-title{font-size:21px!important}
+  .player-profile-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
 </style>
 
 <style>
@@ -2104,6 +2234,136 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .explorer-filter{border:1px solid #29405f;background:#10213a;color:#dbeafe;border-radius:999px;padding:7px 10px;font-weight:900;cursor:pointer}
 .explorer-filter.active{background:#58a6ff;color:#06101d;border-color:#8cc6ff}
 .explorer-filter b{margin-left:5px;color:inherit}
+/* =========================================================
+   PLAYER PROFILE MODAL
+   Click/tap player name opens profile. Card body still drags.
+   ========================================================= */
+.player-name-link{
+  cursor:pointer!important;
+  text-decoration:underline!important;
+  text-decoration-color:rgba(88,166,255,.55)!important;
+  text-underline-offset:2px!important;
+}
+.player-name-link:hover{color:#58a6ff!important}
+.player-profile-backdrop{
+  position:fixed!important;
+  inset:0!important;
+  z-index:99999!important;
+  background:rgba(2,6,23,.72)!important;
+  backdrop-filter:blur(6px)!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:16px!important;
+}
+.player-profile-card{
+  width:min(560px,calc(100vw - 24px))!important;
+  max-height:min(760px,88vh)!important;
+  overflow:auto!important;
+  background:#071222!important;
+  border:1px solid #58a6ff!important;
+  border-radius:22px!important;
+  box-shadow:0 28px 90px rgba(0,0,0,.75)!important;
+  color:#f8fafc!important;
+}
+.player-profile-hero{
+  display:grid!important;
+  grid-template-columns:132px minmax(0,1fr)!important;
+  gap:14px!important;
+  align-items:center!important;
+  padding:16px!important;
+  background:linear-gradient(135deg,rgba(88,166,255,.28),rgba(15,23,42,.85))!important;
+  border-bottom:1px solid rgba(88,166,255,.25)!important;
+}
+.player-profile-photo{
+  width:132px!important;
+  height:132px!important;
+  border-radius:18px!important;
+  object-fit:cover!important;
+  background:#10213a!important;
+  border:1px solid #436180!important;
+}
+.player-profile-photo-fallback{
+  width:132px!important;
+  height:132px!important;
+  border-radius:18px!important;
+  display:grid!important;
+  place-items:center!important;
+  background:#10213a!important;
+  border:1px solid #436180!important;
+  font-size:28px!important;
+  font-weight:950!important;
+}
+.player-profile-title{
+  font-size:26px!important;
+  line-height:1.05!important;
+  font-weight:950!important;
+  margin:0 0 8px!important;
+}
+.player-profile-sub{
+  color:#bfd0e8!important;
+  font-size:13px!important;
+  font-weight:800!important;
+}
+.player-profile-body{padding:14px 16px 16px!important}
+.player-profile-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:9px!important;
+  margin:12px 0!important;
+}
+.player-profile-stat{
+  background:#0b1a2d!important;
+  border:1px solid #29405f!important;
+  border-radius:14px!important;
+  padding:10px!important;
+}
+.player-profile-stat span{
+  display:block!important;
+  color:#bfd0e8!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  text-transform:uppercase!important;
+}
+.player-profile-stat b{
+  display:block!important;
+  margin-top:4px!important;
+  font-size:20px!important;
+  font-weight:950!important;
+}
+.player-profile-reason{
+  background:#081120!important;
+  border:1px solid #29405f!important;
+  border-radius:14px!important;
+  padding:10px!important;
+  color:#dbeafe!important;
+  font-size:13px!important;
+  line-height:1.35!important;
+}
+.player-profile-actions{
+  display:flex!important;
+  gap:8px!important;
+  justify-content:flex-end!important;
+  padding:0 16px 16px!important;
+}
+.player-profile-actions button{
+  padding:8px 12px!important;
+  border-radius:12px!important;
+  border:1px solid #436180!important;
+  background:#10213a!important;
+  color:#fff!important;
+  font-weight:850!important;
+  cursor:pointer!important;
+}
+.player-profile-actions button.primary{
+  border-color:#58a6ff!important;
+  background:#12345a!important;
+}
+@media(max-width:520px){
+  .player-profile-hero{grid-template-columns:92px minmax(0,1fr)!important}
+  .player-profile-photo,.player-profile-photo-fallback{width:92px!important;height:92px!important}
+  .player-profile-title{font-size:21px!important}
+  .player-profile-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
 </style>
 
 <style>
@@ -2113,6 +2373,136 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .wr-auth-panel .danger{border-color:#ef4444;background:#3a1111}
 .wr-sync-pill{font-size:12px;opacity:.88;margin-right:8px;white-space:nowrap}
 .wr-sync-pill.good{color:#22c55e}.wr-sync-pill.warn{color:#facc15}.wr-sync-pill.bad{color:#ef4444}
+/* =========================================================
+   PLAYER PROFILE MODAL
+   Click/tap player name opens profile. Card body still drags.
+   ========================================================= */
+.player-name-link{
+  cursor:pointer!important;
+  text-decoration:underline!important;
+  text-decoration-color:rgba(88,166,255,.55)!important;
+  text-underline-offset:2px!important;
+}
+.player-name-link:hover{color:#58a6ff!important}
+.player-profile-backdrop{
+  position:fixed!important;
+  inset:0!important;
+  z-index:99999!important;
+  background:rgba(2,6,23,.72)!important;
+  backdrop-filter:blur(6px)!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:16px!important;
+}
+.player-profile-card{
+  width:min(560px,calc(100vw - 24px))!important;
+  max-height:min(760px,88vh)!important;
+  overflow:auto!important;
+  background:#071222!important;
+  border:1px solid #58a6ff!important;
+  border-radius:22px!important;
+  box-shadow:0 28px 90px rgba(0,0,0,.75)!important;
+  color:#f8fafc!important;
+}
+.player-profile-hero{
+  display:grid!important;
+  grid-template-columns:132px minmax(0,1fr)!important;
+  gap:14px!important;
+  align-items:center!important;
+  padding:16px!important;
+  background:linear-gradient(135deg,rgba(88,166,255,.28),rgba(15,23,42,.85))!important;
+  border-bottom:1px solid rgba(88,166,255,.25)!important;
+}
+.player-profile-photo{
+  width:132px!important;
+  height:132px!important;
+  border-radius:18px!important;
+  object-fit:cover!important;
+  background:#10213a!important;
+  border:1px solid #436180!important;
+}
+.player-profile-photo-fallback{
+  width:132px!important;
+  height:132px!important;
+  border-radius:18px!important;
+  display:grid!important;
+  place-items:center!important;
+  background:#10213a!important;
+  border:1px solid #436180!important;
+  font-size:28px!important;
+  font-weight:950!important;
+}
+.player-profile-title{
+  font-size:26px!important;
+  line-height:1.05!important;
+  font-weight:950!important;
+  margin:0 0 8px!important;
+}
+.player-profile-sub{
+  color:#bfd0e8!important;
+  font-size:13px!important;
+  font-weight:800!important;
+}
+.player-profile-body{padding:14px 16px 16px!important}
+.player-profile-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:9px!important;
+  margin:12px 0!important;
+}
+.player-profile-stat{
+  background:#0b1a2d!important;
+  border:1px solid #29405f!important;
+  border-radius:14px!important;
+  padding:10px!important;
+}
+.player-profile-stat span{
+  display:block!important;
+  color:#bfd0e8!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  text-transform:uppercase!important;
+}
+.player-profile-stat b{
+  display:block!important;
+  margin-top:4px!important;
+  font-size:20px!important;
+  font-weight:950!important;
+}
+.player-profile-reason{
+  background:#081120!important;
+  border:1px solid #29405f!important;
+  border-radius:14px!important;
+  padding:10px!important;
+  color:#dbeafe!important;
+  font-size:13px!important;
+  line-height:1.35!important;
+}
+.player-profile-actions{
+  display:flex!important;
+  gap:8px!important;
+  justify-content:flex-end!important;
+  padding:0 16px 16px!important;
+}
+.player-profile-actions button{
+  padding:8px 12px!important;
+  border-radius:12px!important;
+  border:1px solid #436180!important;
+  background:#10213a!important;
+  color:#fff!important;
+  font-weight:850!important;
+  cursor:pointer!important;
+}
+.player-profile-actions button.primary{
+  border-color:#58a6ff!important;
+  background:#12345a!important;
+}
+@media(max-width:520px){
+  .player-profile-hero{grid-template-columns:92px minmax(0,1fr)!important}
+  .player-profile-photo,.player-profile-photo-fallback{width:92px!important;height:92px!important}
+  .player-profile-title{font-size:21px!important}
+  .player-profile-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
 </style>
 </head>
 <body>
@@ -3584,15 +3974,15 @@ function fieldRows(){const rows=['row-flb','row-flex','row-ctw1','row-halves','r
 function cardStateClass(p){const st=availabilityStatus(p);return st.key==='bye'?'bye':(st.key==='injured'||st.key==='suspended'||st.key==='notnamed'||st.key==='out')?'out':(st.key==='expected'||st.key==='origin'||st.key==='risk')?'risk':''}
 function eligibleOptions(slot,currentName=''){const list=App.myTeam.map(getPlayer).filter(Boolean).filter(p=>eligible(p,slot)).sort((a,b)=>roundProj(b).expected-roundProj(a).expected);return `<option value="">Change ${slot.short}...</option>`+list.map(p=>`<option value="${esc(p.name)}" ${p.name===currentName?'selected':''}>${esc(p.name)} — ${esc(p.pos||'')} ${esc(p.team||'')} Exp ${roundProj(p).expected}</option>`).join('')}
 function setSlotPlayer(slotId,newName){const slot=slotById[slotId],incoming=getPlayer(newName);if(!slot||!incoming)return;if(!App.myTeam.includes(incoming.name)){toast('Player is not in your squad');return}if(!eligible(incoming,slot)){toast(`${incoming.name} cannot play ${slot.short}`);return}const old=App.lineup?.[slotId];for(const k of Object.keys(App.lineup||{})){if(App.lineup[k]===incoming.name)delete App.lineup[k]}App.lineup[slotId]=incoming.name;ensureLineup();saveLocal();renderTeam();toast(`${incoming.name} selected at ${slot.short}`)}
-function slotCard(slot){const p=getPlayer(App.lineup?.[slot.id]);if(!p)return `<div class="player-card empty-card" data-slot="${slot.id}" ondragover="allowDropOnSlot(event,'${slot.id}')" ondragleave="clearDrop(event)" ondrop="dropOnSlot(event,'${slot.id}')"><div class="logo">${slot.short}</div><div><div class="slot-role">${slot.short}</div><div class="slot-player">Empty ${slot.label}</div><div class="meta">Drop eligible player</div><select class="slot-select" onclick="event.stopPropagation()" onmousedown="event.stopPropagation()" onchange="setSlotPlayer('${slot.id}',this.value)">${eligibleOptions(slot)}</select></div><div class="proj"><b>--</b></div></div>`;const pr=roundProj(p);const st=availabilityStatus(p);return `<div class="player-card ${cardStateClass(p)}" draggable="true" data-slot="${slot.id}" ondragstart="dragField(event,'${slot.id}','${window.jsq(p.name)}')" ondragover="allowDropOnSlot(event,'${slot.id}')" ondragleave="clearDrop(event)" ondrop="dropOnSlot(event,'${slot.id}')"><div class="logo">${esc(slot.short)}</div><div><div class="slot-role">${esc(slot.short)}</div><div class="slot-player">${esc(p.name)}</div><div class="meta">Eligible: ${esc(p.pos||'')}</div><div class="meta">${esc(st.reason)}</div><select class="slot-select" onclick="event.stopPropagation()" onmousedown="event.stopPropagation()" onchange="setSlotPlayer('${slot.id}',this.value)">${eligibleOptions(slot,p.name)}</select></div><div class="proj">Proj.<br><b>${pr.expected}</b>${statusDot(p)}</div></div>`}
+function slotCard(slot){const p=getPlayer(App.lineup?.[slot.id]);if(!p)return `<div class="player-card empty-card" data-slot="${slot.id}" ondragover="allowDropOnSlot(event,'${slot.id}')" ondragleave="clearDrop(event)" ondrop="dropOnSlot(event,'${slot.id}')"><div class="logo">${slot.short}</div><div><div class="slot-role">${slot.short}</div><div class="slot-player">Empty ${slot.label}</div><div class="meta">Drop eligible player</div><select class="slot-select" onclick="event.stopPropagation()" onmousedown="event.stopPropagation()" onchange="setSlotPlayer('${slot.id}',this.value)">${eligibleOptions(slot)}</select></div><div class="proj"><b>--</b></div></div>`;const pr=roundProj(p);const st=availabilityStatus(p);return `<div class="player-card ${cardStateClass(p)}" draggable="true" data-slot="${slot.id}" ondragstart="dragField(event,'${slot.id}','${window.jsq(p.name)}')" ondragover="allowDropOnSlot(event,'${slot.id}')" ondragleave="clearDrop(event)" ondrop="dropOnSlot(event,'${slot.id}')"><div class="logo">${esc(slot.short)}</div><div><div class="slot-role">${esc(slot.short)}</div><div class="slot-player player-name-link" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</div><div class="meta">Eligible: ${esc(p.pos||'')}</div><div class="meta">${esc(st.reason)}</div><select class="slot-select" onclick="event.stopPropagation()" onmousedown="event.stopPropagation()" onchange="setSlotPlayer('${slot.id}',this.value)">${eligibleOptions(slot,p.name)}</select></div><div class="proj">Proj.<br><b>${pr.expected}</b>${statusDot(p)}</div></div>`}
 function reserveGroupsHtml(list=reserves()){const players=[...list].sort((a,b)=>roundProj(b).expected-roundProj(a).expected);return `<div class="reserve-group" data-group="ALL RESERVES" ondragover="allowDropOnReserveGroup(event)" ondragleave="clearDrop(event)" ondrop="dropOnReserveGroup(event)"><div class="reserve-head">ALL RESERVES</div>${players.map(reserveCard).join('')}</div>`}
-function reserveCard(p){const pr=roundProj(p),st=availabilityStatus(p);return `<div class="reserve-card ${cardStateClass(p)}" draggable="true" data-reserve="${esc(p.name)}" ondragstart="dragReserve(event,'${window.jsq(p.name)}')" ondragover="allowDropOnReserveCard(event,'${window.jsq(p.name)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(p.name)}')"><div class="drag">⠿</div><div class="logo">${esc((p.team||'SC').slice(0,3))}</div><div><div class="reserve-name">${esc(p.name)}</div><div class="small">${esc(p.team||'')} | ${esc(p.pos||'')}</div><div class="small">${esc(st.reason)}</div></div><div class="proj">Proj.<br><b>${pr.expected}</b>${statusDot(p)}</div></div>`}
+function reserveCard(p){const pr=roundProj(p),st=availabilityStatus(p);return `<div class="reserve-card ${cardStateClass(p)}" draggable="true" data-reserve="${esc(p.name)}" ondragstart="dragReserve(event,'${window.jsq(p.name)}')" ondragover="allowDropOnReserveCard(event,'${window.jsq(p.name)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(p.name)}')"><div class="drag">⠿</div><div class="logo">${esc((p.team||'SC').slice(0,3))}</div><div><div class="reserve-name player-name-link" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</div><div class="small">${esc(p.team||'')} | ${esc(p.pos||'')}</div><div class="small">${esc(st.reason)}</div></div><div class="proj">Proj.<br><b>${pr.expected}</b>${statusDot(p)}</div></div>`}
 function mobileTile(p,pos,isReserve=false,slotId=''){
  const pr=roundProj(p),st=availabilityStatus(p),cls=statusDotClass(st),click=!isReserve&&p&&slotId?` onclick="selectTeamSlot('${slotId}')"`:'';
  let actions='';
  if(!isReserve&&p&&slotId)actions=`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><button type="button" onclick="event.stopPropagation();teamActionSwap('${slotId}')" style="padding:5px 10px;border-radius:10px;border:1px solid #22c55e;background:#0b3522;color:#fff;font-weight:700;cursor:pointer">Swap</button><button type="button" onclick="event.stopPropagation();teamActionTradeOut('${slotId}')" style="padding:5px 10px;border-radius:10px;border:1px solid #58a6ff;background:#12345a;color:#fff;font-weight:700;cursor:pointer">Trade</button></div>`;
  if(isReserve&&p)actions=`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><button type="button" onclick="event.stopPropagation();reserveActionSwap('${window.jsq(p.name)}')" style="padding:5px 10px;border-radius:10px;border:1px solid #22c55e;background:#0b3522;color:#fff;font-weight:700;cursor:pointer">Swap</button><button type="button" onclick="event.stopPropagation();reserveActionTradeOut('${window.jsq(p.name)}')" style="padding:5px 10px;border-radius:10px;border:1px solid #58a6ff;background:#12345a;color:#fff;font-weight:700;cursor:pointer">Trade</button></div>`;
- return `<div class="mobile-player-tile ${isReserve?'mobile-reserve-tile':''}"${click}>${faceHtml(p,'mobile-face')}<div><div class="mobile-player-name">${esc(p?.name||'Empty')}</div><span class="mobile-pos-badge">${esc(pos)}</span>${actions}</div><div class="mobile-proj"><b>${pr.expected}</b><span class="status-dot ${cls}"></span></div></div>`
+ return `<div class="mobile-player-tile ${isReserve?'mobile-reserve-tile':''}"${click}>${faceHtml(p,'mobile-face')}<div><div class="mobile-player-name player-name-link" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();openPlayerCard('${window.jsq(p?.name||'')}')">${esc(p?.name||'Empty')}</div><span class="mobile-pos-badge">${esc(pos)}</span>${actions}</div><div class="mobile-proj"><b>${pr.expected}</b><span class="status-dot ${cls}"></span></div></div>`
 }
 function reserveBucket(p){
  const ps=positions(p);
@@ -3671,7 +4061,7 @@ function formationSlot(slotId,gridArea){
   <div class="formation-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-slot="${slotId}" onpointerdown="pressDragStart(event,'field','${slotId}','${window.jsq(p.name)}')" ondragstart="dragField(event,'${slotId}','${window.jsq(p.name)}')" ondragover="allowDropOnSlot(event,'${slotId}')" ondragleave="clearDrop(event)" ondrop="dropOnSlot(event,'${slotId}')">
    <div class="wr-slot-tag">${esc(slot.short)}</div>
    ${teamIconHtml(p,'wr-team-logo')}
-   <div class="formation-name" title="${esc(p.name)}">${esc(shortName(p.name))}</div>
+   <div class="formation-name player-name-link" title="${esc(p.name)}" role="button" tabindex="0" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(shortName(p.name))}</div>
    <div class="formation-score">${pr.expected}</div>
    <div class="formation-meta">
     <span>${price}</span>
@@ -3701,7 +4091,7 @@ function formationReserveCard(p,idx=0,slotId=""){
   <div class="wr-reserve-no">${idx}</div>
   ${teamIconHtml(p,'wr-reserve-logo')}
   <div class="formation-reserve-main">
-   <div class="formation-reserve-name" title="${esc(p.name)}">${esc(shortName(p.name))}</div>
+   <div class="formation-reserve-name player-name-link" title="${esc(p.name)}" role="button" tabindex="0" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(shortName(p.name))}</div>
    <div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(p.pos||"")}</b>  R${App.round}${opp?"  "+opp:""}</div>
   </div>
   <div class="formation-reserve-score">${pr.expected}</div>
@@ -3821,6 +4211,92 @@ function playerTradePositions(p){const ps=positions(p);return ps.length?ps:[]}
 function tradeEligibleForPlayer(candidate,oldPlayer){const oldPs=playerTradePositions(oldPlayer);if(!candidate||!oldPlayer||!oldPs.length)return false;const cps=positions(candidate);return oldPs.some(pos=>cps.includes(pos))}
 function tradeOptionButton(r,onclick){const rp=roundProj(r),rs=availabilityStatus(r),cls=statusDotClass(rs);return `<button type="button" onclick="${onclick}" style="display:grid;grid-template-columns:42px minmax(0,1fr) 42px;gap:9px;align-items:center;width:100%;padding:9px;border-radius:14px;border:1px solid #29405f;background:#0b1a2d;color:#f8fafc;text-align:left;cursor:pointer"><span style="width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#10213a;border:1px solid #436180;font-size:11px;font-weight:950">${esc((r.team||'SC').slice(0,3))}</span><span style="min-width:0"><b style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.name)}</b><span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.team||'')} | ${esc(r.pos||'')}</span><span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(rs.label||'')}</span></span><span style="text-align:right;font-weight:950;color:#58a6ff;font-size:17px">${rp.expected}<span class="status-dot ${cls}" style="margin-left:4px"></span></span></button>`}
 function tradePopupHtml(title,name,opts,buttonFn){return `<div style="position:fixed;right:18px;bottom:18px;z-index:9999;width:min(640px,calc(100vw - 28px));max-height:min(660px,82vh);overflow:auto;background:#071222;border:1px solid #58a6ff;border-radius:18px;padding:14px;box-shadow:0 24px 80px rgba(0,0,0,.72)"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;position:sticky;top:-14px;background:#071222;padding:4px 0 10px"><div><div style="font-size:12px;color:#bfd0e8;font-weight:800">${esc(title)}</div><div style="font-size:18px;font-weight:950">${esc(name)}</div></div><button type="button" onclick="cancelTeamAction()" style="padding:7px 10px;border-radius:10px">Close</button></div>${opts.length?`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px">${opts.map(r=>tradeOptionButton(r,buttonFn(r))).join('')}</div>`:`<div>No legal trade options available</div>`}</div>`}
+function playerPhotoUrl(p){
+  if(!p)return "";
+  const photos=App.playerPhotos?.players||App.playerPhotos||{};
+  const names=[p.name,resolvePlayerName(p.name)].filter(Boolean);
+  for(const n of names){
+    const rec=photos?.[n];
+    if(typeof rec==="string"&&rec)return rec;
+    if(rec&&typeof rec==="object"){
+      const url=rec.url||rec.photo||rec.image||rec.headshot||rec.src||"";
+      if(url)return url;
+    }
+  }
+  return p.photo||p.image||p.headshot||p.nrlPhoto||p.playerPhoto||"";
+}
+function playerPhotoHtml(p){
+  const url=playerPhotoUrl(p);
+  if(url)return `<img class="player-profile-photo" src="${esc(url)}" alt="${esc(p.name)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'player-profile-photo-fallback',textContent:'${esc((p.team||'SC').slice(0,3).toUpperCase())}'}))">`;
+  return `<div class="player-profile-photo-fallback">${esc((p.team||'SC').slice(0,3).toUpperCase())}</div>`;
+}
+function playerProfileStat(label,value){
+  return `<div class="player-profile-stat"><span>${esc(label)}</span><b>${esc(value??"-")}</b></div>`;
+}
+function openPlayerCard(name){
+  const p=getPlayer(name);
+  if(!p)return toast("Player not found");
+  closePlayerCard(false);
+
+  const pr=roundProj(p);
+  const st=availabilityStatus(p);
+  const truth=statusTruthRecordFor(p)||{};
+  const be=safeNum(p.breakeven??p.breakEven??p.BE??p.be);
+  const avg=safeNum(p.avg??p.average??p.seasonAvg);
+  const price=safeNum(p.price)?money(p.price):"-";
+  const jersey=truth.jersey||st.jersey||p.jersey||"-";
+  const role=truth.lineupRole||truth.selectionRole||st.lineupRole||"-";
+  const status=st.label||truth.displayStatus||"-";
+
+  const el=document.createElement("div");
+  el.id="playerProfileModal";
+  el.className="player-profile-backdrop";
+  el.onclick=e=>{if(e.target===el)closePlayerCard()};
+  el.innerHTML=`<div class="player-profile-card" role="dialog" aria-modal="true" aria-label="${esc(p.name)} player card" onclick="event.stopPropagation()">
+    <div class="player-profile-hero">
+      ${playerPhotoHtml(p)}
+      <div>
+        <div class="player-profile-sub">${esc(p.team||"")}  ${esc(p.pos||"")}  Round ${App.round}</div>
+        <h2 class="player-profile-title">${esc(p.name)}</h2>
+        <div class="player-profile-sub">${esc(status)}${jersey!=="-"?`  Jersey ${esc(jersey)}`:""}${role!=="-"?`  ${esc(role)}`:""}</div>
+      </div>
+    </div>
+    <div class="player-profile-body">
+      <div class="player-profile-grid">
+        ${playerProfileStat("Projection",pr.expected)}
+        ${playerProfileStat("Average",avg||"-")}
+        ${playerProfileStat("Last 3",safeNum(p.last3??p.lastThree??p.avg3)||"-")}
+        ${playerProfileStat("Last 5",safeNum(p.last5??p.avg5)||"-")}
+        ${playerProfileStat("BE",be||"-")}
+        ${playerProfileStat("Price",price)}
+        ${playerProfileStat("Team",p.team||"-")}
+        ${playerProfileStat("Position",p.pos||"-")}
+        ${playerProfileStat("Jersey",jersey)}
+      </div>
+      <div class="player-profile-reason"><b>Status reason:</b><br>${esc(st.reason||truth.reason||"No status reason available.")}</div>
+    </div>
+    <div class="player-profile-actions">
+      <button type="button" onclick="closePlayerCard()">Close</button>
+      <button type="button" class="primary" onclick="closePlayerCard();focusPlayerInTeam('${window.jsq(p.name)}')">Find in team</button>
+    </div>
+  </div>`;
+  document.body.appendChild(el);
+}
+function closePlayerCard(){
+  const el=document.getElementById("playerProfileModal");
+  if(el)el.remove();
+}
+function focusPlayerInTeam(name){
+  const p=getPlayer(name);
+  if(!p)return;
+  App.selectedTeamSlot="";
+  App.selectedReserveTradeName="";
+  App.teamActionMode="";
+  const fieldSlot=Object.keys(App.lineup||{}).find(k=>App.lineup[k]===p.name);
+  if(fieldSlot)App.selectedTeamSlot=fieldSlot;
+  else App.selectedReserveTradeName=p.name;
+  renderTeam();
+}
 function playerDetailHtml(p,subtitle,tradeCall){
  const pr=roundProj(p),st=availabilityStatus(p);
  const be=safeNum(p.breakeven??p.breakEven??p.BE??p.be);
