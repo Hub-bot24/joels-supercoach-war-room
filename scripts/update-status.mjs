@@ -1214,7 +1214,10 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
           const existingRole = String(existing?.lineupRole || existing?.selectionRole || '').toLowerCase();
           const existingPlayable = existing?.displayStatus === STATUS.NAMED && (existingRole === 'starter' || existingRole === 'interchange');
           const existingPriority = Number(existing?.sourcePriority || 0);
-          if(existingPlayable && priority <= existingPriority) continue;
+          // CORE RULE: positive current team-list evidence wins over inferred absence.
+          // If any trusted current source has the player NAMED in 1-17, do not let a later/higher-priority
+          // page-level omission downgrade him to NOT_NAMED. Absence is inferred evidence; named jersey evidence wins.
+          if(existingPlayable) continue;
           addOrMerge(teamlistsOut, p, makeStatus(STATUS.NOT_NAMED, `Not present in higher-priority current team-list source (${page.sourceName}).`, [src], {selectionStatus:'not_named', team:p.team, teamCanonical:teamCanon, sourcePriority:priority, sourceOrder:pageOrder}));
           pageLevelMissingCount++;
         }
