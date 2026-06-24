@@ -1,24 +1,24 @@
 import fs from "node:fs/promises";
 
-const TEAM_SLUGS = {
-  BRI:"brisbane-broncos",
-  CBR:"canberra-raiders",
-  CBY:"canterbury-bankstown-bulldogs",
-  CRO:"cronulla-sutherland-sharks",
-  DOL:"dolphins",
-  GLD:"gold-coast-titans",
-  MAN:"manly-warringah-sea-eagles",
-  MEL:"melbourne-storm",
-  NEW:"newcastle-knights",
-  NQL:"north-queensland-cowboys",
-  PAR:"parramatta-eels",
-  PEN:"penrith-panthers",
-  SOU:"south-sydney-rabbitohs",
-  STH:"south-sydney-rabbitohs",
-  STI:"st-george-illawarra-dragons",
-  SYD:"sydney-roosters",
-  WST:"wests-tigers",
-  WAR:"warriors"
+const TEAM_INFO = {
+  BRI:{host:"www.broncos.com.au",slug:"brisbane-broncos"},
+  CBR:{host:"www.raiders.com.au",slug:"canberra-raiders"},
+  CBY:{host:"www.bulldogs.com.au",slug:"canterbury-bankstown-bulldogs"},
+  CRO:{host:"www.sharks.com.au",slug:"cronulla-sutherland-sharks"},
+  DOL:{host:"www.dolphinsnrl.com.au",slug:"dolphins"},
+  GLD:{host:"www.titans.com.au",slug:"gold-coast-titans"},
+  MAN:{host:"www.seaeagles.com.au",slug:"manly-warringah-sea-eagles"},
+  MEL:{host:"www.melbournestorm.com.au",slug:"melbourne-storm"},
+  NEW:{host:"www.newcastleknights.com.au",slug:"newcastle-knights"},
+  NQL:{host:"www.cowboys.com.au",slug:"north-queensland-cowboys"},
+  PAR:{host:"www.parraeels.com.au",slug:"parramatta-eels"},
+  PEN:{host:"www.penrithpanthers.com.au",slug:"penrith-panthers"},
+  SOU:{host:"www.rabbitohs.com.au",slug:"south-sydney-rabbitohs"},
+  STH:{host:"www.rabbitohs.com.au",slug:"south-sydney-rabbitohs"},
+  STI:{host:"www.dragons.com.au",slug:"st-george-illawarra-dragons"},
+  SYD:{host:"www.roosters.com.au",slug:"sydney-roosters"},
+  WST:{host:"www.weststigers.com.au",slug:"wests-tigers"},
+  WAR:{host:"www.warriors.kiwi",slug:"one-new-zealand-warriors"}
 };
 
 function slugName(name){
@@ -26,7 +26,7 @@ function slugName(name){
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g,"")
-    .replace(/['ï¿½]/g,"")
+    .replace(/['’]/g,"")
     .replace(/[^a-z0-9]+/g,"-")
     .replace(/^-+|-+$/g,"");
 }
@@ -46,16 +46,27 @@ function cleanUrl(url){
   return out;
 }
 
+function badImage(url){
+  const u = String(url || "").toLowerCase();
+  return /favicon|logo|badge|icon|sponsor|partner|placeholder|default|avatar-default|crest|jersey/.test(u);
+}
+
 function imageLooksUseful(url){
   const u = cleanUrl(url);
   if(!/^https?:\/\//i.test(u)) return false;
+  if(badImage(u)) return false;
 
   return (
     /remote\.axd/i.test(u) ||
     /rugbyimages\.statsperform\.com/i.test(u) ||
-    /nrl\.com\/.*\.(png|jpg|jpeg|webp)/i.test(u) ||
-    /players?|profile|headshot|bodyshot/i.test(u)
+    /player|profile|headshot|bodyshot|body-shot|portrait/i.test(u) ||
+    /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u)
   );
+}
+
+function addUrl(set, raw){
+  const u = cleanUrl(raw);
+  if(imageLooksUseful(u)) set.add(u);
 }
 
 function extractImage(html, playerName=""){
@@ -70,54 +81,58 @@ function extractImage(html, playerName=""){
 
   for(const re of metaPatterns){
     let m;
-    while((m = re.exec(html))){
-      const u = cleanUrl(m[1]);
-      if(imageLooksUseful(u)) all.add(u);
-    }
+    while((m = re.exec(html))) addUrl(all, m[1]);
   }
 
   const attrRe = /\b(?:src|href|content)=["']([^"']+)["']/gi;
   let m;
-  while((m = attrRe.exec(html))){
-    const u = cleanUrl(m[1]);
-    if(imageLooksUseful(u)) all.add(u);
+  while((m = attrRe.exec(html))) addUrl(all, m[1]);
+
+  const srcsetRe = /\bsrcset=["']([^"']+)["']/gi;
+  while((m = srcsetRe.exec(html))){
+    for(const part of m[1].split(",")){
+      addUrl(all, part.trim().split(/\s+/)[0]);
+    }
   }
 
-  // NRL often stores image URLs inside escaped JSON, not normal img tags.
   const jsonUrlRe = /https?:\\?\/\\?\/[^"'<>\\\s]+/gi;
-  while((m = jsonUrlRe.exec(html))){
-    const u = cleanUrl(m[0]);
-    if(imageLooksUseful(u)) all.add(u);
-  }
+  while((m = jsonUrlRe.exec(html))) addUrl(all, m[0]);
 
   const urls = [...all];
 
   const nameBits = String(playerName || "")
     .toLowerCase()
-    .replace(/['â€™]/g,"")
+    .replace(/['’]/g,"")
     .split(/\s+/)
     .filter(Boolean);
 
   const nameMatch = urls.find(u => {
-    const low = decodeURIComponent(cleanUrl(u)).toLowerCase().replace(/['â€™]/g,"");
+    const low = decodeURIComponent(cleanUrl(u)).toLowerCase().replace(/['’]/g,"");
     return nameBits.length && nameBits.every(part => low.includes(part));
   });
 
   return nameMatch ||
     urls.find(u => /remote\.axd/i.test(u)) ||
     urls.find(u => /rugbyimages\.statsperform\.com/i.test(u)) ||
-    urls[0] ||
+    urls.find(u => /player|profile|headshot|bodyshot|portrait/i.test(u)) ||
     "";
 }
+
 async function fetchText(url){
   const res = await fetch(url, {
+    redirect: "follow",
     headers: {
       "user-agent": "Mozilla/5.0 player-photo-builder",
       "accept": "text/html,application/xhtml+xml"
     }
   });
   if(!res.ok) return "";
-  return await res.text();
+  const html = await res.text();
+
+  // Central NRL sometimes returns a login form. Ignore that page.
+  if(/Submit This Form|signin-nrl|login_required/i.test(html)) return "";
+
+  return html;
 }
 
 async function main(){
@@ -125,41 +140,52 @@ async function main(){
   const players = Array.isArray(raw) ? raw : (raw.players || []);
   const out = { updatedAt: new Date().toISOString(), players: {} };
 
-  let done = 0;
+  let checked = 0;
   let found = 0;
 
   for(const p of players){
     const name = p.name || p.player || p.fullName || p.playerName;
     const team = String(p.team || p.club || "").toUpperCase();
-    const teamSlug = TEAM_SLUGS[team];
-    if(!name || !teamSlug) continue;
+    const info = TEAM_INFO[team];
+    if(!name || !info) continue;
 
-    const url = `https://www.nrl.com/players/nrl-premiership/${teamSlug}/${slugName(name)}/`;
+    const playerSlug = slugName(name);
 
-    try{
-      const html = await fetchText(url);
+    const urls = [
+      `https://${info.host}/teams/nrl-premiership/${info.slug}/${playerSlug}/`,
+      `https://www.nrl.com/players/nrl-premiership/${info.slug}/${playerSlug}/`
+    ];
 
+    let image = "";
+    let source = "";
 
-      const image = html ? extractImage(html, name) : "";
-      if(image){
-        out.players[name] = {
-          url: image,
-          source: url,
-          updatedAt: out.updatedAt
-        };
-        found++;
-      }
-    }catch(e){
-      // keep going; one failed player must not stop the full file
+    for(const url of urls){
+      try{
+        const html = await fetchText(url);
+        image = html ? extractImage(html, name) : "";
+        if(image){
+          source = url;
+          break;
+        }
+      }catch(e){}
     }
 
-    done++;
-    if(done % 25 === 0) console.log(`checked ${done}, found ${found}`);
+    if(image){
+      out.players[name] = {
+        url: image,
+        source,
+        updatedAt: out.updatedAt
+      };
+      found++;
+    }
+
+    checked++;
+    if(checked % 25 === 0) console.log(`checked ${checked}, found ${found}`);
     await new Promise(r => setTimeout(r, 120));
   }
 
   await fs.writeFile("player_photos.json", JSON.stringify(out,null,2) + "\n");
-  console.log(`Done. Checked ${done}. Found photos for ${found}.`);
+  console.log(`Done. Checked ${checked}. Found photos for ${found}.`);
 }
 
 main().catch(err => {
