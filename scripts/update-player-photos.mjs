@@ -26,23 +26,56 @@ function slugName(name){
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g,"")
-    .replace(/['�]/g,"")
+    .replace(/['�]/g,"")
     .replace(/[^a-z0-9]+/g,"-")
     .replace(/^-+|-+$/g,"");
 }
 
-function extractImage(html){
+function cleanUrl(url){
+  if(!url) return "";
+  let out = String(url).replace(/&amp;/g,"&").trim();
+  if(out.startsWith("//")) out = "https:" + out;
+  if(out.startsWith("/")) out = "https://www.nrl.com" + out;
+  return out;
+}
+
+function extractImage(html, playerName=""){
   const patterns = [
     /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i,
     /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i,
     /<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i,
     /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']twitter:image["']/i
   ];
+
   for(const re of patterns){
     const m = html.match(re);
-    if(m?.[1] && /^https?:\/\//i.test(m[1])) return m[1];
+    const u = cleanUrl(m?.[1]);
+    if(/^https?:\/\//i.test(u) && /player|bodyshot|profile|rugbyimages|remote\.axd/i.test(u)) return u;
   }
-  return "";
+
+  const urls = [];
+  const attrRe = /\b(?:src|href)=["']([^"']+)["']/gi;
+  let m;
+  while((m = attrRe.exec(html))){
+    const u = cleanUrl(m[1]);
+    if(!/^https?:\/\//i.test(u)) continue;
+    if(!/remote\.axd|rugbyimages\.statsperform\.com|Player\+Bodyshots|player-profile/i.test(u)) continue;
+    if(!/\.(png|jpg|jpeg|webp)(\?|$)/i.test(u) && !/remote\.axd/i.test(u)) continue;
+    urls.push(u);
+  }
+
+  const nameBits = String(playerName || "")
+    .toLowerCase()
+    .replace(/['’]/g,"")
+    .split(/\s+/)
+    .filter(Boolean);
+
+  const best = urls.find(u => {
+    const low = decodeURIComponent(u).toLowerCase().replace(/['’]/g,"");
+    return nameBits.length && nameBits.every(part => low.includes(part));
+  }) || urls.find(u => /Player\+Bodyshots|rugbyimages\.statsperform\.com|remote\.axd/i.test(u));
+
+  return best || "";
 }
 
 async function fetchText(url){
@@ -74,7 +107,7 @@ async function main(){
 
     try{
       const html = await fetchText(url);
-      const image = html ? extractImage(html) : "";
+      const image = html ? extractImage(html, name) : "";
       if(image){
         out.players[name] = {
           url: image,
