@@ -1,74 +1,5 @@
 [
   {
-    "player": "Jaxson Paulo",
-    "team": "NQC",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 21).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).",
-    "detectedAt": "2026-06-23T07:18:24.395Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
-        "updatedAt": "2026-06-23T07:18:24.395Z",
-        "priority": 2,
-        "order": 4
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154/",
-        "updatedAt": "2026-06-23T07:18:24.395Z"
-      }
-    ],
-    "round": 17
-  },
-  {
-    "player": "Jayden Berrell",
-    "team": "SHA",
-    "from": "NOT_NAMED",
-    "to": "BYE",
-    "reason": "Bye round 17",
-    "detectedAt": "2026-06-23T07:18:24.395Z",
-    "sources": [
-      {
-        "type": "fixture",
-        "name": "players.json bye data",
-        "url": "players.json",
-        "updatedAt": "2026-06-23T07:18:24.395Z"
-      }
-    ],
-    "round": 17
-  },
-  {
-    "player": "Jayden Sullivan",
-    "team": "STH",
-    "from": "BYE",
-    "to": "NAMED",
-    "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
-    "detectedAt": "2026-06-23T07:18:24.395Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
-        "updatedAt": "2026-06-23T07:18:24.395Z",
-        "priority": 2,
-        "order": 4
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-vs-broncos-10396426-234700",
-        "updatedAt": "2026-06-23T07:18:24.395Z",
-        "priority": 4,
-        "order": 6
-      }
-    ],
-    "round": 17
-  },
-  {
     "player": "Jed Reardon",
     "team": "CAN",
     "from": "NOT_NAMED",
@@ -13909,6 +13840,63 @@
         "updatedAt": "2026-06-24T08:14:45.255Z",
         "priority": 2,
         "order": 8
+      }
+    ],
+    "round": 17
+  },
+  {
+    "player": "Ryley Smith",
+    "team": "PAR",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-06-24T11:19:48.396Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/06/24/nrl-late-mail-round-17-katoa-on-track-preston-pushing-to-return",
+        "updatedAt": "2026-06-24T11:19:48.396Z",
+        "priority": 3,
+        "order": 2
+      }
+    ],
+    "round": 17
+  },
+  {
+    "player": "Saxon Pryke",
+    "team": "PAR",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-06-24T11:19:48.396Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/06/24/nrl-late-mail-round-17-katoa-on-track-preston-pushing-to-return",
+        "updatedAt": "2026-06-24T11:19:48.396Z",
+        "priority": 3,
+        "order": 2
+      }
+    ],
+    "round": 17
+  },
+  {
+    "player": "Thomas Fletcher",
+    "team": "STH",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-06-24T11:19:48.396Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/06/24/nrl-late-mail-round-17-katoa-on-track-preston-pushing-to-return",
+        "updatedAt": "2026-06-24T11:19:48.396Z",
+        "priority": 3,
+        "order": 2
       }
     ],
     "round": 17
