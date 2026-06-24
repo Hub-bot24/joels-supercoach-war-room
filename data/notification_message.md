@@ -1,10 +1,70 @@
 # SuperCoach War Room status changes — Round 17
 
-Detected: 2026-06-24T04:40:43.076Z
+Detected: 2026-06-24T08:14:45.255Z
 
-- **Antonio Verhoeven** (BRO): NOT_NAMED → ORIGIN
-  - Origin/representative-duty context found in current team-list source (Official NRL).
-  - Source: origin_players.json
-- **Jahrome Hughes** (MEL): EXPECTED → ORIGIN
-  - Origin/representative-duty context found in current team-list source (Zero Tackle).
-  - Source: origin_players.json
+- **Adam Reynolds** (BRO): INJURED → NAMED
+  - Named in team-list article starting side (Official NRL, jersey 7).; injury note: Hamstring
+  - Source: Official NRL, Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Antonio Verhoeven** (BRO): ORIGIN → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Billy Phillips** (PEN): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Official NRL, jersey 18).
+  - Source: Official NRL, Zero Tackle
+- **Brad Schneider** (DOL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Zero Tackle
+- **Bronson Xerri** (CAN): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Official NRL, jersey 19).
+  - Source: Official NRL, Zero Tackle
+- **Campbell Graham** (STH): INJURED → EXPECTED
+  - Named in team-list article extended squad only (Official NRL, jersey 19).; injury note: Calf
+  - Source: Official NRL, Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Haizyn Mellars** (NZL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).; injury/return note: Hamstring
+  - Source: Official NRL, Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Hayden Buchanan** (STG): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).; injury/return note: Shoulder
+  - Source: Official NRL, Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Heamasi Makasini** (WST): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Official NRL, jersey 18).
+  - Source: Official NRL, Zero Tackle
+- **Hugo Peel** (MEL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).; injury/return note: Knee
+  - Source: Official NRL, Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Jahrome Hughes** (MEL): ORIGIN → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Jayden Sullivan** (STH): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Official NRL, jersey 18).
+  - Source: Official NRL, Zero Tackle
+- **Kayliss Fatialofa** (NZL): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Official NRL, jersey 18).
+  - Source: Official NRL, Zero Tackle
+- **Latrell Mitchell** (STH): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).; injury/return note: Back
+  - Source: Official NRL, Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Loko Pasifiki Tonga** (STG): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Zero Tackle
+- **Mitchell Barnett** (NZL): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Official NRL, jersey 10).
+  - Source: Official NRL
+- **Rex Bassingthwaighte** (SYD): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Official NRL, jersey 18).
+  - Source: Official NRL, Zero Tackle
+- **Sam Healey** (NZL): EXPECTED → NAMED
+  - Named in team-list article interchange (Official NRL, jersey 14).; injury note: Thumb
+  - Source: Official NRL, Existing player_status.json updater, Zero Tackle
+- **Shawn Blore** (MEL): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Official NRL, jersey 18).
+  - Source: Official NRL, Zero Tackle
+- **Sua Fa'alogo** (MEL): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Zero Tackle
+- **Tom Duffy** (BRO): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Zero Tackle
+- **Tommy Talau** (SYD): EXPECTED → NAMED
+  - Named in team-list article starting side (Official NRL, jersey 3).
+  - Source: Official NRL, Zero Tackle
