@@ -1,49 +1,5 @@
 [
   {
-    "player": "Heamasi Makasini",
-    "team": "WST",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).; injury note: Pec context found near player on injury/casualty source page (Zero Tackle).",
-    "detectedAt": "2026-06-23T07:18:24.395Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
-        "updatedAt": "2026-06-23T07:18:24.395Z",
-        "priority": 2,
-        "order": 4
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154/",
-        "updatedAt": "2026-06-23T07:18:24.395Z"
-      }
-    ],
-    "round": 17
-  },
-  {
-    "player": "Heath Mason",
-    "team": "WST",
-    "from": "NAMED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
-    "detectedAt": "2026-06-23T07:18:24.395Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
-        "updatedAt": "2026-06-23T07:18:24.395Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 17
-  },
-  {
     "player": "Hohepa Puru",
     "team": "SHA",
     "from": "NAMED",
@@ -13859,6 +13815,40 @@
         "name": "Parsed current team-list source",
         "url": "data/teamlists.json",
         "updatedAt": "2026-06-23T12:04:48.956Z"
+      }
+    ],
+    "round": 17
+  },
+  {
+    "player": "Antonio Verhoeven",
+    "team": "BRO",
+    "from": "NOT_NAMED",
+    "to": "ORIGIN",
+    "reason": "Origin/representative-duty context found in current team-list source (Official NRL).",
+    "detectedAt": "2026-06-24T04:40:43.076Z",
+    "sources": [
+      {
+        "type": "origin",
+        "name": "origin_players.json",
+        "url": "origin_players.json",
+        "updatedAt": "2026-06-24T00:14:02.321Z"
+      }
+    ],
+    "round": 17
+  },
+  {
+    "player": "Jahrome Hughes",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "ORIGIN",
+    "reason": "Origin/representative-duty context found in current team-list source (Zero Tackle).",
+    "detectedAt": "2026-06-24T04:40:43.076Z",
+    "sources": [
+      {
+        "type": "origin",
+        "name": "origin_players.json",
+        "url": "origin_players.json",
+        "updatedAt": "2026-06-24T00:14:02.321Z"
       }
     ],
     "round": 17

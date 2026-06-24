@@ -1,6 +1,41 @@
 {
-  "updated": "2026-06-24T00:14:02.321Z",
+  "updated": "2026-06-24T04:40:43.076Z",
   "round": 17,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Antonio Verhoeven",
+      "team": "BRO",
+      "from": "NOT_NAMED",
+      "to": "ORIGIN",
+      "reason": "Origin/representative-duty context found in current team-list source (Official NRL).",
+      "detectedAt": "2026-06-24T04:40:43.076Z",
+      "sources": [
+        {
+          "type": "origin",
+          "name": "origin_players.json",
+          "url": "origin_players.json",
+          "updatedAt": "2026-06-24T00:14:02.321Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Jahrome Hughes",
+      "team": "MEL",
+      "from": "EXPECTED",
+      "to": "ORIGIN",
+      "reason": "Origin/representative-duty context found in current team-list source (Zero Tackle).",
+      "detectedAt": "2026-06-24T04:40:43.076Z",
+      "sources": [
+        {
+          "type": "origin",
+          "name": "origin_players.json",
+          "url": "origin_players.json",
+          "updatedAt": "2026-06-24T00:14:02.321Z"
+        }
+      ],
+      "round": 17
+    }
+  ],
   "allChangeCount": 500
 }
