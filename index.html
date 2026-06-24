@@ -4239,11 +4239,12 @@ function openPlayerCard(name){
 
   closePlayerCard();
 
-  // Prevent double display with the old My Team action panel.
+  // Kill the old My Team selected-player panel so only one card can show.
   App.selectedTeamSlot="";
   App.selectedReserveTradeName="";
   App.teamActionMode="";
-  if(App.active==="team") renderTeam();
+  const oldPanel=document.getElementById("teamActionPanel");
+  if(oldPanel)oldPanel.remove();
 
   const pr=roundProj(p);
   const st=availabilityStatus(p);
@@ -4251,17 +4252,17 @@ function openPlayerCard(name){
   const be=safeNum(p.breakeven??p.breakEven??p.BE??p.be);
   const avg=safeNum(p.avg??p.average??p.seasonAvg);
   const price=safeNum(p.price)?money(p.price):"-";
-  const posLabel=esc((p.pos||"PLAYER").toUpperCase());
-  const teamLabel=esc((p.team||"SC").toUpperCase());
-  const status=esc(st.label||truth.displayStatus||"-");
   const reason=esc(st.reason||truth.reason||"No status reason available.");
+  const fieldSlot=Object.keys(App.lineup||{}).find(k=>App.lineup[k]===p.name);
+  const inMyTeam=App.myTeam.includes(p.name);
+  const subtitle=fieldSlot ? `${slotById[fieldSlot]?.short||""} FIELD PLAYER` : (inMyTeam ? "RESERVE PLAYER" : "PLAYER");
+  const status=esc(st.label||truth.displayStatus||"-");
+
   const photo=playerPhotoUrl(p);
   const photoHtml=photo
     ? `<img src="${esc(photo)}" alt="${esc(p.name)}" style="width:86px;height:86px;border-radius:16px;object-fit:cover;border:1px solid #436180;background:#10213a" onerror="this.replaceWith(Object.assign(document.createElement('div'),{style:'width:86px;height:86px;border-radius:16px;display:grid;place-items:center;border:1px solid #436180;background:#10213a;font-size:22px;font-weight:950',textContent:'${esc((p.team||'SC').slice(0,3).toUpperCase())}'}))">`
     : `<div style="width:86px;height:86px;border-radius:16px;display:grid;place-items:center;border:1px solid #436180;background:#10213a;font-size:22px;font-weight:950">${esc((p.team||"SC").slice(0,3).toUpperCase())}</div>`;
 
-  const fieldSlot=Object.keys(App.lineup||{}).find(k=>App.lineup[k]===p.name);
-  const inMyTeam=App.myTeam.includes(p.name);
   const tradeButton=fieldSlot
     ? `<button type="button" onclick="closePlayerCard();teamActionTradeOut('${window.jsq(fieldSlot)}')">Trade</button>`
     : inMyTeam
@@ -4270,20 +4271,21 @@ function openPlayerCard(name){
 
   const el=document.createElement("div");
   el.id="playerProfileModal";
-  el.className="player-profile-backdrop";
   el.onclick=e=>{if(e.target===el)closePlayerCard()};
-  el.innerHTML=`<div class="player-detail-card" style="position:fixed;right:18px;bottom:18px;z-index:100000;width:min(640px,calc(100vw - 28px));max-height:min(720px,82vh);overflow:auto;background:#071222;border:1px solid #58a6ff;border-radius:18px;padding:14px;box-shadow:0 24px 80px rgba(0,0,0,.72);color:#f8fafc" role="dialog" aria-modal="true" aria-label="${esc(p.name)} player card" onclick="event.stopPropagation()">
-    <div class="player-detail-head" style="display:grid;grid-template-columns:86px minmax(0,1fr) auto;gap:12px;align-items:start">
+  el.style.cssText="position:fixed;inset:0;z-index:100000;background:rgba(2,6,23,.72);backdrop-filter:blur(6px);";
+
+  el.innerHTML=`<div onclick="event.stopPropagation()" style="position:fixed;right:18px;bottom:18px;width:min(760px,calc(100vw - 28px));max-height:min(720px,82vh);overflow:auto;background:#071222;border:1px solid #58a6ff;border-radius:18px;padding:14px;box-shadow:0 24px 80px rgba(0,0,0,.72);color:#f8fafc">
+    <div style="display:grid;grid-template-columns:86px minmax(0,1fr) auto;gap:12px;align-items:start;margin-bottom:10px">
       ${photoHtml}
-      <div>
-        <div class="player-detail-sub">${posLabel} ${teamLabel} ROUND ${App.round}</div>
-        <div class="player-detail-title">${esc(p.name)}</div>
-        <div class="small">${reason}</div>
+      <div style="min-width:0">
+        <div style="font-size:12px;color:#a3e635;font-weight:950;letter-spacing:.08em">${esc(subtitle)}</div>
+        <div style="font-size:26px;line-height:1.05;font-weight:950;margin-top:2px">${esc(p.name)}</div>
+        <div style="font-size:13px;color:#bfd0e8;margin-top:6px">${esc(p.team||"")}  ${esc(p.pos||"")}  ${reason}</div>
       </div>
-      <button type="button" onclick="closePlayerCard()">Close</button>
+      <button type="button" onclick="closePlayerCard()" style="padding:8px 12px;border-radius:12px;border:1px solid #436180;background:#10213a;color:#fff;font-weight:900;cursor:pointer">Close</button>
     </div>
 
-    <div class="player-detail-grid">
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:12px 0">
       <div class="player-detail-stat"><span>Proj</span><b>${pr.expected}</b></div>
       <div class="player-detail-stat"><span>Avg</span><b>${avg||"-"}</b></div>
       <div class="player-detail-stat"><span>BE</span><b>${be||"-"}</b></div>
@@ -4292,13 +4294,15 @@ function openPlayerCard(name){
       <div class="player-detail-stat"><span>Round</span><b>${App.round}</b></div>
     </div>
 
-    <div class="player-detail-actions">
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
       ${tradeButton}
-      <button type="button" onclick="closePlayerCard()">Cancel</button>
+      <button type="button" onclick="closePlayerCard()" style="padding:9px 18px;border-radius:12px;border:1px solid #436180;background:#10213a;color:#fff;font-weight:900;cursor:pointer">Close</button>
     </div>
   </div>`;
+
   document.body.appendChild(el);
 }
+
 function closePlayerCard(){
   const el=document.getElementById("playerProfileModal");
   if(el)el.remove();
@@ -4366,8 +4370,8 @@ function teamActionHtml(){
  return '<span style="opacity:.75">Tap player for stats/trade. Press and hold and drag to swap/move.</span>';
 }
 
-function selectTeamSlot(slotId){App.selectedTeamSlot=slotId;App.selectedReserveTradeName='';App.teamActionMode='';renderTeam()}
-function selectReservePlayer(name){const p=getPlayer(name);if(!p)return;App.selectedTeamSlot='';App.selectedReserveTradeName=p.name;App.teamActionMode='';renderTeam()}
+function selectTeamSlot(slotId){const p=getPlayer(App.lineup?.[slotId]);if(p)openPlayerCard(p.name)}
+function selectReservePlayer(name){const p=getPlayer(name);if(p)openPlayerCard(p.name)}
 function teamActionSwap(slotId){App.selectedTeamSlot=slotId;App.selectedReserveTradeName='';App.teamActionMode='swap';renderTeam()}
 function teamActionTradeOut(slotId){App.selectedTeamSlot=slotId;App.selectedReserveTradeName='';App.teamActionMode='trade';renderTeam()}
 function reserveActionTradeOut(name){const p=getPlayer(name);if(!p||!App.myTeam.includes(p.name))return toast('Invalid reserve trade');App.selectedTeamSlot='';App.selectedReserveTradeName=p.name;App.teamActionMode='reserveTrade';renderTeam()}
@@ -4488,7 +4492,7 @@ function pressDragStart(ev,type,slotId,name){
  function cleanup(){clearTimeout(startTimer);window.removeEventListener('pointermove',move,{capture:true});window.removeEventListener('pointerup',up,{capture:true});window.removeEventListener('pointercancel',cancel,{capture:true});el.classList.remove('press-dragging');el.style.transform='';el.style.zIndex=''}
  function move(e){const dx=e.clientX-startX,dy=e.clientY-startY;if(Math.hypot(dx,dy)>7)moved=true;if(started){e.preventDefault();el.style.transform=`translate(${dx}px,${dy}px) scale(.98)`;el.style.zIndex='10000';}}
  function cancel(){cleanup()}
- function up(e){const wasStarted=started;cleanup();if(wasStarted){const target=document.elementFromPoint(e.clientX,e.clientY);const slot=target?.closest?.('[data-slot]')?.getAttribute('data-slot');const reserve=target?.closest?.('[data-reserve-slot]')?.getAttribute('data-reserve-slot');if(type==='reserve'&&slot){commitDragToSlot(d,slot);return}if((type==='field'||type==='reserve')&&reserve){commitDragToReserveCard(d,reserve);return}if(type==='field'&&target?.closest?.('.formation-reserves,.wr-reserve-panel')){commitDragToReserveGroup(d);return}toast('Drop on an eligible player/slot');return;}if(!moved){if(type==='field')selectTeamSlot(slotId);else selectReservePlayer(name);}}
+ function up(e){const wasStarted=started;cleanup();if(wasStarted){const target=document.elementFromPoint(e.clientX,e.clientY);const slot=target?.closest?.('[data-slot]')?.getAttribute('data-slot');const reserve=target?.closest?.('[data-reserve-slot]')?.getAttribute('data-reserve-slot');if(type==='reserve'&&slot){commitDragToSlot(d,slot);return}if((type==='field'||type==='reserve')&&reserve){commitDragToReserveCard(d,reserve);return}if(type==='field'&&target?.closest?.('.formation-reserves,.wr-reserve-panel')){commitDragToReserveGroup(d);return}toast('Drop on an eligible player/slot');return;}if(!moved){openPlayerCard(name);}}
  window.addEventListener('pointermove',move,{capture:true,passive:false});window.addEventListener('pointerup',up,{capture:true});window.addEventListener('pointercancel',cancel,{capture:true});
 }
 
