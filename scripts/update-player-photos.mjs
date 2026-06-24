@@ -139,13 +139,6 @@ async function main(){
     try{
       const html = await fetchText(url);
 
-      if(name === "Brandon Smith"){
-        console.log("DEBUG Brandon URL:", url);
-        console.log("DEBUG Brandon HTML length:", html.length);
-        console.log("DEBUG Brandon has remote.axd:", html.includes("remote.axd"));
-        console.log("DEBUG Brandon has rugbyimages:", html.includes("rugbyimages"));
-        console.log("DEBUG Brandon sample:", html.slice(0,800));
-      }
 
       const image = html ? extractImage(html, name) : "";
       if(image){
