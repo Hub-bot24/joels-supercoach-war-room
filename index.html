@@ -4209,7 +4209,7 @@ function mobileTeamHtml(state=teamRenderState()){
 
 function playerTradePositions(p){const ps=positions(p);return ps.length?ps:[]}
 function tradeEligibleForPlayer(candidate,oldPlayer){const oldPs=playerTradePositions(oldPlayer);if(!candidate||!oldPlayer||!oldPs.length)return false;const cps=positions(candidate);return oldPs.some(pos=>cps.includes(pos))}
-function tradeOptionButton(r,onclick){const rp=roundProj(r),rs=availabilityStatus(r),cls=statusDotClass(rs);return `<button type="button" onclick="${onclick}" style="display:grid;grid-template-columns:42px minmax(0,1fr) 42px;gap:9px;align-items:center;width:100%;padding:9px;border-radius:14px;border:1px solid #29405f;background:#0b1a2d;color:#f8fafc;text-align:left;cursor:pointer"><span style="width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#10213a;border:1px solid #436180;font-size:11px;font-weight:950">${esc((r.team||'SC').slice(0,3))}</span><span style="min-width:0"><b style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.name)}</b><span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.team||'')} | ${esc(r.pos||'')}</span><span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(rs.label||'')}</span></span><span style="text-align:right;font-weight:950;color:#58a6ff;font-size:17px">${rp.expected}<span class="status-dot ${cls}" style="margin-left:4px"></span></span></button>`}
+function tradeOptionButton(r,onclick){const rp=roundProj(r),rs=availabilityStatus(r),cls=statusDotClass(rs);return `<button type="button" onclick="${onclick}" style="display:grid;grid-template-columns:42px minmax(0,1fr) 42px;gap:9px;align-items:center;width:100%;padding:9px;border-radius:14px;border:1px solid #29405f;background:#0b1a2d;color:#f8fafc;text-align:left;cursor:pointer"><span style="width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#10213a;border:1px solid #436180;font-size:11px;font-weight:950">${esc((r.team||'SC').slice(0,3))}</span><span style="min-width:0"><b class="player-name-link" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();openPlayerCard('${window.jsq(r.name)}')" style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.name)}</b><span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.team||'')} | ${esc(r.pos||'')}</span><span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(rs.label||'')}</span></span><span style="text-align:right;font-weight:950;color:#58a6ff;font-size:17px">${rp.expected}<span class="status-dot ${cls}" style="margin-left:4px"></span></span></button>`}
 function tradePopupHtml(title,name,opts,buttonFn){return `<div style="position:fixed;right:18px;bottom:18px;z-index:9999;width:min(640px,calc(100vw - 28px));max-height:min(660px,82vh);overflow:auto;background:#071222;border:1px solid #58a6ff;border-radius:18px;padding:14px;box-shadow:0 24px 80px rgba(0,0,0,.72)"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;position:sticky;top:-14px;background:#071222;padding:4px 0 10px"><div><div style="font-size:12px;color:#bfd0e8;font-weight:800">${esc(title)}</div><div style="font-size:18px;font-weight:950">${esc(name)}</div></div><button type="button" onclick="cancelTeamAction()" style="padding:7px 10px;border-radius:10px">Close</button></div>${opts.length?`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px">${opts.map(r=>tradeOptionButton(r,buttonFn(r))).join('')}</div>`:`<div>No legal trade options available</div>`}</div>`}
 function playerPhotoUrl(p){
   if(!p)return "";
@@ -4236,7 +4236,7 @@ function playerProfileStat(label,value){
 function openPlayerCard(name){
   const p=getPlayer(name);
   if(!p)return toast("Player not found");
-  closePlayerCard(false);
+  closePlayerCard();
 
   const pr=roundProj(p);
   const st=availabilityStatus(p);
@@ -4244,40 +4244,42 @@ function openPlayerCard(name){
   const be=safeNum(p.breakeven??p.breakEven??p.BE??p.be);
   const avg=safeNum(p.avg??p.average??p.seasonAvg);
   const price=safeNum(p.price)?money(p.price):"-";
-  const jersey=truth.jersey||st.jersey||p.jersey||"-";
-  const role=truth.lineupRole||truth.selectionRole||st.lineupRole||"-";
-  const status=st.label||truth.displayStatus||"-";
+  const posLabel=esc((p.pos||"PLAYER").toUpperCase());
+  const teamLabel=esc((p.team||"SC").toUpperCase());
+  const status=esc(st.label||truth.displayStatus||"-");
+  const reason=esc(st.reason||truth.reason||"No status reason available.");
+  const fieldSlot=Object.keys(App.lineup||{}).find(k=>App.lineup[k]===p.name);
+  const inMyTeam=App.myTeam.includes(p.name);
+  const tradeButton=fieldSlot
+    ? `<button type="button" onclick="closePlayerCard();teamActionTradeOut('${window.jsq(fieldSlot)}')">Trade</button>`
+    : inMyTeam
+      ? `<button type="button" onclick="closePlayerCard();reserveActionTradeOut('${window.jsq(p.name)}')">Trade</button>`
+      : "";
 
   const el=document.createElement("div");
   el.id="playerProfileModal";
   el.className="player-profile-backdrop";
   el.onclick=e=>{if(e.target===el)closePlayerCard()};
-  el.innerHTML=`<div class="player-profile-card" role="dialog" aria-modal="true" aria-label="${esc(p.name)} player card" onclick="event.stopPropagation()">
-    <div class="player-profile-hero">
-      ${playerPhotoHtml(p)}
+  el.innerHTML=`<div class="player-detail-card" style="width:min(640px,calc(100vw - 24px));max-height:min(720px,88vh);overflow:auto" role="dialog" aria-modal="true" aria-label="${esc(p.name)} player card" onclick="event.stopPropagation()">
+    <div class="player-detail-head">
       <div>
-        <div class="player-profile-sub">${esc(p.team||"")}  ${esc(p.pos||"")}  Round ${App.round}</div>
-        <h2 class="player-profile-title">${esc(p.name)}</h2>
-        <div class="player-profile-sub">${esc(status)}${jersey!=="-"?`  Jersey ${esc(jersey)}`:""}${role!=="-"?`  ${esc(role)}`:""}</div>
+        <div class="player-detail-sub">${posLabel} ${teamLabel} ROUND ${App.round}</div>
+        <div class="player-detail-title">${esc(p.name)}</div>
       </div>
-    </div>
-    <div class="player-profile-body">
-      <div class="player-profile-grid">
-        ${playerProfileStat("Projection",pr.expected)}
-        ${playerProfileStat("Average",avg||"-")}
-        ${playerProfileStat("Last 3",safeNum(p.last3??p.lastThree??p.avg3)||"-")}
-        ${playerProfileStat("Last 5",safeNum(p.last5??p.avg5)||"-")}
-        ${playerProfileStat("BE",be||"-")}
-        ${playerProfileStat("Price",price)}
-        ${playerProfileStat("Team",p.team||"-")}
-        ${playerProfileStat("Position",p.pos||"-")}
-        ${playerProfileStat("Jersey",jersey)}
-      </div>
-      <div class="player-profile-reason"><b>Status reason:</b><br>${esc(st.reason||truth.reason||"No status reason available.")}</div>
-    </div>
-    <div class="player-profile-actions">
       <button type="button" onclick="closePlayerCard()">Close</button>
-      <button type="button" class="primary" onclick="closePlayerCard();focusPlayerInTeam('${window.jsq(p.name)}')">Find in team</button>
+    </div>
+    <div class="small">${reason}</div>
+    <div class="player-detail-grid">
+      <div class="player-detail-stat"><span>Proj</span><b>${pr.expected}</b></div>
+      <div class="player-detail-stat"><span>Avg</span><b>${avg||"-"}</b></div>
+      <div class="player-detail-stat"><span>BE</span><b>${be||"-"}</b></div>
+      <div class="player-detail-stat"><span>Price</span><b style="font-size:16px">${price}</b></div>
+      <div class="player-detail-stat"><span>Status</span><b style="font-size:16px">${status}</b></div>
+      <div class="player-detail-stat"><span>Round</span><b>${App.round}</b></div>
+    </div>
+    <div class="player-detail-actions">
+      ${tradeButton}
+      <button type="button" onclick="closePlayerCard()">Cancel</button>
     </div>
   </div>`;
   document.body.appendChild(el);
@@ -4527,7 +4529,7 @@ function renderExplorer(){
  $('explorer').innerHTML=`<div class="panel"><h2>Player Explorer</h2><label>Search player, position, or team</label><input id="explorerInput" placeholder="Type a name..." oninput="updateExplorer()"><div id="explorerResults" style="margin-top:12px"></div></div>`;
 }
 
-function updateExplorer(){const q=norm($('explorerInput').value),box=$('explorerResults');if(!q){box.innerHTML='';return}const res=App.players.filter(p=>norm(p.name).includes(q)||norm(p.pos).includes(q)||norm(p.team).includes(q)).slice(0,20);box.innerHTML=res.map(p=>{const pr=roundProj(p),raw=proj(p),st=availabilityStatus(p),weather=weatherLine(p);return `<div class="result"><b>${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(p.pos||'')} - ${esc(p.team||'')}</span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}<span class="small">If available: ${raw.expected} | ${esc(st.reason)} | ${esc(raw.goal)}</span></div>`}).join('')||'<p class="small">No matches.</p>'}
+function updateExplorer(){const q=norm($('explorerInput').value),box=$('explorerResults');if(!q){box.innerHTML='';return}const res=App.players.filter(p=>norm(p.name).includes(q)||norm(p.pos).includes(q)||norm(p.team).includes(q)).slice(0,20);box.innerHTML=res.map(p=>{const pr=roundProj(p),raw=proj(p),st=availabilityStatus(p),weather=weatherLine(p);return `<div class="result"><b class="player-name-link" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(p.pos||'')} - ${esc(p.team||'')}</span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}<span class="small">If available: ${raw.expected} | ${esc(st.reason)} | ${esc(raw.goal)}</span></div>`}).join('')||'<p class="small">No matches.</p>'}
 function renderTrade(){$('trade').innerHTML=`<div class="grid"><div class="panel span4"><h2>Trade Lab</h2><label>Trade OUT</label><input id="tradeOut" list="teamList"><datalist id="teamList">${App.myTeam.map(n=>`<option value="${esc(n)}">`).join('')}</datalist><label>Trade IN</label><input id="tradeIn" list="allList"><datalist id="allList">${App.players.map(p=>`<option value="${esc(p.name)}">`).join('')}</datalist><button onclick="scoreTrade()">Score Trade</button><button onclick="applyTradeFromTradeLab()">Apply Trade</button></div><div class="panel span6"><h2>Trade Verdict</h2><div id="tradeVerdict" class="small">Select players to score the trade.</div></div></div>`}
 function scoreTrade(){const out=getPlayer($('tradeOut').value),inn=getPlayer($('tradeIn').value),box=$('tradeVerdict');if(!out||!inn){box.innerHTML='Pick valid players.';return}const po=roundProj(out),pi=roundProj(inn);const pts=pi.expected-po.expected,cash=safeNum(out.price)-safeNum(inn.price),bye=(availabilityStatus(inn).available?1:0)-(availabilityStatus(out).available?1:0);let score=Math.max(0,Math.min(100,Math.round(50+pts*2+(cash/60000)+bye*12)));box.innerHTML=`<div class="metric ${score>=75?'good':score>=55?'warn':'bad'}">${score}/100</div><table><tbody><tr><td>Points this round</td><td>${pts>=0?'+':''}${pts}</td></tr><tr><td>Cash</td><td>${cash>=0?'+':''}${money(cash)}</td></tr><tr><td>Availability impact R${App.round}</td><td>${bye>=0?'+':''}${bye}</td></tr><tr><td>Verdict</td><td>${score>=75?'Strong trade':score>=55?'Decent, check byes':'Weak trade - probably emotional trash'}</td></tr></tbody></table>`}
 function applyTradeFromTradeLab(){const out=$('tradeOut')?.value?.trim(),inn=$('tradeIn')?.value?.trim();if(!out||!inn){toast('Pick OUT and IN players');return}if(!App.myTeam.includes(out)||!App.playerMap.has(inn)){toast('Invalid trade');return}App.myTeam=App.myTeam.map(n=>n===out?inn:n);for(const k of Object.keys(App.lineup)){if(App.lineup[k]===out){if(eligible(getPlayer(inn),slotById[k]))App.lineup[k]=inn;else delete App.lineup[k]}}ensureLineup();saveLocal();renderTrade();toast(`Trade applied: ${out} → ${inn}`)}
@@ -4608,7 +4610,7 @@ function tradePopupHtml(title,name,opts,buttonFn){
 }
 function renderLevel3(){
   const rows=App.players.slice().sort((a,b)=>roundProj(b).expected-roundProj(a).expected).slice(0,220);
-  $('level3').innerHTML=`<div class="panel"><h2>Level 3</h2><p class="small">Projection table uses the same status truth as My Team.</p><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Status</th></tr></thead><tbody>${rows.map(p=>{const pr=roundProj(p),st=availabilityStatus(p);return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b>${esc(p.name)}</b></span></td><td>${esc(p.pos||'')}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${statusPill(p)}</td></tr>`}).join('')}</tbody></table></div></div>`;
+  $('level3').innerHTML=`<div class="panel"><h2>Level 3</h2><p class="small">Projection table uses the same status truth as My Team.</p><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Status</th></tr></thead><tbody>${rows.map(p=>{const pr=roundProj(p),st=availabilityStatus(p);return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b class="player-name-link" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b></span></td><td>${esc(p.pos||'')}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${statusPill(p)}</td></tr>`}).join('')}</tbody></table></div></div>`;
 }
 function renderExplorer(){
   $('explorer').innerHTML=`<div class="panel"><h2>Player Explorer</h2><label>Search player, position, or team</label><input id="explorerInput" placeholder="Type a name..." oninput="updateExplorer()"><div id="explorerResults" style="margin-top:12px"></div></div>`;
@@ -4617,7 +4619,7 @@ function updateExplorer(){
   const q=norm($('explorerInput').value),box=$('explorerResults');
   if(!q){box.innerHTML='';return}
   const res=App.players.filter(p=>norm(p.name).includes(q)||norm(p.pos).includes(q)||norm(p.team).includes(q)).slice(0,40);
-  box.innerHTML=res.map(p=>{const pr=roundProj(p),raw=proj(p),st=availabilityStatus(p),weather=weatherLine(p);return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b>${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(p.pos||'')} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}<span class="small">If available: ${raw.expected} | ${esc(st.reason)} | ${esc(raw.goal)}</span></div>`}).join('')||'<p class="small">No matches.</p>';
+  box.innerHTML=res.map(p=>{const pr=roundProj(p),raw=proj(p),st=availabilityStatus(p),weather=weatherLine(p);return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b class="player-name-link" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(p.pos||'')} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}<span class="small">If available: ${raw.expected} | ${esc(st.reason)} | ${esc(raw.goal)}</span></div>`}).join('')||'<p class="small">No matches.</p>';
 }
 function renderTrade(){$('trade').innerHTML=`<div class="grid"><div class="panel span4"><h2>Trade Lab</h2><label>Trade OUT</label><input id="tradeOut" list="teamList"><datalist id="teamList">${App.myTeam.map(n=>`<option value="${esc(n)}">`).join('')}</datalist><label>Trade IN</label><input id="tradeIn" list="allList"><datalist id="allList">${App.players.map(p=>`<option value="${esc(p.name)}">`).join('')}</datalist><button onclick="scoreTrade()">Score Trade</button><button onclick="applyTradeFromTradeLab()">Apply Trade</button></div><div class="panel span6"><h2>Trade Verdict</h2><div id="tradeVerdict" class="small">Select players to score the trade.</div></div></div>`}
 
@@ -4965,13 +4967,13 @@ function renderBye(){
 }
 function renderLevel3(){
   const rows=App.players.slice().sort((a,b)=>roundProj(b).expected-roundProj(a).expected).slice(0,220);
-  $('level3').innerHTML=`<div class="panel"><h2>Level 3</h2><p class="small">Projection table uses the same status truth as My Team.</p><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Status</th></tr></thead><tbody>${rows.map(p=>{const pr=roundProj(p);return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b>${esc(p.name)}</b></span></td><td>${esc(p.pos||'')}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${statusPill(p)}</td></tr>`}).join('')}</tbody></table></div></div>`;
+  $('level3').innerHTML=`<div class="panel"><h2>Level 3</h2><p class="small">Projection table uses the same status truth as My Team.</p><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Status</th></tr></thead><tbody>${rows.map(p=>{const pr=roundProj(p);return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b class="player-name-link" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b></span></td><td>${esc(p.pos||'')}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${statusPill(p)}</td></tr>`}).join('')}</tbody></table></div></div>`;
 }
 function updateExplorer(){
   const q=norm($('explorerInput').value),box=$('explorerResults');
   if(!q){box.innerHTML='';return}
   const res=App.players.filter(p=>norm(p.name).includes(q)||norm(p.pos).includes(q)||norm(p.team).includes(q)).slice(0,40);
-  box.innerHTML=res.map(p=>{const pr=roundProj(p),raw=proj(p),st=availabilityStatus(p),weather=weatherLine(p),detail=statusDetailHtml(p);return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b>${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(p.pos||'')} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}${detail?detail+'<br>':''}<span class="small">If available: ${raw.expected} | ${esc(raw.goal)}</span></div>`}).join('')||'<p class="small">No matches.</p>';
+  box.innerHTML=res.map(p=>{const pr=roundProj(p),raw=proj(p),st=availabilityStatus(p),weather=weatherLine(p),detail=statusDetailHtml(p);return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b class="player-name-link" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(p.pos||'')} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}${detail?detail+'<br>':''}<span class="small">If available: ${raw.expected} | ${esc(raw.goal)}</span></div>`}).join('')||'<p class="small">No matches.</p>';
 }
 
 
@@ -5022,7 +5024,7 @@ function updateExplorer(){
     box.innerHTML='<p class="small">Search a player, team, position, or use a simple status filter above.</p>';
     return;
   }
-  box.innerHTML=res.map(p=>{const pr=roundProj(p),raw=proj(p),st=availabilityStatus(p),weather=weatherLine(p),detail=statusDetailHtml(p);return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b>${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(p.pos||'')} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}${detail?detail+'<br>':''}<span class="small">If available: ${raw.expected} | ${esc(raw.goal)}</span></div>`}).join('')||'<p class="small">No matches for this filter/search.</p>';
+  box.innerHTML=res.map(p=>{const pr=roundProj(p),raw=proj(p),st=availabilityStatus(p),weather=weatherLine(p),detail=statusDetailHtml(p);return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b class="player-name-link" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(p.pos||'')} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}${detail?detail+'<br>':''}<span class="small">If available: ${raw.expected} | ${esc(raw.goal)}</span></div>`}).join('')||'<p class="small">No matches for this filter/search.</p>';
 }
 
 boot().catch(err=>{
@@ -5062,7 +5064,7 @@ function projectionReasonHtml(pr){return pr?.reasons?.length?`<div class="small"
 function projectionRiskPill(pr){return `<span class="pill ${pr.risk==='High'?'bad':pr.risk==='Medium'?'warn':'good'}">${esc(pr.confidence||'Medium')} confidence | ${esc(pr.risk||'Medium')} risk</span>`}
 function renderLevel3(){
   const rows=App.players.slice().sort((a,b)=>roundProj(b).expected-roundProj(a).expected).slice(0,220);
-  $('level3').innerHTML=`<div class="panel"><h2>Level 3</h2><p class="small">Projection v2 uses form, role, minutes, status truth, weather and selection risk. Same engine feeds My Team, Explorer and Trade Lab.</p><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Risk</th><th>Status</th><th>Why</th></tr></thead><tbody>${rows.map(p=>{const pr=roundProj(p);return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b>${esc(p.name)}</b></span></td><td>${esc(p.pos||'')}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${projectionRiskPill(pr)}</td><td>${statusPill(p)}</td><td class="small">${(pr.reasons||[]).slice(0,3).map(esc).join(' | ')}</td></tr>`}).join('')}</tbody></table></div></div>`;
+  $('level3').innerHTML=`<div class="panel"><h2>Level 3</h2><p class="small">Projection v2 uses form, role, minutes, status truth, weather and selection risk. Same engine feeds My Team, Explorer and Trade Lab.</p><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Risk</th><th>Status</th><th>Why</th></tr></thead><tbody>${rows.map(p=>{const pr=roundProj(p);return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b class="player-name-link" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b></span></td><td>${esc(p.pos||'')}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${projectionRiskPill(pr)}</td><td>${statusPill(p)}</td><td class="small">${(pr.reasons||[]).slice(0,3).map(esc).join(' | ')}</td></tr>`}).join('')}</tbody></table></div></div>`;
 }
 function updateExplorer(){
   const input=$('explorerInput');
@@ -5083,7 +5085,7 @@ function updateExplorer(){
     box.innerHTML='<p class="small">Search a player, team, position, or use a simple status filter above.</p>';
     return;
   }
-  box.innerHTML=res.map(p=>{const pr=roundProj(p),raw=proj(p),weather=weatherLine(p),detail=typeof statusDetailHtml==='function'?statusDetailHtml(p):'';return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b>${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(p.pos||'')} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling} ${projectionRiskPill(pr)}<br>${projectionReasonHtml(pr)}${weather?`<span class="small">${weather}</span><br>`:''}${detail?detail+'<br>':''}<span class="small">If available: ${raw.expected} | ${esc(raw.goal||'')}</span></div>`}).join('')||'<p class="small">No matches.</p>';
+  box.innerHTML=res.map(p=>{const pr=roundProj(p),raw=proj(p),weather=weatherLine(p),detail=typeof statusDetailHtml==='function'?statusDetailHtml(p):'';return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b class="player-name-link" onpointerdown="event.stopPropagation()" onclick="event.stopPropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(p.pos||'')} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling} ${projectionRiskPill(pr)}<br>${projectionReasonHtml(pr)}${weather?`<span class="small">${weather}</span><br>`:''}${detail?detail+'<br>':''}<span class="small">If available: ${raw.expected} | ${esc(raw.goal||'')}</span></div>`}).join('')||'<p class="small">No matches.</p>';
 }
 /* =========================================================
    V41: Final Status Arbitration Guard
