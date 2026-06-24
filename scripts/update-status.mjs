@@ -1150,6 +1150,28 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
       return candidates.length === 1 ? candidates[0] : null;
     }
 
+    function pageStarterCoverageOk(teamCanon){
+      const seen = pageSeenByTeam.get(teamCanon) || new Set();
+      const jerseys = new Set();
+
+      for(const playerName of seen){
+        const rec = teamlistsOut[playerName];
+        if(!rec) continue;
+        if(rec.teamCanonical !== teamCanon) continue;
+
+        const jersey = Number(rec.jersey);
+        const role = String(rec.lineupRole || rec.selectionRole || '').toLowerCase();
+
+        if(Number.isFinite(jersey) && jersey >= 1 && jersey <= 17 && (role === 'starter' || role === 'interchange')){
+          jerseys.add(jersey);
+        }
+      }
+
+      // Core trust rule:
+      // A current team list cannot be used to infer NOT_NAMED if the parsed 1-17 is incomplete.
+      // This prevents a partial parse, e.g. jerseys 3-22 only, from greying players who are actually named.
+      return jerseys.has(1) && jerseys.has(2) && jerseys.size >= 16;
+    }
     // Parser 1: structured team-heading numbered sections.
     const sections = parseTeamSectionsFromPage(page.text);
     for(const [teamCanon, numbered] of Object.entries(sections)){
@@ -1169,7 +1191,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
         totalFound++;
         sectionFound++;
       }
-      if(matchedForTeam >= 10) teamFound.set(teamCanon, Math.max(teamFound.get(teamCanon)||0, matchedForTeam));
+      if(matchedForTeam >= 10 && pageStarterCoverageOk(teamCanon)) teamFound.set(teamCanon, Math.max(teamFound.get(teamCanon)||0, matchedForTeam));
     }
 
     // Parser 2: generic known-player + jersey-number patterns from stripped team-list article text.
@@ -1233,7 +1255,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
       );
 
     for(const [teamCanon, n] of pageTeamCounts.entries()){
-      if(n >= 10 && canDowngradeAbsentPlayers){
+      if(n >= 10 && canDowngradeAbsentPlayers && pageStarterCoverageOk(teamCanon)){
         teamFound.set(teamCanon, Math.max(teamFound.get(teamCanon)||0, n));
         const seen = pageSeenByTeam.get(teamCanon) || new Set();
         for(const p of players){
