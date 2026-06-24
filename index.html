@@ -4020,7 +4020,21 @@ function renderBye(){
  };
  $('bye').innerHTML=`<div class="panel"><h2>Bye Planner</h2><table><thead><tr><th>Round</th><th>Confirmed</th><th>Risk</th><th>Out</th><th>Not Named</th><th>Bye</th><th>Status</th><th>Missing</th></tr></thead><tbody>${rounds.map(r=>{
   const buckets={good:[],risk:[],out:[],notnamed:[],bye:[]};
-  tp.forEach(p=>{const st=availabilityStatus(p,r);const k=classifyByeStatus(st);(buckets[k]||buckets.notnamed).push(p)});
+  tp.forEach(p=>{
+   const playerByeRounds = (p.bye||p.byes||p.byeRounds||[]).map(Number).filter(Boolean);
+   const trueBye = playerByeRounds.includes(Number(r));
+   const st = availabilityStatus(p,r);
+   let k = classifyByeStatus(st);
+
+   // Bye Planner core rule:
+   // Future planner BYE must come from the player's actual bye rounds only.
+   // Do not carry current-round status_truth BYE into non-bye future rounds.
+   if(k==='bye' && !trueBye){
+    k = 'good';
+   }
+
+   (buckets[k]||buckets.notnamed).push(p);
+  });
   const conf=buckets.good.length;
   const chip=(p,cls)=>`<span class="miss ${cls}">${esc(p.name)}</span>`;
   const miss=[...buckets.out.map(p=>chip(p,'bad')),...buckets.notnamed.map(p=>chip(p,'notnamed')),...buckets.bye.map(p=>chip(p,'bye')),...buckets.risk.map(p=>chip(p,'warn'))].join(' ');
@@ -4410,10 +4424,20 @@ function renderBye(){
    const buckets={available:[],risk:[],unavailable:[],bye:[]};
 
    tp.forEach(p=>{
+    const playerByeRounds = (p.bye||p.byes||p.byeRounds||[]).map(Number).filter(Boolean);
+    const trueBye = playerByeRounds.includes(Number(r));
     const st=availabilityStatus(p,r);
-    const k=classify(st);
-    const item={player:p,reason:reasonLabel(st),detail:st?.reason||'',cls:classify(st)==='unavailable'&&String(st?.key||'').toLowerCase().includes('not')?'notnamed':null};
-    (buckets[k]||buckets.unavailable).push(item);
+    let k=classify(st);
+
+    // Bye Planner core rule:
+    // Future planner BYE must come from the player's actual bye rounds only.
+    // Do not carry current-round status_truth BYE into non-bye future rounds.
+    if(k==='bye' && !trueBye){
+     k='available';
+    }
+
+    const item={player:p,reason:reasonLabel(st),detail:st?.reason||'',cls:k==='unavailable'&&String(st?.key||'').toLowerCase().includes('not')?'notnamed':null};
+    buckets[k].push(item);
    });
 
    const playable=[...buckets.available,...buckets.risk];
