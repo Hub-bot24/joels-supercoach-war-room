@@ -1536,17 +1536,14 @@ function reliableLoadedTeamsFromTeamlists(teamlists){
   for(const [team,set] of coverage.entries()){
     // Do not infer NOT_NAMED from a partial parse.
     // A club list is only reliable for absence if we captured almost a full playable 17.
-    if(set.size >= 17) out.add(team);
+    if(set.size >= 16) out.add(team);
   }
 
   return out;
 }
 function combineTruth(players, round, teamlists, injuries, suspensions, origin, existingStatus, trustedLoadedTeams=[]){
   const playersOut = {};
-  const teamsWithLoadedList = new Set([
-    ...asArray(trustedLoadedTeams).map(fixtureTeamCanonFromValue).filter(Boolean),
-    ...Object.values(teamlists).map(r => r.teamCanonical).filter(Boolean)
-  ]);
+  const teamsWithLoadedList = reliableLoadedTeamsFromTeamlists(teamlists);
   for(const p of players){
     const bye = playerByeRounds(p).includes(Number(round));
     const t = teamlists[p.name];
