@@ -17,6 +17,13 @@ function photoSearchName(name){
   };
   return aliases[key] || name;
 }
+function photoSourceUrl(name){
+  const key = slugName(name);
+  const official = {
+    "sua-faalogo": "https://www.melbournestorm.com.au/teams/nrl-premiership/melbourne-storm/sualauvi-faalogo/"
+  };
+  return official[key] || `https://www.zerotackle.com/players/${slugName(photoSearchName(name))}/`;
+}
 function cleanUrl(url, base="https://www.zerotackle.com/"){
   if(!url) return "";
   let out = String(url)
@@ -114,7 +121,7 @@ async function main(){
     const name = p.name || p.player || p.fullName || p.playerName;
     if(!name) continue;
 
-    const url = `https://www.zerotackle.com/players/${slugName(photoSearchName(name))}/`;
+    const url = photoSourceUrl(name);
 
     try{
       const html = await fetchText(url);
