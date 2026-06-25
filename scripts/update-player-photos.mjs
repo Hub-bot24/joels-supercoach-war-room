@@ -10,6 +10,13 @@ function slugName(name){
     .replace(/^-+|-+$/g,"");
 }
 
+function photoSearchName(name){
+  const key = slugName(name);
+  const aliases = {
+    "sua-faalogo": "Sualauvi Faalogo"
+  };
+  return aliases[key] || name;
+}
 function cleanUrl(url, base="https://www.zerotackle.com/"){
   if(!url) return "";
   let out = String(url)
@@ -107,7 +114,7 @@ async function main(){
     const name = p.name || p.player || p.fullName || p.playerName;
     if(!name) continue;
 
-    const url = `https://www.zerotackle.com/players/${slugName(name)}/`;
+    const url = `https://www.zerotackle.com/players/${slugName(photoSearchName(name))}/`;
 
     try{
       const html = await fetchText(url);
