@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-25T14:45:57.286764+00:00",
+  "updated": "2026-06-25T17:18:49.336968+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -695,6 +695,68 @@
           "moderate wind/gusts"
         ],
         "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 18,
+      "match": "Knights v Dolphins",
+      "homeTeam": "NEW",
+      "awayTeam": "DOL",
+      "venue": "McDonald Jones Stadium",
+      "kickoffLocal": "2026-07-05T16:05:00",
+      "city": "Newcastle",
+      "lat": -32.9189,
+      "lon": 151.7264,
+      "timezone": "Australia/Sydney",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-07-05T15:35:00",
+        "to": "2026-07-05T17:55:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-07-05T16:00",
+          "phase": "pre_game",
+          "temperature_2m": 13.2,
+          "precipitation_probability": 47,
+          "precipitation_mm": 0.1,
+          "wind_speed_10m": 30.0,
+          "wind_gusts_10m": 69.8
+        },
+        {
+          "time": "2026-07-05T17:00",
+          "phase": "halftime_period",
+          "temperature_2m": 13.3,
+          "precipitation_probability": 48,
+          "precipitation_mm": 0.3,
+          "wind_speed_10m": 29.9,
+          "wind_gusts_10m": 69.1
+        }
+      ],
+      "weatherRisk": {
+        "label": "Medium",
+        "score": 55,
+        "maxRainProbability": 48.0,
+        "totalGameRainMm": 0.4,
+        "maxWindKmh": 30.0,
+        "maxGustKmh": 69.8,
+        "avgTemp": 13.2,
+        "phaseRisk": {
+          "pre_game": {
+            "avgScore": 55,
+            "maxScore": 55
+          },
+          "halftime_period": {
+            "avgScore": 55,
+            "maxScore": 55
+          }
+        },
+        "reasons": [
+          "moderate rain",
+          "strong wind/gusts"
+        ],
+        "captainImpact": "Moderate weather risk over game window. Be careful with backs as C/VC unless chasing POD upside."
       }
     }
   ]
