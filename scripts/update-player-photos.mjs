@@ -1,15 +1,16 @@
 import fs from "node:fs/promises";
 
-function scStatsQueryName(name){
-  const s = String(name || "").trim();
-  if(!s) return "";
-  const parts = s.split(/\s+/).filter(Boolean);
-  if(parts.length < 2) return s;
-  const last = parts.pop();
-  return `${last}, ${parts.join(" ")}`;
+function slugName(name){
+  return String(name || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/['’]/g,"")
+    .replace(/[^a-z0-9]+/g,"-")
+    .replace(/^-+|-+$/g,"");
 }
 
-function cleanUrl(url, base="https://www.nrlsupercoachstats.com/"){
+function cleanUrl(url, base="https://www.zerotackle.com/"){
   if(!url) return "";
   let out = String(url)
     .replace(/\\u002F/g,"/")
@@ -20,53 +21,53 @@ function cleanUrl(url, base="https://www.nrlsupercoachstats.com/"){
     .trim();
 
   if(out.startsWith("//")) out = "https:" + out;
-  if(out.startsWith("/")) out = new URL(out, base).toString();
+  if(out.startsWith("/") && base) out = new URL(out, base).toString();
   return out;
 }
 
 function badImage(url){
   const u = String(url || "").toLowerCase();
-  return /favicon|logo|badge|icon|sponsor|partner|placeholder|default|crest|team/.test(u);
+  return /favicon|logo|badge|icon|sponsor|partner|placeholder|default|crest|team|previewmain|preview-main/.test(u);
 }
 
-function imageLooksUseful(url){
+function isRealPlayerImage(url){
   const u = cleanUrl(url);
   if(!/^https?:\/\//i.test(u)) return false;
   if(badImage(u)) return false;
-  return /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u) || /image|player|profile|photo|headshot|portrait/i.test(u);
+
+  return (
+    /rugbyimages\.statsperform\.com\/Player%20Bodyshots/i.test(u) ||
+    /rugbyimages\.statsperform\.com\/Player\+Bodyshots/i.test(u) ||
+    /Player%20Bodyshots/i.test(u) ||
+    /Player\+Bodyshots/i.test(u) ||
+    /remote\.axd/i.test(u)
+  );
 }
 
-function addUrl(set, raw, base){
+function addImage(set, raw, base){
   const u = cleanUrl(raw, base);
-  if(imageLooksUseful(u)) set.add(u);
+  if(isRealPlayerImage(u)) set.add(u);
 }
 
-function extractImage(html, playerName="", base="https://www.nrlsupercoachstats.com/"){
+function extractImage(html, base){
   const all = new Set();
-
-  const imgRe = /<img\b[^>]*>/gi;
   let m;
-  while((m = imgRe.exec(html))){
-    const tag = m[0];
-    const src = tag.match(/\bsrc=["']([^"']+)["']/i)?.[1] || "";
-    const dataSrc = tag.match(/\bdata-src=["']([^"']+)["']/i)?.[1] || "";
-    const alt = tag.match(/\balt=["']([^"']+)["']/i)?.[1] || "";
 
-    if(alt && /player|profile|image/i.test(alt)){
-      addUrl(all, src || dataSrc, base);
-    }else{
-      addUrl(all, src || dataSrc, base);
+  const attrRe = /\b(?:src|href|content|data-src|data-original|data-lazy-src)=["']([^"']+)["']/gi;
+  while((m = attrRe.exec(html))) addImage(all, m[1], base);
+
+  const srcsetRe = /\bsrcset=["']([^"']+)["']/gi;
+  while((m = srcsetRe.exec(html))){
+    for(const part of m[1].split(",")){
+      const u = part.trim().split(/\s+/)[0];
+      if(u) addImage(all, u, base);
     }
   }
 
-  const attrRe = /\b(?:src|href|content|data-src)=["']([^"']+)["']/gi;
-  while((m = attrRe.exec(html))) addUrl(all, m[1], base);
+  const jsonUrlRe = /https?:\\?\/\\?\/[^"'<>\\\s]+/gi;
+  while((m = jsonUrlRe.exec(html))) addImage(all, m[0], base);
 
-  const urls = [...all];
-
-  return urls.find(u => /nrlsupercoachstats/i.test(u) && !badImage(u)) ||
-         urls.find(u => !badImage(u)) ||
-         "";
+  return [...all][0] || "";
 }
 
 async function fetchText(url){
@@ -91,14 +92,13 @@ async function main(){
 
   for(const p of players){
     const name = p.name || p.player || p.fullName || p.playerName;
-    const statsName = p.statsSourceName || name;
     if(!name) continue;
 
-    const url = `https://www.nrlsupercoachstats.com/index.php?player=${encodeURIComponent(scStatsQueryName(statsName))}`;
+    const url = `https://www.zerotackle.com/players/${slugName(name)}/`;
 
     try{
       const html = await fetchText(url);
-      const image = html ? extractImage(html, name, url) : "";
+      const image = html ? extractImage(html, url) : "";
 
       if(image){
         out.players[name] = {
@@ -112,7 +112,7 @@ async function main(){
 
     checked++;
     if(checked % 25 === 0) console.log(`checked ${checked}, found ${found}`);
-    await new Promise(r => setTimeout(r, 80));
+    await new Promise(r => setTimeout(r, 120));
   }
 
   await fs.writeFile("player_photos.json", JSON.stringify(out,null,2) + "\n");
