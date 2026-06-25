@@ -1,22 +1,5 @@
 [
   {
-    "player": "Jesse Ramien",
-    "team": "SHA",
-    "from": "NAMED",
-    "to": "BYE",
-    "reason": "Bye round 17",
-    "detectedAt": "2026-06-23T07:18:24.395Z",
-    "sources": [
-      {
-        "type": "fixture",
-        "name": "players.json bye data",
-        "url": "players.json",
-        "updatedAt": "2026-06-23T07:18:24.395Z"
-      }
-    ],
-    "round": 17
-  },
-  {
     "player": "Jett Liu",
     "team": "GLD",
     "from": "EXPECTED",
@@ -13873,6 +13856,33 @@
         "updatedAt": "2026-06-25T10:42:06.529Z",
         "priority": 3,
         "order": 2
+      }
+    ],
+    "round": 17
+  },
+  {
+    "player": "Jayden Sullivan",
+    "team": "STH",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article interchange (Official NRL, jersey 16).",
+    "detectedAt": "2026-06-25T12:48:40.987Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/06/24/nrl-late-mail-round-17-katoa-on-track-preston-pushing-to-return",
+        "updatedAt": "2026-06-25T12:48:40.987Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+        "updatedAt": "2026-06-25T12:48:40.987Z",
+        "priority": 2,
+        "order": 11
       }
     ],
     "round": 17
