@@ -886,7 +886,16 @@ function fromOriginFile(players, originJson){
     if(!rec) continue;
     const blob = textOf(rec);
     if(rec === true || hasAny(blob, ['origin','nsw','qld','queensland','blues','maroons','18th','19th','20th'])){
-      out[p.name] = makeStatus(STATUS.ORIGIN, rec.reason || rec.note || 'Origin context source found; club team-list truth still decides named/not named', [sourceObj('origin', rec.source || 'origin_players.json', rec.url || 'origin_players.json', rec.updatedAt || rec.updated || NOW_ISO)], {raw:rec});
+      // Preserve soft Origin context so it does not become a hard orange status on reload.
+      // Only explicit Origin-unavailable/rested evidence should be primary ORIGIN.
+      const softOriginContext = !!rec.originContextOnly || /origin\/representative-duty context found/i.test(String(rec.reason || rec.note || ''));
+      const explicitOriginUnavailable = /unavailable due to origin|rested after origin|rested following origin|ruled out.*origin|origin.*ruled out|not available.*origin/i.test(blob);
+      out[p.name] = makeStatus(
+        STATUS.ORIGIN,
+        rec.reason || rec.note || 'Origin context source found; club team-list truth still decides named/not named',
+        [sourceObj('origin', rec.source || 'origin_players.json', rec.url || 'origin_players.json', rec.updatedAt || rec.updated || NOW_ISO)],
+        {raw:rec, originContextOnly:softOriginContext && !explicitOriginUnavailable}
+      );
     }
   }
   return out;
