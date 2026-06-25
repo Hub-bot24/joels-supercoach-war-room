@@ -4317,6 +4317,44 @@ function wrCardPlayerPhotoUrl(p){
   return wrUsablePhotoUrl(fallback)?fallback:"";
 }
 
+function wrCardNum(v){
+  const n = Number(v);
+  return Number.isFinite(n) && n > 0 ? n : 0;
+}
+function wrCardScores(p){
+  const lists = [p?.scores,p?.recentScores,p?.lastScores,p?.gameScores,p?.history,p?.matches];
+  for(const raw of lists){
+    if(!Array.isArray(raw)) continue;
+    const arr = raw.map(x=>{
+      if(typeof x === "number") return x;
+      if(!x || typeof x !== "object") return NaN;
+      return Number(x.score ?? x.sc ?? x.points ?? x.supercoach ?? x.total);
+    }).filter(Number.isFinite);
+    if(arr.length) return arr;
+  }
+  return [];
+}
+function wrCardRecentAverage(p,count){
+  const direct = count === 3
+    ? wrCardNum(p?.last3Avg ?? p?.avg3 ?? p?.l3Avg)
+    : wrCardNum(p?.last5Avg ?? p?.avg5 ?? p?.l5Avg);
+
+  if(direct) return Math.round(direct);
+
+  const loose = count === 3
+    ? wrCardNum(p?.last3 ?? p?.lastThree ?? p?.l3)
+    : wrCardNum(p?.last5 ?? p?.lastFive ?? p?.l5);
+
+  if(loose) return Math.round(loose);
+
+  const scores = wrCardScores(p);
+  if(scores.length >= count){
+    const recent = scores.slice(-count);
+    return Math.round(recent.reduce((s,n)=>s+n,0) / recent.length);
+  }
+
+  return "-";
+}
 async function openPlayerCard(name){
   const p=getPlayer(name);
   if(!p)return toast("Player not found");
@@ -4334,8 +4372,8 @@ async function openPlayerCard(name){
   const st=availabilityStatus(p);
   const truth=statusTruthRecordFor(p)||{};
   const avg=safeNum(p.avg??p.average??p.seasonAvg);
-  const last3=safeNum(p.last3??p.lastThree??p.last3Avg??p.avg3);
-  const last5=safeNum(p.last5??p.lastFive??p.last5Avg??p.avg5);
+  const last3=wrCardRecentAverage(p,3);
+  const last5=wrCardRecentAverage(p,5);
   const be=safeNum(p.breakeven??p.breakEven??p.BE??p.be);
   const price=safeNum(p.price)?money(p.price):"-";
   const jersey=truth.jersey||p.jersey||"-";
@@ -4399,14 +4437,14 @@ async function openPlayerCard(name){
       </div>
 
       <div style="position:relative;z-index:4;margin-top:385px;background:linear-gradient(180deg,rgba(255,237,102,.94),rgba(205,166,56,.96));border-radius:20px 20px 28px 28px;padding:23px 28px 32px;box-shadow:0 -12px 34px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.34)">
-        <div style="font-size:40px;line-height:.96;font-weight:950;text-transform:uppercase;letter-spacing:-1.5px;text-align:center;margin-bottom:12px">${esc(p.name)}</div>
+        <div style="font-size:40px;line-height:.96;font-weight:950;letter-spacing:-1.2px;text-align:center;margin-bottom:12px">${esc(p.name)}</div>
         <div style="height:1px;background:rgba(52,52,52,.28);margin:12px 0 18px"></div>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 28px">
           ${stat("AVG",avg||"-")}
           ${stat("RD",App.round)}
-          ${stat("L3",last3||"-")}
-          ${stat("L5",last5||"-")}
+          ${stat("L3",last3)}
+          ${stat("L5",last5)}
           ${stat("BE",be||"-")}
           ${stat("JSY",jersey)}
         </div>
