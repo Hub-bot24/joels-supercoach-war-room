@@ -2564,6 +2564,16 @@ function tryNextPlayerPhoto(img){
 }
 window.tryNextPlayerPhoto=tryNextPlayerPhoto;
 
+
+
+function usablePlayerPhotoUrl(url){
+  const u = String(url || "");
+  if(!u) return false;
+  if(/index\.php\?player=/i.test(u)) return false;
+  if(/previewMain|preview-main|placeholder|logo|badge|crest|favicon/i.test(u)) return false;
+  if(/remote\.axd$/i.test(u)) return false;
+  return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?/i.test(u) || /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u);
+}
 async function ensurePlayerPhotosLoaded(){
   if(App.playerPhotosLoaded) return;
   App.playerPhotosLoaded = true;
@@ -2590,7 +2600,7 @@ function usablePlayerPhotoUrl(url){
 function playerPhotoUrl(p){
   if(!p)return "";
   const photos=App.playerPhotos?.players||App.playerPhotos||{};
-  const names=[p.name,resolvePlayerName?.(p.name)].filter(Boolean);
+  const names=[p.name].filter(Boolean);
 
   for(const n of names){
     const rec=photos?.[n];
@@ -4246,7 +4256,7 @@ function tradePopupHtml(title,name,opts,buttonFn){return `<div style="position:f
 function playerPhotoUrl(p){
   if(!p)return "";
   const photos=App.playerPhotos?.players||App.playerPhotos||{};
-  const names=[p.name,resolvePlayerName?.(p.name)].filter(Boolean);
+  const names=[p.name].filter(Boolean);
 
   for(const n of names){
     const rec=photos?.[n];
@@ -4265,7 +4275,7 @@ function playerPhotoHtml(p){
 function playerProfileStat(label,value){
   return `<div class="player-profile-stat"><span>${esc(label)}</span><b>${esc(value??"-")}</b></div>`;
 }
-async async function openPlayerCard(name){
+async function openPlayerCard(name){
   const p=getPlayer(name);
   if(!p)return toast("Player not found");
 
