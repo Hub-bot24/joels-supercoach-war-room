@@ -1603,7 +1603,10 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
         'UNAVAILABLE'
       ]);
 
-      if(Number.isFinite(jersey) && playableRole && playableContradictionStatuses.has(rec?.displayStatus)){
+      // Final core resolver:
+      // If current club team-list evidence gives a playable role/jersey, the published card must be NAMED.
+      // Injury, Origin, source-missing, and inferred NOT_NAMED become notes only.
+      if(Number.isFinite(jersey) && playableRole && rec?.displayStatus !== STATUS.BYE && rec?.displayStatus !== STATUS.SUSPENDED && rec?.displayStatus !== STATUS.NAMED){
         const mergedSources = [
           ...(t?.sources || []),
           ...(rec?.sources || [])
@@ -1619,7 +1622,7 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
           colour: COLOUR[STATUS.NAMED],
           selectionStatus: 'named',
           sources: mergedSources,
-          reason: `${t?.reason || rec?.reason || 'Team-list evidence'}; playable jersey/role overrides unavailable contradiction`
+          reason: `${t?.reason || rec?.reason || 'Team-list evidence'}; current playable team-list evidence wins over injury/origin/not-named/source-missing contradiction`
         };
       }
     }
