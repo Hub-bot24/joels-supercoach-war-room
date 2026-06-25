@@ -87,6 +87,14 @@ async function fetchText(url){
   return await res.text();
 }
 
+function usableExtractedPhotoUrl(url){
+  const u = String(url || "");
+  if(!u) return false;
+  if(/index\.php\?player=/i.test(u)) return false;
+  if(/previewMain|preview-main|placeholder|logo|badge|crest|favicon|default/i.test(u)) return false;
+  if(/remote\.axd$/i.test(u)) return false;
+  return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?/i.test(u) || /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u);
+}
 async function main(){
   const raw = JSON.parse(await fs.readFile("players.json","utf8"));
   const players = Array.isArray(raw) ? raw : (raw.players || []);
@@ -105,7 +113,7 @@ async function main(){
       const html = await fetchText(url);
       const image = html ? extractImage(html, url) : "";
 
-      if(image){
+      if(usableExtractedPhotoUrl(image)){
         out.players[name] = {
           url: image,
           source: url,

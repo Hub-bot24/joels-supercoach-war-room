@@ -4275,15 +4275,55 @@ function playerPhotoHtml(p){
 function playerProfileStat(label,value){
   return `<div class="player-profile-stat"><span>${esc(label)}</span><b>${esc(value??"-")}</b></div>`;
 }
+// === WR PLAYER CARD CORE START ===
+function wrPhotoKey(v){
+  return String(v||"")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/['’`.,\-]/g,"")
+    .replace(/\s+/g,"")
+    .trim();
+}
+function wrUsablePhotoUrl(url){
+  const u=String(url||"");
+  if(!u)return false;
+  if(/index\.php\?player=/i.test(u))return false;
+  if(/previewMain|preview-main|placeholder|logo|badge|crest|favicon|default/i.test(u))return false;
+  if(/remote\.axd$/i.test(u))return false;
+  return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?/i.test(u) || /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u);
+}
+function wrCardPlayerPhotoUrl(p){
+  if(!p)return "";
+  const photos=App.playerPhotos?.players||App.playerPhotos||{};
+  const names=[p.name,p.fullName,p.playerName,p.statsSourceName].filter(Boolean);
+
+  for(const n of names){
+    const rec=photos?.[n];
+    const url=typeof rec==="string"?rec:(rec?.url||rec?.photo||rec?.image||rec?.headshot||rec?.src||"");
+    if(wrUsablePhotoUrl(url))return url;
+  }
+
+  const wanted=wrPhotoKey(p.name);
+  if(wanted){
+    for(const [key,rec] of Object.entries(photos||{})){
+      if(wrPhotoKey(key)!==wanted)continue;
+      const url=typeof rec==="string"?rec:(rec?.url||rec?.photo||rec?.image||rec?.headshot||rec?.src||"");
+      if(wrUsablePhotoUrl(url))return url;
+    }
+  }
+
+  const fallback=p.photo||p.image||p.headshot||p.nrlPhoto||p.playerPhoto||"";
+  return wrUsablePhotoUrl(fallback)?fallback:"";
+}
+
 async function openPlayerCard(name){
   const p=getPlayer(name);
   if(!p)return toast("Player not found");
 
   await ensurePlayerPhotosLoaded();
-
   closePlayerCard();
 
-  // Kill the old My Team selected-player panel so only one card can show.
   App.selectedTeamSlot="";
   App.selectedReserveTradeName="";
   App.teamActionMode="";
@@ -4293,60 +4333,104 @@ async function openPlayerCard(name){
   const pr=roundProj(p);
   const st=availabilityStatus(p);
   const truth=statusTruthRecordFor(p)||{};
-  const be=safeNum(p.breakeven??p.breakEven??p.BE??p.be);
   const avg=safeNum(p.avg??p.average??p.seasonAvg);
+  const last3=safeNum(p.last3??p.lastThree??p.last3Avg??p.avg3);
+  const last5=safeNum(p.last5??p.lastFive??p.last5Avg??p.avg5);
+  const be=safeNum(p.breakeven??p.breakEven??p.BE??p.be);
   const price=safeNum(p.price)?money(p.price):"-";
-  const reason=esc(st.reason||truth.reason||"No status reason available.");
+  const jersey=truth.jersey||p.jersey||"-";
   const fieldSlot=Object.keys(App.lineup||{}).find(k=>App.lineup[k]===p.name);
   const inMyTeam=App.myTeam.includes(p.name);
-  const subtitle=fieldSlot ? `${slotById[fieldSlot]?.short||""} FIELD PLAYER` : (inMyTeam ? "RESERVE PLAYER" : "PLAYER");
+  const slotLabel=fieldSlot ? (slotById[fieldSlot]?.short||"FIELD") : (inMyTeam ? "RES" : "PLAYER");
+  const pos=esc((p.pos||p.position||slotLabel||"").split("/")[0]||slotLabel);
+  const team=esc(p.team||"SC");
+  const photo=wrCardPlayerPhotoUrl(p);
+  const rating=Math.max(0,Math.round(Number(pr.expected||0)||0));
   const status=esc(st.label||truth.displayStatus||"-");
+  const reason=esc(st.reason||truth.reason||"No status reason available.");
 
-  const photo=playerPhotoUrl(p);
   const photoHtml=photo
-    ? `<img src="${esc(photo)}" alt="${esc(p.name)}" style="width:86px;height:86px;border-radius:16px;object-fit:cover;border:1px solid #436180;background:#10213a" onerror="this.replaceWith(Object.assign(document.createElement('div'),{style:'width:86px;height:86px;border-radius:16px;display:grid;place-items:center;border:1px solid #436180;background:#10213a;font-size:22px;font-weight:950',textContent:'${esc((p.team||'SC').slice(0,3).toUpperCase())}'}))">`
-    : `<div style="width:86px;height:86px;border-radius:16px;display:grid;place-items:center;border:1px solid #436180;background:#10213a;font-size:22px;font-weight:950">${esc((p.team||"SC").slice(0,3).toUpperCase())}</div>`;
+    ? `<img src="${esc(photo)}" alt="${esc(p.name)}" style="width:255px;height:310px;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 22px 20px rgba(0,0,0,.45));" onerror="this.replaceWith(Object.assign(document.createElement('div'),{style:'width:255px;height:310px;display:grid;place-items:center;font-size:74px;font-weight:950;color:rgba(255,255,255,.88)',textContent:'${team}'}))">`
+    : `<div style="width:255px;height:310px;display:grid;place-items:center;font-size:74px;font-weight:950;color:rgba(255,255,255,.88)">${team}</div>`;
 
   const tradeButton=fieldSlot
-    ? `<button type="button" onclick="closePlayerCard();teamActionTradeOut('${window.jsq(fieldSlot)}')">Trade</button>`
+    ? `<button type="button" onclick="closePlayerCard();teamActionTradeOut('${window.jsq(fieldSlot)}')" style="border:0;border-radius:16px;padding:12px 28px;font-size:18px;font-weight:950;background:#10213a;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.24);cursor:pointer">Trade</button>`
     : inMyTeam
-      ? `<button type="button" onclick="closePlayerCard();reserveActionTradeOut('${window.jsq(p.name)}')">Trade</button>`
+      ? `<button type="button" onclick="closePlayerCard();reserveActionTradeOut('${window.jsq(p.name)}')" style="border:0;border-radius:16px;padding:12px 28px;font-size:18px;font-weight:950;background:#10213a;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.24);cursor:pointer">Trade</button>`
       : "";
+
+  function stat(label,value){
+    return `<div style="display:flex;align-items:baseline;gap:8px;font-weight:950;line-height:1.02">
+      <b style="font-size:34px;letter-spacing:-1px">${esc(value??"-")}</b>
+      <span style="font-size:23px;color:#333;letter-spacing:.04em">${esc(label)}</span>
+    </div>`;
+  }
 
   const el=document.createElement("div");
   el.id="playerProfileModal";
   el.onclick=e=>{if(e.target===el)closePlayerCard()};
-  el.style.cssText="position:fixed;inset:0;z-index:100000;background:rgba(2,6,23,.72);backdrop-filter:blur(6px);";
+  el.style.cssText="position:fixed;inset:0;z-index:100000;background:rgba(2,6,23,.76);backdrop-filter:blur(8px);display:grid;place-items:center;padding:18px;overflow:auto";
 
-  el.innerHTML=`<div onclick="event.stopPropagation()" style="position:fixed;right:18px;bottom:18px;width:min(760px,calc(100vw - 28px));max-height:min(720px,82vh);overflow:auto;background:#071222;border:1px solid #58a6ff;border-radius:18px;padding:14px;box-shadow:0 24px 80px rgba(0,0,0,.72);color:#f8fafc">
-    <div style="display:grid;grid-template-columns:86px minmax(0,1fr) auto;gap:12px;align-items:start;margin-bottom:10px">
-      ${photoHtml}
-      <div style="min-width:0">
-        <div style="font-size:12px;color:#a3e635;font-weight:950;letter-spacing:.08em">${esc(subtitle)}</div>
-        <div style="font-size:26px;line-height:1.05;font-weight:950;margin-top:2px">${esc(p.name)}</div>
-        <div style="font-size:13px;color:#bfd0e8;margin-top:6px">${esc(p.team||"")}  ${esc(p.pos||"")}  ${reason}</div>
+  el.innerHTML=`<div onclick="event.stopPropagation()" style="position:relative;width:min(540px,calc(100vw - 24px));color:#333;font-family:Arial,Helvetica,sans-serif">
+    <button type="button" onclick="closePlayerCard()" style="position:absolute;right:18px;top:18px;z-index:6;border:0;border-radius:14px;padding:9px 14px;background:rgba(10,20,35,.72);color:#fff;font-weight:950;cursor:pointer">Close</button>
+
+    <div style="
+      position:relative;
+      min-height:760px;
+      padding:34px 34px 42px;
+      clip-path:polygon(11% 0,89% 0,100% 8%,100% 88%,50% 100%,0 88%,0 8%);
+      background:
+        radial-gradient(circle at 78% 12%,rgba(255,255,255,.42),transparent 25%),
+        linear-gradient(135deg,#f9ea73 0%,#c7a13a 33%,#fff07b 52%,#b38b2f 100%);
+      box-shadow:0 32px 95px rgba(0,0,0,.65), inset 0 0 0 2px rgba(255,255,255,.32);
+      overflow:hidden;
+    ">
+      <div style="position:absolute;inset:0;background:linear-gradient(122deg,transparent 0 26%,rgba(255,255,255,.28) 27% 37%,transparent 38% 47%,rgba(0,0,0,.13) 48% 52%,transparent 53%);opacity:.9"></div>
+
+      <div style="position:absolute;left:34px;top:34px;z-index:3">
+        <div style="font-size:54px;font-weight:950;line-height:.92">${rating}</div>
+        <div style="font-size:34px;font-weight:900;margin-top:8px">${pos}</div>
+        <div style="font-size:25px;font-weight:950;margin-top:12px;padding:4px 9px;border-radius:8px;background:rgba(255,255,255,.28)">${team}</div>
+        <div style="font-size:18px;font-weight:900;margin-top:9px">${esc(slotLabel)}  R${esc(App.round)}</div>
       </div>
-      <button type="button" onclick="closePlayerCard()" style="padding:8px 12px;border-radius:12px;border:1px solid #436180;background:#10213a;color:#fff;font-weight:900;cursor:pointer">Close</button>
-    </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:12px 0">
-      <div class="player-detail-stat"><span>Proj</span><b>${pr.expected}</b></div>
-      <div class="player-detail-stat"><span>Avg</span><b>${avg||"-"}</b></div>
-      <div class="player-detail-stat"><span>BE</span><b>${be||"-"}</b></div>
-      <div class="player-detail-stat"><span>Price</span><b style="font-size:16px">${price}</b></div>
-      <div class="player-detail-stat"><span>Status</span><b style="font-size:16px">${status}</b></div>
-      <div class="player-detail-stat"><span>Round</span><b>${App.round}</b></div>
-    </div>
+      <div style="position:absolute;right:20px;top:58px;z-index:2;width:305px;height:350px;display:flex;align-items:flex-end;justify-content:center">
+        ${photoHtml}
+      </div>
 
-    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
-      ${tradeButton}
-      <button type="button" onclick="closePlayerCard()" style="padding:9px 18px;border-radius:12px;border:1px solid #436180;background:#10213a;color:#fff;font-weight:900;cursor:pointer">Close</button>
+      <div style="position:relative;z-index:4;margin-top:385px;background:linear-gradient(180deg,rgba(255,237,102,.94),rgba(205,166,56,.96));border-radius:20px 20px 28px 28px;padding:23px 28px 32px;box-shadow:0 -12px 34px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.34)">
+        <div style="font-size:40px;line-height:.96;font-weight:950;text-transform:uppercase;letter-spacing:-1.5px;text-align:center;margin-bottom:12px">${esc(p.name)}</div>
+        <div style="height:1px;background:rgba(52,52,52,.28);margin:12px 0 18px"></div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 28px">
+          ${stat("PROJ",rating)}
+          ${stat("AVG",avg||"-")}
+          ${stat("L3",last3||"-")}
+          ${stat("L5",last5||"-")}
+          ${stat("BE",be||"-")}
+          ${stat("JSY",jersey)}
+        </div>
+
+        <div style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="background:rgba(52,52,52,.12);border-radius:14px;padding:10px 12px;font-weight:950;text-align:center">${price}</div>
+          <div style="background:rgba(52,52,52,.12);border-radius:14px;padding:10px 12px;font-weight:950;text-align:center">${status}</div>
+        </div>
+
+        <details style="margin-top:14px;font-size:12px;line-height:1.25;color:#343434">
+          <summary style="cursor:pointer;font-weight:950">Status reason</summary>
+          <div style="margin-top:8px">${reason}</div>
+        </details>
+
+        <div style="display:flex;justify-content:center;gap:12px;margin-top:18px">
+          ${tradeButton}
+        </div>
+      </div>
     </div>
   </div>`;
 
   document.body.appendChild(el);
 }
-
+// === WR PLAYER CARD CORE END ===
 function closePlayerCard(){
   const el=document.getElementById("playerProfileModal");
   if(el)el.remove();
