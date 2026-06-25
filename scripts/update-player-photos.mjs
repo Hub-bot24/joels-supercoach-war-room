@@ -5,7 +5,7 @@ function slugName(name){
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g,"")
-    .replace(/['’]/g,"")
+    .replace(/['ï¿½]/g,"")
     .replace(/[^a-z0-9]+/g,"-")
     .replace(/^-+|-+$/g,"");
 }
@@ -27,7 +27,7 @@ function cleanUrl(url, base="https://www.zerotackle.com/"){
 
 function badImage(url){
   const u = String(url || "").toLowerCase();
-  return /favicon|logo|badge|icon|sponsor|partner|placeholder|default|crest|team|previewmain|preview-main/.test(u);
+  return /favicon|logo|badge|icon|sponsor|partner|placeholder|default|crest|team|previewmain|preview-main|mainpreview/.test(u);
 }
 
 function isRealPlayerImage(url){
@@ -40,7 +40,7 @@ function isRealPlayerImage(url){
     /rugbyimages\.statsperform\.com\/Player\+Bodyshots/i.test(u) ||
     /Player%20Bodyshots/i.test(u) ||
     /Player\+Bodyshots/i.test(u) ||
-    /remote\.axd/i.test(u)
+    (/remote\\.axd\\?/i.test(u) || /rugbyimages\\.statsperform\\.com/i.test(u))
   );
 }
 
@@ -67,7 +67,12 @@ function extractImage(html, base){
   const jsonUrlRe = /https?:\\?\/\\?\/[^"'<>\\\s]+/gi;
   while((m = jsonUrlRe.exec(html))) addImage(all, m[0], base);
 
-  return [...all][0] || "";
+  const urls = [...all];
+
+return urls.find(u => /rugbyimages\.statsperform\.com/i.test(u) && /Player(%20|\+)Bodyshots/i.test(u)) ||
+  urls.find(u => /remote\.axd\?/i.test(u)) ||
+  urls.find(u => /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u) && !/previewMain|logo|badge|crest|favicon/i.test(u)) ||
+  "";
 }
 
 async function fetchText(url){

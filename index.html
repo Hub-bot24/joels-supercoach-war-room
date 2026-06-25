@@ -2563,6 +2563,7 @@ function tryNextPlayerPhoto(img){
  img.parentNode.textContent=fallback;
 }
 window.tryNextPlayerPhoto=tryNextPlayerPhoto;
+
 async function ensurePlayerPhotosLoaded(){
   if(App.playerPhotosLoaded) return;
   App.playerPhotosLoaded = true;
@@ -2577,12 +2578,28 @@ async function ensurePlayerPhotosLoaded(){
     App.playerPhotos = { players:{} };
   }
 }
-function playerPhotoUrl(p){return playerPhotoCandidates(p)[0]||''}
-function faceHtml(p,cls='mobile-face'){
- const team=esc((p?.team||'SC').slice(0,3));
- const list=playerPhotoCandidates(p);
- if(!list.length)return `<div class="${cls}">${team}</div>`;
- return `<div class="${cls}"><img src="${esc(list[0])}" data-photo-list='${photoListAttr(list)}' data-photo-i="0" data-team="${team}" alt="${esc(p?.name||'Player')}" loading="lazy" onerror="tryNextPlayerPhoto(this)"></div>`;
+
+function usablePlayerPhotoUrl(url){
+  const u = String(url || "");
+  if(!u) return false;
+  if(/index\.php\?player=/i.test(u)) return false;
+  if(/previewMain|preview-main|placeholder|logo|badge|crest|favicon/i.test(u)) return false;
+  if(/remote\.axd$/i.test(u)) return false;
+  return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?/i.test(u) || /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u);
+}
+function playerPhotoUrl(p){
+  if(!p)return "";
+  const photos=App.playerPhotos?.players||App.playerPhotos||{};
+  const names=[p.name,resolvePlayerName?.(p.name)].filter(Boolean);
+
+  for(const n of names){
+    const rec=photos?.[n];
+    const url=typeof rec==="string" ? rec : (rec?.url||rec?.photo||rec?.image||rec?.headshot||rec?.src||"");
+    if(usablePlayerPhotoUrl(url)) return url;
+  }
+
+  const fallback=p.photo||p.image||p.headshot||p.nrlPhoto||p.playerPhoto||"";
+  return usablePlayerPhotoUrl(fallback) ? fallback : "";
 }
 async function fetchJson(path,fallback){try{const r=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error(path);return await r.json()}catch(e){return fallback}}
 async function fetchJsonFirst(paths,fallback=null){for(const path of paths){try{const r=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)continue;return await r.json()}catch(e){}}return fallback}
@@ -4225,33 +4242,20 @@ function playerTradePositions(p){const ps=positions(p);return ps.length?ps:[]}
 function tradeEligibleForPlayer(candidate,oldPlayer){const oldPs=playerTradePositions(oldPlayer);if(!candidate||!oldPlayer||!oldPs.length)return false;const cps=positions(candidate);return oldPs.some(pos=>cps.includes(pos))}
 function tradeOptionButton(r,onclick){const rp=roundProj(r),rs=availabilityStatus(r),cls=statusDotClass(rs);return `<button type="button" onclick="${onclick}" style="display:grid;grid-template-columns:42px minmax(0,1fr) 42px;gap:9px;align-items:center;width:100%;padding:9px;border-radius:14px;border:1px solid #29405f;background:#0b1a2d;color:#f8fafc;text-align:left;cursor:pointer"><span style="width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#10213a;border:1px solid #436180;font-size:11px;font-weight:950">${esc((r.team||'SC').slice(0,3))}</span><span style="min-width:0"><b class="player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(r.name)}')" style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.name)}</b><span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.team||'')} | ${esc(r.pos||'')}</span><span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(rs.label||'')}</span></span><span style="text-align:right;font-weight:950;color:#58a6ff;font-size:17px">${rp.expected}<span class="status-dot ${cls}" style="margin-left:4px"></span></span></button>`}
 function tradePopupHtml(title,name,opts,buttonFn){return `<div style="position:fixed;right:18px;bottom:18px;z-index:9999;width:min(640px,calc(100vw - 28px));max-height:min(660px,82vh);overflow:auto;background:#071222;border:1px solid #58a6ff;border-radius:18px;padding:14px;box-shadow:0 24px 80px rgba(0,0,0,.72)"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;position:sticky;top:-14px;background:#071222;padding:4px 0 10px"><div><div style="font-size:12px;color:#bfd0e8;font-weight:800">${esc(title)}</div><div style="font-size:18px;font-weight:950">${esc(name)}</div></div><button type="button" onclick="cancelTeamAction()" style="padding:7px 10px;border-radius:10px">Close</button></div>${opts.length?`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px">${opts.map(r=>tradeOptionButton(r,buttonFn(r))).join('')}</div>`:`<div>No legal trade options available</div>`}</div>`}
-async function ensurePlayerPhotosLoaded(){
-  if(App.playerPhotosLoaded) return;
-  App.playerPhotosLoaded = true;
 
-  try{
-    const res = await fetch(`player_photos.json?v=${Date.now()}`, { cache: "no-store" });
-    if(!res.ok) throw new Error(`player_photos.json ${res.status}`);
-    App.playerPhotos = await res.json();
-    console.log("Loaded player photos", Object.keys(App.playerPhotos?.players || App.playerPhotos || {}).length);
-  }catch(e){
-    console.warn("Could not load player_photos.json", e);
-    App.playerPhotos = { players:{} };
-  }
-}
 function playerPhotoUrl(p){
   if(!p)return "";
   const photos=App.playerPhotos?.players||App.playerPhotos||{};
-  const names=[p.name,resolvePlayerName(p.name)].filter(Boolean);
+  const names=[p.name,resolvePlayerName?.(p.name)].filter(Boolean);
+
   for(const n of names){
     const rec=photos?.[n];
-    if(typeof rec==="string"&&rec)return rec;
-    if(rec&&typeof rec==="object"){
-      const url=rec.url||rec.photo||rec.image||rec.headshot||rec.src||"";
-      if(url)return url;
-    }
+    const url=typeof rec==="string" ? rec : (rec?.url||rec?.photo||rec?.image||rec?.headshot||rec?.src||"");
+    if(usablePlayerPhotoUrl(url)) return url;
   }
-  return p.photo||p.image||p.headshot||p.nrlPhoto||p.playerPhoto||"";
+
+  const fallback=p.photo||p.image||p.headshot||p.nrlPhoto||p.playerPhoto||"";
+  return usablePlayerPhotoUrl(fallback) ? fallback : "";
 }
 function playerPhotoHtml(p){
   const url=playerPhotoUrl(p);
@@ -4261,9 +4265,11 @@ function playerPhotoHtml(p){
 function playerProfileStat(label,value){
   return `<div class="player-profile-stat"><span>${esc(label)}</span><b>${esc(value??"-")}</b></div>`;
 }
-async function openPlayerCard(name){
+async async function openPlayerCard(name){
   const p=getPlayer(name);
   if(!p)return toast("Player not found");
+
+  await ensurePlayerPhotosLoaded();
 
   closePlayerCard();
 
