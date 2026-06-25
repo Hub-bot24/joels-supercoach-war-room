@@ -1502,6 +1502,45 @@ function validateTeamlistCompleteness(players, fixturesJson, round, teamlists, t
   };
 }
 
+function playableTeamCoverageFromTeamlists(teamlists){
+  const coverage = new Map();
+  for(const rec of Object.values(teamlists || {})){
+    const team = fixtureTeamCanonFromValue(rec?.teamCanonical || rec?.team);
+    if(!team) continue;
+
+    const status = String(rec?.displayStatus || '').toUpperCase();
+    const role = String(rec?.lineupRole || rec?.selectionRole || '').toLowerCase();
+    const jersey = Number(rec?.jersey);
+
+    const playable =
+      status === STATUS.NAMED &&
+      (
+        role === 'starter' ||
+        role === 'interchange' ||
+        (Number.isFinite(jersey) && jersey >= 1 && jersey <= 17)
+      );
+
+    if(!playable) continue;
+
+    if(!coverage.has(team)) coverage.set(team, new Set());
+    const key = Number.isFinite(jersey) ? `j${jersey}` : `role:${role}:${coverage.get(team).size}`;
+    coverage.get(team).add(key);
+  }
+  return coverage;
+}
+
+function reliableLoadedTeamsFromTeamlists(teamlists){
+  const coverage = playableTeamCoverageFromTeamlists(teamlists);
+  const out = new Set();
+
+  for(const [team,set] of coverage.entries()){
+    // Do not infer NOT_NAMED from a partial parse.
+    // A club list is only reliable for absence if we captured almost a full playable 17.
+    if(set.size >= 17) out.add(team);
+  }
+
+  return out;
+}
 function combineTruth(players, round, teamlists, injuries, suspensions, origin, existingStatus, trustedLoadedTeams=[]){
   const playersOut = {};
   const teamsWithLoadedList = new Set([
