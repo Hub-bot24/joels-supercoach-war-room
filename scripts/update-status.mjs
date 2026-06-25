@@ -1854,7 +1854,7 @@ async function main(){
   };
 
   if(teamlistCompleteness.incompleteTeams.length){
-    console.warn([warn] Incomplete current team-list truth for round ${round}. Missing/suspicious clubs: ${teamlistCompleteness.incompleteTeams.join(', ')}. Continuing because NOT_NAMED inference is protected by reliable team-list coverage.);
+    console.warn('[warn] Incomplete current team-list truth for round ' + round + '. Missing/suspicious clubs: ' + teamlistCompleteness.incompleteTeams.join(', ') + '. Continuing because NOT_NAMED inference is protected by reliable team-list coverage.');
   }
   const prevPlayers = previousTruth?.players || {};
   const changes = changedStatus(prevPlayers, playersOut);
