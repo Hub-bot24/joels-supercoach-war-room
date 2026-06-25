@@ -1,35 +1,8 @@
 {
-  "updated": "2026-06-25T17:18:49.336968+00:00",
+  "updated": "2026-06-25T20:11:18.335658+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
-    {
-      "round": 17,
-      "match": "Eels v Rabbitohs",
-      "homeTeam": "PAR",
-      "awayTeam": "STH",
-      "venue": "Commbank Stadium",
-      "kickoffLocal": "2026-06-25T19:50:00",
-      "city": "Parramatta",
-      "lat": -33.8081,
-      "lon": 150.999,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-06-25T19:20:00",
-        "to": "2026-06-25T21:40:00",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "label": "Unknown",
-        "score": 0,
-        "reasons": [
-          "No hourly forecast available"
-        ],
-        "captainImpact": "Unknown weather risk."
-      }
-    },
     {
       "round": 17,
       "match": "Titans v Bulldogs",
