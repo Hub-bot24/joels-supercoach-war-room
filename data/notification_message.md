@@ -1,55 +1,34 @@
 # SuperCoach War Room status changes — Round 17
 
-Detected: 2026-06-26T08:21:57.207Z
+Detected: 2026-06-26T11:24:07.534Z
 
-- **Billy Phillips** (PEN): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 17).
-  - Source: Zero Tackle
-- **Brad Schneider** (DOL): NOT_NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
-  - Source: Zero Tackle
-- **Bronson Xerri** (CAN): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 17).
-  - Source: Zero Tackle
-- **Ethan King** (NQC): EXPECTED → NOT_NAMED
+- **Benaiah Ioelu** (SYD): EXPECTED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Heamasi Makasini** (WST): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 17).
-  - Source: Zero Tackle
-- **Jack Cole** (PEN): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Jahrome Hughes** (MEL): NOT_NAMED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 6).
-  - Source: Zero Tackle
-- **Jaxson Paulo** (NQC): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Kayliss Fatialofa** (NZL): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 17).
-  - Source: Zero Tackle
-- **Luron Patea** (PEN): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Mitchell Barnett** (NZL): NAMED → EXPECTED
+- **Jack Howarth** (MEL): NAMED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Oryn Keeley** (DOL): EXPECTED → NOT_NAMED
+- **Jackson Shereb** (MAN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Jahrome Hughes** (MEL): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Jaiyden Hunt** (BRO): EXPECTED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Sam Healey** (NZL): NAMED → EXPECTED
-  - Thumb
-  - Source: Existing player_status.json updater, Zero Tackle
-- **Taylor Losalu** (SYD): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Toby Rodwell** (SYD): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Tom Duffy** (BRO): NOT_NAMED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 6).
+- **Jye Linnane** (NZL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Mitchell Barnett** (NZL): EXPECTED → NAMED
+  - Named in team-list article starting side (Official NRL, jersey 10).
+  - Source: Official NRL
+- **Sam Verrills** (GLD): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 17).
   - Source: Zero Tackle
-- **Trai Fuller** (DOL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
+- **Sean O'Sullivan** (CAN): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 17).
+  - Source: Zero Tackle
+- **Siulagi Tuimalatu-Brown** (MEL): EXPECTED → NAMED
+  - Named in team-list article starting side (Official NRL, jersey 5).
+  - Source: Official NRL, Zero Tackle
