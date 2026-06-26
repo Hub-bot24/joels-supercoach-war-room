@@ -1,7 +1,10 @@
 # SuperCoach War Room status changes — Round 17
 
-Detected: 2026-06-25T12:48:40.987Z
+Detected: 2026-06-26T04:41:46.992Z
 
-- **Jayden Sullivan** (STH): EXPECTED → NAMED
-  - Named in team-list article interchange (Official NRL, jersey 16).
-  - Source: Official NRL, Zero Tackle
+- **Ryley Smith** (PAR): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Saxon Pryke** (PAR): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed

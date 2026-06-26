@@ -1,49 +1,5 @@
 [
   {
-    "player": "Jett Liu",
-    "team": "GLD",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).; injury note: Back context found near player on injury/casualty source page (Zero Tackle).",
-    "detectedAt": "2026-06-23T07:18:24.395Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
-        "updatedAt": "2026-06-23T07:18:24.395Z",
-        "priority": 2,
-        "order": 4
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154/",
-        "updatedAt": "2026-06-23T07:18:24.395Z"
-      }
-    ],
-    "round": 17
-  },
-  {
-    "player": "Jezaiah Funa-Iuta",
-    "team": "PAR",
-    "from": "BYE",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
-    "detectedAt": "2026-06-23T07:18:24.395Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
-        "updatedAt": "2026-06-23T07:18:24.395Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 17
-  },
-  {
     "player": "Jmaine Hopgood",
     "team": "PAR",
     "from": "BYE",
@@ -13883,6 +13839,40 @@
         "updatedAt": "2026-06-25T12:48:40.987Z",
         "priority": 2,
         "order": 11
+      }
+    ],
+    "round": 17
+  },
+  {
+    "player": "Ryley Smith",
+    "team": "PAR",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-06-26T04:41:46.992Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-06-26T04:41:46.992Z"
+      }
+    ],
+    "round": 17
+  },
+  {
+    "player": "Saxon Pryke",
+    "team": "PAR",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-06-26T04:41:46.992Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-06-26T04:41:46.992Z"
       }
     ],
     "round": 17
