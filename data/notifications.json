@@ -1,37 +1,312 @@
 {
-  "updated": "2026-06-26T04:41:46.992Z",
+  "updated": "2026-06-26T08:21:57.207Z",
   "round": 17,
   "newChanges": [
     {
-      "player": "Ryley Smith",
-      "team": "PAR",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-26T04:41:46.992Z",
+      "player": "Billy Phillips",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-06-26T04:41:46.992Z"
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-26T08:21:57.207Z",
+          "priority": 2,
+          "order": 10
         }
       ],
       "round": 17
     },
     {
-      "player": "Saxon Pryke",
-      "team": "PAR",
+      "player": "Brad Schneider",
+      "team": "DOL",
       "from": "NOT_NAMED",
       "to": "EXPECTED",
+      "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 18).",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-26T08:21:57.207Z",
+          "priority": 2,
+          "order": 10
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Bronson Xerri",
+      "team": "CAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-26T08:21:57.207Z",
+          "priority": 2,
+          "order": 10
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Ethan King",
+      "team": "NQC",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-26T08:21:57.207Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Heamasi Makasini",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-26T08:21:57.207Z",
+          "priority": 2,
+          "order": 10
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Jack Cole",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-26T08:21:57.207Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Jahrome Hughes",
+      "team": "MEL",
+      "from": "NOT_NAMED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-26T08:21:57.207Z",
+          "priority": 2,
+          "order": 10
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Jaxson Paulo",
+      "team": "NQC",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-26T08:21:57.207Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Kayliss Fatialofa",
+      "team": "NZL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-26T08:21:57.207Z",
+          "priority": 2,
+          "order": 10
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Luron Patea",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-26T08:21:57.207Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Mitchell Barnett",
+      "team": "NZL",
+      "from": "NAMED",
+      "to": "EXPECTED",
       "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-06-26T04:41:46.992Z",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
       "sources": [
         {
           "type": "source_missing",
           "name": "Current club team-list not confirmed",
           "url": "data/status_truth.json",
-          "updatedAt": "2026-06-26T04:41:46.992Z"
+          "updatedAt": "2026-06-26T08:21:57.207Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Oryn Keeley",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-26T08:21:57.207Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Sam Healey",
+      "team": "NZL",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Thumb",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-26T08:21:57.207Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/jackson-fords-injury-and-return-timeline-revealed-in-latest-warriors-blow-235165/",
+          "updatedAt": "2026-06-26T08:21:57.207Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Taylor Losalu",
+      "team": "SYD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-26T08:21:57.207Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Toby Rodwell",
+      "team": "SYD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-26T08:21:57.207Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Tom Duffy",
+      "team": "BRO",
+      "from": "NOT_NAMED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-26T08:21:57.207Z",
+          "priority": 2,
+          "order": 10
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Trai Fuller",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-26T08:21:57.207Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-26T08:21:57.207Z"
         }
       ],
       "round": 17
