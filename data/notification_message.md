@@ -1,19 +1,22 @@
 # SuperCoach War Room status changes — Round 17
 
-Detected: 2026-06-27T07:35:42.233Z
+Detected: 2026-06-27T09:51:23.002Z
 
-- **Alex Twal** (WST): NAMED → INJURED
-  - Knee
-  - Source: Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
-- **John Bateman** (NQC): EXPECTED → NAMED
-  - Named in team-list article starting side (Official NRL, jersey 10).
-  - Source: Official NRL, Zero Tackle
-- **Jye Linnane** (NZL): NOT_NAMED → EXPECTED
+- **Brad Schneider** (DOL): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 17).
+  - Source: Zero Tackle
+- **Jack Cole** (PEN): NOT_NAMED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Liam Sutton** (NQC): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL
-- **Sione Fonua** (PEN): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL
+- **Jackson Shereb** (MAN): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **John Bateman** (NQC): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 20).
+  - Source: Zero Tackle
+- **Luron Patea** (PEN): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Sione Fonua** (PEN): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
