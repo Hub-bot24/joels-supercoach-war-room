@@ -1,19 +1,19 @@
 # SuperCoach War Room status changes — Round 17
 
-Detected: 2026-06-27T04:17:15.989Z
+Detected: 2026-06-27T07:35:42.233Z
 
-- **Brian Pouniu** (DOL): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL
-- **Christian Tuipulotu** (STG): EXPECTED → INJURED
-  - Hamstring
-  - Source: Existing player_status.json updater
-- **Jacob Halangahu** (STG): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Official NRL, jersey 18).
+- **Alex Twal** (WST): NAMED → INJURED
+  - Knee
+  - Source: Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **John Bateman** (NQC): EXPECTED → NAMED
+  - Named in team-list article starting side (Official NRL, jersey 10).
   - Source: Official NRL, Zero Tackle
-- **Jed Stuart** (CBR): EXPECTED → NOT_NAMED
+- **Jye Linnane** (NZL): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Liam Sutton** (NQC): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL
-- **Vena Patuki-Case** (CBR): EXPECTED → NOT_NAMED
+- **Sione Fonua** (PEN): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL
