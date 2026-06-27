@@ -1,35 +1,8 @@
 {
-  "updated": "2026-06-27T16:11:47.739976+00:00",
+  "updated": "2026-06-27T18:10:26.934212+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
-    {
-      "round": 17,
-      "match": "Cowboys v Panthers",
-      "homeTeam": "NQC",
-      "awayTeam": "PEN",
-      "venue": "Qld Country Bank Stadium",
-      "kickoffLocal": "2026-06-27T17:30:00",
-      "city": "Townsville",
-      "lat": -19.2576,
-      "lon": 146.8179,
-      "timezone": "Australia/Brisbane",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-06-27T17:00:00",
-        "to": "2026-06-27T19:20:00",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "label": "Unknown",
-        "score": 0,
-        "reasons": [
-          "No hourly forecast available"
-        ],
-        "captainImpact": "Unknown weather risk."
-      }
-    },
     {
       "round": 17,
       "match": "Sea Eagles v Storm",
