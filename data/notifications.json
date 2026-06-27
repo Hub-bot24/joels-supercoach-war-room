@@ -1,6 +1,108 @@
 {
-  "updated": "2026-06-27T00:11:00.836Z",
+  "updated": "2026-06-27T04:17:15.989Z",
   "round": 17,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Brian Pouniu",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-06-27T04:17:15.989Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/06/24/nrl-late-mail-round-17-katoa-on-track-preston-pushing-to-return",
+          "updatedAt": "2026-06-27T04:17:15.989Z",
+          "priority": 3,
+          "order": 2
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Christian Tuipulotu",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "INJURED",
+      "reason": "Hamstring",
+      "detectedAt": "2026-06-27T04:17:15.989Z",
+      "sources": [
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-27T04:17:15.989Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Jacob Halangahu",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in team-list article extended squad only (Official NRL, jersey 18).",
+      "detectedAt": "2026-06-27T04:17:15.989Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/06/24/nrl-late-mail-round-17-katoa-on-track-preston-pushing-to-return",
+          "updatedAt": "2026-06-27T04:17:15.989Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-27T04:17:15.989Z",
+          "priority": 2,
+          "order": 11
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Jed Stuart",
+      "team": "CBR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-06-27T04:17:15.989Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/06/24/nrl-late-mail-round-17-katoa-on-track-preston-pushing-to-return",
+          "updatedAt": "2026-06-27T04:17:15.989Z",
+          "priority": 3,
+          "order": 2
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Vena Patuki-Case",
+      "team": "CBR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-06-27T04:17:15.989Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/06/24/nrl-late-mail-round-17-katoa-on-track-preston-pushing-to-return",
+          "updatedAt": "2026-06-27T04:17:15.989Z",
+          "priority": 3,
+          "order": 2
+        }
+      ],
+      "round": 17
+    }
+  ],
   "allChangeCount": 500
 }
