@@ -1,35 +1,8 @@
 {
-  "updated": "2026-06-27T14:47:47.907825+00:00",
+  "updated": "2026-06-27T16:11:47.739976+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
-    {
-      "round": 17,
-      "match": "Dolphins v Warriors",
-      "homeTeam": "DOL",
-      "awayTeam": "NZL",
-      "venue": "Suncorp Stadium",
-      "kickoffLocal": "2026-06-27T15:00:00",
-      "city": "Brisbane",
-      "lat": -27.4648,
-      "lon": 153.0095,
-      "timezone": "Australia/Brisbane",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-06-27T14:30:00",
-        "to": "2026-06-27T16:50:00",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "label": "Unknown",
-        "score": 0,
-        "reasons": [
-          "No hourly forecast available"
-        ],
-        "captainImpact": "Unknown weather risk."
-      }
-    },
     {
       "round": 17,
       "match": "Cowboys v Panthers",
