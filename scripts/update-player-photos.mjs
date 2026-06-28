@@ -61,7 +61,7 @@ function cleanUrl(url, base="https://www.zerotackle.com/"){
 
 function badImage(url){
   const u = String(url || "").toLowerCase();
-  return /favicon|logo|badge|icon|sponsor|partner|placeholder|default|crest|team|previewmain|preview-main|mainpreview/.test(u);
+  return /favicon|badge|icon|sponsor|partner|placeholder|default|crest|team|previewmain|preview-main|mainpreview|(^|[\/_.-])logo([\/_.-]|$)/.test(u);
 }
 
 function isRealPlayerImage(url){
@@ -126,7 +126,7 @@ function usableExtractedPhotoUrl(url){
   const u = String(url || "");
   if(!u) return false;
   if(/index\.php\?player=/i.test(u)) return false;
-  if(/previewMain|preview-main|placeholder|logo|badge|crest|favicon|default/i.test(u)) return false;
+  if(badImage(u)) return false;
   if(/remote\.axd$/i.test(u)) return false;
 
   return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?/i.test(u) ||
