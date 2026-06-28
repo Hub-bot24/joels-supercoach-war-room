@@ -1,6 +1,115 @@
 {
-  "updated": "2026-06-28T01:54:52.525Z",
+  "updated": "2026-06-28T06:21:25.134Z",
   "round": 17,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Coby Black",
+      "team": "CBR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-28T06:21:25.134Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-28T06:21:25.134Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Francis Manuleleua",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-06-28T06:21:25.134Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/06/24/nrl-late-mail-round-17-katoa-on-track-preston-pushing-to-return",
+          "updatedAt": "2026-06-28T06:21:25.134Z",
+          "priority": 3,
+          "order": 2
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Hame Sele",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-28T06:21:25.134Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-28T06:21:25.134Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Jacob Halangahu",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-06-28T06:21:25.134Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+          "updatedAt": "2026-06-28T06:21:25.134Z",
+          "priority": 2,
+          "order": 10
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Nick Tsougranis",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-28T06:21:25.134Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-28T06:21:25.134Z"
+        }
+      ],
+      "round": 17
+    },
+    {
+      "player": "Patrick Herbert",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Official NRL, jersey 16).",
+      "detectedAt": "2026-06-28T06:21:25.134Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/06/24/nrl-late-mail-round-17-katoa-on-track-preston-pushing-to-return",
+          "updatedAt": "2026-06-28T06:21:25.134Z",
+          "priority": 3,
+          "order": 2
+        }
+      ],
+      "round": 17
+    }
+  ],
   "allChangeCount": 500
 }

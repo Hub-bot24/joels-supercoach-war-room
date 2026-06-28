@@ -1,135 +1,5 @@
 [
   {
-    "player": "Matthew Dufty",
-    "team": "STH",
-    "from": "BYE",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
-    "detectedAt": "2026-06-23T07:18:24.395Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
-        "updatedAt": "2026-06-23T07:18:24.395Z",
-        "priority": 2,
-        "order": 4
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-vs-broncos-10396426-234700",
-        "updatedAt": "2026-06-23T07:18:24.395Z",
-        "priority": 4,
-        "order": 6
-      }
-    ],
-    "round": 17
-  },
-  {
-    "player": "Mavrik Geyer",
-    "team": "WST",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 18).; injury note: Pec context found near player on injury/casualty source page (Zero Tackle).",
-    "detectedAt": "2026-06-23T07:18:24.395Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
-        "updatedAt": "2026-06-23T07:18:24.395Z",
-        "priority": 2,
-        "order": 4
-      },
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154/",
-        "updatedAt": "2026-06-23T07:18:24.395Z"
-      }
-    ],
-    "round": 17
-  },
-  {
-    "player": "Mawene Hiroti",
-    "team": "SHA",
-    "from": "NAMED",
-    "to": "BYE",
-    "reason": "Bye round 17",
-    "detectedAt": "2026-06-23T07:18:24.395Z",
-    "sources": [
-      {
-        "type": "fixture",
-        "name": "players.json bye data",
-        "url": "players.json",
-        "updatedAt": "2026-06-23T07:18:24.395Z"
-      }
-    ],
-    "round": 17
-  },
-  {
-    "player": "Max McCarthy",
-    "team": "STH",
-    "from": "BYE",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Zero Tackle).",
-    "detectedAt": "2026-06-23T07:18:24.395Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
-        "updatedAt": "2026-06-23T07:18:24.395Z",
-        "priority": 2,
-        "order": 4
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-vs-broncos-10396426-234700",
-        "updatedAt": "2026-06-23T07:18:24.395Z",
-        "priority": 4,
-        "order": 6
-      }
-    ],
-    "round": 17
-  },
-  {
-    "player": "Max Plath",
-    "team": "DOL",
-    "from": "NOT_NAMED",
-    "to": "INJURED",
-    "reason": "Back context found near player on injury/casualty source page (Zero Tackle).",
-    "detectedAt": "2026-06-23T07:18:24.395Z",
-    "sources": [
-      {
-        "type": "injury",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154/",
-        "updatedAt": "2026-06-23T07:18:24.395Z"
-      }
-    ],
-    "round": 17
-  },
-  {
-    "player": "Michael Gabrael",
-    "team": "SHA",
-    "from": "NOT_NAMED",
-    "to": "BYE",
-    "reason": "Bye round 17",
-    "detectedAt": "2026-06-23T07:18:24.395Z",
-    "sources": [
-      {
-        "type": "fixture",
-        "name": "players.json bye data",
-        "url": "players.json",
-        "updatedAt": "2026-06-23T07:18:24.395Z"
-      }
-    ],
-    "round": 17
-  },
-  {
     "player": "Mitchell Moses",
     "team": "PAR",
     "from": "BYE",
@@ -12953,6 +12823,114 @@
         "name": "Current club team-list not confirmed",
         "url": "data/status_truth.json",
         "updatedAt": "2026-06-27T09:51:23.002Z"
+      }
+    ],
+    "round": 17
+  },
+  {
+    "player": "Coby Black",
+    "team": "CBR",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-06-28T06:21:25.134Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-06-28T06:21:25.134Z"
+      }
+    ],
+    "round": 17
+  },
+  {
+    "player": "Francis Manuleleua",
+    "team": "NEW",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-06-28T06:21:25.134Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/06/24/nrl-late-mail-round-17-katoa-on-track-preston-pushing-to-return",
+        "updatedAt": "2026-06-28T06:21:25.134Z",
+        "priority": 3,
+        "order": 2
+      }
+    ],
+    "round": 17
+  },
+  {
+    "player": "Hame Sele",
+    "team": "STG",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-06-28T06:21:25.134Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-06-28T06:21:25.134Z"
+      }
+    ],
+    "round": 17
+  },
+  {
+    "player": "Jacob Halangahu",
+    "team": "STG",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+    "detectedAt": "2026-06-28T06:21:25.134Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-17-team-lists-2026-235154",
+        "updatedAt": "2026-06-28T06:21:25.134Z",
+        "priority": 2,
+        "order": 10
+      }
+    ],
+    "round": 17
+  },
+  {
+    "player": "Nick Tsougranis",
+    "team": "STG",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-06-28T06:21:25.134Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-06-28T06:21:25.134Z"
+      }
+    ],
+    "round": 17
+  },
+  {
+    "player": "Patrick Herbert",
+    "team": "WST",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article interchange (Official NRL, jersey 16).",
+    "detectedAt": "2026-06-28T06:21:25.134Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/06/24/nrl-late-mail-round-17-katoa-on-track-preston-pushing-to-return",
+        "updatedAt": "2026-06-28T06:21:25.134Z",
+        "priority": 3,
+        "order": 2
       }
     ],
     "round": 17

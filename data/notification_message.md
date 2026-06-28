@@ -1,22 +1,22 @@
 # SuperCoach War Room status changes — Round 17
 
-Detected: 2026-06-27T09:51:23.002Z
+Detected: 2026-06-28T06:21:25.134Z
 
-- **Brad Schneider** (DOL): EXPECTED → NAMED
+- **Coby Black** (CBR): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Francis Manuleleua** (NEW): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Hame Sele** (STG): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Jacob Halangahu** (STG): EXPECTED → NAMED
   - Named in team-list article interchange (Zero Tackle, jersey 17).
   - Source: Zero Tackle
-- **Jack Cole** (PEN): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jackson Shereb** (MAN): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **John Bateman** (NQC): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 20).
-  - Source: Zero Tackle
-- **Luron Patea** (PEN): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Sione Fonua** (PEN): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
+- **Nick Tsougranis** (STG): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Patrick Herbert** (WST): EXPECTED → NAMED
+  - Named in team-list article interchange (Official NRL, jersey 16).
+  - Source: Official NRL
