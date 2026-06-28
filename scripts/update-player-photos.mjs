@@ -5,7 +5,7 @@ function slugName(name){
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g,"")
-    .replace(/['�]/g,"")
+    .replace(/['’]/g,"")
     .replace(/[^a-z0-9]+/g,"-")
     .replace(/^-+|-+$/g,"");
 }
@@ -17,13 +17,33 @@ function photoSearchName(name){
   };
   return aliases[key] || name;
 }
-function photoSourceUrl(name){
+
+function photoSourceUrls(name){
   const key = slugName(name);
+  const urls = [];
+
+  const normalSlug = slugName(name);
+  const aliasSlug = slugName(photoSearchName(name));
+
+  if(normalSlug){
+    urls.push(`https://www.zerotackle.com/players/${normalSlug}/`);
+  }
+
+  if(aliasSlug && aliasSlug !== normalSlug){
+    urls.push(`https://www.zerotackle.com/players/${aliasSlug}/`);
+  }
+
   const official = {
     "sua-faalogo": "https://www.melbournestorm.com.au/teams/nrl-premiership/melbourne-storm/sualauvi-faalogo/"
   };
-  return official[key] || `https://www.zerotackle.com/players/${slugName(photoSearchName(name))}/`;
+
+  if(official[key]){
+    urls.push(official[key]);
+  }
+
+  return [...new Set(urls.filter(Boolean))];
 }
+
 function cleanUrl(url, base="https://www.zerotackle.com/"){
   if(!url) return "";
   let out = String(url)
@@ -54,7 +74,8 @@ function isRealPlayerImage(url){
     /rugbyimages\.statsperform\.com\/Player\+Bodyshots/i.test(u) ||
     /Player%20Bodyshots/i.test(u) ||
     /Player\+Bodyshots/i.test(u) ||
-    (/remote\\.axd\\?/i.test(u) || /rugbyimages\\.statsperform\\.com/i.test(u))
+    /remote\.axd\?/i.test(u) ||
+    /rugbyimages\.statsperform\.com/i.test(u)
   );
 }
 
@@ -83,10 +104,10 @@ function extractImage(html, base){
 
   const urls = [...all];
 
-return urls.find(u => /rugbyimages\.statsperform\.com/i.test(u) && /Player(%20|\+)Bodyshots/i.test(u)) ||
-  urls.find(u => /remote\.axd\?/i.test(u)) ||
-  urls.find(u => /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u) && !/previewMain|logo|badge|crest|favicon/i.test(u)) ||
-  "";
+  return urls.find(u => /rugbyimages\.statsperform\.com/i.test(u) && /Player(%20|\+)Bodyshots/i.test(u)) ||
+    urls.find(u => /remote\.axd\?/i.test(u)) ||
+    urls.find(u => /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u) && !/previewMain|logo|badge|crest|favicon/i.test(u)) ||
+    "";
 }
 
 async function fetchText(url){
@@ -107,8 +128,11 @@ function usableExtractedPhotoUrl(url){
   if(/index\.php\?player=/i.test(u)) return false;
   if(/previewMain|preview-main|placeholder|logo|badge|crest|favicon|default/i.test(u)) return false;
   if(/remote\.axd$/i.test(u)) return false;
-  return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?/i.test(u) || /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u);
+
+  return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?/i.test(u) ||
+    /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u);
 }
+
 async function main(){
   const raw = JSON.parse(await fs.readFile("players.json","utf8"));
   const players = Array.isArray(raw) ? raw : (raw.players || []);
@@ -121,25 +145,28 @@ async function main(){
     const name = p.name || p.player || p.fullName || p.playerName;
     if(!name) continue;
 
-    const url = photoSourceUrl(name);
-
-    try{
-      const html = await fetchText(url);
-      const image = html ? extractImage(html, url) : "";
-
-      if(usableExtractedPhotoUrl(image)){
-        out.players[name] = {
-          url: image,
-          source: url,
-          updatedAt: out.updatedAt
-        };
-        found++;
-      }
-    }catch(e){}
-
     checked++;
-    if(checked % 25 === 0) console.log(`checked ${checked}, found ${found}`);
-    await new Promise(r => setTimeout(r, 120));
+
+    const urls = photoSourceUrls(name);
+
+    for(const url of urls){
+      try{
+        const html = await fetchText(url);
+        const image = html ? extractImage(html, url) : "";
+
+        if(usableExtractedPhotoUrl(image)){
+          out.players[name] = {
+            url: image,
+            source: url,
+            updatedAt: out.updatedAt
+          };
+          found++;
+          break;
+        }
+      }catch(e){
+        // try next source
+      }
+    }
   }
 
   await fs.writeFile("player_photos.json", JSON.stringify(out,null,2) + "\n");
