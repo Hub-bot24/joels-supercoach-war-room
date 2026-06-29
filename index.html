@@ -2526,22 +2526,50 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 <script src="level3-projection-engine.js"></script>
 <script>
 'use strict';
-const App={players:[],playerMap:new Map(),playerNameMap:new Map(),ambiguousPlayerNameMap:new Map(),myTeam:[],weather:null,fixtures:null,goalKickers:null,goalKickerEvidence:null,teamRoles:null,availabilityOverrides:null,playerStatus:null,statusTruth:null,playerPhotos:null,
+const App={players:[],playerMap:new Map(),playerNameMap:new Map(),ambiguousPlayerNameMap:new Map(),myTeam:[],weather:null,fixtures:null,goalKickers:null,goalKickerEvidence:null,teamRoles:null,availabilityOverrides:null,playerStatus:null,statusTruth:null,playerPhotos:null,playerPhotoLookup:null,
 teamLists:null,officialTeamLists:null,originUnavailable:null,
 dualPositions:{players:{}},projectionCache:new Map(),active:'team',rendered:new Set(),round:Number(localStorage.getItem('sc_round')||14),roundSource:'stored',trustWarnings:[],lineup:null,drag:null,sync:{client:null,user:null,enabled:false,status:'offline',lastCloudAt:'',saving:false,timer:null,clientId:null,localUpdatedAt:''}};
 const $=id=>document.getElementById(id);const safeNum=v=>Number.isFinite(Number(v))?Number(v):0;const money=n=>'$'+safeNum(n).toLocaleString();
 function esc(s){return String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 window.jsq = function(value){const s=String(value==null?'':value);return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\r/g,'\\r').replace(/\n/g,'\\n').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029')}
 function norm(s){return String(s||'').toLowerCase().replace(/[^a-z0-9/\s'-]/g,' ').replace(/\s+/g,' ').trim()}
-function playerSlug(name){return String(name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
+function playerPhotoKey(value){return String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[��`�]/g,"'").replace(/&apos;|&#39;/g,"'").replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim()}
+function playerSlug(name){return String(name||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[��`�]/g,"'").replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
+function playerPhotoRecordUrl(rec){return typeof rec==='string'?rec:(rec?.url||rec?.photo||rec?.image||rec?.headshot||rec?.src||'')}
+function playerPhotoLookupKeys(value){
+ const raw=String(value||'').trim();
+ if(!raw)return [];
+ const variants=[raw,raw.replace(/[��`�]/g,"'"),raw.replace(/'/g,'�'),playerSlug(raw),playerPhotoKey(raw)];
+ return [...new Set(variants.map(v=>String(v||'').trim()).filter(Boolean))];
+}
+function buildPlayerPhotoLookup(){
+ const photos=App.playerPhotos?.players||App.playerPhotos||{};
+ const lookup=new Map();
+ for(const [name,rec] of Object.entries(photos||{})){
+  for(const key of playerPhotoLookupKeys(name)){
+   if(!lookup.has(key))lookup.set(key,rec);
+  }
+ }
+ App.playerPhotoLookup=lookup;
+}
+function lookupPlayerPhotoRecord(p){
+ if(!p)return null;
+ const lookup=App.playerPhotoLookup||new Map();
+ const names=[p.name,p.fullName,p.playerName,p.statsSourceName].filter(Boolean);
+ for(const n of names){
+  for(const key of playerPhotoLookupKeys(n)){
+   if(lookup.has(key))return lookup.get(key);
+  }
+ }
+ return null;
+}
 function playerPhotoCandidates(p){
  if(!p)return [];
  const out=[];
  const add=v=>{if(v&&!out.includes(String(v)))out.push(String(v))};
  for(const k of ['photo','photoUrl','image','imageUrl','headshot','headshotUrl','playerImage','image_url','photo_url','headshot_url','nrlPhoto','nrlPhotoUrl']) add(p[k]);
- const map=App.playerPhotos?.players||App.playerPhotos||{};
- const mapped=map[p.name]||map[playerSlug(p.name)]||map[norm(p.name)];
- if(Array.isArray(mapped)) mapped.forEach(add); else if(mapped&&typeof mapped==='object'){for(const k of ['photo','photoUrl','image','imageUrl','headshot','headshotUrl','url']) add(mapped[k]);} else add(mapped);
+ const mapped=lookupPlayerPhotoRecord(p);
+ if(Array.isArray(mapped)) mapped.forEach(add); else if(mapped&&typeof mapped==='object'){for(const k of ['photo','photoUrl','image','imageUrl','headshot','headshotUrl','url','src']) add(mapped[k]);} else add(mapped);
  const slug=playerSlug(p.name);
  if(slug){
   add(`assets/players/${slug}.webp`);
@@ -2582,10 +2610,12 @@ async function ensurePlayerPhotosLoaded(){
     const res = await fetch(`player_photos.json?v=${Date.now()}`, { cache: "no-store" });
     if(!res.ok) throw new Error(`player_photos.json ${res.status}`);
     App.playerPhotos = await res.json();
+    buildPlayerPhotoLookup();
     console.log("Loaded player photos", Object.keys(App.playerPhotos?.players || App.playerPhotos || {}).length);
   }catch(e){
     console.warn("Could not load player_photos.json", e);
     App.playerPhotos = { players:{} };
+    buildPlayerPhotoLookup();
   }
 }
 
@@ -2599,15 +2629,9 @@ function usablePlayerPhotoUrl(url){
 }
 function playerPhotoUrl(p){
   if(!p)return "";
-  const photos=App.playerPhotos?.players||App.playerPhotos||{};
-  const names=[p.name].filter(Boolean);
-
-  for(const n of names){
-    const rec=photos?.[n];
-    const url=typeof rec==="string" ? rec : (rec?.url||rec?.photo||rec?.image||rec?.headshot||rec?.src||"");
-    if(usablePlayerPhotoUrl(url)) return url;
-  }
-
+  const rec=lookupPlayerPhotoRecord(p);
+  const url=playerPhotoRecordUrl(rec);
+  if(usablePlayerPhotoUrl(url)) return url;
   const fallback=p.photo||p.image||p.headshot||p.nrlPhoto||p.playerPhoto||"";
   return usablePlayerPhotoUrl(fallback) ? fallback : "";
 }
@@ -4255,15 +4279,9 @@ function tradePopupHtml(title,name,opts,buttonFn){return `<div style="position:f
 
 function playerPhotoUrl(p){
   if(!p)return "";
-  const photos=App.playerPhotos?.players||App.playerPhotos||{};
-  const names=[p.name].filter(Boolean);
-
-  for(const n of names){
-    const rec=photos?.[n];
-    const url=typeof rec==="string" ? rec : (rec?.url||rec?.photo||rec?.image||rec?.headshot||rec?.src||"");
-    if(usablePlayerPhotoUrl(url)) return url;
-  }
-
+  const rec=lookupPlayerPhotoRecord(p);
+  const url=playerPhotoRecordUrl(rec);
+  if(usablePlayerPhotoUrl(url)) return url;
   const fallback=p.photo||p.image||p.headshot||p.nrlPhoto||p.playerPhoto||"";
   return usablePlayerPhotoUrl(fallback) ? fallback : "";
 }
@@ -4295,24 +4313,9 @@ function wrUsablePhotoUrl(url){
 }
 function wrCardPlayerPhotoUrl(p){
   if(!p)return "";
-  const photos=App.playerPhotos?.players||App.playerPhotos||{};
-  const names=[p.name,p.fullName,p.playerName,p.statsSourceName].filter(Boolean);
-
-  for(const n of names){
-    const rec=photos?.[n];
-    const url=typeof rec==="string"?rec:(rec?.url||rec?.photo||rec?.image||rec?.headshot||rec?.src||"");
-    if(wrUsablePhotoUrl(url))return url;
-  }
-
-  const wanted=wrPhotoKey(p.name);
-  if(wanted){
-    for(const [key,rec] of Object.entries(photos||{})){
-      if(wrPhotoKey(key)!==wanted)continue;
-      const url=typeof rec==="string"?rec:(rec?.url||rec?.photo||rec?.image||rec?.headshot||rec?.src||"");
-      if(wrUsablePhotoUrl(url))return url;
-    }
-  }
-
+  const rec=lookupPlayerPhotoRecord(p);
+  const url=playerPhotoRecordUrl(rec);
+  if(wrUsablePhotoUrl(url))return url;
   const fallback=p.photo||p.image||p.headshot||p.nrlPhoto||p.playerPhoto||"";
   return wrUsablePhotoUrl(fallback)?fallback:"";
 }
