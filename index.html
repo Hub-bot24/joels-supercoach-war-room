@@ -2503,6 +2503,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   .player-profile-title{font-size:21px!important}
   .player-profile-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
+.projection-box{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin-top:5px;font-size:9px;line-height:1.05;color:#dbeafe}.projection-box span{display:flex;justify-content:space-between;gap:3px;border:1px solid rgba(88,166,255,.2);background:rgba(8,17,32,.72);border-radius:6px;padding:3px 4px;white-space:nowrap}.projection-box b{color:#fff;font-weight:950}.next5-panel{margin-top:14px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:14px;padding:10px;color:#f8fafc}.next5-panel h4{margin:0 0 8px;font-size:13px;letter-spacing:.04em;text-transform:uppercase}.next5-panel-row{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:8px;align-items:center;padding:7px 0;border-top:1px solid rgba(255,255,255,.08);font-size:12px}.next5-panel-row:first-of-type{border-top:0}.next5-panel-row b{text-align:right;color:#58a6ff;font-size:15px}.next5-panel-meta{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#dbeafe}.next5-panel-empty{font-size:12px;color:#bfd0e8;line-height:1.35}@media(max-width:720px){.projection-box{grid-template-columns:1fr;font-size:8px;gap:2px}.projection-box span{padding:2px 3px}.next5-panel-row{grid-template-columns:38px minmax(0,1fr) 38px;font-size:11px}}
 </style>
 </head>
 <body>
@@ -4008,9 +4009,33 @@ window.calculateLevel3Projection=function calculateLevel3Projection(p,ctx={}){
   };
 };
 
+const ProjectionEngine={
+ scoreValue(item){if(typeof item==='number')return Number(item);if(!item||typeof item!=='object')return NaN;return Number(item.score??item.sc??item.points??item.supercoach??item.total)},
+ scores(p){const lists=[p?.scores,p?.recentScores,p?.lastScores,p?.gameScores,p?.history,p?.matches];for(const raw of lists){if(!Array.isArray(raw))continue;const arr=raw.map(x=>this.scoreValue(x)).filter(Number.isFinite);if(arr.length)return arr}return []},
+ average(values){const arr=(values||[]).map(Number).filter(Number.isFinite);return arr.length?arr.reduce((s,n)=>s+n,0)/arr.length:0},
+ seasonAverage(p){return safeNum(p?.avg??p?.average??p?.seasonAvg)||this.average(this.scores(p))},
+ lastGame(p){const scores=this.scores(p);return scores.length?Math.round(scores[scores.length-1]):0},
+ recentAverage(p,count){const direct=count===3?safeNum(p?.last3Avg??p?.avg3??p?.l3Avg):safeNum(p?.last5Avg??p?.avg5??p?.l5Avg);if(direct)return Math.round(direct);const loose=count===3?safeNum(p?.last3??p?.lastThree??p?.l3):safeNum(p?.last5??p?.lastFive??p?.l5);if(loose)return Math.round(loose);const scores=this.scores(p);return scores.length?Math.round(this.average(scores.slice(-Math.min(count,scores.length)))):0},
+ statusKey(status){return String(status?.key||status?.label||'').toLowerCase().replace(/[\s-]+/g,'_')},
+ zeroStatus(status){const key=this.statusKey(status);const label=String(status?.label||'').toLowerCase();return status?.available===false||['bye','injured','injury','suspended','suspension','notnamed','not_named','origin','origin_unavailable','out'].includes(key)||label.includes('origin unavailable')},
+ discountFactor(status){const key=this.statusKey(status);if(key==='risk'||key==='expected'||key==='extended'||key==='reserve'||key==='origin_risk')return .78;return 1},
+ baseProjection(p){const season=this.seasonAverage(p),last3=this.recentAverage(p,3),last5=this.recentAverage(p,5),last=this.lastGame(p),listed=safeNum(p?.proj??p?.projected??p?.expected);const seeds=[];if(season)seeds.push([season,.35]);if(last3)seeds.push([last3,.28]);if(last5)seeds.push([last5,.25]);if(last)seeds.push([last,.12]);if(!seeds.length&&listed)seeds.push([listed,1]);if(!seeds.length&&p?.price)seeds.push([Math.round(safeNum(p.price)/9000),1]);const w=seeds.reduce((s,x)=>s+x[1],0)||1;return Math.round(seeds.reduce((s,x)=>s+x[0]*x[1],0)/w)},
+ project(p,round=App.round){const status=availabilityStatus(p,round);const season=Math.round(this.seasonAverage(p)||0),last3=this.recentAverage(p,3),last5=this.recentAverage(p,5),last=this.lastGame(p);let expected=this.baseProjection(p);if(this.zeroStatus(status))expected=0;else expected=Math.round(expected*this.discountFactor(status));return {expected,floor:Math.max(0,Math.round(expected*.68)),ceiling:Math.max(0,Math.round(expected*1.42)),raw:this.baseProjection(p),seasonAvg:season,last3Avg:last3,last5Avg:last5,lastGame:last,status,version:'ProjectionEngine-v1'}},
+ allFixtures(){return typeof flattenFixtures==='function'?flattenFixtures(App.fixtures||[]):[]},
+ fixtureRound(match){return Number(match?.round||match?.roundNumber||match?.round_number||match?.scRound||match?.nrlRound||0)},
+ fixtureTime(match){return typeof firstDate==='function'?firstDate(match):new Date(match?.kickoffLocal||match?.kickoff||match?.date||match?.startTime||match?.start||0).getTime()},
+ teamMatchesFixture(p,match){const playerTeam=String(p?.club||p?.team||p?.squad||p?.teamCode||'').toUpperCase();const homeCode=String(match?.homeTeam||'').toUpperCase();const awayCode=String(match?.awayTeam||'').toUpperCase();return !!playerTeam&&(playerTeam===homeCode||playerTeam===awayCode)},
+ opponent(p,game){const parts=String(game?.match||'').split(/\s+v\s+/i);const homeName=parts[0]||game?.homeTeam||'';const awayName=parts[1]||game?.awayTeam||'';const homeCode=String(game?.homeTeam||'').toUpperCase();const awayCode=String(game?.awayTeam||'').toUpperCase();const playerTeam=String(p?.club||p?.team||p?.squad||p?.teamCode||'').toUpperCase();if(playerTeam===homeCode)return awayName||'Opponent TBC';if(playerTeam===awayCode)return homeName||'Opponent TBC';return 'Opponent TBC'},
+ nextFixtures(p,count=5){const current=Number(App.round||0);return this.allFixtures().filter(m=>this.fixtureRound(m)>=current&&this.teamMatchesFixture(p,m)).sort((a,b)=>this.fixtureRound(a)-this.fixtureRound(b)||this.fixtureTime(a)-this.fixtureTime(b)).slice(0,count)},
+ nextFive(p){const fixtures=this.nextFixtures(p,5);if(!fixtures.length)return {available:false,message:'No fixture data available',games:[],avg:0,avgExBye:0};const games=fixtures.map(m=>{const round=this.fixtureRound(m);const status=availabilityStatus(p,round);const score=this.project(p,round).expected;return {round,opponent:this.opponent(p,m),kickoff:m.kickoffLocal||m.kickoff||m.date||m.startTime||'',score,bye:this.statusKey(status)==='bye'}});const avg=Math.round(this.average(games.map(g=>g.score)));const nonBye=games.filter(g=>!g.bye);return {available:true,message:'',games,avg,avgExBye:nonBye.length?Math.round(this.average(nonBye.map(g=>g.score))):0}}
+};
+function projectionBoxHtml(p){const pr=ProjectionEngine.project(p),next=ProjectionEngine.nextFive(p);return `<div class="projection-box"><span>Projected <b>${pr.expected}</b></span><span>Last Game <b>${pr.lastGame||'-'}</b></span><span>Last 3 Ave <b>${pr.last3Avg||'-'}</b></span><span>Last 5 Ave <b>${pr.last5Avg||'-'}</b></span><span>Season Ave <b>${pr.seasonAvg||'-'}</b></span><span>Next 5 Avg <b>${next.available?next.avg:'-'}</b></span><span>Next 5 Ex Bye <b>${next.available?next.avgExBye:'-'}</b></span></div>`}
+function nextFiveProjectionPanelHtml(p){const next=ProjectionEngine.nextFive(p);if(!next.available)return `<div class="next5-panel"><h4>Next 5 projections</h4><div class="next5-panel-empty">${esc(next.message)}</div></div>`;return `<div class="next5-panel"><h4>Next 5 projections</h4>${next.games.map(g=>{const opponent=g.opponent&&g.opponent!=='Opponent TBC'?`v ${g.opponent}`:'Opponent TBC';return `<div class="next5-panel-row"><span>R${esc(g.round)}</span><span class="next5-panel-meta">${esc(opponent)}</span><b>${esc(g.score)}</b></div>`}).join('')}<div class="next5-panel-row"><span>Avg</span><span class="next5-panel-meta">Next 5 / excluding bye</span><b>${esc(next.avg)} / ${esc(next.avgExBye)}</b></div></div>`}
 function projectionCacheKey(p){if(!p||!p.name)return '';const values=[p.name,App.round,safeNum(p.avg||p.average||0),safeNum(p.last3Avg||0),safeNum(p.last5Avg||0),safeNum(p.proj||p.projected||p.expected||0),safeNum(p.expectedMinutes||p.minutes||0),String(p.injuryStatus||p.status||'').trim().toUpperCase(),safeNum(p.playProbability==null?100:p.playProbability),JSON.stringify(p.bye||p.byes||[])];values.push(JSON.stringify(wrGoalKickerInfo(p)));return values.join('|')}
 function proj(p){if(!p)return {floor:0,expected:0,ceiling:0,raw:0,goal:'No data'};const cacheKey=projectionCacheKey(p);if(cacheKey&&App.projectionCache.has(cacheKey))return App.projectionCache.get(cacheKey);let out=null;if(typeof window.calculateLevel3Projection==='function'){try{out=window.calculateLevel3Projection(p,{round:App.round,opponent:p.opponent||p.opp||p.vs,isFuture:true});if(!out||typeof out.expected!=='number'||typeof out.floor!=='number'||typeof out.ceiling!=='number'){throw new Error('Invalid engine projection result')}}catch(err){console.warn('Level 3 projection engine failed, falling back to inline projection',err);out=null}}if(!out){let base=safeNum(p.proj||p.avg||p.average||0);if(!base&&p.price)base=Math.round(p.price/9000);const recent=safeNum(p.last3Avg||p.last5Avg||0);if(recent)base=Math.round(base*.75+recent*.25);let goal='No GK boost';const gkInfo=wrGoalKickerInfo(p);if(gkInfo.boost){base+=wrNum(gkInfo.boost);goal=gkInfo.label||'GK boost'}else{goal=gkInfo.label||'No GK boost'}let role=safeNum(p.expectedMinutes||p.minutes||0);if(role&&role<45)base-=8;out={floor:Math.max(0,Math.round(base*.68)),expected:Math.max(0,Math.round(base)),ceiling:Math.max(0,Math.round(base*1.45)),raw:Math.round(base),goal}}if(cacheKey)App.projectionCache.set(cacheKey,out);return out}
 function roundProj(p){
+ if(!p)return {floor:0,expected:0,ceiling:0,raw:0};
+ if(typeof ProjectionEngine==='object')return ProjectionEngine.project(p,App.round);
  const pr=proj(p),st=availabilityStatus(p);
  if(!st.available)return {...pr,expected:0,floor:0,ceiling:0,reasons:[...(pr.reasons||[]),st.reason||'Unavailable']};
  if(pr&&String(pr.version||'').startsWith('projection-v'))return pr;
@@ -4273,6 +4298,7 @@ function formationSlot(slotId,gridArea){
     <span>${be?`BE ${be}`:''}</span>
     <span>${avg?`AVG ${Math.round(avg)}`:''}</span>
    </div>
+   ${projectionBoxHtml(p)}
    <span class="status-dot ${cls}" title="${esc(st.reason||st.label||'')}" aria-label="${esc(st.label||'status')}"></span>
    <div class="wr-card-footer"><span class="status-dot ${cls}" title="${esc(st.reason)}"></span><span>${esc(st.label)}</span><span>R${App.round}${opp?' · '+opp:''}</span></div>
   </div>
@@ -4300,6 +4326,7 @@ function formationReserveCard(p,idx=0,slotId=""){
    <div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(p.pos||"")}</b>  R${App.round}${opp?"  "+opp:""}</div>
   </div>
   <div class="formation-reserve-score">${pr.expected}</div>
+  ${projectionBoxHtml(p)}
   <span class="status-dot ${cls}" title="${esc(st.reason)}"></span>
  </div>`;
 }
@@ -4513,6 +4540,7 @@ async function openPlayerCard(name){
 
   const pr=roundProj(p);
   const st=availabilityStatus(p);
+  const nextFivePanel=nextFiveProjectionPanelHtml(p);
   const truth=statusTruthRecordFor(p)||{};
   const avg=safeNum(p.avg??p.average??p.seasonAvg);
   const last3=wrCardRecentAverage(p,3);
@@ -4601,6 +4629,7 @@ async function openPlayerCard(name){
           <summary style="cursor:pointer;font-weight:950">Status reason</summary>
           <div style="margin-top:8px">${reason}</div>
         </details>
+        ${nextFivePanel}
 
         <div style="display:flex;justify-content:center;gap:12px;margin-top:18px">
           ${tradeButton}
@@ -4628,11 +4657,11 @@ function focusPlayerInTeam(name){
   renderTeam();
 }
 function playerDetailHtml(p,subtitle,tradeCall){
- const pr=roundProj(p),st=availabilityStatus(p);
+ const pr=roundProj(p),st=availabilityStatus(p),next=ProjectionEngine.nextFive(p);
  const be=safeNum(p.breakeven??p.breakEven??p.BE??p.be);
  const avg=safeNum(p.avg??p.average??p.seasonAvg);
  const price=safeNum(p.price)?money(p.price):'-';
- return `<div class="player-detail-card"><div class="player-detail-head"><div><div class="player-detail-sub">${esc(subtitle)}</div><div class="player-detail-title">${esc(p.name)}</div></div><button type="button" onclick="cancelTeamAction()">Close</button></div><div class="small">${esc(p.team||'')} · ${esc(p.pos||'')} · ${esc(st.reason||st.label||'')}</div><div class="player-detail-grid"><div class="player-detail-stat"><span>Proj</span><b>${pr.expected}</b></div><div class="player-detail-stat"><span>Avg</span><b>${avg||'-'}</b></div><div class="player-detail-stat"><span>BE</span><b>${be||'-'}</b></div><div class="player-detail-stat"><span>Price</span><b style="font-size:16px">${price}</b></div><div class="player-detail-stat"><span>Status</span><b style="font-size:16px">${esc(st.label||'')}</b></div><div class="player-detail-stat"><span>Round</span><b>${App.round}</b></div></div><div class="player-detail-actions"><button type="button" onclick="${tradeCall}">Trade</button><button type="button" onclick="cancelTeamAction()">Cancel</button></div></div>`;
+ return `<div class="player-detail-card"><div class="player-detail-head"><div><div class="player-detail-sub">${esc(subtitle)}</div><div class="player-detail-title">${esc(p.name)}</div></div><button type="button" onclick="cancelTeamAction()">Close</button></div><div class="small">${esc(p.team||'')}  ${esc(p.pos||'')}  ${esc(st.reason||st.label||'')}</div><div class="player-detail-grid"><div class="player-detail-stat"><span>Projected</span><b>${pr.expected}</b></div><div class="player-detail-stat"><span>Last Game</span><b>${pr.lastGame||'-'}</b></div><div class="player-detail-stat"><span>Last 3 Ave</span><b>${pr.last3Avg||'-'}</b></div><div class="player-detail-stat"><span>Last 5 Ave</span><b>${pr.last5Avg||'-'}</b></div><div class="player-detail-stat"><span>Season Ave</span><b>${pr.seasonAvg||avg||'-'}</b></div><div class="player-detail-stat"><span>Next 5 Avg</span><b>${next.available?next.avg:'-'}</b></div><div class="player-detail-stat"><span>Next 5 Ex Bye</span><b>${next.available?next.avgExBye:'-'}</b></div><div class="player-detail-stat"><span>BE</span><b>${be||'-'}</b></div><div class="player-detail-stat"><span>Price</span><b style="font-size:16px">${price}</b></div><div class="player-detail-stat"><span>Status</span><b style="font-size:16px">${esc(st.label||'')}</b></div><div class="player-detail-stat"><span>Round</span><b>${App.round}</b></div></div>${nextFiveProjectionPanelHtml(p)}<div class="player-detail-actions"><button type="button" onclick="${tradeCall}">Trade</button><button type="button" onclick="cancelTeamAction()">Cancel</button></div></div>`;
 }
 function teamActionHtml(){
  if(App.teamActionMode==="emptyReserveTrade"){
@@ -5500,7 +5529,7 @@ availabilityStatus = function availabilityStatusV41(p,round=App.round){
 };
 
 roundProj = function roundProjV41(p){
-  const pr=wrOriginalRoundProjV41(p);
+  const pr=(typeof ProjectionEngine==='object')?ProjectionEngine.project(p,App.round):wrOriginalRoundProjV41(p);
   const st=availabilityStatus(p);
   if(!st?.available){
     const key=wrV41Key(st.key||st.label);
@@ -5509,6 +5538,7 @@ roundProj = function roundProjV41(p){
     else if(key.includes('suspended'))risk='Suspended';
     else if(key.includes('injur'))risk='Injured';
     else if(key.includes('not'))risk='Not named';
+    else if(key.includes('origin'))risk='Origin unavailable';
     return {...pr,expected:0,floor:0,ceiling:0,risk,confidence,projectionUnavailable:true,reasons:[...(pr?.reasons||[]),st.reason||st.label||'Unavailable']};
   }
   return pr;
