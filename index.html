@@ -2547,12 +2547,7 @@ function wrV42PhotoUrlFromRecord(rec){
   return rec.url||rec.photo||rec.image||rec.headshot||rec.src||rec.photoUrl||rec.imageUrl||rec.headshotUrl||'';
 }
 function wrV42DirectImageUrl(url){
-  let u=wrV42PhotoText(url).trim();
-  if(!u)return '';
-  u=u.replace(/&amp;/g,'&');
-  const m=u.match(/remote\.axd\?(https?:\/\/.+)$/i);
-  if(m&&m[1])u=m[1];
-  return u;
+  return wrV42PhotoText(url).trim().replace(/&amp;/g,'&');
 }
 function wrV42UsablePhotoUrl(url){
   const u=wrV42DirectImageUrl(url);
@@ -2623,12 +2618,7 @@ function wrV42PhotoUrlFromRecord(rec){
   return rec.url||rec.photo||rec.image||rec.headshot||rec.src||rec.photoUrl||rec.imageUrl||rec.headshotUrl||'';
 }
 function wrV42DirectImageUrl(url){
-  let u=wrV42PhotoText(url).trim();
-  if(!u)return '';
-  u=u.replace(/&amp;/g,'&');
-  const m=u.match(/remote\.axd\?(https?:\/\/.+)$/i);
-  if(m&&m[1])u=m[1];
-  return u;
+  return wrV42PhotoText(url).trim().replace(/&amp;/g,'&');
 }
 function wrV42UsablePhotoUrl(url){
   const u=wrV42DirectImageUrl(url);
@@ -5555,12 +5545,7 @@ function wrV42PhotoUrlFromRecord(rec){
   return rec.url||rec.photo||rec.image||rec.headshot||rec.src||rec.photoUrl||rec.imageUrl||rec.headshotUrl||'';
 }
 function wrV42DirectImageUrl(url){
-  let u=wrV42PhotoText(url).trim();
-  if(!u)return '';
-  u=u.replace(/&amp;/g,'&');
-  const m=u.match(/remote\.axd\?(https?:\/\/.+)$/i);
-  if(m&&m[1])u=m[1];
-  return u;
+  return wrV42PhotoText(url).trim().replace(/&amp;/g,'&');
 }
 function wrV42UsablePhotoUrl(url){
   const u=wrV42DirectImageUrl(url);
