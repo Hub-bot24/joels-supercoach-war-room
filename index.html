@@ -2522,8 +2522,158 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 <section id="trade" class="tab"></section>
 </div>
 <div id="toast" class="toast"></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="level3-projection-engine.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">/* =========================================================
+   V42: Final player photo resolver override
+   Generic only. No player-specific hard fixes.
+   ========================================================= */
+function wrV42PhotoText(v){return String(v==null?'':v)}
+function wrV42PhotoKey(v){
+  return wrV42PhotoText(v)
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g,'')
+    .replace(/[\u2018\u2019`\u00b4]/g,"'")
+    .replace(/&apos;|&#39;/g,"'")
+    .replace(/[^a-z0-9]+/g,' ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+function wrV42PhotoSlug(v){
+  return wrV42PhotoKey(v).replace(/\s+/g,'-').replace(/^-+|-+$/g,'');
+}
+function wrV42PhotoUrlFromRecord(rec){
+  if(!rec)return '';
+  if(typeof rec==='string')return rec;
+  return rec.url||rec.photo||rec.image||rec.headshot||rec.src||rec.photoUrl||rec.imageUrl||rec.headshotUrl||'';
+}
+function wrV42DirectImageUrl(url){
+  let u=wrV42PhotoText(url).trim();
+  if(!u)return '';
+  u=u.replace(/&amp;/g,'&');
+  const m=u.match(/remote\.axd\?(https?:\/\/.+)$/i);
+  if(m&&m[1])u=m[1];
+  return u;
+}
+function wrV42UsablePhotoUrl(url){
+  const u=wrV42DirectImageUrl(url);
+  if(!/^https?:\/\//i.test(u))return false;
+  if(/favicon|badge|icon|sponsor|partner|placeholder|default|crest|(^|[\/_.-])logo([\/_.-]|$)/i.test(u))return false;
+  return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?|\.png(\?|$)|\.jpg(\?|$)|\.jpeg(\?|$)|\.webp(\?|$)/i.test(u);
+}
+function wrV42FindPhotoRecord(p){
+  const photos=App.playerPhotos?.players||App.playerPhotos||{};
+  const names=[p?.name,p?.fullName,p?.playerName,p?.statsSourceName].filter(Boolean);
+
+  for(const n of names){
+    if(photos[n])return photos[n];
+  }
+
+  const wanted=new Set();
+  for(const n of names){
+    wanted.add(wrV42PhotoKey(n));
+    wanted.add(wrV42PhotoSlug(n));
+  }
+
+  for(const [key,rec] of Object.entries(photos||{})){
+    if(wanted.has(wrV42PhotoKey(key))||wanted.has(wrV42PhotoSlug(key)))return rec;
+  }
+
+  return null;
+}
+function wrV42FinalPlayerPhotoUrl(p){
+  if(!p)return '';
+
+  const rec=wrV42FindPhotoRecord(p);
+  const mapped=wrV42DirectImageUrl(wrV42PhotoUrlFromRecord(rec));
+  if(wrV42UsablePhotoUrl(mapped))return mapped;
+
+  for(const k of ['photo','photoUrl','image','imageUrl','headshot','headshotUrl','nrlPhoto','nrlPhotoUrl','playerPhoto']){
+    const u=wrV42DirectImageUrl(p?.[k]);
+    if(wrV42UsablePhotoUrl(u))return u;
+  }
+
+  return '';
+}
+
+playerPhotoUrl = wrV42FinalPlayerPhotoUrl;
+wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
+</script>
+<script src="level3-projection-engine.js">/* =========================================================
+   V42: Final player photo resolver override
+   Generic only. No player-specific hard fixes.
+   ========================================================= */
+function wrV42PhotoText(v){return String(v==null?'':v)}
+function wrV42PhotoKey(v){
+  return wrV42PhotoText(v)
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g,'')
+    .replace(/[\u2018\u2019`\u00b4]/g,"'")
+    .replace(/&apos;|&#39;/g,"'")
+    .replace(/[^a-z0-9]+/g,' ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+function wrV42PhotoSlug(v){
+  return wrV42PhotoKey(v).replace(/\s+/g,'-').replace(/^-+|-+$/g,'');
+}
+function wrV42PhotoUrlFromRecord(rec){
+  if(!rec)return '';
+  if(typeof rec==='string')return rec;
+  return rec.url||rec.photo||rec.image||rec.headshot||rec.src||rec.photoUrl||rec.imageUrl||rec.headshotUrl||'';
+}
+function wrV42DirectImageUrl(url){
+  let u=wrV42PhotoText(url).trim();
+  if(!u)return '';
+  u=u.replace(/&amp;/g,'&');
+  const m=u.match(/remote\.axd\?(https?:\/\/.+)$/i);
+  if(m&&m[1])u=m[1];
+  return u;
+}
+function wrV42UsablePhotoUrl(url){
+  const u=wrV42DirectImageUrl(url);
+  if(!/^https?:\/\//i.test(u))return false;
+  if(/favicon|badge|icon|sponsor|partner|placeholder|default|crest|(^|[\/_.-])logo([\/_.-]|$)/i.test(u))return false;
+  return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?|\.png(\?|$)|\.jpg(\?|$)|\.jpeg(\?|$)|\.webp(\?|$)/i.test(u);
+}
+function wrV42FindPhotoRecord(p){
+  const photos=App.playerPhotos?.players||App.playerPhotos||{};
+  const names=[p?.name,p?.fullName,p?.playerName,p?.statsSourceName].filter(Boolean);
+
+  for(const n of names){
+    if(photos[n])return photos[n];
+  }
+
+  const wanted=new Set();
+  for(const n of names){
+    wanted.add(wrV42PhotoKey(n));
+    wanted.add(wrV42PhotoSlug(n));
+  }
+
+  for(const [key,rec] of Object.entries(photos||{})){
+    if(wanted.has(wrV42PhotoKey(key))||wanted.has(wrV42PhotoSlug(key)))return rec;
+  }
+
+  return null;
+}
+function wrV42FinalPlayerPhotoUrl(p){
+  if(!p)return '';
+
+  const rec=wrV42FindPhotoRecord(p);
+  const mapped=wrV42DirectImageUrl(wrV42PhotoUrlFromRecord(rec));
+  if(wrV42UsablePhotoUrl(mapped))return mapped;
+
+  for(const k of ['photo','photoUrl','image','imageUrl','headshot','headshotUrl','nrlPhoto','nrlPhotoUrl','playerPhoto']){
+    const u=wrV42DirectImageUrl(p?.[k]);
+    if(wrV42UsablePhotoUrl(u))return u;
+  }
+
+  return '';
+}
+
+playerPhotoUrl = wrV42FinalPlayerPhotoUrl;
+wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
+</script>
 <script>
 'use strict';
 const App={players:[],playerMap:new Map(),playerNameMap:new Map(),ambiguousPlayerNameMap:new Map(),myTeam:[],weather:null,fixtures:null,goalKickers:null,goalKickerEvidence:null,teamRoles:null,availabilityOverrides:null,playerStatus:null,statusTruth:null,playerPhotos:null,playerPhotoLookup:null,
@@ -5380,6 +5530,81 @@ projectionRiskPill = function projectionRiskPillV41(pr){
   }
   return wrOriginalProjectionRiskPillV41(pr);
 };
+/* =========================================================
+   V42: Final player photo resolver override
+   Generic only. No player-specific hard fixes.
+   ========================================================= */
+function wrV42PhotoText(v){return String(v==null?'':v)}
+function wrV42PhotoKey(v){
+  return wrV42PhotoText(v)
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g,'')
+    .replace(/[\u2018\u2019`\u00b4]/g,"'")
+    .replace(/&apos;|&#39;/g,"'")
+    .replace(/[^a-z0-9]+/g,' ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+function wrV42PhotoSlug(v){
+  return wrV42PhotoKey(v).replace(/\s+/g,'-').replace(/^-+|-+$/g,'');
+}
+function wrV42PhotoUrlFromRecord(rec){
+  if(!rec)return '';
+  if(typeof rec==='string')return rec;
+  return rec.url||rec.photo||rec.image||rec.headshot||rec.src||rec.photoUrl||rec.imageUrl||rec.headshotUrl||'';
+}
+function wrV42DirectImageUrl(url){
+  let u=wrV42PhotoText(url).trim();
+  if(!u)return '';
+  u=u.replace(/&amp;/g,'&');
+  const m=u.match(/remote\.axd\?(https?:\/\/.+)$/i);
+  if(m&&m[1])u=m[1];
+  return u;
+}
+function wrV42UsablePhotoUrl(url){
+  const u=wrV42DirectImageUrl(url);
+  if(!/^https?:\/\//i.test(u))return false;
+  if(/favicon|badge|icon|sponsor|partner|placeholder|default|crest|(^|[\/_.-])logo([\/_.-]|$)/i.test(u))return false;
+  return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?|\.png(\?|$)|\.jpg(\?|$)|\.jpeg(\?|$)|\.webp(\?|$)/i.test(u);
+}
+function wrV42FindPhotoRecord(p){
+  const photos=App.playerPhotos?.players||App.playerPhotos||{};
+  const names=[p?.name,p?.fullName,p?.playerName,p?.statsSourceName].filter(Boolean);
+
+  for(const n of names){
+    if(photos[n])return photos[n];
+  }
+
+  const wanted=new Set();
+  for(const n of names){
+    wanted.add(wrV42PhotoKey(n));
+    wanted.add(wrV42PhotoSlug(n));
+  }
+
+  for(const [key,rec] of Object.entries(photos||{})){
+    if(wanted.has(wrV42PhotoKey(key))||wanted.has(wrV42PhotoSlug(key)))return rec;
+  }
+
+  return null;
+}
+function wrV42FinalPlayerPhotoUrl(p){
+  if(!p)return '';
+
+  const rec=wrV42FindPhotoRecord(p);
+  const mapped=wrV42DirectImageUrl(wrV42PhotoUrlFromRecord(rec));
+  if(wrV42UsablePhotoUrl(mapped))return mapped;
+
+  for(const k of ['photo','photoUrl','image','imageUrl','headshot','headshotUrl','nrlPhoto','nrlPhotoUrl','playerPhoto']){
+    const u=wrV42DirectImageUrl(p?.[k]);
+    if(wrV42UsablePhotoUrl(u))return u;
+  }
+
+  return '';
+}
+
+playerPhotoUrl = wrV42FinalPlayerPhotoUrl;
+wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
 </script>
 </body>
 </html>
