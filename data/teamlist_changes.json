@@ -1,39 +1,5 @@
 [
   {
-    "player": "Jayden Campbell",
-    "team": "GLD",
-    "from": "NAMED",
-    "to": "BYE",
-    "reason": "Bye round 18",
-    "detectedAt": "2026-06-28T16:13:14.018Z",
-    "sources": [
-      {
-        "type": "fixture",
-        "name": "players.json bye data",
-        "url": "players.json",
-        "updatedAt": "2026-06-28T16:13:14.018Z"
-      }
-    ],
-    "round": 18
-  },
-  {
-    "player": "Jayden Sullivan",
-    "team": "STH",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-06-28T16:13:14.018Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-28T16:13:14.018Z"
-      }
-    ],
-    "round": 18
-  },
-  {
     "player": "Jaylan De Groot",
     "team": "GLD",
     "from": "NAMED",
@@ -10075,6 +10041,42 @@
         "name": "Parsed current team-list source",
         "url": "data/teamlists.json",
         "updatedAt": "2026-06-30T06:14:53.004Z"
+      }
+    ],
+    "round": 18
+  },
+  {
+    "player": "Alex Johnston",
+    "team": "STH",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
+    "detectedAt": "2026-06-30T10:04:04.476Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+        "updatedAt": "2026-06-30T10:04:04.476Z",
+        "priority": 2,
+        "order": 5
+      }
+    ],
+    "round": 18
+  },
+  {
+    "player": "Kalani Going",
+    "team": "PEN",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-06-30T10:04:04.476Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-06-30T10:04:04.476Z"
       }
     ],
     "round": 18
