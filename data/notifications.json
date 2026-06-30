@@ -1,43 +1,6 @@
 {
-  "updated": "2026-06-30T10:04:04.476Z",
+  "updated": "2026-06-30T12:24:04.463Z",
   "round": 18,
-  "newChanges": [
-    {
-      "player": "Alex Johnston",
-      "team": "STH",
-      "from": "EXPECTED",
-      "to": "NAMED",
-      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
-      "detectedAt": "2026-06-30T10:04:04.476Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
-          "updatedAt": "2026-06-30T10:04:04.476Z",
-          "priority": 2,
-          "order": 5
-        }
-      ],
-      "round": 18
-    },
-    {
-      "player": "Kalani Going",
-      "team": "PEN",
-      "from": "NAMED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-06-30T10:04:04.476Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "data/teamlists.json",
-          "updatedAt": "2026-06-30T10:04:04.476Z"
-        }
-      ],
-      "round": 18
-    }
-  ],
+  "newChanges": [],
   "allChangeCount": 500
 }
