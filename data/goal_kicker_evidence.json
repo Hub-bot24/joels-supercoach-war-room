@@ -1,7 +1,7 @@
 {
   "season": 2026,
   "round": 18,
-  "updated": "2026-06-30T22:43:38.305Z",
+  "updated": "2026-06-30T23:53:30.525Z",
   "source": "generated from goal_kickers.json ladder plus current status/teamlists; no match-by-match goals source yet",
   "rule": "Select first named and available kicker from each team ladder. Recent goal-kicking evidence remains unknown until a goals/conversions source is added.",
   "teams": {
@@ -25,9 +25,9 @@
       ]
     },
     "CBR": {
-      "chosenKicker": null,
+      "chosenKicker": "Jamal Fogarty",
       "chosenRole": null,
-      "chosenConfidence": null,
+      "chosenConfidence": "medium",
       "ladder": [
         {
           "name": "Ethan Sanders",
@@ -39,7 +39,7 @@
           "name": "Jamal Fogarty",
           "role": null,
           "confidence": "medium",
-          "namedAvailable": false
+          "namedAvailable": true
         }
       ]
     },
@@ -63,21 +63,21 @@
       ]
     },
     "SHA": {
-      "chosenKicker": null,
+      "chosenKicker": "Nicho Hynes",
       "chosenRole": null,
-      "chosenConfidence": null,
+      "chosenConfidence": "high",
       "ladder": [
         {
           "name": "Nicho Hynes",
           "role": null,
           "confidence": "high",
-          "namedAvailable": false
+          "namedAvailable": true
         },
         {
           "name": "Braydon Trindall",
           "role": null,
           "confidence": "medium",
-          "namedAvailable": false
+          "namedAvailable": true
         }
       ]
     },
@@ -95,15 +95,15 @@
       ]
     },
     "MAN": {
-      "chosenKicker": null,
+      "chosenKicker": "Reuben Garrick",
       "chosenRole": null,
-      "chosenConfidence": null,
+      "chosenConfidence": "high",
       "ladder": [
         {
           "name": "Reuben Garrick",
           "role": null,
           "confidence": "high",
-          "namedAvailable": false
+          "namedAvailable": true
         }
       ]
     },
@@ -197,9 +197,9 @@
       ]
     },
     "PEN": {
-      "chosenKicker": null,
+      "chosenKicker": "Paul Alamoti",
       "chosenRole": null,
-      "chosenConfidence": null,
+      "chosenConfidence": "low",
       "ladder": [
         {
           "name": "Nathan Cleary",
@@ -211,14 +211,14 @@
           "name": "Paul Alamoti",
           "role": null,
           "confidence": "low",
-          "namedAvailable": false
+          "namedAvailable": true
         }
       ]
     },
     "STH": {
-      "chosenKicker": null,
+      "chosenKicker": "Latrell Siegwalt",
       "chosenRole": null,
-      "chosenConfidence": null,
+      "chosenConfidence": "medium",
       "ladder": [
         {
           "name": "Latrell Mitchell",
@@ -230,20 +230,20 @@
           "name": "Latrell Siegwalt",
           "role": null,
           "confidence": "medium",
-          "namedAvailable": false
+          "namedAvailable": true
         }
       ]
     },
     "SGI": {
-      "chosenKicker": null,
+      "chosenKicker": "Valentine Holmes",
       "chosenRole": null,
-      "chosenConfidence": null,
+      "chosenConfidence": "high",
       "ladder": [
         {
           "name": "Valentine Holmes",
           "role": null,
           "confidence": "high",
-          "namedAvailable": false
+          "namedAvailable": true
         },
         {
           "name": "Lachlan Ilias",
@@ -254,9 +254,9 @@
       ]
     },
     "SYD": {
-      "chosenKicker": null,
+      "chosenKicker": "Sandon Smith",
       "chosenRole": null,
-      "chosenConfidence": null,
+      "chosenConfidence": "medium",
       "ladder": [
         {
           "name": "Sam Walker",
@@ -268,33 +268,33 @@
           "name": "Sandon Smith",
           "role": null,
           "confidence": "medium",
-          "namedAvailable": false
+          "namedAvailable": true
         }
       ]
     },
     "DOL": {
-      "chosenKicker": null,
+      "chosenKicker": "Jamayne Isaako",
       "chosenRole": null,
-      "chosenConfidence": null,
+      "chosenConfidence": "high",
       "ladder": [
         {
           "name": "Jamayne Isaako",
           "role": null,
           "confidence": "high",
-          "namedAvailable": false
+          "namedAvailable": true
         }
       ]
     },
     "WST": {
-      "chosenKicker": null,
+      "chosenKicker": "Adam Doueihi",
       "chosenRole": null,
-      "chosenConfidence": null,
+      "chosenConfidence": "high",
       "ladder": [
         {
           "name": "Adam Doueihi",
           "role": null,
           "confidence": "high",
-          "namedAvailable": false
+          "namedAvailable": true
         }
       ]
     }
@@ -349,16 +349,16 @@
       "team": "CBR",
       "role": null,
       "confidence": "medium",
-      "namedAvailable": false,
-      "chosenKicker": false,
+      "namedAvailable": true,
+      "chosenKicker": true,
       "recentGoalKicksKnown": false,
       "seasonGoalKicksKnown": false,
       "recentGoals": null,
       "seasonGoals": null,
       "gamesWithRecentGoals": null,
-      "upliftMode": "not-current-kicker",
-      "recommendedUplift": 0,
-      "label": "No GK uplift"
+      "upliftMode": "role-only-no-goals-source",
+      "recommendedUplift": null,
+      "label": "GK role identified; goals evidence unavailable"
     },
     "Stephen Crichton": {
       "team": "CBY",
@@ -394,22 +394,22 @@
       "team": "SHA",
       "role": null,
       "confidence": "high",
-      "namedAvailable": false,
-      "chosenKicker": false,
+      "namedAvailable": true,
+      "chosenKicker": true,
       "recentGoalKicksKnown": false,
       "seasonGoalKicksKnown": false,
       "recentGoals": null,
       "seasonGoals": null,
       "gamesWithRecentGoals": null,
-      "upliftMode": "not-current-kicker",
-      "recommendedUplift": 0,
-      "label": "No GK uplift"
+      "upliftMode": "role-only-no-goals-source",
+      "recommendedUplift": null,
+      "label": "GK role identified; goals evidence unavailable"
     },
     "Braydon Trindall": {
       "team": "SHA",
       "role": null,
       "confidence": "medium",
-      "namedAvailable": false,
+      "namedAvailable": true,
       "chosenKicker": false,
       "recentGoalKicksKnown": false,
       "seasonGoalKicksKnown": false,
@@ -439,16 +439,16 @@
       "team": "MAN",
       "role": null,
       "confidence": "high",
-      "namedAvailable": false,
-      "chosenKicker": false,
+      "namedAvailable": true,
+      "chosenKicker": true,
       "recentGoalKicksKnown": false,
       "seasonGoalKicksKnown": false,
       "recentGoals": null,
       "seasonGoals": null,
       "gamesWithRecentGoals": null,
-      "upliftMode": "not-current-kicker",
-      "recommendedUplift": 0,
-      "label": "No GK uplift"
+      "upliftMode": "role-only-no-goals-source",
+      "recommendedUplift": null,
+      "label": "GK role identified; goals evidence unavailable"
     },
     "Nick Meaney": {
       "team": "MEL",
@@ -604,16 +604,16 @@
       "team": "PEN",
       "role": null,
       "confidence": "low",
-      "namedAvailable": false,
-      "chosenKicker": false,
+      "namedAvailable": true,
+      "chosenKicker": true,
       "recentGoalKicksKnown": false,
       "seasonGoalKicksKnown": false,
       "recentGoals": null,
       "seasonGoals": null,
       "gamesWithRecentGoals": null,
-      "upliftMode": "not-current-kicker",
-      "recommendedUplift": 0,
-      "label": "No GK uplift"
+      "upliftMode": "role-only-no-goals-source",
+      "recommendedUplift": null,
+      "label": "GK role identified; goals evidence unavailable"
     },
     "Latrell Mitchell": {
       "team": "STH",
@@ -634,31 +634,31 @@
       "team": "STH",
       "role": null,
       "confidence": "medium",
-      "namedAvailable": false,
-      "chosenKicker": false,
+      "namedAvailable": true,
+      "chosenKicker": true,
       "recentGoalKicksKnown": false,
       "seasonGoalKicksKnown": false,
       "recentGoals": null,
       "seasonGoals": null,
       "gamesWithRecentGoals": null,
-      "upliftMode": "not-current-kicker",
-      "recommendedUplift": 0,
-      "label": "No GK uplift"
+      "upliftMode": "role-only-no-goals-source",
+      "recommendedUplift": null,
+      "label": "GK role identified; goals evidence unavailable"
     },
     "Valentine Holmes": {
       "team": "SGI",
       "role": null,
       "confidence": "high",
-      "namedAvailable": false,
-      "chosenKicker": false,
+      "namedAvailable": true,
+      "chosenKicker": true,
       "recentGoalKicksKnown": false,
       "seasonGoalKicksKnown": false,
       "recentGoals": null,
       "seasonGoals": null,
       "gamesWithRecentGoals": null,
-      "upliftMode": "not-current-kicker",
-      "recommendedUplift": 0,
-      "label": "No GK uplift"
+      "upliftMode": "role-only-no-goals-source",
+      "recommendedUplift": null,
+      "label": "GK role identified; goals evidence unavailable"
     },
     "Lachlan Ilias": {
       "team": "SGI",
@@ -694,46 +694,46 @@
       "team": "SYD",
       "role": null,
       "confidence": "medium",
-      "namedAvailable": false,
-      "chosenKicker": false,
+      "namedAvailable": true,
+      "chosenKicker": true,
       "recentGoalKicksKnown": false,
       "seasonGoalKicksKnown": false,
       "recentGoals": null,
       "seasonGoals": null,
       "gamesWithRecentGoals": null,
-      "upliftMode": "not-current-kicker",
-      "recommendedUplift": 0,
-      "label": "No GK uplift"
+      "upliftMode": "role-only-no-goals-source",
+      "recommendedUplift": null,
+      "label": "GK role identified; goals evidence unavailable"
     },
     "Jamayne Isaako": {
       "team": "DOL",
       "role": null,
       "confidence": "high",
-      "namedAvailable": false,
-      "chosenKicker": false,
+      "namedAvailable": true,
+      "chosenKicker": true,
       "recentGoalKicksKnown": false,
       "seasonGoalKicksKnown": false,
       "recentGoals": null,
       "seasonGoals": null,
       "gamesWithRecentGoals": null,
-      "upliftMode": "not-current-kicker",
-      "recommendedUplift": 0,
-      "label": "No GK uplift"
+      "upliftMode": "role-only-no-goals-source",
+      "recommendedUplift": null,
+      "label": "GK role identified; goals evidence unavailable"
     },
     "Adam Doueihi": {
       "team": "WST",
       "role": null,
       "confidence": "high",
-      "namedAvailable": false,
-      "chosenKicker": false,
+      "namedAvailable": true,
+      "chosenKicker": true,
       "recentGoalKicksKnown": false,
       "seasonGoalKicksKnown": false,
       "recentGoals": null,
       "seasonGoals": null,
       "gamesWithRecentGoals": null,
-      "upliftMode": "not-current-kicker",
-      "recommendedUplift": 0,
-      "label": "No GK uplift"
+      "upliftMode": "role-only-no-goals-source",
+      "recommendedUplift": null,
+      "label": "GK role identified; goals evidence unavailable"
     }
   }
 }

@@ -1,22 +1,5 @@
 [
   {
-    "player": "Phillip Sami",
-    "team": "GLD",
-    "from": "NAMED",
-    "to": "BYE",
-    "reason": "Bye round 18",
-    "detectedAt": "2026-06-28T16:13:14.018Z",
-    "sources": [
-      {
-        "type": "fixture",
-        "name": "players.json bye data",
-        "url": "players.json",
-        "updatedAt": "2026-06-28T16:13:14.018Z"
-      }
-    ],
-    "round": 18
-  },
-  {
     "player": "Phoenix Crossland",
     "team": "NEW",
     "from": "NAMED",
@@ -10335,6 +10318,23 @@
         "name": "Current club team-list not confirmed",
         "url": "data/status_truth.json",
         "updatedAt": "2026-06-30T21:14:49.809Z"
+      }
+    ],
+    "round": 18
+  },
+  {
+    "player": "Kalani Going",
+    "team": "PEN",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-06-30T23:53:00.381Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-06-30T23:53:00.381Z"
       }
     ],
     "round": 18
