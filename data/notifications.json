@@ -1,6 +1,5022 @@
 {
-  "updated": "2026-06-30T01:50:16.456Z",
+  "updated": "2026-06-30T06:14:53.004Z",
   "round": 18,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Aaron Schoupp",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Adam Doueihi",
+      "team": "WST",
+      "from": "INJURED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).; injury note: Shoulder",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Alex Seyfarth",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 15).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Alex Twal",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).; injury note: Knee",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#parramatta-eels",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#penrith-panthers",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#perth-bears",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#png-chiefs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#south-sydney-rabbitohs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#st-george-illawarra-dragons",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#sydney-roosters",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#wests-tigers",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Antonio Verhoeven",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Apa Twidle",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Apisai Koroisau",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 8).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Araz Nanva",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Ashton Ward",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Asu Kepaoa",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Aublix Tawha",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Ben Hunt",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 7).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Ben Talty",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 15).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Ben Trbojevic",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 11).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Benjamin TeKura",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Billy Burns",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 10).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Billy Phillips",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Billy Scott",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Blaize Talagi",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Blake Lawrie",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Blake Mozer",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Brad Schneider",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Brandon Smith",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 8).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Brandon Wakeham",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Braydon Trindall",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Brendan Piakura",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 11).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Brian Kelly",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 2).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Brian Pouniu",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Brian To'o",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Brodie Jones",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Bunty Afoa",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Cameron Bukowski",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Cameron McInnes",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Christian Tuipulotu",
+      "team": "STG",
+      "from": "INJURED",
+      "to": "EXPECTED",
+      "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 22).; injury note: Hamstring",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Clayton Faulalo",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 2).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Clint Gutherson",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Cody Hopwood",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Cody Walker",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Connelly Lemuelu",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 10).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Connor Votano",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Corey Waddell",
+      "team": "MAN",
+      "from": "INJURED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 10).; injury note: Pectoral",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#parramatta-eels",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#penrith-panthers",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#perth-bears",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#png-chiefs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#south-sydney-rabbitohs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#st-george-illawarra-dragons",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#sydney-roosters",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#wests-tigers",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Cory Paix",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 9).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Cyrus Stanley-Traill",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Damien Cook",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 9).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Dane Gagai",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 3).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Daniel Atkinson",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "David Fifita",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 10).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Deine Mariner",
+      "team": "BRO",
+      "from": "INJURED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).; injury note: Thigh",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#parramatta-eels",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#penrith-panthers",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#perth-bears",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#png-chiefs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#south-sydney-rabbitohs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#st-george-illawarra-dragons",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#sydney-roosters",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#wests-tigers",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Delouise Hoeter",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Djazirhae Puaavase",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Dominic Young",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 2).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Dylan Brown",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 7).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Dylan Edwards",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Dylan Egan",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 11).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Dylan Lucas",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 11).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Dylan Walker",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Edward Kosi",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Emre Guler",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Ethan Bullemor",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 15).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Euan Aitken",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Felise Kaufusi",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 7).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Fletcher Hunt",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Fletcher Sharpe",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Fonua Pole",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 9).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Francis Molo",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 9).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Freddy Lussick",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 9).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Gehamat Shibasaki",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).; injury note: Knee",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#parramatta-eels",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#penrith-panthers",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#perth-bears",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#png-chiefs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#south-sydney-rabbitohs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#st-george-illawarra-dragons",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#sydney-roosters",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#wests-tigers",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Grant Anderson",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 2).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Greg Marzhew",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Hamish Stewart",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Harrison Edwards",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Harrison Graham",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Haumole Olakau'atu",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Hayze Perham",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Heamasi Makasini",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 2).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Herbie Farnworth",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 3).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Hohepa Puru",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Isaah Yeo",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Isaiah Iongi",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Isaiah Papali'i",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Izack Tago",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 3).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jack Cogger",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 7).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jack de Belin",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 13).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jack Gosiewski",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jack Wighton",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 3).; injury note: Arm",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#parramatta-eels",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#penrith-panthers",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#perth-bears",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#png-chiefs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#south-sydney-rabbitohs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#st-george-illawarra-dragons",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#sydney-roosters",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#wests-tigers",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jack Williams",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 10).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jackson Shereb",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jacob Liddle",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jacob Saifiti",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 8).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jahream Bula",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jaiyden Hunt",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jake Averillo",
+      "team": "DOL",
+      "from": "INJURED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 2).; injury note: Hand",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jake Simpkin",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 8).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jake Trbojevic",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jamal Fogarty",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jamayne Isaako",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "James Schiller",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jamie Humphreys",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jason Saab",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jayden Berrell",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 8).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jeral Skelton",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jeremy Marshall-King",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 8).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jermaine McEwen",
+      "team": "NEW",
+      "from": "INJURED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).; injury note: Stood down",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jesse Arthars",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jesse Colquhoun",
+      "team": "SHA",
+      "from": "INJURED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 9).; injury note: Head knock",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jesse McLean",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jesse Ramien",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 2).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jezaiah Funa-Iuta",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jmaine Hopgood",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jock Madden",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Joey Walsh",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "John Radel",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jonah Pezet",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 7).; injury note: Hamstring",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jordan Riki",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jordan Samrani",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 3).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Joseph ONeill",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Josh Addo-Carr",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Josh Feledy",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Josh Kerr",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Josiah Karapani",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jye Gray",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Kalani Going",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 15).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Kalyn Ponga",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Kayal Iro",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 3).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Keaon Koloamatangi",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 9).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Kelma Tuilagi",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 11).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Kitione Kautoga",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Kobe Hetherington",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 9).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Kodi Nikorima",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Kotoni Staggs",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 3).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Kulikefu Finefeuiaki",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 11).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Kurt Donoghoe",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Kyle Flanagan",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 7).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Lachlan Hubner",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Latrell Siegwalt",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 2).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Latu Fainu",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Lehi Hopoate",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Liam Henry",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 10).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Liam Ison",
+      "team": "SHA",
+      "from": "INJURED",
+      "to": "EXPECTED",
+      "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 21).; injury note: Knee",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#parramatta-eels",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#penrith-panthers",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#perth-bears",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#png-chiefs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#south-sydney-rabbitohs",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#st-george-illawarra-dragons",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#sydney-roosters",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#wests-tigers",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Liam Le Blanc",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 15).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Liam Martin",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Lindsay Smith",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 13).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Loko Pasifiki Tonga",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 8).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Lorenzo Talataina",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Luca Moretti",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 8).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Luciano Leilua",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 15).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Luke Brooks",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Luke Garner",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Luron Patea",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Mathew Feagai",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 3).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Matt Arthur",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Matt Croker",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 13).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Matthew Doorey",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Matthew Eisenhuth",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Matthew Hunter",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Mawene Hiroti",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Mitchell Kenny",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Mitchell Moses",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Morgan Knowles",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Moses Leota",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 8).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Nathan Brown",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Nathan Cleary",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Nathan Lawson",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Navren Willett",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Nicho Hynes",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).; injury note: Calf",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Nick Tsougranis",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Oregon Kaufusi",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Pasami Saulo",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Paul Alamoti",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Paul Bryan",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Payne Haas",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Peter Hola",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Phillip Coates",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Phoenix Crossland",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 9).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Preston Riki",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 10).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Ray Stone",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 15).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Reece Walsh",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Reuben Garrick",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 3).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Ronald Volkman",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Ronaldo Mulitalo",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Ryan Couchman",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 13).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Ryan Matterson",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Sam Tuivaiti",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 15).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Sandon Smith",
+      "team": "NEW",
+      "from": "INJURED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).; injury note: Calf",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Saxon Pryke",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Scott Sorensen",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 11).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Sean Russell",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Setu Tu",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 2).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Simione Laiafi",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Sione Fainu",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 11).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Sione Katoa",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Siosifa Talakai",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 15).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Siua Taukeiaho",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Starford To'a",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 3).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Sunia Turuva",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Tallyn Da Silva",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 9).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Taniela Paseka",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 7).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Teancum Brown",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Teig Wilton",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 11).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Terrell May",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 7).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Tevita Naufahu",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Tevita Tatola",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 7).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Thomas Cant",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Thomas Hazelton",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 7).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Thomas Jenkins",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 2).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Toby Couchman",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 10).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Tolutau Koula",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Tom Duffy",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Tallis Duncan",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 11).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Tom Gilbert",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Tom Trbojevic",
+      "team": "MAN",
+      "from": "INJURED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).; injury note: Hamstring",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        },
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/gut-wrenching-fears-manly-star-suffers-long-term-injury-in-dominant-win-235341/",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Tony Sukkar",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 10).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Trai Fuller",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Trey Mooney",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 10).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Tyrell Sloan",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Tyson Frizell",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 15).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Valentine Holmes",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Viliami Fifita",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "VJ Semu",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Wil Sullivan",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "William Kennedy",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "William Latu",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Wilson DeCourcey",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Xavier Willison",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 13).",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-06-30T06:14:53.004Z",
+          "priority": 2,
+          "order": 4
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Zach Dockar-Clay",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-06-30T06:14:53.004Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-06-30T06:14:53.004Z"
+        }
+      ],
+      "round": 18
+    }
+  ],
   "allChangeCount": 500
 }
