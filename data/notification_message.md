@@ -1,10 +1,154 @@
 # SuperCoach War Room status changes — Round 18
 
-Detected: 2026-06-30T10:04:04.476Z
+Detected: 2026-06-30T21:14:49.809Z
 
-- **Alex Johnston** (STH): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 6).
-  - Source: Zero Tackle
-- **Kalani Going** (PEN): NAMED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
+- **Aaron Schoupp** (MAN): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Adam Doueihi** (WST): NAMED → INJURED
+  - Shoulder
+  - Source: Existing player_status.json updater
+- **Alex Johnston** (STH): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Alex Seyfarth** (WST): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Alex Twal** (WST): NAMED → EXPECTED
+  - Knee
+  - Source: Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Antonio Verhoeven** (BRO): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Apa Twidle** (PAR): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Apisai Koroisau** (WST): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Araz Nanva** (PAR): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Ashton Ward** (STH): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Asu Kepaoa** (NEW): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Aublix Tawha** (BRO): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Ben Hunt** (BRO): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Ben Talty** (BRO): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Ben Trbojevic** (MAN): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Benjamin TeKura** (BRO): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Billy Burns** (SHA): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Billy Phillips** (PEN): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Billy Scott** (PEN): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Blaize Talagi** (PEN): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Blake Lawrie** (STG): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Blake Mozer** (BRO): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Brad Schneider** (DOL): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Brandon Smith** (STH): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Brandon Wakeham** (MAN): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Braydon Trindall** (SHA): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Brendan Piakura** (BRO): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Brian Kelly** (PAR): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Brian Pouniu** (DOL): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Brian To'o** (PEN): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Brodie Jones** (NEW): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Bunty Afoa** (WST): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Cameron Bukowski** (BRO): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Cameron McInnes** (SHA): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Christian Tuipulotu** (STG): EXPECTED → INJURED
+  - Hamstring
+  - Source: Existing player_status.json updater
+- **Clayton Faulalo** (MAN): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Clint Gutherson** (STG): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Cody Hopwood** (NEW): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Cody Walker** (STH): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Connelly Lemuelu** (DOL): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Connor Votano** (NEW): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Corey Waddell** (MAN): NAMED → INJURED
+  - Pectoral
+  - Source: Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Cory Paix** (BRO): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Cyrus Stanley-Traill** (STG): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Damien Cook** (STG): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Dane Gagai** (NEW): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Daniel Atkinson** (STG): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **David Fifita** (STH): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Deine Mariner** (BRO): NAMED → INJURED
+  - Thigh
+  - Source: Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Delouise Hoeter** (BRO): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
