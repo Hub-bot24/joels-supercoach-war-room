@@ -5082,7 +5082,82 @@ const ProjectionEngine={
  playerMinutes(p){return safeNum(p?.expectedMinutes??p?.projectedMinutes??p?.minutes??p?.avgMinutes??p?.minuteAvg??p?.mins)},
  playerDNA(p){const pos=this.playerPosition(p),avg=this.seasonAverage(p),scores=this.scores(p),mins=this.playerMinutes(p),gk=typeof wrGoalKickerInfo==='function'?wrGoalKickerInfo(p):null,reasons=[];let type='Unknown',scoringStyle='Unknown',repeatability='Unknown',baseReliability='Unknown',upsideType='Unknown';if(!pos&&!avg&&!scores.length)reasons.push('Insufficient player role and scoring data');if(['FRF','2RF','HOK'].includes(pos)){type=mins&&mins<50?'Minutes-dependent forward':'Work-rate forward';scoringStyle='Base / work-rate';repeatability=avg>=55?'High':'Medium';baseReliability=mins&&mins<45?'Medium':'High';upsideType='Minutes and workload'}else if(['HFB','5/8'].includes(pos)){type='Playmaker';scoringStyle='Role and attacking involvement';repeatability='Medium';baseReliability='Medium';upsideType='Attacking stats'}else if(pos==='CTW'){type='Outside back';scoringStyle='Try/assist dependent';repeatability='Low';baseReliability='Low';upsideType='Attacking ceiling'}else if(pos==='FLB'){type='Fullback';scoringStyle='High involvement attacker';repeatability='Medium';baseReliability='Medium';upsideType='Attacking ceiling'}if(gk?.isGk){type=type==='Unknown'?'Goal kicker':type;upsideType=upsideType==='Unknown'?'Goal kicking':'Goal kicking plus '+upsideType;reasons.push(gk.label||'Goal kicking data available')}if(type==='Unknown')reasons.push('Unable to infer player scoring type from available data');return {type,scoringStyle,repeatability,baseReliability,upsideType,reasons}},
  outlierProfile(p){const scores=this.scores(p),reasons=[];if(scores.length<5)return {high:[],low:[],ignored:[],capped:[],reasons:['Insufficient score history for outlier classification']};const avg=this.average(scores),spread=Math.max(...scores)-Math.min(...scores),high=scores.filter(s=>s>avg+Math.max(22,avg*.35)),low=scores.filter(s=>s<avg-Math.max(18,avg*.3)),ignored=[],capped=[];if(high.length){capped.push(...high);reasons.push('High score spikes support ceiling more than expected')}if(low.length){reasons.push('Low score outliers classified for floor and volatility')}if(spread>45)reasons.push('Wide scoring spread retained as volatility');return {high,low,ignored,capped,reasons}},
- volatilityProfile(p){const scores=this.scores(p).slice(-6),dna=this.playerDNA(p),reasons=[];if(scores.length<3)return {score:0,label:'Unknown',floorImpact:.68,ceilingImpact:1.42,confidenceImpact:0,reasons:['Insufficient recent scores for volatility']};const avg=this.average(scores)||1,spread=Math.max(...scores)-Math.min(...scores),ratio=spread/avg;let label='Low',floorImpact=.76,ceilingImpact=1.28,confidenceImpact=0;if(ratio>.8){label='High';floorImpact=.58;ceilingImpact=1.62;confidenceImpact=-2;reasons.push('High recent score spread')}else if(ratio>.45){label='Medium';floorImpact=.66;ceilingImpact=1.45;confidenceImpact=-1;reasons.push('Moderate recent score spread')}else reasons.push('Recent scores relatively stable');if(['Outside back','Fullback','Volatile attacker'].includes(dna.type)){floorImpact-=.04;ceilingImpact+=.08;confidenceImpact-=1;reasons.push('Attacking role widens range')}if(['Work-rate forward','Safe base scorer'].includes(dna.type)){floorImpact+=.05;ceilingImpact-=.04;reasons.push('Base scoring role narrows range')}return {score:Math.round(ratio*100),label,floorImpact,ceilingImpact,confidenceImpact,reasons}},
+ volatilityProfile(p){
+ const reasons=[];
+ let scores=this.scores(p).slice(-6).filter(n=>Number.isFinite(Number(n))&&Number(n)>0).map(Number);
+
+ const season=Number(this.seasonAverage(p)||p.avg||p.average||0);
+ const last3=Number(this.recentAverage(p,3)||p.last3Avg||p.l3||0);
+ const last5=Number(this.recentAverage(p,5)||p.last5Avg||p.l5||0);
+ const lastGame=Number(this.lastGame(p)||p.lastScore||p.last||0);
+
+ const fallback=[season,last3,last5,lastGame].filter(n=>Number.isFinite(n)&&n>0);
+
+ if(scores.length<3 && fallback.length>=3){
+  scores=fallback;
+  reasons.push('Volatility estimated from summary averages');
+ }
+
+ const dna=this.playerDNA(p);
+
+ if(scores.length<3){
+  return {
+   score:0,
+   label:'Unknown',
+   floorImpact:.68,
+   ceilingImpact:1.42,
+   confidenceImpact:0,
+   reasons:['Insufficient score data for volatility']
+  };
+ }
+
+ const avg=this.average(scores)||1;
+ const spread=Math.max(...scores)-Math.min(...scores);
+ const ratio=spread/avg;
+
+ let label='Low',floorImpact=.76,ceilingImpact=1.28,confidenceImpact=0;
+
+ if(ratio>.8){
+  label='High';
+  floorImpact=.58;
+  ceilingImpact=1.62;
+  confidenceImpact=-2;
+  reasons.push('High recent score spread');
+ }else if(ratio>.35){
+  label='Medium';
+  floorImpact=.66;
+  ceilingImpact=1.45;
+  confidenceImpact=-1;
+  reasons.push('Moderate recent score spread');
+ }else{
+  reasons.push('Recent scores relatively stable');
+ }
+
+ if(['Outside back','Fullback','Volatile attacker'].includes(dna.type)){
+  floorImpact-=.04;
+  ceilingImpact+=.08;
+  confidenceImpact-=1;
+  reasons.push('Attacking role widens range');
+ }
+
+ if(['Work-rate forward','Safe base scorer'].includes(dna.type)){
+  floorImpact+=.05;
+  ceilingImpact-=.04;
+  reasons.push('Base scoring role narrows range');
+ }
+
+ floorImpact=Math.max(.45,Math.min(.9,floorImpact));
+ ceilingImpact=Math.max(1.1,Math.min(1.8,ceilingImpact));
+
+ return {
+  score:Math.round(ratio*100),
+  label,
+  floorImpact,
+  ceilingImpact,
+  confidenceImpact,
+  reasons
+ };
+},
  trendState(p){const season=this.seasonAverage(p),last5=this.recentAverage(p,5),last3=this.recentAverage(p,3),last=this.lastGame(p),scores=this.scores(p),vol=this.volatilityProfile(p),mins=this.playerMinutes(p),reasons=[];let state='Insufficient Data',confidenceImpact=-1,weights={season:.35,last5:.25,last3:.28,lastGame:.12};if(scores.length>=3||season){state='Stable';confidenceImpact=0;reasons.push('Balanced season and recent form weights used')}if(season&&last5&&last3&&last5>season*1.12&&last3>season*1.12){state='Improving';weights={season:.22,last5:.34,last3:.32,lastGame:.12};reasons.push('Recent averages materially above season average')}if(season&&last5&&last3&&last5<season*.88&&last3<season*.88){state='Declining';weights={season:.2,last5:.34,last3:.34,lastGame:.12};confidenceImpact=-1;reasons.push('Recent averages materially below season average')}if(season&&last5&&last3&&last5<season*.75&&last3<season*.75){state='Form Crash';weights={season:.14,last5:.36,last3:.38,lastGame:.12};confidenceImpact=-2;reasons.push('Recent form crash detected')}if(vol.label==='High'){state=state==='Stable'?'Volatile':state;confidenceImpact-=1;reasons.push('Volatility reduces trend confidence')}if(mins&&mins<45&&['FRF','2RF','HOK'].includes(this.playerPosition(p))){state='Role Changed';confidenceImpact-=1;reasons.push('Recent/minutes expectation suggests role change')}if(!season&&!last5&&!last3&&!last){reasons.push('Insufficient current scoring data')}return {state,confidenceImpact,weights,reasons}},
  baseProjection(p,reasons=[]){const trend=this.trendState(p),out=this.outlierProfile(p),season=this.seasonAverage(p),last5=this.recentAverage(p,5),last3=this.recentAverage(p,3),last=this.lastGame(p),listed=safeNum(p?.proj??p?.projected??p?.expected),seeds=[];const add=(v,w)=>{if(v)seeds.push([v,w])};add(season,trend.weights.season);add(last5,trend.weights.last5);add(last3,trend.weights.last3);add(last,trend.weights.lastGame);if(!seeds.length&&listed){seeds.push([listed,1]);reasons.push('Listed projection fallback used')}if(!seeds.length&&p?.price){seeds.push([Math.round(safeNum(p.price)/9000),1]);reasons.push('Price-derived fallback used')}if(!seeds.length)return {base:0,adjustedBase:0,weightsUsed:trend.weights};const w=seeds.reduce((s,x)=>s+x[1],0)||1,base=Math.round(seeds.reduce((s,x)=>s+x[0]*x[1],0)/w);let adjustedBase=base;if(out.high.length)adjustedBase=Math.round(adjustedBase*.98);if(out.low.length&&trend.state==='Injury Affected')adjustedBase=Math.round(adjustedBase*1.02);return {base,adjustedBase,weightsUsed:trend.weights}},
  roleModifier(p,reasons=[]){const minutes=this.playerMinutes(p);if(!minutes)return 0;if(minutes<35){reasons.push('Low minutes expectation');return -10}if(minutes<50){reasons.push('Reduced minutes expectation');return -5}if(minutes>=75){reasons.push('High minutes expectation');return 3}return 0},
