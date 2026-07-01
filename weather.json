@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T18:03:47.483583+00:00",
+  "updated": "2026-07-01T20:50:08.190760+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -239,7 +239,7 @@
           "phase": "pre_game",
           "temperature_2m": 14.7,
           "precipitation_probability": 98,
-          "precipitation_mm": 0.4,
+          "precipitation_mm": 0.2,
           "wind_speed_10m": 29.2,
           "wind_gusts_10m": 62.3
         },
@@ -248,7 +248,7 @@
           "phase": "halftime_period",
           "temperature_2m": 14.6,
           "precipitation_probability": 100,
-          "precipitation_mm": 0.5,
+          "precipitation_mm": 0.4,
           "wind_speed_10m": 27.2,
           "wind_gusts_10m": 61.2
         }
@@ -257,7 +257,7 @@
         "label": "High",
         "score": 75,
         "maxRainProbability": 100.0,
-        "totalGameRainMm": 0.9,
+        "totalGameRainMm": 0.6,
         "maxWindKmh": 29.2,
         "maxGustKmh": 62.3,
         "avgTemp": 14.6,
@@ -374,6 +374,78 @@
         "maxWindKmh": 5.2,
         "maxGustKmh": 14.4,
         "avgTemp": 13.7,
+        "phaseRisk": {
+          "pre_game": {
+            "avgScore": 0,
+            "maxScore": 0
+          },
+          "first_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          },
+          "second_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          }
+        },
+        "reasons": [],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 19,
+      "match": "Roosters v Eels",
+      "homeTeam": "SYD",
+      "awayTeam": "PAR",
+      "venue": "Allianz Stadium",
+      "kickoffLocal": "2026-07-11T19:30:00",
+      "city": "Sydney",
+      "lat": -33.889,
+      "lon": 151.225,
+      "timezone": "Australia/Sydney",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-07-11T19:00:00",
+        "to": "2026-07-11T21:20:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-07-11T19:00",
+          "phase": "pre_game",
+          "temperature_2m": 13.0,
+          "precipitation_probability": 19,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 2.3,
+          "wind_gusts_10m": 14.0
+        },
+        {
+          "time": "2026-07-11T20:00",
+          "phase": "first_half",
+          "temperature_2m": 11.8,
+          "precipitation_probability": 20,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 0.5,
+          "wind_gusts_10m": 12.2
+        },
+        {
+          "time": "2026-07-11T21:00",
+          "phase": "second_half",
+          "temperature_2m": 10.8,
+          "precipitation_probability": 21,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 1.2,
+          "wind_gusts_10m": 10.8
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 0,
+        "maxRainProbability": 21.0,
+        "totalGameRainMm": 0.0,
+        "maxWindKmh": 2.3,
+        "maxGustKmh": 14.0,
+        "avgTemp": 11.9,
         "phaseRisk": {
           "pre_game": {
             "avgScore": 0,
