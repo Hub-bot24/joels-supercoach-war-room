@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T15:47:18.452269+00:00",
+  "updated": "2026-07-01T18:03:47.483583+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -318,6 +318,78 @@
         "reasons": [
           "Venue missing from venues.json"
         ]
+      }
+    },
+    {
+      "round": 19,
+      "match": "Bulldogs v Raiders",
+      "homeTeam": "CAN",
+      "awayTeam": "CBR",
+      "venue": "Accor Stadium",
+      "kickoffLocal": "2026-07-11T17:30:00",
+      "city": "Sydney",
+      "lat": -33.8472,
+      "lon": 151.0634,
+      "timezone": "Australia/Sydney",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-07-11T17:00:00",
+        "to": "2026-07-11T19:20:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-07-11T17:00",
+          "phase": "pre_game",
+          "temperature_2m": 14.8,
+          "precipitation_probability": 17,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 5.2,
+          "wind_gusts_10m": 14.4
+        },
+        {
+          "time": "2026-07-11T18:00",
+          "phase": "first_half",
+          "temperature_2m": 13.8,
+          "precipitation_probability": 18,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 3.1,
+          "wind_gusts_10m": 14.0
+        },
+        {
+          "time": "2026-07-11T19:00",
+          "phase": "second_half",
+          "temperature_2m": 12.5,
+          "precipitation_probability": 18,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 1.0,
+          "wind_gusts_10m": 13.3
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 0,
+        "maxRainProbability": 18.0,
+        "totalGameRainMm": 0.0,
+        "maxWindKmh": 5.2,
+        "maxGustKmh": 14.4,
+        "avgTemp": 13.7,
+        "phaseRisk": {
+          "pre_game": {
+            "avgScore": 0,
+            "maxScore": 0
+          },
+          "first_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          },
+          "second_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          }
+        },
+        "reasons": [],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
       }
     }
   ]
