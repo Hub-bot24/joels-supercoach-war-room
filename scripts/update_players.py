@@ -4,6 +4,8 @@ from __future__ import annotations
 import json
 import re
 from io import StringIO
+from html import unescape
+from urllib.parse import unquote
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -202,6 +204,77 @@ def parse_rows_from_table(df: pd.DataFrame) -> list[dict[str, Any]]:
             rows.append(parsed)
 
     return rows
+
+def html_to_text(value: Any) -> str:
+    text = unescape(str(value or ""))
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = text.replace("\xa0", " ")
+    text = text.replace("&nbsp", " ")
+    return clean_name(text)
+
+def parse_rows_from_html(html: str) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    seen: set[str] = set()
+
+    # The TeamPricesAndBEs page is malformed as a table, but player profile links are stable:
+    # ./index.php?player=Walsh%2C%20Reece followed shortly by a price/BE cell.
+    player_link_re = re.compile(
+        r'<a\s+[^>]*href=["\'][^"\']*index\.php\?player=([^"\']+)["\'][^>]*>.*?</a>(?P<tail>.{0,700})',
+        re.I | re.S
+    )
+
+    for m in player_link_re.finditer(html):
+        raw_name = unquote(unescape(m.group(1)))
+        name = name_from_source(raw_name)
+        key = norm_name(name)
+
+        if not key or key in seen:
+            continue
+
+        tail_text = html_to_text(m.group("tail"))
+        price, be = parse_price_be_text(tail_text)
+
+        parsed = {
+            "name": name,
+            "norm": key,
+        }
+
+        if price is not None:
+            parsed["price"] = price
+        if be is not None:
+            parsed["breakeven"] = be
+
+        # Only keep real price/BE rows, not menu/profile links.
+        if "price" in parsed or "breakeven" in parsed:
+            rows.append(parsed)
+            seen.add(key)
+
+    return rows
+
+def fetch_source_rows() -> list[dict[str, Any]]:
+    headers = {"User-Agent": "JoelSuperCoachWarRoom/2.0 personal-use updater"}
+    all_rows: list[dict[str, Any]] = []
+
+    for url in SOURCE_URLS:
+        print(f"Fetching {url}")
+        res = requests.get(url, headers=headers, timeout=30)
+        res.raise_for_status()
+
+        html_rows = parse_rows_from_html(res.text)
+        print(f"Parsed {len(html_rows)} direct HTML player rows from {url}")
+        all_rows.extend(html_rows)
+
+        if len(html_rows) >= 10:
+            continue
+
+        tables = pd.read_html(StringIO(res.text))
+        print(f"Found {len(tables)} tables from {url}")
+        for table in tables:
+            parsed = parse_rows_from_table(table)
+            if parsed:
+                all_rows.extend(parsed)
+
+    return all_rows
 def load_players() -> dict[str, Any]:
     if PLAYERS_JSON.exists():
         return json.loads(PLAYERS_JSON.read_text(encoding="utf-8"))
@@ -288,13 +361,7 @@ def merge_players(existing: dict[str, Any], source_rows: list[dict[str, Any]]) -
 
 def main() -> None:
     existing = load_players()
-    tables = fetch_tables()
-
-    rows: list[dict[str, Any]] = []
-    for table in tables:
-        parsed = parse_rows_from_table(table)
-        if len(parsed) >= 10:
-            rows.extend(parsed)
+    rows = fetch_source_rows()
 
     if not rows:
         raise RuntimeError("No usable player rows found. Public table format may have changed.")
@@ -306,6 +373,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
