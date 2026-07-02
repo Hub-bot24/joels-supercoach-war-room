@@ -149,46 +149,70 @@ def fetch_html(url):
 
 def parse_dpp_from_html(html, source_url):
     """
-    NRL SuperCoach Stats dualposngrid is a position grid, not a normal player table.
-    It lists a DPP position heading (FRF, 2RF, CTW, FLB, etc.) followed by player names.
-    The player's existing/base position comes from players.json; this parser supplies the
-    second live DPP position and the merger combines them.
+    Robust parser for the NRL SuperCoach Stats dual-position grid.
+
+    The page is not a normal table. It is flattened HTML/text:
+    - position headings appear as lines: FRF, 2RF, HFB, 5/8, CTW, FLB
+    - player names under that heading are the players who have that extra DPP slot
+    - the player's existing/base position comes from players.json
+    - final DPP is existing/base position merged with this grid position
     """
     out = {}
     current_pos = None
     started = False
 
     for line in html_lines(html):
-        upper = line.upper().strip()
+        raw = line.strip()
+        upper = raw.upper().strip()
 
-        if "HOK FRF 2RF HFB 5/8 CTW" in upper:
-            started = True
+        if not raw:
             continue
 
-        if not started:
-            continue
-
-        if upper in {"DASHBOARDS", "PLAYERTABLES", "DRAW", "POSN-V-TEAM", "PROFILES", "PIVOT CHARTS", "DRAFT RANK"}:
+        # Stop once we leave the DPP block and hit the footer/nav lists.
+        if started and upper in {"DASHBOARDS", "PLAYERTABLES", "DRAW", "POSN-V-TEAM", "PROFILES", "PIVOT CHARTS", "DRAFT RANK"}:
             break
 
+        # Start at the first exact position heading in the page.
+        # This avoids relying on the "HOK FRF 2RF HFB 5/8 CTW" header being on one line.
         if upper in VALID:
+            started = True
             current_pos = upper
             continue
 
-        if not current_pos:
+        if not started or not current_pos:
             continue
 
-        # Lines are generally "Surname, Firstname"; support more than one name on a line.
-        for match in re.finditer(r"\b([A-Za-z][A-Za-z'’.-]+(?:\s+[A-Za-z][A-Za-z'’.-]+)*),\s*([A-Za-z][A-Za-z'’.-]+(?:\s+[A-Za-z][A-Za-z'’.-]+)*)\b", line):
-            name = display_name_from_source(match.group(0))
-            key = norm_name(name)
-            if not key:
-                continue
-            rec = out.setdefault(name, {"positions": [], "source": source_url})
-            if current_pos not in rec["positions"]:
-                rec["positions"].append(current_pos)
+        if "," not in raw:
+            continue
+
+        # One player per visible line on the DPP grid.
+        # Keep this intentionally broad because names include apostrophes, hyphens,
+        # lower-case particles such as deBelin, and multiple first names.
+        name = display_name_from_source(raw)
+
+        # Reject obvious non-player junk.
+        if not name or len(name) > 60:
+            continue
+        if any(bad in name.lower() for bad in ["http", "dual", "position", "dashboard", "player table"]):
+            continue
+
+        key = norm_name(name)
+        if not key:
+            continue
+
+        existing_name = None
+        for saved_name in out:
+            if norm_name(saved_name) == key:
+                existing_name = saved_name
+                break
+
+        rec_name = existing_name or name
+        rec = out.setdefault(rec_name, {"positions": [], "source": source_url})
+        if current_pos not in rec["positions"]:
+            rec["positions"].append(current_pos)
 
     return out
+
 
 def fetch_dpp_positions():
     dpp = {}
