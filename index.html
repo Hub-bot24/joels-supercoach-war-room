@@ -3859,15 +3859,33 @@ function pickPositionOverride(p){
  }
  return null;
 }
+function addPositionsUnique(out,val){
+ const list=normalisePosList(val);
+ for(const pos of list){
+  if(pos&&!out.includes(pos))out.push(pos);
+ }
+ return out;
+}
+function generatedPositionExtras(p){
+ if(!p)return [];
+ const table=App.dualPositions?.players||{};
+ const names=[p.name,p.sourceName,p.statsSourceName].filter(Boolean);
+ const keys=names.map(canonicalPlayerNameKey).filter(Boolean);
+ for(const n of names){
+  if(Object.prototype.hasOwnProperty.call(table,n))return table[n];
+ }
+ const found=Object.keys(table).find(k=>keys.includes(canonicalPlayerNameKey(k)));
+ return found?table[found]:[];
+}
 function positions(p){
  if(!p)return [];
- let ps=normalisePosList(pickPositionOverride(p));
- if(ps.length)return ps;
- for(const key of ['positions','eligiblePositions','dualPositions','positionList','eligible','pos','position','primaryPosition']){
-  ps=normalisePosList(p[key]);
-  if(ps.length)return ps;
+ const out=[];
+ for(const key of ['positions','eligiblePositions','positionList','eligible','pos','position','primaryPosition']){
+  addPositionsUnique(out,p[key]);
  }
- return [];
+ addPositionsUnique(out,pickPositionOverride(p));
+ addPositionsUnique(out,generatedPositionExtras(p));
+ return out;
 }
 function positionText(p,fallback=''){const ps=positions(p);return ps.length?ps.join('/'):String(fallback||p?.pos||p?.position||'')}
 function eligible(p,slot){if(!p||!slot)return false;if(slot.accept.includes('ANY'))return true;const ps=positions(p);return slot.accept.some(a=>ps.includes(POS_ALIAS[a]||a))}
@@ -4141,11 +4159,44 @@ function safeLocalGet(key,fallback){
   return fallback;
  }
 }
-
+function extractPositionPlayersMap(data){
+ if(!data||typeof data!=='object')return {};
+ if(data.players&&typeof data.players==='object')return data.players;
+ if(data.position_overrides&&typeof data.position_overrides==='object')return data.position_overrides;
+ if(data.overrides&&typeof data.overrides==='object')return data.overrides;
+ return data;
+}
+function mergePositionPlayers(target,data){
+ const map=extractPositionPlayersMap(data);
+ for(const [name,pos] of Object.entries(map)){
+  const key=canonicalPlayerNameKey(name);
+  if(!key)continue;
+  if(!target[key])target[key]=[];
+  addPositionsUnique(target[key],pos);
+ }
+ return target;
+}
+async function loadDualPositionsCore(){
+ const sources=[
+  'data/dual_positions.json',
+  'dual_positions.json',
+  'data/position_master.json',
+  'position_master.json',
+  'data/position_overrides.json',
+  'position_overrides.json'
+ ];
+ const merged={};
+ for(const src of sources){
+  const data=await fetchJson(src,null);
+  if(data)mergePositionPlayers(merged,data);
+ }
+ App.dualPositions={players:merged};
+ console.log('[positions] loaded',Object.keys(App.dualPositions?.players||{}).length,'players');
+}
 async function boot(){
  const rawPlayers=await fetchJson('players.json',[]);let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));buildPlayerNameMap();
  // Browser reads the generated /data contract first; scripts/update-status.mjs owns generation so known contract files are valid JSON, not missing files.
- App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.goalKickerEvidence=await fetchJsonFirst(['data/goal_kicker_evidence.json','goal_kicker_evidence.json'],{players:{},teams:{}});App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);App.playerStatus=await fetchJson('player_status.json',{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],null);App.currentRoundMeta=await fetchJsonFirst(['data/current_round.json','current_round.json'],null);App.playerPhotos=await fetchJson('player_photos.json',{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],null);App.opponentDifficulty=await fetchJson('data/opponent_difficulty.json',{});App.dualPositions=await fetchJsonFirst(['data/position_overrides.json','position_overrides.json','data/dual_positions.json','dual_positions.json'],{players:{}});syncCurrentRound();
+ App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.goalKickerEvidence=await fetchJsonFirst(['data/goal_kicker_evidence.json','goal_kicker_evidence.json'],{players:{},teams:{}});App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);App.playerStatus=await fetchJson('player_status.json',{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],null);App.currentRoundMeta=await fetchJsonFirst(['data/current_round.json','current_round.json'],null);App.playerPhotos=await fetchJson('player_photos.json',{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],null);App.opponentDifficulty=await fetchJson('data/opponent_difficulty.json',{});await loadDualPositionsCore();syncCurrentRound();
  const localTeam=safeJsonParse(safeLocalGet('sc_myTeam','null'),null);const teamJson=await fetchJson('my_team.json',null);let names=Array.isArray(localTeam)&&localTeam.length?localTeam:(teamJson?.players||teamJson?.team||[]);if(!Array.isArray(names))names=[];
  names = names.map(x => typeof x === 'string' ? x.trim() : (x?.name || x?.player || '')).filter(Boolean);
  const resolvedNames = names.map(n=>resolvePlayerName(n)).filter(Boolean);
