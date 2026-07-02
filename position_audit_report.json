@@ -1,7 +1,7 @@
 {
-  "updated": "2026-07-02T02:45:57.719447+00:00",
+  "updated": "2026-07-02T03:04:04.359931+00:00",
   "total_players_seen": 587,
-  "positions_from_import": 545,
+  "positions_from_import": 548,
   "positions_from_dpp_source": 107,
   "manual_overrides_applied": 10,
   "missing_positions": [
@@ -10,7 +10,6 @@
     "Cody Walker",
     "Matt Dufty",
     "Cameron Munster",
-    "Fletcher Sharpe",
     "Ethan Strange",
     "Daly Cherry-Evans",
     "Jake Clifford",
@@ -40,9 +39,7 @@
     "Sean OSullivan",
     "Loko PasifikiTonga",
     "Sua Faalogo",
-    "Jack deBelin",
     "Tallyn DaSilva",
-    "Isaiah Papalii",
     "Nicholas Hynes",
     "Jaylan deGroot",
     "TeMaire Martin",
@@ -1197,77 +1194,8 @@
       "source": "https://www.nrlsupercoachstats.com/dualposngrid.php?year=2026"
     }
   ],
-  "conflicts_fixed_by_dpp_source": [
-    {
-      "player": "Jayden Brailey",
-      "imported": [
-        "HOK"
-      ],
-      "dpp_grid": [
-        "2RF"
-      ],
-      "final": [
-        "HOK",
-        "2RF"
-      ],
-      "source": "https://www.nrlsupercoachstats.com/dualposngrid.php?year=2026"
-    },
-    {
-      "player": "Ben Hunt",
-      "imported": [
-        "HOK"
-      ],
-      "dpp_grid": [
-        "HFB"
-      ],
-      "final": [
-        "HOK",
-        "HFB"
-      ],
-      "source": "https://www.nrlsupercoachstats.com/dualposngrid.php?year=2026"
-    },
-    {
-      "player": "Joe Chan",
-      "imported": [
-        "2RF"
-      ],
-      "dpp_grid": [
-        "CTW"
-      ],
-      "final": [
-        "2RF",
-        "CTW"
-      ],
-      "source": "https://www.nrlsupercoachstats.com/dualposngrid.php?year=2026"
-    },
-    {
-      "player": "Tallis Duncan",
-      "imported": [
-        "2RF"
-      ],
-      "dpp_grid": [
-        "CTW"
-      ],
-      "final": [
-        "2RF",
-        "CTW"
-      ],
-      "source": "https://www.nrlsupercoachstats.com/dualposngrid.php?year=2026"
-    },
-    {
-      "player": "Clayton Faulalo",
-      "imported": [
-        "CTW"
-      ],
-      "dpp_grid": [
-        "FLB"
-      ],
-      "final": [
-        "CTW",
-        "FLB"
-      ],
-      "source": "https://www.nrlsupercoachstats.com/dualposngrid.php?year=2026"
-    }
-  ],
-  "conflicts_fixed_by_override": []
+  "conflicts_fixed_by_dpp_source": [],
+  "conflicts_fixed_by_override": [],
+  "base_position_safety_repairs": [],
+  "base_position_safety_repair_count": 0
 }
