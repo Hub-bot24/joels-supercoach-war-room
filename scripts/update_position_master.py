@@ -29,7 +29,6 @@ VALID = {"HOK", "FRF", "2RF", "HFB", "5/8", "CTW", "FLB"}
 
 DPP_SOURCE_URLS = [
     "https://www.nrlsupercoachstats.com/dualposngrid.php?year=2026",
-    "https://www.nrlsupercoachstats.com/dualposition.php?year=2026",
 ]
 
 def load_json(path, default):
@@ -49,6 +48,19 @@ def extract_players(data):
     if isinstance(data, dict) and isinstance(data.get("players"), list):
         return data["players"]
     return []
+
+def html_lines(value):
+    text = unescape(str(value or ""))
+    text = re.sub(r"(?i)</(td|th|tr|table|div|p|li|h1|h2|h3)>", "\n", text)
+    text = re.sub(r"(?i)<br\s*/?>", "\n", text)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = text.replace("\xa0", " ").replace("&nbsp", " ")
+    lines = []
+    for line in text.splitlines():
+        line = re.sub(r"\s+", " ", line).strip()
+        if line:
+            lines.append(line)
+    return lines
 
 def clean_text(value):
     text = unescape(str(value or ""))
@@ -92,13 +104,13 @@ def pos_list(value):
             out.append(x)
     return out
 
-def positions_from_text(text):
-    text = clean_text(text).upper()
-    found = []
-    for pos in ["HOK", "FRF", "2RF", "HFB", "5/8", "CTW", "FLB"]:
-        if re.search(rf"(^|[^A-Z0-9/]){re.escape(pos)}([^A-Z0-9/]|$)", text):
-            found.append(pos)
-    return found
+def merge_positions(*groups):
+    out = []
+    for group in groups:
+        for pos in pos_list(group):
+            if pos not in out:
+                out.append(pos)
+    return out
 
 def player_name(p):
     return p.get("name") or p.get("player") or p.get("playerName") or p.get("fullName")
@@ -136,37 +148,45 @@ def fetch_html(url):
         return res.read().decode("utf-8", errors="replace")
 
 def parse_dpp_from_html(html, source_url):
+    """
+    NRL SuperCoach Stats dualposngrid is a position grid, not a normal player table.
+    It lists a DPP position heading (FRF, 2RF, CTW, FLB, etc.) followed by player names.
+    The player's existing/base position comes from players.json; this parser supplies the
+    second live DPP position and the merger combines them.
+    """
     out = {}
-    seen = set()
+    current_pos = None
+    started = False
 
-    link_re = re.compile(
-        r'<a\s+[^>]*href=["\'][^"\']*index\.php\?player=([^"\']+)["\'][^>]*>.*?</a>',
-        re.I | re.S,
-    )
+    for line in html_lines(html):
+        upper = line.upper().strip()
 
-    for m in link_re.finditer(html):
-        raw_name = unquote(unescape(m.group(1)))
-        name = display_name_from_source(raw_name)
-        key = norm_name(name)
-
-        if not key or key in seen:
+        if "HOK FRF 2RF HFB 5/8 CTW" in upper:
+            started = True
             continue
 
-        start = html.rfind("<tr", 0, m.start())
-        end = html.find("</tr>", m.end())
-        if start != -1 and end != -1 and end > m.start():
-            chunk = html[start:end]
-        else:
-            chunk = html[m.start():m.end() + 900]
+        if not started:
+            continue
 
-        positions = positions_from_text(chunk)
+        if upper in {"DASHBOARDS", "PLAYERTABLES", "DRAW", "POSN-V-TEAM", "PROFILES", "PIVOT CHARTS", "DRAFT RANK"}:
+            break
 
-        if len(positions) >= 2:
-            out[name] = {
-                "positions": positions,
-                "source": source_url,
-            }
-            seen.add(key)
+        if upper in VALID:
+            current_pos = upper
+            continue
+
+        if not current_pos:
+            continue
+
+        # Lines are generally "Surname, Firstname"; support more than one name on a line.
+        for match in re.finditer(r"\b([A-Za-z][A-Za-z'’.-]+(?:\s+[A-Za-z][A-Za-z'’.-]+)*),\s*([A-Za-z][A-Za-z'’.-]+(?:\s+[A-Za-z][A-Za-z'’.-]+)*)\b", line):
+            name = display_name_from_source(match.group(0))
+            key = norm_name(name)
+            if not key:
+                continue
+            rec = out.setdefault(name, {"positions": [], "source": source_url})
+            if current_pos not in rec["positions"]:
+                rec["positions"].append(current_pos)
 
     return out
 
@@ -235,7 +255,7 @@ def main():
 
     for n, (source_name, dpp_pos, source_url) in dpp_by_norm.items():
         existing_name = None
-        existing_pos = None
+        existing_pos = []
 
         for m_name, m_pos in master.items():
             if norm_name(m_name) == n:
@@ -244,25 +264,32 @@ def main():
                 break
 
         final_name = existing_name or source_name
+        final_pos = merge_positions(existing_pos, dpp_pos)
 
-        if existing_pos and set(existing_pos) != set(dpp_pos):
+        # If the grid only gives one position and no player record exists, keep it out of master.
+        if not final_pos:
+            continue
+
+        if existing_pos and set(existing_pos) != set(final_pos):
             report["conflicts_fixed_by_dpp_source"].append({
                 "player": final_name,
                 "imported": existing_pos,
-                "dpp": dpp_pos,
+                "dpp_grid": dpp_pos,
+                "final": final_pos,
                 "source": source_url,
             })
 
-        master[final_name] = dpp_pos
+        master[final_name] = final_pos
         report["positions_from_dpp_source"] += 1
         report["dpp_applied"].append({
             "player": final_name,
-            "positions": dpp_pos,
+            "positions": final_pos,
+            "dpp_grid_positions": dpp_pos,
             "source": source_url,
         })
 
         if n in players:
-            apply_positions_to_player_record(players[n], dpp_pos)
+            apply_positions_to_player_record(players[n], final_pos)
 
     for name, pos_raw in overrides.items():
         trusted = pos_list(pos_raw)
@@ -296,14 +323,14 @@ def main():
 
     master_out = {
         "updated": datetime.now(timezone.utc).isoformat(),
-        "source": "players.json + live DPP source + protected position_overrides.json",
-        "rule": "Live DPP source wins over imported single-position data. Protected manual overrides win only as exceptions.",
+        "source": "players.json + live DPP grid source + protected position_overrides.json",
+        "rule": "Live DPP grid positions are merged with imported base positions. Protected manual overrides win only as exceptions.",
         "players": master,
     }
 
     dual_out = {
         "updated": datetime.now(timezone.utc).isoformat(),
-        "source": "generated from position_master.json with live DPP source",
+        "source": "generated from position_master.json with live DPP grid source",
         "players": master,
     }
 
