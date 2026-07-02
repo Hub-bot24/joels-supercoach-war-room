@@ -1,4 +1,4 @@
-
+﻿
 from __future__ import annotations
 
 import json
@@ -21,6 +21,36 @@ def clean_name(value: Any) -> str:
     text = str(value or "").strip()
     text = re.sub(r"\s+", " ", text)
     return text
+
+VALID_POSITIONS = {"HOK", "FRF", "2RF", "HFB", "5/8", "CTW", "FLB"}
+
+def normalise_positions(value: Any) -> list[str]:
+    if value is None:
+        return []
+    parts: list[str] = []
+    if isinstance(value, list):
+        raw_values = value
+    else:
+        raw_values = [value]
+
+    for raw in raw_values:
+        for part in str(raw).upper().replace(",", "/").replace("|", "/").split("/"):
+            pos = part.strip()
+            if pos in VALID_POSITIONS and pos not in parts:
+                parts.append(pos)
+    return parts
+
+def apply_position_fields(player: dict[str, Any], raw_pos: Any) -> None:
+    positions = normalise_positions(raw_pos)
+    if not positions:
+        return
+    joined = "/".join(positions)
+    player["pos"] = joined
+    player["position"] = joined
+    player["positions"] = positions
+    player["eligiblePositions"] = positions
+    player["dualPositions"] = positions
+    player["positionFixed"] = False
 
 def norm_name(value: Any) -> str:
     text = clean_name(value).lower()
@@ -130,9 +160,12 @@ def merge_players(existing: dict[str, Any], source_rows: list[dict[str, Any]]) -
 
         if key in by_name:
             p = by_name[key]
-            for field in ["price", "breakeven", "avg", "threeRoundAvg", "pos", "team"]:
+            for field in ["price", "breakeven", "avg", "threeRoundAvg", "team"]:
                 if src.get(field) not in (None, "", "NAN"):
                     p[field] = src[field]
+
+            if src.get("pos") not in (None, "", "NAN"):
+                apply_position_fields(p, src.get("pos"))
 
             if p.get("breakeven") is not None:
                 p["breakevenStatus"] = "updated"
@@ -168,6 +201,7 @@ def merge_players(existing: dict[str, Any], source_rows: list[dict[str, Any]]) -
                 "dataSource": "nrlsupercoachstats-public",
                 "lastDataUpdate": datetime.now(timezone.utc).isoformat(),
             }
+            apply_position_fields(new_player, src.get("pos"))
             players.append(new_player)
             by_name[key] = new_player
             added += 1
@@ -211,3 +245,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
