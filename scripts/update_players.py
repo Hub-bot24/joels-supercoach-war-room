@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import re
+from io import StringIO
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -90,7 +91,7 @@ def fetch_tables() -> list[pd.DataFrame]:
         print(f"Fetching {url}")
         res = requests.get(url, headers=headers, timeout=30)
         res.raise_for_status()
-        tables = pd.read_html(res.text)
+        tables = pd.read_html(StringIO(res.text))
         print(f"Found {len(tables)} tables from {url}")
         all_tables.extend(tables)
 
@@ -245,4 +246,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
