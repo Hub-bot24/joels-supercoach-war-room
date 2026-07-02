@@ -1,60 +1,6 @@
 {
-  "updated": "2026-07-02T11:56:44.025Z",
+  "updated": "2026-07-02T14:19:25.067Z",
   "round": 18,
-  "newChanges": [
-    {
-      "player": "Luke Garner",
-      "team": "PEN",
-      "from": "NAMED",
-      "to": "EXPECTED",
-      "reason": "Named in team-list article extended squad only (Official NRL, jersey 24).",
-      "detectedAt": "2026-07-02T11:56:44.025Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/07/02/nrl-late-mail-round-18-faulalo-on-track-wighton-returns",
-          "updatedAt": "2026-07-02T11:56:44.025Z",
-          "priority": 3,
-          "order": 2
-        }
-      ],
-      "round": 18
-    },
-    {
-      "player": "Peter Mamouzelos",
-      "team": "STH",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-07-02T11:56:44.025Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "data/teamlists.json",
-          "updatedAt": "2026-07-02T11:56:44.025Z"
-        }
-      ],
-      "round": 18
-    },
-    {
-      "player": "Thomas Fletcher",
-      "team": "STH",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-07-02T11:56:44.025Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "data/teamlists.json",
-          "updatedAt": "2026-07-02T11:56:44.025Z"
-        }
-      ],
-      "round": 18
-    }
-  ],
+  "newChanges": [],
   "allChangeCount": 500
 }
