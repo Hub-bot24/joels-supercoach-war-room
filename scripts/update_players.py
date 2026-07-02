@@ -97,6 +97,34 @@ def fetch_tables() -> list[pd.DataFrame]:
 
     return all_tables
 
+def name_from_source(value: Any) -> str:
+    text = clean_name(value)
+    if "," in text:
+        last, first = [clean_name(x) for x in text.split(",", 1)]
+        if first and last:
+            return f"{first} {last}"
+    return text
+
+def parse_price_be_text(value: Any) -> tuple[int | None, float | int | None]:
+    text = str(value or "")
+    price = None
+    be = None
+
+    money = re.search(r"\$[\d,]+", text)
+    if money:
+        price = to_money(money.group(0))
+
+    nums = re.findall(r"-?\d+(?:\.\d+)?", text.replace(",", ""))
+    if nums:
+        # In TeamPricesAndBEs.php cells, the first number is usually the price
+        # and the final number is the BE.
+        if len(nums) >= 2:
+            be = to_number(nums[-1])
+        elif price is None:
+            be = to_number(nums[0])
+
+    return price, be
+
 def parse_rows_from_table(df: pd.DataFrame) -> list[dict[str, Any]]:
     df = df.copy()
     df.columns = [str(c).strip() for c in df.columns]
@@ -110,38 +138,78 @@ def parse_rows_from_table(df: pd.DataFrame) -> list[dict[str, Any]]:
     avg_col = find_col(cols, ["avg", "average"])
     three_ra_col = find_col(cols, ["3ra", "3 ra", "3 round", "3-round"])
 
-    if not name_col:
-        return []
-
     rows = []
+
+    # Format A: normal data table with useful column names.
+    if name_col:
+        for _, row in df.iterrows():
+            name = name_from_source(row.get(name_col))
+            if not name or name.lower() in {"nan", "player", "players"}:
+                continue
+
+            parsed = {
+                "name": name,
+                "norm": norm_name(name),
+            }
+
+            if price_col:
+                parsed["price"] = to_money(row.get(price_col))
+            if be_col:
+                parsed["breakeven"] = to_number(row.get(be_col))
+            if team_col:
+                parsed["team"] = clean_name(row.get(team_col)).upper()
+            if pos_col:
+                parsed["pos"] = clean_name(row.get(pos_col)).upper()
+            if avg_col:
+                parsed["avg"] = to_number(row.get(avg_col))
+            if three_ra_col:
+                parsed["threeRoundAvg"] = to_number(row.get(three_ra_col))
+
+            if parsed["norm"]:
+                rows.append(parsed)
+
+        return rows
+
+    # Format B: NRL SuperCoach Stats team table.
+    # Typical row: "Walsh, Reece" | blank | "$533,800   86"
     for _, row in df.iterrows():
-        name = clean_name(row.get(name_col))
-        if not name or name.lower() in {"nan", "player", "players"}:
+        values = [row.get(c) for c in cols]
+        clean_values = [clean_name(v) for v in values]
+
+        name = ""
+        for v in clean_values:
+            if not v or v.lower() == "nan":
+                continue
+            if "$" in v:
+                continue
+            if re.search(r"[A-Za-z]+,\s*[A-Za-z]", v):
+                name = name_from_source(v)
+                break
+
+        if not name:
             continue
+
+        price = None
+        be = None
+        for v in clean_values:
+            if "$" in v:
+                price, be = parse_price_be_text(v)
+                break
 
         parsed = {
             "name": name,
             "norm": norm_name(name),
         }
 
-        if price_col:
-            parsed["price"] = to_money(row.get(price_col))
-        if be_col:
-            parsed["breakeven"] = to_number(row.get(be_col))
-        if team_col:
-            parsed["team"] = clean_name(row.get(team_col)).upper()
-        if pos_col:
-            parsed["pos"] = clean_name(row.get(pos_col)).upper()
-        if avg_col:
-            parsed["avg"] = to_number(row.get(avg_col))
-        if three_ra_col:
-            parsed["threeRoundAvg"] = to_number(row.get(three_ra_col))
+        if price is not None:
+            parsed["price"] = price
+        if be is not None:
+            parsed["breakeven"] = be
 
         if parsed["norm"]:
             rows.append(parsed)
 
     return rows
-
 def load_players() -> dict[str, Any]:
     if PLAYERS_JSON.exists():
         return json.loads(PLAYERS_JSON.read_text(encoding="utf-8"))
@@ -246,5 +314,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
