@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-02T15:22:11.854549+00:00",
+  "updated": "2026-07-02T17:57:11.013049+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -520,6 +520,67 @@
           }
         },
         "reasons": [],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 19,
+      "match": "Sea Eagles v Cowboys",
+      "homeTeam": "MAN",
+      "awayTeam": "NQC",
+      "venue": "4 Pines Park",
+      "kickoffLocal": "2026-07-12T16:05:00",
+      "city": "Brookvale",
+      "lat": -33.76,
+      "lon": 151.269,
+      "timezone": "Australia/Sydney",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-07-12T15:35:00",
+        "to": "2026-07-12T17:55:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-07-12T16:00",
+          "phase": "pre_game",
+          "temperature_2m": 14.3,
+          "precipitation_probability": 18,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 13.0,
+          "wind_gusts_10m": 40.7
+        },
+        {
+          "time": "2026-07-12T17:00",
+          "phase": "halftime_period",
+          "temperature_2m": 13.9,
+          "precipitation_probability": 19,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 13.0,
+          "wind_gusts_10m": 40.7
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 15,
+        "maxRainProbability": 19.0,
+        "totalGameRainMm": 0.0,
+        "maxWindKmh": 13.0,
+        "maxGustKmh": 40.7,
+        "avgTemp": 14.1,
+        "phaseRisk": {
+          "pre_game": {
+            "avgScore": 15,
+            "maxScore": 15
+          },
+          "halftime_period": {
+            "avgScore": 15,
+            "maxScore": 15
+          }
+        },
+        "reasons": [
+          "moderate wind/gusts"
+        ],
         "captainImpact": "Low weather risk over game window. Normal captain logic applies."
       }
     }
