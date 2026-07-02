@@ -1,4 +1,4 @@
-﻿name: Update SuperCoach Positions
+name: Update SuperCoach Positions
 
 on:
   workflow_dispatch:
@@ -29,4 +29,3 @@ jobs:
         with:
           commit_message: Update SuperCoach position master and dual positions
           file_pattern: players.json position_master.json dual_positions.json position_audit_report.json
-
