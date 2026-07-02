@@ -1,13 +1,7 @@
 # SuperCoach War Room status changes — Round 18
 
-Detected: 2026-07-02T11:56:44.025Z
+Detected: 2026-07-02T21:12:02.051Z
 
-- **Luke Garner** (PEN): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Official NRL, jersey 24).
-  - Source: Official NRL
-- **Peter Mamouzelos** (STH): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Thomas Fletcher** (STH): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
+- **Blayke Brailey** (SHA): INJURED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 3).; injury note: Arm
+  - Source: Zero Tackle, Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
