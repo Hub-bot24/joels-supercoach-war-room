@@ -176,25 +176,17 @@ def parse_rows_from_table(df: pd.DataFrame) -> list[dict[str, Any]]:
         values = [row.get(c) for c in cols]
         clean_values = [clean_name(v) for v in values]
 
+        row_text = " ".join(v for v in clean_values if v and v.lower() != "nan")
+
         name = ""
-        for v in clean_values:
-            if not v or v.lower() == "nan":
-                continue
-            if "$" in v:
-                continue
-            if re.search(r"[A-Za-z]+,\s*[A-Za-z]", v):
-                name = name_from_source(v)
-                break
+        name_match = re.search(r"\b([A-Za-z][A-Za-z'’.-]+(?:\s+[A-Za-z][A-Za-z'’.-]+)*),\s*([A-Za-z][A-Za-z'’.-]+(?:\s+[A-Za-z][A-Za-z'’.-]+)*)\b", row_text)
+        if name_match:
+            name = name_from_source(name_match.group(0))
 
         if not name:
             continue
 
-        price = None
-        be = None
-        for v in clean_values:
-            if "$" in v:
-                price, be = parse_price_be_text(v)
-                break
+        price, be = parse_price_be_text(row_text)
 
         parsed = {
             "name": name,
@@ -314,6 +306,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
