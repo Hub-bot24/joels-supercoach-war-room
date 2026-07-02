@@ -343,6 +343,50 @@ def main():
         if n in players:
             apply_positions_to_player_record(players[n], trusted)
 
+    # 4. Core safety net:
+    # Every player in players.json must remain selectable in at least their base position.
+    # Live DPP can add positions, but no DPP/import/override path may remove a player
+    # from position_master.json or dual_positions.json.
+    safety_repaired = []
+
+    for n, p in players.items():
+        name = player_name(p)
+        if not name:
+            continue
+
+        base_pos = player_positions(p)
+        if not base_pos:
+            continue
+
+        existing_name = None
+        existing_pos = []
+
+        for m_name, m_pos in master.items():
+            if norm_name(m_name) == n:
+                existing_name = m_name
+                existing_pos = m_pos
+                break
+
+        final_name = existing_name or name
+        final_pos = merge_positions(base_pos, existing_pos)
+
+        if not existing_name or set(final_pos) != set(existing_pos):
+            safety_repaired.append({
+                "player": final_name,
+                "base": base_pos,
+                "before": existing_pos,
+                "after": final_pos,
+            })
+
+        if existing_name and existing_name != final_name:
+            del master[existing_name]
+
+        master[final_name] = final_pos
+        apply_positions_to_player_record(p, final_pos)
+
+    report["base_position_safety_repairs"] = safety_repaired
+    report["base_position_safety_repair_count"] = len(safety_repaired)
+
     master = dict(sorted(master.items(), key=lambda kv: kv[0].lower()))
 
     master_out = {
