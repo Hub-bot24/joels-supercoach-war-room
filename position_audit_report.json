@@ -1,7 +1,8 @@
 {
-  "updated": "2026-07-02T02:17:07.506226+00:00",
+  "updated": "2026-07-02T02:22:26.263902+00:00",
   "total_players_seen": 587,
   "positions_from_import": 545,
+  "positions_from_dpp_source": 0,
   "manual_overrides_applied": 10,
   "missing_positions": [
     "Luke Brooks",
@@ -47,5 +48,11 @@
     "TeMaire Martin",
     "Josese Lanyon"
   ],
+  "dpp_source_counts": {
+    "https://www.nrlsupercoachstats.com/dualposngrid.php?year=2026": 0,
+    "https://www.nrlsupercoachstats.com/dualposition.php?year=2026": 0
+  },
+  "dpp_applied": [],
+  "conflicts_fixed_by_dpp_source": [],
   "conflicts_fixed_by_override": []
 }
