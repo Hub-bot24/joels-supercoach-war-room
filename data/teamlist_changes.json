@@ -1,56 +1,5 @@
 [
   {
-    "player": "Sione Katoa",
-    "team": "SHA",
-    "from": "BYE",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-06-28T16:13:14.018Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-28T16:13:14.018Z"
-      }
-    ],
-    "round": 18
-  },
-  {
-    "player": "Siosifa Talakai",
-    "team": "SHA",
-    "from": "BYE",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-06-28T16:13:14.018Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-28T16:13:14.018Z"
-      }
-    ],
-    "round": 18
-  },
-  {
-    "player": "Sitili Tupouniua",
-    "team": "CAN",
-    "from": "EXPECTED",
-    "to": "BYE",
-    "reason": "Bye round 18",
-    "detectedAt": "2026-06-28T16:13:14.018Z",
-    "sources": [
-      {
-        "type": "fixture",
-        "name": "players.json bye data",
-        "url": "players.json",
-        "updatedAt": "2026-06-28T16:13:14.018Z"
-      }
-    ],
-    "round": 18
-  },
-  {
     "player": "Siua Wong",
     "team": "SYD",
     "from": "NAMED",
@@ -10679,6 +10628,59 @@
         "updatedAt": "2026-07-02T06:02:06.203Z",
         "priority": 3,
         "order": 2
+      }
+    ],
+    "round": 18
+  },
+  {
+    "player": "Luke Garner",
+    "team": "PEN",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in team-list article extended squad only (Official NRL, jersey 24).",
+    "detectedAt": "2026-07-02T11:56:44.025Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/02/nrl-late-mail-round-18-faulalo-on-track-wighton-returns",
+        "updatedAt": "2026-07-02T11:56:44.025Z",
+        "priority": 3,
+        "order": 2
+      }
+    ],
+    "round": 18
+  },
+  {
+    "player": "Peter Mamouzelos",
+    "team": "STH",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-02T11:56:44.025Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-07-02T11:56:44.025Z"
+      }
+    ],
+    "round": 18
+  },
+  {
+    "player": "Thomas Fletcher",
+    "team": "STH",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-02T11:56:44.025Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-07-02T11:56:44.025Z"
       }
     ],
     "round": 18
