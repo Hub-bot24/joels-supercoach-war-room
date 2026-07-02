@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-02T17:57:11.013049+00:00",
+  "updated": "2026-07-02T19:44:30.888611+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -582,6 +582,81 @@
           "moderate wind/gusts"
         ],
         "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 19,
+      "match": "Storm v Titans",
+      "homeTeam": "MEL",
+      "awayTeam": "GLD",
+      "venue": "AAMI Park",
+      "kickoffLocal": "2026-07-12T18:15:00",
+      "city": "Melbourne",
+      "lat": -37.824,
+      "lon": 144.9834,
+      "timezone": "Australia/Melbourne",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-07-12T17:45:00",
+        "to": "2026-07-12T20:05:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-07-12T18:00",
+          "phase": "pre_game",
+          "temperature_2m": 10.3,
+          "precipitation_probability": 43,
+          "precipitation_mm": 0.2,
+          "wind_speed_10m": 26.5,
+          "wind_gusts_10m": 70.6
+        },
+        {
+          "time": "2026-07-12T19:00",
+          "phase": "halftime_period",
+          "temperature_2m": 10.3,
+          "precipitation_probability": 43,
+          "precipitation_mm": 0.2,
+          "wind_speed_10m": 26.9,
+          "wind_gusts_10m": 68.4
+        },
+        {
+          "time": "2026-07-12T20:00",
+          "phase": "final_20_or_late",
+          "temperature_2m": 10.3,
+          "precipitation_probability": 43,
+          "precipitation_mm": 0.2,
+          "wind_speed_10m": 26.6,
+          "wind_gusts_10m": 65.9
+        }
+      ],
+      "weatherRisk": {
+        "label": "Medium",
+        "score": 55,
+        "maxRainProbability": 43.0,
+        "totalGameRainMm": 0.6,
+        "maxWindKmh": 26.9,
+        "maxGustKmh": 70.6,
+        "avgTemp": 10.3,
+        "phaseRisk": {
+          "pre_game": {
+            "avgScore": 55,
+            "maxScore": 55
+          },
+          "halftime_period": {
+            "avgScore": 55,
+            "maxScore": 55
+          },
+          "final_20_or_late": {
+            "avgScore": 55,
+            "maxScore": 55
+          }
+        },
+        "reasons": [
+          "moderate rain",
+          "strong wind/gusts"
+        ],
+        "captainImpact": "Moderate weather risk over game window. Be careful with backs as C/VC unless chasing POD upside."
       }
     }
   ]
