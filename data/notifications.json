@@ -1,58 +1,141 @@
 {
-  "updated": "2026-07-03T08:36:41.845Z",
+  "updated": "2026-07-03T11:17:30.178Z",
   "round": 18,
   "newChanges": [
     {
-      "player": "Hame Sele",
-      "team": "STG",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-07-03T08:36:41.845Z",
+      "player": "Alex Johnston",
+      "team": "STH",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-03T11:17:30.178Z",
       "sources": [
         {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "data/teamlists.json",
-          "updatedAt": "2026-07-03T08:36:41.845Z"
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-03T11:17:30.178Z"
         }
       ],
       "round": 18
     },
     {
-      "player": "Heath Mason",
-      "team": "WST",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-07-03T08:36:41.845Z",
+      "player": "Bayleigh Bentley-Hape",
+      "team": "STH",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-03T11:17:30.178Z",
       "sources": [
         {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/07/02/nrl-late-mail-round-18-faulalo-on-track-wighton-returns",
-          "updatedAt": "2026-07-03T08:36:41.845Z",
-          "priority": 3,
-          "order": 2
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-03T11:17:30.178Z"
         }
       ],
       "round": 18
     },
     {
-      "player": "Mavrik Geyer",
-      "team": "WST",
+      "player": "Bronson Garlick",
+      "team": "STH",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-03T11:17:30.178Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-03T11:17:30.178Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Cameron Murray",
+      "team": "STH",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-03T11:17:30.178Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-03T11:17:30.178Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jack Cole",
+      "team": "PEN",
       "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-07-03T08:36:41.845Z",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-07-03T11:17:30.178Z",
       "sources": [
         {
           "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/07/02/nrl-late-mail-round-18-faulalo-on-track-wighton-returns",
-          "updatedAt": "2026-07-03T08:36:41.845Z",
-          "priority": 3,
-          "order": 2
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-07-03T11:17:30.178Z",
+          "priority": 2,
+          "order": 11
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jai Arrow",
+      "team": "STH",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-03T11:17:30.178Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-03T11:17:30.178Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jonah Glover",
+      "team": "STH",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-03T11:17:30.178Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-03T11:17:30.178Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Max McCarthy",
+      "team": "STH",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-03T11:17:30.178Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-03T11:17:30.178Z"
         }
       ],
       "round": 18
@@ -60,16 +143,84 @@
     {
       "player": "Moala Graham-Taufa",
       "team": "STH",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-07-03T08:36:41.845Z",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-03T11:17:30.178Z",
       "sources": [
         {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "data/teamlists.json",
-          "updatedAt": "2026-07-03T08:36:41.845Z"
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-03T11:17:30.178Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Nazareth Taua",
+      "team": "STH",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-03T11:17:30.178Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-03T11:17:30.178Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Peter Mamouzelos",
+      "team": "STH",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-03T11:17:30.178Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-03T11:17:30.178Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Thomas Fletcher",
+      "team": "STH",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-03T11:17:30.178Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-03T11:17:30.178Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Tyrone Munro",
+      "team": "STH",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-03T11:17:30.178Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-03T11:17:30.178Z"
         }
       ],
       "round": 18
