@@ -1,6 +1,79 @@
 {
-  "updated": "2026-07-03T05:28:25.385Z",
+  "updated": "2026-07-03T08:36:41.845Z",
   "round": 18,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Hame Sele",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-03T08:36:41.845Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-07-03T08:36:41.845Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Heath Mason",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-03T08:36:41.845Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/02/nrl-late-mail-round-18-faulalo-on-track-wighton-returns",
+          "updatedAt": "2026-07-03T08:36:41.845Z",
+          "priority": 3,
+          "order": 2
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Mavrik Geyer",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-03T08:36:41.845Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/02/nrl-late-mail-round-18-faulalo-on-track-wighton-returns",
+          "updatedAt": "2026-07-03T08:36:41.845Z",
+          "priority": 3,
+          "order": 2
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Moala Graham-Taufa",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-03T08:36:41.845Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-07-03T08:36:41.845Z"
+        }
+      ],
+      "round": 18
+    }
+  ],
   "allChangeCount": 500
 }
