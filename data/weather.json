@@ -2,7 +2,7 @@
   "updated": "2026-07-03T20:03:39.145Z",
   "round": 18,
   "source": "Open-Meteo hourly forecast API",
-  "status": "fresh",
+  "status": "stale",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "fixtures": {},
   "games": [
@@ -545,5 +545,6 @@
       }
     }
   ],
-  "failures": []
+  "failures": [],
+  "staleReason": "fresh weather failed for all round 18 fixtures"
 }
