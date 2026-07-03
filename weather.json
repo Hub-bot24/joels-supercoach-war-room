@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T10:44:38.542669+00:00",
+  "updated": "2026-07-03T13:00:51.463155+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -239,7 +239,7 @@
           "phase": "pre_game",
           "temperature_2m": 14.7,
           "precipitation_probability": 94,
-          "precipitation_mm": 1.1,
+          "precipitation_mm": 0.8,
           "wind_speed_10m": 24.6,
           "wind_gusts_10m": 48.6
         },
@@ -248,7 +248,7 @@
           "phase": "halftime_period",
           "temperature_2m": 15.3,
           "precipitation_probability": 99,
-          "precipitation_mm": 0.1,
+          "precipitation_mm": 0.0,
           "wind_speed_10m": 27.0,
           "wind_gusts_10m": 52.6
         }
@@ -257,7 +257,7 @@
         "label": "High",
         "score": 75,
         "maxRainProbability": 99.0,
-        "totalGameRainMm": 1.2,
+        "totalGameRainMm": 0.8,
         "maxWindKmh": 27.0,
         "maxGustKmh": 52.6,
         "avgTemp": 15.0,
