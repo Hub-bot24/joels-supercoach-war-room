@@ -1,43 +1,106 @@
 # SuperCoach War Room status changes — Round 18
 
-Detected: 2026-07-03T11:17:30.178Z
+Detected: 2026-07-04T06:35:09.684Z
 
-- **Alex Johnston** (STH): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Bayleigh Bentley-Hape** (STH): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Bronson Garlick** (STH): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Cameron Murray** (STH): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jack Cole** (PEN): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 5).
+- **Blake Wilson** (MAN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Brad Schneider** (DOL): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 6).
   - Source: Zero Tackle
-- **Jai Arrow** (STH): NOT_NAMED → EXPECTED
+- **Brent Woolf** (DOL): NOT_NAMED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Jonah Glover** (STH): NOT_NAMED → EXPECTED
+- **Daniel Saifiti** (DOL): NOT_NAMED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Max McCarthy** (STH): NOT_NAMED → EXPECTED
+- **Elijah Rasmussen** (DOL): NOT_NAMED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Moala Graham-Taufa** (STH): NOT_NAMED → EXPECTED
+- **Elijah Salesa-Leaumoana** (NEW): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Ethan Roberts** (WST): NOT_NAMED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Nazareth Taua** (STH): NOT_NAMED → EXPECTED
+- **Hamiso Tabuai-Fidow** (DOL): NOT_NAMED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Peter Mamouzelos** (STH): NOT_NAMED → EXPECTED
+- **Heath Mason** (WST): NOT_NAMED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Thomas Fletcher** (STH): NOT_NAMED → EXPECTED
+- **Isaiya Katoa** (DOL): NOT_NAMED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Tyrone Munro** (STH): NOT_NAMED → EXPECTED
+- **Jack Bird** (WST): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Jack Bostock** (DOL): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Jared Haywood** (WST): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Jarome Luai** (WST): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Jordan Miller** (WST): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Kit Laulilii** (WST): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Lachlan Broederlow** (WST): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Lewis Symonds** (DOL): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Luca Moretti** (PAR): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Luke Laulilii** (WST): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Mavrik Geyer** (WST): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Max Plath** (DOL): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Moses Suli** (STG): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Oryn Keeley** (DOL): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Patrick Herbert** (WST): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Ray Stone** (DOL): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Sebastian Sua** (DOL): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Selwyn Cobbo** (DOL): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Solomone Saukuru** (WST): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Taylan May** (WST): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Thomas Flegler** (DOL): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Tristan Hope** (WST): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Tyson Gamble** (NEW): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Will Craig** (WST): NOT_NAMED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
