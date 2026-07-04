@@ -1,22 +1,5 @@
 [
   {
-    "player": "Tyson Frizell",
-    "team": "NEW",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-06-28T16:13:14.018Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-28T16:13:14.018Z"
-      }
-    ],
-    "round": 18
-  },
-  {
     "player": "Tyson Gamble",
     "team": "NEW",
     "from": "NOT_NAMED",
@@ -10991,6 +10974,25 @@
         "name": "Current club team-list not confirmed",
         "url": "data/status_truth.json",
         "updatedAt": "2026-07-04T06:35:09.684Z"
+      }
+    ],
+    "round": 18
+  },
+  {
+    "player": "Josh Rogers",
+    "team": "BRO",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-07-04T09:08:51.681Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/02/nrl-late-mail-round-18-faulalo-on-track-wighton-returns",
+        "updatedAt": "2026-07-04T09:08:51.681Z",
+        "priority": 3,
+        "order": 2
       }
     ],
     "round": 18
