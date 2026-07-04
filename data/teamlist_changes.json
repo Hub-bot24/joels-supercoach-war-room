@@ -1,22 +1,5 @@
 [
   {
-    "player": "Viliami Vailea",
-    "team": "NQC",
-    "from": "NOT_NAMED",
-    "to": "BYE",
-    "reason": "Bye round 18",
-    "detectedAt": "2026-06-28T16:13:14.018Z",
-    "sources": [
-      {
-        "type": "fixture",
-        "name": "players.json bye data",
-        "url": "players.json",
-        "updatedAt": "2026-06-28T16:13:14.018Z"
-      }
-    ],
-    "round": 18
-  },
-  {
     "player": "VJ Semu",
     "team": "BRO",
     "from": "NOT_NAMED",
@@ -10999,6 +10982,31 @@
         "name": "Parsed current team-list source",
         "url": "data/teamlists.json",
         "updatedAt": "2026-07-04T11:01:30.080Z"
+      }
+    ],
+    "round": 18
+  },
+  {
+    "player": "Bradman Best",
+    "team": "NEW",
+    "from": "INJURED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Official NRL, jersey 13).; injury note: Calf",
+    "detectedAt": "2026-07-04T23:44:26.169Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/02/nrl-late-mail-round-18-faulalo-on-track-wighton-returns",
+        "updatedAt": "2026-07-04T23:44:26.169Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "status",
+        "name": "Existing player_status.json updater",
+        "url": "player_status.json",
+        "updatedAt": "2026-07-04T23:44:26.169Z"
       }
     ],
     "round": 18

@@ -1,6 +1,32 @@
 {
-  "updated": "2026-07-04T22:40:21.963Z",
+  "updated": "2026-07-04T23:44:26.169Z",
   "round": 18,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Bradman Best",
+      "team": "NEW",
+      "from": "INJURED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Official NRL, jersey 13).; injury note: Calf",
+      "detectedAt": "2026-07-04T23:44:26.169Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/02/nrl-late-mail-round-18-faulalo-on-track-wighton-returns",
+          "updatedAt": "2026-07-04T23:44:26.169Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-07-04T23:44:26.169Z"
+        }
+      ],
+      "round": 18
+    }
+  ],
   "allChangeCount": 500
 }
