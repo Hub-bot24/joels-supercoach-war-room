@@ -1,8 +1,8 @@
 {
-  "updated": "2026-07-03T22:42:34.389Z",
+  "updated": "2026-07-04T03:23:00.224Z",
   "round": 18,
   "source": "Open-Meteo hourly forecast API",
-  "status": "stale",
+  "status": "fresh",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "fixtures": {},
   "games": [
@@ -193,7 +193,7 @@
           "time": "2026-07-05T14:00",
           "phase": "game_window",
           "temperature_2m": 14.2,
-          "precipitation_probability": 3,
+          "precipitation_probability": 2,
           "precipitation_mm": 0,
           "wind_speed_10m": 17.5,
           "wind_gusts_10m": 39.2
@@ -202,7 +202,7 @@
           "time": "2026-07-05T15:00",
           "phase": "game_window",
           "temperature_2m": 13.4,
-          "precipitation_probability": 6,
+          "precipitation_probability": 4,
           "precipitation_mm": 0,
           "wind_speed_10m": 16.9,
           "wind_gusts_10m": 38.9
@@ -211,7 +211,7 @@
       "weatherRisk": {
         "label": "Low",
         "score": 15,
-        "maxRainProbability": 6,
+        "maxRainProbability": 4,
         "totalGameRainMm": 0,
         "maxWindKmh": 17.5,
         "maxGustKmh": 39.2,
@@ -244,7 +244,7 @@
           "time": "2026-07-05T16:00",
           "phase": "game_window",
           "temperature_2m": 14.8,
-          "precipitation_probability": 94,
+          "precipitation_probability": 96,
           "precipitation_mm": 0.4,
           "wind_speed_10m": 23.6,
           "wind_gusts_10m": 52.9
@@ -463,7 +463,7 @@
           "time": "2026-07-05T14:00",
           "phase": "game_window",
           "temperature_2m": 14.2,
-          "precipitation_probability": 3,
+          "precipitation_probability": 2,
           "precipitation_mm": 0,
           "wind_speed_10m": 17.5,
           "wind_gusts_10m": 39.2
@@ -472,7 +472,7 @@
           "time": "2026-07-05T15:00",
           "phase": "game_window",
           "temperature_2m": 13.4,
-          "precipitation_probability": 6,
+          "precipitation_probability": 4,
           "precipitation_mm": 0,
           "wind_speed_10m": 16.9,
           "wind_gusts_10m": 38.9
@@ -481,7 +481,7 @@
       "weatherRisk": {
         "label": "Low",
         "score": 15,
-        "maxRainProbability": 6,
+        "maxRainProbability": 4,
         "totalGameRainMm": 0,
         "maxWindKmh": 17.5,
         "maxGustKmh": 39.2,
@@ -514,7 +514,7 @@
           "time": "2026-07-05T16:00",
           "phase": "game_window",
           "temperature_2m": 14.8,
-          "precipitation_probability": 94,
+          "precipitation_probability": 96,
           "precipitation_mm": 0.4,
           "wind_speed_10m": 23.6,
           "wind_gusts_10m": 52.9
@@ -545,6 +545,5 @@
       }
     }
   ],
-  "failures": [],
-  "staleReason": "fresh weather failed for all round 18 fixtures"
+  "failures": []
 }
