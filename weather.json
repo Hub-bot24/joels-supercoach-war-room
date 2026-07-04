@@ -1,29 +1,8 @@
 {
-  "updated": "2026-07-04T17:13:23.747722+00:00",
+  "updated": "2026-07-04T19:23:53.809135+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
-    {
-      "round": 18,
-      "match": "Dragons v Tigers",
-      "homeTeam": "STG",
-      "awayTeam": "WST",
-      "venue": "Netstrata Jubilee Stadium",
-      "kickoffLocal": "2026-07-04T17:30:00",
-      "city": "Sydney",
-      "lat": -33.9859,
-      "lon": 151.1358,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "missing_venue",
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "score": 0,
-        "label": "Unknown",
-        "reasons": [
-          "Venue missing from venues.json"
-        ]
-      }
-    },
     {
       "round": 18,
       "match": "Broncos v Sharks",
