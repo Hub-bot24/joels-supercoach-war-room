@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T23:11:50.183513+00:00",
+  "updated": "2026-07-04T03:46:06.260981+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -118,7 +118,7 @@
           "time": "2026-07-05T14:00",
           "phase": "first_half",
           "temperature_2m": 14.2,
-          "precipitation_probability": 3,
+          "precipitation_probability": 2,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 17.5,
           "wind_gusts_10m": 39.2
@@ -127,7 +127,7 @@
           "time": "2026-07-05T15:00",
           "phase": "halftime_period",
           "temperature_2m": 13.4,
-          "precipitation_probability": 6,
+          "precipitation_probability": 4,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 16.9,
           "wind_gusts_10m": 38.9
@@ -136,7 +136,7 @@
       "weatherRisk": {
         "label": "Low",
         "score": 15,
-        "maxRainProbability": 6.0,
+        "maxRainProbability": 4.0,
         "totalGameRainMm": 0.0,
         "maxWindKmh": 17.5,
         "maxGustKmh": 39.2,
@@ -179,8 +179,8 @@
           "time": "2026-07-05T16:00",
           "phase": "pre_game",
           "temperature_2m": 14.8,
-          "precipitation_probability": 94,
-          "precipitation_mm": 0.4,
+          "precipitation_probability": 96,
+          "precipitation_mm": 0.1,
           "wind_speed_10m": 23.6,
           "wind_gusts_10m": 52.9
         },
@@ -189,7 +189,7 @@
           "phase": "halftime_period",
           "temperature_2m": 14.7,
           "precipitation_probability": 100,
-          "precipitation_mm": 0.2,
+          "precipitation_mm": 0.1,
           "wind_speed_10m": 26.7,
           "wind_gusts_10m": 54.0
         }
@@ -198,7 +198,7 @@
         "label": "High",
         "score": 75,
         "maxRainProbability": 100.0,
-        "totalGameRainMm": 0.6,
+        "totalGameRainMm": 0.2,
         "maxWindKmh": 26.7,
         "maxGustKmh": 54.0,
         "avgTemp": 14.8,
