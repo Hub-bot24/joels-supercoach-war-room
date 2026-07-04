@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-04T11:38:44.442616+00:00",
+  "updated": "2026-07-04T13:48:40.289381+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -45,11 +45,11 @@
         {
           "time": "2026-07-04T19:00",
           "phase": "pre_game",
-          "temperature_2m": 15.7,
+          "temperature_2m": 15.8,
           "precipitation_probability": 0,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 5.9,
-          "wind_gusts_10m": 12.6
+          "wind_gusts_10m": 14.0
         },
         {
           "time": "2026-07-04T20:00",
@@ -58,7 +58,7 @@
           "precipitation_probability": 0,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 6.3,
-          "wind_gusts_10m": 12.6
+          "wind_gusts_10m": 10.4
         },
         {
           "time": "2026-07-04T21:00",
@@ -67,7 +67,7 @@
           "precipitation_probability": 0,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 5.6,
-          "wind_gusts_10m": 12.6
+          "wind_gusts_10m": 10.1
         }
       ],
       "weatherRisk": {
@@ -76,7 +76,7 @@
         "maxRainProbability": 0,
         "totalGameRainMm": 0.0,
         "maxWindKmh": 6.3,
-        "maxGustKmh": 12.6,
+        "maxGustKmh": 14.0,
         "avgTemp": 15.1,
         "phaseRisk": {
           "pre_game": {
@@ -117,20 +117,20 @@
         {
           "time": "2026-07-05T14:00",
           "phase": "first_half",
-          "temperature_2m": 13.6,
+          "temperature_2m": 14.7,
           "precipitation_probability": 3,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 16.2,
-          "wind_gusts_10m": 39.2
+          "wind_gusts_10m": 38.9
         },
         {
           "time": "2026-07-05T15:00",
           "phase": "halftime_period",
-          "temperature_2m": 13.4,
+          "temperature_2m": 14.0,
           "precipitation_probability": 6,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 15.8,
-          "wind_gusts_10m": 37.8
+          "wind_gusts_10m": 44.6
         }
       ],
       "weatherRisk": {
@@ -139,8 +139,8 @@
         "maxRainProbability": 6.0,
         "totalGameRainMm": 0.0,
         "maxWindKmh": 16.2,
-        "maxGustKmh": 39.2,
-        "avgTemp": 13.5,
+        "maxGustKmh": 44.6,
+        "avgTemp": 14.3,
         "phaseRisk": {
           "first_half": {
             "avgScore": 15,
@@ -178,42 +178,43 @@
         {
           "time": "2026-07-05T16:00",
           "phase": "pre_game",
-          "temperature_2m": 15.4,
+          "temperature_2m": 14.9,
           "precipitation_probability": 96,
-          "precipitation_mm": 0.2,
+          "precipitation_mm": 0.6,
           "wind_speed_10m": 27.0,
-          "wind_gusts_10m": 56.2
+          "wind_gusts_10m": 51.1
         },
         {
           "time": "2026-07-05T17:00",
           "phase": "halftime_period",
-          "temperature_2m": 15.2,
+          "temperature_2m": 14.9,
           "precipitation_probability": 97,
-          "precipitation_mm": 0.0,
+          "precipitation_mm": 0.8,
           "wind_speed_10m": 27.2,
-          "wind_gusts_10m": 54.4
+          "wind_gusts_10m": 44.6
         }
       ],
       "weatherRisk": {
         "label": "High",
-        "score": 75,
+        "score": 70,
         "maxRainProbability": 97.0,
-        "totalGameRainMm": 0.2,
+        "totalGameRainMm": 1.4,
         "maxWindKmh": 27.2,
-        "maxGustKmh": 56.2,
-        "avgTemp": 15.3,
+        "maxGustKmh": 51.1,
+        "avgTemp": 14.9,
         "phaseRisk": {
           "pre_game": {
             "avgScore": 75,
             "maxScore": 75
           },
           "halftime_period": {
-            "avgScore": 75,
-            "maxScore": 75
+            "avgScore": 60,
+            "maxScore": 60
           }
         },
         "reasons": [
           "high rain",
+          "moderate wind/gusts",
           "strong wind/gusts"
         ],
         "captainImpact": "High weather risk over game window. Downgrade CTW/FLB/attacking captains and goal kickers. Safer forwards/tacklers become better VC/C options."
