@@ -1,90 +1,5 @@
 [
   {
-    "player": "Tyson Gamble",
-    "team": "NEW",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-06-28T16:13:14.018Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-28T16:13:14.018Z"
-      }
-    ],
-    "round": 18
-  },
-  {
-    "player": "Valentine Holmes",
-    "team": "STG",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-06-28T16:13:14.018Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-28T16:13:14.018Z"
-      }
-    ],
-    "round": 18
-  },
-  {
-    "player": "Vena Patuki-Case",
-    "team": "CBR",
-    "from": "NOT_NAMED",
-    "to": "BYE",
-    "reason": "Bye round 18",
-    "detectedAt": "2026-06-28T16:13:14.018Z",
-    "sources": [
-      {
-        "type": "fixture",
-        "name": "players.json bye data",
-        "url": "players.json",
-        "updatedAt": "2026-06-28T16:13:14.018Z"
-      }
-    ],
-    "round": 18
-  },
-  {
-    "player": "Victor Radley",
-    "team": "SYD",
-    "from": "NAMED",
-    "to": "BYE",
-    "reason": "Bye round 18",
-    "detectedAt": "2026-06-28T16:13:14.018Z",
-    "sources": [
-      {
-        "type": "fixture",
-        "name": "players.json bye data",
-        "url": "players.json",
-        "updatedAt": "2026-06-28T16:13:14.018Z"
-      }
-    ],
-    "round": 18
-  },
-  {
-    "player": "Viliame Kikau",
-    "team": "CAN",
-    "from": "INJURED",
-    "to": "BYE",
-    "reason": "Bye round 18",
-    "detectedAt": "2026-06-28T16:13:14.018Z",
-    "sources": [
-      {
-        "type": "fixture",
-        "name": "players.json bye data",
-        "url": "players.json",
-        "updatedAt": "2026-06-28T16:13:14.018Z"
-      }
-    ],
-    "round": 18
-  },
-  {
     "player": "Viliami Vailea",
     "team": "NQC",
     "from": "NOT_NAMED",
@@ -10993,6 +10908,97 @@
         "updatedAt": "2026-07-04T09:08:51.681Z",
         "priority": 3,
         "order": 2
+      }
+    ],
+    "round": 18
+  },
+  {
+    "player": "Briton Nikora",
+    "team": "SHA",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-07-04T11:01:30.080Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-07-04T11:01:30.080Z"
+      }
+    ],
+    "round": 18
+  },
+  {
+    "player": "Charlie Murray",
+    "team": "WST",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+    "detectedAt": "2026-07-04T11:01:30.080Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+        "updatedAt": "2026-07-04T11:01:30.080Z",
+        "priority": 2,
+        "order": 12
+      }
+    ],
+    "round": 18
+  },
+  {
+    "player": "Jacob Halangahu",
+    "team": "STG",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+    "detectedAt": "2026-07-04T11:01:30.080Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+        "updatedAt": "2026-07-04T11:01:30.080Z",
+        "priority": 2,
+        "order": 12
+      }
+    ],
+    "round": 18
+  },
+  {
+    "player": "Tom Duffy",
+    "team": "BRO",
+    "from": "NOT_NAMED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
+    "detectedAt": "2026-07-04T11:01:30.080Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+        "updatedAt": "2026-07-04T11:01:30.080Z",
+        "priority": 2,
+        "order": 12
+      }
+    ],
+    "round": 18
+  },
+  {
+    "player": "VJ Semu",
+    "team": "BRO",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-04T11:01:30.080Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-07-04T11:01:30.080Z"
       }
     ],
     "round": 18

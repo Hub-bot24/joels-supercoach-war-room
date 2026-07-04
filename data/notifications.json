@@ -1,22 +1,94 @@
 {
-  "updated": "2026-07-04T09:08:51.681Z",
+  "updated": "2026-07-04T11:01:30.080Z",
   "round": 18,
   "newChanges": [
     {
-      "player": "Josh Rogers",
-      "team": "BRO",
+      "player": "Briton Nikora",
+      "team": "SHA",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-04T11:01:30.080Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-04T11:01:30.080Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Charlie Murray",
+      "team": "WST",
       "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-07-04T09:08:51.681Z",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-07-04T11:01:30.080Z",
       "sources": [
         {
           "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/07/02/nrl-late-mail-round-18-faulalo-on-track-wighton-returns",
-          "updatedAt": "2026-07-04T09:08:51.681Z",
-          "priority": 3,
-          "order": 2
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-07-04T11:01:30.080Z",
+          "priority": 2,
+          "order": 12
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jacob Halangahu",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-07-04T11:01:30.080Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-07-04T11:01:30.080Z",
+          "priority": 2,
+          "order": 12
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Tom Duffy",
+      "team": "BRO",
+      "from": "NOT_NAMED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
+      "detectedAt": "2026-07-04T11:01:30.080Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-07-04T11:01:30.080Z",
+          "priority": 2,
+          "order": 12
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "VJ Semu",
+      "team": "BRO",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-04T11:01:30.080Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-07-04T11:01:30.080Z"
         }
       ],
       "round": 18
