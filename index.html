@@ -3820,22 +3820,67 @@ const slotById=Object.fromEntries(SLOT_DEFS.map(s=>[s.id,s]));
 const POS_ALIAS={'HKR':'HOK','HOK':'HOK','FR':'FRF','FRF':'FRF','SRF':'2RF','2RF':'2RF','HFB':'HFB','HB':'HFB','5/8':'5/8','FE':'5/8','CTW':'CTW','WFB':'FLB','FB':'FLB','FLB':'FLB'};
 function normalisePosList(value){
  if(value==null)return [];
- if(typeof value==='object'&&!Array.isArray(value)){
-  for(const key of ['positions','eligiblePositions','dualPositions','positionList','eligible','pos','position','primaryPosition','sc_positions','supercoachPositions']){
-   const got=normalisePosList(value[key]);
-   if(got.length)return got;
-  }
-  if(value.primary&&value.secondary)return normalisePosList([value.primary,value.secondary]);
-  if(value.primary)return normalisePosList(value.primary);
-  if(value.position1||value.position2)return normalisePosList([value.position1,value.position2].filter(Boolean));
-  return [];
- }
- const raw=Array.isArray(value)?value.join('/'):String(value);
  const out=[];
- raw.toUpperCase().replace(/5\s*\/\s*8/g,'FE').split(/[|,\/ ]+/).forEach(x=>{
-  const v=POS_ALIAS[x]||x;
-  if(v&&!out.includes(v))out.push(v);
- });
+
+ const addOne=v=>{
+  let s=String(v||'').trim().toUpperCase();
+  if(!s)return;
+
+  s=s
+   .replace(/^HKR$/,'HOK')
+   .replace(/^HOOKER$/,'HOK')
+   .replace(/^FR$/,'FRF')
+   .replace(/^PROP$/,'FRF')
+   .replace(/^FRONT ROW$/,'FRF')
+   .replace(/^SRF$/,'2RF')
+   .replace(/^SECOND ROW$/,'2RF')
+   .replace(/^2ND ROW$/,'2RF')
+   .replace(/^HB$/,'HFB')
+   .replace(/^HALFBACK$/,'HFB')
+   .replace(/^FE$/,'5/8')
+   .replace(/^FIVE EIGHTH$/,'5/8')
+   .replace(/^FIVE-EIGHTH$/,'5/8')
+   .replace(/^WFB$/,'FLB')
+   .replace(/^FB$/,'FLB')
+   .replace(/^FULLBACK$/,'FLB')
+   .replace(/^WING$/,'CTW')
+   .replace(/^CENTRE$/,'CTW')
+   .replace(/^CENTER$/,'CTW');
+
+  const pos=POS_ALIAS[s]||s;
+  if(['HOK','FRF','2RF','HFB','5/8','CTW','FLB'].includes(pos) && !out.includes(pos)){
+   out.push(pos);
+  }
+ };
+
+ if(Array.isArray(value)){
+  value.forEach(v=>{
+   if(Array.isArray(v) || (v && typeof v==='object')){
+    normalisePosList(v).forEach(addOne);
+   }else{
+    addOne(v);
+   }
+  });
+  return out;
+ }
+
+ if(typeof value==='object'){
+  for(const key of ['positions','eligiblePositions','dualPositions','positionList','eligible','pos','position','primaryPosition','sc_positions','supercoachPositions']){
+   normalisePosList(value[key]).forEach(addOne);
+  }
+  if(value.primary&&value.secondary)normalisePosList([value.primary,value.secondary]).forEach(addOne);
+  if(value.primary)normalisePosList(value.primary).forEach(addOne);
+  if(value.position1||value.position2)normalisePosList([value.position1,value.position2].filter(Boolean)).forEach(addOne);
+  return out;
+ }
+
+ // Do NOT split on "/" because "5/8" is a real position.
+ String(value)
+  .split(/[,|+;]+/)
+  .map(x=>x.trim())
+  .filter(Boolean)
+  .forEach(addOne);
+
  return out;
 }
 function canonicalPlayerNameKey(value){return String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'')}
@@ -4176,8 +4221,41 @@ function mergePositionPlayers(target,data){
  }
  return target;
 }
+function mergePositionAuditRows(target,data){
+ const rows = Array.isArray(data?.dpp_applied) ? data.dpp_applied : [];
+ const broken = [];
+
+ for(const row of rows){
+  const name = row?.player;
+  const key = canonicalPlayerNameKey(name);
+  if(!key)continue;
+
+  if(!target[key])target[key]=[];
+
+  addPositionsUnique(target[key], row.positions);
+  addPositionsUnique(target[key], row.dpp_grid_positions);
+
+  const final = normalisePosList(target[key]);
+  const dpp = normalisePosList(row.dpp_grid_positions);
+  const missing = dpp.filter(pos => !final.includes(pos));
+
+  target[key]=final;
+
+  if(missing.length){
+   broken.push({player:name, final, dpp, missing});
+  }
+ }
+
+ if(broken.length){
+  console.error('[positions] BROKEN DPP MERGES BLOCKED', broken);
+ }else if(rows.length){
+  console.log('[positions] audit DPP merged cleanly', rows.length, 'rows');
+ }
+
+ return target;
+}
 async function loadDualPositionsCore(){
- const sources=[
+ const authoritySources=[
   'data/dual_positions.json',
   'dual_positions.json',
   'data/position_master.json',
@@ -4185,13 +4263,35 @@ async function loadDualPositionsCore(){
   'data/position_overrides.json',
   'position_overrides.json'
  ];
+
+ const auditSources=[
+  'data/position_audit_report.json',
+  'position_audit_report.json'
+ ];
+
  const merged={};
- for(const src of sources){
+
+ for(const src of authoritySources){
   const data=await fetchJson(src,null);
   if(data)mergePositionPlayers(merged,data);
  }
+
+ // Core DPP safety net:
+ // The audit contains the live DPP grid. Merge dpp_grid_positions into browser authority.
+ // This fixes every missing DPP player, not one named player.
+ for(const src of auditSources){
+  const data=await fetchJson(src,null);
+  if(data)mergePositionAuditRows(merged,data);
+ }
+
+ for(const key of Object.keys(merged)){
+  merged[key]=normalisePosList(merged[key]);
+ }
+
  App.dualPositions={players:merged};
+
  console.log('[positions] loaded',Object.keys(App.dualPositions?.players||{}).length,'players');
+ console.log('[positions] Jayden Campbell authority',App.dualPositions.players[canonicalPlayerNameKey('Jayden Campbell')]);
 }
 async function boot(){
  const rawPlayers=await fetchJson('players.json',[]);let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));buildPlayerNameMap();
