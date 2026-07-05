@@ -1,35 +1,8 @@
 {
-  "updated": "2026-07-05T15:18:10.651835+00:00",
+  "updated": "2026-07-05T17:19:13.481568+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
-    {
-      "round": 18,
-      "match": "Knights v Dolphins",
-      "homeTeam": "NEW",
-      "awayTeam": "DOL",
-      "venue": "McDonald Jones Stadium",
-      "kickoffLocal": "2026-07-05T16:05:00",
-      "city": "Newcastle",
-      "lat": -32.9189,
-      "lon": 151.7264,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-07-05T15:35:00",
-        "to": "2026-07-05T17:55:00",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "label": "Unknown",
-        "score": 0,
-        "reasons": [
-          "No hourly forecast available"
-        ],
-        "captainImpact": "Unknown weather risk."
-      }
-    },
     {
       "round": 19,
       "match": "Tigers v Warriors",
