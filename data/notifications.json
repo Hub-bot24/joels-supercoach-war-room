@@ -1,186 +1,219 @@
 {
-  "updated": "2026-07-02T01:51:23.453Z",
+  "updated": "2026-07-05T05:43:55.423Z",
   "round": 18,
   "newChanges": [
     {
-      "player": "Corey Jensen",
-      "team": "BRO",
-      "from": "NAMED",
-      "to": "INJURED",
-      "reason": "Lung; Origin/representative-duty context present",
-      "detectedAt": "2026-07-02T01:51:23.453Z",
+      "player": "Charlie Murray",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-07-05T05:43:55.423Z",
       "sources": [
         {
-          "type": "status",
-          "name": "Existing player_status.json updater",
-          "url": "player_status.json",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
+          "type": "teamlist",
           "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#parramatta-eels",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#penrith-panthers",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#perth-bears",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#png-chiefs",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#south-sydney-rabbitohs",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#st-george-illawarra-dragons",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#sydney-roosters",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#wests-tigers",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
-        },
-        {
-          "type": "origin",
-          "name": "origin_players.json",
-          "url": "origin_players.json",
-          "updatedAt": "2026-07-01T23:43:43.713Z"
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-07-05T05:43:55.423Z",
+          "priority": 2,
+          "order": 11
         }
       ],
       "round": 18
     },
     {
-      "player": "Jai Arrow",
-      "team": "STH",
-      "from": "NAMED",
-      "to": "EXPECTED",
-      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-      "detectedAt": "2026-07-02T01:51:23.453Z",
+      "player": "Elijah Salesa-Leaumoana",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-05T05:43:55.423Z",
       "sources": [
         {
-          "type": "source_missing",
-          "name": "Current club team-list not confirmed",
-          "url": "data/status_truth.json",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/02/nrl-late-mail-round-18-faulalo-on-track-wighton-returns",
+          "updatedAt": "2026-07-05T05:43:55.423Z",
+          "priority": 3,
+          "order": 2
         }
       ],
       "round": 18
     },
     {
-      "player": "Josiah Karapani",
-      "team": "BRO",
-      "from": "NAMED",
+      "player": "Hame Sele",
+      "team": "STG",
+      "from": "EXPECTED",
       "to": "NOT_NAMED",
       "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-07-02T01:51:23.453Z",
+      "detectedAt": "2026-07-05T05:43:55.423Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Parsed current team-list source",
           "url": "data/teamlists.json",
-          "updatedAt": "2026-07-02T01:51:23.453Z"
+          "updatedAt": "2026-07-05T05:43:55.423Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jack Cole",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-07-05T05:43:55.423Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-07-05T05:43:55.423Z",
+          "priority": 2,
+          "order": 11
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Jacob Halangahu",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-07-05T05:43:55.423Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-18-team-lists-2026-235421",
+          "updatedAt": "2026-07-05T05:43:55.423Z",
+          "priority": 2,
+          "order": 11
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Josh Rogers",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-05T05:43:55.423Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-07-05T05:43:55.423Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Luca Moretti",
+      "team": "PAR",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-05T05:43:55.423Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-05T05:43:55.423Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Luke Garner",
+      "team": "PEN",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-05T05:43:55.423Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-05T05:43:55.423Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Moses Suli",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-05T05:43:55.423Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-07-05T05:43:55.423Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Ray Stone",
+      "team": "DOL",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-05T05:43:55.423Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-05T05:43:55.423Z"
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Trey Mooney",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-05T05:43:55.423Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/02/nrl-late-mail-round-18-faulalo-on-track-wighton-returns",
+          "updatedAt": "2026-07-05T05:43:55.423Z",
+          "priority": 3,
+          "order": 2
+        }
+      ],
+      "round": 18
+    },
+    {
+      "player": "Tyson Gamble",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-05T05:43:55.423Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/02/nrl-late-mail-round-18-faulalo-on-track-wighton-returns",
+          "updatedAt": "2026-07-05T05:43:55.423Z",
+          "priority": 3,
+          "order": 2
         }
       ],
       "round": 18
