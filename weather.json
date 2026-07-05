@@ -1,69 +1,8 @@
 {
-  "updated": "2026-07-05T13:54:41.742676+00:00",
+  "updated": "2026-07-05T15:18:10.651835+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
-    {
-      "round": 18,
-      "match": "Eels v Sea Eagles",
-      "homeTeam": "PAR",
-      "awayTeam": "MAN",
-      "venue": "Commbank Stadium",
-      "kickoffLocal": "2026-07-05T14:00:00",
-      "city": "Parramatta",
-      "lat": -33.8081,
-      "lon": 150.999,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-07-05T13:30:00",
-        "to": "2026-07-05T15:50:00",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-07-05T14:00",
-          "phase": "first_half",
-          "temperature_2m": 14.7,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0.0,
-          "wind_speed_10m": 16.6,
-          "wind_gusts_10m": 36.7
-        },
-        {
-          "time": "2026-07-05T15:00",
-          "phase": "halftime_period",
-          "temperature_2m": 13.9,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0.0,
-          "wind_speed_10m": 13.5,
-          "wind_gusts_10m": 37.1
-        }
-      ],
-      "weatherRisk": {
-        "label": "Low",
-        "score": 15,
-        "maxRainProbability": 0,
-        "totalGameRainMm": 0.0,
-        "maxWindKmh": 16.6,
-        "maxGustKmh": 37.1,
-        "avgTemp": 14.3,
-        "phaseRisk": {
-          "first_half": {
-            "avgScore": 15,
-            "maxScore": 15
-          },
-          "halftime_period": {
-            "avgScore": 15,
-            "maxScore": 15
-          }
-        },
-        "reasons": [
-          "moderate wind/gusts"
-        ],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
-      }
-    },
     {
       "round": 18,
       "match": "Knights v Dolphins",
@@ -81,50 +20,14 @@
         "to": "2026-07-05T17:55:00",
         "gameMinutes": 110
       },
-      "gameWindowWeather": [
-        {
-          "time": "2026-07-05T16:00",
-          "phase": "pre_game",
-          "temperature_2m": 15.3,
-          "precipitation_probability": 59,
-          "precipitation_mm": 0.2,
-          "wind_speed_10m": 25.4,
-          "wind_gusts_10m": 59.4
-        },
-        {
-          "time": "2026-07-05T17:00",
-          "phase": "halftime_period",
-          "temperature_2m": 14.9,
-          "precipitation_probability": 75,
-          "precipitation_mm": 0.4,
-          "wind_speed_10m": 25.4,
-          "wind_gusts_10m": 51.1
-        }
-      ],
+      "gameWindowWeather": [],
       "weatherRisk": {
-        "label": "High",
-        "score": 69,
-        "maxRainProbability": 75.0,
-        "totalGameRainMm": 0.6,
-        "maxWindKmh": 25.4,
-        "maxGustKmh": 59.4,
-        "avgTemp": 15.1,
-        "phaseRisk": {
-          "pre_game": {
-            "avgScore": 55,
-            "maxScore": 55
-          },
-          "halftime_period": {
-            "avgScore": 75,
-            "maxScore": 75
-          }
-        },
+        "label": "Unknown",
+        "score": 0,
         "reasons": [
-          "high rain",
-          "moderate rain",
-          "strong wind/gusts"
+          "No hourly forecast available"
         ],
-        "captainImpact": "High weather risk over game window. Downgrade CTW/FLB/attacking captains and goal kickers. Safer forwards/tacklers become better VC/C options."
+        "captainImpact": "Unknown weather risk."
       }
     },
     {
@@ -191,7 +94,7 @@
           "time": "2026-07-11T17:00",
           "phase": "pre_game",
           "temperature_2m": 15.3,
-          "precipitation_probability": 2,
+          "precipitation_probability": 8,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 1.7,
           "wind_gusts_10m": 20.2
@@ -200,7 +103,7 @@
           "time": "2026-07-11T18:00",
           "phase": "first_half",
           "temperature_2m": 14.4,
-          "precipitation_probability": 3,
+          "precipitation_probability": 5,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 0.3,
           "wind_gusts_10m": 20.5
@@ -218,7 +121,7 @@
       "weatherRisk": {
         "label": "Low",
         "score": 0,
-        "maxRainProbability": 3.0,
+        "maxRainProbability": 8.0,
         "totalGameRainMm": 0.0,
         "maxWindKmh": 2.3,
         "maxGustKmh": 20.9,
@@ -272,7 +175,7 @@
           "time": "2026-07-11T20:00",
           "phase": "first_half",
           "temperature_2m": 12.6,
-          "precipitation_probability": 6,
+          "precipitation_probability": 5,
           "precipitation_mm": 0.0,
           "wind_speed_10m": 8.5,
           "wind_gusts_10m": 25.9
