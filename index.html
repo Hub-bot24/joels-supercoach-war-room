@@ -5724,3 +5724,12 @@ wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
 
 </body>
 </html>
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    if (typeof initApp === 'function') initApp();
+    if (typeof loadApp === 'function') loadApp();
+    if (typeof renderActive === 'function') renderActive();
+  } catch (e) {
+    console.error('Boot failed:', e);
+  }
+});
