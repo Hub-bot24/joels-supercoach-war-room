@@ -1,3 +1,4 @@
+<h1 style="color:red">THIS IS THE RESTORED FILE</h1>
 <!doctype html>
 <html lang="en">
 <head>
@@ -3695,13 +3696,13 @@ const $=id=>document.getElementById(id);const safeNum=v=>Number.isFinite(Number(
 function esc(s){return String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 window.jsq = function(value){const s=String(value==null?'':value);return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\r/g,'\\r').replace(/\n/g,'\\n').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029')}
 function norm(s){return String(s||'').toLowerCase().replace(/[^a-z0-9/\s'-]/g,' ').replace(/\s+/g,' ').trim()}
-function playerPhotoKey(value){return String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[��`�]/g,"'").replace(/&apos;|&#39;/g,"'").replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim()}
-function playerSlug(name){return String(name||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[��`�]/g,"'").replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
+function playerPhotoKey(value){return String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[  ` ]/g,"'").replace(/&apos;|&#39;/g,"'").replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim()}
+function playerSlug(name){return String(name||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[  ` ]/g,"'").replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
 function playerPhotoRecordUrl(rec){return typeof rec==='string'?rec:(rec?.url||rec?.photo||rec?.image||rec?.headshot||rec?.src||'')}
 function playerPhotoLookupKeys(value){
  const raw=String(value||'').trim();
  if(!raw)return [];
- const variants=[raw,raw.replace(/[��`�]/g,"'"),raw.replace(/'/g,'�'),playerSlug(raw),playerPhotoKey(raw)];
+ const variants=[raw,raw.replace(/[  ` ]/g,"'"),raw.replace(/'/g,' '),playerSlug(raw),playerPhotoKey(raw)];
  return [...new Set(variants.map(v=>String(v||'').trim()).filter(Boolean))];
 }
 function buildPlayerPhotoLookup(){
