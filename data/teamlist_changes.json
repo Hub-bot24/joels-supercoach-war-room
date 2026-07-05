@@ -1,22 +1,5 @@
 [
   {
-    "player": "VJ Semu",
-    "team": "BRO",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-06-28T16:13:14.018Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-06-28T16:13:14.018Z"
-      }
-    ],
-    "round": 18
-  },
-  {
     "player": "Wayde Egan",
     "team": "NZL",
     "from": "NAMED",
@@ -11007,6 +10990,23 @@
         "name": "Existing player_status.json updater",
         "url": "player_status.json",
         "updatedAt": "2026-07-04T23:44:26.169Z"
+      }
+    ],
+    "round": 18
+  },
+  {
+    "player": "Bradman Best",
+    "team": "NEW",
+    "from": "NAMED",
+    "to": "INJURED",
+    "reason": "Calf",
+    "detectedAt": "2026-07-05T01:26:54.744Z",
+    "sources": [
+      {
+        "type": "status",
+        "name": "Existing player_status.json updater",
+        "url": "player_status.json",
+        "updatedAt": "2026-07-05T01:26:54.744Z"
       }
     ],
     "round": 18
