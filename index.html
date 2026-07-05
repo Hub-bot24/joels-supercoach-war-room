@@ -4314,22 +4314,21 @@ function updateExplorer(){
       p.pos,
       p.position,
       positionText(p),
-      positions(p).join(' ')
+      positions(p).join(' '),
+      statusBadgeForPlayer(p)?.label,
+      availabilityStatus(p)?.reason
     ].join(' '))
   }));
 
-  let res=pool
-    .filter(x=>{
-      const p=x.p;
-      const cat=explorerStatusCategory(p);
+  let res=pool.filter(x=>{
+    const p=x.p;
+    const cat=explorerStatusCategory(p);
 
-      if(filter!=='all'&&cat!==filter)return false;
-      if(!q)return filter!=='all';
+    if(filter!=='all'&&cat!==filter)return false;
+    if(!q)return filter!=='all';
 
-      return x.text.includes(q);
-    })
-    .map(x=>x.p)
-    .slice(0,120);
+    return x.text.includes(q);
+  }).map(x=>x.p).slice(0,120);
 
   box.innerHTML=res.map(p=>{
     const pr=roundProj(p);
