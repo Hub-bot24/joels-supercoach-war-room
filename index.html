@@ -4255,33 +4255,36 @@ function mergePositionAuditRows(target,data){
  return target;
 }
 async function loadDualPositionsCore(){
+ const merged={};
+
  const authoritySources=[
-  'data/dual_positions.json',
   'dual_positions.json',
-  'data/position_master.json',
   'position_master.json',
-  'data/position_overrides.json',
   'position_overrides.json'
  ];
 
  const auditSources=[
-  'data/position_audit_report.json',
   'position_audit_report.json'
  ];
 
- const merged={};
+ const authorityResults=await Promise.allSettled(
+  authoritySources.map(src=>fetchJson(src,null))
+ );
 
- for(const src of authoritySources){
-  const data=await fetchJson(src,null);
-  if(data)mergePositionPlayers(merged,data);
+ for(const result of authorityResults){
+  if(result.status==='fulfilled' && result.value){
+   mergePositionPlayers(merged,result.value);
+  }
  }
 
- // Core DPP safety net:
- // The audit contains the live DPP grid. Merge dpp_grid_positions into browser authority.
- // This fixes every missing DPP player, not one named player.
- for(const src of auditSources){
-  const data=await fetchJson(src,null);
-  if(data)mergePositionAuditRows(merged,data);
+ const auditResults=await Promise.allSettled(
+  auditSources.map(src=>fetchJson(src,null))
+ );
+
+ for(const result of auditResults){
+  if(result.status==='fulfilled' && result.value){
+   mergePositionAuditRows(merged,result.value);
+  }
  }
 
  for(const key of Object.keys(merged)){
