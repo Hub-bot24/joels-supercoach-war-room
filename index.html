@@ -4926,8 +4926,41 @@ function pressDragStart(ev,type,slotId,name){
  function cleanup(){clearTimeout(startTimer);window.removeEventListener('pointermove',move,{capture:true});window.removeEventListener('pointerup',up,{capture:true});window.removeEventListener('pointercancel',cancel,{capture:true});el.classList.remove('press-dragging');el.style.transform='';el.style.zIndex=''}
  function move(e){const dx=e.clientX-startX,dy=e.clientY-startY;if(Math.hypot(dx,dy)>7)moved=true;if(started){e.preventDefault();el.style.transform=`translate(${dx}px,${dy}px) scale(.98)`;el.style.zIndex='10000';}}
  function cancel(){cleanup()}
- function up(e){const wasStarted=started;cleanup();if(wasStarted){const target=document.elementFromPoint(e.clientX,e.clientY);const slot=target?.closest?.('[data-slot]')?.getAttribute('data-slot');const reserve=target?.closest?.('[data-reserve-slot]')?.getAttribute('data-reserve-slot');if(type==='reserve'&&slot){commitDragToSlot(d,slot);return}if((type==='field'||type==='reserve')&&reserve){commitDragToReserveCard(d,reserve);return}if(type==='field'&&target?.closest?.('.formation-reserves,.wr-reserve-panel')){commitDragToReserveGroup(d);return}toast('Drop on an eligible player/slot');return;}if(!moved){openPlayerCard(name);}}
- window.addEventListener('pointermove',move,{capture:true,passive:false});window.addEventListener('pointerup',up,{capture:true});window.addEventListener('pointercancel',cancel,{capture:true});
+ function up(e){
+  const wasStarted = started;
+  cleanup();
+
+  if(wasStarted){
+    const target = document.elementFromPoint(e.clientX, e.clientY);
+
+    const slot = target?.closest?.('[data-slot]')?.getAttribute('data-slot');
+    const reserve = target?.closest?.('[data-reserve-slot]')?.getAttribute('data-reserve-slot');
+
+    // FIELD → SLOT
+    if(type === 'field' && slot){
+      commitDragToSlot(d, slot);
+      return;
+    }
+
+    // FIELD → RESERVE
+    if(type === 'field' && reserve){
+      commitDragToReserveCard(d, reserve);
+      return;
+    }
+
+    // RESERVE → RESERVE / PANEL
+    if(type === 'field' && target?.closest?.('.formation-reserves,.wr-reserve-panel')){
+      commitDragToReserveGroup(d);
+      return;
+    }
+
+    toast('Drop on an eligible player/slot');
+    return;
+  }
+
+  if(!moved){
+    openPlayerCard(name);
+  }
 }
 
 function autoFillLineup(){App.lineup={};ensureLineup();renderTeam();toast('Auto-filled by eligibility')}
