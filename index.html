@@ -3204,8 +3204,10 @@ function normalisePosList(value){
 
 
 /* =========================================================
-   /* WAR ROOM MY TEAM BIG CARD FIELD PATCH */
-   /* Scope: #team only. No Level 3/status/data/workflow changes. */
+   /* WAR ROOM MY TEAM BIG CARD FIELD PATCH
+ */
+   /* Scope: #team only. No Level 3/status/data/workflow changes.
+ */
 /* ========================================================= */
 @media(max-width:720px){
   #team .mobile-team-layout.formation-page{max-width:100%;padding-bottom:18px}
@@ -3385,9 +3387,12 @@ function normalisePosList(value){
 
 
 /* =========================================================
-   /* WAR ROOM LANDSCAPE MY TEAM LAYOUT PATCH */
-   /* Scope: #team only. Layout + cards only. */
-   /* Does NOT touch Level 3 projection/scoring/status calculations. */
+   /* WAR ROOM LANDSCAPE MY TEAM LAYOUT PATCH
+ */
+   /* Scope: #team only. Layout + cards only.
+ */
+   /* Does NOT touch Level 3 projection/scoring/status calculations.
+ */
 /* ========================================================= */
 #team .wr-team-room{
   width:100%;
@@ -3866,8 +3871,10 @@ function normalisePosList(value){
 
 
 /* =========================================================
-   /* REAL LANDSCAPE FIX Ã¢â‚¬â€ layout only, no scoring/projection changes */
-   /* Goal: match reference: readable field cards + full-height reserves. */
+   /* REAL LANDSCAPE FIX Ã¢â‚¬â€ layout only, no scoring/projection changes
+ */
+   /* Goal: match reference: readable field cards + full-height reserves.
+ */
 /* ========================================================= */
 html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!important}
 #team{overflow:hidden}
@@ -4022,7 +4029,8 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 
 /* =========================================================
-   /* FINAL SAFE FIX: keep working drag/tap/trade, fix phone landscape */
+   /* FINAL SAFE FIX: keep working drag/tap/trade, fix phone landscape
+ */
    - no visible swap buttons
    - R-/R+/Refresh/Reset visible
    - narrower reserves, larger field
@@ -4121,7 +4129,8 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 
 /* =========================================================
-   /* FIELD 14 VISIBLE + SMALL RESERVES PATCH */
+   /* FIELD 14 VISIBLE + SMALL RESERVES PATCH
+ */
    Keeps working drag/tap/trade. Layout only.
 /* ========================================================= */
 @media (max-width: 980px) and (orientation: landscape){
@@ -4319,11 +4328,13 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 
 /* =========================================================
-   /* REQUEST ONLY FINAL PATCH */
+   /* REQUEST ONLY FINAL PATCH
+ */
    - CTWs evenly spread across the field
    - all field tiles slightly smaller with breathing room
    - custom team logos fitted inside the existing small badge boxes
-   /* Nothing else changed: trade, drag/drop, scoring, status and projections untouched. */
+   /* Nothing else changed: trade, drag/drop, scoring, status and projections untouched.
+ */
 /* ========================================================= */
 #team .wr-team-logo.team-logo-img,
 #team .wr-reserve-logo.team-logo-img{
@@ -4487,8 +4498,10 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 
 /* =========================================================
-   /* FINAL SURGICAL PATCH - CTW SPACING + SMALLER TILES + FITTED LOGOS ONLY */
-   /* Keeps existing drag/trade/scoring/status JS untouched. */
+   /* FINAL SURGICAL PATCH - CTW SPACING + SMALLER TILES + FITTED LOGOS ONLY
+ */
+   /* Keeps existing drag/trade/scoring/status JS untouched.
+ */
 /* ========================================================= */
 #team .formation-grid{
   display:grid!important;
@@ -4646,9 +4659,12 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 
 /* =========================================================
-   /* FINAL REAL PHONE LANDSCAPE FIT PATCH */
-   /* Purpose: fit all 14 starters + readable reserve names. */
-   /* Changes layout only: no scoring, status, drag or trade JS touched. */
+   /* FINAL REAL PHONE LANDSCAPE FIT PATCH
+ */
+   /* Purpose: fit all 14 starters + readable reserve names.
+ */
+   /* Changes layout only: no scoring, status, drag or trade JS touched.
+ */
 /* ========================================================= */
 @media (max-width: 980px) and (orientation: landscape){
   html,body{width:100vw!important;height:100dvh!important;overflow:hidden!important;}
@@ -4723,9 +4739,12 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 
 /* =========================================================
-   /* JOEL FINAL INDEX PATCH - 2026-06-13 */
-   /* Scope: My Team layout only. Other tabs scroll normally. */
-   /* Player tile order: TEAM BADGE | PROJECTED SCORE | J.Surname */
+   /* JOEL FINAL INDEX PATCH - 2026-06-13
+ */
+   /* Scope: My Team layout only. Other tabs scroll normally.
+ */
+   /* Player tile order: TEAM BADGE | PROJECTED SCORE | J.Surname
+ */
 /* ========================================================= */
 /* Do not let old global landscape locks trap every tab */
 @media (orientation: landscape) and (max-height: 620px){
@@ -5137,8 +5156,10 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 
 /* =========================================================
-   /* v17 UI FIX: true tab isolation, single trade badge, logos in tables */
-   /* UI only. No player-specific status logic. */
+   /* v17 UI FIX: true tab isolation, single trade badge, logos in tables
+ */
+   /* UI only. No player-specific status logic.
+ */
 /* ========================================================= */
 .tab{display:none!important;visibility:hidden!important;position:absolute!important;left:-100000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important;pointer-events:none!important;}
 .tab.active-tab{display:block!important;visibility:visible!important;position:relative!important;left:auto!important;width:auto!important;height:auto!important;overflow:visible!important;pointer-events:auto!important;}
@@ -5167,8 +5188,10 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 .result .small{line-height:1.35}.miss[title]{cursor:help}
 /* =========================================================
-   /* PLAYER PROFILE MODAL */
-   /* Click/tap player name opens profile. Card body still drags. */
+   /* PLAYER PROFILE MODAL
+ */
+   /* Click/tap player name opens profile. Card body still drags.
+ */
 /* ========================================================= */
 .player-name-link{
   cursor:pointer!important;
@@ -5298,9 +5321,12 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 }
 
 /* =========================================================
-   /* EMERGENCY USABLE MY TEAM PATCH - ChatGPT */
-   /* Scope: #team only. */
-   /* No projection/status/weather/trade/save logic changed. */
+   /* EMERGENCY USABLE MY TEAM PATCH - ChatGPT
+ */
+   /* Scope: #team only.
+ */
+   /* No projection/status/weather/trade/save logic changed.
+ */
    Makes My Team readable: compact field cards + reserve rows.
 /* ========================================================= */
 #team .wr-auth-panel{
@@ -5847,8 +5873,10 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 
 /* =========================================================
-   /* PATCH: dual-position display + team badges beside names */
-   /* Scope: My Team UI only. No scoring/status/data logic touched. */
+   /* PATCH: dual-position display + team badges beside names
+ */
+   /* Scope: My Team UI only. No scoring/status/data logic touched.
+ */
 /* ========================================================= */
 #team.active-tab .formation-card{
   grid-template-columns:42px minmax(0,1fr) 50px!important;
@@ -5960,7 +5988,8 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 
 /* =========================================================
-   /* CORE POSITION + TEAM BADGE DISPLAY FIX */
+   /* CORE POSITION + TEAM BADGE DISPLAY FIX
+ */
    UI-only: resolves all positions from the central resolver/override data.
 /* ========================================================= */
 #team.active-tab .formation-card{
@@ -7013,9 +7042,12 @@ function weatherRiskBadge(match){const key=String(match?.weatherRisk?.label||'Un
 function weatherLine(player){const match=getPlayerNextWeather(player);if(!match)return '';if(match.weatherStatus!=='updated')return 'Kickoff weather: Weather unavailable';const temp=tempSummary(match),rain=rainSummary(match),wind=windSummary(match);if(!temp||!wind)return 'Kickoff weather: Weather unavailable';return `Kickoff weather: <span style="font-size:1.3em;line-height:0;vertical-align:-0.08em">${weatherIconFromMatch(match)}</span> ${[temp,rain,wind,weatherRiskBadge(match)].filter(Boolean).join(' Ã‚Â· ')}`}
 
 /* =========================================================
-   /* V40: War Room Projection Engine v2 */
-   /* System logic only. No player-specific fixes or overrides. */
-   /* Produces expected/floor/ceiling/confidence/risk/reasons/components. */
+   /* V40: War Room Projection Engine v2
+ */
+   /* System logic only. No player-specific fixes or overrides.
+ */
+   /* Produces expected/floor/ceiling/confidence/risk/reasons/components.
+ */
 /* ========================================================= */
 function wrClamp(n,min,max){n=Number(n);if(!Number.isFinite(n))n=0;return Math.max(min,Math.min(max,n))}
 function wrRound(n){return Math.max(0,Math.round(Number.isFinite(Number(n))?Number(n):0))}
@@ -8333,7 +8365,7 @@ function statusFor(p){if(!p||!p.name)return null;return App.playerStatus?.player
 
 
 function playerKeyName(value){return String(value||'').toLowerCase().replace(/[^a-z0-9]/g,'')}
-const BUILT_IN_ORIGIN_UNAVAILABLE={};
+// removed duplicate: var BUILT_IN_ORIGIN_UNAVAILABLE={};
 // No built-in player lists. Origin status must come from data/status_truth.json or external data/origin.json only.
 function originExternalNames(round){
  const src=App.originUnavailable;
@@ -10249,8 +10281,10 @@ function applyTradeFromTradeLab(){const out=$('tradeOut')?.value?.trim(),inn=$('
 
 
 /* =========================================================
-   /* v17 JS OVERRIDES: tab isolation + logos + single trade badge */
-   /* UI only. No player-specific hard fixes. */
+   /* v17 JS OVERRIDES: tab isolation + logos + single trade badge
+ */
+   /* UI only. No player-specific hard fixes.
+ */
 /* ========================================================= */
 function forceOnlyActiveTab(){
   const active=App.active||'team';
@@ -10334,8 +10368,10 @@ function renderTrade(){$('trade').innerHTML=`<div class="grid"><div class="panel
 
 
 /* =========================================================
-   /* V18: generic injury return windows + source detail layer */
-   /* UI only. No player-specific hard fixes. */
+   /* V18: generic injury return windows + source detail layer
+ */
+   /* UI only. No player-specific hard fixes.
+ */
 /* ========================================================= */
 function truthRecordAnyRound(p){
   if(!p||!p.name||!App.statusTruth)return null;
@@ -10682,8 +10718,10 @@ function renderLevel3(){
 
 
 /* =========================================================
-   /* V25: Player Explorer status filters */
-   /* UI only. No player-specific hard fixes. */
+   /* V25: Player Explorer status filters
+ */
+   /* UI only. No player-specific hard fixes.
+ */
 /* ========================================================= */
 function explorerStatusCategory(p){
   const badge=statusBadgeForPlayer(p);
@@ -10741,7 +10779,8 @@ document.addEventListener('click', function(e){
 }, true);
 
 /* =========================================================
-   /* V40: Projection v2 UI detail overrides */
+   /* V40: Projection v2 UI detail overrides
+ */
 /* ========================================================= */
 function projectionReasonHtml(pr){return pr?.reasons?.length?`<div class="small">Why: ${pr.reasons.map(esc).join(' | ')}</div>`:''}
 function projectionRiskPill(pr){return `<span class="pill ${pr.risk==='High'?'bad':pr.risk==='Medium'?'warn':'good'}">${esc(pr.confidence||'Medium')} confidence | ${esc(pr.risk||'Medium')} risk</span>`}
@@ -10751,9 +10790,12 @@ function renderLevel3(){
 }
 
 /* =========================================================
-   /* V41: Final Status Arbitration Guard */
-   /* System logic only. No player-specific fixes or overrides. */
-   /* Prevents GREEN/unavailable contradictions and fixes zero-projection risk text. */
+   /* V41: Final Status Arbitration Guard
+ */
+   /* System logic only. No player-specific fixes or overrides.
+ */
+   /* Prevents GREEN/unavailable contradictions and fixes zero-projection risk text.
+ */
 /* ========================================================= */
 const wrOriginalAvailabilityStatusV41 = availabilityStatus;
 const wrOriginalRoundProjV41 = roundProj;
@@ -10857,8 +10899,10 @@ projectionRiskPill = function projectionRiskPillV41(pr){
   return wrOriginalProjectionRiskPillV41(pr);
 };
 /* =========================================================
-   /* V42: Final player photo resolver override */
-   /* Generic only. No player-specific hard fixes. */
+   /* V42: Final player photo resolver override
+ */
+   /* Generic only. No player-specific hard fixes.
+ */
 /* ========================================================= */
 function wrV42PhotoText(v){return String(v==null?'':v)}
 function wrV42PhotoKey(v){
