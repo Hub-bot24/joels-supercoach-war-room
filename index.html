@@ -3206,7 +3206,7 @@ function normalisePosList(value){
 /* =========================================================
    /* WAR ROOM MY TEAM BIG CARD FIELD PATCH */
    /* Scope: #team only. No Level 3/status/data/workflow changes. */
-================================================== */
+/* ========================================================= */
 @media(max-width:720px){
   #team .mobile-team-layout.formation-page{max-width:100%;padding-bottom:18px}
   #team .mobile-team-head{padding:10px;border-radius:14px;margin-bottom:10px}
@@ -3388,7 +3388,7 @@ function normalisePosList(value){
    /* WAR ROOM LANDSCAPE MY TEAM LAYOUT PATCH */
    /* Scope: #team only. Layout + cards only. */
    /* Does NOT touch Level 3 projection/scoring/status calculations. */
-================================================== */
+/* ========================================================= */
 #team .wr-team-room{
   width:100%;
   max-width:1600px;
@@ -3868,7 +3868,7 @@ function normalisePosList(value){
 /* =========================================================
    /* REAL LANDSCAPE FIX Ã¢â‚¬â€ layout only, no scoring/projection changes */
    /* Goal: match reference: readable field cards + full-height reserves. */
-================================================== */
+/* ========================================================= */
 html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!important}
 #team{overflow:hidden}
 #team .wr-team-room{max-width:none!important;width:100%!important;min-width:0!important;height:calc(100vh - 66px)!important;margin:0!important;padding:0!important;display:flex!important;flex-direction:column!important;gap:8px!important;overflow:hidden!important}
@@ -4028,7 +4028,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
    - narrower reserves, larger field
    - names initial + surname
    - modal close/cancel above all layers
-================================================== */
+/* ========================================================= */
 #team .wr-round-actions{display:flex!important;gap:5px!important;align-items:center!important;justify-content:flex-end!important;white-space:nowrap!important;overflow:visible!important}
 #team .wr-round-actions button{padding:7px 9px!important;font-size:12px!important;border-radius:9px!important;min-width:0!important}
 #team .wr-round-actions button:nth-child(3){max-width:68px!important;overflow:hidden!important;text-overflow:ellipsis!important}
@@ -4123,7 +4123,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 /* =========================================================
    /* FIELD 14 VISIBLE + SMALL RESERVES PATCH */
    Keeps working drag/tap/trade. Layout only.
-================================================== */
+/* ========================================================= */
 @media (max-width: 980px) and (orientation: landscape){
   html, body{width:100vw!important;height:100dvh!important;overflow:hidden!important;margin:0!important;background:#02060c!important;touch-action:manipulation!important;}
   nav{height:44px!important;min-height:44px!important;padding:3px 7px!important;gap:6px!important;overflow:hidden!important;position:relative!important;z-index:50!important;}
@@ -4324,7 +4324,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
    - all field tiles slightly smaller with breathing room
    - custom team logos fitted inside the existing small badge boxes
    /* Nothing else changed: trade, drag/drop, scoring, status and projections untouched. */
-================================================== */
+/* ========================================================= */
 #team .wr-team-logo.team-logo-img,
 #team .wr-reserve-logo.team-logo-img{
   padding:0!important;
@@ -4489,7 +4489,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 /* =========================================================
    /* FINAL SURGICAL PATCH - CTW SPACING + SMALLER TILES + FITTED LOGOS ONLY */
    /* Keeps existing drag/trade/scoring/status JS untouched. */
-================================================== */
+/* ========================================================= */
 #team .formation-grid{
   display:grid!important;
   grid-template-columns:repeat(12,minmax(0,1fr))!important;
@@ -4649,7 +4649,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
    /* FINAL REAL PHONE LANDSCAPE FIT PATCH */
    /* Purpose: fit all 14 starters + readable reserve names. */
    /* Changes layout only: no scoring, status, drag or trade JS touched. */
-================================================== */
+/* ========================================================= */
 @media (max-width: 980px) and (orientation: landscape){
   html,body{width:100vw!important;height:100dvh!important;overflow:hidden!important;}
   nav{height:42px!important;min-height:42px!important;padding:3px 7px!important;gap:6px!important;overflow:hidden!important;}
@@ -4726,8 +4726,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
    /* JOEL FINAL INDEX PATCH - 2026-06-13 */
    /* Scope: My Team layout only. Other tabs scroll normally. */
    /* Player tile order: TEAM BADGE | PROJECTED SCORE | J.Surname */
-================================================== */
-
+/* ========================================================= */
 /* Do not let old global landscape locks trap every tab */
 @media (orientation: landscape) and (max-height: 620px){
   html,
@@ -5140,7 +5139,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 /* =========================================================
    /* v17 UI FIX: true tab isolation, single trade badge, logos in tables */
    /* UI only. No player-specific status logic. */
-================================================== */
+/* ========================================================= */
 .tab{display:none!important;visibility:hidden!important;position:absolute!important;left:-100000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important;pointer-events:none!important;}
 .tab.active-tab{display:block!important;visibility:visible!important;position:relative!important;left:auto!important;width:auto!important;height:auto!important;overflow:visible!important;pointer-events:auto!important;}
 #team:not(.active-tab),#bye:not(.active-tab),#level3:not(.active-tab),#explorer:not(.active-tab),#trade:not(.active-tab){display:none!important;visibility:hidden!important;position:absolute!important;left:-100000px!important;width:1px!important;height:1px!important;overflow:hidden!important;pointer-events:none!important;}
@@ -5170,7 +5169,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 /* =========================================================
    /* PLAYER PROFILE MODAL */
    /* Click/tap player name opens profile. Card body still drags. */
-================================================== */
+/* ========================================================= */
 .player-name-link{
   cursor:pointer!important;
   text-decoration:underline!important;
@@ -5303,8 +5302,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
    /* Scope: #team only. */
    /* No projection/status/weather/trade/save logic changed. */
    Makes My Team readable: compact field cards + reserve rows.
-================================================== */
-
+/* ========================================================= */
 #team .wr-auth-panel{
   display:none !important;
 }
@@ -5851,7 +5849,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 /* =========================================================
    /* PATCH: dual-position display + team badges beside names */
    /* Scope: My Team UI only. No scoring/status/data logic touched. */
-================================================== */
+/* ========================================================= */
 #team.active-tab .formation-card{
   grid-template-columns:42px minmax(0,1fr) 50px!important;
 }
@@ -5964,7 +5962,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 /* =========================================================
    /* CORE POSITION + TEAM BADGE DISPLAY FIX */
    UI-only: resolves all positions from the central resolver/override data.
-================================================== */
+/* ========================================================= */
 #team.active-tab .formation-card{
   grid-template-columns:48px minmax(0,1fr) 50px!important;
 }
@@ -7018,7 +7016,7 @@ function weatherLine(player){const match=getPlayerNextWeather(player);if(!match)
    /* V40: War Room Projection Engine v2 */
    /* System logic only. No player-specific fixes or overrides. */
    /* Produces expected/floor/ceiling/confidence/risk/reasons/components. */
-================================================== */
+/* ========================================================= */
 function wrClamp(n,min,max){n=Number(n);if(!Number.isFinite(n))n=0;return Math.max(min,Math.min(max,n))}
 function wrRound(n){return Math.max(0,Math.round(Number.isFinite(Number(n))?Number(n):0))}
 function wrNum(v){const n=Number(v);return Number.isFinite(n)?n:0}
@@ -10253,7 +10251,7 @@ function applyTradeFromTradeLab(){const out=$('tradeOut')?.value?.trim(),inn=$('
 /* =========================================================
    /* v17 JS OVERRIDES: tab isolation + logos + single trade badge */
    /* UI only. No player-specific hard fixes. */
-================================================== */
+/* ========================================================= */
 function forceOnlyActiveTab(){
   const active=App.active||'team';
   document.querySelectorAll('section.tab').forEach(sec=>{
@@ -10338,7 +10336,7 @@ function renderTrade(){$('trade').innerHTML=`<div class="grid"><div class="panel
 /* =========================================================
    /* V18: generic injury return windows + source detail layer */
    /* UI only. No player-specific hard fixes. */
-================================================== */
+/* ========================================================= */
 function truthRecordAnyRound(p){
   if(!p||!p.name||!App.statusTruth)return null;
   const players=App.statusTruth.players||App.statusTruth;
@@ -10686,7 +10684,7 @@ function renderLevel3(){
 /* =========================================================
    /* V25: Player Explorer status filters */
    /* UI only. No player-specific hard fixes. */
-================================================== */
+/* ========================================================= */
 function explorerStatusCategory(p){
   const badge=statusBadgeForPlayer(p);
   return badge.category||'other';
@@ -10744,7 +10742,7 @@ document.addEventListener('click', function(e){
 
 /* =========================================================
    /* V40: Projection v2 UI detail overrides */
-================================================== */
+/* ========================================================= */
 function projectionReasonHtml(pr){return pr?.reasons?.length?`<div class="small">Why: ${pr.reasons.map(esc).join(' | ')}</div>`:''}
 function projectionRiskPill(pr){return `<span class="pill ${pr.risk==='High'?'bad':pr.risk==='Medium'?'warn':'good'}">${esc(pr.confidence||'Medium')} confidence | ${esc(pr.risk||'Medium')} risk</span>`}
 function renderLevel3(){
@@ -10756,7 +10754,7 @@ function renderLevel3(){
    /* V41: Final Status Arbitration Guard */
    /* System logic only. No player-specific fixes or overrides. */
    /* Prevents GREEN/unavailable contradictions and fixes zero-projection risk text. */
-================================================== */
+/* ========================================================= */
 const wrOriginalAvailabilityStatusV41 = availabilityStatus;
 const wrOriginalRoundProjV41 = roundProj;
 const wrOriginalProjectionRiskPillV41 = projectionRiskPill;
@@ -10861,7 +10859,7 @@ projectionRiskPill = function projectionRiskPillV41(pr){
 /* =========================================================
    /* V42: Final player photo resolver override */
    /* Generic only. No player-specific hard fixes. */
-================================================== */
+/* ========================================================= */
 function wrV42PhotoText(v){return String(v==null?'':v)}
 function wrV42PhotoKey(v){
   return wrV42PhotoText(v)
@@ -10947,4 +10945,5 @@ wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
 
 </body>
 </html>
+
 
