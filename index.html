@@ -4415,7 +4415,7 @@ function formationFigureHtml(cls='formation-face'){return `<div class="${cls}"><
 function shortName(name){const parts=String(name||'').trim().split(/\s+/).filter(Boolean);if(parts.length>=2)return `${parts[0][0]}. ${parts.slice(1).join(' ')}`;return String(name||'')}
 
 function formationStatusClass(p){const st=availabilityStatus(p);return st.key==='bye'?'bye':(st.key==='injured'||st.key==='suspended'||st.key==='notnamed'||st.key==='out')?'out':(st.key==='expected'||st.key==='origin'||st.key==='risk')?'risk':''}
-function formationSlot(slotId,gridArea){
+function formationSlot(slotId,gridArea,fieldBySlot={}){
  const slot=slotById[slotId],p=getPlayer(App.lineup?.[slotId]);
  if(!slot)return '';
  if(!p){
@@ -4461,7 +4461,7 @@ function formationFieldHtml(fieldBySlot={}){
   ['CTW1','5 / 1 / 6 / 2'],['CTW2','5 / 2 / 6 / 3'],['CTW3','5 / 4 / 6 / 5'],['CTW4','5 / 5 / 6 / 6'],
   ['FLB1','6 / 3 / 7 / 4'],['FLEX1','7 / 3 / 8 / 4']
  ];
- return `<div class="formation-field"><div class="formation-watermark left">WAR</div><div class="formation-watermark right">ROOM</div><div class="formation-grid">${slots.map(([id,area])=>formationSlot(id,area)).join('')}</div></div>`
+ return `<div class="formation-field"><div class="formation-watermark left">WAR</div><div class="formation-watermark right">ROOM</div><div class="formation-grid">${slots.map(([id,area])=>formationSlot(id,area,fieldBySlot)).join('')}</div></div>`
 }
 function formationReserveCard(p,idx=0,slotId=""){
  const pr=roundProj(p),st=availabilityStatus(p),cls=statusDotClass(st);
