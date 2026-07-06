@@ -4539,7 +4539,7 @@ function moveEmptyReserveTeamPlayer(slotId,name){
 }
 
 
-function formationReservesHtml(state){
+function formationReservesHtml(state=teamRenderState()){
  const rows=state.reserveRows||RESERVE_SLOT_IDS.map((slotId,idx)=>({slotId,idx:idx+1,name:"",player:null}));
  return `<aside class="formation-reserves wr-reserve-panel">
   <div class="wr-reserve-head"><span>RESERVES</span><b>1-12</b></div>
@@ -5691,11 +5691,6 @@ function reserveTargetCount(group){
  if(group==='WINGS / CENTRES') return 3;
  if(group==='FULLBACK') return 1;
  return 0;
-  <div class="wr-reserve-head"><span>RESERVES</span><b>1-12</b></div>
-  <div class="wr-reserve-list">
-   ${rows.map(r=>r.player?formationReserveCard(r.player,r.idx,r.slotId):emptyFormationReserveCard(r.slotId,r.idx)).join("")}
-  </div>
- </aside>`;
 }
 
 function mobileTeamHtml(state=teamRenderState()){
@@ -7548,5 +7543,6 @@ wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
 
 </body>
 </html>
+
 
 
