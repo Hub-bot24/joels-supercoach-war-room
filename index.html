@@ -4416,7 +4416,9 @@ function shortName(name){const parts=String(name||'').trim().split(/\s+/).filter
 
 function formationStatusClass(p){const st=availabilityStatus(p);return st.key==='bye'?'bye':(st.key==='injured'||st.key==='suspended'||st.key==='notnamed'||st.key==='out')?'out':(st.key==='expected'||st.key==='origin'||st.key==='risk')?'risk':''}
 function formationSlot(slotId,gridArea,fieldBySlot={}){
- const slot=slotById[slotId],p=getPlayer(App.lineup?.[slotId]);
+ const slot=slotById[slotId];
+ const rawPlayer=fieldBySlot?.[slotId] ?? App.lineup?.[slotId];
+ const p=(rawPlayer&&typeof rawPlayer==='object')?rawPlayer:getPlayer(rawPlayer);
  if(!slot)return '';
  if(!p){
   return `<div class="formation-slot" style="grid-area:${gridArea}">
