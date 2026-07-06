@@ -326,7 +326,7 @@
 <script>
 'use strict';
 const App={players:[],playerMap:new Map(),myTeam:[],weather:null,fixtures:null,goalKickers:null,teamRoles:null,availabilityOverrides:null,playerStatus:null,playerPhotos:null,
-dualPositions:{players:{}},,projectionCache:new Map(),active:'team',rendered:new Set(),round:Number(localStorage.getItem('sc_round')||14),roundSource:'stored',trustWarnings:[],lineup:null,drag:null};
+dualPositions:{players:{}},projectionCache:new Map(),active:'team',rendered:new Set(),round:Number(localStorage.getItem('sc_round')||14),roundSource:'stored',trustWarnings:[],lineup:null,drag:null};
 const $=id=>document.getElementById(id);const safeNum=v=>Number.isFinite(Number(v))?Number(v):0;const money=n=>'$'+safeNum(n).toLocaleString();
 function esc(s){return String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 window.jsq = function(value){const s=String(value==null?'':value);return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\r/g,'\\r').replace(/\n/g,'\\n').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029')}
