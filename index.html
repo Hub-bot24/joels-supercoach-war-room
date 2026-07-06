@@ -6883,6 +6883,23 @@ function wrV42FinalPlayerPhotoUrl(p){
 playerPhotoUrl = wrV42FinalPlayerPhotoUrl;
 wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
 
+
+/* WR FIX: projection box must not crash render if ProjectionEngine is missing */
+function projectionBoxHtml(p){
+ try{
+  const pr=(typeof roundProj==='function')?roundProj(p):{expected:safeNum(p?.projected??p?.projection??p?.avg??p?.average??0)};
+  const expected=safeNum(pr?.expected??pr?.projection??pr?.score??p?.projected??p?.projection??p?.avg??p?.average??0);
+  const low=safeNum(pr?.low??pr?.floor??0);
+  const high=safeNum(pr?.high??pr?.ceiling??0);
+  const confidence=safeNum(pr?.confidence??0);
+  const st=(typeof availabilityStatus==='function')?availabilityStatus(p):null;
+  const dim=st&&st.available===false?'opacity:.65;':'';
+  return `<div class="projection-box" style="${dim}"><span>Proj</span><b>${Math.round(expected)}</b>${low||high?`<small>${Math.round(low)}-${Math.round(high)}</small>`:''}${confidence?`<small>${Math.round(confidence)}%</small>`:''}</div>`;
+ }catch(e){
+  const fallback=safeNum(p?.projected??p?.projection??p?.avg??p?.average??0);
+  return `<div class="projection-box"><span>Proj</span><b>${Math.round(fallback)}</b></div>`;
+ }
+}
 </script>
 
 </body>
