@@ -6792,18 +6792,15 @@ projectionRiskPill = function projectionRiskPillV41(pr){
   return wrOriginalProjectionRiskPillV41(pr);
 };
 /* =========================================================
-   /* V42: Final player photo resolver override
- */
-   /* Generic only. No player-specific hard fixes.
- */
-/* ========================================================= */
+   V42: Final player photo resolver override
+   Generic only. No player-specific hard fixes.
+========================================================= */
 function wrV42PhotoText(v){return String(v==null?'':v)}
 function wrV42PhotoKey(v){
   return wrV42PhotoText(v)
     .toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g,'')
-    .replace(/[\u2018\u2019`\u00b4]/g,"'")
     .replace(/&apos;|&#39;/g,"'")
     .replace(/[^a-z0-9]+/g,' ')
     .replace(/\s+/g,' ')
@@ -6822,9 +6819,12 @@ function wrV42DirectImageUrl(url){
 }
 function wrV42UsablePhotoUrl(url){
   const u=wrV42DirectImageUrl(url);
-  if(!/^https?:\/\//i.test(u))return false;
-  if(/favicon|badge|icon|sponsor|partner|placeholder|default|crest|(^|[\/_.-])logo([\/_.-]|$)/i.test(u))return false;
-  return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?|\.png(\?|$)|\.jpg(\?|$)|\.jpeg(\?|$)|\.webp(\?|$)/i.test(u);
+  if(!u)return false;
+  if(!u.toLowerCase().startsWith('http://') && !u.toLowerCase().startsWith('https://'))return false;
+  const bad=['favicon','badge','icon','sponsor','partner','placeholder','default','crest','logo'];
+  if(bad.some(x=>u.toLowerCase().includes(x)))return false;
+  const good=['rugbyimages.statsperform.com','Player%20Bodyshots','Player+Bodyshots','remote.axd?','.png','.jpg','.jpeg','.webp'];
+  return good.some(x=>u.includes(x));
 }
 function wrV42FindPhotoRecord(p){
   const photos=App.playerPhotos?.players||App.playerPhotos||{};
@@ -6868,6 +6868,7 @@ wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
 
 </body>
 </html>
+
 
 
 
