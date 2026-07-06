@@ -716,28 +716,3 @@ window.openPlayerCard = function(name){
   alert(player.name);
 };
 
-window.openPlayerCard = function(name){
-  const p =
-    App.players?.find(x => (x.name || '').toLowerCase() === String(name).toLowerCase())
-    || App.playerMap?.get?.(name);
-
-  if(!p){
-    console.warn("Player not found:", name);
-    return;
-  }
-
-  // BEST PATH: if you already have modal system in future
-  if(typeof window.showPlayerCard === 'function'){
-    window.showPlayerCard(p);
-    return;
-  }
-
-  // fallback UI (so it NEVER looks broken again)
-  const msg =
-    `${p.name}\n` +
-    `Team: ${p.team || ''}\n` +
-    `Pos: ${positions(p).join(', ') || 'N/A'}\n` +
-    `Proj: ${p.proj || 0}`;
-
-  alert(msg);
-};
