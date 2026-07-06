@@ -4355,10 +4355,13 @@ function renderTeam(){
   ensureLineup();
   const state=teamRenderState();
   saveLocal({touch:false,cloud:false});
-  const teamRoot=$('team');
+  let teamRoot=$('team');
   if(!teamRoot){
-    console.error('WR renderTeam blocked: #team missing');
-    return;
+    teamRoot=document.createElement('div');
+    teamRoot.id='team';
+    teamRoot.className='tab active-tab';
+    document.body.appendChild(teamRoot);
+    console.warn('WR renderTeam created missing #team root');
   }
   teamRoot.innerHTML=mobileTeamHtml(state);
 }
