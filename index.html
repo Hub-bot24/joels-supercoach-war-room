@@ -6050,16 +6050,13 @@ saveLocal();renderTeam();toast(`${p.name} moved to ${slot.short}`);return true}
 function commitDragToReserveCard(d,targetSlotId){
  if(!d||!RESERVE_SLOT_IDS.includes(targetSlotId))return false;
 
- App.reserveOrder=App.reserveOrder||{};
-
- const movingPlayer=getPlayer(d.name);
- if(!movingPlayer)return false;
-
- if(!reserveSlotAccepts(targetSlotId,movingPlayer)){
-  toast(`${movingPlayer.name} cannot play ${reserveSlotLabel(targetSlotId)}`);
+ const movingPlayer=getPlayer(d?.name);
+ if(!movingPlayer||!reserveSlotAccepts(targetSlotId,movingPlayer)){
+  toast(`${movingPlayer?.name||"Player"} cannot play ${reserveSlotLabel(targetSlotId)}`);
   return false;
  }
 
+ App.reserveOrder=App.reserveOrder||{};
  const targetName=App.reserveOrder[targetSlotId]||"";
  const targetPlayer=getPlayer(targetName);
 
@@ -6076,20 +6073,16 @@ function commitDragToReserveCard(d,targetSlotId){
   else delete App.lineup[d.slotId];
 
   setReserveSlot(targetSlotId,movingPlayer.name);
-
+  ensureLineup();
   saveLocal();
   renderTeam();
   toast(`${movingPlayer.name} moved to ${targetSlotId}`);
   return true;
  }
 
- return false;
-}
-
  if(d.type==="reserve"){
   const sourceSlotId=reserveSlotForPlayerName(movingPlayer.name);
   if(!sourceSlotId)return false;
-  if(sourceSlotId===targetSlotId)return true;
 
   if(targetPlayer&&!reserveSlotAccepts(sourceSlotId,targetPlayer)){
    toast(`${targetPlayer.name} cannot play ${reserveSlotLabel(sourceSlotId)}`);
@@ -6097,9 +6090,8 @@ function commitDragToReserveCard(d,targetSlotId){
   }
 
   setReserveSlot(targetSlotId,movingPlayer.name);
-
   if(targetPlayer)setReserveSlot(sourceSlotId,targetPlayer.name);
-  else setReserveSlot(sourceSlotId,null);
+  else setReserveSlot(sourceSlotId,"");
 
   saveLocal();
   renderTeam();
@@ -7543,6 +7535,7 @@ wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
 
 </body>
 </html>
+
 
 
 
