@@ -1,5 +1,4 @@
-﻿<<<<<<< HEAD
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -290,7 +289,7 @@
 
    /* WAR ROOM LANDSCAPE MY TEAM LAYOUT PATCH */
    /* Scope: #team only. Layout + cards only. */
-   Does NOT touch Level 3 projection/scoring/status calculations.
+   /* Does NOT touch Level 3 projection/scoring/status calculations. */
 #team .wr-team-room{
   width:100%;
   max-width:1600px;
@@ -1218,7 +1217,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
    - CTWs evenly spread across the field
    - all field tiles slightly smaller with breathing room
    - custom team logos fitted inside the existing small badge boxes
-   Nothing else changed: trade, drag/drop, scoring, status and projections untouched.
+   /* Nothing else changed: trade, drag/drop, scoring, status and projections untouched. */
 #team .wr-team-logo.team-logo-img,
 #team .wr-reserve-logo.team-logo-img{
   padding:0!important;
@@ -2184,7 +2183,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
    EMERGENCY USABLE MY TEAM PATCH - ChatGPT
    /* Scope: #team only. */
-   No projection/status/weather/trade/save logic changed.
+   /* No projection/status/weather/trade/save logic changed. */
    Makes My Team readable: compact field cards + reserve rows.
 
 #team .wr-auth-panel{
@@ -3095,7 +3094,6 @@ function normalisePosList(value){
    }
   });
   return out;
-=======
 ï»¿<!doctype html>
 <html lang="en">
 <head>
@@ -3415,7 +3413,7 @@ function normalisePosList(value){
 /* =========================================================
    /* WAR ROOM LANDSCAPE MY TEAM LAYOUT PATCH */
    /* Scope: #team only. Layout + cards only. */
-   Does NOT touch Level 3 projection/scoring/status calculations.
+   /* Does NOT touch Level 3 projection/scoring/status calculations. */
    ========================================================= */
 #team .wr-team-room{
   width:100%;
@@ -4351,7 +4349,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
    - CTWs evenly spread across the field
    - all field tiles slightly smaller with breathing room
    - custom team logos fitted inside the existing small badge boxes
-   Nothing else changed: trade, drag/drop, scoring, status and projections untouched.
+   /* Nothing else changed: trade, drag/drop, scoring, status and projections untouched. */
    ========================================================= */
 #team .wr-team-logo.team-logo-img,
 #team .wr-reserve-logo.team-logo-img{
@@ -5329,7 +5327,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 /* =========================================================
    /* EMERGENCY USABLE MY TEAM PATCH - ChatGPT */
    /* Scope: #team only. */
-   No projection/status/weather/trade/save logic changed.
+   /* No projection/status/weather/trade/save logic changed. */
    Makes My Team readable: compact field cards + reserve rows.
    ========================================================= */
 
@@ -7976,7 +7974,6 @@ function commitDragToSlot(d,slotId){
  if(!eligible(p,slot)){
   toast(`${p.name} cannot play ${slot.short}`);
   return false;
->>>>>>> ea1f07f (Fix corrupted index boot and drag reserve logic)
  }
 
  App.reserveOrder=App.reserveOrder||{};
@@ -8025,7 +8022,6 @@ function commitDragToSlot(d,slotId){
  return true;
 }
 
-<<<<<<< HEAD
 function dateValue(v){if(!v)return NaN;const t=new Date(v).getTime();return Number.isFinite(t)?t:NaN}
 function firstDate(obj){if(!obj||typeof obj!=='object')return NaN;for(const k of ['updated','updatedAt','lastUpdated','last_update','generatedAt','generated_at','timestamp','date','kickoffLocal','kickoff','startTime','start','matchDate']){const t=dateValue(obj[k]);if(Number.isFinite(t))return t}return NaN}
 function recordAgeHours(rec){const t=firstDate(rec);return Number.isFinite(t)?(Date.now()-t)/36e5:9999}
@@ -9479,8 +9475,6 @@ function clearDrop(ev){ev.currentTarget.classList.remove('drop-ok','drop-no')}
 function commitDragToSlot(d,slotId){const p=getPlayer(d?.name),slot=slotById[slotId];if(!p||!slot)return false;if(!eligible(p,slot)){toast(`${p.name} cannot play ${slot.short}`);return false}if(d.type==='field'){const from=d.slotId;if(from===slotId)return true;const target=App.lineup[slotId];if(target&&!eligible(getPlayer(target),slotById[from])){toast(`${target} cannot swap into ${slotById[from].short}`);return false}App.lineup[slotId]=p.name;if(target)App.lineup[from]=target;else delete App.lineup[from];}
  else {for(const k of Object.keys(App.lineup||{})){if(App.lineup[k]===p.name)delete App.lineup[k]}App.lineup[slotId]=p.name;}
 saveLocal();renderTeam();toast(`${p.name} moved to ${slot.short}`);return true}
-=======
->>>>>>> ea1f07f (Fix corrupted index boot and drag reserve logic)
 function commitDragToReserveCard(d,targetSlotId){
  if(!d||!RESERVE_SLOT_IDS.includes(targetSlotId))return false;
 
@@ -9576,7 +9570,6 @@ function pressDragStart(ev,type,slotId,name){
  let moved=false;
 
  const d={type:type==='field'?'field':'reserve',slotId,name};
-<<<<<<< HEAD
  const startTimer=setTimeout(()=>{started=true;App.drag=d;el.classList.add('press-dragging');try{el.setPointerCapture(ev.pointerId)}catch(e){}},260);
  function cleanup(){clearTimeout(startTimer);window.removeEventListener('pointermove',move,{capture:true});window.removeEventListener('pointerup',up,{capture:true});window.removeEventListener('pointercancel',cancel,{capture:true});el.classList.remove('press-dragging');el.style.transform='';el.style.zIndex=''}
  function move(e){const dx=e.clientX-startX,dy=e.clientY-startY;if(Math.hypot(dx,dy)>7)moved=true;if(started){e.preventDefault();el.style.transform=`translate(${dx}px,${dy}px) scale(.98)`;el.style.zIndex='10000';}}
@@ -9617,8 +9610,6 @@ function pressDragStart(ev,type,slotId,name){
     openPlayerCard(name);
   }
 }
-=======
->>>>>>> ea1f07f (Fix corrupted index boot and drag reserve logic)
 
  const startTimer=setTimeout(()=>{
   started=true;
@@ -9627,7 +9618,6 @@ function pressDragStart(ev,type,slotId,name){
   try{el.setPointerCapture(ev.pointerId)}catch(e){}
  },260);
 
-<<<<<<< HEAD
    // Bye Planner core rule:
    // Future planner BYE must come from the player's actual bye rounds only.
    // Do not carry current-round status_truth BYE into non-bye future rounds.
@@ -10120,7 +10110,6 @@ boot().catch(err=>{
  const team=document.getElementById('team');
  if(team){
   team.innerHTML=`<div class="panel"><h2>Page failed to load</h2><p class="bad">${esc(err.message||err)}</p><p class="small">Open DevTools Console and check BOOT FAILED.</p></div>`;
-=======
  function cleanup(){
   clearTimeout(startTimer);
   window.removeEventListener('pointermove',move,true);
@@ -10129,14 +10118,12 @@ boot().catch(err=>{
   el.classList.remove('press-dragging');
   el.style.transform='';
   el.style.zIndex='';
->>>>>>> ea1f07f (Fix corrupted index boot and drag reserve logic)
  }
 
  function move(e){
   const dx=e.clientX-startX,dy=e.clientY-startY;
   if(Math.hypot(dx,dy)>7)moved=true;
 
-<<<<<<< HEAD
    V40: Projection v2 UI detail overrides
 function projectionReasonHtml(pr){return pr?.reasons?.length?`<div class="small">Why: ${pr.reasons.map(esc).join(' | ')}</div>`:''}
 function projectionRiskPill(pr){return `<span class="pill ${pr.risk==='High'?'bad':pr.risk==='Medium'?'warn':'good'}">${esc(pr.confidence||'Medium')} confidence | ${esc(pr.risk||'Medium')} risk</span>`}
@@ -10151,7 +10138,6 @@ function renderLevel3(){
 const wrOriginalAvailabilityStatusV41 = availabilityStatus;
 const wrOriginalRoundProjV41 = roundProj;
 const wrOriginalProjectionRiskPillV41 = projectionRiskPill;
-=======
   if(started){
    e.preventDefault();
    el.style.transform=`translate(${dx}px,${dy}px) scale(.98)`;
@@ -10162,7 +10148,6 @@ const wrOriginalProjectionRiskPillV41 = projectionRiskPill;
  function cancel(){
   cleanup();
  }
->>>>>>> ea1f07f (Fix corrupted index boot and drag reserve logic)
 
  function up(e){
   const wasStarted=started;
@@ -10171,7 +10156,6 @@ const wrOriginalProjectionRiskPillV41 = projectionRiskPill;
   if(wasStarted){
    const target=document.elementFromPoint(e.clientX,e.clientY);
 
-<<<<<<< HEAD
 projectionRiskPill = function projectionRiskPillV41(pr){
   if(pr?.projectionUnavailable||String(pr?.confidence||'').toLowerCase()==='no projection'){
     return `<span class="pill bad">${esc(pr.confidence||'No projection')} | ${esc(pr.risk||'Unavailable')}</span>`;
@@ -10212,10 +10196,8 @@ function wrV42UsablePhotoUrl(url){
 function wrV42FindPhotoRecord(p){
   const photos=App.playerPhotos?.players||App.playerPhotos||{};
   const names=[p?.name,p?.fullName,p?.playerName,p?.statsSourceName].filter(Boolean);
-=======
    const slot=target?.closest?.('[data-slot]')?.getAttribute('data-slot');
    const reserve=target?.closest?.('[data-reserve-slot]')?.getAttribute('data-reserve-slot');
->>>>>>> ea1f07f (Fix corrupted index boot and drag reserve logic)
 
    if(slot&&(type==='field'||type==='reserve')){
     commitDragToSlot(d,slot);
@@ -10982,7 +10964,6 @@ function wrV42FinalPlayerPhotoUrl(p){
 playerPhotoUrl = wrV42FinalPlayerPhotoUrl;
 wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
 
-<<<<<<< HEAD
   const rec=wrV42FindPhotoRecord(p);
   const mapped=wrV42DirectImageUrl(wrV42PhotoUrlFromRecord(rec));
   if(wrV42UsablePhotoUrl(mapped))return mapped;
