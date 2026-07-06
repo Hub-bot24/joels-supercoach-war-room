@@ -3005,11 +3005,22 @@ const App={players:[],playerMap:new Map(),playerNameMap:new Map(),ambiguousPlaye
 teamLists:null,officialTeamLists:null,originUnavailable:null,opponentDifficulty:{},
 dualPositions:{players:{}},projectionCache:new Map(),active:'team',rendered:new Set(),round:Number(localStorage.getItem('sc_round')||14),roundSource:'stored',trustWarnings:[],lineup:null,drag:null,sync:{client:null,user:null,enabled:false,status:'offline',lastCloudAt:'',saving:false,timer:null,clientId:null,localUpdatedAt:''}};
 const $=id=>document.getElementById(id);const safeNum=v=>Number.isFinite(Number(v))?Number(v):0;const money=n=>'$'+safeNum(n).toLocaleString();
-function esc(s){return String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 window.jsq = function(value){const s=String(value==null?'':value);return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\r/g,'\\r').replace(/\n/g,'\\n').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029')}
-function norm(s){return String(s||'').toLowerCase().replace(/[^a-z0-9/\s'-]/g,' ').replace(/\s+/g,' ').trim()}
-function playerPhotoKey(value){return String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[Ã¯Â¿Â½Ã¯Â¿Â½`Ã¯Â¿Â½]/g,"'").replace(/&apos;|&#39;/g,"'").replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim()}
-function playerSlug(name){return String(name||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[Ã¯Â¿Â½Ã¯Â¿Â½`Ã¯Â¿Â½]/g,"'").replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
+function norm(s){return String(s||'').toLowerCase().replace(/[^a-z0-9\s\/'-]/g,' ').replace(/\s+/g,' ').trim()}
+function playerPhotoKey(value){
+  return String(value||'')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g,'')
+    .replace(/&apos;|&#39;/g,"'")
+    .replace(/[^a-z0-9]+/g,' ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+function playerSlug(name){
+  return playerPhotoKey(name).replace(/\s+/g,'-').replace(/^-+|-+$/g,'');
+}
 function playerPhotoRecordUrl(rec){return typeof rec==='string'?rec:(rec?.url||rec?.photo||rec?.image||rec?.headshot||rec?.src||'')}
 function playerPhotoLookupKeys(value){
  const raw=String(value||'').trim();
@@ -6868,6 +6879,7 @@ wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
 
 </body>
 </html>
+
 
 
 
