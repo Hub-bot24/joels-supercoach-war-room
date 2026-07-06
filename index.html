@@ -694,29 +694,29 @@ function renderTrade(){$('trade').innerHTML=`<div class="grid"><div class="panel
 function scoreTrade(){const out=getPlayer($('tradeOut').value),inn=getPlayer($('tradeIn').value),box=$('tradeVerdict');if(!out||!inn){box.innerHTML='Pick valid players.';return}const po=roundProj(out),pi=roundProj(inn);const pts=pi.expected-po.expected,cash=safeNum(out.price)-safeNum(inn.price),bye=(availabilityStatus(inn).available?1:0)-(availabilityStatus(out).available?1:0);let score=Math.max(0,Math.min(100,Math.round(50+pts*2+(cash/60000)+bye*12)));box.innerHTML=`<div class="metric ${score>=75?'good':score>=55?'warn':'bad'}">${score}/100</div><table><tbody><tr><td>Points this round</td><td>${pts>=0?'+':''}${pts}</td></tr><tr><td>Cash</td><td>${cash>=0?'+':''}${money(cash)}</td></tr><tr><td>Availability impact R${App.round}</td><td>${bye>=0?'+':''}${bye}</td></tr><tr><td>Verdict</td><td>${score>=75?'Strong trade':score>=55?'Decent, check byes':'Weak trade - probably emotional trash'}</td></tr></tbody></table>`}
 function applyTradeFromTradeLab(){const out=$('tradeOut')?.value?.trim(),inn=$('tradeIn')?.value?.trim();if(!out||!inn){toast('Pick OUT and IN players');return}if(!App.myTeam.includes(out)||!App.playerMap.has(inn)){toast('Invalid trade');return}App.myTeam=App.myTeam.map(n=>n===out?inn:n);for(const k of Object.keys(App.lineup)){if(App.lineup[k]===out){if(eligible(getPlayer(inn),slotById[k]))App.lineup[k]=inn;else delete App.lineup[k]}}ensureLineup();saveLocal();renderTrade();toast(`Trade applied: ${out} → ${inn}`)}
 boot();
-</script>
-</body>
-</html>
+
+// FORCE GLOBAL SAFE ENTRY POINT (OVERRIDES EVERYTHING ABOVE)
 window.openPlayerCard = function(name){
-  const player =
-    (App.players || []).find(p =>
-      String(p.name || '').toLowerCase() === String(name).toLowerCase()
+
+  if (typeof window.__openPlayerCard_core === "function") {
+    return window.__openPlayerCard_core(name);
+  }
+
+  const p =
+    (App.players || []).find(x =>
+      String(x.name || '').toLowerCase() === String(name).toLowerCase()
     )
     || App.playerMap?.get?.(name);
 
-  if(!player){
+  if(!p){
     console.warn("Player not found:", name);
     return;
   }
 
-  if(typeof window.showPlayerCard === "function"){
-    window.showPlayerCard(player);
-    return;
-  }
-
   alert(
-    player.name + "\n" +
-    (player.team || "") + "\n" +
-    (player.proj || "")
+    p.name + "\n" +
+    (p.team || "") + "\n" +
+    (p.pos || "") + "\n" +
+    (p.proj || 0)
   );
 };
