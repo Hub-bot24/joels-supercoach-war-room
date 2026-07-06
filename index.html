@@ -107,31 +107,6 @@
 
 
 
-/* MOBILE MY TEAM COMPACT FIELD ONLY - safe: no projection/status/data changes */
-@media(max-width:720px){
-  #team .formation-layout{display:block}
-  #team .formation-field{min-height:720px;padding:10px;overflow:hidden}
-  #team .formation-grid{grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(7,84px);gap:6px;overflow:visible;justify-content:stretch}
-  #team .formation-slot{width:100%;max-width:76px;min-height:78px}
-  #team .formation-slot:has(.formation-card[data-slot="2RF3"]){grid-area:3 / 3 / 4 / 4 !important}
-  #team .formation-slot:has(.formation-card[data-slot="FLB1"]){grid-area:6 / 3 / 7 / 4 !important}
-  #team .formation-slot:has(.formation-card[data-slot="FLEX1"]){grid-area:7 / 3 / 8 / 4 !important}
-  #team .formation-card{min-height:78px;grid-template-rows:13px 28px 13px 12px;border-radius:10px;padding:4px;box-shadow:0 8px 18px rgba(0,0,0,.48)}
-  #team .formation-score{font-size:15px;right:5px;top:5px}
-  #team .formation-score small{font-size:7px}
-  #team .formation-pos{font-size:8px;padding:2px 4px;left:5px;top:5px}
-  #team .formation-figure{width:42px;height:30px;margin-top:11px}
-  #team .formation-figure:before{width:14px;height:16px}
-  #team .formation-figure:after{width:42px;height:22px}
-  #team .formation-arm{width:25px;height:7px}
-  #team .formation-name{font-size:8px;line-height:1.05}
-  #team .formation-meta{font-size:7px;line-height:1}
-  #team .formation-trade{font-size:7px;bottom:20px;padding:1px 4px;border-radius:6px}
-  #team .formation-reserves{margin-top:10px;max-height:none;overflow:visible}
-  #team .formation-reserve-section:last-child .formation-reserve-title{display:none}
-}
-
-
 
    WAR ROOM MY TEAM BIG CARD FIELD PATCH
    Scope: #team only. No Level 3/status/data/workflow changes.
