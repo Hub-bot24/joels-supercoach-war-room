@@ -698,21 +698,25 @@ boot();
 </body>
 </html>
 window.openPlayerCard = function(name){
-  const player = (App.players || []).find(p =>
-    (p.name || '').toLowerCase() === String(name).toLowerCase()
-  );
+  const player =
+    (App.players || []).find(p =>
+      String(p.name || '').toLowerCase() === String(name).toLowerCase()
+    )
+    || App.playerMap?.get?.(name);
 
   if(!player){
     console.warn("Player not found:", name);
     return;
   }
 
-  if(typeof showPlayerModal === "function"){
-    showPlayerModal(player);
+  if(typeof window.showPlayerCard === "function"){
+    window.showPlayerCard(player);
     return;
   }
 
-  console.warn("showPlayerModal missing - fallback UI");
-  alert(player.name);
+  alert(
+    player.name + "\n" +
+    (player.team || "") + "\n" +
+    (player.proj || "")
+  );
 };
-
