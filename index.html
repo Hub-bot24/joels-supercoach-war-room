@@ -4177,6 +4177,17 @@ console.log('loadApp fallback active');
 window.render = window.render || function(){
 console.log('render fallback active');
 };
+if(typeof ProjectionEngine==='undefined'){
+ var ProjectionEngine={
+  project:function(p){
+   const base=safeNum(p?.projected??p?.projection??p?.expected??p?.avg??p?.average??0);
+   return {expected:Math.round(base),lastGame:p?.lastGame||p?.lastScore||'-',last3Avg:p?.last3Avg||'-',last5Avg:p?.last5Avg||'-',seasonAvg:p?.avg||p?.average||'-'};
+  },
+  nextFive:function(p){
+   return {available:false,message:'Projection engine unavailable',avg:'-',avgExBye:'-',games:[]};
+  }
+ };
+}
 function projectionBoxHtml(p){const pr=ProjectionEngine.project(p),next=ProjectionEngine.nextFive(p);return `<div class="projection-box"><span>Projected <b>${pr.expected}</b></span><span>Last Game <b>${pr.lastGame||'-'}</b></span><span>Last 3 Ave <b>${pr.last3Avg||'-'}</b></span><span>Last 5 Ave <b>${pr.last5Avg||'-'}</b></span><span>Season Ave <b>${pr.seasonAvg||'-'}</b></span><span>Next 5 Avg <b>${next.available?next.avg:'-'}</b></span><span>Next 5 Ex Bye <b>${next.available?next.avgExBye:'-'}</b></span></div>`}
 function nextFiveProjectionPanelHtml(p){const next=ProjectionEngine.nextFive(p);if(!next.available)return `<div class="next5-panel"><h4>Next 5 projections</h4><div class="next5-panel-empty">${esc(next.message)}</div></div>`;return `<div class="next5-panel"><h4>Next 5 projections</h4>${next.games.map(g=>{const opponent=g.opponent&&g.opponent!=='Opponent TBC'?`v ${g.opponent}`:'Opponent TBC';return `<div class="next5-panel-row"><span>R${esc(g.round)}</span><span class="next5-panel-meta">${esc(opponent)}</span><b>${esc(g.score)}</b></div>`}).join('')}<div class="next5-panel-row"><span>Avg</span><span class="next5-panel-meta">Next 5 / excluding bye</span><b>${esc(next.avg)} / ${esc(next.avgExBye)}</b></div></div>`}
 function projectionCacheKey(p){if(!p||!p.name)return '';const values=[p.name,App.round,safeNum(p.avg||p.average||0),safeNum(p.last3Avg||0),safeNum(p.last5Avg||0),safeNum(p.proj||p.projected||p.expected||0),safeNum(p.expectedMinutes||p.minutes||0),String(p.injuryStatus||p.status||'').trim().toUpperCase(),safeNum(p.playProbability==null?100:p.playProbability),JSON.stringify(p.bye||p.byes||[])];values.push(JSON.stringify(wrGoalKickerInfo(p)));return values.join('|')}
