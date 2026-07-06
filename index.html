@@ -697,3 +697,21 @@ boot();
 </script>
 </body>
 </html>
+window.openPlayerCard = function(name){
+  const player = (App.players || []).find(p =>
+    (p.name || '').toLowerCase() === String(name).toLowerCase()
+  );
+
+  if(!player){
+    console.warn("Player not found:", name);
+    return;
+  }
+
+  if(typeof showPlayerModal === "function"){
+    showPlayerModal(player);
+    return;
+  }
+
+  console.warn("showPlayerModal missing - fallback UI");
+  alert(player.name);
+};
