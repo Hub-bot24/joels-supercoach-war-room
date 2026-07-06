@@ -3025,7 +3025,12 @@ function playerPhotoRecordUrl(rec){return typeof rec==='string'?rec:(rec?.url||r
 function playerPhotoLookupKeys(value){
  const raw=String(value||'').trim();
  if(!raw)return [];
- const variants=[raw,raw.replace(/[Ã¯Â¿Â½Ã¯Â¿Â½`Ã¯Â¿Â½]/g,"'"),raw.replace(/'/g,'Ã¯Â¿Â½'),playerSlug(raw),playerPhotoKey(raw)];
+ const variants=[
+   raw,
+   raw.replace(/'/g,''),
+   playerSlug(raw),
+   playerPhotoKey(raw)
+ ];
  return [...new Set(variants.map(v=>String(v||'').trim()).filter(Boolean))];
 }
 function buildPlayerPhotoLookup(){
@@ -6879,6 +6884,7 @@ wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
 
 </body>
 </html>
+
 
 
 
