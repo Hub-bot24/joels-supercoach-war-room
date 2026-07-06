@@ -4355,7 +4355,12 @@ function renderTeam(){
   ensureLineup();
   const state=teamRenderState();
   saveLocal({touch:false,cloud:false});
-  $('team').innerHTML=mobileTeamHtml(state);
+  const teamRoot=$('team');
+  if(!teamRoot){
+    console.error('WR renderTeam blocked: #team missing');
+    return;
+  }
+  teamRoot.innerHTML=mobileTeamHtml(state);
 }
 function datalists(){return `<datalist id="teamDataList">${App.myTeam.map(n=>`<option value="${esc(n)}">`).join('')}</datalist><datalist id="allDataList">${App.players.map(p=>`<option value="${esc(p.name)}">`).join('')}</datalist>`}
 function fieldLabels(){return `<div class="row-label lbl-hok">HOOKER<br>HOK</div><div class="row-label lbl-frf">FRONT ROW<br>FRF</div><div class="row-label lbl-2rf">2ND ROW<br>2RF</div><div class="row-label lbl-halves">HALVES<br>HFB / 5-8</div><div class="row-label lbl-ctw">CENTRES / WINGS<br>CTW</div><div class="row-label lbl-flb">FULLBACK<br>FLB</div>`}
