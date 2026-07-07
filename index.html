@@ -6298,7 +6298,7 @@ function tradeOptionButton(r,onclick){
   return `<button type="button" data-trade-option="1" data-search="${esc(search)}" onclick="${onclick}" style="display:grid;grid-template-columns:minmax(0,1fr) 48px;gap:9px;align-items:center;width:100%;padding:9px;border-radius:14px;border:1px solid #29405f;background:#0b1a2d;color:#f8fafc;text-align:left;cursor:pointer">
     <span style="min-width:0">
       <span class="trade-name-line">${teamIconHtml(r,'trade-team-badge')}<b>${esc(r.name)}</b></span>
-      <span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-left:38px">${esc(r.team||'')} | ${esc(r.pos||'')}</span>
+      <span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-left:38px">${esc(r.team||'')} | ${esc(positionText(r))}</span>
       <span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-left:38px">${esc(rs.label||'')}</span>
     </span>
     <span style="text-align:right;font-weight:950;color:#58a6ff;font-size:17px">${rp.expected}<span class="status-dot ${cls}" style="margin-left:4px"></span></span>
