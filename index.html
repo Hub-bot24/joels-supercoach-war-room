@@ -6204,7 +6204,7 @@ function updateExplorer(){const q=norm($('explorerInput').value),box=$('explorer
 function renderTrade(){$('trade').innerHTML=`<div class="grid"><div class="panel span4"><h2>Trade Lab</h2><label>Trade OUT</label><input id="tradeOut" list="teamList"><datalist id="teamList">${App.myTeam.map(n=>`<option value="${esc(n)}">`).join('')}</datalist><label>Trade IN</label><input id="tradeIn" list="allList"><datalist id="allList">${App.players.map(p=>`<option value="${esc(p.name)}">`).join('')}</datalist><button onclick="scoreTrade()">Score Trade</button><button onclick="applyTradeFromTradeLab()">Apply Trade</button></div><div class="panel span6"><h2>Trade Verdict</h2><div id="tradeVerdict" class="small">Select players to score the trade.</div></div></div>`}
 function scoreTrade(){const out=getPlayer($('tradeOut').value),inn=getPlayer($('tradeIn').value),box=$('tradeVerdict');if(!out||!inn){box.innerHTML='Pick valid players.';return}const po=roundProj(out),pi=roundProj(inn);const pts=pi.expected-po.expected,cash=safeNum(out.price)-safeNum(inn.price),bye=(availabilityStatus(inn).available?1:0)-(availabilityStatus(out).available?1:0);let score=Math.max(0,Math.min(100,Math.round(50+pts*2+(cash/60000)+bye*12)));box.innerHTML=`<div class="metric ${score>=75?'good':score>=55?'warn':'bad'}">${score}/100</div><table><tbody><tr><td>Points this round</td><td>${pts>=0?'+':''}${pts}</td></tr><tr><td>Cash</td><td>${cash>=0?'+':''}${money(cash)}</td></tr><tr><td>Availability impact R${App.round}</td><td>${bye>=0?'+':''}${bye}</td></tr><tr><td>Verdict</td><td>${score>=75?'Strong trade':score>=55?'Decent, check byes':'Weak trade - probably emotional trash'}</td></tr></tbody></table>`}
 function applyTradeFromTradeLab(){const out=$('tradeOut')?.value?.trim(),inn=$('tradeIn')?.value?.trim();if(!out||!inn){toast('Pick OUT and IN players');return}if(!App.myTeam.includes(out)||!App.playerMap.has(inn)){toast('Invalid trade');return}App.myTeam=App.myTeam.map(n=>n===out?inn:n);for(const k of Object.keys(App.lineup)){if(App.lineup[k]===out){if(eligible(getPlayer(inn),slotById[k]))App.lineup[k]=inn;else delete App.lineup[k]}}ensureLineup();saveLocal();renderTrade();toast(`Trade applied: ${out} → ${inn}`)}
-
+<<<<<<< HEAD
 boot();
 
 // FORCE GLOBAL SAFE ENTRY POINT (OVERRIDES EVERYTHING ABOVE)
@@ -6232,7 +6232,7 @@ window.openPlayerCard = function(name){
     (p.proj || 0)
   );
 };
-
+=======
 
 
 /* =========================================================
@@ -6966,4 +6966,4 @@ wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
 </script>
 </body>
 </html>
-
+>>>>>>> 6085fbb (Expose App globally for runtime)
