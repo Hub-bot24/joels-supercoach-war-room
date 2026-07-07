@@ -15,10 +15,19 @@ import requests
 
 ROOT = Path(__file__).resolve().parents[1]
 PLAYERS_JSON = ROOT / "players.json"
+DPP_IMPORT_STATUS_JSON = ROOT / "dpp_import_status.json"
+DPP_LAST_KNOWN_GOOD_JSON = ROOT / "dpp_last_known_good.json"
+DPP_IMPORT_HISTORY_JSONL = ROOT / "dpp_import_history.jsonl"
 
 SOURCE_URLS = [
     "https://www.nrlsupercoachstats.com/TeamPricesAndBEs.php"
 ]
+DPP_URL_TEMPLATE = "https://www.nrlsupercoachstats.com/dualposngrid.php?year={year}"
+DPP_MIN_PLAYERS_FOUND = 10
+DPP_MIN_MATCH_RATE = 0.5
+DPP_MAX_DROP_RATE = 0.5
+DPP_CONFIDENCE_THRESHOLD = 70
+DPP_MAX_SNAPSHOT_AGE_DAYS = 14
 
 def clean_name(value: Any) -> str:
     text = str(value or "").strip()
@@ -36,9 +45,10 @@ def normalise_positions(value: Any) -> list[str]:
     else:
         raw_values = [value]
 
+    position_pattern = re.compile(r"\b(?:HOK|FRF|2RF|HFB|5/8|CTW|FLB)\b", re.I)
     for raw in raw_values:
-        for part in str(raw).upper().replace(",", "/").replace("|", "/").split("/"):
-            pos = part.strip()
+        for match in position_pattern.finditer(str(raw).upper()):
+            pos = match.group(0).upper()
             if pos in VALID_POSITIONS and pos not in parts:
                 parts.append(pos)
     return parts
@@ -55,11 +65,26 @@ def apply_position_fields(player: dict[str, Any], raw_pos: Any) -> None:
     player["dualPositions"] = positions
     player["positionFixed"] = False
 
+def merge_position_fields(player: dict[str, Any], raw_pos: Any) -> None:
+    merged: list[str] = []
+    for key in ["positions", "eligiblePositions", "dualPositions", "position", "pos"]:
+        for pos in normalise_positions(player.get(key)):
+            if pos not in merged:
+                merged.append(pos)
+    for pos in normalise_positions(raw_pos):
+        if pos not in merged:
+            merged.append(pos)
+    apply_position_fields(player, merged)
+
 def norm_name(value: Any) -> str:
     text = clean_name(value).lower()
+    text = re.sub(r"([a-z])([A-Z])", r"\1 \2", clean_name(value)).lower()
     text = re.sub(r"[^a-z\s'-]", "", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text
+
+def compact_name_key(value: Any) -> str:
+    return re.sub(r"[^a-z]", "", norm_name(value))
 
 def to_number(value: Any) -> float | int | None:
     if value is None:
@@ -275,17 +300,264 @@ def fetch_source_rows() -> list[dict[str, Any]]:
                 all_rows.extend(parsed)
 
     return all_rows
+
+def source_name_to_player_name(value: str) -> str:
+    text = clean_name(value)
+    if "," not in text:
+        return text
+    last, first = [clean_name(x) for x in text.split(",", 1)]
+    return clean_name(f"{first} {last}")
+
+def normalise_position_heading(value: Any) -> str:
+    text = clean_name(value).upper()
+    return text if text in VALID_POSITIONS else ""
+
+def parse_dpp_names(value: Any) -> list[str]:
+    text = clean_name(value)
+    names = []
+    pattern = re.compile(r"\b([A-Za-z][A-Za-z'’.-]+(?:-[A-Za-z'’.-]+)?),\s*([A-Za-z][A-Za-z'’.-]+(?:\s+[A-Za-z][A-Za-z'’.-]+)?)")
+    for match in pattern.finditer(text):
+        name = source_name_to_player_name(match.group(0))
+        if name and name not in names:
+            names.append(name)
+    return names
+
+def add_dpp_position(out: dict[str, list[str]], name: str, positions: list[str]) -> None:
+    key = norm_name(name)
+    if not key:
+        return
+    current = out.setdefault(key, [])
+    for pos in positions:
+        if pos in VALID_POSITIONS and pos not in current:
+            current.append(pos)
+
+def parse_dpp_table(df: pd.DataFrame) -> dict[str, list[str]]:
+    out: dict[str, list[str]] = {}
+    table = df.fillna("")
+    columns = [normalise_position_heading(col) for col in table.columns]
+    data = table
+
+    if sum(1 for col in columns if col) < 2 and len(table.index):
+        first_row = [normalise_position_heading(value) for value in table.iloc[0].tolist()]
+        if sum(1 for col in first_row if col) >= 2:
+            columns = first_row
+            data = table.iloc[1:]
+
+    if sum(1 for col in columns if col) < 2:
+        return out
+
+    for _, row in data.iterrows():
+        values = row.tolist()
+        if not values:
+            continue
+        row_pos = normalise_position_heading(values[0])
+        if not row_pos:
+            continue
+        for idx, cell in enumerate(values[1:], start=1):
+            col_pos = columns[idx] if idx < len(columns) else ""
+            if not col_pos or col_pos == row_pos:
+                continue
+            for name in parse_dpp_names(cell):
+                add_dpp_position(out, name, [col_pos, row_pos])
+    return out
+
+def load_json_file(path: Path) -> Any:
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+def load_dpp_import_status() -> dict[str, Any]:
+    data = load_json_file(DPP_IMPORT_STATUS_JSON)
+    return data if isinstance(data, dict) else {}
+
+def load_dpp_last_known_good() -> dict[str, Any]:
+    data = load_json_file(DPP_LAST_KNOWN_GOOD_JSON)
+    return data if isinstance(data, dict) else {}
+
+def write_dpp_import_status(status: dict[str, Any]) -> None:
+    DPP_IMPORT_STATUS_JSON.write_text(json.dumps(status, indent=2), encoding="utf-8")
+
+def write_dpp_last_known_good(snapshot: dict[str, Any]) -> None:
+    DPP_LAST_KNOWN_GOOD_JSON.write_text(json.dumps(snapshot, indent=2), encoding="utf-8")
+
+def append_dpp_import_history(status: dict[str, Any]) -> None:
+    history = {
+        "timestamp": status.get("timestamp"),
+        "season": status.get("season"),
+        "source_url": status.get("source_url"),
+        "ok": status.get("ok", False),
+        "validation_ok": status.get("validation_ok", False),
+        "accepted": status.get("accepted", False),
+        "confidence": status.get("confidence", 0),
+        "dpp_players_found": status.get("dpp_players_found", 0),
+        "dpp_players_matched": status.get("dpp_players_matched", 0),
+        "dpp_players_unmatched": status.get("dpp_players_unmatched", 0),
+        "change_summary": status.get("change_summary", {}),
+        "warning": status.get("warning", "")
+    }
+    with DPP_IMPORT_HISTORY_JSONL.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(history, ensure_ascii=False) + "\n")
+
+def snapshot_age_days(snapshot: dict[str, Any]) -> int | None:
+    timestamp = snapshot.get("timestamp")
+    if not timestamp:
+        return None
+    try:
+        parsed = datetime.fromisoformat(str(timestamp).replace("Z", "+00:00"))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        return (datetime.now(timezone.utc) - parsed).days
+    except Exception:
+        return None
+
+def detect_dpp_changes(current: dict[str, list[str]], previous_snapshot: dict[str, Any]) -> dict[str, Any]:
+    previous = previous_snapshot.get("players", {}) if isinstance(previous_snapshot, dict) else {}
+    if not isinstance(previous, dict):
+        previous = {}
+    current_keys = set(current.keys())
+    previous_keys = set(previous.keys())
+    changed = []
+    for key in current_keys & previous_keys:
+        if set(current.get(key, [])) != set(previous.get(key, [])):
+            changed.append(key)
+    return {
+        "added": len(current_keys - previous_keys),
+        "removed": len(previous_keys - current_keys),
+        "changed": len(changed),
+        "unchanged": len(current_keys & previous_keys) - len(changed),
+        "previous_count": len(previous_keys),
+        "current_count": len(current_keys)
+    }
+
+def dpp_confidence_score(status: dict[str, Any], change_summary: dict[str, Any], include_match_rate: bool = True) -> int:
+    score = 100
+    found = int(status.get("dpp_players_found") or 0)
+    matched = int(status.get("dpp_players_matched") or 0)
+    unmatched = int(status.get("dpp_players_unmatched") or 0)
+    previous_count = int(change_summary.get("previous_count") or 0)
+    removed = int(change_summary.get("removed") or 0)
+
+    if not status.get("ok"):
+        score -= 100
+    if found < DPP_MIN_PLAYERS_FOUND:
+        score -= 40
+    if include_match_rate and found:
+        match_rate = matched / found
+        if match_rate < DPP_MIN_MATCH_RATE:
+            score -= 40
+        if unmatched > matched:
+            score -= 20
+    if previous_count and removed > previous_count * DPP_MAX_DROP_RATE:
+        score -= 30
+    return max(0, min(100, score))
+
+def validate_dpp_positions(dpp_positions: dict[str, list[str]], status: dict[str, Any], previous_status: dict[str, Any]) -> bool:
+    warnings: list[str] = []
+    found = len(dpp_positions)
+    previous_found = int(previous_status.get("dpp_players_found") or 0) if previous_status.get("ok") else 0
+
+    if found < DPP_MIN_PLAYERS_FOUND:
+        warnings.append(f"DPP import rejected: found {found} players, below minimum {DPP_MIN_PLAYERS_FOUND}.")
+
+    for name, positions in dpp_positions.items():
+        invalid = [pos for pos in positions if pos not in VALID_POSITIONS]
+        if invalid:
+            warnings.append(f"DPP import rejected: invalid positions for {name}: {invalid}.")
+            break
+
+    if previous_found and found < previous_found * (1 - DPP_MAX_DROP_RATE):
+        warnings.append(f"DPP import rejected: player count dropped from {previous_found} to {found}.")
+
+    if warnings:
+        status["ok"] = False
+        status["validation_ok"] = False
+        status["warning"] = " ".join(warnings)
+        return False
+
+    status["validation_ok"] = True
+    return True
+
+def fetch_dpp_positions(year: int | None = None) -> tuple[dict[str, list[str]], dict[str, Any]]:
+    season = year or datetime.now(timezone.utc).year
+    url = DPP_URL_TEMPLATE.format(year=season)
+    previous_status = load_dpp_import_status()
+    last_known_good = load_dpp_last_known_good()
+    status: dict[str, Any] = {
+        "source_url": url,
+        "season": season,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "ok": False,
+        "validation_ok": False,
+        "dpp_players_found": 0,
+        "dpp_players_matched": 0,
+        "dpp_players_unmatched": 0,
+        "warning": "",
+        "confidence": 0,
+        "accepted": False,
+        "change_summary": {},
+        "last_known_good_age_days": snapshot_age_days(last_known_good),
+        "snapshot_age_warning": ""
+    }
+    headers = {"User-Agent": "JoelSuperCoachWarRoom/2.0 personal-use updater"}
+    try:
+        print(f"Fetching DPP grid {url}")
+        res = requests.get(url, headers=headers, timeout=30)
+        res.raise_for_status()
+        tables = pd.read_html(StringIO(res.text))
+    except Exception as exc:
+        status["warning"] = f"DPP source fetch failed; existing player positions were preserved. {type(exc).__name__}: {exc}"
+        write_dpp_import_status(status)
+        print(status["warning"])
+        return {}, status
+
+    merged: dict[str, list[str]] = {}
+    for table in tables:
+        parsed = parse_dpp_table(table)
+        for key, positions in parsed.items():
+            current = merged.setdefault(key, [])
+            for pos in positions:
+                if pos not in current:
+                    current.append(pos)
+    status["dpp_players_found"] = len(merged)
+
+    change_summary = detect_dpp_changes(merged, last_known_good)
+    status["change_summary"] = change_summary
+    age_days = status.get("last_known_good_age_days")
+    if isinstance(age_days, int) and age_days > DPP_MAX_SNAPSHOT_AGE_DAYS:
+        status["snapshot_age_warning"] = f"Last known good DPP snapshot is {age_days} days old."
+
+    if not validate_dpp_positions(merged, status, previous_status):
+        status["confidence"] = dpp_confidence_score(status, change_summary)
+        append_dpp_import_history(status)
+        write_dpp_import_status(status)
+        print(status["warning"])
+        return {}, status
+
+    status["ok"] = True
+    status["confidence"] = dpp_confidence_score(status, change_summary, include_match_rate=False)
+    write_dpp_import_status(status)
+    print(f"Parsed {len(merged)} DPP players from {url}")
+    return merged, status
+
 def load_players() -> dict[str, Any]:
     if PLAYERS_JSON.exists():
         return json.loads(PLAYERS_JSON.read_text(encoding="utf-8"))
     return {"players": []}
 
-def merge_players(existing: dict[str, Any], source_rows: list[dict[str, Any]]) -> dict[str, Any]:
+def merge_players(existing: dict[str, Any], source_rows: list[dict[str, Any]], dpp_positions: dict[str, list[str]] | None = None, dpp_status: dict[str, Any] | None = None) -> dict[str, Any]:
     players = existing.get("players", [])
     by_name = {norm_name(p.get("name")): p for p in players if p.get("name")}
+    by_compact_name = {compact_name_key(p.get("name")): p for p in players if p.get("name")}
+    dpp_positions = dpp_positions or {}
+    dpp_status = dpp_status or {}
 
     updated = 0
     added = 0
+    dpp_matched = 0
+    dpp_unmatched = 0
 
     for src in source_rows:
         key = src["norm"]
@@ -338,7 +610,52 @@ def merge_players(existing: dict[str, Any], source_rows: list[dict[str, Any]]) -
             apply_position_fields(new_player, src.get("pos"))
             players.append(new_player)
             by_name[key] = new_player
+            by_compact_name[compact_name_key(src["name"])] = new_player
             added += 1
+
+    dpp_matches: list[tuple[dict[str, Any], list[str]]] = []
+    for key, dpp in dpp_positions.items():
+        p = by_name.get(key) or by_compact_name.get(compact_name_key(key))
+        if not p:
+            dpp_unmatched += 1
+            continue
+        dpp_matches.append((p, dpp))
+        dpp_matched += 1
+
+    if dpp_status:
+        dpp_status["dpp_players_matched"] = dpp_matched
+        dpp_status["dpp_players_unmatched"] = dpp_unmatched
+        found = int(dpp_status.get("dpp_players_found") or 0)
+        if dpp_status.get("ok") and found:
+            matched_rate = dpp_matched / found
+            dpp_status["matched_rate"] = matched_rate
+            if matched_rate < DPP_MIN_MATCH_RATE:
+                dpp_status["ok"] = False
+                dpp_status["validation_ok"] = False
+                dpp_status["accepted"] = False
+                dpp_status["warning"] = f"DPP import rejected: matched {dpp_matched} of {found} players, below minimum match rate {DPP_MIN_MATCH_RATE}."
+        change_summary = dpp_status.get("change_summary", {})
+        dpp_status["confidence"] = dpp_confidence_score(dpp_status, change_summary if isinstance(change_summary, dict) else {})
+        if dpp_status.get("ok") and dpp_status["confidence"] < DPP_CONFIDENCE_THRESHOLD:
+            dpp_status["ok"] = False
+            dpp_status["validation_ok"] = False
+            dpp_status["accepted"] = False
+            dpp_status["warning"] = f"DPP import rejected: confidence {dpp_status['confidence']} below minimum {DPP_CONFIDENCE_THRESHOLD}."
+        if dpp_status.get("ok"):
+            dpp_status["accepted"] = True
+            for p, dpp in dpp_matches:
+                merge_position_fields(p, dpp)
+            if dpp_positions:
+                write_dpp_last_known_good({
+                    "season": dpp_status.get("season"),
+                    "source_url": dpp_status.get("source_url"),
+                    "timestamp": dpp_status.get("timestamp"),
+                    "confidence": dpp_status.get("confidence", 0),
+                    "dpp_players_found": len(dpp_positions),
+                    "players": dpp_positions
+                })
+        append_dpp_import_history(dpp_status)
+        write_dpp_import_status(dpp_status)
 
     existing["players"] = players
     existing["lastAutomationRun"] = datetime.now(timezone.utc).isoformat()
@@ -362,12 +679,13 @@ def merge_players(existing: dict[str, Any], source_rows: list[dict[str, Any]]) -
 def main() -> None:
     existing = load_players()
     rows = fetch_source_rows()
+    dpp_positions, dpp_status = fetch_dpp_positions()
 
     if not rows:
         raise RuntimeError("No usable player rows found. Public table format may have changed.")
 
     print(f"Parsed {len(rows)} player rows")
-    merged = merge_players(existing, rows)
+    merged = merge_players(existing, rows, dpp_positions, dpp_status)
     PLAYERS_JSON.write_text(json.dumps(merged, indent=2), encoding="utf-8")
     print("players.json updated")
 

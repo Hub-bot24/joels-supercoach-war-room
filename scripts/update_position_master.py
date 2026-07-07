@@ -16,6 +16,7 @@ Important:
 """
 
 import json
+import re
 from pathlib import Path
 from datetime import datetime, timezone
 
@@ -26,6 +27,7 @@ OVERRIDES_PATH = ROOT / "position_overrides.json"
 MASTER_PATH = ROOT / "position_master.json"
 DUAL_PATH = ROOT / "dual_positions.json"
 REPORT_PATH = ROOT / "position_audit_report.json"
+DPP_IMPORT_STATUS_PATH = ROOT / "dpp_import_status.json"
 
 VALID = {"HOK", "FRF", "2RF", "HFB", "5/8", "CTW", "FLB"}
 
@@ -53,9 +55,9 @@ def pos_list(value):
     raw = []
     if isinstance(value, list):
         for x in value:
-            raw.extend(str(x).replace(",", "/").replace("|", "/").split("/"))
+            raw.extend(re.split(r"[,|]", str(x)))
     else:
-        raw = str(value).replace(",", "/").replace("|", "/").split("/")
+        raw = re.split(r"[,|]", str(value))
     out = []
     for x in raw:
         x = x.strip().upper()
@@ -150,6 +152,30 @@ def main():
 
     # 3. Sort output.
     master = dict(sorted(master.items(), key=lambda kv: kv[0].lower()))
+    dpp_players = {name: pos for name, pos in master.items() if len(pos_list(pos)) > 1}
+    dpp_status = load_json(DPP_IMPORT_STATUS_PATH, {})
+    report["dpp_import"] = {
+        "source_url": dpp_status.get("source_url", ""),
+        "season": dpp_status.get("season"),
+        "timestamp": dpp_status.get("timestamp", ""),
+        "ok": dpp_status.get("ok", False),
+        "validation_ok": dpp_status.get("validation_ok", False),
+        "accepted": dpp_status.get("accepted", False),
+        "confidence": dpp_status.get("confidence", 0),
+        "warning": dpp_status.get("warning", ""),
+        "snapshot_age_warning": dpp_status.get("snapshot_age_warning", ""),
+        "last_known_good_age_days": dpp_status.get("last_known_good_age_days"),
+        "dpp_players_found": dpp_status.get("dpp_players_found", 0),
+        "dpp_players_matched": dpp_status.get("dpp_players_matched", 0),
+        "dpp_players_unmatched": dpp_status.get("dpp_players_unmatched", 0),
+        "matched_rate": dpp_status.get("matched_rate"),
+        "change_summary": dpp_status.get("change_summary", {}),
+        "position_master_dpp_count": len(dpp_players),
+        "sample_players": [
+            {"player": name, "positions": pos_list(pos)}
+            for name, pos in list(dpp_players.items())[:20]
+        ]
+    }
 
     master_out = {
         "updated": datetime.now(timezone.utc).isoformat(),
@@ -172,9 +198,7 @@ def main():
     print(f"Imported positions: {report['positions_from_import']}")
     print(f"Manual overrides applied: {report['manual_overrides_applied']}")
     print(f"Conflicts fixed by overrides: {len(report['conflicts_fixed_by_override'])}")
-]}")
-    print(f"Manual overrides applied: {report['manual_overrides_applied']}")
-    print(f"Conflicts fixed by overrides: {len(report['conflicts_fixed_by_override'])}")
+    print(f"DPP players found: {report['dpp_import']['dpp_players_found']}")
     print(f"Missing positions: {len(report['missing_positions'])}")
 
 if __name__ == "__main__":

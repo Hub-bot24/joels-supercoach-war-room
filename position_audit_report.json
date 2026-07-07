@@ -1,7 +1,58 @@
 {
-  "updated": "2026-07-06T21:53:58.475887+00:00",
-  "checked_master_players_found_in_players_json": 539,
-  "positions_forced_from_master": 539,
-  "conflict_count": 0,
-  "conflicts": []
+  "updated": "2026-07-07T07:53:00.437184+00:00",
+  "total_players_seen": 587,
+  "positions_from_import": 569,
+  "manual_overrides_applied": 12,
+  "missing_positions": [
+    "Onitoni Large",
+    "Matt Dufty",
+    "Va'a Semu",
+    "Josh Patston",
+    "Bodhi Sharpley",
+    "KL Iro",
+    "Josh Curran",
+    "Te Hurinui Twidle",
+    "Sean OSullivan",
+    "Loko PasifikiTonga",
+    "Sua Faalogo",
+    "Jack deBelin",
+    "Tallyn DaSilva",
+    "Isaiah Papalii",
+    "Nicholas Hynes",
+    "Jaylan deGroot",
+    "TeMaire Martin",
+    "Josese Lanyon"
+  ],
+  "conflicts_fixed_by_override": [
+    {
+      "player": "Te Maire Martin",
+      "imported": [
+        "HFB"
+      ],
+      "trusted": [
+        "HFB",
+        "5/8"
+      ]
+    },
+    {
+      "player": "Jayden Campbell",
+      "imported": [
+        "HFB"
+      ],
+      "trusted": [
+        "HFB",
+        "5/8"
+      ]
+    },
+    {
+      "player": "Fletcher Sharpe",
+      "imported": [
+        "5/8"
+      ],
+      "trusted": [
+        "5/8",
+        "FLB"
+      ]
+    }
+  ]
 }
