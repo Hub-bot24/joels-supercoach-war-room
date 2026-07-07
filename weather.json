@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07T15:08:43.767050+00:00",
+  "updated": "2026-07-07T18:05:43.962584+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -437,6 +437,65 @@
             "maxScore": 0
           },
           "second_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          }
+        },
+        "reasons": [],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 20,
+      "match": "Sharks v Knights",
+      "homeTeam": "SHA",
+      "awayTeam": "NEW",
+      "venue": "Sharks Stadium",
+      "kickoffLocal": "2026-07-17T18:00:00",
+      "city": "Cronulla",
+      "lat": -34.0419,
+      "lon": 151.1403,
+      "timezone": "Australia/Sydney",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-07-17T17:30:00",
+        "to": "2026-07-17T19:50:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-07-17T18:00",
+          "phase": "first_half",
+          "temperature_2m": 15.6,
+          "precipitation_probability": 19,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 4.0,
+          "wind_gusts_10m": 19.8
+        },
+        {
+          "time": "2026-07-17T19:00",
+          "phase": "halftime_period",
+          "temperature_2m": 14.8,
+          "precipitation_probability": 17,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 2.0,
+          "wind_gusts_10m": 19.1
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 0,
+        "maxRainProbability": 19.0,
+        "totalGameRainMm": 0.0,
+        "maxWindKmh": 4.0,
+        "maxGustKmh": 19.8,
+        "avgTemp": 15.2,
+        "phaseRisk": {
+          "first_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          },
+          "halftime_period": {
             "avgScore": 0,
             "maxScore": 0
           }
