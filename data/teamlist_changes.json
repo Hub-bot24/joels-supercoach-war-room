@@ -1,158 +1,5 @@
 [
   {
-    "player": "Alexander Brimson",
-    "team": "GLD",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-07T10:32:47.222Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-07T10:32:47.222Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Ali Leiataua",
-    "team": "NZL",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-07T10:32:47.222Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-07T10:32:47.222Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Alofiana Khan-Pereira",
-    "team": "NZL",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-07T10:32:47.222Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-07T10:32:47.222Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Angus Crichton",
-    "team": "SYD",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-07T10:32:47.222Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-07T10:32:47.222Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Angus Hinchey",
-    "team": "MEL",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-07T10:32:47.222Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-07T10:32:47.222Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Apa Twidle",
-    "team": "PAR",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-07T10:32:47.222Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-07T10:32:47.222Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Apisai Koroisau",
-    "team": "WST",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-07T10:32:47.222Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-07T10:32:47.222Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Arama Hau",
-    "team": "GLD",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-07T10:32:47.222Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-07T10:32:47.222Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Araz Nanva",
-    "team": "PAR",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-07T10:32:47.222Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-07T10:32:47.222Z"
-      }
-    ],
-    "round": 19
-  },
-  {
     "player": "Ashton Ward",
     "team": "STH",
     "from": "NAMED",
@@ -10445,6 +10292,159 @@
         "name": "Parsed current team-list source",
         "url": "data/teamlists.json",
         "updatedAt": "2026-07-08T03:47:13.680Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Angus Hinchey",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-08T09:09:43.742Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-07-08T09:09:43.742Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Ativalu Lisati",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-08T09:09:43.742Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-07-08T09:09:43.742Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Keagan Russell-Smith",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-08T09:09:43.742Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-07-08T09:09:43.742Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Lazarus Vaalepu",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-08T09:09:43.742Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-07-08T09:09:43.742Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Moses Leo",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-08T09:09:43.742Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-07-08T09:09:43.742Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Preston Conn",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-08T09:09:43.742Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-07-08T09:09:43.742Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Shawn Blore",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-08T09:09:43.742Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-07-08T09:09:43.742Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Stanley Huen",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-08T09:09:43.742Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-07-08T09:09:43.742Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "William Warbrick",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-08T09:09:43.742Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-07-08T09:09:43.742Z"
       }
     ],
     "round": 19
