@@ -1,4 +1,4 @@
-﻿name: Update SuperCoach Positions
+name: Update SuperCoach Positions
 
 on:
   workflow_dispatch:
@@ -12,21 +12,21 @@ permissions:
 jobs:
   update-positions:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          python-version: "3.x"
+          node-version: "20"
 
       - name: Update position master and dual positions
-        run: python scripts/update_position_master.py
+        run: node scripts/update-position-master.mjs
 
       - name: Commit updated position files
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update SuperCoach position master and dual positions
           file_pattern: position_master.json dual_positions.json position_audit_report.json
-
