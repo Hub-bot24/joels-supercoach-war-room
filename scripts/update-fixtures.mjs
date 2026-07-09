@@ -298,10 +298,23 @@ function extractFromMatrixTable(tableHtml) {
     for (let round = 1; round <= 27 && index < tokens.length;) {
       const token = tokens[index];
 
-      if (/^-?\d+(\.\d+)?$/.test(token)) {
-        index++;
-        continue;
-      }
+if (/^-?\d+(\.\d+)?$/.test(token)) {
+  index++;
+  continue;
+}
+
+if (/^BYE$/i.test(token)) {
+  round++;
+  index++;
+  continue;
+}
+
+const opponent = opponentFromMatrixCell(token);
+
+if (!opponent) {
+  index++;
+  continue;
+}
 
       const opponent = opponentFromMatrixCell(token);
 
