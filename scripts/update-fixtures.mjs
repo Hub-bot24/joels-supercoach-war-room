@@ -284,9 +284,10 @@ function extractFromMatrixTable(tableHtml) {
   if (headerIndex < 0) return out;
 
   let index = headerIndex + 1;
+let teamRowsParsed = 0;
 
-  while (index < tokens.length) {
-    const team = appCodeFromDrawCode(tokens[index]);
+while (index < tokens.length && teamRowsParsed < Object.keys(DRAW_CODE_TO_APP_CODE).length) {
+  const team = appCodeFromDrawCode(tokens[index]);
 
     if (!team) {
       index++;
@@ -294,8 +295,9 @@ function extractFromMatrixTable(tableHtml) {
     }
 
     index++;
+teamRowsParsed++;
 
-    for (let round = 1; round <= 27 && index < tokens.length;) {
+for (let round = 1; round <= 27 && index < tokens.length;) {
       const token = tokens[index];
 
 if (/^-?\d+(\.\d+)?$/.test(token)) {
