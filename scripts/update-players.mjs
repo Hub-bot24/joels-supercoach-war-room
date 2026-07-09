@@ -326,11 +326,6 @@ if (dpp) {
   console.log(`Players added: ${added}`);
 }
 
-  await writeJson(PLAYERS_FILE, existing);
-
-  console.log(`Players updated: ${updated}`);
-  console.log(`Players added: ${added}`);
-}
 async function main() {
   const rows = await fetchSourceRows();
 
