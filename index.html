@@ -6200,7 +6200,44 @@ function renderExplorer(){
  $('explorer').innerHTML=`<div class="panel"><h2>Player Explorer</h2><label>Search player, position, or team</label><input id="explorerInput" placeholder="Type a name..." oninput="updateExplorer()"><div id="explorerResults" style="margin-top:12px"></div></div>`;
 }
 
-function updateExplorer(){const q=norm($('explorerInput').value),box=$('explorerResults');if(!q){box.innerHTML='';return}const res=App.players.filter(p=>norm(p.name).includes(q)||norm(p.pos).includes(q)||norm(p.team).includes(q)).slice(0,20);box.innerHTML=res.map(p=>{const pr=roundProj(p),raw=proj(p),st=availabilityStatus(p),weather=weatherLine(p);return `<div class="result"><b class="player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(positionText(p))} - ${esc(p.team||'')}</span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}<span class="small">If available: ${raw.expected} | ${esc(st.reason)} | ${esc(raw.goal)}</span></div>`}).join('')||'<p class="small">No matches.</p>'}
+let explorerSearchTimer = null;
+
+function scheduleExplorerUpdate(){
+  clearTimeout(explorerSearchTimer);
+  explorerSearchTimer = setTimeout(updateExplorer, 120);
+}
+
+function updateExplorer(){
+  const input = $('explorerInput');
+  const box = $('explorerResults');
+
+  if (!input || !box) return;
+
+  const q = norm(input.value || '');
+
+  if (!q) {
+    box.innerHTML = '';
+    return;
+  }
+
+  const res = App.players
+    .filter(p =>
+      norm(p.name || '').includes(q) ||
+      norm(p.pos || '').includes(q) ||
+      norm(p.team || '').includes(q) ||
+      norm(positionText(p) || '').includes(q)
+    )
+    .slice(0, 20);
+
+  box.innerHTML = res.map(p => {
+    const pr = roundProj(p);
+    const raw = proj(p);
+    const st = availabilityStatus(p);
+    const weather = weatherLine(p);
+
+    return `<div class="result"><b class="player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(positionText(p))} - ${esc(p.team||'')}</span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}<span class="small">If available: ${raw.expected} | ${esc(st.reason)} | ${esc(raw.goal)}</span></div>`;
+  }).join('') || '<p class="small">No matches.</p>';
+}
 function renderTrade(){$('trade').innerHTML=`<div class="grid"><div class="panel span4"><h2>Trade Lab</h2><label>Trade OUT</label><input id="tradeOut" list="teamList"><datalist id="teamList">${App.myTeam.map(n=>`<option value="${esc(n)}">`).join('')}</datalist><label>Trade IN</label><input id="tradeIn" list="allList"><datalist id="allList">${App.players.map(p=>`<option value="${esc(p.name)}">`).join('')}</datalist><button onclick="scoreTrade()">Score Trade</button><button onclick="applyTradeFromTradeLab()">Apply Trade</button></div><div class="panel span6"><h2>Trade Verdict</h2><div id="tradeVerdict" class="small">Select players to score the trade.</div></div></div>`}
 function scoreTrade(){const out=getPlayer($('tradeOut').value),inn=getPlayer($('tradeIn').value),box=$('tradeVerdict');if(!out||!inn){box.innerHTML='Pick valid players.';return}const po=roundProj(out),pi=roundProj(inn);const pts=pi.expected-po.expected,cash=safeNum(out.price)-safeNum(inn.price),bye=(availabilityStatus(inn).available?1:0)-(availabilityStatus(out).available?1:0);let score=Math.max(0,Math.min(100,Math.round(50+pts*2+(cash/60000)+bye*12)));box.innerHTML=`<div class="metric ${score>=75?'good':score>=55?'warn':'bad'}">${score}/100</div><table><tbody><tr><td>Points this round</td><td>${pts>=0?'+':''}${pts}</td></tr><tr><td>Cash</td><td>${cash>=0?'+':''}${money(cash)}</td></tr><tr><td>Availability impact R${App.round}</td><td>${bye>=0?'+':''}${bye}</td></tr><tr><td>Verdict</td><td>${score>=75?'Strong trade':score>=55?'Decent, check byes':'Weak trade - probably emotional trash'}</td></tr></tbody></table>`}
 function applyTradeFromTradeLab(){const out=$('tradeOut')?.value?.trim(),inn=$('tradeIn')?.value?.trim();if(!out||!inn){toast('Pick OUT and IN players');return}if(!App.myTeam.includes(out)||!App.playerMap.has(inn)){toast('Invalid trade');return}App.myTeam=App.myTeam.map(n=>n===out?inn:n);for(const k of Object.keys(App.lineup)){if(App.lineup[k]===out){if(eligible(getPlayer(inn),slotById[k]))App.lineup[k]=inn;else delete App.lineup[k]}}ensureLineup();saveLocal();renderTrade();toast(`Trade applied: ${out} → ${inn}`)}
@@ -6669,13 +6706,6 @@ function renderLevel3(){
   const rows=App.players.slice().sort((a,b)=>roundProj(b).expected-roundProj(a).expected).slice(0,220);
   $('level3').innerHTML=`<div class="panel"><h2>Level 3</h2><p class="small">Projection table uses the same status truth as My Team.</p><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Status</th></tr></thead><tbody>${rows.map(p=>{const pr=roundProj(p);return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b class="player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b></span></td><td>${esc(positionText(p))}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${statusPill(p)}</td></tr>`}).join('')}</tbody></table></div></div>`;
 }
-function updateExplorer(){
-  const q=norm($('explorerInput').value),box=$('explorerResults');
-  if(!q){box.innerHTML='';return}
-  const res=App.players.filter(p=>norm(p.name).includes(q)||norm(p.pos).includes(q)||norm(p.team).includes(q)).slice(0,40);
-  box.innerHTML=res.map(p=>{const pr=roundProj(p),raw=proj(p),st=availabilityStatus(p),weather=weatherLine(p),detail=statusDetailHtml(p);return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b class="player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(positionText(p))} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}${detail?detail+'<br>':''}<span class="small">If available: ${raw.expected} | ${esc(raw.goal)}</span></div>`}).join('')||'<p class="small">No matches.</p>';
-}
-
 
 
 /* =========================================================
@@ -6699,11 +6729,77 @@ function setExplorerFilter(filter){
   updateExplorer();
 }
 function renderExplorer(){
-  App.explorerFilter=App.explorerFilter||'all';
-  const counts=explorerCounts();
-  const filters=['all','named','expected','not_named','injured','suspended'];
-  $('explorer').innerHTML=`<div class="panel"><h2>Player Explorer</h2><label>Search player, position, team, or status</label><input id="explorerInput" placeholder="Type a name, team, position..." oninput="updateExplorer()"><div class="explorer-filters">${filters.map(f=>`<button type="button" class="explorer-filter ${App.explorerFilter===f?'active':''}" onclick="setExplorerFilter('${f}')">${esc(explorerFilterLabel(f))} <b>${counts[f]||0}</b></button>`).join('')}</div><div id="explorerResults" style="margin-top:12px"></div></div>`;
+  App.explorerFilter = App.explorerFilter || 'all';
+  const counts = explorerCounts();
+  const filters = ['all','named','expected','not_named','injured','suspended'];
+
+  $('explorer').innerHTML = `<div class="panel"><h2>Player Explorer</h2><label>Search player, position, team, or status</label><input id="explorerInput" placeholder="Type a name, team, position..." oninput="scheduleExplorerUpdate()"><div class="explorer-filters">${filters.map(f=>`<button type="button" class="explorer-filter ${App.explorerFilter===f?'active':''}" onclick="setExplorerFilter('${f}')">${esc(explorerFilterLabel(f))} <b>${counts[f]||0}</b></button>`).join('')}</div><div id="explorerResults" style="margin-top:12px"></div></div>`;
+
   updateExplorer();
+}
+
+let explorerSearchTimer = null;
+
+function scheduleExplorerUpdate(){
+  clearTimeout(explorerSearchTimer);
+  explorerSearchTimer = setTimeout(updateExplorer, 120);
+}
+
+function updateExplorer(){
+  const input = $('explorerInput');
+  const q = norm(input?.value || '');
+  const box = $('explorerResults');
+
+  if (!box) return;
+
+  const filter = App.explorerFilter || 'all';
+
+  let res = App.players.filter(p => {
+    const st = availabilityStatus(p);
+    const rec = st?.truth || truthRecordAnyRound(p) || {};
+    const badge = statusBadgeForPlayer(p);
+    const cat = explorerStatusCategory(p);
+
+    if (filter !== 'all' && cat !== filter) return false;
+    if (!q) return filter !== 'all';
+
+    const hay = norm([
+      p.name,
+      p.pos,
+      p.team,
+      positionText(p),
+      badge.text,
+      badge.label,
+      badge.colourName,
+      badge.reason,
+      st?.label,
+      st?.reason,
+      rec.displayStatus,
+      rec.reason,
+      rec.selectionStatus,
+      rec.originStatus
+    ].filter(Boolean).join(' '));
+
+    return hay.includes(q);
+  });
+
+  res = res
+    .sort((a, b) => roundProj(b).expected - roundProj(a).expected)
+    .slice(0, 60);
+
+  if (!q && filter === 'all') {
+    box.innerHTML = '<p class="small">Search a player, team, position, or use a simple status filter above.</p>';
+    return;
+  }
+
+  box.innerHTML = res.map(p => {
+    const pr = roundProj(p);
+    const raw = proj(p);
+    const weather = weatherLine(p);
+    const detail = statusDetailHtml(p);
+
+    return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b class="player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(positionText(p))} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}${detail?detail+'<br>':''}<span class="small">If available: ${raw.expected} | ${esc(raw.goal)}</span></div>`;
+  }).join('') || '<p class="small">No matches for this filter/search.</p>';
 }
 function updateExplorer(){
   const input=$('explorerInput');
