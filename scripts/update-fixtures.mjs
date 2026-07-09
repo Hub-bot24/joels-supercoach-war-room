@@ -294,7 +294,32 @@ while (index < tokens.length && teamRowsParsed < Object.keys(DRAW_CODE_TO_APP_CO
       continue;
     }
 
+index++;
+
+if (seenTeamRows.has(team)) {
+  let skippedRounds = 0;
+
+  while (skippedRounds < 27 && index < tokens.length) {
+    const skipToken = tokens[index];
+
+    if (/^-?\d+(\.\d+)?$/.test(skipToken)) {
+      index++;
+      continue;
+    }
+
+    if (/^BYE$/i.test(skipToken) || opponentFromMatrixCell(skipToken)) {
+      skippedRounds++;
+      index++;
+      continue;
+    }
+
     index++;
+  }
+
+  continue;
+}
+
+seenTeamRows.add(team);
 teamRowsParsed++;
 
 for (let round = 1; round <= 27 && index < tokens.length;) {
@@ -453,8 +478,9 @@ function calculateByes(fixtures) {
 }
 
 function dedupeFixtures(fixtures) {
-  const seen = new Set();
-  const cleanFixtures = [];
+const out = [];
+const seen = new Set();
+const seenTeamRows = new Set();
 
   for (const fixture of fixtures) {
     const key = `${fixture.round}|${fixture.homeTeam}|${fixture.awayTeam}`;
