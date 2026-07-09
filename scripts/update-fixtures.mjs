@@ -319,15 +319,7 @@ if (!opponent) {
 const home = opponent.away ? opponent.code : team;
 const away = opponent.away ? team : opponent.code;
 
-      if (!opponent) {
-        index++;
-        continue;
-      }
-
-      const home = opponent.away ? opponent.code : team;
-      const away = opponent.away ? team : opponent.code;
-
-      if (home && away && home !== away) {
+if (home && away && home !== away) {
         const pairKey = [home, away].sort().join("-");
         const key = `${round}|${pairKey}`;
 
