@@ -265,67 +265,77 @@ function parseRound(value, fallbackText) {
 }
 function extractFromMatrixTable(tableHtml) {
   const out = [];
-  const rows = extractRows(tableHtml);
-  if (!rows.length) return out;
+  const seen = new Set();
 
-  const parsedRows = rows.map(extractCells).filter(row => row.length);
-  if (!parsedRows.length) return out;
+  const text = stripTags(tableHtml);
+  const tokens = text
+    .split(/\s+/)
+    .map(token => clean(token))
+    .filter(Boolean);
 
-  const headerIndex = parsedRows.findIndex(row => {
-    const text = row.join(" ");
-    return /\bTeam\b/i.test(text) && /\bRd1\b/i.test(text) && /\bRd27\b/i.test(text);
+  const headerIndex = tokens.findIndex((token, index) => {
+    return (
+      /^Team$/i.test(token) &&
+      tokens.slice(index + 1, index + 30).some(next => /^Rd\s*1$/i.test(next)) &&
+      tokens.slice(index + 1, index + 40).some(next => /^Rd\s*27$/i.test(next))
+    );
   });
 
   if (headerIndex < 0) return out;
 
-  const header = parsedRows[headerIndex];
-  const roundColumns = [];
+  let index = headerIndex + 1;
 
-  header.forEach((cell, index) => {
-    const match = clean(cell).match(/^Rd\s*(\d+)$/i);
-    if (match) {
-      roundColumns.push({
-        round: Number(match[1]),
-        index
-      });
+  while (index < tokens.length) {
+    const team = appCodeFromDrawCode(tokens[index]);
+
+    if (!team) {
+      index++;
+      continue;
     }
-  });
 
-  if (!roundColumns.length) return out;
+    index++;
 
-  const seen = new Set();
+    for (let round = 1; round <= 27 && index < tokens.length;) {
+      const token = tokens[index];
 
-  for (const row of parsedRows.slice(headerIndex + 1)) {
-    const team = appCodeFromDrawCode(row[0]);
-    if (!team) continue;
+      if (/^-?\d+(\.\d+)?$/.test(token)) {
+        index++;
+        continue;
+      }
 
-    for (const roundColumn of roundColumns) {
-      const opponent = opponentFromMatrixCell(row[roundColumn.index]);
-      if (!opponent) continue;
+      const opponent = opponentFromMatrixCell(token);
 
-      const round = roundColumn.round;
+      if (!opponent) {
+        index++;
+        continue;
+      }
+
       const home = opponent.away ? opponent.code : team;
       const away = opponent.away ? team : opponent.code;
 
-      if (!home || !away || home === away) continue;
+      if (home && away && home !== away) {
+        const pairKey = [home, away].sort().join("-");
+        const key = `${round}|${pairKey}`;
 
-      const pairKey = [home, away].sort().join("-");
-      const key = `${round}|${pairKey}`;
+        if (!seen.has(key)) {
+          seen.add(key);
 
-      if (seen.has(key)) continue;
-      seen.add(key);
+          const fixture = {
+            round,
+            match: `${TEAM_NAME[home] || home} v ${TEAM_NAME[away] || away}`,
+            homeTeam: home,
+            awayTeam: away,
+            venue: "",
+            kickoffLocal: ""
+          };
 
-      const fixture = {
-        round,
-        match: `${TEAM_NAME[home] || home} v ${TEAM_NAME[away] || away}`,
-        homeTeam: home,
-        awayTeam: away,
-        venue: "",
-        kickoffLocal: ""
-      };
+          addVenueMeta(fixture);
+          out.push(fixture);
+        }
+      }
 
-      addVenueMeta(fixture);
-      out.push(fixture);
+      round++;
+      index++;
     }
   }
 
