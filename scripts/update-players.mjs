@@ -163,11 +163,6 @@ async function fetchDppPlayers() {
 
   console.log(`DPP source players: ${Object.keys(players).length}`);
 
-  for (const checkName of ["Fletcher Sharpe", "Tallis Duncan", "Jayden Campbell"]) {
-    const dpp = players[normaliseName(checkName)];
-    console.log(`[DPP check] ${checkName}: ${dpp ? dpp.positions.join("/") : "missing"}`);
-  }
-
   return players;
 }
 
