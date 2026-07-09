@@ -2,7 +2,7 @@
   "updated": "2026-07-09T04:16:09.838Z",
   "round": 19,
   "source": "Open-Meteo hourly forecast API",
-  "status": "fresh",
+  "status": "stale",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "fixtures": {},
   "games": [
@@ -763,5 +763,6 @@
       }
     }
   ],
-  "failures": []
+  "failures": [],
+  "staleReason": "no fixtures with kickoff times found for round 19"
 }
