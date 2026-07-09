@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07T10:51:07.155929+00:00",
+  "updated": "2026-07-09T11:10:33.514930+00:00",
   "note": "This workflow validates primary/backup goal kickers against players.json + players_seed_round14.json. It cannot discover brand-new goal kickers unless the player is entered as primary/backup in team_roles.json.",
   "teams": {
     "BRO": {
@@ -127,7 +127,7 @@
       "backup": "Braydon Trindall",
       "primaryActive": true,
       "backupActive": true,
-      "useBackupGoalKickerBefore": true,
+      "useBackupGoalKickerBefore": false,
       "useBackupGoalKickerAfter": false,
       "activeGoalKicker": "Nicholas Hynes",
       "roleStatus": "primary_named"
