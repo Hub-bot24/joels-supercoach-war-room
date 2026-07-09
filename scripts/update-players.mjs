@@ -233,10 +233,28 @@ async function mergePlayers(sourceRows, dppPlayers) {
       .map(p => [normaliseName(p.name), p])
   );
 
-let updated = 0;
-let added = 0;
-let dppApplied = 0;
-let dppMatchedExisting = 0;
+  let updated = 0;
+  let added = 0;
+  let dppApplied = 0;
+  let dppMatchedExisting = 0;
+
+  for (const [normName, dpp] of Object.entries(dppPlayers)) {
+    const player = byName.get(normName);
+
+    if (!player) continue;
+
+    dppMatchedExisting++;
+
+    const nextPositions = [...new Set(dpp.positions)];
+
+    player.dualPositions = nextPositions;
+    player.positions = nextPositions;
+    player.eligiblePositions = nextPositions;
+
+    if (nextPositions.length >= 2) {
+      dppApplied++;
+    }
+  }
 
   for (const src of sourceRows) {
     if (!src.norm) continue;
@@ -244,21 +262,6 @@ let dppMatchedExisting = 0;
     const player = byName.get(src.norm);
 
     if (player) {
-        const dpp = dppPlayers[normaliseName(player.name)];
-
-if (dpp) {
-  dppMatchedExisting++;
-
-  const nextPositions = [...new Set(dpp.positions)];
-
-  player.dualPositions = nextPositions;
-  player.positions = nextPositions;
-  player.eligiblePositions = nextPositions;
-
-  if (nextPositions.length >= 2) {
-    dppApplied++;
-  }
-}
       if (src.price !== null) player.price = src.price;
       if (src.breakeven !== null) {
         player.breakeven = src.breakeven;
@@ -272,15 +275,18 @@ if (dpp) {
       continue;
     }
 
+    const dpp = dppPlayers[src.norm];
+    const positions = dpp ? [...new Set(dpp.positions)] : [];
+
     const newPlayer = {
       name: src.name,
       sourceName: src.name,
       shortName: src.name,
-      pos: "UNKNOWN",
-      position: "UNKNOWN",
-      positions: [],
-      eligiblePositions: [],
-      dualPositions: [],
+      pos: positions[0] || "UNKNOWN",
+      position: positions[0] || "UNKNOWN",
+      positions,
+      eligiblePositions: positions,
+      dualPositions: positions,
       price: src.price,
       avg: null,
       threeRoundAvg: null,
@@ -313,6 +319,12 @@ if (dpp) {
   console.log(`DPP source players available to merge: ${Object.keys(dppPlayers).length}`);
   console.log(`DPP matched existing players: ${dppMatchedExisting}`);
   console.log(`DPP applied to existing players: ${dppApplied}`);
+
+  if (Object.keys(dppPlayers).length > 0 && dppMatchedExisting === 0) {
+    throw new Error(
+      `DPP parser found ${Object.keys(dppPlayers).length} players, but matched 0 existing players. Name matching is broken.`
+    );
+  }
 
   if (Object.keys(dppPlayers).length > 0 && dppApplied === 0) {
     throw new Error(
