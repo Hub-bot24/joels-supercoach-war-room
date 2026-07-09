@@ -109,17 +109,36 @@ function mergeSources() {
 
   for (const file of [PATHS.seed, PATHS.players]) {
     const data = readJson(file, []);
+
     for (const player of extractPlayers(data)) {
       const name = playerName(player);
       if (!name) continue;
 
       const key = normName(name);
+      const existing = merged[key] || {};
+      const existingPositions = playerPositions(existing);
+      const incomingPositions = playerPositions(player);
+      const mergedPositions = [];
+
+      for (const pos of [...existingPositions, ...incomingPositions]) {
+        if (VALID.has(pos) && !mergedPositions.includes(pos)) {
+          mergedPositions.push(pos);
+        }
+      }
 
       merged[key] = {
-        ...(merged[key] || {}),
+        ...existing,
         ...player,
         name
       };
+
+      if (mergedPositions.length) {
+        merged[key].positions = mergedPositions;
+        merged[key].eligiblePositions = mergedPositions;
+        merged[key].dualPositions = mergedPositions;
+        merged[key].position = mergedPositions[0];
+        merged[key].pos = mergedPositions[0];
+      }
     }
   }
 
