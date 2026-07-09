@@ -78,7 +78,51 @@ const TEAM_NAME = {
   PAR: "Eels",
   NZL: "Warriors"
 };
+const DRAW_CODE_TO_APP_CODE = {
+  BRO: "BRO",
+  BUL: "CAN",
+  CBR: "CBR",
+  DOL: "DOL",
+  GCT: "GLD",
+  MEL: "MEL",
+  MNL: "MAN",
+  NEW: "NEW",
+  NQC: "NQC",
+  NZL: "NZL",
+  PAR: "PAR",
+  PTH: "PEN",
+  SHA: "SHA",
+  STG: "STG",
+  STH: "STH",
+  SYD: "SYD",
+  WST: "WST"
+};
 
+const DRAW_CODES = Object.keys(DRAW_CODE_TO_APP_CODE).join("|");
+
+function appCodeFromDrawCode(value) {
+  const text = clean(value).toUpperCase();
+  const match = text.match(new RegExp(`\\b(${DRAW_CODES})\\b`));
+  return match ? DRAW_CODE_TO_APP_CODE[match[1]] : "";
+}
+
+function opponentFromMatrixCell(value) {
+  const text = clean(value).toUpperCase();
+
+  if (!text || text.includes("BYE")) {
+    return null;
+  }
+
+  const match = text.match(new RegExp(`\\b(${DRAW_CODES})(\\(A\\))?\\b`));
+  if (!match) {
+    return null;
+  }
+
+  return {
+    code: DRAW_CODE_TO_APP_CODE[match[1]],
+    away: Boolean(match[2])
+  };
+}
 const VENUE_CITY = {
   "Suncorp Stadium": ["Brisbane", -27.4648, 153.0095, "Australia/Brisbane"],
   "Queensland Country Bank Stadium": ["Townsville", -19.2564, 146.8183, "Australia/Brisbane"],
@@ -219,8 +263,78 @@ function parseRound(value, fallbackText) {
   const match = String(value || fallbackText || "").match(/\d+/);
   return match ? Number(match[0]) : null;
 }
+function extractFromMatrixTable(tableHtml) {
+  const out = [];
+  const rows = extractRows(tableHtml);
+  if (!rows.length) return out;
 
+  const parsedRows = rows.map(extractCells).filter(row => row.length);
+  if (!parsedRows.length) return out;
+
+  const headerIndex = parsedRows.findIndex(row => {
+    const text = row.join(" ");
+    return /\bTeam\b/i.test(text) && /\bRd1\b/i.test(text) && /\bRd27\b/i.test(text);
+  });
+
+  if (headerIndex < 0) return out;
+
+  const header = parsedRows[headerIndex];
+  const roundColumns = [];
+
+  header.forEach((cell, index) => {
+    const match = clean(cell).match(/^Rd\s*(\d+)$/i);
+    if (match) {
+      roundColumns.push({
+        round: Number(match[1]),
+        index
+      });
+    }
+  });
+
+  if (!roundColumns.length) return out;
+
+  const seen = new Set();
+
+  for (const row of parsedRows.slice(headerIndex + 1)) {
+    const team = appCodeFromDrawCode(row[0]);
+    if (!team) continue;
+
+    for (const roundColumn of roundColumns) {
+      const opponent = opponentFromMatrixCell(row[roundColumn.index]);
+      if (!opponent) continue;
+
+      const round = roundColumn.round;
+      const home = opponent.away ? opponent.code : team;
+      const away = opponent.away ? team : opponent.code;
+
+      if (!home || !away || home === away) continue;
+
+      const pairKey = [home, away].sort().join("-");
+      const key = `${round}|${pairKey}`;
+
+      if (seen.has(key)) continue;
+      seen.add(key);
+
+      const fixture = {
+        round,
+        match: `${TEAM_NAME[home] || home} v ${TEAM_NAME[away] || away}`,
+        homeTeam: home,
+        awayTeam: away,
+        venue: "",
+        kickoffLocal: ""
+      };
+
+      addVenueMeta(fixture);
+      out.push(fixture);
+    }
+  }
+
+  return out;
+}
 function extractFromTable(tableHtml) {
+  const matrixFixtures = extractFromMatrixTable(tableHtml);
+  if (matrixFixtures.length) return matrixFixtures;
+
   const out = [];
   const rows = extractRows(tableHtml);
   if (!rows.length) return out;
