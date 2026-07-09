@@ -6684,7 +6684,7 @@ function renderExplorer(){
   const counts = explorerCounts();
   const filters = ['all','named','expected','not_named','injured','suspended'];
 
-  $('explorer').innerHTML = `<div class="panel"><h2>Player Explorer</h2><label>Search player, position, team, or status</label><input id="explorerInput" placeholder="Type a name, team, position..." oninput="scheduleExplorerUpdate()"><div class="explorer-filters">${filters.map(f=>`<button type="button" class="explorer-filter ${App.explorerFilter===f?'active':''}" onclick="setExplorerFilter('${f}')">${esc(explorerFilterLabel(f))} <b>${counts[f]||0}</b></button>`).join('')}</div><div id="explorerResults" style="margin-top:12px"></div></div>`;
+ $('explorer').innerHTML = `<div class="panel"><h2>Player Explorer</h2><label>Search player, position, team, or status</label><input id="explorerInput" placeholder="Type a name, team, position..." oninput="scheduleExplorerUpdate()"><div class="explorer-filters">${filters.map(f => `<button type="button" class="explorer-filter ${App.explorerFilter === f ? 'active' : ''}" onclick="setExplorerFilter('${f}')">${esc(explorerFilterLabel(f))} <b>${counts[f] || 0}</b></button>`).join('')}</div><div id="explorerResults" style="margin-top:12px"></div></div>`;
 
   updateExplorer();
 }
