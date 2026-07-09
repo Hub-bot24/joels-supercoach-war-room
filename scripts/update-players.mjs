@@ -89,46 +89,84 @@ async function fetchDppPlayers() {
   const html = await fetchText(DPP_URL);
 
   const players = {};
+  const validPositions = new Set(["HOK", "FRF", "2RF", "HFB", "5/8", "CTW", "FLB"]);
 
-  const rows = html.match(/<tr[\s\S]*?<\/tr>/gi) || [];
-
-  for (const row of rows) {
-    const clean = row
+  function stripTags(value) {
+    return String(value || "")
       .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;/g, " ")
       .replace(/\s+/g, " ")
       .trim();
+  }
 
-    const positions = [];
+  function sourceNameToAppName(value) {
+    const clean = stripTags(value);
 
-    for (const pos of [
-      "HOK",
-      "FRF",
-      "2RF",
-      "HFB",
-      "5/8",
-      "CTW",
-      "FLB"
-    ]) {
-      if (clean.includes(pos)) {
-        positions.push(pos);
-      }
+    if (clean.includes(",")) {
+      const [surname, given] = clean.split(",").map(part => part.trim()).filter(Boolean);
+      if (surname && given) return `${given} ${surname}`;
     }
 
-    if (positions.length < 2) continue;
+    return clean;
+  }
 
-    const nameMatch = clean.match(/^([A-Za-z .'-]+)/);
+  function addDppPlayer(rawName, positions) {
+    const name = sourceNameToAppName(rawName);
+    const cleanPositions = [...new Set(positions)].filter(pos => validPositions.has(pos));
 
-    if (!nameMatch) continue;
-
-    const name = nameMatch[1].trim();
+    if (!name || cleanPositions.length < 2) return;
 
     players[normaliseName(name)] = {
       name,
-      positions
+      positions: cleanPositions
     };
   }
 
+  const rows = html.match(/<tr[\s\S]*?<\/tr>/gi) || [];
+  let columnHeaders = [];
+
+  for (const row of rows) {
+    const ths = [...row.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/gi)]
+      .map(match => stripTags(match[1]))
+      .filter(Boolean)
+      .filter(value => validPositions.has(value));
+
+    if (ths.length) {
+      columnHeaders = ths;
+      continue;
+    }
+
+    const cells = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)]
+      .map(match => match[1]);
+
+    if (cells.length < 2 || !columnHeaders.length) continue;
+
+    const rowPosition = stripTags(cells[0]);
+
+    if (!validPositions.has(rowPosition)) continue;
+
+    for (let index = 1; index < cells.length; index++) {
+      const columnPosition = columnHeaders[index - 1];
+
+      if (!validPositions.has(columnPosition)) continue;
+      if (columnPosition === rowPosition) continue;
+
+      const names = [...cells[index].matchAll(/<div[^>]*>([\s\S]*?)<\/div>/gi)]
+        .map(match => stripTags(match[1]))
+        .filter(Boolean);
+
+      for (const rawName of names) {
+        addDppPlayer(rawName, [rowPosition, columnPosition]);
+      }
+    }
+  }
+
   console.log(`DPP source players: ${Object.keys(players).length}`);
+
+  for (const checkName of ["Fletcher Sharpe", "Tallis Duncan", "Jayden Campbell"]) {
+    const dpp = players[normaliseName(checkName)];
+    console.log(`[DPP check] ${checkName}: ${dpp ? dpp.positions.join("/") : "missing"}`);
+  }
 
   return players;
 }
