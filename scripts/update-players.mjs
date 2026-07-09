@@ -88,44 +88,140 @@ function parseRowsFromHtml(html) {
 async function fetchDppPlayers() {
   const html = await fetchText(DPP_URL);
 
+  const validPositions = [
+    "HOK",
+    "FRF",
+    "2RF",
+    "HFB",
+    "5/8",
+    "CTW",
+    "FLB"
+  ];
+
   const players = {};
+
+  function decodeHtml(value) {
+    return String(value || "")
+      .replace(/&nbsp;/gi, " ")
+      .replace(/&amp;/gi, "&")
+      .replace(/&#39;/g, "'")
+      .replace(/&apos;/gi, "'")
+      .replace(/&rsquo;/gi, "'")
+      .replace(/&lsquo;/gi, "'")
+      .replace(/&quot;/gi, '"')
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function addPlayerPosition(name, position) {
+    if (!name || !validPositions.includes(position)) return;
+
+    const key = normaliseName(name);
+
+    if (!key) return;
+
+    if (!players[key]) {
+      players[key] = {
+        name,
+        positions: []
+      };
+    }
+
+    if (!players[key].positions.includes(position)) {
+      players[key].positions.push(position);
+    }
+  }
+
+  function parseDppName(value) {
+    let text = decodeHtml(value)
+      .replace(/\$[\d,]+/g, " ")
+      .replace(/\b-?\d+(\.\d+)?\b/g, " ")
+      .replace(/\b(HOK|FRF|2RF|HFB|CTW|FLB)\b/g, " ")
+      .replace(/5\/8/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    if (!text) return null;
+
+    if (/^(player|name|team|club|position|dual|dpp)$/i.test(text)) {
+      return null;
+    }
+
+    const commaName = text.match(/^([A-Za-z.' -]+),\s*([A-Za-z.' -]+)$/);
+
+    if (commaName) {
+      text = `${commaName[2].trim()} ${commaName[1].trim()}`;
+    }
+
+    const nameMatch = text.match(/^([A-Za-z][A-Za-z.' -]*[A-Za-z])$/);
+
+    if (!nameMatch) return null;
+
+    const name = nameMatch[1].replace(/\s+/g, " ").trim();
+
+    if (name.split(" ").length < 2) return null;
+
+    return name;
+  }
 
   const rows = html.match(/<tr[\s\S]*?<\/tr>/gi) || [];
 
   for (const row of rows) {
-    const clean = row
-      .replace(/<[^>]+>/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
+    const clean = decodeHtml(
+      row
+        .replace(/<[^>]+>/g, " ")
+    );
 
-    const positions = [];
+    const rowPositions = [];
 
-    for (const pos of [
-      "HOK",
-      "FRF",
-      "2RF",
-      "HFB",
-      "5/8",
-      "CTW",
-      "FLB"
-    ]) {
+    for (const pos of validPositions) {
       if (clean.includes(pos)) {
-        positions.push(pos);
+        rowPositions.push(pos);
       }
     }
 
-    if (positions.length < 2) continue;
+    if (rowPositions.length >= 2) {
+      const name = parseDppName(clean);
 
-    const nameMatch = clean.match(/^([A-Za-z .'-]+)/);
+      if (!name) continue;
 
-    if (!nameMatch) continue;
+      for (const pos of rowPositions) {
+        addPlayerPosition(name, pos);
+      }
+    }
+  }
 
-    const name = nameMatch[1].trim();
+  const cells = html
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/(td|th|li|p|div|h1|h2|h3|h4|h5|h6)>/gi, "\n")
+    .replace(/<[^>]+>/g, " ")
+    .split(/\n+/)
+    .map(decodeHtml)
+    .filter(Boolean);
 
-    players[normaliseName(name)] = {
-      name,
-      positions
-    };
+  let currentPosition = null;
+
+  for (const cell of cells) {
+    const positionHeader = validPositions.find((pos) => cell === pos);
+
+    if (positionHeader) {
+      currentPosition = positionHeader;
+      continue;
+    }
+
+    if (!currentPosition) continue;
+
+    const name = parseDppName(cell);
+
+    if (!name) continue;
+
+    addPlayerPosition(name, currentPosition);
+  }
+
+  for (const key of Object.keys(players)) {
+    if (players[key].positions.length < 1) {
+      delete players[key];
+    }
   }
 
   console.log(`DPP source players: ${Object.keys(players).length}`);
@@ -220,9 +316,28 @@ async function mergePlayers(sourceRows, dppPlayers) {
         const dpp = dppPlayers[normaliseName(player.name)];
 
 if (dpp) {
-  player.dualPositions = dpp.positions;
-  player.positions = dpp.positions;
-  player.eligiblePositions = dpp.positions;
+  const mergedPositions = [];
+
+  for (const pos of [
+    ...(Array.isArray(player.positions) ? player.positions : []),
+    ...(Array.isArray(player.eligiblePositions) ? player.eligiblePositions : []),
+    ...(Array.isArray(player.dualPositions) ? player.dualPositions : []),
+    player.position,
+    player.pos,
+    ...dpp.positions
+  ]) {
+    if (!pos) continue;
+
+    if (!mergedPositions.includes(pos)) {
+      mergedPositions.push(pos);
+    }
+  }
+
+  player.dualPositions = mergedPositions;
+  player.positions = mergedPositions;
+  player.eligiblePositions = mergedPositions;
+  player.position = mergedPositions[0];
+  player.pos = mergedPositions[0];
 }
       if (src.price !== null) player.price = src.price;
       if (src.breakeven !== null) {
