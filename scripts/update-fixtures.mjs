@@ -316,7 +316,8 @@ if (!opponent) {
   continue;
 }
 
-      const opponent = opponentFromMatrixCell(token);
+const home = opponent.away ? opponent.code : team;
+const away = opponent.away ? team : opponent.code;
 
       if (!opponent) {
         index++;
