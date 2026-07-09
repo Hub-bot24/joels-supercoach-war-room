@@ -233,8 +233,10 @@ async function mergePlayers(sourceRows, dppPlayers) {
       .map(p => [normaliseName(p.name), p])
   );
 
-  let updated = 0;
-  let added = 0;
+let updated = 0;
+let added = 0;
+let dppApplied = 0;
+let dppMatchedExisting = 0;
 
   for (const src of sourceRows) {
     if (!src.norm) continue;
@@ -245,9 +247,17 @@ async function mergePlayers(sourceRows, dppPlayers) {
         const dpp = dppPlayers[normaliseName(player.name)];
 
 if (dpp) {
-  player.dualPositions = dpp.positions;
-  player.positions = dpp.positions;
-  player.eligiblePositions = dpp.positions;
+  dppMatchedExisting++;
+
+  const nextPositions = [...new Set(dpp.positions)];
+
+  player.dualPositions = nextPositions;
+  player.positions = nextPositions;
+  player.eligiblePositions = nextPositions;
+
+  if (nextPositions.length >= 2) {
+    dppApplied++;
+  }
 }
       if (src.price !== null) player.price = src.price;
       if (src.breakeven !== null) {
@@ -294,8 +304,27 @@ if (dpp) {
     source: SOURCE_URL,
     rowsFound: sourceRows.length,
     playersUpdated: updated,
-    playersAdded: added
+    playersAdded: added,
+    dppSourcePlayers: Object.keys(dppPlayers).length,
+    dppMatchedExisting,
+    dppApplied
   };
+
+  console.log(`DPP source players available to merge: ${Object.keys(dppPlayers).length}`);
+  console.log(`DPP matched existing players: ${dppMatchedExisting}`);
+  console.log(`DPP applied to existing players: ${dppApplied}`);
+
+  if (Object.keys(dppPlayers).length > 0 && dppApplied === 0) {
+    throw new Error(
+      `DPP parser found ${Object.keys(dppPlayers).length} players, but merge applied 0. Refusing to write stale DPP data.`
+    );
+  }
+
+  await writeJson(PLAYERS_FILE, existing);
+
+  console.log(`Players updated: ${updated}`);
+  console.log(`Players added: ${added}`);
+}
 
   await writeJson(PLAYERS_FILE, existing);
 
