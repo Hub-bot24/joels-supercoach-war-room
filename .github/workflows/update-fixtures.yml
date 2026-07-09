@@ -16,18 +16,13 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pandas lxml requests
+          node-version: "20"
 
       - name: Update fixtures
-        run: python scripts/update_fixtures.py
+        run: node scripts/update-fixtures.mjs
 
       - name: Commit fixtures
         run: |
