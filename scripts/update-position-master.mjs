@@ -82,19 +82,26 @@ function playerPositions(player) {
     "eligiblePositions",
     "supercoachPositions",
     "dualPositions",
+    "positionList",
+    "eligible",
     "position",
     "pos",
     "role"
   ];
 
+  const out = [];
+
   for (const key of keys) {
-    if (key in player) {
-      const result = posList(player[key]);
-      if (result.length) return result;
+    if (!(key in player)) continue;
+
+    for (const pos of posList(player[key])) {
+      if (!out.includes(pos)) {
+        out.push(pos);
+      }
     }
   }
 
-  return [];
+  return out;
 }
 
 function mergeSources() {
