@@ -268,108 +268,72 @@ function extractFromMatrixTable(tableHtml) {
   const seen = new Set();
   const seenTeamRows = new Set();
 
-  const text = stripTags(tableHtml);
-  const tokens = text
-    .split(/\s+/)
-    .map(token => clean(token))
-    .filter(Boolean);
+  const rows = extractRows(tableHtml);
+  if (!rows.length) return out;
 
-  const headerIndex = tokens.findIndex((token, index) => {
-    return (
-      /^Team$/i.test(token) &&
-      tokens.slice(index + 1, index + 30).some(next => /^Rd\s*1$/i.test(next)) &&
-      tokens.slice(index + 1, index + 40).some(next => /^Rd\s*27$/i.test(next))
-    );
+  const parsedRows = rows.map(extractCells).filter(row => row.length);
+  if (!parsedRows.length) return out;
+
+  const headerIndex = parsedRows.findIndex(row => {
+    const text = row.join(" ");
+    return /\bTeam\b/i.test(text) && /\bRd\s*1\b/i.test(text) && /\bRd\s*27\b/i.test(text);
   });
 
   if (headerIndex < 0) return out;
 
-  let index = headerIndex + 1;
-let teamRowsParsed = 0;
+  const header = parsedRows[headerIndex];
+  const roundColumns = [];
 
-while (index < tokens.length && teamRowsParsed < Object.keys(DRAW_CODE_TO_APP_CODE).length) {
-  const team = appCodeFromDrawCode(tokens[index]);
+  header.forEach((cell, index) => {
+    const match = clean(cell).match(/^Rd\s*(\d+)$/i);
+    if (match) {
+      roundColumns.push({
+        round: Number(match[1]),
+        index
+      });
+    }
+  });
 
-    if (!team) {
-      index++;
-      continue;
+  if (!roundColumns.length) return out;
+
+  for (const row of parsedRows.slice(headerIndex + 1)) {
+    const team = appCodeFromDrawCode(row[0]);
+    if (!team) continue;
+
+    if (seenTeamRows.has(team)) continue;
+    seenTeamRows.add(team);
+
+    for (const roundColumn of roundColumns) {
+      const opponent = opponentFromMatrixCell(row[roundColumn.index]);
+      if (!opponent) continue;
+
+      const round = roundColumn.round;
+      const home = opponent.away ? opponent.code : team;
+      const away = opponent.away ? team : opponent.code;
+
+      if (!home || !away || home === away) continue;
+
+      const pairKey = [home, away].sort().join("-");
+      const key = `${round}|${pairKey}`;
+
+      if (seen.has(key)) continue;
+      seen.add(key);
+
+      const fixture = {
+        round,
+        match: `${TEAM_NAME[home] || home} v ${TEAM_NAME[away] || away}`,
+        homeTeam: home,
+        awayTeam: away,
+        venue: "",
+        kickoffLocal: ""
+      };
+
+      addVenueMeta(fixture);
+      out.push(fixture);
     }
 
-index++;
-
-if (seenTeamRows.has(team)) {
-  let skippedRounds = 0;
-
-  while (skippedRounds < 27 && index < tokens.length) {
-    const skipToken = tokens[index];
-
-    if (/^-?\d+(\.\d+)?$/.test(skipToken)) {
-      index++;
-      continue;
-    }
-
-    if (/^BYE$/i.test(skipToken) || opponentFromMatrixCell(skipToken)) {
-      skippedRounds++;
-      index++;
-      continue;
-    }
-
-    index++;
-  }
-
-  continue;
-}
-
-seenTeamRows.add(team);
-teamRowsParsed++;
-
-for (let round = 1; round <= 27 && index < tokens.length;) {
-      const token = tokens[index];
-
-if (/^-?\d+(\.\d+)?$/.test(token)) {
-  index++;
-  continue;
-}
-
-if (/^BYE$/i.test(token)) {
-  round++;
-  index++;
-  continue;
-}
-
-const opponent = opponentFromMatrixCell(token);
-
-if (!opponent) {
-  index++;
-  continue;
-}
-
-const home = opponent.away ? opponent.code : team;
-const away = opponent.away ? team : opponent.code;
-
-if (home && away && home !== away) {
-        const pairKey = [home, away].sort().join("-");
-        const key = `${round}|${pairKey}`;
-
-        if (!seen.has(key)) {
-          seen.add(key);
-
-          const fixture = {
-            round,
-            match: `${TEAM_NAME[home] || home} v ${TEAM_NAME[away] || away}`,
-            homeTeam: home,
-            awayTeam: away,
-            venue: "",
-            kickoffLocal: ""
-          };
-
-          addVenueMeta(fixture);
-          out.push(fixture);
-        }
-      }
-
-      round++;
-      index++;
+    if (seenTeamRows.size >= Object.keys(DRAW_CODE_TO_APP_CODE).length) {
+      break;
     }
   }
 
