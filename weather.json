@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-09T15:25:10.933086+00:00",
+  "updated": "2026-07-09T18:02:59.877544+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -822,6 +822,68 @@
           "halftime_period": {
             "avgScore": 30,
             "maxScore": 30
+          }
+        },
+        "reasons": [
+          "moderate wind/gusts",
+          "strong wind/gusts"
+        ],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 20,
+      "match": "Dolphins v Cowboys",
+      "homeTeam": "DOL",
+      "awayTeam": "NQC",
+      "venue": "Suncorp Stadium",
+      "kickoffLocal": "2026-07-19T16:05:00",
+      "city": "Brisbane",
+      "lat": -27.4648,
+      "lon": 153.0095,
+      "timezone": "Australia/Brisbane",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-07-19T15:35:00",
+        "to": "2026-07-19T17:55:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-07-19T16:00",
+          "phase": "pre_game",
+          "temperature_2m": 20.0,
+          "precipitation_probability": 22,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 12.1,
+          "wind_gusts_10m": 45.0
+        },
+        {
+          "time": "2026-07-19T17:00",
+          "phase": "halftime_period",
+          "temperature_2m": 19.6,
+          "precipitation_probability": 21,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 12.3,
+          "wind_gusts_10m": 44.3
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 26,
+        "maxRainProbability": 22.0,
+        "totalGameRainMm": 0.0,
+        "maxWindKmh": 12.3,
+        "maxGustKmh": 45.0,
+        "avgTemp": 19.8,
+        "phaseRisk": {
+          "pre_game": {
+            "avgScore": 30,
+            "maxScore": 30
+          },
+          "halftime_period": {
+            "avgScore": 15,
+            "maxScore": 15
           }
         },
         "reasons": [
