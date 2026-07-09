@@ -85,3 +85,39 @@ Correct architecture:
 
 ```text
 SOURCE → SCRIPT → VALIDATED JSON → APP LOGIC → UI
+
+## NON-NEGOTIABLE DEBUGGING RULE: SOURCE CONTRACT FIRST
+
+Before suggesting or editing any code that changes generated data, the AI must first identify and document the full source contract:
+
+1. What is the upstream truth source?
+2. Which script imports it?
+3. Which generated file does that script write?
+4. Which downstream script consumes that generated file?
+5. Which UI/app logic consumes the final generated file?
+6. What exact evidence proves the source contains the expected data?
+7. What exact evidence proves the importer currently loses, changes, or fails to match that data?
+
+The AI must not suggest:
+- manual player fixes,
+- position_overrides player patches,
+- index.html UI patches,
+- one-player corrections,
+- parser rewrites,
+- generated JSON edits,
+
+until the source contract has been proven.
+
+If the bug involves generated data, the AI must classify the failure as one of:
+
+- SOURCE MISSING
+- SOURCE FORMAT MISREAD
+- IMPORTER PARSE FAILURE
+- NAME MATCH FAILURE
+- MERGE FAILURE
+- DOWNSTREAM GENERATOR FAILURE
+- UI DISPLAY FAILURE
+
+The AI must state this classification before proposing a fix.
+
+If the AI cannot prove the source contract, it must stop and ask for inspection commands only.
