@@ -266,6 +266,7 @@ function parseRound(value, fallbackText) {
 function extractFromMatrixTable(tableHtml) {
   const out = [];
   const seen = new Set();
+  const seenTeamRows = new Set();
 
   const text = stripTags(tableHtml);
   const tokens = text
@@ -478,19 +479,18 @@ function calculateByes(fixtures) {
 }
 
 function dedupeFixtures(fixtures) {
-const out = [];
-const seen = new Set();
-const seenTeamRows = new Set();
+  const out = [];
+  const seen = new Set();
 
   for (const fixture of fixtures) {
     const key = `${fixture.round}|${fixture.homeTeam}|${fixture.awayTeam}`;
 
     if (seen.has(key)) continue;
     seen.add(key);
-    cleanFixtures.push(fixture);
+    out.push(fixture);
   }
 
-  return cleanFixtures;
+  return out;
 }
 
 async function main() {
@@ -573,3 +573,4 @@ main().catch(async error => {
   console.error(JSON.stringify(report, null, 2));
   process.exit(1);
 });
+
