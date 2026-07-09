@@ -133,10 +133,6 @@ async function fetchDppPlayers() {
   return players;
 }
 
-  console.log(`DPP source players: ${Object.keys(players).length}`);
-
-  return players;
-
 function normaliseName(value) {
   return String(value || "")
     .toLowerCase()
