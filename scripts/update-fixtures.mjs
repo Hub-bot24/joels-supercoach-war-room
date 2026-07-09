@@ -483,7 +483,8 @@ function dedupeFixtures(fixtures) {
   const seen = new Set();
 
   for (const fixture of fixtures) {
-    const key = `${fixture.round}|${fixture.homeTeam}|${fixture.awayTeam}`;
+    const pairKey = [fixture.homeTeam, fixture.awayTeam].sort().join("-");
+    const key = `${fixture.round}|${pairKey}`;
 
     if (seen.has(key)) continue;
     seen.add(key);
