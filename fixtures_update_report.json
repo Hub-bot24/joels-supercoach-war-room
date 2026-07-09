@@ -1,24 +1,8 @@
 {
-  "updated": "2026-07-09T10:22:32.286Z",
-  "sources": [
-    {
-      "url": "https://www.nrlsupercoachstats.com/drawV2.php?year=2026",
-      "http_status": 200,
-      "content_length": 121847,
-      "tables": 3,
-      "fixtures_after": 239
-    },
-    {
-      "url": "https://www.nrlsupercoachstats.com/draw.php?year=2026",
-      "http_status": 200,
-      "content_length": 121571,
-      "tables": 3,
-      "fixtures_after": 478
-    }
-  ],
-  "fixturesFound": 239,
-  "warnings": [],
+  "updated": "2026-07-06T20:49:14.956692+00:00",
+  "source": "https://www.nrl.com/globalassets/nrl-draw-2026---final.pdf",
   "status": "ok",
+  "fixturesFound": 204,
   "roundsFound": [
     1,
     2,
@@ -80,62 +64,62 @@
   "sample": [
     {
       "round": 1,
+      "match": "Knights v Cowboys",
+      "homeTeam": "NEW",
+      "awayTeam": "NQC",
+      "venue": "",
+      "kickoffLocal": "",
+      "city": "",
+      "lat": null,
+      "lon": null,
+      "timezone": "Australia/Sydney"
+    },
+    {
+      "round": 1,
+      "match": "Bulldogs v Dragons",
+      "homeTeam": "CAN",
+      "awayTeam": "STG",
+      "venue": "",
+      "kickoffLocal": "",
+      "city": "",
+      "lat": null,
+      "lon": null,
+      "timezone": "Australia/Sydney"
+    },
+    {
+      "round": 1,
+      "match": "Storm v Eels",
+      "homeTeam": "MEL",
+      "awayTeam": "PAR",
+      "venue": "AAMI Park",
+      "kickoffLocal": "2026-03-05T20:00:00",
+      "city": "Melbourne",
+      "lat": -37.824,
+      "lon": 144.9834,
+      "timezone": "Australia/Melbourne"
+    },
+    {
+      "round": 1,
+      "match": "Warriors v Roosters",
+      "homeTeam": "NZL",
+      "awayTeam": "SYD",
+      "venue": "Go Media Stadium",
+      "kickoffLocal": "2026-03-06T20:00:00",
+      "city": "Auckland",
+      "lat": -36.9183,
+      "lon": 174.812,
+      "timezone": "Pacific/Auckland"
+    },
+    {
+      "round": 1,
       "match": "Broncos v Panthers",
       "homeTeam": "BRO",
       "awayTeam": "PEN",
-      "venue": "",
-      "kickoffLocal": "",
-      "city": "",
-      "lat": null,
-      "lon": null,
-      "timezone": "Australia/Brisbane"
-    },
-    {
-      "round": 2,
-      "match": "Broncos v Eels",
-      "homeTeam": "BRO",
-      "awayTeam": "PAR",
-      "venue": "",
-      "kickoffLocal": "",
-      "city": "",
-      "lat": null,
-      "lon": null,
-      "timezone": "Australia/Brisbane"
-    },
-    {
-      "round": 3,
-      "match": "Broncos v Storm",
-      "homeTeam": "BRO",
-      "awayTeam": "MEL",
-      "venue": "",
-      "kickoffLocal": "",
-      "city": "",
-      "lat": null,
-      "lon": null,
-      "timezone": "Australia/Brisbane"
-    },
-    {
-      "round": 4,
-      "match": "Broncos v Dolphins",
-      "homeTeam": "BRO",
-      "awayTeam": "DOL",
-      "venue": "",
-      "kickoffLocal": "",
-      "city": "",
-      "lat": null,
-      "lon": null,
-      "timezone": "Australia/Brisbane"
-    },
-    {
-      "round": 5,
-      "match": "Broncos v Titans",
-      "homeTeam": "BRO",
-      "awayTeam": "GLD",
-      "venue": "",
-      "kickoffLocal": "",
-      "city": "",
-      "lat": null,
-      "lon": null,
+      "venue": "Suncorp Stadium",
+      "kickoffLocal": "2026-03-06T19:00:00",
+      "city": "Brisbane",
+      "lat": -27.4648,
+      "lon": 153.0095,
       "timezone": "Australia/Brisbane"
     }
   ]
