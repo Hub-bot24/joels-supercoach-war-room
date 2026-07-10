@@ -6056,16 +6056,49 @@ function teamActionHtml(){
 
 function selectTeamSlot(slotId){const p=getPlayer(App.lineup?.[slotId]);if(p)openPlayerCard(p.name)}
 function selectReservePlayer(name){const p=getPlayer(name);if(p)openPlayerCard(p.name)}
-function teamActionSwap(slotId){App.selectedTeamSlot=slotId;App.selectedReserveTradeName='';App.teamActionMode='swap';renderTeam()}
-function teamActionTradeOut(slotId){App.selectedTeamSlot=slotId;App.selectedReserveTradeName='';App.teamActionMode='trade';renderTeam()}
-function reserveActionTradeOut(name){const p=getPlayer(name);if(!p||!App.myTeam.includes(p.name))return toast('Invalid reserve trade');App.selectedTeamSlot='';App.selectedReserveTradeName=p.name;App.teamActionMode='reserveTrade';renderTeam()}
+function renderTeamActionPanelOnly(){
+ let panel=document.getElementById("teamActionPanel");
+ if(!panel){
+  panel=document.createElement("div");
+  panel.id="teamActionPanel";
+  panel.className="small wr-action-panel";
+  const layout=document.querySelector("#team .formation-layout");
+  if(layout&&layout.parentNode)layout.parentNode.insertBefore(panel,layout);
+  else $("team")?.appendChild(panel);
+ }
+ panel.innerHTML=teamActionHtml();
+}
+
+function teamActionSwap(slotId){
+ App.selectedTeamSlot=slotId;
+ App.selectedReserveTradeName='';
+ App.teamActionMode='swap';
+ renderTeamActionPanelOnly();
+}
+
+function teamActionTradeOut(slotId){
+ App.selectedTeamSlot=slotId;
+ App.selectedReserveTradeName='';
+ App.teamActionMode='trade';
+ renderTeamActionPanelOnly();
+}
+
+function reserveActionTradeOut(name){
+ const p=getPlayer(name);
+ if(!p||!App.myTeam.includes(p.name))return toast('Invalid reserve trade');
+ App.selectedTeamSlot='';
+ App.selectedReserveTradeName=p.name;
+ App.teamActionMode='reserveTrade';
+ renderTeamActionPanelOnly();
+}
+
 function reserveActionSwap(name){
  const p=getPlayer(name);
  if(!p||!App.myTeam.includes(p.name))return toast('Invalid reserve swap');
  App.selectedTeamSlot='';
  App.selectedReserveTradeName=p.name;
  App.teamActionMode='reserveSwap';
- renderTeam();
+ renderTeamActionPanelOnly();
 }
 function applyReserveSwap(reserveName,slotId){
  const reservePlayer=getPlayer(reserveName),slot=slotById[slotId],fieldPlayer=getPlayer(App.lineup?.[slotId]);
@@ -6081,7 +6114,7 @@ function applyReserveSwap(reserveName,slotId){
  renderTeam();
  toast(`${reservePlayer.name} swapped in for ${fieldPlayer?.name||slot.short}`);
 }
-function cancelTeamAction(){App.selectedTeamSlot='';App.selectedReserveTradeName='';App.teamActionMode='';renderTeam()}
+function cancelTeamAction(){App.selectedTeamSlot='';App.selectedReserveTradeName='';App.teamActionMode='';const panel=document.getElementById('teamActionPanel');if(panel)panel.remove()}
 function applyTeamSwap(slotId,name){const slot=slotById[slotId],p=getPlayer(name);if(!slot||!p||!App.myTeam.includes(p.name)||!eligible(p,slot))return toast('Invalid swap');for(const k of Object.keys(App.lineup||{})){if(App.lineup[k]===p.name)delete App.lineup[k]}App.lineup[slotId]=p.name;App.teamActionMode='';saveLocal();renderTeam();toast(`${p.name} swapped in`)}
 function applyTeamTradeOut(slotId,name){const slot=slotById[slotId],oldName=App.lineup?.[slotId],p=getPlayer(name);if(!slot||!oldName||!p||App.myTeam.includes(p.name)||!eligible(p,slot))return toast('Invalid trade');App.myTeam=App.myTeam.map(n=>n===oldName?p.name:n);App.lineup[slotId]=p.name;App.selectedReserveTradeName='';App.teamActionMode='';validateLineup();ensureLineup();saveLocal();renderTeam();toast(`Trade applied: ${oldName} → ${p.name}`)}
 function applyReserveTrade(oldName,newName){
