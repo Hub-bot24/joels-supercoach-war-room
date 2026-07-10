@@ -405,6 +405,7 @@ function injuryPhaseForRound(rec, round){
   const riskUntil = Number(rec?.injuryRiskUntilRound || 0);
   if(r && redUntil && r <= redUntil) return 'red';
   if(r && riskUntil && r <= riskUntil) return 'yellow';
+  if(r && (rec?.injuryReturnKnown === true || rec?.expectedReturnRoundMin || rec?.expectedReturnRoundMax || riskUntil || redUntil)) return '';
   return 'red';
 }
 
@@ -867,8 +868,12 @@ function fromBackupStatus(players, playerStatus, teamlistsOut, injuriesOut, susp
       suspensionsOut[p.name] = makeStatus(STATUS.SUSPENDED, rec.reason || rec.note || 'Suspension from reliable judiciary/suspension source status file', [src], {...suspensionMetaFromRecord(rec, round), raw:rec});
       suspensionCount++;
     } else if(st === STATUS.INJURED && isStrongInjuryEvidence(rec)){
-      injuriesOut[p.name] = makeStatus(STATUS.INJURED, rec.reason || rec.injury || rec.note || 'Injury from reliable source status file', [src], {...injuryReturnMetaFromRecord(rec, round), raw:rec});
-      injuryCount++;
+      const injuryMeta = injuryReturnMetaFromRecord(rec, round);
+      const injuryPhase = injuryPhaseForRound(injuryMeta, round);
+      if(injuryPhase){
+        injuriesOut[p.name] = makeStatus(STATUS.INJURED, rec.reason || rec.injury || rec.note || 'Injury from reliable source status file', [src], {...injuryMeta, raw:rec});
+        injuryCount++;
+      }
     } else if(st === STATUS.NAMED && isStrongNamedEvidence(rec)){
       teamlistsOut[p.name] = makeStatus(STATUS.NAMED, rec.reason || rec.note || 'Explicitly named from team-list source status file', [src], {selectionStatus:'named', team:p.team, teamCanonical:playerTeam(p), raw:rec});
       namedCount++;
