@@ -1668,6 +1668,9 @@ function validateTeamlistCompleteness(players, fixturesJson, round, teamlists, t
 
 function parsedJerseyCoverageFromTeamlists(teamlists){
   const byTeam = new Map();
+  const source = teamlists?.players && typeof teamlists.players === 'object'
+    ? teamlists.players
+    : teamlists;
 
   function addRecord(rec){
     if(!rec || typeof rec !== 'object') return;
@@ -1675,8 +1678,8 @@ function parsedJerseyCoverageFromTeamlists(teamlists){
     const team = fixtureTeamCanonFromValue(rec?.teamCanonical || rec?.team || rec?.club || rec?.teamName);
     if(!team) return;
 
-    const status = String(rec?.displayStatus || rec?.status || '').toUpperCase();
-    if(status && status !== STATUS.NAMED) return;
+    const selectionStatus = String(rec?.selectionStatus || rec?.displayStatus || rec?.status || '').toLowerCase();
+    if(selectionStatus && !['named', 'extended'].includes(selectionStatus)) return;
 
     const jerseyRaw =
       rec.jersey ??
@@ -1701,7 +1704,7 @@ function parsedJerseyCoverageFromTeamlists(teamlists){
     teamCoverage.namedJerseys.add(jersey);
   }
 
-  for(const [key, payload] of Object.entries(teamlists || {})){
+  for(const [key, payload] of Object.entries(source || {})){
     const rows =
       Array.isArray(payload?.players) ? payload.players :
       Array.isArray(payload?.playerRows) ? payload.playerRows :
