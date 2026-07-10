@@ -1,67 +1,154 @@
 # SuperCoach War Room status changes — Round 19
 
-Detected: 2026-07-10T00:44:04.217Z
+Detected: 2026-07-10T02:48:23.727Z
 
-- **Adam Doueihi** (WST): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Alex Twal** (WST): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Bradman Best** (NEW): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Chris Randall** (GLD): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Haizyn Mellars** (NZL): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Hugo Peel** (MEL): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jack Wighton** (STH): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jake Averillo** (DOL): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jermaine McEwen** (NEW): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Josh Papalii** (CBR): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Kurt Mann** (CAN): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Latrell Mitchell** (STH): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Nicho Hynes** (SHA): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Nick Meaney** (MEL): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Sam Healey** (NZL): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Sandon Smith** (NEW): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Savelio Tamale** (CBR): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Simi Sasagi** (CBR): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Tom Trbojevic** (MAN): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Tukimihia Simpkins** (GLD): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Tyran Wishart** (MEL): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
+- **Adam Doueihi** (WST): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Halfback, jersey 7).
+  - Source: Official NRL
+- **Alex Twal** (WST): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Lock, jersey 13).
+  - Source: Official NRL
+- **Bradman Best** (NEW): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Centre, jersey 4).
+  - Source: Official NRL
+- **Chris Randall** (GLD): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Lock, jersey 13).
+  - Source: Official NRL
+- **Jack Wighton** (STH): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Centre, jersey 4).
+  - Source: Official NRL
+- **Jake Averillo** (DOL): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Centre, jersey 3).
+  - Source: Official NRL
+- **Josh Papalii** (CBR): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 16).
+  - Source: Official NRL
+- **Joshua Patston** (GLD): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 15).
+  - Source: Official NRL
+- **Keano Kini** (GLD): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Fullback, jersey 1).
+  - Source: Official NRL
+- **Keaon Koloamatangi** (STH): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Prop, jersey 10).
+  - Source: Official NRL
+- **Klese Haas** (GLD): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 16).
+  - Source: Official NRL
+- **Kobe Hetherington** (MAN): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Prop, jersey 10).
+  - Source: Official NRL
+- **Kodi Nikorima** (DOL): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Five-Eighth, jersey 6).
+  - Source: Official NRL
+- **Kurt Donoghoe** (DOL): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 14).
+  - Source: Official NRL
+- **Kurt Mann** (CAN): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 14).
+  - Source: Official NRL
+- **Kurtis Morrin** (GLD): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 14).
+  - Source: Official NRL
+- **Lachlan Crouch** (NEW): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 16).
+  - Source: Official NRL
+- **Lachlan Galvin** (CAN): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Halfback, jersey 7).
+  - Source: Official NRL
+- **Lachlan Hubner** (STH): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 14).
+  - Source: Official NRL
+- **Latu Fainu** (WST): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 14).
+  - Source: Official NRL
+- **Lehi Hopoate** (MAN): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Winger, jersey 5).
+  - Source: Official NRL
+- **Leo Thompson** (CAN): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Prop, jersey 10).
+  - Source: Official NRL
+- **Liam Le Blanc** (STH): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 17).
+  - Source: Official NRL
+- **Lipoi Hopoi** (CAN): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 17).
+  - Source: Official NRL
+- **Manaia Waitere** (MEL): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Winger, jersey 5).
+  - Source: Official NRL
+- **Marata Niukore** (NZL): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 17).
+  - Source: Official NRL
+- **Mark Nawaqanitawase** (SYD): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Winger, jersey 5).
+  - Source: Official NRL
+- **Matt Burton** (CAN): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Centre, jersey 3).
+  - Source: Official NRL
+- **Matt Croker** (NEW): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Lock, jersey 13).
+  - Source: Official NRL
+- **Matthew Dufty** (STH): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Fullback, jersey 1).
+  - Source: Official NRL
+- **Matthew Lodge** (NQC): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 16).
+  - Source: Official NRL
+- **Matthew Timoko** (CBR): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Centre, jersey 4).
+  - Source: Official NRL
+- **Max King** (CAN): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Prop, jersey 8).
+  - Source: Official NRL
+- **Mitchell Moses** (PAR): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Halfback, jersey 7).
+  - Source: Official NRL
+- **Moeaki Fotuaika** (GLD): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Prop, jersey 8).
+  - Source: Official NRL
+- **Morgan Knowles** (DOL): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Lock, jersey 13).
+  - Source: Official NRL
+- **Murray Taulagi** (NQC): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Winger, jersey 5).
+  - Source: Official NRL
+- **Nathan Brown** (MAN): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 15).
+  - Source: Official NRL
+- **Naufahu Whyte** (SYD): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Prop, jersey 8).
+  - Source: Official NRL
+- **Nicho Hynes** (SHA): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Halfback, jersey 7).
+  - Source: Official NRL
+- **Nick Meaney** (MEL): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Centre, jersey 4).
+  - Source: Official NRL
+- **Oliver Pascoe** (GLD): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Hooker, jersey 9).
+  - Source: Official NRL
+- **Oregon Kaufusi** (SHA): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 16).
+  - Source: Official NRL
+- **Owen Pattie** (CBR): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Hooker, jersey 9).
+  - Source: Official NRL
+- **Phillip Sami** (GLD): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Winger, jersey 5).
+  - Source: Official NRL
+- **Phoenix Crossland** (NEW): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Hooker, jersey 9).
+  - Source: Official NRL
+- **Ray Stone** (DOL): EXPECTED → NAMED
+  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 15).
+  - Source: Official NRL
+- **Reed Mahoney** (NQC): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Hooker, jersey 9).
+  - Source: Official NRL
+- **Reuben Cotter** (NQC): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Lock, jersey 13).
+  - Source: Official NRL
+- **Reuben Garrick** (MAN): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Centre, jersey 4).
+  - Source: Official NRL
