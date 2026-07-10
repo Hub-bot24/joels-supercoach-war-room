@@ -1,158 +1,5 @@
 [
   {
-    "player": "Teancum Brown",
-    "team": "PAR",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-08T22:45:24.661Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-08T22:45:24.661Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Teig Wilton",
-    "team": "SHA",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-08T22:45:24.661Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-08T22:45:24.661Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Terrell May",
-    "team": "WST",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-08T22:45:24.661Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-08T22:45:24.661Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Tevita Naufahu",
-    "team": "DOL",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-08T22:45:24.661Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-08T22:45:24.661Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Tevita Tatola",
-    "team": "STH",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-08T22:45:24.661Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-08T22:45:24.661Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Thomas Cant",
-    "team": "NEW",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-08T22:45:24.661Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-08T22:45:24.661Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Thomas Hazelton",
-    "team": "SHA",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-08T22:45:24.661Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-08T22:45:24.661Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Tallis Duncan",
-    "team": "STH",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-08T22:45:24.661Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-08T22:45:24.661Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Tom Gilbert",
-    "team": "DOL",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-08T22:45:24.661Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-08T22:45:24.661Z"
-      }
-    ],
-    "round": 19
-  },
-  {
     "player": "Tom Trbojevic",
     "team": "MAN",
     "from": "NAMED",
@@ -9549,6 +9396,173 @@
         "name": "Parsed current team-list source",
         "url": "data/teamlists.json",
         "updatedAt": "2026-07-10T08:41:54.154Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Benaiah Ioelu",
+    "team": "SYD",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+    "detectedAt": "2026-07-10T11:35:14.023Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-eels-10396472-235785",
+        "updatedAt": "2026-07-10T11:35:14.023Z",
+        "priority": 4,
+        "order": 4
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Dylan Walker",
+    "team": "PAR",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+    "detectedAt": "2026-07-10T11:35:14.023Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-eels-10396472-235785",
+        "updatedAt": "2026-07-10T11:35:14.023Z",
+        "priority": 4,
+        "order": 4
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Egan Butcher",
+    "team": "SYD",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
+    "detectedAt": "2026-07-10T11:35:14.023Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-eels-10396472-235785",
+        "updatedAt": "2026-07-10T11:35:14.023Z",
+        "priority": 4,
+        "order": 4
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Harrison Edwards",
+    "team": "PAR",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
+    "detectedAt": "2026-07-10T11:35:14.023Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-eels-10396472-235785",
+        "updatedAt": "2026-07-10T11:35:14.023Z",
+        "priority": 4,
+        "order": 4
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Jack de Belin",
+    "team": "PAR",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).",
+    "detectedAt": "2026-07-10T11:35:14.023Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-eels-10396472-235785",
+        "updatedAt": "2026-07-10T11:35:14.023Z",
+        "priority": 4,
+        "order": 4
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Jack Williams",
+    "team": "PAR",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Zero Tackle, jersey 9).",
+    "detectedAt": "2026-07-10T11:35:14.023Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-eels-10396472-235785",
+        "updatedAt": "2026-07-10T11:35:14.023Z",
+        "priority": 4,
+        "order": 4
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "James Tedesco",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-07-10T11:35:14.023Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-07-10T11:35:14.023Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Joash Papalii",
+    "team": "PAR",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+    "detectedAt": "2026-07-10T11:35:14.023Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-eels-10396472-235785",
+        "updatedAt": "2026-07-10T11:35:14.023Z",
+        "priority": 4,
+        "order": 4
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Mitchell Moses",
+    "team": "PAR",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-07-10T11:35:14.023Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-07-10T11:35:14.023Z"
       }
     ],
     "round": 19
