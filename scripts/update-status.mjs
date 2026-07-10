@@ -1540,24 +1540,66 @@ function fixtureTeamCanonFromValue(value){
 function teamsFromFixtureText(text){
   const found = new Set();
   const raw = String(text || '');
+
+  function addCanon(canon){
+    if(!canon) return;
+    found.add(canon === 'WARRIORS' ? 'NZWARRIORS' : canon);
+  }
+
+  function aliasMatches(hay, aliasNorm){
+    if(!aliasNorm) return false;
+    const escaped = aliasNorm.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    return new RegExp(`(?:^| )${escaped}(?: |$)`, 'i').test(hay);
+  }
+
+  // Generic multi-word team slug handling.
+  // Updated team-list URLs often use slugs like sea-eagles-storm,
+  // gold-coast-titans, north-queensland-cowboys, south-sydney-rabbitohs.
+  // Do this before hyphen splitting so multi-word teams are not broken into junk
+  // pieces like SEA + EAGLES instead of MANLY.
+  const hay = norm(raw.replace(/[-_\/]+/g, ' '));
+  const multiWordTokens = new Set();
+
+  const aliasEntries = [];
+  for(const [canon, aliases] of Object.entries(TEAM_ALIASES)){
+    for(const alias of aliases || []){
+      const aliasNorm = norm(alias);
+      if(aliasNorm) aliasEntries.push({canon, aliasNorm});
+    }
+  }
+
+  // Prefer longest / multi-word aliases first.
+  aliasEntries.sort((a,b) => b.aliasNorm.length - a.aliasNorm.length);
+
+  for(const item of aliasEntries){
+    if(!item.aliasNorm.includes(' ')) continue;
+    if(aliasMatches(hay, item.aliasNorm)){
+      addCanon(item.canon);
+      for(const token of item.aliasNorm.split(' ').filter(Boolean)) multiWordTokens.add(token);
+    }
+  }
+
+  for(const item of aliasEntries){
+    if(item.aliasNorm.includes(' ')) continue;
+    if(multiWordTokens.has(item.aliasNorm)) continue;
+    if(aliasMatches(hay, item.aliasNorm)) addCanon(item.canon);
+  }
+
+  if(found.size >= 2) return [...found];
+
   const parts = raw.split(/\b(?:v|vs|versus|at|@)\b|[-–—]/i).map(x => x.trim()).filter(Boolean);
   for(const part of parts){
     const canon = fixtureTeamCanonFromValue(part);
-    if(canon) found.add(canon);
+    if(canon) addCanon(canon);
   }
+
   // Fallback: scan all aliases in free text when no clean separator exists.
   if(!found.size){
-    const hay = norm(raw);
-    for(const [canon, aliases] of Object.entries(TEAM_ALIASES)){
-      for(const alias of aliases){
-        const a = norm(alias);
-        if(a && new RegExp(`(?:^| )${a.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}(?: |$)`, 'i').test(hay)){
-          found.add(canon === 'WARRIORS' ? 'NZWARRIORS' : canon);
-          break;
-        }
-      }
+    for(const item of aliasEntries){
+      if(aliasMatches(hay, item.aliasNorm)) addCanon(item.canon);
     }
   }
+
   return [...found];
 }
 function expectedTeamsForRound(fixturesJson, round){
