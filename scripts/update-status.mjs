@@ -1870,7 +1870,38 @@ function buildTeamlistAudit({
   const problemTeams = perTeam.filter(t => t.expectedThisRound && !t.loaded);
   const partialTeams = perTeam.filter(t => t.status === 'partial_parse_below_threshold' || t.status === 'records_without_playable_coverage');
   const missingTeams = perTeam.filter(t => t.status === 'missing_expected_team');
+  const sourceDebug = asArray(teamPages).map(page => {
+    const text = String(page?.text || '');
+    const lower = text.toLowerCase();
 
+    const expectedTeamHits = expectedTeams.map(team => ({
+      team,
+      found: lower.includes(String(team).toLowerCase()) ||
+             lower.includes(String(team).toLowerCase().replace(/[^a-z0-9]+/g, ' '))
+    }));
+
+    const jerseyNumberHits = [...text.matchAll(/\b(?:[1-9]|1[0-9]|2[0-5])\b/g)].slice(0, 80).map(m => m[0]);
+
+    return {
+      url: page?.url || '',
+      sourceName: page?.sourceName || '',
+      textLength: text.length,
+      startsWith: text.slice(0, 1200),
+      containsTeamListWords: /team\s*lists?|team-list|final\s*team|late\s*mail|updated\s*team/i.test(text),
+      containsJerseyNumbers: jerseyNumberHits.length > 0,
+      jerseyNumberSample: jerseyNumberHits,
+      expectedTeamHits,
+      sampleAroundTeamList: (() => {
+        const idx = lower.indexOf('team list');
+        if (idx >= 0) return text.slice(Math.max(0, idx - 400), idx + 1600);
+        const idx2 = lower.indexOf('final team');
+        if (idx2 >= 0) return text.slice(Math.max(0, idx2 - 400), idx2 + 1600);
+        const idx3 = lower.indexOf('late mail');
+        if (idx3 >= 0) return text.slice(Math.max(0, idx3 - 400), idx3 + 1600);
+        return text.slice(0, 2000);
+      })()
+    };
+  });
   return {
     updated: NOW_ISO,
     round,
@@ -1891,6 +1922,7 @@ function buildTeamlistAudit({
       usedUrls: teamPages.map(p => p.url),
       rejected: filteredTeamPages?.rejected || []
     },
+    sourceDebug,
     importerStats: fetchedTeamStats || {},
     generatedTruth: {
       teamlistsLoaded,
