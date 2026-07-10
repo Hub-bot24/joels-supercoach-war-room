@@ -1666,44 +1666,97 @@ function validateTeamlistCompleteness(players, fixturesJson, round, teamlists, t
   };
 }
 
-function playableTeamCoverageFromTeamlists(teamlists){
-  const coverage = new Map();
-  for(const rec of Object.values(teamlists || {})){
-    const team = fixtureTeamCanonFromValue(rec?.teamCanonical || rec?.team);
-    if(!team) continue;
+function parsedJerseyCoverageFromTeamlists(teamlists){
+  const byTeam = new Map();
 
-    const status = String(rec?.displayStatus || '').toUpperCase();
-    const role = String(rec?.lineupRole || rec?.selectionRole || '').toLowerCase();
-    const jersey = Number(rec?.jersey);
+  function addRecord(rec){
+    if(!rec || typeof rec !== 'object') return;
 
-    const playable =
-      status === STATUS.NAMED &&
-      (
-        role === 'starter' ||
-        role === 'interchange' ||
-        (Number.isFinite(jersey) && jersey >= 1 && jersey <= 17)
-      );
+    const team = fixtureTeamCanonFromValue(rec?.teamCanonical || rec?.team || rec?.club || rec?.teamName);
+    if(!team) return;
 
-    if(!playable) continue;
+    const status = String(rec?.displayStatus || rec?.status || '').toUpperCase();
+    if(status && status !== STATUS.NAMED) return;
 
-    if(!coverage.has(team)) coverage.set(team, new Set());
-    const key = Number.isFinite(jersey) ? `j${jersey}` : `role:${role}:${coverage.get(team).size}`;
-    coverage.get(team).add(key);
+    const jerseyRaw =
+      rec.jersey ??
+      rec.number ??
+      rec.num ??
+      rec.positionNumber ??
+      rec.posNumber ??
+      rec.shirtNumber;
+
+    const jersey = Number(String(jerseyRaw ?? '').replace(/[^\d]/g, ''));
+    if(!Number.isInteger(jersey) || jersey < 1 || jersey > 25) return;
+
+    if(!byTeam.has(team)){
+      byTeam.set(team, {
+        playerRows: 0,
+        namedJerseys: new Set()
+      });
+    }
+
+    const teamCoverage = byTeam.get(team);
+    teamCoverage.playerRows += 1;
+    teamCoverage.namedJerseys.add(jersey);
   }
+
+  for(const [key, payload] of Object.entries(teamlists || {})){
+    const rows =
+      Array.isArray(payload?.players) ? payload.players :
+      Array.isArray(payload?.playerRows) ? payload.playerRows :
+      Array.isArray(payload?.rows) ? payload.rows :
+      null;
+
+    if(rows){
+      const teamFromKey = fixtureTeamCanonFromValue(key);
+      for(const row of rows){
+        addRecord({
+          ...row,
+          teamCanonical: row?.teamCanonical || row?.team || teamFromKey
+        });
+      }
+    } else {
+      addRecord(payload);
+    }
+  }
+
+  const coverage = {};
+
+  for(const [team, info] of byTeam.entries()){
+    const jerseys = [...info.namedJerseys].sort((a, b) => a - b);
+
+    coverage[team] = {
+      playerRows: info.playerRows,
+      jerseyCount: jerseys.length,
+      jerseys,
+      hasJersey1: info.namedJerseys.has(1),
+      hasJersey2: info.namedJerseys.has(2),
+      reliableLoadedTeam: info.namedJerseys.has(1) && info.namedJerseys.has(2) && jerseys.length >= 16
+    };
+  }
+
   return coverage;
 }
 
-function reliableLoadedTeamsFromTeamlists(teamlists){
-  const coverage = playableTeamCoverageFromTeamlists(teamlists);
-  const out = new Set();
+function playableTeamCoverageFromTeamlists(teamlists){
+  const coverage = parsedJerseyCoverageFromTeamlists(teamlists);
+  const playable = {};
 
-  for(const [team,set] of coverage.entries()){
-    // Do not infer NOT_NAMED from a partial parse.
-    // A club list is only reliable for absence if we captured almost a full playable 17.
-    if(set.size >= 16) out.add(team);
+  for(const [team, info] of Object.entries(coverage)){
+    playable[team] = Boolean(info?.reliableLoadedTeam);
   }
 
-  return out;
+  return playable;
+}
+
+function reliableLoadedTeamsFromTeamlists(teamlists){
+  const coverage = parsedJerseyCoverageFromTeamlists(teamlists);
+
+  return Object.entries(coverage)
+    .filter(([, info]) => info?.reliableLoadedTeam)
+    .map(([team]) => team)
+    .sort();
 }
 function combineTruth(players, round, teamlists, injuries, suspensions, origin, existingStatus, trustedLoadedTeams=[]){
   const playersOut = {};
