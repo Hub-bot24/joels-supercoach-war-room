@@ -1123,6 +1123,11 @@ function parseNrlRoleLineRowsFromPage(text){
     'Prop',
     'Hooker',
     'Second Row',
+    'Second-row',
+    '2nd Row',
+    '2nd-row',
+    'Back Row',
+    'Back-row',
     'Lock',
     'Interchange',
     'Reserve',
@@ -1135,7 +1140,7 @@ function parseNrlRoleLineRowsFromPage(text){
   // Fullback for Wests Tigers is number 1 Jahream Bula
   // Interchange for Warriors is number 14 Dylan Walker
   const re = new RegExp(
-    `\\b(${rolePattern})\\s+for\\s+(.+?)\\s+is\\s+number\\s+([1-9]|1[0-9]|2[0-5])\\s+(.+?)(?=\\s+(?:[1-9]|1[0-9]|2[0-5])\\s+(?:${rolePattern})\\s+for\\s+|\\s+(?:${rolePattern})\\s+for\\s+|\\s+Team Lists\\s+|\\s+Match:\\s+|$)`,
+    `\\b(${rolePattern})\\s+for\\s+(.+?)\\s+is\\s*number\\s*([1-9]|1[0-9]|2[0-5])\\s*(.+?)(?=\\s*(?:[1-9]|1[0-9]|2[0-5])?\\s*(?:${rolePattern})\\s+for\\s+|\\s+Team Lists\\s+|\\s+Match:\\s+|$)`,
     'gi'
   );
 
@@ -1148,6 +1153,7 @@ function parseNrlRoleLineRowsFromPage(text){
 
     name = name
       .replace(/\b(?:Team Lists|Backs|Forwards|Interchange|Reserves|Coach|Late Mail|Analysis)\b.*$/i, '')
+      .replace(/\s*(?:[1-9]|1[0-9]|2[0-5])\s*$/g, '')
       .replace(/\s+/g, ' ')
       .trim();
 
