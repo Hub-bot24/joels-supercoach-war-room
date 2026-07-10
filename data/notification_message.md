@@ -1,154 +1,67 @@
 # SuperCoach War Room status changes — Round 19
 
-Detected: 2026-07-08T22:45:24.661Z
+Detected: 2026-07-10T00:44:04.217Z
 
-- **Adam Christensen** (GLD): NOT_NAMED → EXPECTED
+- **Adam Doueihi** (WST): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Adam Doueihi** (WST): NAMED → INJURED
-  - Shoulder
-  - Source: Existing player_status.json updater
-- **Adam Pompey** (NZL): NAMED → EXPECTED
+- **Alex Twal** (WST): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Alec MacDonald** (MEL): NAMED → EXPECTED
+- **Bradman Best** (NEW): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Alekolasimi Jones** (CAN): NAMED → EXPECTED
+- **Chris Randall** (GLD): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Alex Seyfarth** (WST): NAMED → EXPECTED
+- **Haizyn Mellars** (NZL): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Alex Twal** (WST): NAMED → INJURED
-  - Knee
-  - Source: Existing player_status.json updater
-- **Alexander Brimson** (GLD): NAMED → EXPECTED
+- **Hugo Peel** (MEL): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Ali Leiataua** (NZL): NAMED → EXPECTED
+- **Jack Wighton** (STH): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Alofiana Khan-Pereira** (NZL): NAMED → EXPECTED
+- **Jake Averillo** (DOL): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Angus Crichton** (SYD): NOT_NAMED → EXPECTED
+- **Jermaine McEwen** (NEW): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Angus Hinchey** (MEL): NOT_NAMED → EXPECTED
+- **Josh Papalii** (CBR): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Apa Twidle** (PAR): NOT_NAMED → EXPECTED
+- **Kurt Mann** (CAN): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Apisai Koroisau** (WST): NOT_NAMED → EXPECTED
+- **Latrell Mitchell** (STH): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Arama Hau** (GLD): NAMED → EXPECTED
+- **Nicho Hynes** (SHA): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Araz Nanva** (PAR): NAMED → EXPECTED
+- **Nick Meaney** (MEL): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Nathan Brown** (MAN): NAMED → EXPECTED
+- **Sam Healey** (NZL): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Nicho Hynes** (SHA): NAMED → INJURED
-  - Calf
-  - Source: Existing player_status.json updater
-- **Oregon Kaufusi** (SHA): NAMED → EXPECTED
+- **Sandon Smith** (NEW): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Pasami Saulo** (NEW): NOT_NAMED → EXPECTED
+- **Savelio Tamale** (CBR): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Peter Hola** (NEW): NOT_NAMED → EXPECTED
+- **Simi Sasagi** (CBR): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Phoenix Crossland** (NEW): NAMED → EXPECTED
+- **Tom Trbojevic** (MAN): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Reuben Garrick** (MAN): NAMED → EXPECTED
+- **Tukimihia Simpkins** (GLD): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Ronald Volkman** (PAR): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Ronaldo Mulitalo** (SHA): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Sam Tuivaiti** (PAR): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Sandon Smith** (NEW): NAMED → INJURED
-  - Calf; Origin/representative-duty context present
-  - Source: Existing player_status.json updater, origin_players.json
-- **Simione Laiafi** (MAN): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Sione Fainu** (WST): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Sione Katoa** (SHA): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Siosifa Talakai** (SHA): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Starford To'a** (WST): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Sunia Turuva** (WST): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Tallyn Da Silva** (PAR): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Taniela Paseka** (MAN): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Teancum Brown** (PAR): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Teig Wilton** (SHA): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Terrell May** (WST): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Tevita Naufahu** (DOL): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Tevita Tatola** (STH): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Thomas Cant** (NEW): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Thomas Hazelton** (SHA): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Tallis Duncan** (STH): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Tom Gilbert** (DOL): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Tom Trbojevic** (MAN): NAMED → INJURED
-  - Hamstring
-  - Source: Existing player_status.json updater
-- **Tony Sukkar** (WST): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Trai Fuller** (DOL): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Tyson Frizell** (NEW): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Wil Sullivan** (NEW): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **William Kennedy** (SHA): NAMED → EXPECTED
+- **Tyran Wishart** (MEL): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
