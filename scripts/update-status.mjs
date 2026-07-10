@@ -1752,11 +1752,13 @@ function playableTeamCoverageFromTeamlists(teamlists){
 
 function reliableLoadedTeamsFromTeamlists(teamlists){
   const coverage = parsedJerseyCoverageFromTeamlists(teamlists);
+  const out = new Set();
 
-  return Object.entries(coverage)
-    .filter(([, info]) => info?.reliableLoadedTeam)
-    .map(([team]) => team)
-    .sort();
+  for(const [team, info] of Object.entries(coverage)){
+    if(info?.reliableLoadedTeam) out.add(team);
+  }
+
+  return out;
 }
 function combineTruth(players, round, teamlists, injuries, suspensions, origin, existingStatus, trustedLoadedTeams=[]){
   const playersOut = {};
