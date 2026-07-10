@@ -1108,13 +1108,81 @@ function labelForLineupRole(role, sourceKind){
   if(role === 'interchange') return `Named in ${sourceKind} interchange`;
   return `Named in ${sourceKind} extended squad only`;
 }
+function parseNrlRoleLineRowsFromPage(text){
+  const clean = String(text || '').replace(/\s+/g, ' ').trim();
+  const rows = [];
 
+  const roleWords = [
+    'Fullback',
+    'Wing',
+    'Winger',
+    'Centre',
+    'Five-Eighth',
+    'Five Eighth',
+    'Halfback',
+    'Prop',
+    'Hooker',
+    'Second Row',
+    'Lock',
+    'Interchange',
+    'Reserve',
+    'Replacement'
+  ];
+
+  const rolePattern = roleWords.map(escapedRe).join('|');
+
+  // Official NRL stripped article format, for example:
+  // Fullback for Wests Tigers is number 1 Jahream Bula
+  // Interchange for Warriors is number 14 Dylan Walker
+  const re = new RegExp(
+    `\\b(${rolePattern})\\s+for\\s+(.+?)\\s+is\\s+number\\s+([1-9]|1[0-9]|2[0-5])\\s+(.+?)(?=\\s+(?:[1-9]|1[0-9]|2[0-5])\\s+(?:${rolePattern})\\s+for\\s+|\\s+(?:${rolePattern})\\s+for\\s+|\\s+Team Lists\\s+|\\s+Match:\\s+|$)`,
+    'gi'
+  );
+
+  let m;
+  while((m = re.exec(clean))){
+    const role = String(m[1] || '').trim();
+    const rawTeam = String(m[2] || '').trim();
+    const jersey = Number(m[3]);
+    let name = String(m[4] || '').trim();
+
+    name = name
+      .replace(/\b(?:Team Lists|Backs|Forwards|Interchange|Reserves|Coach|Late Mail|Analysis)\b.*$/i, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    let teamCanon = canonicalTeam(rawTeam);
+
+    // The source writes "Warriors", but the app/player data uses NZWARRIORS.
+    // This is a generic team-alias correction, not a player fix.
+    if(teamCanon === 'WARRIORS') teamCanon = 'NZWARRIORS';
+
+    if(!teamCanon || !Number.isFinite(jersey) || jersey < 1 || jersey > 25 || name.length < 3) continue;
+
+    rows.push({
+      teamCanon,
+      rawTeam,
+      role,
+      jersey,
+      name
+    });
+  }
+
+  const seen = new Set();
+  return rows.filter(row => {
+    const key = `${row.teamCanon}|${row.jersey}|${normName(row.name)}`;
+    if(seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
 function fromFetchedTeamlists(players, pages, teamlistsOut){
   const lookup = playerLookupByName(players);
   const teamFound = new Map();
-  let totalFound = 0;
+   let totalFound = 0;
   let sectionFound = 0;
   let knownPatternFound = 0;
+  let nrlRoleLineFound = 0;
   let pageLevelMissingCount = 0;
   let pageOrder = 0;
 
@@ -1207,7 +1275,63 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
       }
       if(matchedForTeam >= 10 && pageStarterCoverageOk(teamCanon)) teamFound.set(teamCanon, Math.max(teamFound.get(teamCanon)||0, matchedForTeam));
     }
+    // Parser 3: Official NRL role-line format.
+    // Example stripped article text:
+    // "Fullback for Wests Tigers is number 1 Jahream Bula"
+    // Generic source parser only. No player hard-fixes.
+    const nrlRoleRows = parseNrlRoleLineRowsFromPage(page.text);
+    const nrlRoleRowsByTeam = new Map();
 
+    for(const row of nrlRoleRows){
+      const p = findPlayerForTeamName(row.name, row.teamCanon);
+      if(!p) continue;
+      if(playerTeam(p) !== row.teamCanon) continue;
+
+      if(!nrlRoleRowsByTeam.has(row.teamCanon)) nrlRoleRowsByTeam.set(row.teamCanon, []);
+      nrlRoleRowsByTeam.get(row.teamCanon).push({...row, player:p});
+    }
+
+    for(const [teamCanon, rows] of nrlRoleRowsByTeam.entries()){
+      const orderedRows = [...rows].sort((a,b) => a.jersey - b.jersey);
+      let matchedForTeam = 0;
+
+      for(const row of orderedRows){
+        matchedForTeam++;
+        const p = row.player;
+        const lineupRole = lineupRoleForIndex(row.jersey);
+        const status = statusForLineupRole(lineupRole);
+        const label = labelForLineupRole(lineupRole, 'official NRL role-line team-list');
+
+        addOrMerge(
+          teamlistsOut,
+          p,
+          makeStatus(
+            status,
+            `${label} (${page.sourceName}, ${row.role}, jersey ${row.jersey}).`,
+            [src],
+            {
+              selectionStatus: selectionStatusForLineupRole(lineupRole),
+              lineupRole,
+              lineupIndex: row.jersey,
+              team:p.team,
+              teamCanonical:teamCanon,
+              jersey:row.jersey,
+              sourcePriority:priority,
+              sourceOrder:pageOrder
+            }
+          )
+        );
+
+        markSeen(teamCanon, p.name);
+        addTeamCount(teamCanon);
+        totalFound++;
+        nrlRoleLineFound++;
+      }
+
+      if(matchedForTeam >= 10 && pageStarterCoverageOk(teamCanon)){
+        teamFound.set(teamCanon, Math.max(teamFound.get(teamCanon)||0, matchedForTeam));
+      }
+    }
     // Parser 2: generic known-player + jersey-number patterns from stripped team-list article text.
     // This is needed because some source pages render rows as "1 Player Player" or "Player Player 1" rather than "1. Player".
     // v22 guard: never whole-scan the official Tuesday NRL team-list article; that caused stale
@@ -1298,7 +1422,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
       teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, 'Current club team list loaded for club and player was not in that list.', [sourceObj('teamlist','Parsed current team-list source','',NOW_ISO)], {selectionStatus:'not_named', team:p.team, teamCanonical:t, sourcePriority:1});
     }
   }
-  return {totalFound, loadedTeams:[...loadedTeams], parser:'section_parser_plus_local_window_jersey_patterns_with_source_priority_v33_latest_same_priority_wins', sectionFound, knownPatternFound, pageLevelMissingCount};
+  return {totalFound, loadedTeams:[...loadedTeams], parser:'section_parser_plus_nrl_role_lines_plus_local_window_jersey_patterns_with_source_priority_v35', sectionFound, nrlRoleLineFound, knownPatternFound, pageLevelMissingCount};
 }
 function localWindowAroundName(text, name, before=360, after=520){
   const src = String(text || '').replace(/\s+/g,' ');
