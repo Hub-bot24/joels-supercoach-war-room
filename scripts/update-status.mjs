@@ -812,6 +812,7 @@ function allowWholeArticleJerseyScan(page){
   // players and mix in social/share/sidebar content. Use structured/team-block parsing there only.
   if(url.includes('nrl-team-lists-round')) return false;
   if(url.includes('final-teams')) return true;
+  if(url.includes('zerotackle.com/updated-team-lists')) return true;
   if(url.includes('updated-team-lists')) return false;
   if(url.includes('late-mail')) return true;
   // Zero Tackle round team-list pages are more regular and are still needed as a broad source,
