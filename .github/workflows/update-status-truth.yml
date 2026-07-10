@@ -87,7 +87,13 @@ jobs:
           fi
 
           git status --short
-
+      - name: Stage teamlist audit report
+        run: |
+          if [ -f data/teamlist_audit_report.json ]; then
+            git add data/teamlist_audit_report.json
+          fi
+          git status --short
+          
       - name: Commit updated truth files
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
