@@ -2061,6 +2061,7 @@ async function main(){
   await writeJson('data/status_truth.json', truth);
   await writeJson('data/current_round.json', guardedContracts['data/current_round.json']);
   await writeJson('data/teamlists.json', guardedContracts['data/teamlists.json']);
+  await writeJson('data/teamlist_audit_report.json', guardedContracts['data/teamlist_audit_report.json']);
   await writeJson('data/weather.json', guardedContracts['data/weather.json']);
   await writeJson('data/official_teamlists.json', contractDefaults.officialTeamlists);
   await writeJson('data/origin_unavailable.json', contractDefaults.originUnavailable);
