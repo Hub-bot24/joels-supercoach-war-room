@@ -6231,34 +6231,118 @@ function scoreTrade(){const out=getPlayer($('tradeOut').value),inn=getPlayer($('
 function applyTradeFromTradeLab(){const out=$('tradeOut')?.value?.trim(),inn=$('tradeIn')?.value?.trim();if(!out||!inn){toast('Pick OUT and IN players');return}if(!App.myTeam.includes(out)||!App.playerMap.has(inn)){toast('Invalid trade');return}App.myTeam=App.myTeam.map(n=>n===out?inn:n);for(const k of Object.keys(App.lineup)){if(App.lineup[k]===out){if(eligible(getPlayer(inn),slotById[k]))App.lineup[k]=inn;else delete App.lineup[k]}}ensureLineup();saveLocal();renderTrade();toast(`Trade applied: ${out} → ${inn}`)}
 
 
-// FORCE GLOBAL SAFE ENTRY POINT (OVERRIDES EVERYTHING ABOVE)
-window.openPlayerCard = function(name){
-
-  if (typeof window.__openPlayerCard_core === "function") {
-    return window.__openPlayerCard_core(name);
-  }
-
-  const p =
-    (App.players || []).find(x =>
-      String(x.name || '').toLowerCase() === String(name).toLowerCase()
-    )
-    || App.playerMap?.get?.(name);
-
-  if(!p){
-    console.warn("Player not found:", name);
-    return;
-  }
-
-  alert(
-    p.name + "\n" +
-    (p.team || "") + "\n" +
-    (p.pos || "") + "\n" +
-    (p.proj || 0)
-  );
+/* =========================================================
+   CORE UI FIX: premium player card + trade entry point
+   - Replaces browser alert override
+   - Uses merged positions(p), not stale p.pos only
+   - Trade actions use existing field/reserve trade pipeline
+   - No player-specific hard fixes
+   ========================================================= */
+window.closePlayerCard = function(){
+  const old = document.getElementById("wrPlayerCardOverlay");
+  if(old) old.remove();
 };
 
+window.openPlayerCard = function(name){
+  const p = getPlayer(name);
+  if(!p) return toast ? toast("Player not found") : null;
 
+  window.closePlayerCard();
 
+  const pr = roundProj(p);
+  const st = availabilityStatus(p);
+  const truth = (typeof truthRecordAnyRound === "function" ? truthRecordAnyRound(p) : null) || {};
+  const fieldSlot = Object.keys(App.lineup || {}).find(k => App.lineup[k] === p.name);
+  const inMyTeam = App.myTeam.includes(p.name);
+  const reserveSlot = typeof reserveSlotForPlayerName === "function" ? reserveSlotForPlayerName(p.name) : "";
+  const slotLabel = fieldSlot ? (slotById[fieldSlot]?.short || "FIELD") : (reserveSlot || (inMyTeam ? "RES" : "PLAYER"));
+
+  const posList = (typeof positions === "function" ? positions(p) : []).filter(Boolean);
+  const posText = posList.length ? posList.join("/") : (p.pos || p.position || "-");
+
+  const price = safeNum(p.price) ? money(p.price) : "-";
+  const be = safeNum(p.breakeven ?? p.breakEven ?? p.BE ?? p.be) || "-";
+  const avg = safeNum(p.avg ?? p.average ?? p.seasonAvg) || "-";
+  const jersey = truth.jersey || p.jersey || "-";
+  const team = esc(p.team || p.club || "SC");
+  const rating = Math.max(0, Math.round(Number(pr.expected || 0) || 0));
+  const photo = typeof wrCardPlayerPhotoUrl === "function" ? wrCardPlayerPhotoUrl(p) : "";
+  const teamBadge = typeof teamIconHtml === "function" ? teamIconHtml(p, "player-profile-team-logo") : "";
+
+  const tradeButton = fieldSlot
+    ? `<button type="button" onclick="window.closePlayerCard();teamActionTradeOut('${window.jsq(fieldSlot)}')">Trade</button>`
+    : inMyTeam
+      ? `<button type="button" onclick="window.closePlayerCard();reserveActionTradeOut('${window.jsq(p.name)}')">Trade</button>`
+      : "";
+
+  const moveButton = inMyTeam
+    ? `<button type="button" onclick="window.closePlayerCard();${fieldSlot ? `teamActionSwap('${window.jsq(fieldSlot)}')` : `reserveActionSwap('${window.jsq(p.name)}')`}">Move / Swap</button>`
+    : "";
+
+  const photoHtml = photo
+    ? `<img src="${esc(photo)}" alt="${esc(p.name)}" style="width:255px;height:310px;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 22px 20px rgba(0,0,0,.45));" onerror="this.replaceWith(Object.assign(document.createElement('div'),{style:'width:255px;height:310px;display:grid;place-items:center;font-size:74px;font-weight:950;color:rgba(255,255,255,.88)',textContent:'${team}'}))">`
+    : `<div style="width:255px;height:310px;display:grid;place-items:center;font-size:74px;font-weight:950;color:rgba(255,255,255,.88)">${team}</div>`;
+
+  function stat(label,value){
+    return `<div style="border-radius:16px;background:rgba(255,255,255,.12);padding:10px 12px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)">
+      <div style="font-size:11px;font-weight:900;letter-spacing:.08em;opacity:.8">${esc(label)}</div>
+      <div style="font-size:22px;font-weight:950;line-height:1.05">${esc(value ?? "-")}</div>
+    </div>`;
+  }
+
+  const overlay = document.createElement("div");
+  overlay.id = "wrPlayerCardOverlay";
+  overlay.style.cssText = "position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.72);display:grid;place-items:center;padding:18px;";
+
+  overlay.innerHTML = `
+    <div onclick="event.stopPropagation()" style="position:relative;width:min(760px,96vw);min-height:520px;border-radius:30px;overflow:hidden;background:
+      radial-gradient(circle at 20% 12%,rgba(88,166,255,.44),transparent 28%),
+      linear-gradient(135deg,#10213a 0%,#071222 48%,#020617 100%);
+      color:#fff;box-shadow:0 36px 110px rgba(0,0,0,.82), inset 0 0 0 2px rgba(255,255,255,.16);">
+
+      <button type="button" onclick="window.closePlayerCard()" style="position:absolute;right:18px;top:16px;z-index:5;border:0;border-radius:14px;background:rgba(0,0,0,.45);color:#fff;padding:9px 13px;font-weight:950;cursor:pointer">Close</button>
+
+      <div style="position:absolute;left:24px;top:22px;z-index:2;font-size:78px;font-weight:1000;letter-spacing:-5px;line-height:.85;color:#7cff38;text-shadow:0 5px 18px rgba(124,255,56,.28)">${rating}</div>
+
+      <div style="position:absolute;left:28px;top:108px;z-index:2;max-width:360px">
+        <div style="font-size:15px;font-weight:950;letter-spacing:.16em;color:#c7d2fe">WAR ROOM CARD</div>
+        <div style="font-size:43px;font-weight:1000;line-height:.9;margin-top:8px;text-transform:uppercase">${esc(p.name)}</div>
+        <div style="font-size:31px;font-weight:950;margin-top:12px;color:#fff">${esc(posText)}</div>
+        <div style="margin-top:12px;display:flex;align-items:center;gap:9px">${teamBadge}<span style="font-size:22px;font-weight:950;padding:5px 10px;border-radius:10px;background:rgba(255,255,255,.20)">${team}</span></div>
+        <div style="font-size:16px;font-weight:900;margin-top:10px;color:#dbeafe">${esc(slotLabel)} - R${esc(App.round)} - Jersey ${esc(jersey)}</div>
+      </div>
+
+      <div style="position:absolute;right:20px;top:62px;z-index:2;width:305px;height:350px;display:flex;align-items:flex-end;justify-content:center">
+        ${photoHtml}
+      </div>
+
+      <div style="position:relative;z-index:3;margin-top:365px;padding:18px 22px 22px;background:linear-gradient(180deg,rgba(2,6,23,.1),rgba(2,6,23,.72))">
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
+          ${stat("Projected", pr.expected)}
+          ${stat("Price", price)}
+          ${stat("BE", be)}
+          ${stat("AVG", avg)}
+          ${stat("Status", st.label || truth.displayStatus || "-")}
+          ${stat("Last 3", pr.last3Avg || "-")}
+          ${stat("Last 5", pr.last5Avg || "-")}
+          ${stat("Season", pr.seasonAvg || avg || "-")}
+        </div>
+
+        <div style="margin-top:12px;border-radius:16px;background:rgba(255,255,255,.10);padding:11px 13px;color:#e5edf8;font-weight:750">
+          ${esc(st.reason || truth.reason || "No status note")}
+        </div>
+
+        <div style="display:flex;justify-content:center;gap:12px;margin-top:18px">
+          ${tradeButton}
+          ${moveButton}
+        </div>
+      </div>
+    </div>
+  `;
+
+  overlay.addEventListener("click", window.closePlayerCard);
+  document.body.appendChild(overlay);
+};
 /* =========================================================
    v17 JS OVERRIDES: tab isolation + logos + single trade badge
    UI only. No player-specific hard fixes.
