@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-10T13:44:56.364Z",
+  "updated": "2026-07-10T16:08:52.239Z",
   "round": 19,
   "source": "Open-Meteo hourly forecast API",
   "status": "fresh",
@@ -28,7 +28,7 @@
           "time": "2026-07-10T20:00",
           "phase": "game_window",
           "temperature_2m": 8.7,
-          "precipitation_probability": 11,
+          "precipitation_probability": 2,
           "precipitation_mm": 0,
           "wind_speed_10m": 3.8,
           "wind_gusts_10m": 9.7
@@ -37,7 +37,7 @@
           "time": "2026-07-10T21:00",
           "phase": "game_window",
           "temperature_2m": 7.9,
-          "precipitation_probability": 5,
+          "precipitation_probability": 1,
           "precipitation_mm": 0,
           "wind_speed_10m": 3.3,
           "wind_gusts_10m": 8.3
@@ -46,7 +46,7 @@
       "weatherRisk": {
         "label": "Low",
         "score": 0,
-        "maxRainProbability": 11,
+        "maxRainProbability": 2,
         "totalGameRainMm": 0,
         "maxWindKmh": 3.8,
         "maxGustKmh": 9.7,
@@ -77,7 +77,7 @@
           "time": "2026-07-11T15:00",
           "phase": "game_window",
           "temperature_2m": 18.7,
-          "precipitation_probability": 8,
+          "precipitation_probability": 2,
           "precipitation_mm": 0,
           "wind_speed_10m": 8.3,
           "wind_gusts_10m": 20.5
@@ -86,7 +86,7 @@
           "time": "2026-07-11T16:00",
           "phase": "game_window",
           "temperature_2m": 18.1,
-          "precipitation_probability": 10,
+          "precipitation_probability": 2,
           "precipitation_mm": 0,
           "wind_speed_10m": 7.4,
           "wind_gusts_10m": 21.2
@@ -95,7 +95,7 @@
       "weatherRisk": {
         "label": "Low",
         "score": 0,
-        "maxRainProbability": 10,
+        "maxRainProbability": 2,
         "totalGameRainMm": 0,
         "maxWindKmh": 8.3,
         "maxGustKmh": 21.2,
@@ -344,7 +344,7 @@
           "time": "2026-07-12T18:00",
           "phase": "game_window",
           "temperature_2m": 10.8,
-          "precipitation_probability": 72,
+          "precipitation_probability": 80,
           "precipitation_mm": 1.3,
           "wind_speed_10m": 12.3,
           "wind_gusts_10m": 41.8
@@ -353,7 +353,7 @@
           "time": "2026-07-12T19:00",
           "phase": "game_window",
           "temperature_2m": 11.3,
-          "precipitation_probability": 69,
+          "precipitation_probability": 73,
           "precipitation_mm": 0.4,
           "wind_speed_10m": 18.3,
           "wind_gusts_10m": 34.2
@@ -362,7 +362,7 @@
           "time": "2026-07-12T20:00",
           "phase": "game_window",
           "temperature_2m": 11.9,
-          "precipitation_probability": 57,
+          "precipitation_probability": 60,
           "precipitation_mm": 0,
           "wind_speed_10m": 19,
           "wind_gusts_10m": 37.1
@@ -371,7 +371,7 @@
       "weatherRisk": {
         "label": "High",
         "score": 60,
-        "maxRainProbability": 72,
+        "maxRainProbability": 80,
         "totalGameRainMm": 1.7,
         "maxWindKmh": 19,
         "maxGustKmh": 41.8,
@@ -407,7 +407,7 @@
           "time": "2026-07-10T20:00",
           "phase": "game_window",
           "temperature_2m": 8.7,
-          "precipitation_probability": 11,
+          "precipitation_probability": 2,
           "precipitation_mm": 0,
           "wind_speed_10m": 3.8,
           "wind_gusts_10m": 9.7
@@ -416,7 +416,7 @@
           "time": "2026-07-10T21:00",
           "phase": "game_window",
           "temperature_2m": 7.9,
-          "precipitation_probability": 5,
+          "precipitation_probability": 1,
           "precipitation_mm": 0,
           "wind_speed_10m": 3.3,
           "wind_gusts_10m": 8.3
@@ -425,7 +425,7 @@
       "weatherRisk": {
         "label": "Low",
         "score": 0,
-        "maxRainProbability": 11,
+        "maxRainProbability": 2,
         "totalGameRainMm": 0,
         "maxWindKmh": 3.8,
         "maxGustKmh": 9.7,
@@ -456,7 +456,7 @@
           "time": "2026-07-11T15:00",
           "phase": "game_window",
           "temperature_2m": 18.7,
-          "precipitation_probability": 8,
+          "precipitation_probability": 2,
           "precipitation_mm": 0,
           "wind_speed_10m": 8.3,
           "wind_gusts_10m": 20.5
@@ -465,7 +465,7 @@
           "time": "2026-07-11T16:00",
           "phase": "game_window",
           "temperature_2m": 18.1,
-          "precipitation_probability": 10,
+          "precipitation_probability": 2,
           "precipitation_mm": 0,
           "wind_speed_10m": 7.4,
           "wind_gusts_10m": 21.2
@@ -474,7 +474,7 @@
       "weatherRisk": {
         "label": "Low",
         "score": 0,
-        "maxRainProbability": 10,
+        "maxRainProbability": 2,
         "totalGameRainMm": 0,
         "maxWindKmh": 8.3,
         "maxGustKmh": 21.2,
@@ -723,7 +723,7 @@
           "time": "2026-07-12T18:00",
           "phase": "game_window",
           "temperature_2m": 10.8,
-          "precipitation_probability": 72,
+          "precipitation_probability": 80,
           "precipitation_mm": 1.3,
           "wind_speed_10m": 12.3,
           "wind_gusts_10m": 41.8
@@ -732,7 +732,7 @@
           "time": "2026-07-12T19:00",
           "phase": "game_window",
           "temperature_2m": 11.3,
-          "precipitation_probability": 69,
+          "precipitation_probability": 73,
           "precipitation_mm": 0.4,
           "wind_speed_10m": 18.3,
           "wind_gusts_10m": 34.2
@@ -741,7 +741,7 @@
           "time": "2026-07-12T20:00",
           "phase": "game_window",
           "temperature_2m": 11.9,
-          "precipitation_probability": 57,
+          "precipitation_probability": 60,
           "precipitation_mm": 0,
           "wind_speed_10m": 19,
           "wind_gusts_10m": 37.1
@@ -750,7 +750,7 @@
       "weatherRisk": {
         "label": "High",
         "score": 60,
-        "maxRainProbability": 72,
+        "maxRainProbability": 80,
         "totalGameRainMm": 1.7,
         "maxWindKmh": 19,
         "maxGustKmh": 41.8,
