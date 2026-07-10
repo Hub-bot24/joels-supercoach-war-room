@@ -651,14 +651,45 @@ function representativeTeamlistPageReason(pageOrUrl, label=''){
     (haystack.includes('blues') && haystack.includes('maroons'));
   return isRepMatch ? 'origin_or_representative_page' : '';
 }
-function filterTeamPagesForRound(pages, round){
+function pageFixturePairKey(teams){
+  return [...new Set(asArray(teams).filter(Boolean))].sort().join('|');
+}
+function activeFixturePairKeys(fixturesJson, round){
+  const out = new Set();
+  for(const f of asArray(fixturesJson?.fixtures).filter(x => Number(x.round) === Number(round))){
+    const teams = fixtureTeamsFromMatchRecord(f).filter(Boolean);
+    if(teams.length >= 2) out.add(pageFixturePairKey(teams.slice(0, 2)));
+  }
+  return out;
+}
+function updatedTeamlistUrlTeams(url){
+  const raw = String(url || '').toLowerCase();
+  if(!raw.includes('zerotackle.com/updated-team-lists')) return [];
+  let pathname = '';
+  try{ pathname = new URL(raw).pathname; }catch{ pathname = raw; }
+  const slugPart = String(pathname || '')
+    .split('/')
+    .filter(Boolean)
+    .pop() || '';
+  const fixtureSlug = slugPart
+    .replace(/^updated-team-lists-/, '')
+    .replace(/-\d+(?:-\d+)*$/, '');
+  return teamsFromFixtureText(fixtureSlug);
+}
+function filterTeamPagesForRound(pages, round, fixturesJson=null){
   if(!Number(round)) return {used:pages || [], rejected:[]};
   const used = [];
   const rejected = [];
+  const activePairs = activeFixturePairKeys(fixturesJson, round);
   for(const page of pages || []){
     const repReason = representativeTeamlistPageReason(page);
     if(repReason){
       rejected.push({url:page.url, rounds:teamlistPageRoundNumbers(page), reason:repReason});
+      continue;
+    }
+    const updatedTeams = updatedTeamlistUrlTeams(page.url);
+    if(updatedTeams.length >= 2 && activePairs.size && !activePairs.has(pageFixturePairKey(updatedTeams))){
+      rejected.push({url:page.url, rounds:teamlistPageRoundNumbers(page), reason:'non_active_fixture_pair', teams:updatedTeams});
       continue;
     }
     const rounds = teamlistPageRoundNumbers(page);
@@ -2114,7 +2145,7 @@ async function main(){
     storedRound: currentRoundMeta?.round,
     envRound: process.env.ACTIVE_ROUND
   });
-  const filteredTeamPages = filterTeamPagesForRound(discoveredTeamPages, round);
+  const filteredTeamPages = filterTeamPagesForRound(discoveredTeamPages, round, fixturesJson);
   const teamPages = filteredTeamPages.used;
   console.log(JSON.stringify({step:'teamlist_sources', configured:teamSourceUrls.length, fetched:discoveredTeamPages.length, used:teamPages.length, detectedRound, fixtureRound:fixtureInference?.round || 0, storedRound:currentRoundMeta?.round || 0, envRound:process.env.ACTIVE_ROUND || '', round, urls:teamPages.map(p=>p.url), rejected:filteredTeamPages.rejected}, null, 2));
 
