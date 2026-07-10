@@ -1,39 +1,5 @@
 [
   {
-    "player": "Tallyn Da Silva",
-    "team": "PAR",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-08T22:45:24.661Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-08T22:45:24.661Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Taniela Paseka",
-    "team": "MAN",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-08T22:45:24.661Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-08T22:45:24.661Z"
-      }
-    ],
-    "round": 19
-  },
-  {
     "player": "Teancum Brown",
     "team": "PAR",
     "from": "NAMED",
@@ -9549,6 +9515,40 @@
         "name": "Parsed current team-list source",
         "url": "data/teamlists.json",
         "updatedAt": "2026-07-10T08:15:09.364Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Charlie Murray",
+    "team": "WST",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-10T08:41:54.154Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-07-10T08:41:54.154Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Morgan Gannon",
+    "team": "NZL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-10T08:41:54.154Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-07-10T08:41:54.154Z"
       }
     ],
     "round": 19
