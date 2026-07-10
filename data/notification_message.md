@@ -1,154 +1,82 @@
 # SuperCoach War Room status changes — Round 19
 
-Detected: 2026-07-10T07:01:08.368Z
+Detected: 2026-07-10T08:15:09.364Z
 
-- **Aaron Schoupp** (MAN): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Alex Johnston** (STH): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Angus Crichton** (SYD): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Apisai Koroisau** (WST): NAMED → NOT_NAMED
+- **Alekolasimi Jones** (CAN): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 15).
+  - Source: Zero Tackle
+- **Ata Mariota** (CBR): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 14).
+  - Source: Zero Tackle
+- **Daine Laurie** (CBR): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 16).
+  - Source: Zero Tackle
+- **Daniel Suluka-Fifita** (CAN): EXPECTED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Asu Kepaoa** (NEW): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Ativalu Lisati** (MEL): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Ben Trbojevic** (MAN): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Brent Woolf** (DOL): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Brian Pouniu** (DOL): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
-  - Source: Zero Tackle
-- **Brodie Jones** (NEW): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Bronson Garlick** (STH): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Charlie Murray** (WST): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 19).
-  - Source: Zero Tackle
-- **Clayton Faulalo** (MAN): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Coby Black** (CBR): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Cody Ramsey** (SYD): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Cody Walker** (STH): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Connor Votano** (NEW): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Cooper Clarke** (MEL): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Daine Laurie** (CBR): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Dallin Watene-Zelezniak** (NZL): NAMED → NOT_NAMED
+- **Finau Latu** (CAN): EXPECTED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Daniel Saifiti** (DOL): NOT_NAMED → EXPECTED
+- **Fletcher Baker** (CAN): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Gordon ChanKumTong** (CAN): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Harry Hayes** (CAN): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 13).
+  - Source: Zero Tackle
+- **Hudson Young** (CBR): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 10).
+  - Source: Zero Tackle
+- **Jack Todd** (CAN): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Jack Underhill** (CAN): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 16).
+  - Source: Zero Tackle
+- **Jaeman Salmon** (CAN): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 12).
+  - Source: Zero Tackle
+- **Jed Reardon** (CAN): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Jed Stuart** (CBR): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 4).
+  - Source: Zero Tackle
+- **Jonathan Sua** (CAN): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Joseph Tapine** (CBR): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 9).
+  - Source: Zero Tackle
+- **Joshua Curran** (CAN): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Kade Dykes** (CAN): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Logan Spinks** (CAN): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Marcelo Montoya** (CAN): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Noah Martin** (CBR): INJURED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 11).; injury note: Ankle
+  - Source: Zero Tackle, Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Patrick Young** (CAN): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Sebastian Kris** (CBR): NAMED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **David Fifita** (STH): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **DeLaSalle Vaa** (SYD): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Dylan Lucas** (NEW): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Edward Kosi** (STH): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Elijah Rasmussen** (DOL): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Elijah Salesa-Leaumoana** (NEW): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Ethan Alaia** (CBR): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Ethan King** (NQC): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Euan Aitken** (STH): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Fetalagia Pauga** (SYD): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Hamiso Tabuai-Fidow** (DOL): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Harrison Graham** (NEW): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Haumole Olakau'atu** (MAN): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Heilum Luki** (NQC): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Hudson Young** (CBR): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Isaiya Katoa** (DOL): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jack Bostock** (DOL): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jack Williams** (PAR): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jacob Saifiti** (NEW): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jake Elliott** (SYD): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **James Schiller** (NEW): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **James Walsh** (NQC): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jason Taumalolo** (NQC): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jaxson Paulo** (NQC): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jayden Brailey** (CBR): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jed Stuart** (CBR): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jeremiah Nanai** (NQC): NAMED → INJURED
-  - Shoulder; Origin/representative-duty context present
-  - Source: Existing player_status.json updater, origin_players.json
-- **Jermaine McEwen** (NEW): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jesse Colquhoun** (SHA): NAMED → INJURED
-  - Head knock; Origin/representative-duty context present
-  - Source: Existing player_status.json updater, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, origin_players.json
+- **Sitili Tupouniua** (CAN): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Sosaia Alatini** (CAN): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Zyon Maiuu** (CAN): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
