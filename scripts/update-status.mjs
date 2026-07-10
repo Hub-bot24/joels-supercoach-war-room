@@ -1200,6 +1200,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
     src.order = pageOrder;
     const pageTeamCounts = new Map();
     const pageSeenByTeam = new Map();
+    const pageJerseysByTeam = new Map();
 
     function markSeen(teamCanon, playerName){
       if(!pageSeenByTeam.has(teamCanon)) pageSeenByTeam.set(teamCanon, new Set());
@@ -1207,6 +1208,12 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
     }
     function addTeamCount(teamCanon){
       pageTeamCounts.set(teamCanon, (pageTeamCounts.get(teamCanon)||0) + 1);
+    }
+    function markJersey(teamCanon, jersey){
+      const n = Number(jersey);
+      if(!Number.isFinite(n) || n < 1 || n > 17) return;
+      if(!pageJerseysByTeam.has(teamCanon)) pageJerseysByTeam.set(teamCanon, new Set());
+      pageJerseysByTeam.get(teamCanon).add(n);
     }
     function findPlayerForTeamName(rawName, teamCanon){
       const exact = lookup.get(normName(rawName));
@@ -1239,25 +1246,12 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
     }
 
     function pageStarterCoverageOk(teamCanon){
-      const seen = pageSeenByTeam.get(teamCanon) || new Set();
-      const jerseys = new Set();
-
-      for(const playerName of seen){
-        const rec = teamlistsOut[playerName];
-        if(!rec) continue;
-        if(rec.teamCanonical !== teamCanon) continue;
-
-        const jersey = Number(rec.jersey);
-        const role = String(rec.lineupRole || rec.selectionRole || '').toLowerCase();
-
-        if(Number.isFinite(jersey) && jersey >= 1 && jersey <= 17 && (role === 'starter' || role === 'interchange')){
-          jerseys.add(jersey);
-        }
-      }
+      const jerseys = pageJerseysByTeam.get(teamCanon) || new Set();
 
       // Core trust rule:
       // A current team list cannot be used to infer NOT_NAMED if the parsed 1-17 is incomplete.
       // This prevents a partial parse, e.g. jerseys 3-22 only, from greying players who are actually named.
+      // Jersey coverage must come directly from parsed source rows, not merged player status records.
       return jerseys.has(1) && jerseys.has(2) && jerseys.size >= 16;
     }
     // Parser 1: structured team-heading numbered sections.
@@ -1275,6 +1269,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
         const label = labelForLineupRole(lineupRole, 'numbered team-list');
         addOrMerge(teamlistsOut, p, makeStatus(status, `${label} (${page.sourceName}, jersey ${row.jersey}).`, [src], {selectionStatus: selectionStatusForLineupRole(lineupRole), lineupRole, lineupIndex, team:p.team, teamCanonical:teamCanon, jersey:row.jersey, sourcePriority:priority, sourceOrder:pageOrder}));
         markSeen(teamCanon, p.name);
+        markJersey(teamCanon, row.jersey);
         addTeamCount(teamCanon);
         totalFound++;
         sectionFound++;
@@ -1329,6 +1324,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
         );
 
         markSeen(teamCanon, p.name);
+        markJersey(teamCanon, row.jersey);
         addTeamCount(teamCanon);
         totalFound++;
         nrlRoleLineFound++;
@@ -1366,6 +1362,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
           const p = row.player;
           addTeamCount(teamCanon);
           markSeen(teamCanon, p.name);
+          markJersey(teamCanon, row.jersey);
           const lineupRole = lineupRoleForIndex(row.jersey);
           const status = statusForLineupRole(lineupRole);
           const label = labelForLineupRole(lineupRole, 'team-list article');
