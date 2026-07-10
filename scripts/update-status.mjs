@@ -1742,6 +1742,177 @@ function changedStatus(prevPlayers, nextPlayers){
   }
   return changes;
 }
+function buildTeamlistAudit({
+  round,
+  players,
+  fixturesJson,
+  teamSourceUrls,
+  discoveredTeamPages,
+  teamPages,
+  filteredTeamPages,
+  detectedRound,
+  fixtureInference,
+  currentRoundMeta,
+  teamlists,
+  fetchedTeamStats,
+  teamlistCompleteness,
+  teamlistsLoaded,
+  teamsWithLoadedList
+}){
+  const expectedTeams = expectedTeamsForRound(fixturesJson, round);
+  const expectedSet = new Set(expectedTeams);
+  const loadedSet = new Set(asArray(teamsWithLoadedList).map(fixtureTeamCanonFromValue).filter(Boolean));
+  const byTeam = {};
+  const bySource = {};
+
+  function ensureTeam(team){
+    const canon = fixtureTeamCanonFromValue(team) || team || 'UNKNOWN';
+    if(!byTeam[canon]){
+      byTeam[canon] = {
+        team: canon,
+        expectedThisRound: expectedSet.has(canon),
+        loaded: loadedSet.has(canon),
+        totalRecords: 0,
+        named: 0,
+        expected: 0,
+        notNamed: 0,
+        injured: 0,
+        suspended: 0,
+        bye: 0,
+        playableJerseyCount: 0,
+        playableJerseys: [],
+        sourceUrls: [],
+        samplePlayers: [],
+        status: 'no_records',
+        reason: ''
+      };
+    }
+    return byTeam[canon];
+  }
+
+  for(const team of expectedTeams) ensureTeam(team);
+
+  for(const [playerName, rec] of Object.entries(teamlists || {})){
+    const team = fixtureTeamCanonFromValue(rec?.teamCanonical || rec?.team) || 'UNKNOWN';
+    const row = ensureTeam(team);
+    const display = String(rec?.displayStatus || '').toUpperCase();
+    const role = String(rec?.lineupRole || rec?.selectionRole || '').toLowerCase();
+    const jersey = Number(rec?.jersey);
+    const sourceUrls = asArray(rec?.sources).map(s => s?.url).filter(Boolean);
+
+    row.totalRecords++;
+    if(display === STATUS.NAMED) row.named++;
+    else if(display === STATUS.EXPECTED) row.expected++;
+    else if(display === STATUS.NOT_NAMED) row.notNamed++;
+    else if(display === STATUS.INJURED) row.injured++;
+    else if(display === STATUS.SUSPENDED) row.suspended++;
+    else if(display === STATUS.BYE) row.bye++;
+
+    const playable = display === STATUS.NAMED && (
+      role === 'starter' ||
+      role === 'interchange' ||
+      (Number.isFinite(jersey) && jersey >= 1 && jersey <= 17)
+    );
+
+    if(playable && Number.isFinite(jersey)) row.playableJerseys.push(jersey);
+
+    for(const url of sourceUrls){
+      row.sourceUrls.push(url);
+      if(!bySource[url]) bySource[url] = {url, records:0, teams:{}};
+      bySource[url].records++;
+      bySource[url].teams[team] = (bySource[url].teams[team] || 0) + 1;
+    }
+
+    if(row.samplePlayers.length < 8){
+      row.samplePlayers.push({
+        player: playerName,
+        status: rec?.displayStatus || '',
+        selectionStatus: rec?.selectionStatus || '',
+        role: rec?.lineupRole || rec?.selectionRole || '',
+        jersey: Number.isFinite(jersey) ? jersey : null,
+        source: sourceUrls[0] || '',
+        reason: rec?.reason || ''
+      });
+    }
+  }
+
+  for(const row of Object.values(byTeam)){
+    row.playableJerseys = [...new Set(row.playableJerseys)].sort((a,b)=>a-b);
+    row.playableJerseyCount = row.playableJerseys.length;
+    row.sourceUrls = [...new Set(row.sourceUrls)].sort();
+
+    if(row.loaded){
+      row.status = 'loaded';
+      row.reason = 'Trusted playable team-list coverage reached loader threshold.';
+    }else if(row.expectedThisRound && row.playableJerseyCount > 0){
+      row.status = 'partial_parse_below_threshold';
+      row.reason = `Only ${row.playableJerseyCount} playable jerseys parsed; 16 required before NOT_NAMED inference is trusted.`;
+    }else if(row.expectedThisRound && row.totalRecords > 0){
+      row.status = 'records_without_playable_coverage';
+      row.reason = 'Records were parsed, but not enough playable NAMED jersey evidence was produced.';
+    }else if(row.expectedThisRound){
+      row.status = 'missing_expected_team';
+      row.reason = 'Expected fixture team has no parsed current team-list records.';
+    }else if(row.totalRecords > 0){
+      row.status = 'non_fixture_records';
+      row.reason = 'Records parsed for a team not expected to play this active round.';
+    }else{
+      row.status = 'not_required_or_no_records';
+      row.reason = 'Team not required for this active round, or no records found.';
+    }
+  }
+
+  const perTeam = Object.values(byTeam).sort((a,b) => {
+    if(a.expectedThisRound !== b.expectedThisRound) return a.expectedThisRound ? -1 : 1;
+    return a.team.localeCompare(b.team);
+  });
+
+  const problemTeams = perTeam.filter(t => t.expectedThisRound && !t.loaded);
+  const partialTeams = perTeam.filter(t => t.status === 'partial_parse_below_threshold' || t.status === 'records_without_playable_coverage');
+  const missingTeams = perTeam.filter(t => t.status === 'missing_expected_team');
+
+  return {
+    updated: NOW_ISO,
+    round,
+    source: 'teamlist audit generated by scripts/update-status.mjs; no player hard-fixes',
+    contract: {
+      rule: 'GREEN/NAMED requires current club team-list truth; fallback data cannot create green',
+      playableThresholdForLoadedClub: 16,
+      teamlistsLoaded,
+      teamsWithLoadedList: [...loadedSet].sort()
+    },
+    sourceDiscovery: {
+      configured: teamSourceUrls.length,
+      fetched: discoveredTeamPages.length,
+      used: teamPages.length,
+      detectedRound,
+      fixtureRound: fixtureInference?.round || 0,
+      storedRound: currentRoundMeta?.round || 0,
+      usedUrls: teamPages.map(p => p.url),
+      rejected: filteredTeamPages?.rejected || []
+    },
+    importerStats: fetchedTeamStats || {},
+    generatedTruth: {
+      teamlistsLoaded,
+      teamsWithLoadedList: [...loadedSet].sort(),
+      teamlistRecordCount: Object.keys(teamlists || {}).length
+    },
+    completeness: teamlistCompleteness || {},
+    summary: {
+      expectedTeams: expectedTeams.length,
+      loadedTeams: loadedSet.size,
+      problemTeams: problemTeams.map(t => t.team),
+      partialTeams: partialTeams.map(t => ({
+        team: t.team,
+        playableJerseyCount: t.playableJerseyCount,
+        totalRecords: t.totalRecords
+      })),
+      missingTeams: missingTeams.map(t => t.team)
+    },
+    bySource: Object.values(bySource).sort((a,b) => b.records - a.records),
+    perTeam
+  };
+}
 async function main(){
   await ensureDir(DATA_DIR);
   // Data contract: the browser reads generated JSON from /data, and this script owns creating it.
@@ -1797,6 +1968,8 @@ async function main(){
 
   const {playersOut, teamlistsLoaded, teamsWithLoadedList} = combineTruth(players, round, teamlists, injuries, suspensions, origin, oldPlayerStatus, fetchedTeamStats.loadedTeams);
   const teamlistCompleteness = validateTeamlistCompleteness(players, fixturesJson, round, teamlists, teamsWithLoadedList);
+    const teamlistAudit = buildTeamlistAudit({round, players, fixturesJson, teamSourceUrls, discoveredTeamPages, teamPages, filteredTeamPages, detectedRound, fixtureInference, currentRoundMeta, teamlists, fetchedTeamStats, teamlistCompleteness, teamlistsLoaded, teamsWithLoadedList});
+  console.log(JSON.stringify({step:'teamlist_audit', round, teamlistsLoaded, loadedTeams:teamlistAudit.summary.loadedTeams, problemTeams:teamlistAudit.summary.problemTeams, partialTeams:teamlistAudit.summary.partialTeams, missingTeams:teamlistAudit.summary.missingTeams}, null, 2));
   const summary = summarise(playersOut);
   const weather = await weatherContract(round);
   if(Number(weather?.round) !== Number(round)) throw new Error("Weather round mismatch after resolution");
@@ -1831,6 +2004,8 @@ async function main(){
       fetchedInjuryStats,
       fetchedOriginContextStats: {count:fetchedOriginContext.count},
       teamlistCompleteness,
+            teamlistAuditReport: 'data/teamlist_audit_report.json',
+      teamlistAuditSummary: teamlistAudit.summary,
     },
     rules: [
       'No hardcoded player fixes',
@@ -1868,9 +2043,10 @@ async function main(){
   const newChanges = changes.filter(c => !prevChangeIds.has(`${c.player}|${c.from}|${c.to}|${round}`)).map(c => ({...c, round}));
   const allChanges = [...asArray(existingChanges), ...newChanges].slice(-500);
   if(!Number(round)) throw new Error(`Invalid active round before contract writes: ${round}`);
-  const roundSpecificContracts = [
+   const roundSpecificContracts = [
     {file:'data/current_round.json', data:currentRoundContract},
     {file:'data/teamlists.json', data:{updated: NOW_ISO, round, loaded: teamlistsLoaded, teamsWithLoadedList, players: teamlists}},
+    {file:'data/teamlist_audit_report.json', data:teamlistAudit},
     {file:'data/weather.json', data:weather},
     {file:'data/injuries.json', data:playersContract(round, injuries, 'core truth engine injuries')},
     {file:'data/suspensions.json', data:playersContract(round, suspensions, 'core truth engine suspensions')},
