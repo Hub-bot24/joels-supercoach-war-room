@@ -1257,6 +1257,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
 
       const rawFirst = rawParts[0];
       const rawLast = rawParts[rawParts.length - 1];
+      const rawSurnameCompact = rawParts.slice(1).join('');
 
       const candidates = players.filter(p => {
         if(playerTeam(p) !== teamCanon) return false;
@@ -1267,8 +1268,18 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
 
         const playerFirst = parts[0];
         const playerLast = parts[parts.length - 1];
+        const playerSurnameCompact = parts.slice(1).join('');
 
-        if(playerLast !== rawLast) return false;
+        // Generic source/player surname normalisation.
+        // Handles punctuation/spacing differences like Fa'alogo vs Faalogo.
+        // Same-team scope above prevents broad cross-club guessing.
+        const surnameMatches =
+          playerLast === rawLast ||
+          playerSurnameCompact === rawSurnameCompact ||
+          playerSurnameCompact.endsWith(rawLast) ||
+          rawSurnameCompact.endsWith(playerLast);
+
+        if(!surnameMatches) return false;
         if(Math.min(rawFirst.length, playerFirst.length) < 3) return false;
 
         return rawFirst.startsWith(playerFirst) || playerFirst.startsWith(rawFirst);
