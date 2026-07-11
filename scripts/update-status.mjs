@@ -1571,24 +1571,24 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
         resolvedRows.push({row, player: p});
       }
 
-      const resolvedPlayable = resolvedRows.filter(
-        item =>
-          item.row.lineupIndex >= 1 &&
-          item.row.lineupIndex <= 17
+      const sourcePlayable = snapshot.rows.filter(
+        row =>
+          row.lineupIndex >= 1 &&
+          row.lineupIndex <= 17
       );
 
       const playablePositions = new Set(
-        resolvedPlayable.map(item => item.row.lineupIndex)
+        sourcePlayable.map(row => row.lineupIndex)
       );
 
-      const playablePlayers = new Set(
-        resolvedPlayable.map(item => normName(item.player.name))
+      const playableSourceNames = new Set(
+        sourcePlayable.map(row => normName(row.name))
       );
 
       const completePlayableSnapshot =
-        resolvedPlayable.length === 17 &&
+        sourcePlayable.length === 17 &&
         playablePositions.size === 17 &&
-        playablePlayers.size === 17 &&
+        playableSourceNames.size === 17 &&
         Array.from(
           {length: 17},
           (_, index) => index + 1
@@ -2239,7 +2239,12 @@ function reliableLoadedTeamsFromTeamlists(teamlists){
 }
 function combineTruth(players, round, teamlists, injuries, suspensions, origin, existingStatus, trustedLoadedTeams=[]){
   const playersOut = {};
-  const teamsWithLoadedList = reliableLoadedTeamsFromTeamlists(teamlists);
+  const teamsWithLoadedList = new Set([
+    ...reliableLoadedTeamsFromTeamlists(teamlists),
+    ...asArray(trustedLoadedTeams)
+      .map(fixtureTeamCanonFromValue)
+      .filter(Boolean)
+  ]);
   for(const p of players){
     const bye = playerByeRounds(p).includes(Number(round));
     const t = teamlists[p.name];
