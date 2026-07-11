@@ -1127,6 +1127,43 @@ function lineupRoleForIndex(index){
   return '';
 }
 
+function lineupRoleFromOfficialNrlRole(role, jersey){
+  const value = norm(role);
+
+  if(value === 'interchange' || value === 'bench'){
+    return 'interchange';
+  }
+
+  if(
+    value === 'reserve' ||
+    value === 'extended' ||
+    value === 'replacement'
+  ){
+    return 'extended';
+  }
+
+  const starterRoles = new Set([
+    'fullback',
+    'wing',
+    'winger',
+    'centre',
+    'center',
+    'five eighth',
+    'halfback',
+    'prop',
+    'hooker',
+    'second row',
+    '2nd row',
+    'lock'
+  ]);
+
+  if(starterRoles.has(value)){
+    return 'starter';
+  }
+
+  return lineupRoleForIndex(jersey);
+}
+
 function statusForLineupRole(role){
   return role === 'starter' || role === 'interchange' ? STATUS.NAMED : STATUS.EXPECTED;
 }
@@ -1341,9 +1378,19 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
           rawSurnameCompact.endsWith(playerLast);
 
         if(!surnameMatches) return false;
-        if(Math.min(rawFirst.length, playerFirst.length) < 3) return false;
 
-        return rawFirst.startsWith(playerFirst) || playerFirst.startsWith(rawFirst);
+        const directFirstMatch =
+          rawFirst.startsWith(playerFirst) ||
+          playerFirst.startsWith(rawFirst);
+
+        // Official sources may use initials or abbreviated given names.
+        // Matching remains restricted to the same club and a unique surname candidate.
+        const abbreviatedFirstMatch =
+          rawFirst.length <= 3 &&
+          playerFirst.length >= 3 &&
+          rawFirst[0] === playerFirst[0];
+
+        return directFirstMatch || abbreviatedFirstMatch;
       });
 
       return candidates.length === 1 ? candidates[0] : null;
@@ -1384,10 +1431,40 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
     // Example stripped article text:
     // "Fullback for Wests Tigers is number 1 Jahream Bula"
     // Generic source parser only. No player hard-fixes.
-    const nrlRoleRows = [...parseNrlRoleLineRowsFromPage(page.text), ...parseNrlHiddenTeamListRowsFromHtml(page.html)];
+    const hiddenNrlRoleRows = parseNrlHiddenTeamListRowsFromHtml(page.html);
+    const textNrlRoleRows = parseNrlRoleLineRowsFromPage(page.text);
+    const hiddenNrlTeams = new Set(hiddenNrlRoleRows.map(row => row.teamCanon));
+
+    // Structured official HTML is authoritative for each team where it exists.
+    // Stripped text remains fallback-only for teams without hidden rows.
+    const nrlRoleRows = [
+      ...hiddenNrlRoleRows,
+      ...textNrlRoleRows.filter(row => !hiddenNrlTeams.has(row.teamCanon))
+    ];
+
     const nrlRoleRowsByTeam = new Map();
 
+    const officialSlotOwners = new Map();
+
     for(const row of nrlRoleRows){
+      const parsedLineupRole = lineupRoleFromOfficialNrlRole(row.role, row.jersey);
+      const playable =
+        parsedLineupRole === 'starter' ||
+        parsedLineupRole === 'interchange';
+
+      if(playable){
+        const slotKey = `${row.teamCanon}|${row.jersey}`;
+        const existingOwner = officialSlotOwners.get(slotKey);
+
+        if(existingOwner && normName(existingOwner) !== normName(row.name)){
+          throw new Error(
+            `Duplicate official team-list slot ${slotKey}: ${existingOwner} and ${row.name}`
+          );
+        }
+
+        officialSlotOwners.set(slotKey, row.name);
+      }
+
       const p = findPlayerForTeamName(row.name, row.teamCanon);
       if(!p) continue;
       if(playerTeam(p) !== row.teamCanon) continue;
@@ -1403,7 +1480,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
       for(const row of orderedRows){
         matchedForTeam++;
         const p = row.player;
-        const lineupRole = lineupRoleForIndex(row.jersey);
+        const lineupRole = lineupRoleFromOfficialNrlRole(row.role, row.jersey);
         const status = statusForLineupRole(lineupRole);
         const label = labelForLineupRole(lineupRole, 'official NRL role-line team-list');
 
