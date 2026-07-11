@@ -1,10 +1,10 @@
 # SuperCoach War Room status changes — Round 19
 
-Detected: 2026-07-11T21:01:20.424Z
+Detected: 2026-07-11T21:24:13.501Z
 
-- **DeLaSalle Vaa** (SYD): NAMED → EXPECTED
-  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).
+- **Luke Laulilii** (WST): NOT_NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
   - Source: Official NRL, Zero Tackle
-- **Toni Mataele** (PAR): NAMED → EXPECTED
-  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 15).
+- **Tony Sukkar** (WST): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 17).
   - Source: Official NRL, Zero Tackle
