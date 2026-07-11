@@ -1,35 +1,8 @@
 {
-  "updated": "2026-07-11T19:13:38.365521+00:00",
+  "updated": "2026-07-11T20:58:27.491050+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
-    {
-      "round": 19,
-      "match": "Roosters v Eels",
-      "homeTeam": "SYD",
-      "awayTeam": "PAR",
-      "venue": "Allianz Stadium",
-      "kickoffLocal": "2026-07-11T19:30:00",
-      "city": "Sydney",
-      "lat": -33.889,
-      "lon": 151.225,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-07-11T19:00:00",
-        "to": "2026-07-11T21:20:00",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "label": "Unknown",
-        "score": 0,
-        "reasons": [
-          "No hourly forecast available"
-        ],
-        "captainImpact": "Unknown weather risk."
-      }
-    },
     {
       "round": 19,
       "match": "Rabbitohs v Knights",
