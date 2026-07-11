@@ -8,6 +8,7 @@ import {
   parseTeamSectionsFromPage,
   fromKnownPlayerJerseyPatterns,
   fromFetchedTeamlists,
+  combineTruth,
   stripHtmlLite,
   normName,
   playerTeam,
@@ -284,4 +285,66 @@ test('production parser preserves isolated structured snapshots', () => {
 
   verifySnapshot('CANTERBURY', homeRows);
   verifySnapshot('CANBERRA', awayRows);
+});
+test('production arbitration accepts structured replacement starters', () => {
+  const homeRows = withLineupPlacement(
+    parseHomeRows(tableBlock('teamlist-players-home'))
+  );
+
+  const awayRows = withLineupPlacement(
+    parseAwayRows(tableBlock('teamlist-players-away'))
+  );
+
+  // Fixture identities only. No production player overrides.
+  const players = [
+    ...homeRows.map(row => ({
+      name: row.name,
+      team: 'CANTERBURY',
+      byeRounds: []
+    })),
+    ...awayRows.map(row => ({
+      name: row.name,
+      team: 'CANBERRA',
+      byeRounds: []
+    }))
+  ];
+
+  const page = {
+    url: 'https://www.zerotackle.com/updated-team-lists-bulldogs-raiders-10396471-235780',
+    sourceName: 'Zero Tackle',
+    html,
+    text: stripHtmlLite(html)
+  };
+
+  const teamlists = {};
+
+  fromFetchedTeamlists(
+    players,
+    [page],
+    teamlists
+  );
+
+  const result = combineTruth(
+    players,
+    1,
+    teamlists,
+    {},
+    {},
+    {},
+    {},
+    []
+  );
+
+  const bronsonXerri = result.playersOut['Bronson Xerri'];
+  const jedStuart = result.playersOut['Jed Stuart'];
+
+  assert.equal(bronsonXerri.jersey, 19);
+  assert.equal(bronsonXerri.lineupIndex, 4);
+  assert.equal(bronsonXerri.lineupRole, 'starter');
+  assert.equal(bronsonXerri.displayStatus, 'NAMED');
+
+  assert.equal(jedStuart.jersey, 21);
+  assert.equal(jedStuart.lineupIndex, 5);
+  assert.equal(jedStuart.lineupRole, 'starter');
+  assert.equal(jedStuart.displayStatus, 'NAMED');
 });

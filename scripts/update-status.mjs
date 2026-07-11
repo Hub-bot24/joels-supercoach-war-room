@@ -2768,6 +2768,7 @@ export {
   parseTeamSectionsFromPage,
   fromKnownPlayerJerseyPatterns,
   fromFetchedTeamlists,
+  combineTruth,
   stripHtmlLite,
   normName,
   playerTeam,
