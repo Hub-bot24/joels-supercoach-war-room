@@ -1,10 +1,25 @@
 # SuperCoach War Room status changes — Round 19
 
-Detected: 2026-07-11T21:24:13.501Z
+Detected: 2026-07-11T22:25:18.403Z
 
-- **Luke Laulilii** (WST): NOT_NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
+- **Alex Johnston** (STH): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Bronson Garlick** (STH): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Cody Walker** (STH): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Edward Kosi** (STH): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Jayden Berrell** (SHA): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 9).
   - Source: Official NRL, Zero Tackle
-- **Tony Sukkar** (WST): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 17).
+- **Mawene Hiroti** (SHA): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 18).
+  - Source: Official NRL, Zero Tackle
+- **Sam McIntyre** (NQC): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 18).
   - Source: Official NRL, Zero Tackle
