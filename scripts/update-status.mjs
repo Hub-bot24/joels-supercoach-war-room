@@ -2107,13 +2107,25 @@ function parsedJerseyCoverageFromTeamlists(teamlists){
     if(!byTeam.has(team)){
       byTeam.set(team, {
         playerRows: 0,
-        namedJerseys: new Set()
+        namedJerseys: new Set(),
+        structuredPlayablePositions: new Set()
       });
     }
 
     const teamCoverage = byTeam.get(team);
     teamCoverage.playerRows += 1;
     teamCoverage.namedJerseys.add(jersey);
+
+    const lineupIndex = Number(rec?.lineupIndex);
+
+    if(
+      rec?.structuredSnapshot === true &&
+      Number.isInteger(lineupIndex) &&
+      lineupIndex >= 1 &&
+      lineupIndex <= 17
+    ){
+      teamCoverage.structuredPlayablePositions.add(lineupIndex);
+    }
   }
 
   for(const [key, payload] of Object.entries(source || {})){
@@ -2141,13 +2153,31 @@ function parsedJerseyCoverageFromTeamlists(teamlists){
   for(const [team, info] of byTeam.entries()){
     const jerseys = [...info.namedJerseys].sort((a, b) => a - b);
 
+    const structuredPositions = [
+      ...info.structuredPlayablePositions
+    ].sort((a, b) => a - b);
+
+    const structuredComplete =
+      structuredPositions.length === 17 &&
+      structuredPositions.every(
+        (position, index) => position === index + 1
+      );
+
+    const legacyJerseyComplete =
+      info.namedJerseys.has(1) &&
+      info.namedJerseys.has(2) &&
+      jerseys.length >= 16;
+
     coverage[team] = {
       playerRows: info.playerRows,
       jerseyCount: jerseys.length,
       jerseys,
       hasJersey1: info.namedJerseys.has(1),
       hasJersey2: info.namedJerseys.has(2),
-      reliableLoadedTeam: info.namedJerseys.has(1) && info.namedJerseys.has(2) && jerseys.length >= 16
+      structuredComplete,
+      legacyJerseyComplete,
+      structuredPlayablePositions: structuredPositions,
+      reliableLoadedTeam: structuredComplete || legacyJerseyComplete
     };
   }
 
