@@ -1,39 +1,5 @@
 [
   {
-    "player": "John Radel",
-    "team": "STH",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-10T06:20:57.832Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-10T06:20:57.832Z"
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Josh King",
-    "team": "MEL",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-10T06:20:57.832Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-10T06:20:57.832Z"
-      }
-    ],
-    "round": 19
-  },
-  {
     "player": "Josh Papalii",
     "team": "CBR",
     "from": "NAMED",
@@ -9663,6 +9629,60 @@
         "name": "Current club team-list not confirmed",
         "url": "data/status_truth.json",
         "updatedAt": "2026-07-11T11:25:22.373Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "DeLaSalle Vaa",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).",
+    "detectedAt": "2026-07-11T21:01:20.424Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/07/nrl-team-lists-round-19",
+        "updatedAt": "2026-07-11T21:01:20.424Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-roosters-eels-10396472-235785",
+        "updatedAt": "2026-07-11T21:01:20.424Z",
+        "priority": 4,
+        "order": 5
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Toni Mataele",
+    "team": "PAR",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 15).",
+    "detectedAt": "2026-07-11T21:01:20.424Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/07/nrl-team-lists-round-19",
+        "updatedAt": "2026-07-11T21:01:20.424Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-roosters-eels-10396472-235785",
+        "updatedAt": "2026-07-11T21:01:20.424Z",
+        "priority": 4,
+        "order": 5
       }
     ],
     "round": 19
