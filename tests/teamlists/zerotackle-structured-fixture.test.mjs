@@ -364,3 +364,73 @@ test('production arbitration accepts structured replacement starters', () => {
   assert.equal(jedStuart.lineupRole, 'starter');
   assert.equal(jedStuart.displayStatus, 'NAMED');
 });
+
+test('structured club snapshot is rejected atomically when one playable identity cannot resolve', () => {
+  const homeRows = withLineupPlacement(
+    parseHomeRows(
+      tableBlock('teamlist-players-home')
+    )
+  );
+
+  const awayRows = withLineupPlacement(
+    parseAwayRows(
+      tableBlock('teamlist-players-away')
+    )
+  );
+
+  const unresolvedHomePlayer = homeRows[1];
+
+  const players = [
+    ...homeRows
+      .filter(row => row.name !== unresolvedHomePlayer.name)
+      .map(row => ({
+        name: row.name,
+        team: 'CANTERBURY'
+      })),
+    ...awayRows.map(row => ({
+      name: row.name,
+      team: 'CANBERRA'
+    }))
+  ];
+
+  const page = {
+    url: 'https://www.zerotackle.com/updated-team-lists-bulldogs-raiders-10396471-235780',
+    sourceName: 'Zero Tackle',
+    html,
+    text: stripHtmlLite(html)
+  };
+
+  const teamlistsOut = {};
+
+  fromFetchedTeamlists(
+    players,
+    [page],
+    teamlistsOut
+  );
+
+  const structuredCanterbury = Object.values(teamlistsOut)
+    .filter(record =>
+      record?.teamCanonical === 'CANTERBURY' &&
+      record?.structuredSnapshot === true
+    );
+
+  const structuredCanberra = Object.values(teamlistsOut)
+    .filter(record =>
+      record?.teamCanonical === 'CANBERRA' &&
+      record?.structuredSnapshot === true &&
+      Number(record?.lineupIndex) >= 1 &&
+      Number(record?.lineupIndex) <= 17
+    );
+
+  assert.equal(
+    structuredCanterbury.length,
+    0,
+    'Incomplete structured club snapshot must commit zero structured records'
+  );
+
+  assert.equal(
+    structuredCanberra.length,
+    17,
+    'Complete opposing structured snapshot must remain accepted'
+  );
+});
