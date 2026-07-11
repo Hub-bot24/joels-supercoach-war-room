@@ -88,22 +88,45 @@ function normName(s){ return norm(s); }
 function slug(s){ return norm(s).replace(/\s+/g,'-'); }
 function normTeam(s){ return String(s || '').toUpperCase().replace(/[^A-Z0-9]+/g,'').trim(); }
 function canonicalTeam(team){
-  const t = normTeam(team);
-  if(!t) return '';
+  const compact = normTeam(team);
+  if(!compact) return '';
 
-  const exact = TEAM_CANON_MAP.get(t);
+  const exact = TEAM_CANON_MAP.get(compact);
   if(exact) return exact;
 
-  const matchedCanons = new Set();
+  const sourceWords = norm(team);
+  const paddedSource = ` ${sourceWords} `;
+  const matches = [];
 
-  for(const [alias, canon] of TEAM_CANON){
-    if(alias.length < 4) continue;
-    if(t.includes(alias)) matchedCanons.add(canon);
+  for(const [canon, aliases] of Object.entries(TEAM_ALIASES)){
+    for(const alias of [canon, ...aliases]){
+      const aliasWords = norm(alias);
+
+      if(aliasWords.length < 4) continue;
+      if(!paddedSource.includes(` ${aliasWords} `)) continue;
+
+      matches.push({
+        canon,
+        score: aliasWords.replace(/\s+/g, '').length
+      });
+    }
   }
 
-  return matchedCanons.size === 1
-    ? [...matchedCanons][0]
-    : t;
+  if(!matches.length) return compact;
+
+  const strongestScore = Math.max(
+    ...matches.map(match => match.score)
+  );
+
+  const strongestCanons = new Set(
+    matches
+      .filter(match => match.score === strongestScore)
+      .map(match => match.canon)
+  );
+
+  return strongestCanons.size === 1
+    ? [...strongestCanons][0]
+    : compact;
 }
 function isObj(v){ return v && typeof v === 'object' && !Array.isArray(v); }
 async function ensureDir(dir){ await fs.mkdir(dir, {recursive:true}); }
