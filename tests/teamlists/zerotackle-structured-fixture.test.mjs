@@ -226,20 +226,24 @@ test('production parser module imports without executing main', () => {
 });
 test('production parser preserves isolated structured snapshots', () => {
   const homeRows = withLineupPlacement(
-    parseHomeRows(tableBlock('teamlist-players-home'))
+    parseHomeRows(
+      tableBlock('teamlist-players-home')
+    ).filter(isFixturePlayerRow)
   );
 
   const awayRows = withLineupPlacement(
-    parseAwayRows(tableBlock('teamlist-players-away'))
+    parseAwayRows(
+      tableBlock('teamlist-players-away')
+    ).filter(isFixturePlayerRow)
   );
 
   // Fixture-only identities. These are not production overrides.
   const players = [
-    ...homeRows.filter(isFixturePlayerRow).map(row => ({
+    ...homeRows.map(row => ({
       name: row.name,
       team: 'CANTERBURY'
     })),
-    ...awayRows.filter(isFixturePlayerRow).map(row => ({
+    ...awayRows.map(row => ({
       name: row.name,
       team: 'CANBERRA'
     }))
@@ -302,21 +306,25 @@ test('production parser preserves isolated structured snapshots', () => {
 });
 test('production arbitration accepts structured replacement starters', () => {
   const homeRows = withLineupPlacement(
-    parseHomeRows(tableBlock('teamlist-players-home'))
+    parseHomeRows(
+      tableBlock('teamlist-players-home')
+    ).filter(isFixturePlayerRow)
   );
 
   const awayRows = withLineupPlacement(
-    parseAwayRows(tableBlock('teamlist-players-away'))
+    parseAwayRows(
+      tableBlock('teamlist-players-away')
+    ).filter(isFixturePlayerRow)
   );
 
   // Fixture identities only. No production player overrides.
   const players = [
-    ...homeRows.filter(isFixturePlayerRow).map(row => ({
+    ...homeRows.map(row => ({
       name: row.name,
       team: 'CANTERBURY',
       byeRounds: []
     })),
-    ...awayRows.filter(isFixturePlayerRow).map(row => ({
+    ...awayRows.map(row => ({
       name: row.name,
       team: 'CANBERRA',
       byeRounds: []
