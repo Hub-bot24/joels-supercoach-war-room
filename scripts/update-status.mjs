@@ -1555,19 +1555,54 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
     const structuredSnapshots =
       parseZeroTackleStructuredSnapshots(page);
 
-    const structuredTeams = new Set(
-      structuredSnapshots.map(snapshot => snapshot.teamCanon)
-    );
+    const structuredTeams = new Set();
 
     for(const snapshot of structuredSnapshots){
       const teamCanon = snapshot.teamCanon;
-      let matchedPlayable = 0;
+      const resolvedRows = [];
 
       for(const row of snapshot.rows){
         const p = findPlayerForTeamName(row.name, teamCanon);
-        if(!p) continue;
-        if(playerTeam(p) !== teamCanon) continue;
 
+        if(!p || playerTeam(p) !== teamCanon){
+          continue;
+        }
+
+        resolvedRows.push({row, player: p});
+      }
+
+      const resolvedPlayable = resolvedRows.filter(
+        item =>
+          item.row.lineupIndex >= 1 &&
+          item.row.lineupIndex <= 17
+      );
+
+      const playablePositions = new Set(
+        resolvedPlayable.map(item => item.row.lineupIndex)
+      );
+
+      const playablePlayers = new Set(
+        resolvedPlayable.map(item => normName(item.player.name))
+      );
+
+      const completePlayableSnapshot =
+        resolvedPlayable.length === 17 &&
+        playablePositions.size === 17 &&
+        playablePlayers.size === 17 &&
+        Array.from(
+          {length: 17},
+          (_, index) => index + 1
+        ).every(position => playablePositions.has(position));
+
+      if(!completePlayableSnapshot){
+        continue;
+      }
+
+      structuredTeams.add(teamCanon);
+
+      let matchedPlayable = 0;
+
+      for(const {row, player: p} of resolvedRows){
         const status = statusForLineupRole(row.lineupRole);
         const label = labelForLineupRole(
           row.lineupRole,
@@ -1608,17 +1643,14 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
         knownPatternFound++;
       }
 
-      if(matchedPlayable === 17){
-        teamFound.set(
-          teamCanon,
-          Math.max(
-            teamFound.get(teamCanon) || 0,
-            matchedPlayable
-          )
-        );
-      }
+      teamFound.set(
+        teamCanon,
+        Math.max(
+          teamFound.get(teamCanon) || 0,
+          matchedPlayable
+        )
+      );
     }
-
     // Parser 1: structured team-heading numbered sections.
     const sections = parseTeamSectionsFromPage(page.text);
     for(const [teamCanon, numbered] of Object.entries(sections)){
