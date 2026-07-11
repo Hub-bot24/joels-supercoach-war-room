@@ -348,3 +348,32 @@ test('production arbitration accepts structured replacement starters', () => {
   assert.equal(jedStuart.lineupRole, 'starter');
   assert.equal(jedStuart.displayStatus, 'NAMED');
 });
+test('structured parser excludes table labels from player rows', () => {
+  const homeRows = parseHomeRows(
+    tableBlock('teamlist-players-home')
+  );
+
+  const awayRows = parseAwayRows(
+    tableBlock('teamlist-players-away')
+  );
+
+  const names = [
+    ...homeRows.map(row => row.name),
+    ...awayRows.map(row => row.name)
+  ];
+
+  const forbiddenLabels = new Set([
+    'INTERCHANGE',
+    'RESERVES',
+    'EXTENDED BENCH',
+    'TEAM LIST'
+  ]);
+
+  for (const name of names) {
+    assert.equal(
+      forbiddenLabels.has(String(name || '').trim().toUpperCase()),
+      false,
+      `Structural table label parsed as player: ${name}`
+    );
+  }
+});
