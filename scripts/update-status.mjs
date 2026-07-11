@@ -1364,7 +1364,7 @@ function parseZeroTackleStructuredSnapshots(page){
     const rows = [];
 
     const re =
-      /<tr>\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>\s*<td[^>]*>[\s\S]*?<span[^>]*class=["'][^"']*show-mobile[^"']*["'][^>]*>([\s\S]*?)<\/span>/gi;
+      /<tr>\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>\s*<td[^>]*>\s*<a[^>]*href=["'][^"']*\/players\/[^"']*["'][^>]*>[\s\S]*?<span[^>]*class=["'][^"']*show-mobile[^"']*["'][^>]*>([\s\S]*?)<\/span>/gi;
 
     let match;
 
@@ -1391,7 +1391,7 @@ function parseZeroTackleStructuredSnapshots(page){
     const rows = [];
 
     const re =
-      /<tr>\s*<td[^>]*>[\s\S]*?<span[^>]*class=["'][^"']*show-mobile[^"']*["'][^>]*>([\s\S]*?)<\/span>[\s\S]*?<\/td>\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>/gi;
+      /<tr>\s*<td[^>]*>\s*<a[^>]*href=["'][^"']*\/players\/[^"']*["'][^>]*>[\s\S]*?<span[^>]*class=["'][^"']*show-mobile[^"']*["'][^>]*>([\s\S]*?)<\/span>[\s\S]*?<\/a>\s*<\/td>\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>/gi;
 
     let match;
 
