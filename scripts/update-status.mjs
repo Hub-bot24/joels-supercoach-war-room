@@ -1140,6 +1140,67 @@ function labelForLineupRole(role, sourceKind){
   if(role === 'interchange') return `Named in ${sourceKind} interchange`;
   return `Named in ${sourceKind} extended squad only`;
 }
+function decodeHtmlLite(text){
+  return String(text || '')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&quot;/gi, '"')
+    .replace(/&amp;/gi, '&')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCharCode(parseInt(n, 16)));
+}
+
+function stripHtmlLite(html){
+  return decodeHtmlLite(String(html || '').replace(/<[^>]+>/g, ' '))
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function parseNrlHiddenTeamListRowsFromHtml(html){
+  const rows = [];
+  const source = String(html || '');
+
+  const blockRe = /<div[^>]*class=["'][^"']*team-list-profile__name[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi;
+  let m;
+
+  while((m = blockRe.exec(source))){
+    const block = String(m[1] || '');
+    const hiddenMatch = block.match(/<span[^>]*class=["'][^"']*u-visually-hidden[^"']*["'][^>]*>([\s\S]*?)<\/span>/i);
+    if(!hiddenMatch) continue;
+
+    const hidden = stripHtmlLite(hiddenMatch[1]);
+    const h = hidden.match(/^\s*(.+?)\s+for\s+(.+?)\s+is\s+number\s+([1-9]|1[0-9]|2[0-5])\s*$/i);
+    if(!h) continue;
+
+    const role = String(h[1] || '').trim();
+    const rawTeam = String(h[2] || '').trim();
+    const jersey = Number(h[3]);
+
+    const visibleHtml = block.replace(hiddenMatch[0], ' ');
+    const name = stripHtmlLite(visibleHtml);
+
+    let teamCanon = canonicalTeam(rawTeam);
+    if(teamCanon === 'WARRIORS') teamCanon = 'NZWARRIORS';
+
+    if(!teamCanon || !Number.isFinite(jersey) || jersey < 1 || jersey > 25 || name.length < 3) continue;
+
+    rows.push({
+      teamCanon,
+      rawTeam,
+      role,
+      jersey,
+      name
+    });
+  }
+
+  const seen = new Set();
+  return rows.filter(row => {
+    const key = `${row.teamCanon}|${row.jersey}|${normName(row.name)}`;
+    if(seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
 function parseNrlRoleLineRowsFromPage(text){
   const clean = String(text || '').replace(/\s+/g, ' ').trim();
   const rows = [];
@@ -1323,7 +1384,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
     // Example stripped article text:
     // "Fullback for Wests Tigers is number 1 Jahream Bula"
     // Generic source parser only. No player hard-fixes.
-    const nrlRoleRows = parseNrlRoleLineRowsFromPage(page.text);
+    const nrlRoleRows = [...parseNrlRoleLineRowsFromPage(page.text), ...parseNrlHiddenTeamListRowsFromHtml(page.html)];
     const nrlRoleRowsByTeam = new Map();
 
     for(const row of nrlRoleRows){
