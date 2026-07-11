@@ -1360,15 +1360,22 @@ function parseZeroTackleStructuredSnapshots(page){
     return String(html.match(re)?.[1] || '');
   }
 
+  function rowFragments(block){
+    return String(block || '')
+      .split(/<tr[^>]*>/i)
+      .slice(1);
+  }
+
   function parseHomeRows(block){
     const rows = [];
 
-    const re =
-      /<tr>\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>\s*<td[^>]*>\s*<a[^>]*href=["'][^"']*\/players\/[^"']*["'][^>]*>[\s\S]*?<span[^>]*class=["'][^"']*show-mobile[^"']*["'][^>]*>([\s\S]*?)<\/span>/gi;
+    for(const fragment of rowFragments(block)){
+      const match = fragment.match(
+        /^\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>\s*<td[^>]*>\s*<a[^>]*href=["'][^"']*\/players\/[^"']*["'][^>]*>[\s\S]*?<span[^>]*class=["'][^"']*show-mobile[^"']*["'][^>]*>([\s\S]*?)<\/span>/i
+      );
 
-    let match;
+      if(!match) continue;
 
-    while((match = re.exec(block))){
       const jersey = Number(match[1]);
       const name = stripHtmlLite(match[2]);
 
@@ -1390,12 +1397,13 @@ function parseZeroTackleStructuredSnapshots(page){
   function parseAwayRows(block){
     const rows = [];
 
-    const re =
-      /<tr>\s*<td[^>]*>\s*<a[^>]*href=["'][^"']*\/players\/[^"']*["'][^>]*>[\s\S]*?<span[^>]*class=["'][^"']*show-mobile[^"']*["'][^>]*>([\s\S]*?)<\/span>[\s\S]*?<\/a>\s*<\/td>\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>/gi;
+    for(const fragment of rowFragments(block)){
+      const match = fragment.match(
+        /^\s*<td[^>]*>\s*<a[^>]*href=["'][^"']*\/players\/[^"']*["'][^>]*>[\s\S]*?<span[^>]*class=["'][^"']*show-mobile[^"']*["'][^>]*>([\s\S]*?)<\/span>[\s\S]*?<\/a>\s*<\/td>\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>/i
+      );
 
-    let match;
+      if(!match) continue;
 
-    while((match = re.exec(block))){
       const name = stripHtmlLite(match[1]);
       const jersey = Number(match[2]);
 
