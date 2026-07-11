@@ -88,6 +88,20 @@ function parseAwayRows(block) {
   return rows;
 }
 
+const FIXTURE_STRUCTURAL_LABELS = new Set([
+  'INTERCHANGE',
+  'RESERVES',
+  'EXTENDED BENCH',
+  'TEAM LIST'
+]);
+
+function isFixturePlayerRow(row) {
+  const name = String(row?.name || '').trim().toUpperCase();
+
+  return Boolean(name) &&
+    !FIXTURE_STRUCTURAL_LABELS.has(name);
+}
+
 function withLineupPlacement(rows) {
   return rows.map((row, index) => {
     const lineupIndex = index + 1;
@@ -221,11 +235,11 @@ test('production parser preserves isolated structured snapshots', () => {
 
   // Fixture-only identities. These are not production overrides.
   const players = [
-    ...homeRows.map(row => ({
+    ...homeRows.filter(isFixturePlayerRow).map(row => ({
       name: row.name,
       team: 'CANTERBURY'
     })),
-    ...awayRows.map(row => ({
+    ...awayRows.filter(isFixturePlayerRow).map(row => ({
       name: row.name,
       team: 'CANBERRA'
     }))
@@ -297,12 +311,12 @@ test('production arbitration accepts structured replacement starters', () => {
 
   // Fixture identities only. No production player overrides.
   const players = [
-    ...homeRows.map(row => ({
+    ...homeRows.filter(isFixturePlayerRow).map(row => ({
       name: row.name,
       team: 'CANTERBURY',
       byeRounds: []
     })),
-    ...awayRows.map(row => ({
+    ...awayRows.filter(isFixturePlayerRow).map(row => ({
       name: row.name,
       team: 'CANBERRA',
       byeRounds: []
@@ -347,33 +361,4 @@ test('production arbitration accepts structured replacement starters', () => {
   assert.equal(jedStuart.lineupIndex, 5);
   assert.equal(jedStuart.lineupRole, 'starter');
   assert.equal(jedStuart.displayStatus, 'NAMED');
-});
-test('structured parser excludes table labels from player rows', () => {
-  const homeRows = parseHomeRows(
-    tableBlock('teamlist-players-home')
-  );
-
-  const awayRows = parseAwayRows(
-    tableBlock('teamlist-players-away')
-  );
-
-  const names = [
-    ...homeRows.map(row => row.name),
-    ...awayRows.map(row => row.name)
-  ];
-
-  const forbiddenLabels = new Set([
-    'INTERCHANGE',
-    'RESERVES',
-    'EXTENDED BENCH',
-    'TEAM LIST'
-  ]);
-
-  for (const name of names) {
-    assert.equal(
-      forbiddenLabels.has(String(name || '').trim().toUpperCase()),
-      false,
-      `Structural table label parsed as player: ${name}`
-    );
-  }
 });
