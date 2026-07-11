@@ -1473,10 +1473,52 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
       }
 
       const p = findPlayerForTeamName(row.name, row.teamCanon);
-      if(!p) continue;
+
+      if(!p){
+        const lineupRole =
+          lineupRoleFromOfficialNrlRole(row.role, row.jersey);
+
+        const sourceOnlyPlayer = {
+          name: row.name,
+          team: row.teamCanon
+        };
+
+        addOrMerge(
+          teamlistsOut,
+          sourceOnlyPlayer,
+          makeStatus(
+            statusForLineupRole(lineupRole),
+            `${labelForLineupRole(lineupRole, 'official NRL source-only team-list')} (${page.sourceName}, ${row.role}, jersey ${row.jersey}).`,
+            [src],
+            {
+              selectionStatus: selectionStatusForLineupRole(lineupRole),
+              lineupRole,
+              lineupIndex: row.jersey,
+              team: row.teamCanon,
+              teamCanonical: row.teamCanon,
+              jersey: row.jersey,
+              sourcePriority: priority,
+              sourceOrder: pageOrder,
+              sourceOnly: true,
+              playerMasterMissing: true
+            }
+          )
+        );
+
+        markSeen(row.teamCanon, row.name);
+        markJersey(row.teamCanon, row.jersey);
+        addTeamCount(row.teamCanon);
+        totalFound++;
+        nrlRoleLineFound++;
+        continue;
+      }
+
       if(playerTeam(p) !== row.teamCanon) continue;
 
-      if(!nrlRoleRowsByTeam.has(row.teamCanon)) nrlRoleRowsByTeam.set(row.teamCanon, []);
+      if(!nrlRoleRowsByTeam.has(row.teamCanon)){
+        nrlRoleRowsByTeam.set(row.teamCanon, []);
+      }
+
       nrlRoleRowsByTeam.get(row.teamCanon).push({...row, player:p});
     }
 
