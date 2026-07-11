@@ -365,7 +365,7 @@ test('production arbitration accepts structured replacement starters', () => {
   assert.equal(jedStuart.displayStatus, 'NAMED');
 });
 
-test('structured club snapshot is rejected atomically when one playable identity cannot resolve', () => {
+test('structured club snapshot remains trusted when one playable source identity is absent from the player pool', () => {
   const homeRows = withLineupPlacement(
     parseHomeRows(
       tableBlock('teamlist-players-home')
@@ -379,6 +379,15 @@ test('structured club snapshot is rejected atomically when one playable identity
   );
 
   const unresolvedHomePlayer = homeRows[1];
+
+  assert.equal(
+    homeRows.filter(row =>
+      Number(row.lineupIndex) >= 1 &&
+      Number(row.lineupIndex) <= 17
+    ).length,
+    17,
+    'Source snapshot must still contain all ordered playable positions 1-17'
+  );
 
   const players = [
     ...homeRows
@@ -411,7 +420,9 @@ test('structured club snapshot is rejected atomically when one playable identity
   const structuredCanterbury = Object.values(teamlistsOut)
     .filter(record =>
       record?.teamCanonical === 'CANTERBURY' &&
-      record?.structuredSnapshot === true
+      record?.structuredSnapshot === true &&
+      Number(record?.lineupIndex) >= 1 &&
+      Number(record?.lineupIndex) <= 17
     );
 
   const structuredCanberra = Object.values(teamlistsOut)
@@ -424,8 +435,16 @@ test('structured club snapshot is rejected atomically when one playable identity
 
   assert.equal(
     structuredCanterbury.length,
-    0,
-    'Incomplete structured club snapshot must commit zero structured records'
+    16,
+    'Complete source snapshot must commit all resolvable SuperCoach players'
+  );
+
+  assert.equal(
+    structuredCanterbury.some(record =>
+      Number(record?.lineupIndex) === unresolvedHomePlayer.lineupIndex
+    ),
+    false,
+    'Unresolved source identity must not be attached to another player'
   );
 
   assert.equal(
