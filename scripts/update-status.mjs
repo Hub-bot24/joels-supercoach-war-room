@@ -2334,14 +2334,108 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
 
   const impossibleLineupConflicts = Object.entries(playersOut).filter(([,r]) => {
     const jersey = Number(r?.jersey);
-    const role = String(r?.lineupRole || r?.selectionRole || '').toLowerCase();
-    const status = String(r?.displayStatus || '').toUpperCase();
+    const lineupIndex = Number(r?.lineupIndex);
+    const role = String(
+      r?.lineupRole ||
+      r?.selectionRole ||
+      ''
+    ).toLowerCase();
+    const status = String(
+      r?.displayStatus ||
+      ''
+    ).toUpperCase();
 
-    if(Number.isFinite(jersey) && jersey >= 1 && jersey <= 13 && role !== 'starter') return true;
-    if(Number.isFinite(jersey) && jersey >= 14 && jersey <= 17 && role !== 'interchange') return true;
-    if(Number.isFinite(jersey) && jersey >= 1 && jersey <= 17 && status !== STATUS.NAMED) return true;
-    if(Number.isFinite(jersey) && jersey >= 18 && role !== 'extended') return true;
-    if(status === STATUS.NOT_NAMED && ['starter','interchange'].includes(role)) return true;
+    const hasStructuredPlacement =
+      r?.structuredSnapshot === true &&
+      Number.isInteger(lineupIndex) &&
+      lineupIndex >= 1;
+
+    // A complete structured snapshot derives playing role from ordered
+    // lineup placement. Jersey remains the shirt number and can differ
+    // after late replacements or positional changes.
+    if(hasStructuredPlacement){
+      if(
+        lineupIndex <= 13 &&
+        role !== 'starter'
+      ){
+        return true;
+      }
+
+      if(
+        lineupIndex >= 14 &&
+        lineupIndex <= 17 &&
+        role !== 'interchange'
+      ){
+        return true;
+      }
+
+      if(
+        lineupIndex <= 17 &&
+        status !== STATUS.NAMED
+      ){
+        return true;
+      }
+
+      if(
+        lineupIndex >= 18 &&
+        role !== 'extended'
+      ){
+        return true;
+      }
+
+      if(
+        status === STATUS.NOT_NAMED &&
+        ['starter','interchange'].includes(role)
+      ){
+        return true;
+      }
+
+      return false;
+    }
+
+    // Fallback sources without structured placement retain the existing
+    // jersey-based safety validation.
+    if(
+      Number.isFinite(jersey) &&
+      jersey >= 1 &&
+      jersey <= 13 &&
+      role !== 'starter'
+    ){
+      return true;
+    }
+
+    if(
+      Number.isFinite(jersey) &&
+      jersey >= 14 &&
+      jersey <= 17 &&
+      role !== 'interchange'
+    ){
+      return true;
+    }
+
+    if(
+      Number.isFinite(jersey) &&
+      jersey >= 1 &&
+      jersey <= 17 &&
+      status !== STATUS.NAMED
+    ){
+      return true;
+    }
+
+    if(
+      Number.isFinite(jersey) &&
+      jersey >= 18 &&
+      role !== 'extended'
+    ){
+      return true;
+    }
+
+    if(
+      status === STATUS.NOT_NAMED &&
+      ['starter','interchange'].includes(role)
+    ){
+      return true;
+    }
 
     return false;
   });
