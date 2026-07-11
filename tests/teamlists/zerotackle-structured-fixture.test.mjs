@@ -209,3 +209,79 @@ test('production parser module imports without executing main', () => {
   assert.equal(typeof playerTeam, 'function');
   assert.equal(typeof lineupRoleForIndex, 'function');
 });
+test('production parser preserves isolated structured snapshots', () => {
+  const homeRows = withLineupPlacement(
+    parseHomeRows(tableBlock('teamlist-players-home'))
+  );
+
+  const awayRows = withLineupPlacement(
+    parseAwayRows(tableBlock('teamlist-players-away'))
+  );
+
+  // Fixture-only identities. These are not production overrides.
+  const players = [
+    ...homeRows.map(row => ({
+      name: row.name,
+      team: 'CANTERBURY'
+    })),
+    ...awayRows.map(row => ({
+      name: row.name,
+      team: 'CANBERRA'
+    }))
+  ];
+
+  const page = {
+    url: 'https://www.zerotackle.com/updated-team-lists-bulldogs-raiders-10396471-235780',
+    sourceName: 'Zero Tackle',
+    html,
+    text: stripHtmlLite(html)
+  };
+
+  const teamlistsOut = {};
+
+  fromFetchedTeamlists(
+    players,
+    [page],
+    teamlistsOut
+  );
+
+  function verifySnapshot(teamCanon, expectedRows) {
+    const expectedPlayable = expectedRows.slice(0, 17);
+
+    for (const expected of expectedPlayable) {
+      const actual = teamlistsOut[expected.name];
+
+      assert.ok(
+        actual,
+        `${teamCanon}: missing ${expected.name}`
+      );
+
+      assert.equal(
+        actual.teamCanonical,
+        teamCanon,
+        `${expected.name}: wrong team`
+      );
+
+      assert.equal(
+        actual.jersey,
+        expected.jersey,
+        `${expected.name}: wrong jersey`
+      );
+
+      assert.equal(
+        actual.lineupRole,
+        expected.lineupRole,
+        `${expected.name}: wrong lineup role`
+      );
+
+      assert.equal(
+        actual.lineupIndex,
+        expected.lineupIndex,
+        `${expected.name}: wrong lineup position`
+      );
+    }
+  }
+
+  verifySnapshot('CANTERBURY', homeRows);
+  verifySnapshot('CANBERRA', awayRows);
+});
