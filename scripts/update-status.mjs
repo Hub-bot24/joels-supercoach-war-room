@@ -28,6 +28,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const ROOT = process.cwd();
 const DATA_DIR = path.join(ROOT, 'data');
@@ -2558,8 +2559,24 @@ async function main(){
   console.log(JSON.stringify({ok:true, round, players:players.length, teamlistsLoaded, summary, newChanges:newChanges.length, warnings:truth.dataHealth.warnings}, null, 2));
 }
 
-main().catch(err => {
-  console.error('[fatal] update-status.mjs failed');
-  console.error(err.stack || err.message || err);
-  process.exit(1);
-});
+export {
+  parseTeamSectionsFromPage,
+  fromKnownPlayerJerseyPatterns,
+  fromFetchedTeamlists,
+  stripHtmlLite,
+  normName,
+  playerTeam,
+  lineupRoleForIndex
+};
+
+const isDirectRun =
+  Boolean(process.argv[1]) &&
+  import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+
+if(isDirectRun){
+  main().catch(err => {
+    console.error('[fatal] update-status.mjs failed');
+    console.error(err.stack || err.message || err);
+    process.exit(1);
+  });
+}

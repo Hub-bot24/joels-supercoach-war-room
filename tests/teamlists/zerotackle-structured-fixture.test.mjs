@@ -4,6 +4,16 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import {
+  parseTeamSectionsFromPage,
+  fromKnownPlayerJerseyPatterns,
+  fromFetchedTeamlists,
+  stripHtmlLite,
+  normName,
+  playerTeam,
+  lineupRoleForIndex
+} from '../../scripts/update-status.mjs';
+
 const thisFile = fileURLToPath(import.meta.url);
 const thisDir = path.dirname(thisFile);
 
@@ -189,4 +199,13 @@ test('first 17 ordered rows form one complete playable snapshot', () => {
       17
     );
   }
+});
+test('production parser module imports without executing main', () => {
+  assert.equal(typeof parseTeamSectionsFromPage, 'function');
+  assert.equal(typeof fromKnownPlayerJerseyPatterns, 'function');
+  assert.equal(typeof fromFetchedTeamlists, 'function');
+  assert.equal(typeof stripHtmlLite, 'function');
+  assert.equal(typeof normName, 'function');
+  assert.equal(typeof playerTeam, 'function');
+  assert.equal(typeof lineupRoleForIndex, 'function');
 });
