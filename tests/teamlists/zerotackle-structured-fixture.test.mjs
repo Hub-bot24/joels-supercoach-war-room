@@ -52,15 +52,22 @@ function tableBlock(className) {
   return match[1];
 }
 
+function rowFragments(block) {
+  return String(block || '')
+    .split(/<tr[^>]*>/i)
+    .slice(1);
+}
+
 function parseHomeRows(block) {
   const rows = [];
 
-  const pattern =
-    /<tr>\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>\s*<td[^>]*>[\s\S]*?<span[^>]*class=["']show-mobile["'][^>]*>([\s\S]*?)<\/span>/gi;
+  for (const fragment of rowFragments(block)) {
+    const match = fragment.match(
+      /^\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>\s*<td[^>]*>\s*<a[^>]*href=["'][^"']*\/players\/[^"']*["'][^>]*>[\s\S]*?<span[^>]*class=["'][^"']*show-mobile[^"']*["'][^>]*>([\s\S]*?)<\/span>/i
+    );
 
-  let match;
+    if (!match) continue;
 
-  while ((match = pattern.exec(block))) {
     rows.push({
       jersey: Number(match[1]),
       name: stripHtml(match[2])
@@ -73,12 +80,13 @@ function parseHomeRows(block) {
 function parseAwayRows(block) {
   const rows = [];
 
-  const pattern =
-    /<tr>\s*<td[^>]*>[\s\S]*?<span[^>]*class=["']show-mobile["'][^>]*>([\s\S]*?)<\/span>[\s\S]*?<\/td>\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>/gi;
+  for (const fragment of rowFragments(block)) {
+    const match = fragment.match(
+      /^\s*<td[^>]*>\s*<a[^>]*href=["'][^"']*\/players\/[^"']*["'][^>]*>[\s\S]*?<span[^>]*class=["'][^"']*show-mobile[^"']*["'][^>]*>([\s\S]*?)<\/span>[\s\S]*?<\/a>\s*<\/td>\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>/i
+    );
 
-  let match;
+    if (!match) continue;
 
-  while ((match = pattern.exec(block))) {
     rows.push({
       name: stripHtml(match[1]),
       jersey: Number(match[2])
@@ -86,20 +94,6 @@ function parseAwayRows(block) {
   }
 
   return rows;
-}
-
-const FIXTURE_STRUCTURAL_LABELS = new Set([
-  'INTERCHANGE',
-  'RESERVES',
-  'EXTENDED BENCH',
-  'TEAM LIST'
-]);
-
-function isFixturePlayerRow(row) {
-  const name = String(row?.name || '').trim().toUpperCase();
-
-  return Boolean(name) &&
-    !FIXTURE_STRUCTURAL_LABELS.has(name);
 }
 
 function withLineupPlacement(rows) {
