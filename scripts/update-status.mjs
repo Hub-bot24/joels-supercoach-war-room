@@ -1128,7 +1128,14 @@ function lineupRoleForIndex(index){
 }
 
 function lineupRoleFromOfficialNrlRole(role, jersey){
+  const number = Number(jersey || 0);
   const value = norm(role);
+
+  // Core invariant: jerseys 18+ are extended squad entries.
+  // Role text must never promote them to NAMED.
+  if(number >= 18){
+    return 'extended';
+  }
 
   if(value === 'interchange' || value === 'bench'){
     return 'interchange';
@@ -1161,7 +1168,7 @@ function lineupRoleFromOfficialNrlRole(role, jersey){
     return 'starter';
   }
 
-  return lineupRoleForIndex(jersey);
+  return lineupRoleForIndex(number);
 }
 
 function statusForLineupRole(role){
