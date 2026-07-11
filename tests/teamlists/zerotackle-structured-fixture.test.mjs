@@ -453,3 +453,72 @@ test('structured club snapshot remains trusted when one playable source identity
     'Complete opposing structured snapshot must remain accepted'
   );
 });
+test('production parser resolves an unambiguous compound team slug', () => {
+  const compoundSlugHtml = html.replace(
+    '/rugby-league/teams/canterbury-bankstown-bulldogs/',
+    '/rugby-league/teams/south-sydney-rabbitohs/'
+  );
+
+  assert.notEqual(
+    compoundSlugHtml,
+    html,
+    'Fixture home-team slug must be replaced in memory'
+  );
+
+  const homeRows = withLineupPlacement(
+    parseHomeRows(
+      tableBlock('teamlist-players-home')
+    )
+  );
+
+  const awayRows = withLineupPlacement(
+    parseAwayRows(
+      tableBlock('teamlist-players-away')
+    )
+  );
+
+  const players = [
+    ...homeRows.map(row => ({
+      name: row.name,
+      team: 'SOUTHS'
+    })),
+    ...awayRows.map(row => ({
+      name: row.name,
+      team: 'CANBERRA'
+    }))
+  ];
+
+  const page = {
+    url: 'https://www.zerotackle.com/updated-team-lists-rabbitohs-vs-knights-example',
+    sourceName: 'Zero Tackle',
+    html: compoundSlugHtml,
+    text: stripHtmlLite(compoundSlugHtml)
+  };
+
+  const teamlistsOut = {};
+
+  const result = fromFetchedTeamlists(
+    players,
+    [page],
+    teamlistsOut
+  );
+
+  const structuredSouths = Object.values(teamlistsOut)
+    .filter(record =>
+      record?.teamCanonical === 'SOUTHS' &&
+      record?.structuredSnapshot === true &&
+      Number(record?.lineupIndex) >= 1 &&
+      Number(record?.lineupIndex) <= 17
+    );
+
+  assert.equal(
+    structuredSouths.length,
+    17,
+    'Unambiguous compound source slug must resolve to the canonical club'
+  );
+
+  assert.ok(
+    result.loadedTeams.includes('SOUTHS'),
+    'Canonical club must be returned as a trusted loaded team'
+  );
+});
