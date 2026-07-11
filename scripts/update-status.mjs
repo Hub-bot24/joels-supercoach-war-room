@@ -2442,7 +2442,14 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
 
   if(impossibleLineupConflicts.length){
     const sample = impossibleLineupConflicts.slice(0,10).map(([n,r]) =>
-      n+': jersey '+r.jersey+', status '+r.displayStatus+', role '+(r.lineupRole || r.selectionRole || '')
+      n+
+      ': jersey '+r.jersey+
+      ', status '+r.displayStatus+
+      ', role '+(r.lineupRole || r.selectionRole || '')+
+      ', lineupIndex '+(r.lineupIndex ?? '')+
+      ', structuredSnapshot '+String(r.structuredSnapshot === true)+
+      ', selectionStatus '+(r.selectionStatus || '')+
+      ', reason '+(r.reason || '')
     ).join('; ');
     throw new Error('Team-list arbitration invariant failed: impossible jersey/status/role state: '+sample);
   }
