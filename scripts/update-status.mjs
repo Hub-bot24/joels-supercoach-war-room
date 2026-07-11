@@ -90,7 +90,20 @@ function normTeam(s){ return String(s || '').toUpperCase().replace(/[^A-Z0-9]+/g
 function canonicalTeam(team){
   const t = normTeam(team);
   if(!t) return '';
-  return TEAM_CANON_MAP.get(t) || t;
+
+  const exact = TEAM_CANON_MAP.get(t);
+  if(exact) return exact;
+
+  const matchedCanons = new Set();
+
+  for(const [alias, canon] of TEAM_CANON){
+    if(alias.length < 4) continue;
+    if(t.includes(alias)) matchedCanons.add(canon);
+  }
+
+  return matchedCanons.size === 1
+    ? [...matchedCanons][0]
+    : t;
 }
 function isObj(v){ return v && typeof v === 'object' && !Array.isArray(v); }
 async function ensureDir(dir){ await fs.mkdir(dir, {recursive:true}); }
