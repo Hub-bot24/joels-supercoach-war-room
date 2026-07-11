@@ -1,49 +1,152 @@
 {
-  "updated": "2026-07-11T04:29:19.122Z",
+  "updated": "2026-07-11T06:15:32.275Z",
   "round": 19,
   "newChanges": [
     {
-      "player": "Harrison Graham",
-      "team": "NEW",
+      "player": "Alexander Brimson",
+      "team": "GLD",
       "from": "EXPECTED",
       "to": "NAMED",
-      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
-      "detectedAt": "2026-07-11T04:29:19.122Z",
+      "reason": "Named in official NRL role-line team-list starting side (Official NRL, Centre, jersey 4).",
+      "detectedAt": "2026-07-11T06:15:32.275Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/07/nrl-team-lists-round-19",
-          "updatedAt": "2026-07-11T04:29:19.122Z",
+          "updatedAt": "2026-07-11T06:15:32.275Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 19
+    },
+    {
+      "player": "Blake Wilson",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-11T06:15:32.275Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/07/nrl-team-lists-round-19",
+          "updatedAt": "2026-07-11T06:15:32.275Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 19
+    },
+    {
+      "player": "Bronson Xerri",
+      "team": "CAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-07-11T06:15:32.275Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/07/nrl-team-lists-round-19",
+          "updatedAt": "2026-07-11T06:15:32.275Z",
           "priority": 2,
           "order": 2
         },
         {
           "type": "teamlist",
           "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-vs-knights-10396473-235803",
-          "updatedAt": "2026-07-11T04:29:19.122Z",
+          "url": "https://www.zerotackle.com/updated-team-lists-bulldogs-raiders-10396471-235780",
+          "updatedAt": "2026-07-11T06:15:32.275Z",
           "priority": 4,
-          "order": 4
+          "order": 7
         }
       ],
       "round": 19
     },
     {
-      "player": "Kyle McCarthy",
-      "team": "NEW",
+      "player": "DeLaSalle Vaa",
+      "team": "SYD",
       "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-07-11T04:29:19.122Z",
+      "to": "NAMED",
+      "reason": "Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 17).",
+      "detectedAt": "2026-07-11T06:15:32.275Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/07/nrl-team-lists-round-19",
-          "updatedAt": "2026-07-11T04:29:19.122Z",
+          "updatedAt": "2026-07-11T06:15:32.275Z",
           "priority": 2,
           "order": 2
+        }
+      ],
+      "round": 19
+    },
+    {
+      "player": "Enari Tuala",
+      "team": "CAN",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-11T06:15:32.275Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/07/nrl-team-lists-round-19",
+          "updatedAt": "2026-07-11T06:15:32.275Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 19
+    },
+    {
+      "player": "Niwhai Puru",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-11T06:15:32.275Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/07/nrl-team-lists-round-19",
+          "updatedAt": "2026-07-11T06:15:32.275Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 19
+    },
+    {
+      "player": "Sam McIntyre",
+      "team": "NQC",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
+      "detectedAt": "2026-07-11T06:15:32.275Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/07/nrl-team-lists-round-19",
+          "updatedAt": "2026-07-11T06:15:32.275Z",
+          "priority": 2,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-sea-eagles-vs-cowboys-10396474-235808",
+          "updatedAt": "2026-07-11T06:15:32.275Z",
+          "priority": 4,
+          "order": 6
         }
       ],
       "round": 19
