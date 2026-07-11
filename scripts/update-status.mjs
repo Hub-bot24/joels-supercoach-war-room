@@ -1320,6 +1320,135 @@ function parseNrlRoleLineRowsFromPage(text){
     return true;
   });
 }
+function parseZeroTackleStructuredSnapshots(page){
+  const html = String(page?.html || '');
+  const url = String(page?.url || '').toLowerCase();
+
+  if(
+    !url.includes('zerotackle.com') ||
+    !html.includes('teamlist-players-home') ||
+    !html.includes('teamlist-players-away')
+  ){
+    return [];
+  }
+
+  function teamFromSide(side){
+    const re = new RegExp(
+      `<div[^>]*class=["'][^"']*fixture_middle_${side}[^"']*["'][^>]*>` +
+      `[\\s\\S]*?<a[^>]*href=["']/rugby-league/teams/([^/"']+)/?["']`,
+      'i'
+    );
+
+    const match = html.match(re);
+    if(!match) return '';
+
+    let teamCanon = canonicalTeam(
+      String(match[1] || '').replace(/-/g, ' ')
+    );
+
+
+    return teamCanon;
+  }
+
+  function tableBlock(className){
+    const re = new RegExp(
+      `<div[^>]*class=["'][^"']*${className}[^"']*["'][^>]*>` +
+      `([\\s\\S]*?)</table>\\s*</div>`,
+      'i'
+    );
+
+    return String(html.match(re)?.[1] || '');
+  }
+
+  function parseHomeRows(block){
+    const rows = [];
+
+    const re =
+      /<tr>\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>\s*<td[^>]*>[\s\S]*?<span[^>]*class=["'][^"']*show-mobile[^"']*["'][^>]*>([\s\S]*?)<\/span>/gi;
+
+    let match;
+
+    while((match = re.exec(block))){
+      const jersey = Number(match[1]);
+      const name = stripHtmlLite(match[2]);
+
+      if(
+        !Number.isFinite(jersey) ||
+        jersey < 1 ||
+        jersey > 30 ||
+        name.length < 3
+      ){
+        continue;
+      }
+
+      rows.push({name, jersey});
+    }
+
+    return rows;
+  }
+
+  function parseAwayRows(block){
+    const rows = [];
+
+    const re =
+      /<tr>\s*<td[^>]*>[\s\S]*?<span[^>]*class=["'][^"']*show-mobile[^"']*["'][^>]*>([\s\S]*?)<\/span>[\s\S]*?<\/td>\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>/gi;
+
+    let match;
+
+    while((match = re.exec(block))){
+      const name = stripHtmlLite(match[1]);
+      const jersey = Number(match[2]);
+
+      if(
+        !Number.isFinite(jersey) ||
+        jersey < 1 ||
+        jersey > 30 ||
+        name.length < 3
+      ){
+        continue;
+      }
+
+      rows.push({name, jersey});
+    }
+
+    return rows;
+  }
+
+  function createSnapshot(teamCanon, side, rows){
+    if(!teamCanon || rows.length < 17){
+      return null;
+    }
+
+    return {
+      teamCanon,
+      side,
+      rows: rows.map((row, index) => {
+        const lineupIndex = index + 1;
+
+        return {
+          ...row,
+          lineupIndex,
+          lineupRole: lineupRoleForIndex(lineupIndex)
+        };
+      })
+    };
+  }
+
+  const home = createSnapshot(
+    teamFromSide('home'),
+    'home',
+    parseHomeRows(tableBlock('teamlist-players-home'))
+  );
+
+  const away = createSnapshot(
+    teamFromSide('away'),
+    'away',
+    parseAwayRows(tableBlock('teamlist-players-away'))
+  );
+
+  return [home, away].filter(Boolean);
+}
+
 function fromFetchedTeamlists(players, pages, teamlistsOut){
   const lookup = playerLookupByName(players);
   const teamFound = new Map();
@@ -1413,9 +1542,80 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
       // Jersey coverage must come directly from parsed source rows, not merged player status records.
       return jerseys.has(1) && jerseys.has(2) && jerseys.size >= 16;
     }
+    // Parser 0: structured Zero Tackle home/away snapshots.
+    // Row order is lineup placement; jersey remains the shirt number.
+    const structuredSnapshots =
+      parseZeroTackleStructuredSnapshots(page);
+
+    const structuredTeams = new Set(
+      structuredSnapshots.map(snapshot => snapshot.teamCanon)
+    );
+
+    for(const snapshot of structuredSnapshots){
+      const teamCanon = snapshot.teamCanon;
+      let matchedPlayable = 0;
+
+      for(const row of snapshot.rows){
+        const p = findPlayerForTeamName(row.name, teamCanon);
+        if(!p) continue;
+        if(playerTeam(p) !== teamCanon) continue;
+
+        const status = statusForLineupRole(row.lineupRole);
+        const label = labelForLineupRole(
+          row.lineupRole,
+          'structured team-list snapshot'
+        );
+
+        addOrMerge(
+          teamlistsOut,
+          p,
+          makeStatus(
+            status,
+            `${label} (${page.sourceName}, lineup position ${row.lineupIndex}, jersey ${row.jersey}).`,
+            [src],
+            {
+              selectionStatus:
+                selectionStatusForLineupRole(row.lineupRole),
+              lineupRole: row.lineupRole,
+              lineupIndex: row.lineupIndex,
+              team: p.team,
+              teamCanonical: teamCanon,
+              jersey: row.jersey,
+              sourcePriority: priority,
+              sourceOrder: pageOrder,
+              structuredSnapshot: true
+            }
+          )
+        );
+
+        markSeen(teamCanon, p.name);
+        markJersey(teamCanon, row.jersey);
+        addTeamCount(teamCanon);
+
+        if(row.lineupIndex <= 17){
+          matchedPlayable++;
+        }
+
+        totalFound++;
+        knownPatternFound++;
+      }
+
+      if(matchedPlayable === 17){
+        teamFound.set(
+          teamCanon,
+          Math.max(
+            teamFound.get(teamCanon) || 0,
+            matchedPlayable
+          )
+        );
+      }
+    }
+
     // Parser 1: structured team-heading numbered sections.
     const sections = parseTeamSectionsFromPage(page.text);
     for(const [teamCanon, numbered] of Object.entries(sections)){
+      if(structuredTeams.has(teamCanon)) continue;
+
       let matchedForTeam = 0;
       for(const row of numbered){
         const p = findPlayerForTeamName(row.name, teamCanon);
@@ -1447,8 +1647,12 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
     // Stripped text remains fallback-only for teams without hidden rows.
     const nrlRoleRows = [
       ...hiddenNrlRoleRows,
-      ...textNrlRoleRows.filter(row => !hiddenNrlTeams.has(row.teamCanon))
-    ];
+      ...textNrlRoleRows.filter(
+        row => !hiddenNrlTeams.has(row.teamCanon)
+      )
+    ].filter(
+      row => !structuredTeams.has(row.teamCanon)
+    );
 
     const nrlRoleRowsByTeam = new Map();
 
@@ -1534,6 +1738,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
       for(const row of jerseyRows){
         const teamCanon = playerTeam(row.player);
         if(!teamCanon) continue;
+        if(structuredTeams.has(teamCanon)) continue;
         if(!rowsByTeam.has(teamCanon)) rowsByTeam.set(teamCanon, []);
         rowsByTeam.get(teamCanon).push(row);
       }
