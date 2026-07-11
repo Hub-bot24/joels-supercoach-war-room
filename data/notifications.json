@@ -1,6 +1,156 @@
 {
-  "updated": "2026-07-11T10:03:17.312Z",
+  "updated": "2026-07-11T22:25:18.403Z",
   "round": 19,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Alex Johnston",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-11T22:25:18.403Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-11T22:25:18.403Z"
+        }
+      ],
+      "round": 19
+    },
+    {
+      "player": "Bronson Garlick",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-11T22:25:18.403Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-11T22:25:18.403Z"
+        }
+      ],
+      "round": 19
+    },
+    {
+      "player": "Cody Walker",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-11T22:25:18.403Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-11T22:25:18.403Z"
+        }
+      ],
+      "round": 19
+    },
+    {
+      "player": "Edward Kosi",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-11T22:25:18.403Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-11T22:25:18.403Z"
+        }
+      ],
+      "round": 19
+    },
+    {
+      "player": "Jayden Berrell",
+      "team": "SHA",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 9).",
+      "detectedAt": "2026-07-11T22:25:18.403Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/07/nrl-team-lists-round-19",
+          "updatedAt": "2026-07-11T22:25:18.403Z",
+          "priority": 2,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dolphins-sharks-10396470-235772",
+          "updatedAt": "2026-07-11T22:25:18.403Z",
+          "priority": 4,
+          "order": 9
+        }
+      ],
+      "round": 19
+    },
+    {
+      "player": "Mawene Hiroti",
+      "team": "SHA",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 18).",
+      "detectedAt": "2026-07-11T22:25:18.403Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/07/nrl-team-lists-round-19",
+          "updatedAt": "2026-07-11T22:25:18.403Z",
+          "priority": 2,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dolphins-sharks-10396470-235772",
+          "updatedAt": "2026-07-11T22:25:18.403Z",
+          "priority": 4,
+          "order": 9
+        }
+      ],
+      "round": 19
+    },
+    {
+      "player": "Sam McIntyre",
+      "team": "NQC",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 18).",
+      "detectedAt": "2026-07-11T22:25:18.403Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/07/nrl-team-lists-round-19",
+          "updatedAt": "2026-07-11T22:25:18.403Z",
+          "priority": 2,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-sea-eagles-vs-cowboys-10396474-235808",
+          "updatedAt": "2026-07-11T22:25:18.403Z",
+          "priority": 4,
+          "order": 6
+        }
+      ],
+      "round": 19
+    }
+  ],
   "allChangeCount": 500
 }

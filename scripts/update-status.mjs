@@ -28,6 +28,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const ROOT = process.cwd();
 const DATA_DIR = path.join(ROOT, 'data');
@@ -87,9 +88,45 @@ function normName(s){ return norm(s); }
 function slug(s){ return norm(s).replace(/\s+/g,'-'); }
 function normTeam(s){ return String(s || '').toUpperCase().replace(/[^A-Z0-9]+/g,'').trim(); }
 function canonicalTeam(team){
-  const t = normTeam(team);
-  if(!t) return '';
-  return TEAM_CANON_MAP.get(t) || t;
+  const compact = normTeam(team);
+  if(!compact) return '';
+
+  const exact = TEAM_CANON_MAP.get(compact);
+  if(exact) return exact;
+
+  const sourceWords = norm(team);
+  const paddedSource = ` ${sourceWords} `;
+  const matches = [];
+
+  for(const [canon, aliases] of Object.entries(TEAM_ALIASES)){
+    for(const alias of [canon, ...aliases]){
+      const aliasWords = norm(alias);
+
+      if(aliasWords.length < 4) continue;
+      if(!paddedSource.includes(` ${aliasWords} `)) continue;
+
+      matches.push({
+        canon,
+        score: aliasWords.replace(/\s+/g, '').length
+      });
+    }
+  }
+
+  if(!matches.length) return compact;
+
+  const strongestScore = Math.max(
+    ...matches.map(match => match.score)
+  );
+
+  const strongestCanons = new Set(
+    matches
+      .filter(match => match.score === strongestScore)
+      .map(match => match.canon)
+  );
+
+  return strongestCanons.size === 1
+    ? [...strongestCanons][0]
+    : compact;
 }
 function isObj(v){ return v && typeof v === 'object' && !Array.isArray(v); }
 async function ensureDir(dir){ await fs.mkdir(dir, {recursive:true}); }
@@ -1319,6 +1356,143 @@ function parseNrlRoleLineRowsFromPage(text){
     return true;
   });
 }
+function parseZeroTackleStructuredSnapshots(page){
+  const html = String(page?.html || '');
+  const url = String(page?.url || '').toLowerCase();
+
+  if(
+    !url.includes('zerotackle.com') ||
+    !html.includes('teamlist-players-home') ||
+    !html.includes('teamlist-players-away')
+  ){
+    return [];
+  }
+
+  function teamFromSide(side){
+    const re = new RegExp(
+      `<div[^>]*class=["'][^"']*fixture_middle_${side}[^"']*["'][^>]*>` +
+      `[\\s\\S]*?<a[^>]*href=["']/rugby-league/teams/([^/"']+)/?["']`,
+      'i'
+    );
+
+    const match = html.match(re);
+    if(!match) return '';
+
+    let teamCanon = canonicalTeam(
+      String(match[1] || '').replace(/-/g, ' ')
+    );
+
+
+    return teamCanon;
+  }
+
+  function tableBlock(className){
+    const re = new RegExp(
+      `<div[^>]*class=["'][^"']*${className}[^"']*["'][^>]*>` +
+      `([\\s\\S]*?)</table>\\s*</div>`,
+      'i'
+    );
+
+    return String(html.match(re)?.[1] || '');
+  }
+
+  function rowFragments(block){
+    return String(block || '')
+      .split(/<tr[^>]*>/i)
+      .slice(1);
+  }
+
+  function parseHomeRows(block){
+    const rows = [];
+
+    for(const fragment of rowFragments(block)){
+      const match = fragment.match(
+        /^\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>\s*<td[^>]*>\s*<a[^>]*href=["'][^"']*\/players\/[^"']*["'][^>]*>[\s\S]*?<span[^>]*class=["'][^"']*show-mobile[^"']*["'][^>]*>([\s\S]*?)<\/span>/i
+      );
+
+      if(!match) continue;
+
+      const jersey = Number(match[1]);
+      const name = stripHtmlLite(match[2]);
+
+      if(
+        !Number.isFinite(jersey) ||
+        jersey < 1 ||
+        jersey > 30 ||
+        name.length < 3
+      ){
+        continue;
+      }
+
+      rows.push({name, jersey});
+    }
+
+    return rows;
+  }
+
+  function parseAwayRows(block){
+    const rows = [];
+
+    for(const fragment of rowFragments(block)){
+      const match = fragment.match(
+        /^\s*<td[^>]*>\s*<a[^>]*href=["'][^"']*\/players\/[^"']*["'][^>]*>[\s\S]*?<span[^>]*class=["'][^"']*show-mobile[^"']*["'][^>]*>([\s\S]*?)<\/span>[\s\S]*?<\/a>\s*<\/td>\s*<td[^>]*>\s*(\d{1,2})\s*<\/td>/i
+      );
+
+      if(!match) continue;
+
+      const name = stripHtmlLite(match[1]);
+      const jersey = Number(match[2]);
+
+      if(
+        !Number.isFinite(jersey) ||
+        jersey < 1 ||
+        jersey > 30 ||
+        name.length < 3
+      ){
+        continue;
+      }
+
+      rows.push({name, jersey});
+    }
+
+    return rows;
+  }
+
+  function createSnapshot(teamCanon, side, rows){
+    if(!teamCanon || rows.length < 17){
+      return null;
+    }
+
+    return {
+      teamCanon,
+      side,
+      rows: rows.map((row, index) => {
+        const lineupIndex = index + 1;
+
+        return {
+          ...row,
+          lineupIndex,
+          lineupRole: lineupRoleForIndex(lineupIndex)
+        };
+      })
+    };
+  }
+
+  const home = createSnapshot(
+    teamFromSide('home'),
+    'home',
+    parseHomeRows(tableBlock('teamlist-players-home'))
+  );
+
+  const away = createSnapshot(
+    teamFromSide('away'),
+    'away',
+    parseAwayRows(tableBlock('teamlist-players-away'))
+  );
+
+  return [home, away].filter(Boolean);
+}
+
 function fromFetchedTeamlists(players, pages, teamlistsOut){
   const lookup = playerLookupByName(players);
   const teamFound = new Map();
@@ -1412,9 +1586,112 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
       // Jersey coverage must come directly from parsed source rows, not merged player status records.
       return jerseys.has(1) && jerseys.has(2) && jerseys.size >= 16;
     }
+    // Parser 0: structured Zero Tackle home/away snapshots.
+    // Row order is lineup placement; jersey remains the shirt number.
+    const structuredSnapshots =
+      parseZeroTackleStructuredSnapshots(page);
+
+    const structuredTeams = new Set();
+
+    for(const snapshot of structuredSnapshots){
+      const teamCanon = snapshot.teamCanon;
+      const resolvedRows = [];
+
+      for(const row of snapshot.rows){
+        const p = findPlayerForTeamName(row.name, teamCanon);
+
+        if(!p || playerTeam(p) !== teamCanon){
+          continue;
+        }
+
+        resolvedRows.push({row, player: p});
+      }
+
+      const sourcePlayable = snapshot.rows.filter(
+        row =>
+          row.lineupIndex >= 1 &&
+          row.lineupIndex <= 17
+      );
+
+      const playablePositions = new Set(
+        sourcePlayable.map(row => row.lineupIndex)
+      );
+
+      const playableSourceNames = new Set(
+        sourcePlayable.map(row => normName(row.name))
+      );
+
+      const completePlayableSnapshot =
+        sourcePlayable.length === 17 &&
+        playablePositions.size === 17 &&
+        playableSourceNames.size === 17 &&
+        Array.from(
+          {length: 17},
+          (_, index) => index + 1
+        ).every(position => playablePositions.has(position));
+
+      if(!completePlayableSnapshot){
+        continue;
+      }
+
+      structuredTeams.add(teamCanon);
+
+      let matchedPlayable = 0;
+
+      for(const {row, player: p} of resolvedRows){
+        const status = statusForLineupRole(row.lineupRole);
+        const label = labelForLineupRole(
+          row.lineupRole,
+          'structured team-list snapshot'
+        );
+
+        addOrMerge(
+          teamlistsOut,
+          p,
+          makeStatus(
+            status,
+            `${label} (${page.sourceName}, lineup position ${row.lineupIndex}, jersey ${row.jersey}).`,
+            [src],
+            {
+              selectionStatus:
+                selectionStatusForLineupRole(row.lineupRole),
+              lineupRole: row.lineupRole,
+              lineupIndex: row.lineupIndex,
+              team: p.team,
+              teamCanonical: teamCanon,
+              jersey: row.jersey,
+              sourcePriority: priority,
+              sourceOrder: pageOrder,
+              structuredSnapshot: true
+            }
+          )
+        );
+
+        markSeen(teamCanon, p.name);
+        markJersey(teamCanon, row.jersey);
+        addTeamCount(teamCanon);
+
+        if(row.lineupIndex <= 17){
+          matchedPlayable++;
+        }
+
+        totalFound++;
+        knownPatternFound++;
+      }
+
+      teamFound.set(
+        teamCanon,
+        Math.max(
+          teamFound.get(teamCanon) || 0,
+          matchedPlayable
+        )
+      );
+    }
     // Parser 1: structured team-heading numbered sections.
     const sections = parseTeamSectionsFromPage(page.text);
     for(const [teamCanon, numbered] of Object.entries(sections)){
+      if(structuredTeams.has(teamCanon)) continue;
+
       let matchedForTeam = 0;
       for(const row of numbered){
         const p = findPlayerForTeamName(row.name, teamCanon);
@@ -1446,8 +1723,12 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
     // Stripped text remains fallback-only for teams without hidden rows.
     const nrlRoleRows = [
       ...hiddenNrlRoleRows,
-      ...textNrlRoleRows.filter(row => !hiddenNrlTeams.has(row.teamCanon))
-    ];
+      ...textNrlRoleRows.filter(
+        row => !hiddenNrlTeams.has(row.teamCanon)
+      )
+    ].filter(
+      row => !structuredTeams.has(row.teamCanon)
+    );
 
     const nrlRoleRowsByTeam = new Map();
 
@@ -1533,6 +1814,7 @@ function fromFetchedTeamlists(players, pages, teamlistsOut){
       for(const row of jerseyRows){
         const teamCanon = playerTeam(row.player);
         if(!teamCanon) continue;
+        if(structuredTeams.has(teamCanon)) continue;
         if(!rowsByTeam.has(teamCanon)) rowsByTeam.set(teamCanon, []);
         rowsByTeam.get(teamCanon).push(row);
       }
@@ -1893,13 +2175,25 @@ function parsedJerseyCoverageFromTeamlists(teamlists){
     if(!byTeam.has(team)){
       byTeam.set(team, {
         playerRows: 0,
-        namedJerseys: new Set()
+        namedJerseys: new Set(),
+        structuredPlayablePositions: new Set()
       });
     }
 
     const teamCoverage = byTeam.get(team);
     teamCoverage.playerRows += 1;
     teamCoverage.namedJerseys.add(jersey);
+
+    const lineupIndex = Number(rec?.lineupIndex);
+
+    if(
+      rec?.structuredSnapshot === true &&
+      Number.isInteger(lineupIndex) &&
+      lineupIndex >= 1 &&
+      lineupIndex <= 17
+    ){
+      teamCoverage.structuredPlayablePositions.add(lineupIndex);
+    }
   }
 
   for(const [key, payload] of Object.entries(source || {})){
@@ -1927,13 +2221,31 @@ function parsedJerseyCoverageFromTeamlists(teamlists){
   for(const [team, info] of byTeam.entries()){
     const jerseys = [...info.namedJerseys].sort((a, b) => a - b);
 
+    const structuredPositions = [
+      ...info.structuredPlayablePositions
+    ].sort((a, b) => a - b);
+
+    const structuredComplete =
+      structuredPositions.length === 17 &&
+      structuredPositions.every(
+        (position, index) => position === index + 1
+      );
+
+    const legacyJerseyComplete =
+      info.namedJerseys.has(1) &&
+      info.namedJerseys.has(2) &&
+      jerseys.length >= 16;
+
     coverage[team] = {
       playerRows: info.playerRows,
       jerseyCount: jerseys.length,
       jerseys,
       hasJersey1: info.namedJerseys.has(1),
       hasJersey2: info.namedJerseys.has(2),
-      reliableLoadedTeam: info.namedJerseys.has(1) && info.namedJerseys.has(2) && jerseys.length >= 16
+      structuredComplete,
+      legacyJerseyComplete,
+      structuredPlayablePositions: structuredPositions,
+      reliableLoadedTeam: structuredComplete || legacyJerseyComplete
     };
   }
 
@@ -1963,7 +2275,12 @@ function reliableLoadedTeamsFromTeamlists(teamlists){
 }
 function combineTruth(players, round, teamlists, injuries, suspensions, origin, existingStatus, trustedLoadedTeams=[]){
   const playersOut = {};
-  const teamsWithLoadedList = reliableLoadedTeamsFromTeamlists(teamlists);
+  const teamsWithLoadedList = new Set([
+    ...reliableLoadedTeamsFromTeamlists(teamlists),
+    ...asArray(trustedLoadedTeams)
+      .map(fixtureTeamCanonFromValue)
+      .filter(Boolean)
+  ]);
   for(const p of players){
     const bye = playerByeRounds(p).includes(Number(round));
     const t = teamlists[p.name];
@@ -2120,21 +2437,122 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
 
   const impossibleLineupConflicts = Object.entries(playersOut).filter(([,r]) => {
     const jersey = Number(r?.jersey);
-    const role = String(r?.lineupRole || r?.selectionRole || '').toLowerCase();
-    const status = String(r?.displayStatus || '').toUpperCase();
+    const lineupIndex = Number(r?.lineupIndex);
+    const role = String(
+      r?.lineupRole ||
+      r?.selectionRole ||
+      ''
+    ).toLowerCase();
+    const status = String(
+      r?.displayStatus ||
+      ''
+    ).toUpperCase();
 
-    if(Number.isFinite(jersey) && jersey >= 1 && jersey <= 13 && role !== 'starter') return true;
-    if(Number.isFinite(jersey) && jersey >= 14 && jersey <= 17 && role !== 'interchange') return true;
-    if(Number.isFinite(jersey) && jersey >= 1 && jersey <= 17 && status !== STATUS.NAMED) return true;
-    if(Number.isFinite(jersey) && jersey >= 18 && role !== 'extended') return true;
-    if(status === STATUS.NOT_NAMED && ['starter','interchange'].includes(role)) return true;
+    const hasStructuredPlacement =
+      r?.structuredSnapshot === true &&
+      Number.isInteger(lineupIndex) &&
+      lineupIndex >= 1;
+
+    // A complete structured snapshot derives playing role from ordered
+    // lineup placement. Jersey remains the shirt number and can differ
+    // after late replacements or positional changes.
+    if(hasStructuredPlacement){
+      if(
+        lineupIndex <= 13 &&
+        role !== 'starter'
+      ){
+        return true;
+      }
+
+      if(
+        lineupIndex >= 14 &&
+        lineupIndex <= 17 &&
+        role !== 'interchange'
+      ){
+        return true;
+      }
+
+      if(
+        lineupIndex <= 17 &&
+        status !== STATUS.NAMED
+      ){
+        return true;
+      }
+
+      if(
+        lineupIndex >= 18 &&
+        role !== 'extended'
+      ){
+        return true;
+      }
+
+      if(
+        status === STATUS.NOT_NAMED &&
+        ['starter','interchange'].includes(role)
+      ){
+        return true;
+      }
+
+      return false;
+    }
+
+    // Fallback sources without structured placement retain the existing
+    // jersey-based safety validation.
+    if(
+      Number.isFinite(jersey) &&
+      jersey >= 1 &&
+      jersey <= 13 &&
+      role !== 'starter'
+    ){
+      return true;
+    }
+
+    if(
+      Number.isFinite(jersey) &&
+      jersey >= 14 &&
+      jersey <= 17 &&
+      role !== 'interchange'
+    ){
+      return true;
+    }
+
+    if(
+      Number.isFinite(jersey) &&
+      jersey >= 1 &&
+      jersey <= 17 &&
+      status !== STATUS.NAMED
+    ){
+      return true;
+    }
+
+    if(
+      Number.isFinite(jersey) &&
+      jersey >= 18 &&
+      role !== 'extended'
+    ){
+      return true;
+    }
+
+    if(
+      status === STATUS.NOT_NAMED &&
+      ['starter','interchange'].includes(role)
+    ){
+      return true;
+    }
 
     return false;
   });
 
   if(impossibleLineupConflicts.length){
     const sample = impossibleLineupConflicts.slice(0,10).map(([n,r]) =>
-      n+': jersey '+r.jersey+', status '+r.displayStatus+', role '+(r.lineupRole || r.selectionRole || '')
+      n+
+      ': jersey '+r.jersey+
+      ', status '+r.displayStatus+
+      ', role '+(r.lineupRole || r.selectionRole || '')+
+      ', lineupIndex '+(r.lineupIndex ?? '')+
+      ', structuredSnapshot '+String(r.structuredSnapshot === true)+
+      ', selectionStatus '+(r.selectionStatus || '')+
+      ', reason '+(r.reason || '')
     ).join('; ');
     throw new Error('Team-list arbitration invariant failed: impossible jersey/status/role state: '+sample);
   }
@@ -2558,8 +2976,25 @@ async function main(){
   console.log(JSON.stringify({ok:true, round, players:players.length, teamlistsLoaded, summary, newChanges:newChanges.length, warnings:truth.dataHealth.warnings}, null, 2));
 }
 
-main().catch(err => {
-  console.error('[fatal] update-status.mjs failed');
-  console.error(err.stack || err.message || err);
-  process.exit(1);
-});
+export {
+  parseTeamSectionsFromPage,
+  fromKnownPlayerJerseyPatterns,
+  fromFetchedTeamlists,
+  combineTruth,
+  stripHtmlLite,
+  normName,
+  playerTeam,
+  lineupRoleForIndex
+};
+
+const isDirectRun =
+  Boolean(process.argv[1]) &&
+  import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+
+if(isDirectRun){
+  main().catch(err => {
+    console.error('[fatal] update-status.mjs failed');
+    console.error(err.stack || err.message || err);
+    process.exit(1);
+  });
+}
