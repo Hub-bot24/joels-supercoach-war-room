@@ -1128,10 +1128,47 @@ function lineupRoleForIndex(index){
 }
 
 function lineupRoleFromOfficialNrlRole(role, jersey){
-  // Official NRL jersey numbering is the authoritative lineup contract:
-  // 1-13 starter, 14-17 interchange, 18+ extended.
-  // Source role wording such as "replacement" must not override the jersey.
-  return lineupRoleForIndex(jersey);
+  const number = Number(jersey || 0);
+  const value = norm(role);
+
+  // Core invariant: jerseys 18+ are extended squad entries.
+  // Role text must never promote them to NAMED.
+  if(number >= 18){
+    return 'extended';
+  }
+
+  if(value === 'interchange' || value === 'bench'){
+    return 'interchange';
+  }
+
+  if(
+    value === 'reserve' ||
+    value === 'extended' ||
+    value === 'replacement'
+  ){
+    return 'extended';
+  }
+
+  const starterRoles = new Set([
+    'fullback',
+    'wing',
+    'winger',
+    'centre',
+    'center',
+    'five eighth',
+    'halfback',
+    'prop',
+    'hooker',
+    'second row',
+    '2nd row',
+    'lock'
+  ]);
+
+  if(starterRoles.has(value)){
+    return 'starter';
+  }
+
+  return lineupRoleForIndex(number);
 }
 
 function statusForLineupRole(role){
