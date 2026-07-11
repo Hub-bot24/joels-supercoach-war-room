@@ -222,13 +222,13 @@ test('production parser preserves isolated structured snapshots', () => {
   const homeRows = withLineupPlacement(
     parseHomeRows(
       tableBlock('teamlist-players-home')
-    ).filter(isFixturePlayerRow)
+    )
   );
 
   const awayRows = withLineupPlacement(
     parseAwayRows(
       tableBlock('teamlist-players-away')
-    ).filter(isFixturePlayerRow)
+    )
   );
 
   // Fixture-only identities. These are not production overrides.
@@ -302,13 +302,13 @@ test('production arbitration accepts structured replacement starters', () => {
   const homeRows = withLineupPlacement(
     parseHomeRows(
       tableBlock('teamlist-players-home')
-    ).filter(isFixturePlayerRow)
+    )
   );
 
   const awayRows = withLineupPlacement(
     parseAwayRows(
       tableBlock('teamlist-players-away')
-    ).filter(isFixturePlayerRow)
+    )
   );
 
   // Fixture identities only. No production player overrides.
