@@ -1,35 +1,8 @@
 {
-  "updated": "2026-07-12T15:03:36.051650+00:00",
+  "updated": "2026-07-12T17:06:23.991159+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
-    {
-      "round": 19,
-      "match": "Sea Eagles v Cowboys",
-      "homeTeam": "MAN",
-      "awayTeam": "NQC",
-      "venue": "4 Pines Park",
-      "kickoffLocal": "2026-07-12T16:05:00",
-      "city": "Brookvale",
-      "lat": -33.76,
-      "lon": 151.269,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-07-12T15:35:00",
-        "to": "2026-07-12T17:55:00",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "label": "Unknown",
-        "score": 0,
-        "reasons": [
-          "No hourly forecast available"
-        ],
-        "captainImpact": "Unknown weather risk."
-      }
-    },
     {
       "round": 19,
       "match": "Storm v Titans",
