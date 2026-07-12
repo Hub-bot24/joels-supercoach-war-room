@@ -1,10 +1,7 @@
 # SuperCoach War Room status changes — Round 19
 
-Detected: 2026-07-12T08:38:56.781Z
+Detected: 2026-07-12T11:34:00.349Z
 
-- **Davvy Moale** (MEL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Lachlan Ilias** (GLD): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
+- **Jack Hetherington** (MEL): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 16).
+  - Source: Official NRL, Zero Tackle

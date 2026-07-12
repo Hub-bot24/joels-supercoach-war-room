@@ -1,6 +1,34 @@
 {
-  "updated": "2026-07-12T10:14:52.505Z",
+  "updated": "2026-07-12T11:34:00.349Z",
   "round": 19,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Jack Hetherington",
+      "team": "MEL",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 16).",
+      "detectedAt": "2026-07-12T11:34:00.349Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/07/nrl-team-lists-round-19",
+          "updatedAt": "2026-07-12T11:34:00.349Z",
+          "priority": 2,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-storm-titans-10396475-235813",
+          "updatedAt": "2026-07-12T11:34:00.349Z",
+          "priority": 4,
+          "order": 4
+        }
+      ],
+      "round": 19
+    }
+  ],
   "allChangeCount": 500
 }
