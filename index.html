@@ -5560,6 +5560,12 @@ function renderTeam(){
   const state=teamRenderState();
   saveLocal({touch:false,cloud:false});
   $('team').innerHTML=mobileTeamHtml(state);
+
+  if(App.teamActionMode||App.selectedTeamSlot||App.selectedReserveTradeName){
+    renderTeamActionPanelOnly();
+  }else{
+    document.getElementById("teamActionPanel")?.remove();
+  }
 }
 function datalists(){return `<datalist id="teamDataList">${App.myTeam.map(n=>`<option value="${esc(n)}">`).join('')}</datalist><datalist id="allDataList">${App.players.map(p=>`<option value="${esc(p.name)}">`).join('')}</datalist>`}
 function fieldLabels(){return `<div class="row-label lbl-hok">HOOKER<br>HOK</div><div class="row-label lbl-frf">FRONT ROW<br>FRF</div><div class="row-label lbl-2rf">2ND ROW<br>2RF</div><div class="row-label lbl-halves">HALVES<br>HFB / 5-8</div><div class="row-label lbl-ctw">CENTRES / WINGS<br>CTW</div><div class="row-label lbl-flb">FULLBACK<br>FLB</div>`}
@@ -5807,7 +5813,6 @@ function mobileTeamHtml(state=teamRenderState()){
   </div>
   <div class="wr-freshness-row">${dataFreshnessControlHtml()}</div>
   ${authPanelHtml()}
-  ${(App.teamActionMode||App.selectedTeamSlot||App.selectedReserveTradeName) ? '<div id="teamActionPanel" class="small wr-action-panel">'+teamActionHtml()+'</div>' : ''}
   <div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot)}</main>${formationReservesHtml(state)}</div>
   <div class="wr-status-legend"><span><i class="status-dot"></i> Available</span><span><i class="status-dot warn"></i> Risk</span><span><i class="status-dot bad"></i> Out</span><span><i class="status-dot bye"></i> Bye</span></div>
  </div>`;
@@ -6145,14 +6150,17 @@ function selectTeamSlot(slotId){const p=getPlayer(App.lineup?.[slotId]);if(p)ope
 function selectReservePlayer(name){const p=getPlayer(name);if(p)openPlayerCard(p.name)}
 function renderTeamActionPanelOnly(){
  let panel=document.getElementById("teamActionPanel");
+
  if(!panel){
   panel=document.createElement("div");
   panel.id="teamActionPanel";
   panel.className="small wr-action-panel";
-  const layout=document.querySelector("#team .formation-layout");
-  if(layout&&layout.parentNode)layout.parentNode.insertBefore(panel,layout);
-  else $("team")?.appendChild(panel);
  }
+
+ if(panel.parentElement!==document.body){
+  document.body.appendChild(panel);
+ }
+
  panel.innerHTML=teamActionHtml();
 }
 
