@@ -3550,6 +3550,29 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 }
 
 </style>
+<style>
+.status-indicators{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  vertical-align:middle;
+}
+.interchange-alert{
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  display:inline-grid;
+  place-items:center;
+  box-sizing:border-box;
+  background:#f97316;
+  color:#fff;
+  border:2px solid #fdba74;
+  font-size:11px;
+  font-weight:1000;
+  line-height:1;
+  box-shadow:0 0 0 2px rgba(249,115,22,.18);
+}
+</style>
 
 </head>
 <body>
@@ -4632,7 +4655,16 @@ function statusBadgeForPlayer(p,round=App.round){
  const reason=st?.reason||`${label} status for Round ${requested}`;
  return {...source,colourName,label,round:requested,reason,key:displayKey,cls,category,text:`${colourName} · ${label} · Round ${requested}`,available:!!st?.available,raw:st};
 }
-function statusDot(p){const badge=statusBadgeForPlayer(p);return `<span class="status-dot ${statusDotClass({key:badge.key})}" title="${esc(badge.reason||badge.text)}"></span>`}
+function interchangeIndicator(p){
+ const truth=typeof wrTruth==='function'?(wrTruth(p)||{}):{};
+ const role=String(truth?.lineupRole||truth?.selectionRole||'').toLowerCase();
+ if(role!=='interchange')return '';
+ return `<span class="interchange-alert" title="Named on interchange" aria-label="Named on interchange">!</span>`;
+}
+function statusDot(p){
+ const badge=statusBadgeForPlayer(p);
+ return `<span class="status-indicators"><span class="status-dot ${statusDotClass({key:badge.key})}" title="${esc(badge.reason||badge.text)}"></span>${interchangeIndicator(p)}</span>`;
+}
 function statusPill(p,round=App.round){const badge=statusBadgeForPlayer(p,round);const source=badge.sourceLabel?` Source: ${badge.sourceLabel}`:'';const colour={GREEN:'var(--good)',YELLOW:'var(--warn)',ORANGE:'#f97316',GREY:'#94a3b8',RED:'var(--bad)',PINK:'#ec4899',PURPLE:'var(--bye)'}[badge.colourName]||'var(--muted)';return `<span class="pill ${badge.cls}" style="border-color:${colour};color:${colour}" title="${esc(`${badge.reason||''}${source}`.trim())}">${esc(badge.text)}</span>`}
 function getPlayerNextWeather(player){const st=availabilityStatus(player);if(st.key==='bye')return null;const team=String(player?.team||player?.club||'').toUpperCase().trim();if(!team)return null;const now=Date.now()-3*60*60*1000;return (App.weather?.matches||[]).filter(m=>m?.kickoffLocal&&(String(m.homeTeam||'').toUpperCase()===team||String(m.awayTeam||'').toUpperCase()===team)).filter(m=>{const t=new Date(m.kickoffLocal).getTime();return Number.isFinite(t)&&t>=now}).sort((a,b)=>new Date(a.kickoffLocal)-new Date(b.kickoffLocal))[0]||null}
 function weatherHours(match){return Array.isArray(match?.gameWindowWeather)?match.gameWindowWeather:[]}
@@ -5639,8 +5671,8 @@ function formationSlot(slotId,gridArea){
     <span>${avg?`AVG ${Math.round(avg)}`:''}</span>
    </div>
    ${projectionBoxHtml(p)}
-   <span class="status-dot ${cls}" title="${esc(st.reason||st.label||'')}" aria-label="${esc(st.label||'status')}"></span>
-   <div class="wr-card-footer"><span class="status-dot ${cls}" title="${esc(st.reason)}"></span><span>${esc(st.label)}</span><span>R${App.round}${opp?' · '+opp:''}</span></div>
+   ${statusDot(p)}
+   <div class="wr-card-footer">${statusDot(p)}<span>${esc(st.label)}</span><span>R${App.round}${opp?' · '+opp:''}</span></div>
   </div>
  </div>`;
 }
@@ -5669,7 +5701,7 @@ function formationReserveCard(p,idx=0,slotId=""){
   </div>
   <div class="formation-reserve-score">${pr.expected}</div>
   ${projectionBoxHtml(p)}
-  <span class="status-dot ${cls}" title="${esc(st.reason)}"></span>
+  ${statusDot(p)}
  </div>`;
 }
 function emptyFormationReserveCard(slotId,idx=0){
@@ -5949,6 +5981,7 @@ async function openPlayerCard(name){
   const fieldSlot=Object.keys(App.lineup||{}).find(k=>App.lineup[k]===p.name);
   const inMyTeam=App.myTeam.includes(p.name);
   const slotLabel=fieldSlot ? (slotById[fieldSlot]?.short||"FIELD") : (inMyTeam ? "RES" : "PLAYER");
+
   const posList=(typeof positions==='function'?positions(p):[]).filter(Boolean);
   const pos=esc((posList.length?posList.join('/'):(p.pos||p.position||slotLabel||""))||slotLabel);
   const team=esc(p.team||"SC");
@@ -6351,6 +6384,8 @@ window.openPlayerCard = function(name){
   const be = safeNum(p.breakeven ?? p.breakEven ?? p.BE ?? p.be) || "-";
   const avg = safeNum(p.avg ?? p.average ?? p.seasonAvg) || "-";
   const jersey = truth.jersey || p.jersey || "-";
+  const lineupRole=String(truth?.lineupRole||truth?.selectionRole||"").toLowerCase();
+  const teamListRoleLabel=lineupRole==="interchange" ? "Interchange" : slotLabel;
   const team = esc(p.team || p.club || "SC");
   const rating = Math.max(0, Math.round(Number(pr.expected || 0) || 0));
   const photo = typeof wrCardPlayerPhotoUrl === "function" ? wrCardPlayerPhotoUrl(p) : "";
@@ -6396,7 +6431,7 @@ window.openPlayerCard = function(name){
         <div style="font-size:43px;font-weight:1000;line-height:.9;margin-top:8px;text-transform:uppercase">${esc(p.name)}</div>
         <div style="font-size:31px;font-weight:950;margin-top:12px;color:#fff">${esc(posText)}</div>
         <div style="margin-top:12px;display:flex;align-items:center;gap:9px">${teamBadge}<span style="font-size:22px;font-weight:950;padding:5px 10px;border-radius:10px;background:rgba(255,255,255,.20)">${team}</span></div>
-        <div style="font-size:16px;font-weight:900;margin-top:10px;color:#dbeafe">${esc(slotLabel)} - R${esc(App.round)} - Jersey ${esc(jersey)}</div>
+        <div style="font-size:16px;font-weight:900;margin-top:10px;color:#dbeafe;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span>${esc(teamListRoleLabel)} · R${esc(App.round)} · Jersey ${esc(jersey)}</span>${statusDot(p)}</div>
       </div>
 
       <div style="position:absolute;right:20px;top:62px;z-index:2;width:305px;height:350px;display:flex;align-items:flex-end;justify-content:center">
