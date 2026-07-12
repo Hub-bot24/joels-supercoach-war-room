@@ -1,43 +1,5 @@
 [
   {
-    "player": "Cody Ramsey",
-    "team": "SYD",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
-    "detectedAt": "2026-07-10T06:32:30.977Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/updated-team-lists-dolphins-vs-roosters-10396427-234728",
-        "updatedAt": "2026-07-10T06:32:30.977Z",
-        "priority": 4,
-        "order": 5
-      }
-    ],
-    "round": 19
-  },
-  {
-    "player": "Cody Walker",
-    "team": "STH",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
-    "detectedAt": "2026-07-10T06:32:30.977Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-vs-broncos-10396426-234700",
-        "updatedAt": "2026-07-10T06:32:30.977Z",
-        "priority": 4,
-        "order": 6
-      }
-    ],
-    "round": 19
-  },
-  {
     "player": "Edward Kosi",
     "team": "STH",
     "from": "EXPECTED",
@@ -9745,6 +9707,40 @@
         "updatedAt": "2026-07-12T06:20:56.746Z",
         "priority": 4,
         "order": 7
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Davvy Moale",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-12T08:38:56.781Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "",
+        "updatedAt": "2026-07-12T08:38:56.781Z"
+      }
+    ],
+    "round": 19
+  },
+  {
+    "player": "Lachlan Ilias",
+    "team": "GLD",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-12T08:38:56.781Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "",
+        "updatedAt": "2026-07-12T08:38:56.781Z"
       }
     ],
     "round": 19
