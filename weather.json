@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-13T19:42:42.182699+00:00",
+  "updated": "2026-07-13T21:04:02.722912+00:00",
   "source": "Open-Meteo hourly forecast API",
   "note": "Weather covers pre-game through full game window. Forecast updates when workflow runs.",
   "matches": [
@@ -510,6 +510,65 @@
           "strong wind/gusts"
         ],
         "captainImpact": "Moderate weather risk over game window. Be careful with backs as C/VC unless chasing POD upside."
+      }
+    },
+    {
+      "round": 21,
+      "match": "Eels v Panthers",
+      "homeTeam": "PAR",
+      "awayTeam": "PEN",
+      "venue": "Commbank Stadium",
+      "kickoffLocal": "2026-07-23T19:50:00",
+      "city": "Parramatta",
+      "lat": -33.8081,
+      "lon": 150.999,
+      "timezone": "Australia/Sydney",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-07-23T19:20:00",
+        "to": "2026-07-23T21:40:00",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-07-23T20:00",
+          "phase": "first_half",
+          "temperature_2m": 15.3,
+          "precipitation_probability": 9,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 8.7,
+          "wind_gusts_10m": 25.9
+        },
+        {
+          "time": "2026-07-23T21:00",
+          "phase": "second_half",
+          "temperature_2m": 13.8,
+          "precipitation_probability": 9,
+          "precipitation_mm": 0.0,
+          "wind_speed_10m": 10.5,
+          "wind_gusts_10m": 25.6
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 0,
+        "maxRainProbability": 9.0,
+        "totalGameRainMm": 0.0,
+        "maxWindKmh": 10.5,
+        "maxGustKmh": 25.9,
+        "avgTemp": 14.6,
+        "phaseRisk": {
+          "first_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          },
+          "second_half": {
+            "avgScore": 0,
+            "maxScore": 0
+          }
+        },
+        "reasons": [],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
       }
     }
   ]
