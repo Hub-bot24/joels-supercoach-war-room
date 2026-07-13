@@ -814,7 +814,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 #team .wr-metric b{font-size:31px!important;white-space:nowrap!important}
 #team .wr-top-actions{padding:10px!important}
 #team .wr-top-actions button{padding:9px 12px!important;font-size:16px!important}
-#team .wr-action-panel{position:fixed!important;left:50%!important;bottom:10px!important;transform:translateX(-50%)!important;z-index:9999!important;margin:0!important;max-width:92vw!important}
+#team .wr-action-panel{position:fixed!important;left:50%!important;bottom:43px!important;transform:translateX(-50%)!important;z-index:9999!important;margin:0!important;max-width:92vw!important}
 #team .formation-layout{flex:1 1 auto!important;min-height:0!important;height:auto!important;display:grid!important;grid-template-columns:minmax(0,1.65fr) minmax(360px,.92fr)!important;gap:8px!important;margin:0!important;align-items:stretch!important;overflow:hidden!important}
 #team .formation-layout main{min-width:0!important;min-height:0!important;height:100%!important;overflow:hidden!important}
 #team .formation-field{height:100%!important;min-height:0!important;max-height:none!important;padding:22px 26px 16px!important;border-radius:0!important;overflow:hidden!important;background:radial-gradient(circle at 50% 0%,rgba(255,255,255,.13),transparent 20%),radial-gradient(circle at 50% 48%,rgba(45,255,70,.22),transparent 39%),linear-gradient(180deg,#07131d 0,#073819 48%,#04200d 100%)!important}
@@ -3527,16 +3527,212 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 /* =========================================================
    CORE FIX: My Team player-photo card skin
-   Generic renderer only. No player-specific hard fixes.
+   Full-width field with clean player cutouts.
+   Generic only. No player-specific fixes.
    ========================================================= */
-#team.active-tab .wr-player-photo,
-#team.active-tab .wr-player-photo.team-logo-img{
+
+/* Remove the inherited 1180px page cap */
+#team.active-tab .mobile-team-layout.formation-page,
+#team.active-tab .wr-team-room{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+}
+
+/* Field takes everything except the narrow reserve column */
+#team.active-tab .formation-layout{
+  width:100%!important;
+  grid-template-columns:minmax(0,1fr) 280px!important;
+  gap:8px!important;
+  align-items:stretch!important;
+}
+
+#team.active-tab .formation-layout main{
+  min-width:0!important;
+  width:100%!important;
+}
+
+#team.active-tab .wr-reserve-panel,
+#team.active-tab .formation-reserves{
+  width:280px!important;
+  min-width:280px!important;
+  max-width:280px!important;
+  justify-self:end!important;
+  margin-left:auto!important;
+}
+
+#team.active-tab .formation-field{
+  width:100%!important;
+  height:100%!important;
+  padding:8px 6px 5px!important;
+}
+
+#team.active-tab .formation-grid{
+  width:100%!important;
+  height:100%!important;
+  align-content:stretch!important;
+  justify-items:stretch!important;
+}
+
+#team.active-tab .formation-slot{
+  position:relative!important;
+  width:100%!important;
+  max-width:none!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  overflow:visible!important;
+}
+
+/* No card box */
+#team.active-tab .formation-card:not(.formation-empty){
+  position:relative!important;
+  width:190px!important;
+  min-width:190px!important;
+  max-width:190px!important;
+  height:170px!important;
+  min-height:170px!important;
+  max-height:170px!important;
+  margin:auto!important;
+  padding:0!important;
+  overflow:visible!important;
+  border:0!important;
+  border-radius:0!important;
+  outline:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/* Bigger player cutout */
+#team.active-tab .formation-card:not(.formation-empty) .wr-player-photo,
+#team.active-tab .formation-card:not(.formation-empty) .wr-player-photo.team-logo-img{
+  position:absolute!important;
+  z-index:3!important;
+  left:50%!important;
+  bottom:27px!important;
+  transform:translateX(-50%)!important;
+  display:block!important;
+  width:116px!important;
+  height:112px!important;
+  min-width:116px!important;
+  min-height:112px!important;
+  max-width:116px!important;
+  max-height:112px!important;
+  padding:0!important;
+  margin:0!important;
+  overflow:visible!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+#team.active-tab .formation-card:not(.formation-empty) .wr-player-photo img,
+#team.active-tab .formation-card:not(.formation-empty) .wr-player-photo.team-logo-img img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  padding:0!important;
+  margin:0!important;
+  object-fit:contain!important;
+  object-position:center bottom!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  filter:drop-shadow(0 6px 5px rgba(0,0,0,.72))!important;
+}
+
+/* Position directly beneath player */
+#team.active-tab .formation-card:not(.formation-empty) .wr-slot-tag{
+  position:absolute!important;
+  left:auto!important;
+  right:7px!important;
+  top:32px!important;
+  bottom:auto!important;
+  transform:none!important;
+  margin:0!important;
+  padding:1px 6px!important;
+  font-size:11px!important;
+  line-height:1!important;
+  border-radius:999px!important;
+  white-space:nowrap!important;
+  z-index:12!important;
+}
+
+/* Full player name beneath position */
+#team.active-tab .formation-card:not(.formation-empty) .formation-name{
+  position:absolute!important;
+  left:50%!important;
+  bottom:30px!important;
+  transform:translateX(-50%)!important;
+  display:block!important;
+  width:max-content!important;
+  max-width:175px!important;
+  margin:0!important;
+  padding:1px 7px!important;
+  font-size:13px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  text-align:center!important;
+  white-space:nowrap!important;
   overflow:hidden!important;
-  border-radius:14px!important;
+  text-overflow:ellipsis!important;
+  color:#fff!important;
+  text-shadow:0 2px 4px #000!important;
+  z-index:12!important;
+}
+
+/* Projection stays on right shoulder */
+#team.active-tab .formation-card:not(.formation-empty) .formation-score{
+  position:absolute!important;
+  left:7px!important;
+  right:auto!important;
+  top:27px!important;
+  bottom:auto!important;
+  transform:none!important;
+  margin:0!important;
+  padding:0!important;
+  font-size:24px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  color:#fff!important;
+  text-shadow:0 2px 5px #000!important;
+  z-index:12!important;
+}
+
+/* Status stays on opposite shoulder */
+#team.active-tab .formation-card:not(.formation-empty) > .status-dot{
+  position:absolute!important;
+  left:15px!important;
+  right:auto!important;
+  top:55px!important;
+  bottom:auto!important;
+  width:10px!important;
+  height:10px!important;
+  margin:0!important;
+  z-index:13!important;
+}
+
+/* Hide remaining card information */
+#team.active-tab .formation-card:not(.formation-empty) .formation-meta,
+#team.active-tab .formation-card:not(.formation-empty) .projection-box,
+#team.active-tab .formation-card:not(.formation-empty) .wr-card-footer,
+#team.active-tab .formation-card:not(.formation-empty) .formation-actions,
+#team.active-tab .formation-card:not(.formation-empty) .formation-pos{
+  display:none!important;
+}
+
+/* Preserve compact reserve photos */
+#team.active-tab .formation-reserve-card .wr-player-photo,
+#team.active-tab .formation-reserve-card .wr-player-photo.team-logo-img{
+  overflow:hidden!important;
+  border-radius:12px!important;
   background:#10213a!important;
 }
-#team.active-tab .wr-player-photo img,
-#team.active-tab .wr-player-photo.team-logo-img img{
+
+#team.active-tab .formation-reserve-card .wr-player-photo img,
+#team.active-tab .formation-reserve-card .wr-player-photo.team-logo-img img{
   display:block!important;
   width:100%!important;
   height:100%!important;
@@ -3544,11 +3740,604 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   object-position:center top!important;
   border-radius:inherit!important;
 }
-#team.active-tab .formation-reserve-card .wr-player-photo,
-#team.active-tab .formation-reserve-card .wr-player-photo.team-logo-img{
-  border-radius:12px!important;
+
+@media (orientation:landscape) and (max-height:700px){
+  #team.active-tab .formation-layout{
+    grid-template-columns:minmax(0,1fr) 250px!important;
+  }
+
+  #team.active-tab .wr-reserve-panel,
+  #team.active-tab .formation-reserves{
+    width:250px!important;
+    min-width:250px!important;
+    max-width:250px!important;
+  }
+
+  #team.active-tab .formation-card:not(.formation-empty) .wr-player-photo,
+  #team.active-tab .formation-card:not(.formation-empty) .wr-player-photo.team-logo-img{
+    width:92px!important;
+    height:86px!important;
+    min-width:92px!important;
+    min-height:86px!important;
+    max-width:92px!important;
+    max-height:86px!important;
+    bottom:23px!important;
+  }
+
+  #team.active-tab .formation-card:not(.formation-empty) .formation-score{
+  position:absolute!important;
+  left:7px!important;
+  right:auto!important;
+  top:27px!important;
+  bottom:auto!important;
+  transform:none!important;
+  margin:0!important;
+  padding:0!important;
+  font-size:24px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  color:#fff!important;
+  text-shadow:0 2px 5px #000!important;
+  z-index:12!important;
 }
 
+  #team.active-tab .formation-card:not(.formation-empty) > .status-dot{
+  position:absolute!important;
+  left:15px!important;
+  right:auto!important;
+  top:55px!important;
+  bottom:auto!important;
+  width:10px!important;
+  height:10px!important;
+  margin:0!important;
+  z-index:13!important;
+}
+
+  #team.active-tab .formation-card:not(.formation-empty) .wr-slot-tag{
+  position:absolute!important;
+  left:auto!important;
+  right:7px!important;
+  top:32px!important;
+  bottom:auto!important;
+  transform:none!important;
+  margin:0!important;
+  padding:1px 6px!important;
+  font-size:11px!important;
+  line-height:1!important;
+  border-radius:999px!important;
+  white-space:nowrap!important;
+  z-index:12!important;
+}
+
+  #team.active-tab .formation-card:not(.formation-empty) .formation-name{
+  position:absolute!important;
+  left:50%!important;
+  bottom:30px!important;
+  transform:translateX(-50%)!important;
+  display:block!important;
+  width:max-content!important;
+  max-width:175px!important;
+  margin:0!important;
+  padding:1px 7px!important;
+  font-size:13px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  color:#fff!important;
+  text-shadow:0 2px 4px #000!important;
+  z-index:12!important;
+}
+}
+
+/* =========================================================
+   CORE FIX: CANONICAL 14-PLAYER FORMATION MAP
+   Single final owner. Overrides all obsolete grid maps.
+   ========================================================= */
+
+#team.active-tab .formation-grid{
+  position:relative!important;
+  display:grid!important;
+  width:100%!important;
+  height:100%!important;
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  grid-template-rows:repeat(6,minmax(0,1fr))!important;
+  gap:4px 8px!important;
+  align-items:stretch!important;
+  justify-items:stretch!important;
+  align-content:stretch!important;
+  overflow:visible!important;
+}
+
+#team.active-tab .formation-slot{
+  position:relative!important;
+  left:auto!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:auto!important;
+  transform:none!important;
+  width:100%!important;
+  max-width:none!important;
+  height:100%!important;
+  min-height:0!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:visible!important;
+}
+
+/* Front row */
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FRF1"]){
+  grid-area:1 / 1 / 2 / 4!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="HOK1"]){
+  grid-area:1 / 5 / 2 / 9!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FRF2"]){
+  grid-area:1 / 10 / 2 / 13!important;
+}
+
+/* Second row */
+#team.active-tab .formation-slot:has(.formation-card[data-slot="2RF1"]){
+  grid-area:2 / 2 / 3 / 5!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="2RF3"]){
+  grid-area:2 / 5 / 3 / 9!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="2RF2"]){
+  grid-area:2 / 9 / 3 / 12!important;
+}
+
+/* Halves */
+#team.active-tab .formation-slot:has(.formation-card[data-slot="HFB1"]){
+  grid-area:3 / 3 / 4 / 6!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FE1"]){
+  grid-area:3 / 8 / 4 / 11!important;
+}
+
+/* Centres and wings */
+#team.active-tab .formation-slot:has(.formation-card[data-slot="CTW1"]){
+  grid-area:4 / 1 / 5 / 4!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="CTW2"]){
+  grid-area:4 / 4 / 5 / 7!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="CTW3"]){
+  grid-area:4 / 7 / 5 / 10!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="CTW4"]){
+  grid-area:4 / 10 / 5 / 13!important;
+}
+
+/* Fullback and flex */
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FLB1"]){
+  grid-area:5 / 3 / 6 / 7!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FLEX1"]){
+  grid-area:5 / 7 / 6 / 11!important;
+}
+
+/* Larger player cutouts now that spacing is controlled */
+#team.active-tab .formation-card:not(.formation-empty) .wr-player-photo,
+#team.active-tab .formation-card:not(.formation-empty) .wr-player-photo.team-logo-img{
+  width:138px!important;
+  height:126px!important;
+  min-width:138px!important;
+  min-height:126px!important;
+  max-width:138px!important;
+  max-height:126px!important;
+  bottom:29px!important;
+}
+
+#team.active-tab .formation-card:not(.formation-empty) .formation-score{
+  position:absolute!important;
+  left:7px!important;
+  right:auto!important;
+  top:27px!important;
+  bottom:auto!important;
+  transform:none!important;
+  margin:0!important;
+  padding:0!important;
+  font-size:24px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  color:#fff!important;
+  text-shadow:0 2px 5px #000!important;
+  z-index:12!important;
+}
+
+#team.active-tab .formation-card:not(.formation-empty) > .status-dot{
+  position:absolute!important;
+  left:15px!important;
+  right:auto!important;
+  top:55px!important;
+  bottom:auto!important;
+  width:10px!important;
+  height:10px!important;
+  margin:0!important;
+  z-index:13!important;
+}
+
+#team.active-tab .formation-card:not(.formation-empty) .wr-slot-tag{
+  position:absolute!important;
+  left:auto!important;
+  right:7px!important;
+  top:32px!important;
+  bottom:auto!important;
+  transform:none!important;
+  margin:0!important;
+  padding:1px 6px!important;
+  font-size:11px!important;
+  line-height:1!important;
+  border-radius:999px!important;
+  white-space:nowrap!important;
+  z-index:12!important;
+}
+
+#team.active-tab .formation-card:not(.formation-empty) .formation-name{
+  position:absolute!important;
+  left:50%!important;
+  bottom:30px!important;
+  transform:translateX(-50%)!important;
+  display:block!important;
+  width:max-content!important;
+  max-width:175px!important;
+  margin:0!important;
+  padding:1px 7px!important;
+  font-size:13px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  color:#fff!important;
+  text-shadow:0 2px 4px #000!important;
+  z-index:12!important;
+}
+
+/* Keep bottom field area from being wasted */
+#team.active-tab .formation-grid::after{
+  content:""!important;
+  grid-area:6 / 1 / 7 / 13!important;
+  pointer-events:none!important;
+}
+
+@media (orientation:landscape) and (max-height:700px){
+  #team.active-tab .formation-grid{
+    grid-template-rows:repeat(5,minmax(0,1fr))!important;
+    gap:2px 7px!important;
+  }
+
+  #team.active-tab .formation-slot:has(.formation-card[data-slot="FLB1"]){
+    grid-area:5 / 3 / 6 / 7!important;
+  }
+
+  #team.active-tab .formation-slot:has(.formation-card[data-slot="FLEX1"]){
+    grid-area:5 / 7 / 6 / 11!important;
+  }
+
+  #team.active-tab .formation-card:not(.formation-empty) .wr-player-photo,
+  #team.active-tab .formation-card:not(.formation-empty) .wr-player-photo.team-logo-img{
+    width:112px!important;
+    height:100px!important;
+    min-width:112px!important;
+    min-height:100px!important;
+    max-width:112px!important;
+    max-height:100px!important;
+    bottom:24px!important;
+  }
+
+  #team.active-tab .formation-card:not(.formation-empty) .formation-score{
+  position:absolute!important;
+  left:7px!important;
+  right:auto!important;
+  top:27px!important;
+  bottom:auto!important;
+  transform:none!important;
+  margin:0!important;
+  padding:0!important;
+  font-size:24px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  color:#fff!important;
+  text-shadow:0 2px 5px #000!important;
+  z-index:12!important;
+}
+
+  #team.active-tab .formation-card:not(.formation-empty) > .status-dot{
+  position:absolute!important;
+  left:15px!important;
+  right:auto!important;
+  top:55px!important;
+  bottom:auto!important;
+  width:10px!important;
+  height:10px!important;
+  margin:0!important;
+  z-index:13!important;
+}
+}
+
+/* =========================================================
+   CORE FIX: FIELD PHOTO SCALE + SHOULDER LABEL TUNE
+   One player-relative unit for every starting player.
+   Score upper-left, position upper-right, dot below score,
+   name across lower-middle of jersey.
+   ========================================================= */
+
+#team.active-tab .formation-layout{
+  grid-template-columns:minmax(0,1fr) 310px!important;
+  gap:3px!important;
+}
+
+#team.active-tab .wr-reserve-panel,
+#team.active-tab .formation-reserves{
+  width:310px!important;
+  min-width:310px!important;
+  max-width:310px!important;
+  margin-left:auto!important;
+}
+
+#team.active-tab .formation-field{
+  padding:34px 6px 8px!important;
+}
+
+#team.active-tab .formation-grid{
+  width:100%!important;
+  height:100%!important;
+  display:grid!important;
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  grid-template-rows:repeat(5,minmax(0,1fr))!important;
+  gap:2px 4px!important;
+  align-content:stretch!important;
+  align-items:center!important;
+  justify-items:center!important;
+  overflow:visible!important;
+}
+
+#team.active-tab .formation-slot{
+  position:relative!important;
+  left:auto!important;
+  right:auto!important;
+  top:auto!important;
+  bottom:auto!important;
+  transform:none!important;
+  width:100%!important;
+  max-width:none!important;
+  height:100%!important;
+  min-height:0!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:visible!important;
+}
+
+/* Five-row formation */
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FRF1"]){
+  grid-area:1 / 1 / 2 / 4!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="HOK1"]){
+  grid-area:1 / 5 / 2 / 9!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FRF2"]){
+  grid-area:1 / 10 / 2 / 13!important;
+}
+
+#team.active-tab .formation-slot:has(.formation-card[data-slot="2RF1"]){
+  grid-area:2 / 2 / 3 / 5!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="2RF3"]){
+  grid-area:2 / 5 / 3 / 9!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="2RF2"]){
+  grid-area:2 / 9 / 3 / 12!important;
+}
+
+#team.active-tab .formation-slot:has(.formation-card[data-slot="HFB1"]){
+  grid-area:3 / 3 / 4 / 6!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FE1"]){
+  grid-area:3 / 8 / 4 / 11!important;
+}
+
+#team.active-tab .formation-slot:has(.formation-card[data-slot="CTW1"]){
+  grid-area:4 / 1 / 5 / 4!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="CTW2"]){
+  grid-area:4 / 4 / 5 / 7!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="CTW3"]){
+  grid-area:4 / 7 / 5 / 10!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="CTW4"]){
+  grid-area:4 / 10 / 5 / 13!important;
+}
+
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FLB1"]){
+  grid-area:5 / 3 / 6 / 7!important;
+}
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FLEX1"]){
+  grid-area:5 / 7 / 6 / 11!important;
+}
+
+/* One invisible player-relative unit */
+#team.active-tab .formation-card:not(.formation-empty){
+  position:relative!important;
+  width:190px!important;
+  min-width:190px!important;
+  max-width:190px!important;
+  height:170px!important;
+  min-height:170px!important;
+  max-height:170px!important;
+  margin:auto!important;
+  padding:0!important;
+  overflow:visible!important;
+  border:0!important;
+  border-radius:0!important;
+  outline:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/* Approved player size */
+#team.active-tab .formation-card:not(.formation-empty) .wr-player-photo,
+#team.active-tab .formation-card:not(.formation-empty) .wr-player-photo.team-logo-img{
+  position:absolute!important;
+  z-index:3!important;
+  left:50%!important;
+  bottom:0!important;
+  transform:translateX(-50%)!important;
+  display:block!important;
+  width:165px!important;
+  height:148px!important;
+  min-width:165px!important;
+  min-height:148px!important;
+  max-width:165px!important;
+  max-height:148px!important;
+  padding:0!important;
+  margin:0!important;
+  overflow:visible!important;
+  border:0!important;
+  border-radius:0!important;
+  outline:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+#team.active-tab .formation-card:not(.formation-empty) .wr-player-photo img,
+#team.active-tab .formation-card:not(.formation-empty) .wr-player-photo.team-logo-img img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  padding:0!important;
+  margin:0!important;
+  object-fit:contain!important;
+  object-position:center bottom!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  filter:drop-shadow(0 6px 5px rgba(0,0,0,.75))!important;
+}
+
+/* Projected score: upper-left shoulder */
+#team.active-tab .formation-card:not(.formation-empty) .formation-score{
+  position:absolute!important;
+  z-index:12!important;
+  left:calc(50% - 226px)!important;
+  right:auto!important;
+  top:32px!important;
+  bottom:auto!important;
+  transform:none!important;
+  margin:0!important;
+  padding:0!important;
+  font-size:24px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  color:#fff!important;
+  text-shadow:0 2px 5px #000!important;
+}
+
+/* Position: upper-right shoulder */
+#team.active-tab .formation-card:not(.formation-empty) .wr-slot-tag{
+  position:absolute!important;
+  z-index:12!important;
+  left:calc(50% - 75px)!important;
+  right:auto!important;
+  top:38px!important;
+  bottom:auto!important;
+  transform:none!important;
+  margin:0!important;
+  padding:1px 6px!important;
+  font-size:11px!important;
+  line-height:1!important;
+  border-radius:999px!important;
+  white-space:nowrap!important;
+}
+
+/* Status dot directly beneath projected score */
+#team.active-tab .formation-card:not(.formation-empty) > .status-indicators{
+  position:absolute!important;
+  z-index:13!important;
+  left:calc(50% - 138px)!important;
+  right:auto!important;
+  top:62px!important;
+  bottom:auto!important;
+  margin:0!important;
+}
+
+#team.active-tab .formation-card:not(.formation-empty) > .status-indicators > .status-dot{
+  position:static!important;
+  display:block!important;
+  width:10px!important;
+  height:10px!important;
+  margin:0!important;
+}
+
+/* Name across lower-middle of jersey */
+#team.active-tab .formation-card:not(.formation-empty) .formation-name{
+  position:absolute!important;
+  z-index:12!important;
+  left:calc(50% - 70px)!important;
+  bottom:-22px!important;
+  transform:translateX(-50%)!important;
+  display:block!important;
+  width:max-content!important;
+  max-width:174px!important;
+  margin:0!important;
+  padding:1px 7px!important;
+  font-size:13px!important;
+  line-height:1!important;
+  font-weight:950!important;
+  text-align:center!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  color:#fff!important;
+  text-shadow:0 2px 4px #000!important;
+}
+
+/* Remove all other starter-card chrome */
+#team.active-tab .formation-card:not(.formation-empty) .formation-meta,
+#team.active-tab .formation-card:not(.formation-empty) .projection-box,
+#team.active-tab .formation-card:not(.formation-empty) .wr-card-footer,
+#team.active-tab .formation-card:not(.formation-empty) .formation-actions,
+#team.active-tab .formation-card:not(.formation-empty) .formation-pos{
+  display:none!important;
+}
+
+/* Keep reserves unchanged */
+#team.active-tab .formation-reserve-card .wr-player-photo,
+#team.active-tab .formation-reserve-card .wr-player-photo.team-logo-img{
+  overflow:hidden!important;
+  border-radius:12px!important;
+  background:#10213a!important;
+}
+
+#team.active-tab .formation-reserve-card .wr-player-photo img,
+#team.active-tab .formation-reserve-card .wr-player-photo.team-logo-img img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center top!important;
+  border-radius:inherit!important;
+}
+
+/* MOVE COMPLETE STARTER UNIT UP */
+#team.active-tab .formation-card:not(.formation-empty){
+  top:-22px!important;
+}
+
+/* MIDDLE 2RF PLAYER SLOT DOWN */
+#team.active-tab .formation-slot:has(.formation-card[data-slot="2RF3"]){
+  transform:translateY(35px)!important;
+}
 </style>
 <style>
 .status-indicators{
