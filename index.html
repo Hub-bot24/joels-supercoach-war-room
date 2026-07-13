@@ -6579,8 +6579,10 @@ function emptyReserveTrade(slotId){
  if(!RESERVE_SLOT_IDS.includes(slotId))return toast("Invalid reserve slot");
  App.emptyReserveSlot=slotId;
  App.emptyReserveGroup="";
+ App.selectedTeamSlot="";
+ App.selectedReserveTradeName="";
  App.teamActionMode="emptyReserveTrade";
- renderTeam();
+ renderTeamActionPanelOnly();
 }
 function applyEmptyReserveTrade(slotId,name){
  const p=getPlayer(name);
