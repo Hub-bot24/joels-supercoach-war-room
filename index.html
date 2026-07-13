@@ -4336,7 +4336,68 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 /* MIDDLE 2RF PLAYER SLOT DOWN */
 #team.active-tab .formation-slot:has(.formation-card[data-slot="2RF3"]){
-  transform:translateY(35px)!important;
+  transform:translateY(50px)!important;
+}
+
+/* FLB1 HORIZONTAL ALIGNMENT */
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FLB1"]){
+  transform:translateX(285px)!important;
+}
+
+/* OUTER CTW SLOTS INWARD */
+#team.active-tab .formation-slot:has(.formation-card[data-slot="CTW1"]){
+  transform:translateX(110px)!important;
+}
+
+#team.active-tab .formation-slot:has(.formation-card[data-slot="CTW4"]){
+  transform:translateX(-110px)!important;
+}
+
+/* FLEX1 HORIZONTAL ALIGNMENT */
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FLEX1"]){
+  transform:translateX(560px)!important;
+}
+
+/* HALVES SLOTS INWARD */
+#team.active-tab .formation-slot:has(.formation-card[data-slot="HFB1"]){
+  transform:translate(105px,-20px)!important;
+}
+
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FE1"]){
+  transform:translate(-105px,-20px)!important;
+}
+
+/* SELECTED STARTERS DOWN */
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FRF1"]),
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FRF2"]),
+#team.active-tab .formation-slot:has(.formation-card[data-slot="2RF1"]),
+#team.active-tab .formation-slot:has(.formation-card[data-slot="2RF2"]){
+  transform:translateY(25px)!important;
+}
+
+/* FRONT ROW OUTER SLOTS INWARD */
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FRF1"]){
+  transform:translate(370px,70px)!important;
+}
+
+#team.active-tab .formation-slot:has(.formation-card[data-slot="FRF2"]){
+  transform:translate(-370px,70px)!important;
+}
+
+/* MAXIMISE MY TEAM VIEWPORT */
+#team.active-tab .wr-topbar{
+  display:none!important;
+}
+
+#team.active-tab .wr-team-room{
+  padding-top:0!important;
+  margin-top:0!important;
+  max-width:none!important;
+  width:100%!important;
+}
+
+#team.active-tab .formation-layout{
+  margin-top:0!important;
 }
 </style>
 <style>
