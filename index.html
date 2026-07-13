@@ -4399,7 +4399,69 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 #team.active-tab .formation-layout{
   margin-top:0!important;
 }
-</style>
+
+/* PREMIUM BROADCAST FIELD TYPOGRAPHY */
+#team.active-tab .formation-card:not(.formation-empty){
+  font-family:"Segoe UI Variable","Segoe UI",Arial,sans-serif!important;
+  font-variant-numeric:tabular-nums!important;
+}
+
+/* Projection: clean broadcast number */
+#team.active-tab .formation-card:not(.formation-empty) .formation-score{
+  font-family:"Segoe UI Variable Display","Segoe UI",Arial,sans-serif!important;
+  font-size:24px!important;
+  font-weight:850!important;
+  letter-spacing:-1px!important;
+  line-height:1!important;
+  color:#ffffff!important;
+  -webkit-text-stroke:0!important;
+  text-shadow:
+    0 2px 3px rgba(0,0,0,.95),
+    0 0 8px rgba(0,0,0,.45)!important;
+}
+
+/* Player name: compact premium nameplate */
+#team.active-tab .formation-card:not(.formation-empty) .formation-name{
+  font-family:"Segoe UI Variable Text","Segoe UI",Arial,sans-serif!important;
+  font-size:13px!important;
+  font-weight:750!important;
+  letter-spacing:-.15px!important;
+  line-height:1.1!important;
+  color:#f8fafc!important;
+  background:linear-gradient(
+    90deg,
+    rgba(2,6,23,0),
+    rgba(2,6,23,.82) 18%,
+    rgba(2,6,23,.82) 82%,
+    rgba(2,6,23,0)
+  )!important;
+  padding:3px 12px!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  -webkit-text-stroke:0!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.95)!important;
+  white-space:nowrap!important;
+}
+
+/* Position: restrained professional tag */
+#team.active-tab .formation-card:not(.formation-empty) .wr-slot-tag{
+  font-family:"Segoe UI Variable Text","Segoe UI",Arial,sans-serif!important;
+  font-size:9px!important;
+  font-weight:750!important;
+  letter-spacing:.35px!important;
+  line-height:1!important;
+  color:#e2e8f0!important;
+  background:rgba(5,10,22,.88)!important;
+  border:1px solid rgba(148,163,184,.38)!important;
+  border-radius:4px!important;
+  padding:3px 6px!important;
+  box-shadow:
+    0 2px 5px rgba(0,0,0,.45),
+    inset 0 1px rgba(255,255,255,.04)!important;
+  text-shadow:none!important;
+  text-transform:uppercase!important;
+}</style>
 <style>
 .status-indicators{
   display:inline-flex;
