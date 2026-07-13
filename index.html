@@ -3387,16 +3387,15 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 <style>
 /* =========================================================
-   CORE UI: APPROVED MY TEAM LAYOUT
-   Matches approved full-screen field and reserves design.
-   Display only. No app logic changed.
+   CORE UI: MAXIMUM MY TEAM LAYOUT
+   My Team display only.
+   No data, projection, status, position or trade logic changed.
    ========================================================= */
 
 #team.active-tab{
-  height:calc(100vh - 82px)!important;
-  min-height:680px!important;
+  height:calc(100vh - 74px)!important;
+  min-height:0!important;
   overflow:hidden!important;
-  padding:0!important;
 }
 
 #team.active-tab .wr-team-max-layout{
@@ -3404,15 +3403,15 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   height:100%!important;
   max-width:none!important;
   margin:0!important;
-  padding:18px 20px 16px!important;
+  padding:8px!important;
   box-sizing:border-box!important;
   overflow:hidden!important;
 }
 
 #team.active-tab .wr-team-max-layout .formation-layout{
   display:grid!important;
-  grid-template-columns:minmax(0,1fr) 370px!important;
-  gap:16px!important;
+  grid-template-columns:minmax(0,1fr) clamp(330px,21vw,410px)!important;
+  gap:10px!important;
   width:100%!important;
   height:100%!important;
   min-height:0!important;
@@ -3420,56 +3419,53 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 }
 
 #team.active-tab .wr-team-max-layout .formation-layout > main{
-  width:100%!important;
-  height:100%!important;
   min-width:0!important;
   min-height:0!important;
+  height:100%!important;
 }
 
 #team.active-tab .formation-field{
-  position:relative!important;
   width:100%!important;
   height:100%!important;
   min-height:0!important;
   margin:0!important;
-  padding:24px 30px!important;
+  padding:12px!important;
   box-sizing:border-box!important;
   overflow:hidden!important;
-  border-radius:16px!important;
 }
 
 #team.active-tab .formation-grid{
   width:100%!important;
   height:100%!important;
+  min-height:0!important;
   display:grid!important;
   grid-template-columns:repeat(5,minmax(0,1fr))!important;
   grid-template-rows:repeat(7,minmax(0,1fr))!important;
-  column-gap:18px!important;
-  row-gap:12px!important;
+  gap:8px 12px!important;
   align-items:center!important;
   justify-items:center!important;
 }
-/* Field player cards — approved mockup proportions */
+
 #team.active-tab .formation-slot{
-  width:clamp(205px,14vw,250px)!important;
-  min-width:205px!important;
-  max-width:250px!important;
-  height:clamp(118px,13vh,145px)!important;
-  min-height:118px!important;
+  width:clamp(170px,12.8vw,225px)!important;
+  max-width:225px!important;
+  min-width:170px!important;
+  height:clamp(82px,9.4vh,112px)!important;
+  min-height:82px!important;
   overflow:visible!important;
 }
 
 #team.active-tab .formation-card{
   position:relative!important;
   display:grid!important;
-  grid-template-columns:clamp(78px,5.6vw,96px) minmax(0,1fr) 58px!important;
-  grid-template-rows:28px minmax(0,1fr) 26px!important;
+  grid-template-columns:clamp(54px,4.2vw,72px) minmax(0,1fr) clamp(42px,3.5vw,58px)!important;
+  grid-template-rows:22px minmax(0,1fr) 18px!important;
   width:100%!important;
   height:100%!important;
-  min-height:118px!important;
-  padding:10px 11px!important;
-  column-gap:10px!important;
-  border-radius:15px!important;
+  min-height:82px!important;
+  padding:7px 8px!important;
+  column-gap:8px!important;
+  border-radius:14px!important;
   box-sizing:border-box!important;
   overflow:hidden!important;
 }
@@ -3479,6 +3475,8 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 #team.active-tab .formation-card .wr-player-photo{
   grid-column:1/2!important;
   grid-row:1/4!important;
+  align-self:stretch!important;
+  justify-self:stretch!important;
   width:100%!important;
   height:100%!important;
   min-width:0!important;
@@ -3487,10 +3485,18 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   max-height:none!important;
   margin:0!important;
   padding:0!important;
-  align-self:stretch!important;
-  justify-self:stretch!important;
-  border-radius:12px!important;
-  overflow:hidden!important;
+  border:0!important;
+  border-radius:11px!important;
+}
+
+#team.active-tab .formation-card .wr-team-logo img,
+#team.active-tab .formation-card .wr-team-logo.team-logo-img img,
+#team.active-tab .formation-card .wr-player-photo img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center top!important;
+  display:block!important;
 }
 
 #team.active-tab .formation-card .wr-slot-tag{
@@ -3501,8 +3507,8 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   justify-self:start!important;
   align-self:start!important;
   max-width:none!important;
-  padding:3px 8px!important;
-  font-size:11px!important;
+  padding:2px 7px!important;
+  font-size:10px!important;
   line-height:1!important;
   white-space:nowrap!important;
 }
@@ -3514,7 +3520,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   justify-self:stretch!important;
   display:block!important;
   padding:0!important;
-  font-size:18px!important;
+  font-size:clamp(13px,1vw,17px)!important;
   line-height:1.05!important;
   font-weight:950!important;
   white-space:normal!important;
@@ -3530,7 +3536,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   position:static!important;
   align-self:center!important;
   justify-self:end!important;
-  font-size:38px!important;
+  font-size:clamp(27px,2.2vw,38px)!important;
   line-height:1!important;
   color:#66ff35!important;
   font-weight:1000!important;
@@ -3538,10 +3544,10 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 #team.active-tab .formation-card > .status-dot{
   position:absolute!important;
-  right:10px!important;
-  bottom:10px!important;
-  width:11px!important;
-  height:11px!important;
+  right:7px!important;
+  bottom:7px!important;
+  width:10px!important;
+  height:10px!important;
   margin:0!important;
   z-index:5!important;
   border-radius:999px!important;
@@ -3553,45 +3559,27 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 #team.active-tab .formation-card .projection-box{
   display:none!important;
 }
-/* Reserve panel — approved mockup proportions */
+
+/* Reserves remain large, readable and fully visible */
 #team.active-tab .wr-reserve-panel,
 #team.active-tab .formation-reserves{
-  width:100%!important;
   height:100%!important;
   min-height:0!important;
   max-height:none!important;
+  overflow:hidden!important;
   display:flex!important;
   flex-direction:column!important;
-  padding:16px 14px!important;
+  padding:10px!important;
+  border-radius:14px!important;
   box-sizing:border-box!important;
-  overflow:hidden!important;
-  border-radius:16px!important;
 }
 
 #team.active-tab .wr-reserve-head{
-  flex:0 0 54px!important;
-  height:54px!important;
-  min-height:54px!important;
+  flex:0 0 44px!important;
+  height:44px!important;
+  min-height:44px!important;
   margin:0!important;
-  padding:0 4px 12px!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:space-between!important;
-  border-bottom:1px solid rgba(148,163,184,.22)!important;
-}
-
-#team.active-tab .wr-reserve-head span{
-  font-size:27px!important;
-  line-height:1!important;
-  color:#66ff35!important;
-  font-weight:1000!important;
-}
-
-#team.active-tab .wr-reserve-head b{
-  font-size:17px!important;
-  line-height:1!important;
-  color:#cbd5e1!important;
-  font-weight:900!important;
+  padding:0 2px 8px!important;
 }
 
 #team.active-tab .wr-reserve-list,
@@ -3601,25 +3589,23 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   height:auto!important;
   display:grid!important;
   grid-template-rows:repeat(12,minmax(0,1fr))!important;
-  gap:3px!important;
+  gap:2px!important;
   overflow:hidden!important;
 }
 
 #team.active-tab .formation-reserve-card,
 #team.active-tab .wr-reserve-card{
+  display:grid!important;
+  grid-template-columns:15px clamp(38px,3vw,48px) minmax(0,1fr) 42px 12px!important;
   min-height:0!important;
   height:auto!important;
-  display:grid!important;
-  grid-template-columns:16px 42px minmax(0,1fr) 44px 12px!important;
-  gap:9px!important;
+  padding:3px 5px!important;
+  gap:7px!important;
   align-items:center!important;
-  padding:4px 6px!important;
-  box-sizing:border-box!important;
   border:0!important;
-  border-bottom:1px solid rgba(148,163,184,.16)!important;
+  border-bottom:1px solid rgba(148,163,184,.18)!important;
   border-radius:8px!important;
-  background:rgba(5,15,27,.38)!important;
-  box-shadow:none!important;
+  box-sizing:border-box!important;
   overflow:hidden!important;
 }
 
@@ -3627,10 +3613,8 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 #team.active-tab .wr-reserve-card::before{
   content:'⋮'!important;
   grid-column:1/2!important;
-  display:block!important;
   color:#94a3b8!important;
   font-size:14px!important;
-  line-height:1!important;
   text-align:center!important;
   font-weight:950!important;
 }
@@ -3641,37 +3625,27 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 #team.active-tab .wr-reserve-logo,
 #team.active-tab .wr-reserve-logo.team-logo-img,
-#team.active-tab .formation-reserve-card .wr-player-photo,
-#team.active-tab .formation-reserve-card .wr-player-photo.team-logo-img{
+#team.active-tab .formation-reserve-card .wr-player-photo{
   grid-column:2/3!important;
   display:block!important;
-  width:42px!important;
-  height:42px!important;
-  min-width:42px!important;
-  min-height:42px!important;
-  max-width:42px!important;
-  max-height:42px!important;
+  width:100%!important;
+  height:100%!important;
+  max-height:54px!important;
+  min-width:0!important;
+  min-height:0!important;
   padding:0!important;
-  margin:0!important;
   border-radius:9px!important;
   overflow:hidden!important;
-  align-self:center!important;
-  justify-self:center!important;
-  background:#10213a!important;
 }
 
 #team.active-tab .wr-reserve-logo img,
 #team.active-tab .wr-reserve-logo.team-logo-img img,
-#team.active-tab .formation-reserve-card .wr-player-photo img,
-#team.active-tab .formation-reserve-card .wr-player-photo.team-logo-img img{
-  display:block!important;
+#team.active-tab .formation-reserve-card .wr-player-photo img{
   width:100%!important;
   height:100%!important;
-  max-width:100%!important;
-  max-height:100%!important;
   object-fit:cover!important;
   object-position:center top!important;
-  border-radius:inherit!important;
+  display:block!important;
 }
 
 #team.active-tab .formation-reserve-main{
@@ -3682,34 +3656,33 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 #team.active-tab .formation-reserve-name{
   display:block!important;
-  font-size:15px!important;
+  font-size:clamp(13px,.92vw,16px)!important;
   line-height:1.05!important;
   font-weight:950!important;
   color:#fff!important;
-  white-space:nowrap!important;
-  overflow:hidden!important;
-  text-overflow:ellipsis!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
   text-transform:none!important;
 }
 
 #team.active-tab .formation-reserve-meta{
-  display:none!important;
+  font-size:9px!important;
+  line-height:1!important;
+  margin-top:2px!important;
+  white-space:nowrap!important;
 }
 
 #team.active-tab .formation-reserve-score{
   grid-column:4/5!important;
   display:block!important;
-  font-size:20px!important;
+  font-size:clamp(17px,1.25vw,22px)!important;
   line-height:1!important;
   color:#66ff35!important;
   font-weight:1000!important;
   text-align:right!important;
   justify-self:end!important;
-  min-width:40px!important;
-}
-
-#team.active-tab .formation-reserve-score small{
-  display:none!important;
+  min-width:38px!important;
 }
 
 #team.active-tab .formation-reserve-card > .status-dot{
@@ -3731,37 +3704,33 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 #team.active-tab .formation-reserve-card .projection-box{
   display:none!important;
 }
-/* CORE FIX: remove legacy field scaling and fill the full pitch */
-#team.active-tab .wr-team-max-layout,
-#team.active-tab .formation-field,
-#team.active-tab .formation-grid,
-#team.active-tab .formation-slot{
-  --fieldScale:1!important;
-}
 
-#team.active-tab .formation-grid{
-  width:100%!important;
-  height:100%!important;
-  min-height:0!important;
-  transform:none!important;
-  scale:1!important;
-  grid-template-rows:repeat(7,minmax(0,1fr))!important;
-  align-content:stretch!important;
-  justify-content:stretch!important;
-}
+/* Smaller screens retain the same structure without side scrolling */
+@media(max-width:1100px){
+  #team.active-tab{
+    height:auto!important;
+    min-height:calc(100vh - 74px)!important;
+    overflow:auto!important;
+  }
 
-#team.active-tab .formation-slot{
-  height:100%!important;
-  min-height:0!important;
-  max-height:none!important;
-  align-self:stretch!important;
-  transform:none!important;
-}
+  #team.active-tab .wr-team-max-layout{
+    height:auto!important;
+    min-height:calc(100vh - 74px)!important;
+    overflow:visible!important;
+  }
 
-#team.active-tab .formation-card{
-  height:100%!important;
-  min-height:0!important;
-  max-height:none!important;
+  #team.active-tab .wr-team-max-layout .formation-layout{
+    grid-template-columns:1fr!important;
+    height:auto!important;
+  }
+
+  #team.active-tab .formation-field{
+    height:820px!important;
+  }
+
+  #team.active-tab .formation-reserves{
+    height:720px!important;
+  }
 }
 /* =========================================================
    CORE FIX: My Team player-photo card skin
