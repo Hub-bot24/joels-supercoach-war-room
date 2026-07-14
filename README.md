@@ -6,7 +6,7 @@ Files:
 - index.html = app
 - players.json = player database
 - my_team.json = Joel's saved team
-- scripts/update_players.py = GitHub Actions updater script
+- scripts/update-players.mjs = GitHub Actions updater script
 - .github/workflows/update-supercoach-data.yml = automation workflow
 
 After upload:
