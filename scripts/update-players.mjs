@@ -3,6 +3,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
+import {
+  buildIdentityIndex,
+  normaliseIdentityName,
+  resolveIdentity
+} from "./lib/player-identity.mjs";
+
 const ROOT = process.cwd();
 
 const PLAYERS_FILE = path.join(ROOT, "players.json");
@@ -76,7 +82,7 @@ function parseRowsFromHtml(html) {
 
     rows.push({
       name,
-      norm: normaliseName(name),
+      norm: normaliseIdentityName(name),
       price,
       breakeven
     });
@@ -116,7 +122,7 @@ async function fetchDppPlayers() {
 
     if (!name || cleanPositions.length < 2) return;
 
-    players[normaliseName(name)] = {
+    players[normaliseIdentityName(name)] = {
       name,
       positions: cleanPositions
     };
@@ -166,12 +172,6 @@ async function fetchDppPlayers() {
   return players;
 }
 
-function normaliseName(value) {
-  return String(value || "")
-    .toLowerCase()
-    .replace(/[’']/g, "")
-    .replace(/[^a-z0-9]/g, "");
-}
 
 function toNumber(value) {
   const match = String(value ?? "").replace(/,/g, "").match(/-?\d+(\.\d+)?/);
@@ -219,32 +219,52 @@ async function fetchSourceRows() {
 }
 async function mergePlayers(sourceRows, dppPlayers) {
   const existing = await readJson(PLAYERS_FILE, { players: [] });
-
   const players = existing.players || [];
-
-  const byName = new Map(
-    players
-      .filter(p => p.name)
-      .map(p => [normaliseName(p.name), p])
-  );
+  const identityIndex = buildIdentityIndex(players);
 
   let updated = 0;
-  let added = 0;
   let dppApplied = 0;
   let dppMatchedExisting = 0;
 
-  for (const [normName, dpp] of Object.entries(dppPlayers)) {
-    const player = byName.get(normName);
+  const unmatched = [];
+  const ambiguous = [];
 
-    if (!player) continue;
+  for (const dpp of Object.values(dppPlayers)) {
+    const resolution = resolveIdentity(
+      identityIndex,
+      dpp.name
+    );
 
-    dppMatchedExisting++;
+    if (resolution.status === "unmatched") {
+      unmatched.push({
+        source: "dual-position",
+        sourceName: dpp.name,
+        reason: "No canonical identity"
+      });
 
+      continue;
+    }
+
+    if (resolution.status === "ambiguous") {
+      ambiguous.push({
+        source: "dual-position",
+        sourceName: dpp.name,
+        candidates: resolution.candidates.map(
+          player => player.name
+        )
+      });
+
+      continue;
+    }
+
+    const player = resolution.player;
     const nextPositions = [...new Set(dpp.positions)];
 
     player.dualPositions = nextPositions;
     player.positions = nextPositions;
     player.eligiblePositions = nextPositions;
+
+    dppMatchedExisting++;
 
     if (nextPositions.length >= 2) {
       dppApplied++;
@@ -252,87 +272,131 @@ async function mergePlayers(sourceRows, dppPlayers) {
   }
 
   for (const src of sourceRows) {
-    if (!src.norm) continue;
+    if (!src.name) continue;
 
-    const player = byName.get(src.norm);
+    const resolution = resolveIdentity(
+      identityIndex,
+      src.name
+    );
 
-    if (player) {
-      if (src.price !== null) player.price = src.price;
-      if (src.breakeven !== null) {
-        player.breakeven = src.breakeven;
-        player.breakevenStatus = "updated";
-      }
+    if (resolution.status === "unmatched") {
+      unmatched.push({
+        source: "price-breakeven",
+        sourceName: src.name,
+        reason:
+          "Enrichment sources cannot create canonical players"
+      });
 
-      player.dataSource = "nrlsupercoachstats-public";
-      player.lastDataUpdate = new Date().toISOString();
-
-      updated++;
       continue;
     }
 
-    const dpp = dppPlayers[src.norm];
-    const positions = dpp ? [...new Set(dpp.positions)] : [];
+    if (resolution.status === "ambiguous") {
+      ambiguous.push({
+        source: "price-breakeven",
+        sourceName: src.name,
+        candidates: resolution.candidates.map(
+          player => player.name
+        )
+      });
 
-    const newPlayer = {
-      name: src.name,
-      sourceName: src.name,
-      shortName: src.name,
-      pos: positions[0] || "UNKNOWN",
-      position: positions[0] || "UNKNOWN",
-      positions,
-      eligiblePositions: positions,
-      dualPositions: positions,
-      price: src.price,
-      avg: null,
-      threeRoundAvg: null,
-      breakeven: src.breakeven,
-      breakevenStatus: src.breakeven !== null ? "updated" : "needs_data",
-      team: null,
-      ownership: null,
-      dataSource: "nrlsupercoachstats-public",
-      lastDataUpdate: new Date().toISOString()
+      continue;
+    }
+
+    const player = resolution.player;
+
+    if (src.price !== null) {
+      player.price = src.price;
+    }
+
+    if (src.breakeven !== null) {
+      player.breakeven = src.breakeven;
+      player.breakevenStatus = "updated";
+    }
+
+    player.enrichmentSources = {
+      ...(player.enrichmentSources || {}),
+      priceAndBreakeven: {
+        source:
+          "nrlsupercoachstats-public",
+        updatedAt:
+          new Date().toISOString()
+      }
     };
 
-    players.push(newPlayer);
-    byName.set(src.norm, newPlayer);
-    added++;
+    player.lastDataUpdate =
+      new Date().toISOString();
+
+    updated++;
+  }
+
+  if (ambiguous.length > 0) {
+    const details = ambiguous
+      .map(item =>
+        `${item.sourceName}: ${item.candidates.join(" | ")}`
+      )
+      .join("\n");
+
+    throw new Error(
+      "Ambiguous player identities detected:\n" +
+      details
+    );
+  }
+
+  if (
+    Object.keys(dppPlayers).length > 0 &&
+    dppMatchedExisting === 0
+  ) {
+    throw new Error(
+      `DPP parser found ${
+        Object.keys(dppPlayers).length
+      } players, but matched 0 canonical identities.`
+    );
+  }
+
+  if (
+    Object.keys(dppPlayers).length > 0 &&
+    dppApplied === 0
+  ) {
+    throw new Error(
+      `DPP parser found ${
+        Object.keys(dppPlayers).length
+      } players, but applied 0 DPP updates.`
+    );
   }
 
   existing.players = players;
   existing.updated = new Date().toISOString();
   existing.dataPipeline = {
-    version: "v3-node-price-be",
+    version: "v4-canonical-enrichment-only",
     source: SOURCE_URL,
     rowsFound: sourceRows.length,
     playersUpdated: updated,
-    playersAdded: added,
-    dppSourcePlayers: Object.keys(dppPlayers).length,
+    playersAdded: 0,
+    unmatchedEnrichmentRows: unmatched.length,
+    ambiguousEnrichmentRows: ambiguous.length,
+    dppSourcePlayers:
+      Object.keys(dppPlayers).length,
     dppMatchedExisting,
     dppApplied
   };
 
-  console.log(`DPP source players available to merge: ${Object.keys(dppPlayers).length}`);
-  console.log(`DPP matched existing players: ${dppMatchedExisting}`);
-  console.log(`DPP applied to existing players: ${dppApplied}`);
-
-  if (Object.keys(dppPlayers).length > 0 && dppMatchedExisting === 0) {
-    throw new Error(
-      `DPP parser found ${Object.keys(dppPlayers).length} players, but matched 0 existing players. Name matching is broken.`
-    );
-  }
-
-  if (Object.keys(dppPlayers).length > 0 && dppApplied === 0) {
-    throw new Error(
-      `DPP parser found ${Object.keys(dppPlayers).length} players, but merge applied 0. Refusing to write stale DPP data.`
-    );
-  }
-
   await writeJson(PLAYERS_FILE, existing);
 
   console.log(`Players updated: ${updated}`);
-  console.log(`Players added: ${added}`);
+  console.log("Players added: 0");
+  console.log(
+    `Unmatched enrichment rows: ${unmatched.length}`
+  );
+  console.log(
+    `Ambiguous enrichment rows: ${ambiguous.length}`
+  );
+  console.log(
+    `DPP matched existing players: ${dppMatchedExisting}`
+  );
+  console.log(
+    `DPP applied to existing players: ${dppApplied}`
+  );
 }
-
 async function main() {
   const rows = await fetchSourceRows();
 

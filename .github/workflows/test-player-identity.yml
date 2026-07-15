@@ -1,0 +1,135 @@
+name: Player Identity Safety
+
+on:
+  pull_request:
+    paths:
+      - "players.json"
+      - "scripts/update-players.mjs"
+      - "scripts/update-dpp.mjs"
+      - "scripts/lib/player-identity.mjs"
+      - "scripts/lib/player-identity-migration.mjs"
+      - "scripts/migrate-player-identities.mjs"
+      - "tests/player-identity/**"
+      - ".github/workflows/test-player-identity.yml"
+
+  push:
+    branches:
+      - main
+    paths:
+      - "players.json"
+      - "scripts/update-players.mjs"
+      - "scripts/update-dpp.mjs"
+      - "scripts/lib/player-identity.mjs"
+      - "scripts/lib/player-identity-migration.mjs"
+      - "scripts/migrate-player-identities.mjs"
+      - "tests/player-identity/**"
+      - ".github/workflows/test-player-identity.yml"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: player-identity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  player-identity:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate JavaScript syntax
+        run: |
+          node --check scripts/lib/player-identity.mjs
+          node --check scripts/lib/player-identity-migration.mjs
+          node --check scripts/migrate-player-identities.mjs
+          node --check scripts/update-players.mjs
+          node --check scripts/update-dpp.mjs
+
+      - name: Run player identity tests
+        run: node --test "tests/player-identity/*.test.mjs"
+
+      - name: Audit committed player identity state
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+
+          import {
+            isQuarantinedIdentity
+          } from "./scripts/lib/player-identity.mjs";
+
+          import {
+            planIdentityMigration
+          } from "./scripts/lib/player-identity-migration.mjs";
+
+          const database = JSON.parse(
+            fs.readFileSync("players.json", "utf8")
+          );
+
+          const players = database.players || [];
+          const quarantined =
+            players.filter(isQuarantinedIdentity);
+
+          const plan =
+            planIdentityMigration(database);
+
+          const failures = [];
+
+          if (plan.safeMergeCount !== 0) {
+            failures.push(
+              `${plan.safeMergeCount} safe merges remain unapplied`
+            );
+          }
+
+          if (plan.quarantineCount !== 0) {
+            failures.push(
+              `${plan.quarantineCount} new quarantine actions remain unapplied`
+            );
+          }
+
+          if (plan.ambiguousCount !== 0) {
+            failures.push(
+              `${plan.ambiguousCount} ambiguous identities detected`
+            );
+          }
+
+          if (
+            plan.invalidReuse.repeatedSourceIndexes.length > 0
+          ) {
+            failures.push(
+              "Repeated migration source indexes detected"
+            );
+          }
+
+          if (
+            plan.invalidReuse.mergeAndQuarantineOverlap.length > 0
+          ) {
+            failures.push(
+              "Merge/quarantine overlap detected"
+            );
+          }
+
+          if (failures.length > 0) {
+            throw new Error(
+              failures.join("\n")
+            );
+          }
+
+          console.log(JSON.stringify({
+            status: "PASS",
+            playerCount: players.length,
+            quarantinedCount: quarantined.length,
+            remainingMerges: plan.safeMergeCount,
+            remainingQuarantines: plan.quarantineCount,
+            ambiguities: plan.ambiguousCount
+          }, null, 2));
+          NODE
