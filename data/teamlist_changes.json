@@ -1,56 +1,5 @@
 [
   {
-    "player": "Thomas Fletcher",
-    "team": "STH",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-12T18:39:43.389Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-12T18:39:43.389Z"
-      }
-    ],
-    "round": 20
-  },
-  {
-    "player": "Thomas Hazelton",
-    "team": "SHA",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-12T18:39:43.389Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-12T18:39:43.389Z"
-      }
-    ],
-    "round": 20
-  },
-  {
-    "player": "Thomas Jenkins",
-    "team": "PEN",
-    "from": "BYE",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-12T18:39:43.389Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-12T18:39:43.389Z"
-      }
-    ],
-    "round": 20
-  },
-  {
     "player": "Thomas Mikaele",
     "team": "NQC",
     "from": "NAMED",
@@ -12721,6 +12670,79 @@
         "name": "Zero Tackle",
         "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#",
         "updatedAt": "2026-07-15T08:30:29.530Z"
+      }
+    ],
+    "round": 20
+  },
+  {
+    "player": "Kalani Going",
+    "team": "PEN",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-07-15T10:28:40.931Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/15/nrl-late-mail-round-20",
+        "updatedAt": "2026-07-15T10:28:40.931Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/14/nrl-team-lists-round-20",
+        "updatedAt": "2026-07-15T10:28:40.931Z",
+        "priority": 2,
+        "order": 3
+      }
+    ],
+    "round": 20
+  },
+  {
+    "player": "Luron Patea",
+    "team": "PEN",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-07-15T10:28:40.931Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/15/nrl-late-mail-round-20",
+        "updatedAt": "2026-07-15T10:28:40.931Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/14/nrl-team-lists-round-20",
+        "updatedAt": "2026-07-15T10:28:40.931Z",
+        "priority": 2,
+        "order": 3
+      }
+    ],
+    "round": 20
+  },
+  {
+    "player": "Tom Duffy",
+    "team": "BRO",
+    "from": "NOT_NAMED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Official NRL, jersey 6).",
+    "detectedAt": "2026-07-15T10:28:40.931Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/15/nrl-late-mail-round-20",
+        "updatedAt": "2026-07-15T10:28:40.931Z",
+        "priority": 3,
+        "order": 2
       }
     ],
     "round": 20
