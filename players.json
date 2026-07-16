@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-16T05:22:06.588Z",
+  "updated": "2026-07-16T20:43:42.777Z",
   "source": "https://nrlsupercoachstats.com/playerlist.php",
   "note": "Full source-driven player database. my_team.json remains the selected squad file.",
   "players": [
@@ -28849,12 +28849,15 @@
       "pos": "HFB",
       "position": "HFB",
       "positions": [
+        "5/8",
         "HFB"
       ],
       "eligiblePositions": [
+        "5/8",
         "HFB"
       ],
       "dualPositions": [
+        "5/8",
         "HFB"
       ],
       "team": "NZL",
@@ -33044,11 +33047,13 @@
     ]
   },
   "dataPipeline": {
-    "version": "v3-node-price-be",
+    "version": "v4-canonical-enrichment-only",
     "source": "https://www.nrlsupercoachstats.com/TeamPricesAndBEs.php",
     "rowsFound": 18,
-    "playersUpdated": 18,
+    "playersUpdated": 0,
     "playersAdded": 0,
+    "unmatchedEnrichmentRows": 18,
+    "ambiguousEnrichmentRows": 0,
     "dppSourcePlayers": 107,
     "dppMatchedExisting": 107,
     "dppApplied": 107
