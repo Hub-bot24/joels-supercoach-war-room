@@ -5578,7 +5578,13 @@ function statusDot(p){
  return `<span class="status-indicators"><span class="status-dot ${statusDotClass({key:badge.key})}" title="${esc(badge.reason||badge.text)}"></span>${interchangeIndicator(p)}</span>`;
 }
 function statusPill(p,round=App.round){const badge=statusBadgeForPlayer(p,round);const source=badge.sourceLabel?` Source: ${badge.sourceLabel}`:'';const colour={GREEN:'var(--good)',YELLOW:'var(--warn)',ORANGE:'#f97316',GREY:'#94a3b8',RED:'var(--bad)',PINK:'#ec4899',PURPLE:'var(--bye)'}[badge.colourName]||'var(--muted)';return `<span class="pill ${badge.cls}" style="border-color:${colour};color:${colour}" title="${esc(`${badge.reason||''}${source}`.trim())}">${esc(badge.text)}</span>`}
-function getPlayerNextWeather(player){const st=availabilityStatus(player);if(st.key==='bye')return null;const team=String(player?.team||player?.club||'').toUpperCase().trim();if(!team)return null;const now=Date.now()-3*60*60*1000;return (App.weather?.matches||[]).filter(m=>m?.kickoffLocal&&(String(m.homeTeam||'').toUpperCase()===team||String(m.awayTeam||'').toUpperCase()===team)).filter(m=>{const t=new Date(m.kickoffLocal).getTime();return Number.isFinite(t)&&t>=now}).sort((a,b)=>new Date(a.kickoffLocal)-new Date(b.kickoffLocal))[0]||null}
+function fixtureRoundValue(match){return Number(match?.round||match?.roundNumber||match?.round_number||match?.scRound||match?.nrlRound||0)}
+function fixtureTimeValue(match){return typeof firstDate==='function'?firstDate(match):new Date(match?.kickoffLocal||match?.kickoff||match?.date||match?.startTime||match?.start||0).getTime()}
+function playerFixtureTeamCode(player){return String(player?.club||player?.team||player?.squad||player?.teamCode||'').toUpperCase().trim()}
+function playerMatchesFixture(player,match){const team=playerFixtureTeamCode(player);const home=String(match?.homeTeam||'').toUpperCase().trim();const away=String(match?.awayTeam||'').toUpperCase().trim();return !!team&&(team===home||team===away)}
+function activeWeatherFixtureForPlayer(player,round=App.round){const selectedRound=Number(round||App.round||0);if(!selectedRound)return null;return (App.weather?.matches||[]).filter(match=>fixtureRoundValue(match)===selectedRound&&playerMatchesFixture(player,match)).sort((a,b)=>fixtureTimeValue(a)-fixtureTimeValue(b))[0]||null}
+function activeFixtureForPlayer(player,round=App.round){const selectedRound=Number(round||App.round||0);if(!selectedRound)return null;const weatherMatch=activeWeatherFixtureForPlayer(player,selectedRound);if(weatherMatch)return weatherMatch;const fixtures=typeof flattenFixtures==='function'?flattenFixtures(App.fixtures||[]):[];return fixtures.filter(match=>fixtureRoundValue(match)===selectedRound&&playerMatchesFixture(player,match)).sort((a,b)=>fixtureTimeValue(a)-fixtureTimeValue(b))[0]||null}
+function getPlayerNextWeather(player,round=App.round){const st=availabilityStatus(player,round);if(st.key==='bye')return null;return activeWeatherFixtureForPlayer(player,round)}
 function weatherHours(match){return Array.isArray(match?.gameWindowWeather)?match.gameWindowWeather:[]}
 function tempSummary(match){const hours=weatherHours(match);const temps=hours.map(h=>safeNum(h.temperature_2m)).filter(n=>Number.isFinite(n));if(!temps.length)return null;return `${Math.round(temps.reduce((s,n)=>s+n,0)/temps.length)}°C`}
 function rainSummary(match){const hours=weatherHours(match);const probs=hours.map(h=>safeNum(h.precipitation_probability)).filter(n=>Number.isFinite(n));if(!probs.length)return null;return `Rain ${Math.round(Math.max(...probs))}%`}
@@ -5586,6 +5592,95 @@ function windSummary(match){const hours=weatherHours(match);const winds=hours.ma
 function weatherIconFromMatch(match){const hours=weatherHours(match);const risk=String(match?.weatherRisk?.label||'').toLowerCase();const rain=Math.max(0,...hours.map(h=>safeNum(h.precipitation||h.precipitation_mm)));const rainProb=Math.max(0,...hours.map(h=>safeNum(h.precipitation_probability)));const wind=Math.max(0,...hours.map(h=>safeNum(h.wind_speed_10m)),...hours.map(h=>safeNum(h.wind_gusts_10m)));const temps=hours.map(h=>safeNum(h.temperature_2m)).filter(n=>Number.isFinite(n));const temp=temps.length?temps.reduce((s,n)=>s+n,0)/temps.length:0;if(risk.includes('high')||rain>=4||rainProb>=80||wind>=45)return '⛈️';if(rainProb<25)return temp&&temp<16?'☁️':'🌤️';if(rain>=2||rainProb>=45)return '🌧️';if(temp>=28)return '☀️';if(temp&&temp<16)return '☁️';return '🌤️'}
 function weatherRiskBadge(match){const key=String(match?.weatherRisk?.label||'Unknown').toLowerCase();if(key.includes('high'))return 'Weather risk';if(key.includes('medium'))return 'Caution';if(key.includes('low'))return 'No concern';return 'Weather unavailable'}
 function weatherLine(player){const match=getPlayerNextWeather(player);if(!match)return '';if(match.weatherStatus!=='updated')return 'Kickoff weather: Weather unavailable';const temp=tempSummary(match),rain=rainSummary(match),wind=windSummary(match);if(!temp||!wind)return 'Kickoff weather: Weather unavailable';return `Kickoff weather: <span style="font-size:1.3em;line-height:0;vertical-align:-0.08em">${weatherIconFromMatch(match)}</span> ${[temp,rain,wind,weatherRiskBadge(match)].filter(Boolean).join(' · ')}`}
+
+function playerCardOpponent(player,match){
+ const team=playerFixtureTeamCode(player);
+ const homeCode=String(match?.homeTeam||'').toUpperCase().trim();
+ const awayCode=String(match?.awayTeam||'').toUpperCase().trim();
+ const parts=String(match?.match||'').split(/\s+v\s+/i);
+
+ const homeLabel=parts.length>1
+  ? parts[0]
+  : (match?.homeTeamName||match?.homeName||match?.homeTeam||'Home');
+
+ const awayLabel=parts.length>1
+  ? parts[1]
+  : (match?.awayTeamName||match?.awayName||match?.awayTeam||'Away');
+
+ if(team===homeCode)return awayLabel||'Opponent TBC';
+ if(team===awayCode)return homeLabel||'Opponent TBC';
+
+ return 'Opponent TBC';
+}
+
+function playerCardKickoffLabel(match){
+ const value=
+  match?.kickoffLocal||
+  match?.kickoff||
+  match?.date||
+  match?.startTime||
+  match?.start;
+
+ const kickoff=new Date(value||0);
+
+ if(!Number.isFinite(kickoff.getTime())){
+  return 'Kickoff TBC';
+ }
+
+ return kickoff.toLocaleString('en-AU',{
+  weekday:'short',
+  day:'numeric',
+  month:'short',
+  hour:'numeric',
+  minute:'2-digit'
+ });
+}
+
+function playerCardNextGameHtml(player){
+ const match=activeFixtureForPlayer(player,App.round);
+
+ if(!match){
+  return `<div data-player-card-next-game="1" style="margin-top:12px;border-radius:16px;background:rgba(255,255,255,.08);padding:12px 14px">
+   <div style="font-size:12px;font-weight:950;letter-spacing:.12em;color:#93c5fd">CURRENT ROUND GAME</div>
+   <div style="margin-top:6px;color:#dbeafe;font-weight:850">Fixture unavailable for R${esc(App.round)}</div>
+  </div>`;
+ }
+
+ const opponent=playerCardOpponent(player,match);
+
+ const venue=
+  match.venue||
+  match.stadium||
+  match.ground||
+  'Venue TBC';
+
+ const kickoff=playerCardKickoffLabel(match);
+
+ const weatherMatch=
+  activeWeatherFixtureForPlayer(player,App.round);
+
+ let weather='Weather unavailable';
+
+ if(weatherMatch?.weatherStatus==='updated'){
+  const temp=tempSummary(weatherMatch);
+  const rain=rainSummary(weatherMatch);
+  const wind=windSummary(weatherMatch);
+  const risk=weatherRiskBadge(weatherMatch);
+  const details=[temp,rain,wind,risk].filter(Boolean);
+
+  if(details.length){
+   weather=`<span style="font-size:1.35em;vertical-align:-0.08em">${weatherIconFromMatch(weatherMatch)}</span> ${details.map(esc).join(' &middot; ')}`;
+  }
+ }
+
+ return `<div data-player-card-next-game="1" style="margin-top:12px;border-radius:16px;background:linear-gradient(135deg,rgba(14,116,144,.30),rgba(30,64,175,.22));border:1px solid rgba(125,211,252,.32);padding:12px 14px">
+  <div style="font-size:12px;font-weight:950;letter-spacing:.12em;color:#7dd3fc">CURRENT ROUND GAME &middot; R${esc(App.round)}</div>
+  <div style="margin-top:6px;font-size:18px;font-weight:950">vs ${esc(opponent)}</div>
+  <div style="margin-top:5px;color:#dbeafe;font-weight:850">Venue: ${esc(venue)} &middot; ${esc(kickoff)}</div>
+  <div style="margin-top:7px;color:#e0f2fe;font-weight:850">${weather}</div>
+ </div>`;
+}
+
 
 /* =========================================================
    V40: War Room Projection Engine v2
@@ -6206,7 +6301,7 @@ const ProjectionEngine={
  teamCode(p){return String(p?.club||p?.team||p?.squad||p?.teamCode||'').toUpperCase()},
  teamMatchesFixture(p,match){const playerTeam=this.teamCode(p);const homeCode=String(match?.homeTeam||'').toUpperCase();const awayCode=String(match?.awayTeam||'').toUpperCase();return !!playerTeam&&(playerTeam===homeCode||playerTeam===awayCode)},
  opponent(p,game){const parts=String(game?.match||'').split(/\s+v\s+/i);const homeName=parts[0]||game?.homeTeam||'';const awayName=parts[1]||game?.awayTeam||'';const homeCode=String(game?.homeTeam||'').toUpperCase();const awayCode=String(game?.awayTeam||'').toUpperCase();const playerTeam=this.teamCode(p);if(playerTeam===homeCode)return awayName||'Opponent TBC';if(playerTeam===awayCode)return homeName||'Opponent TBC';return 'Opponent TBC'},
- fixtureForRound(p,round=App.round){return this.allFixtures().filter(m=>this.fixtureRound(m)===Number(round)&&this.teamMatchesFixture(p,m)).sort((a,b)=>this.fixtureTime(a)-this.fixtureTime(b))[0]||null},
+ fixtureForRound(p,round=App.round){return activeFixtureForPlayer(p,round)},
  nextFixtures(p,count=5){const current=Number(App.round||0);return this.allFixtures().filter(m=>this.fixtureRound(m)>=current&&this.teamMatchesFixture(p,m)).sort((a,b)=>this.fixtureRound(a)-this.fixtureRound(b)||this.fixtureTime(a)-this.fixtureTime(b)).slice(0,count)},
  playerPosition(p){const ps=(typeof positions==='function'?positions(p):[]);const raw=ps[0]||(Array.isArray(p?.positions)?p.positions[0]:p?.position||p?.pos||p?.primaryPosition||p?.role||'');return String(raw||'').toUpperCase()},
  playerMinutes(p){return safeNum(p?.expectedMinutes??p?.projectedMinutes??p?.minutes??p?.avgMinutes??p?.minuteAvg??p?.mins)},
@@ -7368,6 +7463,9 @@ window.openPlayerCard = function(name){
           ${stat("Last 5", pr.last5Avg || "-")}
           ${stat("Season", pr.seasonAvg || avg || "-")}
         </div>
+
+        ${playerCardNextGameHtml(p)}
+
 
         <div style="margin-top:12px;border-radius:16px;background:rgba(255,255,255,.10);padding:11px 13px;color:#e5edf8;font-weight:750">
           ${esc(st.reason || truth.reason || "No status note")}
