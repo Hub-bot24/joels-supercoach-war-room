@@ -1,37 +1,20 @@
 {
-  "updated": "2026-07-16T08:34:57.968Z",
+  "updated": "2026-07-16T10:45:28.052Z",
   "round": 20,
   "newChanges": [
     {
-      "player": "Billy Walters",
-      "team": "BRO",
-      "from": "EXPECTED",
-      "to": "INJURED",
-      "reason": "ACL",
-      "detectedAt": "2026-07-16T08:34:57.968Z",
-      "sources": [
-        {
-          "type": "status",
-          "name": "Existing player_status.json updater",
-          "url": "player_status.json",
-          "updatedAt": "2026-07-16T08:34:57.968Z"
-        }
-      ],
-      "round": 20
-    },
-    {
-      "player": "Elijah Salesa-Leaumoana",
-      "team": "NEW",
+      "player": "Benaiah Ioelu",
+      "team": "SYD",
       "from": "EXPECTED",
       "to": "NOT_NAMED",
       "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-07-16T08:34:57.968Z",
+      "detectedAt": "2026-07-16T10:45:28.052Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/15/nrl-late-mail-round-20",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
+          "updatedAt": "2026-07-16T10:45:28.052Z",
           "priority": 3,
           "order": 2
         },
@@ -39,7 +22,7 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/14/nrl-team-lists-round-20",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
+          "updatedAt": "2026-07-16T10:45:28.052Z",
           "priority": 2,
           "order": 3
         }
@@ -47,18 +30,18 @@
       "round": 20
     },
     {
-      "player": "Niwhai Puru",
-      "team": "SHA",
+      "player": "Manaia Waitere",
+      "team": "MEL",
       "from": "EXPECTED",
       "to": "NOT_NAMED",
       "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-07-16T08:34:57.968Z",
+      "detectedAt": "2026-07-16T10:45:28.052Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/15/nrl-late-mail-round-20",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
+          "updatedAt": "2026-07-16T10:45:28.052Z",
           "priority": 3,
           "order": 2
         },
@@ -66,7 +49,7 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/14/nrl-team-lists-round-20",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
+          "updatedAt": "2026-07-16T10:45:28.052Z",
           "priority": 2,
           "order": 3
         }
@@ -74,18 +57,18 @@
       "round": 20
     },
     {
-      "player": "Sione Fonua",
-      "team": "PEN",
+      "player": "Robert Toia",
+      "team": "SYD",
       "from": "EXPECTED",
       "to": "NOT_NAMED",
       "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-07-16T08:34:57.968Z",
+      "detectedAt": "2026-07-16T10:45:28.052Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/15/nrl-late-mail-round-20",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
+          "updatedAt": "2026-07-16T10:45:28.052Z",
           "priority": 3,
           "order": 2
         },
@@ -93,7 +76,7 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/14/nrl-team-lists-round-20",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
+          "updatedAt": "2026-07-16T10:45:28.052Z",
           "priority": 2,
           "order": 3
         }
@@ -101,18 +84,26 @@
       "round": 20
     },
     {
-      "player": "Siosifa Talakai",
-      "team": "SHA",
+      "player": "Viliame Kikau",
+      "team": "CAN",
       "from": "NAMED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-07-16T08:34:57.968Z",
+      "to": "EXPECTED",
+      "reason": "Named in official NRL role-line team-list extended squad only (Official NRL, Reserve, jersey 21).; injury note: Pectoral",
+      "detectedAt": "2026-07-16T10:45:28.052Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/15/nrl-late-mail-round-20",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
+          "updatedAt": "2026-07-16T10:45:28.052Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/15/nrl-late-mail-round-20",
+          "updatedAt": "2026-07-16T10:45:28.052Z",
           "priority": 3,
           "order": 2
         },
@@ -120,98 +111,23 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/14/nrl-team-lists-round-20",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
-          "priority": 2,
-          "order": 3
-        }
-      ],
-      "round": 20
-    },
-    {
-      "player": "Tom Duffy",
-      "team": "BRO",
-      "from": "NAMED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-07-16T08:34:57.968Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/07/15/nrl-late-mail-round-20",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
-          "priority": 3,
-          "order": 2
-        },
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/07/14/nrl-team-lists-round-20",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
-          "priority": 2,
-          "order": 3
-        }
-      ],
-      "round": 20
-    },
-    {
-      "player": "Tuku HauTapuha",
-      "team": "SHA",
-      "from": "EXPECTED",
-      "to": "NAMED",
-      "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 18).",
-      "detectedAt": "2026-07-16T08:34:57.968Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/07/15/nrl-late-mail-round-20",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
-          "priority": 3,
-          "order": 2
-        },
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/07/14/nrl-team-lists-round-20",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
+          "updatedAt": "2026-07-16T10:45:28.052Z",
           "priority": 2,
           "order": 3
         },
         {
           "type": "teamlist",
           "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-sharks-vs-knights-10396480-235964",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
-          "priority": 4,
-          "order": 5
-        }
-      ],
-      "round": 20
-    },
-    {
-      "player": "Tyson Gamble",
-      "team": "NEW",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-07-16T08:34:57.968Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/07/15/nrl-late-mail-round-20",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
-          "priority": 3,
-          "order": 2
+          "url": "https://www.zerotackle.com/round-20-team-lists-2026-235892",
+          "updatedAt": "2026-07-16T10:45:28.052Z",
+          "priority": 2,
+          "order": 9
         },
         {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/07/14/nrl-team-lists-round-20",
-          "updatedAt": "2026-07-16T08:34:57.968Z",
-          "priority": 2,
-          "order": 3
+          "type": "status",
+          "name": "Existing player_status.json updater",
+          "url": "player_status.json",
+          "updatedAt": "2026-07-16T10:45:28.052Z"
         }
       ],
       "round": 20
