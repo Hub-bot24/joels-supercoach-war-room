@@ -1,4 +1,4 @@
-name: Player Identity and Photo Safety
+name: Player Identity, Photo and Trade UI Safety
 
 on:
   pull_request:
@@ -13,6 +13,8 @@ on:
       - "scripts/update-player-photos.mjs"
       - "scripts/lib/player-photo-pipeline.mjs"
       - "tests/player-photos/**"
+      - "index.html"
+      - "tests/ui/**"
       - ".github/workflows/test-player-identity.yml"
 
   push:
@@ -29,6 +31,8 @@ on:
       - "scripts/update-player-photos.mjs"
       - "scripts/lib/player-photo-pipeline.mjs"
       - "tests/player-photos/**"
+      - "index.html"
+      - "tests/ui/**"
       - ".github/workflows/test-player-identity.yml"
 
   workflow_dispatch:
@@ -37,7 +41,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: player-identity-photo-${{ github.ref }}
+  group: player-identity-photo-ui-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -63,8 +67,8 @@ jobs:
           node --check scripts/update-player-photos.mjs
           node --check scripts/lib/player-photo-pipeline.mjs
 
-      - name: Run player identity and photo tests
-        run: node --test tests/player-identity/*.test.mjs tests/player-photos/*.test.mjs
+      - name: Run player identity, photo and trade UI tests
+        run: node --test tests/player-identity/*.test.mjs tests/player-photos/*.test.mjs tests/ui/*.test.mjs
 
       - name: Audit committed player identity state
         run: |

@@ -7027,14 +7027,13 @@ function teamActionHtml(){
    .slice(0,120);
   const tradeOpts=App.players
    .filter(r=>!App.myTeam.includes(r.name)&&reserveSlotAccepts(slotId,r))
-   .sort((a,b)=>roundProj(b).expected-roundProj(a).expected)
-   .slice(0,200);
+   .sort((a,b)=>roundProj(b).expected-roundProj(a).expected);
   const button=(p,fn)=>`<button type="button" onclick="${fn}" style="width:100%;display:grid;grid-template-columns:1fr auto;gap:8px;text-align:left;margin:6px 0"><span><b>${esc(p.name)}</b><br><span class="small">${esc(p.team||"")} · ${esc((positions(p)||[]).join("/")||p.pos||"")}</span></span><b>${roundProj(p).expected}</b></button>`;
   const moveButtons=currentOpts.length
    ? `<div class="result"><b>Move current team player (${currentOpts.length})</b><p class="small">Moves a valid player already in your squad into this empty ${esc(label)} reserve slot.</p>${currentOpts.map(p=>button(p,`moveEmptyReserveTeamPlayer('${window.jsq(slotId)}','${window.jsq(p.name)}')`)).join("")}</div>`
    : `<div class="result"><b>Move current team player (0)</b><p class="small">No current squad player is eligible for this empty ${esc(label)} reserve slot.</p></div>`;
   const tradeButtons=tradeOpts.length
-   ? `<div class="result"><b>Trade in new player (${tradeOpts.length})</b>${tradeOpts.map(p=>button(p,`applyEmptyReserveTrade('${window.jsq(slotId)}','${window.jsq(p.name)}')`)).join("")}</div>`
+   ? `<div class="result"><b>Trade in new player (${tradeOpts.length})</b><div class="trade-search"><input type="search" placeholder="Search every eligible player by name, club, position or status..." oninput="filterTradeOptions(this.value)" autocomplete="off"></div><div class="trade-option-grid">${tradeOpts.map(p=>tradeOptionButton(p,`applyEmptyReserveTrade('${window.jsq(slotId)}','${window.jsq(p.name)}')`)).join("")}</div></div>`
    : `<div class="result"><b>Trade in new player (0)</b><p class="small">No outside player is eligible for this empty ${esc(label)} reserve slot.</p></div>`;
   return `<div style="position:fixed;right:18px;bottom:18px;z-index:9999;width:min(760px,calc(100vw - 28px));max-height:min(720px,82vh);overflow:auto;background:#071222;border:1px solid #58a6ff;border-radius:18px;padding:14px;box-shadow:0 24px 80px rgba(0,0,0,.72)"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;position:sticky;top:-14px;background:#071222;padding:4px 0 10px"><div><div style="font-size:12px;color:#bfd0e8;font-weight:800">EMPTY ${esc(label)} SLOT</div><div style="font-size:18px;font-weight:950">Move / Trade into ${esc(slotId)}</div></div><button type="button" onclick="cancelTeamAction()" style="padding:7px 10px;border-radius:10px">Close</button></div>${moveButtons}${tradeButtons}</div>`;
  }
