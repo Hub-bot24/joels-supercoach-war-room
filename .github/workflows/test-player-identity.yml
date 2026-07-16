@@ -56,7 +56,7 @@ jobs:
           node --check scripts/update-dpp.mjs
 
       - name: Run player identity tests
-        run: node --test "tests/player-identity/*.test.mjs"
+        run: node --test tests/player-identity/*.test.mjs
 
       - name: Audit committed player identity state
         run: |
