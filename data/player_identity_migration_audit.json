@@ -1,0 +1,874 @@
+{
+  "generatedAt": "2026-07-16T05:22:06.571Z",
+  "mode": "APPLIED",
+  "originalCount": 600,
+  "safeMergeCount": 10,
+  "quarantineCount": 27,
+  "ambiguousCount": 0,
+  "expectedFinalCount": 590,
+  "invalidReuse": {
+    "repeatedSourceIndexes": [],
+    "mergeAndQuarantineOverlap": []
+  },
+  "merges": [
+    {
+      "sourceIndex": 563,
+      "canonicalIndex": 454,
+      "sourceName": "Sean OSullivan",
+      "canonicalName": "Sean O'Sullivan",
+      "evidence": {
+        "type": "explicit-canonical-alias",
+        "explicitAlias": "Sean OSullivan",
+        "sourceDataSource": "nrlsupercoachstats-public",
+        "canonicalTeam": "CAN"
+      },
+      "transferableFields": {
+        "price": 201400,
+        "breakeven": 8,
+        "breakevenStatus": "updated",
+        "lastDataUpdate": "2026-07-08T20:54:58.026646+00:00"
+      }
+    },
+    {
+      "sourceIndex": 564,
+      "canonicalIndex": 335,
+      "sourceName": "Loko PasifikiTonga",
+      "canonicalName": "Loko Pasifiki Tonga",
+      "evidence": {
+        "type": "explicit-canonical-alias",
+        "explicitAlias": "Loko PasifikiTonga",
+        "sourceDataSource": "nrlsupercoachstats-public",
+        "canonicalTeam": "STG"
+      },
+      "transferableFields": {
+        "price": 439800,
+        "breakeven": 8,
+        "breakevenStatus": "updated",
+        "lastDataUpdate": "2026-07-08T20:54:58.026700+00:00"
+      }
+    },
+    {
+      "sourceIndex": 565,
+      "canonicalIndex": 482,
+      "sourceName": "Sua Faalogo",
+      "canonicalName": "Sua Fa'alogo",
+      "evidence": {
+        "type": "explicit-canonical-alias",
+        "explicitAlias": "Sua Faalogo",
+        "sourceDataSource": "nrlsupercoachstats-public",
+        "canonicalTeam": "MEL"
+      },
+      "transferableFields": {
+        "price": 746300,
+        "breakeven": 8,
+        "breakevenStatus": "updated",
+        "lastDataUpdate": "2026-07-08T20:54:58.026746+00:00"
+      }
+    },
+    {
+      "sourceIndex": 566,
+      "canonicalIndex": 186,
+      "sourceName": "Jack deBelin",
+      "canonicalName": "Jack de Belin",
+      "evidence": {
+        "type": "explicit-canonical-alias",
+        "explicitAlias": "Jack deBelin",
+        "sourceDataSource": "nrlsupercoachstats-public",
+        "canonicalTeam": "PAR"
+      },
+      "transferableFields": {
+        "price": 297000,
+        "breakeven": 8,
+        "breakevenStatus": "updated",
+        "lastDataUpdate": "2026-07-08T20:54:58.026821+00:00"
+      }
+    },
+    {
+      "sourceIndex": 567,
+      "canonicalIndex": 486,
+      "sourceName": "Tallyn DaSilva",
+      "canonicalName": "Tallyn Da Silva",
+      "evidence": {
+        "type": "explicit-canonical-alias",
+        "explicitAlias": "Tallyn DaSilva",
+        "sourceDataSource": "nrlsupercoachstats-public",
+        "canonicalTeam": "PAR"
+      },
+      "transferableFields": {
+        "price": 407600,
+        "breakeven": 8,
+        "breakevenStatus": "updated",
+        "lastDataUpdate": "2026-07-06T21:19:00.935328+00:00"
+      }
+    },
+    {
+      "sourceIndex": 568,
+      "canonicalIndex": 178,
+      "sourceName": "Isaiah Papalii",
+      "canonicalName": "Isaiah Papali'i",
+      "evidence": {
+        "type": "explicit-canonical-alias",
+        "explicitAlias": "Isaiah Papalii",
+        "sourceDataSource": "nrlsupercoachstats-public",
+        "canonicalTeam": "PEN"
+      },
+      "transferableFields": {
+        "price": 656400,
+        "breakeven": 8,
+        "breakevenStatus": "updated",
+        "lastDataUpdate": "2026-07-08T20:54:58.026851+00:00"
+      }
+    },
+    {
+      "sourceIndex": 569,
+      "canonicalIndex": 395,
+      "sourceName": "Nicholas Hynes",
+      "canonicalName": "Nicho Hynes",
+      "evidence": {
+        "type": "explicit-canonical-alias",
+        "explicitAlias": "Nicholas Hynes",
+        "sourceDataSource": "nrlsupercoachstats-public",
+        "canonicalTeam": "SHA"
+      },
+      "transferableFields": {
+        "price": 806400,
+        "breakeven": 80,
+        "breakevenStatus": "updated",
+        "lastDataUpdate": "2026-07-08T20:54:58.026873+00:00"
+      }
+    },
+    {
+      "sourceIndex": 570,
+      "canonicalIndex": 235,
+      "sourceName": "Jaylan deGroot",
+      "canonicalName": "Jaylan De Groot",
+      "evidence": {
+        "type": "explicit-canonical-alias",
+        "explicitAlias": "Jaylan deGroot",
+        "sourceDataSource": "nrlsupercoachstats-public",
+        "canonicalTeam": "GLD"
+      },
+      "transferableFields": {
+        "price": 278700,
+        "breakeven": 3,
+        "breakevenStatus": "updated",
+        "lastDataUpdate": "2026-07-08T20:54:58.026937+00:00"
+      }
+    },
+    {
+      "sourceIndex": 571,
+      "canonicalIndex": 492,
+      "sourceName": "TeMaire Martin",
+      "canonicalName": "Te Maire Martin",
+      "evidence": {
+        "type": "explicit-canonical-alias",
+        "explicitAlias": "TeMaire Martin",
+        "sourceDataSource": "nrlsupercoachstats-public",
+        "canonicalTeam": "NZL"
+      },
+      "transferableFields": {
+        "price": 563200,
+        "breakeven": 8,
+        "breakevenStatus": "updated",
+        "lastDataUpdate": "2026-07-06T21:19:00.935490+00:00"
+      }
+    },
+    {
+      "sourceIndex": 575,
+      "canonicalIndex": 479,
+      "sourceName": "Starford Toa",
+      "canonicalName": "Starford To'a",
+      "evidence": {
+        "type": "explicit-canonical-alias",
+        "explicitAlias": "Starford Toa",
+        "sourceDataSource": "nrlsupercoachstats-public",
+        "canonicalTeam": "WST"
+      },
+      "transferableFields": {
+        "price": 450100,
+        "breakeven": 8,
+        "breakevenStatus": "updated",
+        "lastDataUpdate": "2026-07-08T20:54:58.026985+00:00"
+      }
+    }
+  ],
+  "quarantines": [
+    {
+      "sourceIndex": 572,
+      "sourceName": "Josese Lanyon",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Josese Lanyon",
+        "shortName": "Josese Lanyon",
+        "pos": "",
+        "team": "",
+        "price": 201400,
+        "proj": 0,
+        "avg": null,
+        "threeRoundAvg": null,
+        "ownership": null,
+        "ownershipStatus": "needs_data",
+        "bye": [],
+        "breakeven": 8,
+        "breakevenStatus": "updated",
+        "cPct": 0,
+        "vcPct": 0,
+        "captainOwnership": null,
+        "vcOwnership": null,
+        "risk": 30,
+        "injuryStatus": "fit",
+        "expectedReturnRound": 1,
+        "playProbability": 100,
+        "injuryNote": "",
+        "selectedScoring": false,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-08T20:54:58.026976+00:00"
+      }
+    },
+    {
+      "sourceIndex": 573,
+      "sourceName": "Luke Gale",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Luke Gale",
+        "shortName": "Luke Gale",
+        "pos": "",
+        "team": "",
+        "price": 201400,
+        "proj": 0,
+        "avg": null,
+        "threeRoundAvg": null,
+        "ownership": null,
+        "ownershipStatus": "needs_data",
+        "bye": [],
+        "breakeven": 8,
+        "breakevenStatus": "updated",
+        "cPct": 0,
+        "vcPct": 0,
+        "captainOwnership": null,
+        "vcOwnership": null,
+        "risk": 30,
+        "injuryStatus": "fit",
+        "expectedReturnRound": 1,
+        "playProbability": 100,
+        "injuryNote": "",
+        "selectedScoring": false,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-08T20:54:58.026612+00:00"
+      }
+    },
+    {
+      "sourceIndex": 574,
+      "sourceName": "Dayne Jennings",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Dayne Jennings",
+        "shortName": "Dayne Jennings",
+        "pos": "",
+        "team": "",
+        "price": 201400,
+        "proj": 0,
+        "avg": null,
+        "threeRoundAvg": null,
+        "ownership": null,
+        "ownershipStatus": "needs_data",
+        "bye": [],
+        "breakeven": 8,
+        "breakevenStatus": "updated",
+        "cPct": 0,
+        "vcPct": 0,
+        "captainOwnership": null,
+        "vcOwnership": null,
+        "risk": 30,
+        "injuryStatus": "fit",
+        "expectedReturnRound": 1,
+        "playProbability": 100,
+        "injuryNote": "",
+        "selectedScoring": false,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-08T20:54:58.026875+00:00"
+      }
+    },
+    {
+      "sourceIndex": 576,
+      "sourceName": "Coates",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Coates",
+        "sourceName": "Coates",
+        "shortName": "Coates",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 201400,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 12,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 577,
+      "sourceName": "Curran",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Curran",
+        "sourceName": "Curran",
+        "shortName": "Curran",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 421700,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 24,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-13T20:47:20.090Z"
+      }
+    },
+    {
+      "sourceIndex": 578,
+      "sourceName": "Pattie",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Pattie",
+        "sourceName": "Pattie",
+        "shortName": "Pattie",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 390800,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 11,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 579,
+      "sourceName": "Tuipulotu",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Tuipulotu",
+        "sourceName": "Tuipulotu",
+        "shortName": "Tuipulotu",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 385400,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 8,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 580,
+      "sourceName": "Shereb",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Shereb",
+        "sourceName": "Shereb",
+        "shortName": "Shereb",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 242500,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 23,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 581,
+      "sourceName": "Warbrick",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Warbrick",
+        "sourceName": "Warbrick",
+        "shortName": "Warbrick",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 566100,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 17,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-13T20:47:20.090Z"
+      }
+    },
+    {
+      "sourceIndex": 582,
+      "sourceName": "Gamble",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Gamble",
+        "sourceName": "Gamble",
+        "shortName": "Gamble",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 281600,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 10,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-13T20:47:20.090Z"
+      }
+    },
+    {
+      "sourceIndex": 583,
+      "sourceName": "Sutton",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Sutton",
+        "sourceName": "Sutton",
+        "shortName": "Sutton",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 371600,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 5,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 584,
+      "sourceName": "Twidle",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Twidle",
+        "sourceName": "Twidle",
+        "shortName": "Twidle",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 201400,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 48,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 585,
+      "sourceName": "Phillips",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Phillips",
+        "sourceName": "Phillips",
+        "shortName": "Phillips",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 377600,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 26,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 586,
+      "sourceName": "Nikora",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Nikora",
+        "sourceName": "Nikora",
+        "shortName": "Nikora",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 452700,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 14,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-13T20:47:20.090Z"
+      }
+    },
+    {
+      "sourceIndex": 587,
+      "sourceName": "Penitani",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Penitani",
+        "sourceName": "Penitani",
+        "shortName": "Penitani",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 201400,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 57,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-13T20:47:20.090Z"
+      }
+    },
+    {
+      "sourceIndex": 588,
+      "sourceName": "Rodwell",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Rodwell",
+        "sourceName": "Rodwell",
+        "shortName": "Rodwell",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 201400,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 21,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 589,
+      "sourceName": "Harrison",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Harrison",
+        "sourceName": "Harrison",
+        "shortName": "Harrison",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 358000,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 5,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-13T20:47:20.090Z"
+      }
+    },
+    {
+      "sourceIndex": 590,
+      "sourceName": "Hanson",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Hanson",
+        "sourceName": "Hanson",
+        "shortName": "Hanson",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 201400,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 27,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 591,
+      "sourceName": "Roberts",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Roberts",
+        "sourceName": "Roberts",
+        "shortName": "Roberts",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 201400,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 10,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 592,
+      "sourceName": "Pouniu",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Pouniu",
+        "sourceName": "Pouniu",
+        "shortName": "Pouniu",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 201400,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 5,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 593,
+      "sourceName": "Dashboards",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Dashboards",
+        "sourceName": "Dashboards",
+        "shortName": "Dashboards",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": null,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 2017,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 594,
+      "sourceName": "Rinakama",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Rinakama",
+        "sourceName": "Rinakama",
+        "shortName": "Rinakama",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 493100,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 4,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 595,
+      "sourceName": "Wishart",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Wishart",
+        "sourceName": "Wishart",
+        "shortName": "Wishart",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 303300,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 17,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 596,
+      "sourceName": "Crouch",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Crouch",
+        "sourceName": "Crouch",
+        "shortName": "Crouch",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 201400,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 11,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 597,
+      "sourceName": "Kaufusi",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Kaufusi",
+        "sourceName": "Kaufusi",
+        "shortName": "Kaufusi",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 297000,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 22,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 598,
+      "sourceName": "Dufty",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Dufty",
+        "sourceName": "Dufty",
+        "shortName": "Dufty",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 463400,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 61,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    },
+    {
+      "sourceIndex": 599,
+      "sourceName": "Faeamani",
+      "reason": "Enrichment-created record has no explicit canonical alias owner",
+      "record": {
+        "name": "Faeamani",
+        "sourceName": "Faeamani",
+        "shortName": "Faeamani",
+        "pos": "UNKNOWN",
+        "position": "UNKNOWN",
+        "positions": [],
+        "eligiblePositions": [],
+        "dualPositions": [],
+        "price": 466300,
+        "avg": null,
+        "threeRoundAvg": null,
+        "breakeven": 26,
+        "breakevenStatus": "updated",
+        "team": null,
+        "ownership": null,
+        "dataSource": "nrlsupercoachstats-public",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z"
+      }
+    }
+  ],
+  "ambiguities": [],
+  "backupFile": "data\\backups\\players.before-identity-migration.2026-07-16T05-22-06-580Z.json",
+  "canonicalPlayerCount": 563,
+  "quarantinedPlayerCount": 27,
+  "totalPreservedCount": 590
+}

@@ -1,5 +1,11 @@
 import fs from "node:fs";
 
+import {
+  buildIdentityIndex,
+  normaliseIdentityName,
+  resolveIdentity
+} from "./lib/player-identity.mjs";
+
 const readJson = (path, fallback = null) => {
   try {
     return JSON.parse(fs.readFileSync(path, "utf8"));
@@ -42,12 +48,6 @@ async function fetchDppHtml() {
   return await response.text();
 }
 
-function normaliseName(value) {
-  return String(value || "")
-    .toLowerCase()
-    .replace(/[’']/g, "")
-    .replace(/[^a-z0-9]/g, "");
-}
 function parsePositions(text) {
   const positions = [];
 
@@ -79,7 +79,7 @@ function extractDppPlayers(html) {
     const name = nameMatch[1].trim();
 
     if (name) {
-      out[normaliseName(name)] = {
+      out[normaliseIdentityName(name)] = {
         name,
         positions
       };
@@ -90,35 +90,72 @@ function extractDppPlayers(html) {
 }
 async function main() {
   const html = await fetchDppHtml();
-
   const dppPlayers = extractDppPlayers(html);
 
-  const playersData = readJson(playersPath, { players: [] });
+  const playersData = readJson(
+    playersPath,
+    { players: [] }
+  );
 
   const players = playersData.players || [];
+  const identityIndex = buildIdentityIndex(players);
 
   let matched = 0;
+  const unmatched = [];
+  const ambiguous = [];
 
-  for (const player of players) {
-    const key = normaliseName(player.name);
+  for (const dpp of Object.values(dppPlayers)) {
+    const resolution = resolveIdentity(
+      identityIndex,
+      dpp.name
+    );
 
-    const dpp = dppPlayers[key];
+    if (resolution.status === "unmatched") {
+      unmatched.push(dpp.name);
+      continue;
+    }
 
-    if (!dpp) continue;
+    if (resolution.status === "ambiguous") {
+      ambiguous.push({
+        sourceName: dpp.name,
+        candidates: resolution.candidates.map(
+          player => player.name
+        )
+      });
 
-player.dualPositions = dpp.positions;
+      continue;
+    }
+
+    resolution.player.dualPositions =
+      [...new Set(dpp.positions)];
 
     matched++;
   }
 
-  playersData.players = players;
+  if (ambiguous.length > 0) {
+    const details = ambiguous
+      .map(item =>
+        `${item.sourceName}: ${item.candidates.join(" | ")}`
+      )
+      .join("\n");
 
+    throw new Error(
+      "Ambiguous DPP identities detected:\n" +
+      details
+    );
+  }
+
+  playersData.players = players;
   writeJson(playersPath, playersData);
 
-  console.log(`DPP source players: ${Object.keys(dppPlayers).length}`);
+  console.log(
+    `DPP source players: ${Object.keys(dppPlayers).length}`
+  );
   console.log(`DPP matched players: ${matched}`);
+  console.log(
+    `DPP unmatched players: ${unmatched.length}`
+  );
 }
-
 main().catch(err => {
   console.error(err);
   process.exit(1);
