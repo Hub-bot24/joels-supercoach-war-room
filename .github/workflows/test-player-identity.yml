@@ -1,4 +1,4 @@
-name: Player Identity Safety
+name: Player Identity and Photo Safety
 
 on:
   pull_request:
@@ -10,6 +10,9 @@ on:
       - "scripts/lib/player-identity-migration.mjs"
       - "scripts/migrate-player-identities.mjs"
       - "tests/player-identity/**"
+      - "scripts/update-player-photos.mjs"
+      - "scripts/lib/player-photo-pipeline.mjs"
+      - "tests/player-photos/**"
       - ".github/workflows/test-player-identity.yml"
 
   push:
@@ -23,6 +26,9 @@ on:
       - "scripts/lib/player-identity-migration.mjs"
       - "scripts/migrate-player-identities.mjs"
       - "tests/player-identity/**"
+      - "scripts/update-player-photos.mjs"
+      - "scripts/lib/player-photo-pipeline.mjs"
+      - "tests/player-photos/**"
       - ".github/workflows/test-player-identity.yml"
 
   workflow_dispatch:
@@ -31,11 +37,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: player-identity-${{ github.ref }}
+  group: player-identity-photo-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  player-identity:
+  player-identity-photo:
     runs-on: ubuntu-latest
 
     steps:
@@ -54,9 +60,11 @@ jobs:
           node --check scripts/migrate-player-identities.mjs
           node --check scripts/update-players.mjs
           node --check scripts/update-dpp.mjs
+          node --check scripts/update-player-photos.mjs
+          node --check scripts/lib/player-photo-pipeline.mjs
 
-      - name: Run player identity tests
-        run: node --test tests/player-identity/*.test.mjs
+      - name: Run player identity and photo tests
+        run: node --test tests/player-identity/*.test.mjs tests/player-photos/*.test.mjs
 
       - name: Audit committed player identity state
         run: |
