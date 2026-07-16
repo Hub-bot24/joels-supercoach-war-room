@@ -6761,27 +6761,25 @@ function sortedOutsidePlayers(){
  return list;
 }
 
-function legalFieldTradeOptions(slot, limit=80){
+function legalFieldTradeOptions(slot){
  const key = "field::" + tradeCacheKey() + "::" + (slot?.id || "");
  App.tradeOptionCache = App.tradeOptionCache || new Map();
  if(App.tradeOptionCache.has(key)) return App.tradeOptionCache.get(key);
 
  const list = sortedOutsidePlayers()
-  .filter(p => eligible(p, slot))
-  .slice(0, limit);
+  .filter(p => eligible(p, slot));
 
  App.tradeOptionCache.set(key, list);
  return list;
 }
 
-function legalReserveTradeOptions(oldPlayer, limit=80){
+function legalReserveTradeOptions(oldPlayer){
  const key = "reserve::" + tradeCacheKey() + "::" + (oldPlayer?.name || "");
  App.tradeOptionCache = App.tradeOptionCache || new Map();
  if(App.tradeOptionCache.has(key)) return App.tradeOptionCache.get(key);
 
  const list = sortedOutsidePlayers()
-  .filter(p => tradeEligibleForPlayer(p, oldPlayer))
-  .slice(0, limit);
+  .filter(p => tradeEligibleForPlayer(p, oldPlayer));
 
  App.tradeOptionCache.set(key, list);
  return list;
@@ -7041,13 +7039,13 @@ function teamActionHtml(){
   const p=getPlayer(App.selectedReserveTradeName);
   if(!p)return '<span style="opacity:.75">Tap a player for stats/trade. Press and hold to drag/swap.</span>';
   const posLabel=(playerTradePositions(p).join("/")||p.pos||"RESERVE");
-  const opts=legalReserveTradeOptions(p,80);
+  const opts=legalReserveTradeOptions(p);
   return tradePopupHtml(`TRADE OUT ${posLabel} - ${opts.length} OPTIONS`,p.name,opts,r=>`applyReserveTrade('${window.jsq(p.name)}','${window.jsq(r.name)}')`);
  }
  if(App.teamActionMode==="trade"){
   const slot=slotById[App.selectedTeamSlot],p=getPlayer(App.lineup?.[App.selectedTeamSlot]);
   if(!slot||!p)return '<span style="opacity:.75">Tap a player for stats/trade. Press and hold to drag/swap.</span>';
-  const opts=legalFieldTradeOptions(slot,80);
+  const opts=legalFieldTradeOptions(slot);
   return tradePopupHtml(`TRADE OUT ${slot.short} - ${opts.length} OPTIONS`,p.name,opts,r=>`applyTeamTradeOut('${slot.id}','${window.jsq(r.name)}')`);
  }
  if(App.selectedReserveTradeName){
