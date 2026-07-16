@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-15T21:24:39.591Z",
+  "updated": "2026-07-16T05:22:06.588Z",
   "source": "https://nrlsupercoachstats.com/playerlist.php",
   "note": "Full source-driven player database. my_team.json remains the selected squad file.",
   "players": [
@@ -33047,23 +33047,11 @@
     "version": "v3-node-price-be",
     "source": "https://www.nrlsupercoachstats.com/TeamPricesAndBEs.php",
     "rowsFound": 18,
-    "playersUpdated": 12,
-    "playersAdded": 6,
+    "playersUpdated": 18,
+    "playersAdded": 0,
     "dppSourcePlayers": 107,
     "dppMatchedExisting": 107,
     "dppApplied": 107
-  },
-  "identityMigration": {
-    "version": "v3-separated-retained-quarantine",
-    "migratedAt": "2026-07-15T21:24:39.591Z",
-    "originalCount": 600,
-    "finalCount": 590,
-    "mergedCount": 10,
-    "retainedQuarantineCount": 27,
-    "ambiguousCount": 0,
-    "canonicalPlayerCount": 563,
-    "quarantinedPlayerCount": 27,
-    "totalPreservedCount": 590
   },
   "identityQuarantine": {
     "version": "v2-separated-retained-quarantine",
@@ -33097,7 +33085,7 @@
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Josese Lanyon",
           "retainedInPlayerDatabase": true
@@ -33132,7 +33120,7 @@
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Luke Gale",
           "retainedInPlayerDatabase": true
@@ -33167,7 +33155,7 @@
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Dayne Jennings",
           "retainedInPlayerDatabase": true
@@ -33190,11 +33178,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Coates",
           "retainedInPlayerDatabase": true
@@ -33221,7 +33209,7 @@
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Curran",
           "retainedInPlayerDatabase": true
@@ -33244,11 +33232,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Pattie",
           "retainedInPlayerDatabase": true
@@ -33271,11 +33259,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Tuipulotu",
           "retainedInPlayerDatabase": true
@@ -33298,11 +33286,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Shereb",
           "retainedInPlayerDatabase": true
@@ -33329,7 +33317,7 @@
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Warbrick",
           "retainedInPlayerDatabase": true
@@ -33356,7 +33344,7 @@
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Gamble",
           "retainedInPlayerDatabase": true
@@ -33379,11 +33367,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Sutton",
           "retainedInPlayerDatabase": true
@@ -33406,11 +33394,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Twidle",
           "retainedInPlayerDatabase": true
@@ -33433,11 +33421,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Phillips",
           "retainedInPlayerDatabase": true
@@ -33464,7 +33452,7 @@
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Nikora",
           "retainedInPlayerDatabase": true
@@ -33491,7 +33479,7 @@
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Penitani",
           "retainedInPlayerDatabase": true
@@ -33514,11 +33502,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Rodwell",
           "retainedInPlayerDatabase": true
@@ -33545,7 +33533,7 @@
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Harrison",
           "retainedInPlayerDatabase": true
@@ -33568,11 +33556,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Hanson",
           "retainedInPlayerDatabase": true
@@ -33595,11 +33583,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Roberts",
           "retainedInPlayerDatabase": true
@@ -33622,11 +33610,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Pouniu",
           "retainedInPlayerDatabase": true
@@ -33649,11 +33637,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Dashboards",
           "retainedInPlayerDatabase": true
@@ -33676,11 +33664,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Rinakama",
           "retainedInPlayerDatabase": true
@@ -33703,11 +33691,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Wishart",
           "retainedInPlayerDatabase": true
@@ -33730,11 +33718,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Crouch",
           "retainedInPlayerDatabase": true
@@ -33757,11 +33745,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Kaufusi",
           "retainedInPlayerDatabase": true
@@ -33784,11 +33772,11 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Dufty",
           "retainedInPlayerDatabase": true
@@ -33811,16 +33799,27 @@
         "team": null,
         "ownership": null,
         "dataSource": "nrlsupercoachstats-public",
-        "lastDataUpdate": "2026-07-14T20:48:10.787Z",
+        "lastDataUpdate": "2026-07-15T20:48:14.946Z",
         "identityStatus": "quarantined-enrichment-orphan",
         "identityQuarantine": {
           "version": "v1-enrichment-orphan",
-          "quarantinedAt": "2026-07-15T21:24:39.591Z",
+          "quarantinedAt": "2026-07-16T05:22:06.588Z",
           "reason": "Enrichment-created record has no explicit canonical alias owner",
           "sourceName": "Faeamani",
           "retainedInPlayerDatabase": true
         }
       }
     ]
+  },
+  "identityMigration": {
+    "version": "v2-explicit-alias-retained-quarantine",
+    "migratedAt": "2026-07-16T05:22:06.588Z",
+    "originalCount": 600,
+    "canonicalPlayerCount": 563,
+    "quarantinedPlayerCount": 27,
+    "totalPreservedCount": 590,
+    "mergedCount": 10,
+    "retainedQuarantineCount": 27,
+    "ambiguousCount": 0
   }
 }
