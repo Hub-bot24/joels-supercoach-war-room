@@ -4486,6 +4486,456 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 }
 </style>
 
+
+<style id="premium-bye-planner-styles">
+#bye{
+ --bye-line:rgba(148,163,184,.16);
+ --bye-muted:#9fb0c7;
+}
+
+#bye .bye-planner-shell{
+ width:min(1500px,100%);
+ margin:0 auto;
+ padding:20px;
+ box-sizing:border-box;
+}
+
+#bye .bye-planner-hero{
+ display:flex;
+ justify-content:space-between;
+ align-items:flex-end;
+ gap:24px;
+ padding:28px 30px;
+ border:1px solid rgba(56,189,248,.28);
+ border-radius:26px;
+ background:
+  radial-gradient(circle at 88% 5%,rgba(56,189,248,.22),transparent 31%),
+  linear-gradient(135deg,#102743,#07111f 68%);
+ box-shadow:
+  0 26px 65px rgba(0,0,0,.38),
+  inset 0 1px rgba(255,255,255,.045);
+}
+
+#bye .bye-planner-kicker{
+ margin:0 0 8px;
+ color:#7dd3fc;
+ font-size:11px;
+ font-weight:950;
+ letter-spacing:.17em;
+ text-transform:uppercase;
+}
+
+#bye .bye-planner-hero h1{
+ margin:0;
+ color:#fff;
+ font-size:clamp(38px,5vw,64px);
+ line-height:.9;
+ letter-spacing:-.055em;
+}
+
+#bye .bye-planner-hero p:last-child{
+ max-width:820px;
+ margin:17px 0 0;
+ color:#c8d7ea;
+ font-size:14px;
+ line-height:1.55;
+}
+
+#bye .bye-planner-rule{
+ flex:0 0 auto;
+ display:grid;
+ grid-template-columns:repeat(2,minmax(100px,1fr));
+ gap:8px;
+ min-width:250px;
+ padding:13px;
+ border-radius:17px;
+ background:rgba(2,8,18,.58);
+ border:1px solid rgba(125,211,252,.18);
+}
+
+#bye .bye-planner-rule span{
+ grid-column:1/-1;
+ color:#7dd3fc;
+ font-size:9px;
+ font-weight:950;
+ letter-spacing:.13em;
+ text-transform:uppercase;
+}
+
+#bye .bye-planner-rule b{
+ padding:10px;
+ border-radius:11px;
+ color:#fff;
+ background:rgba(255,255,255,.05);
+ font-size:13px;
+ text-align:center;
+}
+
+#bye .bye-round-grid{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:18px;
+ margin-top:19px;
+}
+
+#bye .bye-round-card{
+ overflow:hidden;
+ min-width:0;
+ border:1px solid var(--bye-line);
+ border-radius:24px;
+ background:
+  radial-gradient(circle at 100% 0,rgba(56,189,248,.08),transparent 35%),
+  linear-gradient(145deg,rgba(15,31,52,.99),rgba(5,12,22,.99));
+ box-shadow:
+  0 21px 48px rgba(0,0,0,.33),
+  inset 0 1px rgba(255,255,255,.035);
+}
+
+#bye .bye-round-card.is-covered{
+ border-color:rgba(142,234,24,.27);
+}
+
+#bye .bye-round-card.is-danger{
+ border-color:rgba(251,113,133,.38);
+}
+
+#bye .bye-round-head{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:14px;
+ padding:20px 22px 16px;
+ border-bottom:1px solid var(--bye-line);
+}
+
+#bye .bye-round-label{
+ display:block;
+ color:var(--bye-muted);
+ font-size:10px;
+ font-weight:950;
+ letter-spacing:.15em;
+ text-transform:uppercase;
+}
+
+#bye .bye-round-head h2{
+ margin:4px 0 0;
+ color:#fff;
+ font-size:31px;
+ line-height:1;
+ letter-spacing:-.035em;
+}
+
+#bye .bye-status{
+ padding:8px 13px;
+ border-radius:999px;
+ font-size:11px;
+ font-weight:950;
+ letter-spacing:.08em;
+ text-transform:uppercase;
+}
+
+#bye .bye-status.is-covered{
+ color:#dfffba;
+ background:rgba(142,234,24,.12);
+ border:1px solid rgba(142,234,24,.36);
+}
+
+#bye .bye-status.is-danger{
+ color:#ffd7df;
+ background:rgba(251,113,133,.12);
+ border:1px solid rgba(251,113,133,.40);
+}
+
+#bye .bye-round-dashboard{
+ display:grid;
+ grid-template-columns:170px minmax(0,1fr);
+ gap:20px;
+ padding:21px 22px;
+}
+
+#bye .bye-score{
+ display:grid;
+ justify-items:center;
+ align-content:center;
+ min-height:165px;
+ padding:12px;
+ border-radius:21px;
+ background:rgba(2,8,18,.72);
+ border:1px solid rgba(56,189,248,.17);
+}
+
+#bye .bye-score-ring{
+ width:112px;
+ height:112px;
+ display:grid;
+ place-items:center;
+ border-radius:50%;
+ background:
+  radial-gradient(circle at center,#07111f 59%,transparent 61%),
+  conic-gradient(
+   #38bdf8 var(--bye-progress),
+   rgba(148,163,184,.13) 0
+  );
+ box-shadow:0 0 30px rgba(56,189,248,.10);
+}
+
+#bye .bye-score-ring div{
+ text-align:center;
+}
+
+#bye .bye-score-ring strong{
+ display:block;
+ color:#fff;
+ font-size:38px;
+ line-height:.85;
+ letter-spacing:-.05em;
+}
+
+#bye .bye-score-ring span{
+ color:#9fb0c7;
+ font-size:11px;
+ font-weight:850;
+}
+
+#bye .bye-score small{
+ margin-top:10px;
+ color:#7dd3fc;
+ font-size:9px;
+ font-weight:950;
+ letter-spacing:.13em;
+ text-transform:uppercase;
+}
+
+#bye .bye-round-summary h3{
+ margin:2px 0 0;
+ color:#fff;
+ font-size:21px;
+}
+
+#bye .bye-round-summary>p{
+ margin:8px 0 0;
+ color:#acbed4;
+ font-size:13px;
+ line-height:1.48;
+}
+
+#bye .bye-stat-grid{
+ display:grid;
+ grid-template-columns:repeat(4,minmax(0,1fr));
+ gap:8px;
+ margin-top:16px;
+}
+
+#bye .bye-stat-grid>div{
+ min-width:0;
+ padding:11px;
+ border-radius:13px;
+ background:rgba(255,255,255,.045);
+ border:1px solid rgba(148,163,184,.13);
+}
+
+#bye .bye-stat-grid span{
+ display:block;
+ overflow:hidden;
+ color:#9fb0c7;
+ font-size:8px;
+ font-weight:900;
+ letter-spacing:.07em;
+ text-overflow:ellipsis;
+ text-transform:uppercase;
+}
+
+#bye .bye-stat-grid b{
+ display:block;
+ margin-top:5px;
+ color:#fff;
+ font-size:22px;
+ line-height:1;
+}
+
+#bye .bye-player-groups{
+ padding:0 22px 19px;
+}
+
+#bye .bye-player-group{
+ margin-top:10px;
+ padding:13px;
+ border-radius:16px;
+ background:rgba(2,8,18,.56);
+ border:1px solid rgba(148,163,184,.13);
+}
+
+#bye .bye-player-group.is-bye{
+ border-color:rgba(168,85,247,.24);
+}
+
+#bye .bye-player-group.is-unavailable{
+ border-color:rgba(251,113,133,.25);
+}
+
+#bye .bye-player-group.is-risk{
+ border-color:rgba(251,191,36,.25);
+}
+
+#bye .bye-player-group-head{
+ display:flex;
+ justify-content:space-between;
+ gap:12px;
+ color:#dce8f7;
+ font-size:10px;
+ font-weight:950;
+ letter-spacing:.10em;
+ text-transform:uppercase;
+}
+
+#bye .bye-chip-list{
+ display:flex;
+ flex-wrap:wrap;
+ gap:8px;
+ margin-top:10px;
+}
+
+#bye .bye-chip{
+ display:inline-grid;
+ gap:2px;
+ max-width:100%;
+ padding:8px 10px;
+ border-radius:12px;
+ color:#eff6ff;
+ background:rgba(148,163,184,.08);
+ border:1px solid rgba(148,163,184,.16);
+ font-size:11px;
+ line-height:1.15;
+}
+
+#bye .bye-chip b{
+ color:#fff;
+ font-size:11px;
+}
+
+#bye .bye-chip span{
+ color:#9fb0c7;
+ font-size:9px;
+}
+
+#bye .bye-chip.is-bye{
+ background:rgba(168,85,247,.10);
+ border-color:rgba(168,85,247,.29);
+}
+
+#bye .bye-chip.is-unavailable{
+ background:rgba(251,113,133,.10);
+ border-color:rgba(251,113,133,.29);
+}
+
+#bye .bye-chip.is-risk{
+ background:rgba(251,191,36,.10);
+ border-color:rgba(251,191,36,.29);
+}
+
+#bye .bye-action{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ margin:0 22px 22px;
+ padding:15px 16px;
+ border-radius:17px;
+ background:linear-gradient(135deg,rgba(14,116,144,.19),rgba(30,64,175,.17));
+ border:1px solid rgba(125,211,252,.22);
+}
+
+#bye .bye-action.is-danger{
+ background:linear-gradient(135deg,rgba(127,29,29,.24),rgba(76,5,25,.18));
+ border-color:rgba(251,113,133,.25);
+}
+
+#bye .bye-action-mark{
+ flex:0 0 auto;
+ width:36px;
+ height:36px;
+ display:grid;
+ place-items:center;
+ border-radius:11px;
+ color:#dff7ff;
+ background:rgba(56,189,248,.16);
+ font-size:13px;
+ font-weight:950;
+}
+
+#bye .bye-action.is-danger .bye-action-mark{
+ color:#ffe4e9;
+ background:rgba(251,113,133,.16);
+}
+
+#bye .bye-action span{
+ display:block;
+ color:#7dd3fc;
+ font-size:9px;
+ font-weight:950;
+ letter-spacing:.13em;
+ text-transform:uppercase;
+}
+
+#bye .bye-action b{
+ display:block;
+ margin-top:4px;
+ color:#eef8ff;
+ font-size:13px;
+ line-height:1.4;
+}
+
+@media(max-width:1050px){
+ #bye .bye-round-grid{
+  grid-template-columns:1fr;
+ }
+
+ #bye .bye-planner-hero{
+  align-items:flex-start;
+ }
+}
+
+@media(max-width:680px){
+ #bye .bye-planner-shell{
+  padding:10px;
+ }
+
+ #bye .bye-planner-hero{
+  display:block;
+  padding:20px;
+  border-radius:20px;
+ }
+
+ #bye .bye-planner-rule{
+  margin-top:18px;
+  min-width:0;
+ }
+
+ #bye .bye-round-dashboard{
+  grid-template-columns:1fr;
+  padding:16px;
+ }
+
+ #bye .bye-score{
+  min-height:145px;
+ }
+
+ #bye .bye-stat-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+ }
+
+ #bye .bye-round-head,
+ #bye .bye-player-groups{
+  padding-left:16px;
+  padding-right:16px;
+ }
+
+ #bye .bye-action{
+  margin-left:16px;
+  margin-right:16px;
+ }
+}
+</style>
+
 </head>
 <body>
 <nav>
@@ -7784,82 +8234,220 @@ function renderBye(){
   return {filled:best.filled,missing,used:best.used};
  };
 
- const pill=(item,cls)=>`<span class="miss ${item.cls||cls}" title="${esc(item.detail||'')}">${esc(item.player.name)} - ${esc(item.reason)}</span>`;
+ const pill=(item,cls)=>`<span class="bye-chip is-${esc(cls)}" title="${esc(item.detail||'')}"><b>${esc(item.player.name)}</b><span>${esc(item.reason)}</span></span>`;
 
  const group=(title,items,cls)=>{
   if(!items.length)return '';
-  return `<div class="result"><b>${title} (${items.length})</b><br>${items.map(x=>pill(x,cls)).join(' ')}</div>`;
+
+  return `<section class="bye-player-group is-${esc(cls)}">
+   <div class="bye-player-group-head">
+    <span>${esc(title)}</span>
+    <b>${items.length}</b>
+   </div>
+   <div class="bye-chip-list">
+    ${items.map(item=>pill(item,cls)).join('')}
+   </div>
+  </section>`;
  };
 
- $('bye').innerHTML=`<div class="panel">
-  <h2>Bye Planner</h2>
-  <p class="small">Legal-team view: major bye rounds need 13 playable players anywhere. Normal and minor bye rounds need a legal 18-player squad: 14 starters by position plus 4 reserves.</p>
-  ${rounds.map(r=>{
-   const buckets={available:[],risk:[],unavailable:[],bye:[]};
+ $('bye').innerHTML=`<div class="bye-planner-shell">
+  <header class="bye-planner-hero">
+   <div>
+    <p class="bye-planner-kicker">War Room availability intelligence</p>
+    <h1>Bye Planner</h1>
+    <p>See immediately whether your squad can field a legal side, where coverage breaks down and what needs fixing before each round.</p>
+   </div>
 
-   tp.forEach(p=>{
-    const playerByeRounds = (p.bye||p.byes||p.byeRounds||[]).map(Number).filter(Boolean);
-    const trueBye = playerByeRounds.includes(Number(r));
-    const st=availabilityStatus(p,r);
-    let k=classify(st);
+   <div class="bye-planner-rule">
+    <span>Squad rules</span>
+    <b>18 normal</b>
+    <b>13 major bye</b>
+   </div>
+  </header>
 
-    // Bye Planner core rule:
-    // Future planner BYE must come from the player's actual bye rounds only.
-    // Do not carry current-round status_truth BYE into non-bye future rounds.
-    if(k==='bye' && !trueBye){
-     k='available';
+  <div class="bye-round-grid">
+   ${rounds.map(r=>{
+    const buckets={
+     available:[],
+     risk:[],
+     unavailable:[],
+     bye:[]
+    };
+
+    tp.forEach(p=>{
+     const playerByeRounds=
+      (p.bye||p.byes||p.byeRounds||[])
+       .map(Number)
+       .filter(Boolean);
+
+     const trueBye=
+      playerByeRounds.includes(Number(r));
+
+     const st=availabilityStatus(p,r);
+     let k=classify(st);
+
+     if(k==='bye'&&!trueBye){
+      k='available';
+     }
+
+     buckets[k].push({
+      player:p,
+      reason:reasonLabel(st),
+      detail:st?.reason||'',
+      cls:
+       k==='unavailable'&&
+       String(st?.key||'')
+        .toLowerCase()
+        .includes('not')
+        ?'notnamed'
+        :null
+     });
+    });
+
+    const playable=[
+     ...buckets.available,
+     ...buckets.risk
+    ];
+
+    const major=isMajorByeRound(r);
+    const target=major?13:18;
+
+    let covered=0;
+    let shortfall=0;
+    let action='';
+    let detail='';
+    let starterCover=null;
+    let reserveCover=null;
+
+    if(major){
+     covered=Math.min(target,playable.length);
+     shortfall=Math.max(0,target-playable.length);
+
+     detail=
+      `${playable.length} playable players available. Position structure is not required in a major bye round.`;
+
+     action=shortfall>0
+      ? `Add ${shortfall} playable player${shortfall===1?'':'s'} before this round.`
+      : 'Major bye target covered.';
+    }else{
+     const legal=legalStarterCover(playable);
+
+     const remaining=
+      playable.filter(
+       item=>!legal.used.has(item.player.name)
+      );
+
+     reserveCover=
+      Math.min(4,remaining.length);
+
+     const reserveShort=
+      Math.max(0,4-reserveCover);
+
+     starterCover=legal.filled.length;
+     covered=starterCover+reserveCover;
+
+     shortfall=
+      legal.missing.length+
+      reserveShort;
+
+     const missingText=
+      legal.missing
+       .map(slot=>slot.short)
+       .join(', ');
+
+     detail=
+      `${starterCover}/14 legal starters and ${reserveCover}/4 reserves covered.`;
+
+     action=shortfall>0
+      ? `${legal.missing.length?`Cover ${missingText}`:''}${legal.missing.length&&reserveShort?' and ':''}${reserveShort?`add ${reserveShort} reserve cover`:''}.`
+      : 'Legal 18-player squad covered.';
     }
 
-    const item={player:p,reason:reasonLabel(st),detail:st?.reason||'',cls:k==='unavailable'&&String(st?.key||'').toLowerCase().includes('not')?'notnamed':null};
-    buckets[k].push(item);
-   });
+    const danger=shortfall>0;
+    const displayCovered=Math.min(target,covered);
+    const progress=Math.max(
+     0,
+     Math.min(100,Math.round(displayCovered/target*100))
+    );
 
-   const playable=[...buckets.available,...buckets.risk];
-   const major=isMajorByeRound(r);
-   const target=major?13:18;
-   let covered=0;
-   let shortfall=0;
-   let action='';
-   let detail='';
+    return `<article class="bye-round-card ${danger?'is-danger':'is-covered'}">
+     <div class="bye-round-head">
+      <div>
+       <span class="bye-round-label">${major?'Major bye':'Squad coverage'}</span>
+       <h2>Round ${esc(r)}</h2>
+      </div>
 
-   if(major){
-    covered=Math.min(target,playable.length);
-    shortfall=Math.max(0,target-playable.length);
-    detail=`Major bye: position structure not required. Playable bodies: ${playable.length}.`;
-    action=shortfall>0
-     ? `Fix priority: add ${shortfall} playable player${shortfall===1?'':'s'} for this major bye round.`
-     : 'Major bye target covered.';
-   }else{
-    const legal=legalStarterCover(playable);
-    const remaining=playable.filter(item=>!legal.used.has(item.player.name));
-    const reserveCover=Math.min(4,remaining.length);
-    const reserveShort=Math.max(0,4-reserveCover);
-    covered=legal.filled.length+reserveCover;
-    shortfall=legal.missing.length+reserveShort;
-    const missingText=legal.missing.map(s=>s.short).join(', ');
-    detail=`Normal/minor bye: starters ${legal.filled.length}/14, reserves ${reserveCover}/4.`;
-    action=shortfall>0
-     ? `Fix priority: ${legal.missing.length?`cover ${missingText}`:''}${legal.missing.length&&reserveShort?' + ':''}${reserveShort?`add ${reserveShort} reserve cover`:''}.`
-     : 'Legal 18-player squad covered.';
-   }
+      <span class="bye-status ${danger?'is-danger':'is-covered'}">
+       ${danger?`Short ${shortfall}`:'Covered'}
+      </span>
+     </div>
 
-   const status=shortfall>0?'<span class="pill bad">Danger</span>':'<span class="pill good">Covered</span>';
+     <div class="bye-round-dashboard">
+      <div class="bye-score">
+       <div class="bye-score-ring" style="--bye-progress:${progress}%">
+        <div>
+         <strong>${esc(displayCovered)}</strong>
+         <span>of ${esc(target)}</span>
+        </div>
+       </div>
+       <small>Legal coverage</small>
+      </div>
 
-   return `<div class="result" style="margin-bottom:14px">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:10px">
-     <h2 style="margin:0">Round ${r}</h2>${status}
-    </div>
-    <div class="metric ${shortfall>0?'bad':'good'}">${Math.min(target,covered)} / ${playable.length}</div>
-    <p><b>${major?'Major bye':'Normal/minor round'} - ${shortfall>0?`Short ${shortfall}`:'Covered'}</b></p>
-    <p class="small">${esc(detail)}</p>
-    <p class="small">Bye: <b>${buckets.bye.length}</b>  Unavailable: <b>${buckets.unavailable.length}</b>  Risk: <b>${buckets.risk.length}</b>  Playable: <b>${playable.length}</b></p>
-    ${group('Bye',buckets.bye,'bye')}
-    ${group('Unavailable',buckets.unavailable,'bad')}
-    ${group('Risk',buckets.risk,'warn')}
-    <div class="result"><b>Action:</b> ${esc(action)}</div>
-   </div>`;
-  }).join('')}
+      <div class="bye-round-summary">
+       <h3>${major?'Major bye round':'Normal or minor round'}</h3>
+       <p>${esc(detail)}</p>
+
+       <div class="bye-stat-grid">
+        <div>
+         <span>Playable</span>
+         <b>${playable.length}</b>
+        </div>
+        <div>
+         <span>Bye</span>
+         <b>${buckets.bye.length}</b>
+        </div>
+        <div>
+         <span>Unavailable</span>
+         <b>${buckets.unavailable.length}</b>
+        </div>
+        <div>
+         <span>Risk</span>
+         <b>${buckets.risk.length}</b>
+        </div>
+       </div>
+      </div>
+     </div>
+
+     <div class="bye-player-groups">
+      ${group(
+       'Bye players',
+       buckets.bye,
+       'bye'
+      )}
+      ${group(
+       'Unavailable',
+       buckets.unavailable,
+       'unavailable'
+      )}
+      ${group(
+       'Selection risk',
+       buckets.risk,
+       'risk'
+      )}
+     </div>
+
+     <footer class="bye-action ${danger?'is-danger':'is-covered'}">
+      <div class="bye-action-mark">${danger?'!':'OK'}</div>
+      <div>
+       <span>Recommended action</span>
+       <b>${esc(action)}</b>
+      </div>
+     </footer>
+    </article>`;
+   }).join('')}
+  </div>
  </div>`;
+
 }
 
 
