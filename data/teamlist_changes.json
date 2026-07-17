@@ -1,56 +1,5 @@
 [
   {
-    "player": "Viliami Fifita",
-    "team": "MAN",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-12T18:39:43.389Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-12T18:39:43.389Z"
-      }
-    ],
-    "round": 20
-  },
-  {
-    "player": "Viliami Vailea",
-    "team": "NQC",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-12T18:39:43.389Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-12T18:39:43.389Z"
-      }
-    ],
-    "round": 20
-  },
-  {
-    "player": "VJ Semu",
-    "team": "BRO",
-    "from": "BYE",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-12T18:39:43.389Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-12T18:39:43.389Z"
-      }
-    ],
-    "round": 20
-  },
-  {
     "player": "Wayde Egan",
     "team": "NZL",
     "from": "NAMED",
@@ -13173,6 +13122,111 @@
         "updatedAt": "2026-07-17T12:11:46.868Z",
         "priority": 2,
         "order": 3
+      }
+    ],
+    "round": 20
+  },
+  {
+    "player": "Davvy Moale",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 20).",
+    "detectedAt": "2026-07-17T14:04:56.217Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/14/nrl-team-lists-round-20",
+        "updatedAt": "2026-07-17T14:04:56.217Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-roosters-storm-10396481-235968",
+        "updatedAt": "2026-07-17T14:04:56.217Z",
+        "priority": 4,
+        "order": 6
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-20-team-lists-2026-235892",
+        "updatedAt": "2026-07-17T14:04:56.217Z",
+        "priority": 2,
+        "order": 11
+      }
+    ],
+    "round": 20
+  },
+  {
+    "player": "Gabriel Satrick",
+    "team": "MEL",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 14).",
+    "detectedAt": "2026-07-17T14:04:56.217Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/14/nrl-team-lists-round-20",
+        "updatedAt": "2026-07-17T14:04:56.217Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-roosters-storm-10396481-235968",
+        "updatedAt": "2026-07-17T14:04:56.217Z",
+        "priority": 4,
+        "order": 6
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-20-team-lists-2026-235892",
+        "updatedAt": "2026-07-17T14:04:56.217Z",
+        "priority": 2,
+        "order": 11
+      }
+    ],
+    "round": 20
+  },
+  {
+    "player": "Josiah Pahulu",
+    "team": "MEL",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 16).",
+    "detectedAt": "2026-07-17T14:04:56.217Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/14/nrl-team-lists-round-20",
+        "updatedAt": "2026-07-17T14:04:56.217Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-roosters-storm-10396481-235968",
+        "updatedAt": "2026-07-17T14:04:56.217Z",
+        "priority": 4,
+        "order": 6
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-20-team-lists-2026-235892",
+        "updatedAt": "2026-07-17T14:04:56.217Z",
+        "priority": 2,
+        "order": 11
       }
     ],
     "round": 20
