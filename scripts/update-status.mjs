@@ -592,6 +592,54 @@ function confidenceFromSources(sources){
   if(count === 1) return 'medium';
   return 'low';
 }
+/**
+ * Return a JSON-safe evidence snapshot without historical raw wrappers.
+ *
+ * Generated records may be loaded again on the next scheduled update.
+ * Retaining record.raw inside the next record.raw creates unbounded
+ * recursive growth. All useful non-raw evidence fields remain intact.
+ */
+function compactEvidenceRecord(value, seen=new WeakSet()){
+  if(
+    value === null ||
+    value === undefined ||
+    typeof value !== 'object'
+  ){
+    return value;
+  }
+
+  if(seen.has(value)){
+    return undefined;
+  }
+
+  seen.add(value);
+
+  if(Array.isArray(value)){
+    const out = value
+      .map(item => compactEvidenceRecord(item, seen))
+      .filter(item => item !== undefined);
+
+    seen.delete(value);
+    return out;
+  }
+
+  const out = {};
+
+  for(const [key, child] of Object.entries(value)){
+    if(key === 'raw') continue;
+
+    const compacted =
+      compactEvidenceRecord(child, seen);
+
+    if(compacted !== undefined){
+      out[key] = compacted;
+    }
+  }
+
+  seen.delete(value);
+  return out;
+}
+
 function makeStatus(displayStatus, reason, sources=[], extra={}){
   return {
     displayStatus,
@@ -934,20 +982,20 @@ function fromBackupStatus(players, playerStatus, teamlistsOut, injuriesOut, susp
     const srcName = rec.source || rec.sourceName || rec.provider || 'Existing player_status.json updater';
     const src = sourceObj(isTeamListEvidence(rec) ? 'teamlist' : 'status', srcName, rec.sourceUrl || rec.url || 'player_status.json', rec.updatedAt || rec.updated || NOW_ISO);
     if(st === STATUS.SUSPENDED && isStrongSuspensionEvidence(rec)){
-      suspensionsOut[p.name] = makeStatus(STATUS.SUSPENDED, rec.reason || rec.note || 'Suspension from reliable judiciary/suspension source status file', [src], {...suspensionMetaFromRecord(rec, round), raw:rec});
+      suspensionsOut[p.name] = makeStatus(STATUS.SUSPENDED, rec.reason || rec.note || 'Suspension from reliable judiciary/suspension source status file', [src], {...suspensionMetaFromRecord(rec, round), raw:compactEvidenceRecord(rec)});
       suspensionCount++;
     } else if(st === STATUS.INJURED && isStrongInjuryEvidence(rec)){
       const injuryMeta = injuryReturnMetaFromRecord(rec, round);
       const injuryPhase = injuryPhaseForRound(injuryMeta, round);
       if(injuryPhase){
-        injuriesOut[p.name] = makeStatus(STATUS.INJURED, rec.reason || rec.injury || rec.note || 'Injury from reliable source status file', [src], {...injuryMeta, raw:rec});
+        injuriesOut[p.name] = makeStatus(STATUS.INJURED, rec.reason || rec.injury || rec.note || 'Injury from reliable source status file', [src], {...injuryMeta, raw:compactEvidenceRecord(rec)});
         injuryCount++;
       }
     } else if(st === STATUS.NAMED && isStrongNamedEvidence(rec)){
-      teamlistsOut[p.name] = makeStatus(STATUS.NAMED, rec.reason || rec.note || 'Explicitly named from team-list source status file', [src], {selectionStatus:'named', team:p.team, teamCanonical:playerTeam(p), raw:rec});
+      teamlistsOut[p.name] = makeStatus(STATUS.NAMED, rec.reason || rec.note || 'Explicitly named from team-list source status file', [src], {selectionStatus:'named', team:p.team, teamCanonical:playerTeam(p), raw:compactEvidenceRecord(rec)});
       namedCount++;
     } else if(st === STATUS.NOT_NAMED && isStrongNotNamedEvidence(rec)){
-      teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, rec.reason || rec.note || 'Explicitly not named from team-list source status file', [src], {selectionStatus:'not_named', team:p.team, teamCanonical:playerTeam(p), raw:rec});
+      teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, rec.reason || rec.note || 'Explicitly not named from team-list source status file', [src], {selectionStatus:'not_named', team:p.team, teamCanonical:playerTeam(p), raw:compactEvidenceRecord(rec)});
     }
   }
   return {namedCount, injuryCount, suspensionCount};
@@ -968,7 +1016,7 @@ function fromOriginFile(players, originJson){
         STATUS.ORIGIN,
         rec.reason || rec.note || 'Origin context source found; club team-list truth still decides named/not named',
         [sourceObj('origin', rec.source || 'origin_players.json', rec.url || 'origin_players.json', rec.updatedAt || rec.updated || NOW_ISO)],
-        {raw:rec, originContextOnly:softOriginContext && !explicitOriginUnavailable}
+        {raw:compactEvidenceRecord(rec), originContextOnly:softOriginContext && !explicitOriginUnavailable}
       );
     }
   }
@@ -3032,6 +3080,7 @@ export {
   parseTeamSectionsFromPage,
   fromKnownPlayerJerseyPatterns,
   fromFetchedTeamlists,
+  compactEvidenceRecord,
   combineTruth,
   stripHtmlLite,
   normName,

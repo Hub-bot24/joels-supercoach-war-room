@@ -94,6 +94,33 @@ jobs:
           fi
           git status --short
           
+      - name: Guard generated contract file sizes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          max_bytes=52428800
+
+          for file in \
+            data/origin.json \
+            data/status_truth.json \
+            data/teamlists.json \
+            data/injuries.json \
+            data/suspensions.json
+          do
+            if [ ! -f "$file" ]; then
+              continue
+            fi
+
+            bytes=$(wc -c < "$file")
+            echo "$file: $bytes bytes"
+
+            if [ "$bytes" -gt "$max_bytes" ]; then
+              echo "::error file=$file::Generated contract exceeds 50 MB safety limit."
+              exit 1
+            fi
+          done
+
       - name: Commit updated truth files
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
