@@ -2,9 +2,12 @@ name: Team-list parser fixture tests
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - "tests/**"
+      - "scripts/update-status.mjs"
+      - ".github/workflows/test-teamlist-parsers.yml"
   push:
-    branches:
-      - test/structured-teamlist-fixture
     paths:
       - "tests/**"
       - "scripts/update-status.mjs"
