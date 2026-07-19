@@ -1216,6 +1216,54 @@ function selectionStatusForLineupRole(role){
   return role === 'extended' ? 'extended' : 'named';
 }
 
+/**
+ * Normalise a complete structured team-list record from ordered lineup
+ * placement. The player's shirt number may differ after replacements or
+ * positional changes, but ordered position remains the role truth.
+ */
+function normaliseStructuredPlacementRecord(record){
+  if(
+    !record ||
+    record.structuredSnapshot !== true
+  ){
+    return record;
+  }
+
+  const lineupIndex = Number(record.lineupIndex);
+
+  if(
+    !Number.isInteger(lineupIndex) ||
+    lineupIndex < 1
+  ){
+    return record;
+  }
+
+  const lineupRole =
+    lineupRoleForIndex(lineupIndex);
+
+  if(!lineupRole){
+    return record;
+  }
+
+  const displayStatus =
+    statusForLineupRole(lineupRole);
+
+  return {
+    ...record,
+    lineupRole,
+    selectionRole: lineupRole,
+    displayStatus,
+    status: displayStatus,
+    available:
+      displayStatus === STATUS.NAMED ||
+      displayStatus === STATUS.EXPECTED ||
+      displayStatus === STATUS.ORIGIN,
+    colour: COLOUR[displayStatus],
+    selectionStatus:
+      selectionStatusForLineupRole(lineupRole)
+  };
+}
+
 function labelForLineupRole(role, sourceKind){
   if(role === 'starter') return `Named in ${sourceKind} starting side`;
   if(role === 'interchange') return `Named in ${sourceKind} interchange`;
@@ -2283,7 +2331,7 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
   ]);
   for(const p of players){
     const bye = playerByeRounds(p).includes(Number(round));
-    const t = teamlists[p.name];
+    const t = normaliseStructuredPlacementRecord(teamlists[p.name]);
     let i = injuries[p.name];
 
     // Source-quality guard:
@@ -2363,6 +2411,10 @@ function combineTruth(players, round, teamlists, injuries, suspensions, origin, 
         rec = makeStatus(STATUS.EXPECTED, 'No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.', [sourceObj('source_missing','Current club team-list not confirmed','data/status_truth.json')], {selectionStatus:'source_missing', dataUnknown:true});
       }
     }
+    // Structured ordered placement remains authoritative after contextual
+    // injury, suspension and Origin metadata has been composed.
+    rec = normaliseStructuredPlacementRecord(rec);
+
     // System arbitration repair:
     // If current team-list parsing produced a playable jersey/role, the player cannot remain NOT_NAMED.
     // This fixes source-order contradictions without any player-specific overrides.
