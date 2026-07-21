@@ -1,39 +1,5 @@
 [
   {
-    "player": "Tevita Naufahu",
-    "team": "DOL",
-    "from": "EXPECTED",
-    "to": "BYE",
-    "reason": "Bye round 21",
-    "detectedAt": "2026-07-19T20:53:08.067Z",
-    "sources": [
-      {
-        "type": "fixture",
-        "name": "players.json bye data",
-        "url": "players.json",
-        "updatedAt": "2026-07-19T20:53:08.067Z"
-      }
-    ],
-    "round": 21
-  },
-  {
-    "player": "Tevita Tatola",
-    "team": "STH",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-19T20:53:08.067Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-19T20:53:08.067Z"
-      }
-    ],
-    "round": 21
-  },
-  {
     "player": "Thomas Cant",
     "team": "NEW",
     "from": "NAMED",
@@ -12195,6 +12161,52 @@
         "name": "Official NRL",
         "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
         "updatedAt": "2026-07-21T06:30:12.258Z",
+        "priority": 2,
+        "order": 2
+      }
+    ],
+    "round": 21
+  },
+  {
+    "player": "Dane Gagai",
+    "team": "NEW",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 21).",
+    "detectedAt": "2026-07-21T09:15:59.752Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+        "updatedAt": "2026-07-21T09:15:59.752Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
+        "updatedAt": "2026-07-21T09:15:59.752Z",
+        "priority": 2,
+        "order": 4
+      }
+    ],
+    "round": 21
+  },
+  {
+    "player": "Latrell Mitchell",
+    "team": "STH",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-07-21T09:15:59.752Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+        "updatedAt": "2026-07-21T09:15:59.752Z",
         "priority": 2,
         "order": 2
       }
