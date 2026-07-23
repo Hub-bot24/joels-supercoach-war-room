@@ -1,7 +1,49 @@
 # SuperCoach War Room status changes — Round 21
 
-Detected: 2026-07-23T07:19:46.483Z
+Detected: 2026-07-23T09:58:52.323Z
 
-- **Cameron Munster** (MEL): NOT_NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 23).
-  - Source: Official NRL, Official NRL, Zero Tackle, Zero Tackle
+- **Araz Nanva** (PAR): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Benaiah Ioelu** (SYD): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
+- **Brodie Jones** (NEW): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 19).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
+- **David Fifita** (STH): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL, Zero Tackle
+- **Gabriel Satrick** (MEL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL, Zero Tackle
+- **Harrison Graham** (NEW): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 16, jersey 18).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
+- **Hugo Peel** (MEL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL, Zero Tackle
+- **Izack Tago** (PEN): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 18).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Jaxen Edgar** (PEN): EXPECTED → NAMED
+  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 1, jersey 20).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Kalani Going** (PEN): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Kalyn Ponga** (NEW): NAMED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Lachlan Crouch** (NEW): NAMED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Peter Mamouzelos** (STH): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL, Zero Tackle
+- **Toby Rodwell** (SYD): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
+- **Will Penisini** (PAR): EXPECTED → NAMED
+  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 4, jersey 22).; injury note: Groin
+  - Source: Official NRL, Zero Tackle, Zero Tackle, Existing player_status.json updater
