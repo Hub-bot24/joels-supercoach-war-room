@@ -4954,7 +4954,8 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 <section id="trade" class="tab"></section>
 </div>
 <div id="toast" class="toast"></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">/* =========================================================
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>/* =========================================================
    V42: Final player photo resolver override
    Generic only. No player-specific hard fixes.
    ========================================================= */
@@ -5507,6 +5508,12 @@ function authPanelHtml(){
  if(email)return `<div class="wr-auth-panel"><b>Signed in:</b> <span>${esc(email)}</span><span class="small">${esc(App.sync.message||App.sync.status||'')}</span><button type="button" onclick="manualCloudSave(true,true)">Save now</button><button type="button" onclick="exportTeamBackup()">Backup</button><button class="danger" type="button" onclick="signOutWarRoom()">Sign out</button></div>`;
  return `<div class="wr-auth-panel"><b>Sign in to sync</b><input id="authEmail" type="email" placeholder="Email"><input id="authPassword" type="password" placeholder="Password"><button type="button" onclick="signInWarRoom()">Sign in</button><button type="button" onclick="signUpWarRoom()">Create account</button><button type="button" onclick="exportTeamBackup()">Backup</button></div>`;
 }
+function openSyncPanel(){
+ let panel=$('syncPanel');
+ if(!panel){panel=document.createElement('div');panel.id='syncPanel';panel.style.cssText='position:fixed;top:54px;right:16px;z-index:99999;max-width:420px;background:#07111f;border:1px solid rgba(148,163,184,.35);border-radius:14px;padding:12px;box-shadow:0 18px 48px rgba(0,0,0,.5)';document.body.appendChild(panel);}
+ panel.innerHTML=authPanelHtml();
+}
+document.addEventListener('click',e=>{if(e.target?.id==='syncStatus')openSyncPanel()});
 async function initCloudSync(){
  App.sync.clientId=safeLocalGet('sc_client_id','')||crypto.randomUUID?.()||String(Date.now())+Math.random();try{localStorage.setItem('sc_client_id',App.sync.clientId)}catch(e){}
  const meta=readLocalMeta();App.sync.localUpdatedAt=meta.updated_at||new Date(0).toISOString();
