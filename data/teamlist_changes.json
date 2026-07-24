@@ -1,78 +1,5 @@
 [
   {
-    "player": "Ashton Ward",
-    "team": "STH",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 7).",
-    "detectedAt": "2026-07-21T06:30:12.258Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
-        "updatedAt": "2026-07-21T06:30:12.258Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
-        "updatedAt": "2026-07-21T06:30:12.258Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 21
-  },
-  {
-    "player": "Asu Kepaoa",
-    "team": "NEW",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-07-21T06:30:12.258Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
-        "updatedAt": "2026-07-21T06:30:12.258Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 21
-  },
-  {
-    "player": "Ata Mariota",
-    "team": "CBR",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article interchange (Zero Tackle, jersey 15).",
-    "detectedAt": "2026-07-21T06:30:12.258Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
-        "updatedAt": "2026-07-21T06:30:12.258Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
-        "updatedAt": "2026-07-21T06:30:12.258Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 21
-  },
-  {
     "player": "Ativalu Lisati",
     "team": "MEL",
     "from": "EXPECTED",
@@ -13081,6 +13008,111 @@
         "updatedAt": "2026-07-24T09:56:15.759Z",
         "priority": 2,
         "order": 11
+      }
+    ],
+    "round": 21
+  },
+  {
+    "player": "Jayden Sullivan",
+    "team": "STH",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 14).",
+    "detectedAt": "2026-07-24T13:48:52.605Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+        "updatedAt": "2026-07-24T13:48:52.605Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-storm-10396490-236206",
+        "updatedAt": "2026-07-24T13:48:52.605Z",
+        "priority": 4,
+        "order": 7
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
+        "updatedAt": "2026-07-24T13:48:52.605Z",
+        "priority": 2,
+        "order": 10
+      }
+    ],
+    "round": 21
+  },
+  {
+    "player": "Jye Gray",
+    "team": "STH",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 15).",
+    "detectedAt": "2026-07-24T13:48:52.605Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+        "updatedAt": "2026-07-24T13:48:52.605Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-storm-10396490-236206",
+        "updatedAt": "2026-07-24T13:48:52.605Z",
+        "priority": 4,
+        "order": 7
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
+        "updatedAt": "2026-07-24T13:48:52.605Z",
+        "priority": 2,
+        "order": 10
+      }
+    ],
+    "round": 21
+  },
+  {
+    "player": "Thomas Fletcher",
+    "team": "STH",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 20).",
+    "detectedAt": "2026-07-24T13:48:52.605Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+        "updatedAt": "2026-07-24T13:48:52.605Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-storm-10396490-236206",
+        "updatedAt": "2026-07-24T13:48:52.605Z",
+        "priority": 4,
+        "order": 7
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
+        "updatedAt": "2026-07-24T13:48:52.605Z",
+        "priority": 2,
+        "order": 10
       }
     ],
     "round": 21

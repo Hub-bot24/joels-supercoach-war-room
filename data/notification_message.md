@@ -1,46 +1,13 @@
 # SuperCoach War Room status changes — Round 21
 
-Detected: 2026-07-24T09:56:15.759Z
+Detected: 2026-07-24T13:48:52.605Z
 
-- **Bronson Garlick** (STH): EXPECTED → NAMED
-  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 13, jersey 18).
-  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
-- **Bronson Xerri** (CAN): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Davvy Moale** (MEL): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Edward Kosi** (STH): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Elijah Salesa-Leaumoana** (NEW): EXPECTED → NAMED
-  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 21).
+- **Jayden Sullivan** (STH): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 14).
   - Source: Official NRL, Zero Tackle, Zero Tackle
-- **Harrison Graham** (NEW): NAMED → EXPECTED
-  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 18).
+- **Jye Gray** (STH): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 15).
   - Source: Official NRL, Zero Tackle, Zero Tackle
-- **Jack Underhill** (CAN): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Jesse Arthars** (BRO): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Joe Chan** (MEL): NOT_NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 20).
-  - Source: Official NRL, Official NRL, Zero Tackle, Zero Tackle
-- **Kaiden Lahrs** (NQC): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Marata Niukore** (NZL): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Rocco Berry** (NZL): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Thomas Dearden** (NQC): NAMED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Zac Laybutt** (NQC): EXPECTED → NAMED
-  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 4, jersey 18).
-  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
+- **Thomas Fletcher** (STH): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 20).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
