@@ -7973,10 +7973,10 @@ window.openPlayerCard = function(name){
           ${stat("Season", pr.seasonAvg || avg || "-")}
         </div>
 
+        ${playerCardNextGameHtml(p)}
         <details data-player-card-details="1" style="margin-top:12px;border-radius:16px;background:rgba(255,255,255,.10);padding:9px 11px;color:#e5edf8;font-weight:750;font-size:13px;line-height:1.35" ontoggle="this.querySelector('[data-wr-details-label]').textContent=this.open?'Hide details ▴':'Details ▾'">
           <summary style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;border-radius:999px;background:rgba(16,33,58,.92);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);padding:5px 10px;font-size:12px;font-weight:950;list-style:none"><span data-wr-details-label>Details ▾</span></summary>
           <div style="margin-top:10px;display:grid;gap:10px;overflow-wrap:anywhere">
-            ${playerCardNextGameHtml(p)}
             ${playerCardStatusDetailsHtml}
             ${injuryDetailsHtml}
           </div>
