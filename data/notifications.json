@@ -1,6 +1,58 @@
 {
-  "updated": "2026-07-24T01:10:28.052Z",
+  "updated": "2026-07-24T04:33:43.285Z",
   "round": 21,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Latrell Mitchell",
+      "team": "STH",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 24).",
+      "detectedAt": "2026-07-24T04:33:43.285Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-24T04:33:43.285Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-24T04:33:43.285Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
+          "updatedAt": "2026-07-24T04:33:43.285Z",
+          "priority": 2,
+          "order": 6
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-eels-panthers-10396488-236169",
+          "updatedAt": "2026-07-24T04:33:43.285Z",
+          "priority": 4,
+          "order": 8
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-vs-roosters-10396489-236198",
+          "updatedAt": "2026-07-24T04:33:43.285Z",
+          "priority": 4,
+          "order": 9
+        }
+      ],
+      "round": 21
+    }
+  ],
   "allChangeCount": 500
 }
