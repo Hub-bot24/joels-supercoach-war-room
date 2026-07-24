@@ -1,54 +1,20 @@
 {
-  "updated": "2026-07-24T07:18:25.377Z",
+  "updated": "2026-07-24T09:56:15.759Z",
   "round": 21,
   "newChanges": [
     {
-      "player": "Connor Votano",
-      "team": "NEW",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-07-24T07:18:25.377Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        }
-      ],
-      "round": 21
-    },
-    {
-      "player": "Jock Madden",
-      "team": "WST",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-07-24T07:18:25.377Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        }
-      ],
-      "round": 21
-    },
-    {
-      "player": "Matty Nicholson",
-      "team": "CBR",
+      "player": "Bronson Garlick",
+      "team": "STH",
       "from": "EXPECTED",
       "to": "NAMED",
-      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 12, jersey 18).",
-      "detectedAt": "2026-07-24T07:18:25.377Z",
+      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 13, jersey 18).",
+      "detectedAt": "2026-07-24T09:56:15.759Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
-          "updatedAt": "2026-07-24T07:18:25.377Z",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
           "priority": 3,
           "order": 2
         },
@@ -56,7 +22,7 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
-          "updatedAt": "2026-07-24T07:18:25.377Z",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
           "priority": 3,
           "order": 2
         },
@@ -64,15 +30,263 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
-          "updatedAt": "2026-07-24T07:18:25.377Z",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
           "priority": 2,
           "order": 3
         },
         {
           "type": "teamlist",
           "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-raiders-vs-wests-tigers-10396491-236228",
-          "updatedAt": "2026-07-24T07:18:25.377Z",
+          "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-storm-10396490-236206",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 4,
+          "order": 8
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 11
+        }
+      ],
+      "round": 21
+    },
+    {
+      "player": "Bronson Xerri",
+      "team": "CAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-24T09:56:15.759Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 21
+    },
+    {
+      "player": "Davvy Moale",
+      "team": "MEL",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-24T09:56:15.759Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 21
+    },
+    {
+      "player": "Edward Kosi",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-24T09:56:15.759Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 21
+    },
+    {
+      "player": "Elijah Salesa-Leaumoana",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 21).",
+      "detectedAt": "2026-07-24T09:56:15.759Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-roosters-10396489-236198",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 4,
+          "order": 6
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 11
+        }
+      ],
+      "round": 21
+    },
+    {
+      "player": "Harrison Graham",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 18).",
+      "detectedAt": "2026-07-24T09:56:15.759Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-roosters-10396489-236198",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 4,
+          "order": 6
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 11
+        }
+      ],
+      "round": 21
+    },
+    {
+      "player": "Jack Underhill",
+      "team": "CAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-24T09:56:15.759Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 21
+    },
+    {
+      "player": "Jesse Arthars",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-24T09:56:15.759Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 21
+    },
+    {
+      "player": "Joe Chan",
+      "team": "MEL",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 20).",
+      "detectedAt": "2026-07-24T09:56:15.759Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-bulldogs-vs-warriors-10396492-236234",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
           "priority": 4,
           "order": 5
         },
@@ -80,169 +294,107 @@
           "type": "teamlist",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
-          "updatedAt": "2026-07-24T07:18:25.377Z",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
           "priority": 2,
-          "order": 8
+          "order": 11
         }
       ],
       "round": 21
     },
     {
-      "player": "Noah Martin",
-      "team": "CBR",
+      "player": "Kaiden Lahrs",
+      "team": "NQC",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-24T09:56:15.759Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 21
+    },
+    {
+      "player": "Marata Niukore",
+      "team": "NZL",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-24T09:56:15.759Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 21
+    },
+    {
+      "player": "Rocco Berry",
+      "team": "NZL",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-24T09:56:15.759Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 21
+    },
+    {
+      "player": "Thomas Dearden",
+      "team": "NQC",
       "from": "NAMED",
-      "to": "INJURED",
-      "reason": "Ankle",
-      "detectedAt": "2026-07-24T07:18:25.377Z",
-      "sources": [
-        {
-          "type": "status",
-          "name": "Existing player_status.json updater",
-          "url": "player_status.json",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#parramatta-eels",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#penrith-panthers",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#perth-bears",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#png-chiefs",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#south-sydney-rabbitohs",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#st-george-illawarra-dragons",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#sydney-roosters",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#wests-tigers",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#",
-          "updatedAt": "2026-07-24T07:18:25.377Z"
-        }
-      ],
-      "round": 21
-    },
-    {
-      "player": "Sione Finau",
-      "team": "CBR",
-      "from": "EXPECTED",
       "to": "NOT_NAMED",
       "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-07-24T07:18:25.377Z",
+      "detectedAt": "2026-07-24T09:56:15.759Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
-          "updatedAt": "2026-07-24T07:18:25.377Z",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
           "priority": 3,
           "order": 2
         },
@@ -250,7 +402,7 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
-          "updatedAt": "2026-07-24T07:18:25.377Z",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
           "priority": 2,
           "order": 3
         }
@@ -258,18 +410,26 @@
       "round": 21
     },
     {
-      "player": "Tommy Talau",
-      "team": "SYD",
+      "player": "Zac Laybutt",
+      "team": "NQC",
       "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-07-24T07:18:25.377Z",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 4, jersey 18).",
+      "detectedAt": "2026-07-24T09:56:15.759Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
-          "updatedAt": "2026-07-24T07:18:25.377Z",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
           "priority": 3,
           "order": 2
         },
@@ -277,9 +437,25 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
-          "updatedAt": "2026-07-24T07:18:25.377Z",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
           "priority": 2,
           "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-cowboys-vs-broncos-10396493-236239",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 4,
+          "order": 10
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
+          "updatedAt": "2026-07-24T09:56:15.759Z",
+          "priority": 2,
+          "order": 11
         }
       ],
       "round": 21
