@@ -1,24 +1,5 @@
 [
   {
-    "player": "Ativalu Lisati",
-    "team": "MEL",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-07-21T06:30:12.258Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
-        "updatedAt": "2026-07-21T06:30:12.258Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 21
-  },
-  {
     "player": "Aublix Tawha",
     "team": "BRO",
     "from": "EXPECTED",
@@ -13113,6 +13094,23 @@
         "updatedAt": "2026-07-24T13:48:52.605Z",
         "priority": 2,
         "order": 10
+      }
+    ],
+    "round": 21
+  },
+  {
+    "player": "Adam Doueihi",
+    "team": "WST",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-07-24T22:42:31.030Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "",
+        "updatedAt": "2026-07-24T22:42:31.030Z"
       }
     ],
     "round": 21

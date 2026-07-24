@@ -1,6 +1,24 @@
 {
-  "updated": "2026-07-24T21:37:22.028Z",
+  "updated": "2026-07-24T22:42:31.030Z",
   "round": 21,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Adam Doueihi",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-24T22:42:31.030Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-24T22:42:31.030Z"
+        }
+      ],
+      "round": 21
+    }
+  ],
   "allChangeCount": 500
 }
