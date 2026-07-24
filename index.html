@@ -7836,6 +7836,51 @@ window.closePlayerCard = function(){
   if(old) old.remove();
 };
 
+function playerCardInjuryDetailsHtml(p,st,truth){
+  const rec=truth||st?.truth||{};
+  const key=String(st?.key||truthKeyFromRecord(rec)||"").toLowerCase();
+  const rawStatus=String(rec?.raw?.status||rec?.status||"").toLowerCase().trim();
+  const displayStatus=String(rec?.displayStatus||"").toUpperCase().trim();
+  const isInjury=key==="injured"||key==="injury"||displayStatus==="INJURED"||displayStatus==="INJURY"||rawStatus==="injured"||rawStatus==="injury"||(rawStatus==="out"&&displayStatus==="INJURED");
+  if(!isInjury)return "";
+  const type=rec?.injuryType||rec?.injuryNote||rec?.raw?.reason||"";
+  const expected=rec?.expectedReturnText||rec?.raw?.expectedReturn||"";
+  const min=rec?.expectedReturnRoundMin||rec?.raw?.returnWindowMinRound;
+  const max=rec?.expectedReturnRoundMax||rec?.raw?.returnWindowMaxRound;
+  const minW=rec?.raw?.returnWindowMinWeeks;
+  const maxW=rec?.raw?.returnWindowMaxWeeks;
+  const src=truthSourceText(rec)||((rec?.raw?.sources||[]).map(s=>s?.source||s?.name).filter(Boolean).slice(0,3).join(" + "));
+  const updatedRec={updatedAt:rec?.injuryUpdatedAt||rec?.updatedAt||rec?.raw?.lastUpdated||""};
+  const updated=updatedRec.updatedAt&&typeof dateTimeLabelFromRecord==="function"?dateTimeLabelFromRecord(updatedRec):updatedRec.updatedAt;
+  const lines=[];
+  if(type)lines.push(`Injury: ${type}`);
+  if(expected)lines.push(`Expected return: ${expected}`);
+  else if(min&&max&&min!==max)lines.push(`Expected return: R${min}–R${max}`);
+  else if(min)lines.push(`Expected return: R${min}`);
+  else if(minW&&maxW&&minW!==maxW)lines.push(`Expected absence: ${minW}–${maxW} weeks`);
+  else if(minW)lines.push(`Expected absence: ${minW} week${Number(minW)===1?"":"s"}`);
+  if(!lines.length)lines.push("Injury details not yet confirmed");
+  if(src)lines.push(`Source: ${src}`);
+  if(updated&&updated!=="unknown")lines.push(`Updated: ${updated}`);
+  return `<div style="border-top:1px solid rgba(255,255,255,.16);padding-top:10px"><b style="display:block;margin-bottom:6px">Injury information</b>${lines.map(x=>`<div>${esc(x)}</div>`).join("")}</div>`;
+}
+
+function refreshOpenPlayerCardAfterRender(){
+  const old=document.getElementById("wrPlayerCardOverlay");
+  const name=old?.getAttribute("data-player-card-name");
+  if(!name)return;
+  const details=old.querySelector("[data-player-card-details]");
+  const wasOpen=!!details?.open;
+  const panel=old.querySelector("[data-player-card-panel]");
+  const scrollTop=panel?.scrollTop||0;
+  window.openPlayerCard(name);
+  const fresh=document.getElementById("wrPlayerCardOverlay");
+  const freshDetails=fresh?.querySelector("[data-player-card-details]");
+  if(freshDetails)freshDetails.open=wasOpen;
+  const freshPanel=fresh?.querySelector("[data-player-card-panel]");
+  if(freshPanel)freshPanel.scrollTop=scrollTop;
+}
+
 window.openPlayerCard = function(name){
   const p = getPlayer(name);
   if(!p) return toast ? toast("Player not found") : null;
@@ -7844,7 +7889,7 @@ window.openPlayerCard = function(name){
 
   const pr = roundProj(p);
   const st = availabilityStatus(p);
-  const truth = (typeof truthRecordAnyRound === "function" ? truthRecordAnyRound(p) : null) || {};
+  const truth = (typeof statusTruthRecordFor === "function" ? statusTruthRecordFor(p) : null) || st?.truth || {};
   const fieldSlot = Object.keys(App.lineup || {}).find(k => App.lineup[k] === p.name);
   const inMyTeam = App.myTeam.includes(p.name);
   const reserveSlot = typeof reserveSlotForPlayerName === "function" ? reserveSlotForPlayerName(p.name) : "";
@@ -7863,6 +7908,10 @@ window.openPlayerCard = function(name){
   const rating = Math.max(0, Math.round(Number(pr.expected || 0) || 0));
   const photo = typeof wrCardPlayerPhotoUrl === "function" ? wrCardPlayerPhotoUrl(p) : "";
   const teamBadge = typeof teamIconHtml === "function" ? teamIconHtml(p, "player-profile-team-logo") : "";
+  const playerCardStatusDetailsHtml=`<div style="margin-top:12px;border-radius:16px;background:rgba(255,255,255,.10);padding:11px 13px;color:#e5edf8;font-weight:750">
+          ${esc(st.reason || truth.reason || "No status note")}
+        </div>`;
+  const injuryDetailsHtml=playerCardInjuryDetailsHtml(p,st,truth);
 
   const tradeButton = fieldSlot
     ? `<button type="button" onclick="window.closePlayerCard();teamActionTradeOut('${window.jsq(fieldSlot)}')">Trade</button>`
@@ -7887,10 +7936,11 @@ window.openPlayerCard = function(name){
 
   const overlay = document.createElement("div");
   overlay.id = "wrPlayerCardOverlay";
+  overlay.setAttribute("data-player-card-name",p.name);
   overlay.style.cssText = "position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.72);display:grid;place-items:center;padding:18px;";
 
   overlay.innerHTML = `
-    <div onclick="event.stopPropagation()" style="position:relative;width:min(760px,96vw);min-height:520px;border-radius:30px;overflow:hidden;background:
+    <div data-player-card-panel="1" onclick="event.stopPropagation()" style="position:relative;width:min(760px,96vw);min-height:520px;border-radius:30px;overflow:hidden;background:
       radial-gradient(circle at 20% 12%,rgba(88,166,255,.44),transparent 28%),
       linear-gradient(135deg,#10213a 0%,#071222 48%,#020617 100%);
       color:#fff;box-shadow:0 36px 110px rgba(0,0,0,.82), inset 0 0 0 2px rgba(255,255,255,.16);">
@@ -7923,12 +7973,14 @@ window.openPlayerCard = function(name){
           ${stat("Season", pr.seasonAvg || avg || "-")}
         </div>
 
-        ${playerCardNextGameHtml(p)}
-
-
-        <div style="margin-top:12px;border-radius:16px;background:rgba(255,255,255,.10);padding:11px 13px;color:#e5edf8;font-weight:750">
-          ${esc(st.reason || truth.reason || "No status note")}
-        </div>
+        <details data-player-card-details="1" style="margin-top:12px;border-radius:16px;background:rgba(255,255,255,.10);padding:9px 11px;color:#e5edf8;font-weight:750;font-size:13px;line-height:1.35" ontoggle="this.querySelector('[data-wr-details-label]').textContent=this.open?'Hide details ▴':'Details ▾'">
+          <summary style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;border-radius:999px;background:rgba(16,33,58,.92);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);padding:5px 10px;font-size:12px;font-weight:950;list-style:none"><span data-wr-details-label>Details ▾</span></summary>
+          <div style="margin-top:10px;display:grid;gap:10px;overflow-wrap:anywhere">
+            ${playerCardNextGameHtml(p)}
+            ${playerCardStatusDetailsHtml}
+            ${injuryDetailsHtml}
+          </div>
+        </details>
 
         <div style="display:flex;justify-content:center;gap:12px;margin-top:18px">
           ${tradeButton}
@@ -8541,6 +8593,7 @@ function renderActive(){
     else if (App.active === 'trade') renderTrade();
     App.__renderedTab = App.active;
     forceOnlyActiveTab();
+    refreshOpenPlayerCardAfterRender();
   } catch (err) {
     console.error(err);
     const el = $(App.active);
