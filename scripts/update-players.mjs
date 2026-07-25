@@ -725,25 +725,41 @@ async function fetchTeamBEsRows() {
 // data from a dedicated endpoint - checking the site's own "Datatable"
 // page as the most likely candidate before assuming anything.
 async function investigateAvgStatsSource() {
-  const candidates = [
-    "https://www.nrlsupercoachstats.com/index.php?player=Twal%2C%20Alex"
-  ];
+  const pageUrl = "https://www.nrlsupercoachstats.com/index.php?player=Twal%2C%20Alex";
 
-  for (const url of candidates) {
-    try {
-      const html = await fetchText(url, null);
-      console.log(`[investigate-avg] ${url}: bytes=${html.length}`);
+  try {
+    const html = await fetchText(pageUrl, null);
 
-      const bodyStart = html.indexOf("<body");
-      console.log(`[investigate-avg] ${url} body: ${html.slice(bodyStart, bodyStart + 3000).replace(/\s+/g, " ")}`);
-
-      const avgIndex = html.search(/avg|average/i);
-      if (avgIndex !== -1) {
-        console.log(`[investigate-avg] ${url} avg context: ${html.slice(Math.max(0, avgIndex - 300), avgIndex + 500).replace(/\s+/g, " ")}`);
-      }
-    } catch (err) {
-      console.log(`[investigate-avg] ${url} failed: ${err.message}`);
+    const inlineIndex = html.indexOf("function updatedatatable");
+    if (inlineIndex !== -1) {
+      console.log(`[investigate-avg] inline updatedatatable found at ${inlineIndex}: ${html.slice(inlineIndex, inlineIndex + 1500).replace(/\s+/g, " ")}`);
+    } else {
+      console.log("[investigate-avg] updatedatatable not defined inline - checking external scripts");
     }
+
+    const scriptSrcs = [...html.matchAll(/<script[^>]*\ssrc="([^"]+)"/gi)]
+      .map(match => match[1])
+      .filter(src => !src.includes("google") && !src.includes("analytics"));
+    console.log(`[investigate-avg] external script srcs: ${JSON.stringify(scriptSrcs)}`);
+
+    for (const src of scriptSrcs) {
+      const scriptUrl = src.startsWith("http")
+        ? src
+        : new URL(src, pageUrl).toString();
+
+      try {
+        const js = await fetchText(scriptUrl, null);
+        const fnIndex = js.indexOf("updatedatatable");
+        console.log(`[investigate-avg] ${scriptUrl}: bytes=${js.length} containsFn=${fnIndex !== -1}`);
+        if (fnIndex !== -1) {
+          console.log(`[investigate-avg] ${scriptUrl} fn context: ${js.slice(Math.max(0, fnIndex - 200), fnIndex + 1500).replace(/\s+/g, " ")}`);
+        }
+      } catch (err) {
+        console.log(`[investigate-avg] ${scriptUrl} failed: ${err.message}`);
+      }
+    }
+  } catch (err) {
+    console.log(`[investigate-avg] ${pageUrl} failed: ${err.message}`);
   }
 }
 
