@@ -38,6 +38,15 @@ const PLAYERLIST_URL =
 const TEAM_BES_URL =
   "https://www.nrlsupercoachstats.com/TeamBEs.php";
 
+// Per-player stats card (price, BE, season avg, minutes, 3/5-round avg,
+// PPM) - the real source behind the site's own player profile pages.
+// Confirmed via the page's inline JS: it loads this same URL on page load
+// and injects the response directly. One request per player, not a bulk
+// file, since that's how the site itself serves this data.
+function avgStatsUrl(sourceName) {
+  return `https://www.nrlsupercoachstats.com/updatedatatable${SEASON}.php?q=${encodeURIComponent(sourceName)}`;
+}
+
 const USER_AGENT =
   "Mozilla/5.0 (compatible; SuperCoachWarRoomBot/1.0)";
 
@@ -76,6 +85,19 @@ function sourceNameToAppName(value) {
   }
 
   return clean;
+}
+
+// Inverse of sourceNameToAppName, for querying per-player endpoints that
+// expect the source's own "Surname, Given" format.
+function appNameToSourceName(name) {
+  const spaceIndex = name.indexOf(" ");
+
+  if (spaceIndex === -1) return name;
+
+  const given = name.slice(0, spaceIndex);
+  const surname = name.slice(spaceIndex + 1);
+
+  return `${surname}, ${given}`;
 }
 
 const DEBUG_DIR = path.join(ROOT, "debug");
@@ -312,9 +334,48 @@ async function mergePlayers(sourceRows, dppPlayers, playerListRows, teamBEsRows)
   let dppMatchedExisting = 0;
   let teamBEsUpdated = 0;
   let playerListUpdated = 0;
+  let avgStatsUpdated = 0;
 
   const unmatched = [];
   const ambiguous = [];
+
+  const avgStatsResults = await fetchAllPlayerAvgStats(players);
+  const avgStatsByNorm = new Map(
+    avgStatsResults.map(entry => [entry.norm, entry.stats])
+  );
+
+  for (const player of players) {
+    const stats = avgStatsByNorm.get(normaliseIdentityName(player.name));
+
+    if (!stats) continue;
+
+    if (stats.avg !== null && stats.avg !== undefined) player.avg = stats.avg;
+    if (stats.last3Avg !== null && stats.last3Avg !== undefined) {
+      player.last3Avg = stats.last3Avg;
+      player.threeRoundAvg = stats.last3Avg;
+    }
+    if (stats.last5Avg !== null && stats.last5Avg !== undefined) {
+      player.last5Avg = stats.last5Avg;
+      player.fiveRoundAvg = stats.last5Avg;
+    }
+    if (stats.minutes !== null && stats.minutes !== undefined) {
+      player.minutes = stats.minutes;
+      player.expectedMinutes = stats.minutes;
+    }
+    if (stats.ppm !== null && stats.ppm !== undefined) player.ppm = stats.ppm;
+
+    player.enrichmentSources = {
+      ...(player.enrichmentSources || {}),
+      avgStats: {
+        source: "nrlsupercoachstats-updatedatatable",
+        updatedAt: new Date().toISOString()
+      }
+    };
+
+    player.lastDataUpdate = new Date().toISOString();
+
+    avgStatsUpdated++;
+  }
 
   for (const dpp of Object.values(dppPlayers)) {
     const resolution = resolveIdentity(
@@ -563,10 +624,18 @@ async function mergePlayers(sourceRows, dppPlayers, playerListRows, teamBEsRows)
     );
   }
 
+  if (players.length > 0 && avgStatsUpdated === 0) {
+    throw new Error(
+      `Per-player avg-stats endpoint returned usable data for 0 of ` +
+      `${players.length} players. Check the job log's [avg-stats] lines ` +
+      "before assuming this is a real zero-update day."
+    );
+  }
+
   existing.players = players;
   existing.updated = new Date().toISOString();
   existing.dataPipeline = {
-    version: "v6-full-league-price-and-be-coverage",
+    version: "v7-full-league-price-be-and-avg-stats",
     source: SOURCE_URL,
     rowsFound: sourceRows.length,
     playersUpdated: updated,
@@ -582,7 +651,8 @@ async function mergePlayers(sourceRows, dppPlayers, playerListRows, teamBEsRows)
     playerListUpdated,
     teamBEsSource: TEAM_BES_URL,
     teamBEsRowsFound: teamBEsRows.length,
-    teamBEsUpdated
+    teamBEsUpdated,
+    avgStatsUpdated
   };
 
   await writeJson(PLAYERS_FILE, existing);
@@ -611,6 +681,9 @@ async function mergePlayers(sourceRows, dppPlayers, playerListRows, teamBEsRows)
   );
   console.log(
     `TeamBEs players updated: ${teamBEsUpdated}`
+  );
+  console.log(
+    `Avg-stats players updated: ${avgStatsUpdated}`
   );
   console.log(
     `DPP matched existing players: ${dppMatchedExisting}`
@@ -719,31 +792,78 @@ async function fetchTeamBEsRows() {
   return rows;
 }
 
-// TEST ONLY: existing player records reference "nrlsupercoachstats jqGrid
-// AvgScore" as the historical (manual, one-time) source of avg/proj/last3/
-// last5/minutes/ppm. jqGrid implementations conventionally serve their
-// data from a dedicated endpoint - checking the site's own "Datatable"
-// page as the most likely candidate before assuming anything.
-// Found via the player detail page's inline script: it auto-loads
-// updatedatatable(mainName+";",1) on page load, which does a plain GET
-// to updatedatatable{YEAR}.php?q={Surname, Given} and injects the raw
-// HTML response into the page. Verifying that endpoint directly returns
-// real stats content before building anything around it.
-async function investigateAvgStatsSource() {
-  const url = `https://www.nrlsupercoachstats.com/updatedatatable${SEASON}.php?q=${encodeURIComponent("Twal, Alex")}`;
+// Parses the per-player stats card: a table of <h2> column headers
+// (Price, ~BE, Pts, Mins, 3/5Rd, PPM, $/Pt) followed by one data row.
+// Header-driven so column reordering doesn't silently break it.
+function parseAvgStatsHtml(html) {
+  const headers = [...html.matchAll(/<h2>([^<]*)<\/h2>/gi)]
+    .map(match => match[1].trim())
+    .filter(Boolean);
 
-  try {
-    const html = await fetchText(url, null);
-    console.log(`[investigate-avg] ${url}: bytes=${html.length}`);
-    console.log(`[investigate-avg] ${url} full body: ${html.replace(/\s+/g, " ")}`);
-  } catch (err) {
-    console.log(`[investigate-avg] ${url} failed: ${err.message}`);
+  const cells = [...html.matchAll(/<td[^>]*font-size:1\.6em;"[^>]*>([\s\S]*?)<\/td>/gi)]
+    .map(match => stripTags(match[1]));
+
+  if (!headers.length || !cells.length) return null;
+
+  const ptsIndex = headers.indexOf("Pts");
+  const minsIndex = headers.indexOf("Mins");
+  const roundsIndex = headers.indexOf("3/5Rd");
+  const ppmIndex = headers.indexOf("PPM");
+
+  const result = {};
+
+  if (ptsIndex !== -1) result.avg = toNumber(cells[ptsIndex]);
+  if (minsIndex !== -1) result.minutes = toNumber(cells[minsIndex]);
+  if (ppmIndex !== -1) result.ppm = toNumber(cells[ppmIndex]);
+
+  if (roundsIndex !== -1 && cells[roundsIndex]?.includes("/")) {
+    const [last3, last5] = cells[roundsIndex].split("/").map(part => toNumber(part));
+    result.last3Avg = last3;
+    result.last5Avg = last5;
   }
+
+  return result;
+}
+
+async function fetchPlayerAvgStats(sourceName) {
+  const url = avgStatsUrl(sourceName);
+  const html = await fetchText(url, null);
+  return parseAvgStatsHtml(html);
+}
+
+// One request per canonical player - this endpoint is per-player, not a
+// bulk file (confirmed: the site's own player pages load it the same way).
+// Runs sequentially with a small delay to stay a reasonable citizen of a
+// free community site, not a bulk scrape hammering it in parallel.
+async function fetchAllPlayerAvgStats(players) {
+  const results = [];
+  let failures = 0;
+
+  for (const player of players) {
+    if (!player.name) continue;
+
+    const sourceName = appNameToSourceName(player.name);
+
+    try {
+      const stats = await fetchPlayerAvgStats(sourceName);
+
+      if (stats) {
+        results.push({ norm: normaliseIdentityName(player.name), name: player.name, stats });
+      }
+    } catch (err) {
+      failures++;
+      console.log(`[avg-stats] ${player.name} failed: ${err.message}`);
+    }
+
+    await sleep(150);
+  }
+
+  console.log(`[avg-stats] fetched ${results.length}/${players.length} players (${failures} failures)`);
+
+  return results;
 }
 
 async function main() {
-  await investigateAvgStatsSource();
-
   const rows = await fetchSourceRows();
 
   const dppPlayers = await fetchDppPlayers();
