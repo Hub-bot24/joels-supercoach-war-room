@@ -4,10 +4,23 @@
 
 Implementation status (2026-07): the live projection engine is
 `ProjectionEngine` inline in `index.html` (`projectGame`/`project`/
-`nextFive`) - NOT `level3-projection-engine.js`, which is loaded but gets
-immediately shadowed by inline re-definitions and is effectively dead code.
-Any future work on projections must extend `ProjectionEngine`, not the
-standalone file.
+`nextFive`). Any future work on projections must extend `ProjectionEngine`.
+
+As of 2026-07-25, this repo had THREE non-competing-on-purpose but
+overlapping projection code paths: the live `ProjectionEngine`, a
+standalone `level3-projection-engine.js` file (loaded, then instantly
+shadowed by inline re-definitions - never actually ran), and two further
+inline re-implementations ("projection-v2"/"projection-v3", reachable only
+through `window.calculateLevel3Projection`). Traced every real call site
+(`proj()`, `roundProj()`'s dead fallback branch, `ensureLineup()`'s
+auto-fill sort, the Player Explorer's secondary GK line) before removing
+anything, verified each one either already used `ProjectionEngine` or was
+rewired to, then deleted the file and ~450 dead lines. Full test suite
+(65 tests, including real-browser checks) green before and after. Kept a
+handful of genuinely shared helpers (`wrGoalKickerInfo` and its internal
+`wrGk*` helpers, `wrClamp`/`wrNum`/`wrTruth`, `wrLineupRole`/
+`wrPlayableLineupRole`) since `ProjectionEngine.goalKickingImpact` and the
+Level 4 goal-kicker matchup engine genuinely depend on them.
 
 Built and live:
 - Positional Matchup Engine - `ProjectionEngine.positionalMatchupImpact`.
