@@ -88,6 +88,14 @@ function parseRowsFromHtml(html) {
 
   const matches = html.match(/<tr[\s\S]*?<\/tr>/gi) || [];
 
+  // TEST ONLY: source-contract diagnostics, printed to the job log so a
+  // parse failure can be inspected without needing artifact downloads.
+  console.log(`[debug] price-be-source: found ${matches.length} <tr> blocks total`);
+  for (const row of matches.slice(0, 5)) {
+    const text = row.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+    console.log(`[debug] price-be-source raw <tr> sample: ${text.slice(0, 200)}`);
+  }
+
   for (const row of matches) {
     const text = row
       .replace(/<[^>]+>/g, " ")
@@ -112,6 +120,11 @@ function parseRowsFromHtml(html) {
       price,
       breakeven
     });
+  }
+
+  // TEST ONLY: show what the 18 currently-matched rows actually contain.
+  for (const row of rows.slice(0, 18)) {
+    console.log(`[debug] price-be-source matched row: name="${row.name}" price=${row.price} be=${row.breakeven}`);
   }
 
   return rows;
