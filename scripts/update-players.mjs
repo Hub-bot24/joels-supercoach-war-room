@@ -479,7 +479,40 @@ async function mergePlayers(sourceRows, dppPlayers) {
     `DPP applied to existing players: ${dppApplied}`
   );
 }
+// TEST ONLY: investigating whether TeamPricesAndBEs.php's static HTML is a
+// full league list or just a small per-team highlights table (evidence:
+// only ~18 rows come back, one per team). Checks whether playerlist.php
+// (already referenced as a dataSource elsewhere in players.json) is the
+// real full-league endpoint. Not wired into the pipeline yet.
+async function investigatePlayerListCoverage() {
+  const candidates = [
+    "https://www.nrlsupercoachstats.com/playerlist.php",
+    `https://www.nrlsupercoachstats.com/playerlist.php?year=${SEASON}`
+  ];
+
+  for (const url of candidates) {
+    try {
+      const html = await fetchText(url, null);
+      const trCount = (html.match(/<tr[\s\S]*?<\/tr>/gi) || []).length;
+      const teamMatches = new Set(
+        (html.match(/\b(BRO|CAN|CBR|DOL|GLD|MAN|MEL|NEW|NQC|NZL|PAR|PEN|SHA|STG|STH|SYD|WST|WAR)\b/g) || [])
+      );
+      console.log(`[investigate] ${url}: bytes=${html.length} trCount=${trCount} teamCodesSeen=${teamMatches.size}`);
+      console.log(`[investigate] ${url} snippet: ${html.slice(0, 400).replace(/\s+/g, " ")}`);
+      const twalIndex = html.indexOf("Twal");
+      console.log(`[investigate] ${url} contains "Twal": ${twalIndex !== -1}`);
+      if (twalIndex !== -1) {
+        console.log(`[investigate] ${url} Twal context: ${html.slice(Math.max(0, twalIndex - 150), twalIndex + 150).replace(/\s+/g, " ")}`);
+      }
+    } catch (err) {
+      console.log(`[investigate] ${url} failed: ${err.message}`);
+    }
+  }
+}
+
 async function main() {
+  await investigatePlayerListCoverage();
+
   const rows = await fetchSourceRows();
 
   const dppPlayers = await fetchDppPlayers();
