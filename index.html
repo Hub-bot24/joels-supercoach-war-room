@@ -7721,8 +7721,7 @@ function projectionIntelligenceHtml(p,pr){const b=pr?.breakdown||{},unc=b.uncert
  const be=safeNum(p.breakeven??p.breakEven??p.BE??p.be);
  const avg=safeNum(p.avg??p.average??p.seasonAvg);
  const price=safeNum(p.price)?money(p.price):'-';
- const scProj=safeNum(p.proj??p.projected??p.expected)||'-';
- return `<div class="player-detail-card"><div class="player-detail-head"><div><div class="player-detail-sub">${esc(subtitle)}</div><div class="player-detail-title">${esc(p.name)}</div></div><button type="button" onclick="cancelTeamAction()">Close</button></div><div class="small">${teamIconHtml(p,'detail-inline-team-badge')} ${esc(p.team||'')}  ${esc(positionText(p))}  ${esc(st.reason||st.label||'')}</div><div class="player-detail-grid"><div class="player-detail-stat"><span>SC Proj</span><b>${scProj}</b></div><div class="player-detail-stat"><span>WR Proj</span><b>${pr.expected}</b></div><div class="player-detail-stat"><span>Last Game</span><b>${pr.lastGame||'-'}</b></div><div class="player-detail-stat"><span>Last 3 Ave</span><b>${pr.last3Avg||'-'}</b></div><div class="player-detail-stat"><span>Last 5 Ave</span><b>${pr.last5Avg||'-'}</b></div><div class="player-detail-stat"><span>Season Ave</span><b>${pr.seasonAvg||avg||'-'}</b></div><div class="player-detail-stat"><span>Next 5 Avg</span><b>${next.available?next.avg:'-'}</b></div><div class="player-detail-stat"><span>Next 5 Ex Bye</span><b>${next.available?next.avgExBye:'-'}</b></div><div class="player-detail-stat"><span>BE</span><b>${be||'-'}</b></div><div class="player-detail-stat"><span>Price</span><b style="font-size:16px">${price}</b></div><div class="player-detail-stat"><span>Status</span><b style="font-size:16px">${esc(st.label||'')}</b></div><div class="player-detail-stat"><span>Round</span><b>${App.round}</b></div></div>${projectionIntelligenceHtml(p,pr)}${nextFiveProjectionPanelHtml(p)}<div class="player-detail-actions"><button type="button" onclick="${tradeCall}">Trade</button><button type="button" onclick="cancelTeamAction()">Cancel</button></div></div>`;
+ return `<div class="player-detail-card"><div class="player-detail-head"><div><div class="player-detail-sub">${esc(subtitle)}</div><div class="player-detail-title">${esc(p.name)}</div></div><button type="button" onclick="cancelTeamAction()">Close</button></div><div class="small">${teamIconHtml(p,'detail-inline-team-badge')} ${esc(p.team||'')}  ${esc(positionText(p))}  ${esc(st.reason||st.label||'')}</div><div class="player-detail-grid"><div class="player-detail-stat"><span>WR Proj</span><b>${pr.expected}</b></div><div class="player-detail-stat"><span>Last Game</span><b>${pr.lastGame||'-'}</b></div><div class="player-detail-stat"><span>Last 3 Ave</span><b>${pr.last3Avg||'-'}</b></div><div class="player-detail-stat"><span>Last 5 Ave</span><b>${pr.last5Avg||'-'}</b></div><div class="player-detail-stat"><span>Season Ave</span><b>${pr.seasonAvg||avg||'-'}</b></div><div class="player-detail-stat"><span>Next 5 Avg</span><b>${next.available?next.avg:'-'}</b></div><div class="player-detail-stat"><span>Next 5 Ex Bye</span><b>${next.available?next.avgExBye:'-'}</b></div><div class="player-detail-stat"><span>BE</span><b>${be||'-'}</b></div><div class="player-detail-stat"><span>Price</span><b style="font-size:16px">${price}</b></div><div class="player-detail-stat"><span>Status</span><b style="font-size:16px">${esc(st.label||'')}</b></div><div class="player-detail-stat"><span>Round</span><b>${App.round}</b></div></div>${projectionIntelligenceHtml(p,pr)}${nextFiveProjectionPanelHtml(p)}<div class="player-detail-actions"><button type="button" onclick="${tradeCall}">Trade</button><button type="button" onclick="cancelTeamAction()">Cancel</button></div></div>`;
 }
 function teamActionHtml(){
  if(App.teamActionMode==="emptyReserveTrade"){
@@ -8019,7 +8018,6 @@ window.openPlayerCard = function(name){
   const price = safeNum(p.price) ? money(p.price) : "-";
   const be = safeNum(p.breakeven ?? p.breakEven ?? p.BE ?? p.be) || "-";
   const avg = safeNum(p.avg ?? p.average ?? p.seasonAvg) || "-";
-  const scProj = safeNum(p.proj ?? p.projected ?? p.expected) || "-";
   const jersey = truth.jersey || p.jersey || "-";
   const lineupRole=String(truth?.lineupRole||truth?.selectionRole||"").toLowerCase();
   const teamListRoleLabel=lineupRole==="interchange" ? "Interchange" : slotLabel;
@@ -8081,8 +8079,7 @@ window.openPlayerCard = function(name){
       </div>
 
       <div style="position:relative;z-index:3;margin-top:365px;padding:18px 22px 22px;background:linear-gradient(180deg,rgba(2,6,23,.1),rgba(2,6,23,.72))">
-        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
-          ${stat("SC Proj", scProj)}
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
           ${stat("WR Proj", pr.expected)}
           ${stat("Price", price)}
           ${stat("BE", be)}
