@@ -4955,148 +4955,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 </div>
 <div id="toast" class="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>/* =========================================================
-   V42: Final player photo resolver override
-   Generic only. No player-specific hard fixes.
-   ========================================================= */
-function wrV42PhotoText(v){return String(v==null?'':v)}
-function wrV42PhotoKey(v){
-  return wrV42PhotoText(v)
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g,'')
-    .replace(/[\u2018\u2019`\u00b4]/g,"'")
-    .replace(/&apos;|&#39;/g,"'")
-    .replace(/[^a-z0-9]+/g,' ')
-    .replace(/\s+/g,' ')
-    .trim();
-}
-function wrV42PhotoSlug(v){
-  return wrV42PhotoKey(v).replace(/\s+/g,'-').replace(/^-+|-+$/g,'');
-}
-function wrV42PhotoUrlFromRecord(rec){
-  if(!rec)return '';
-  if(typeof rec==='string')return rec;
-  return rec.url||rec.photo||rec.image||rec.headshot||rec.src||rec.photoUrl||rec.imageUrl||rec.headshotUrl||'';
-}
-function wrV42DirectImageUrl(url){
-  return wrV42PhotoText(url).trim().replace(/&amp;/g,'&');
-}
-function wrV42UsablePhotoUrl(url){
-  const u=wrV42DirectImageUrl(url);
-  if(!/^https?:\/\//i.test(u))return false;
-  if(/favicon|badge|icon|sponsor|partner|placeholder|default|crest|(^|[\/_.-])logo([\/_.-]|$)/i.test(u))return false;
-  return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?|\.png(\?|$)|\.jpg(\?|$)|\.jpeg(\?|$)|\.webp(\?|$)/i.test(u);
-}
-function wrV42FindPhotoRecord(p){
-  const photos=App.playerPhotos?.players||App.playerPhotos||{};
-  const names=[p?.name,p?.fullName,p?.playerName,p?.statsSourceName].filter(Boolean);
-
-  for(const n of names){
-    if(photos[n])return photos[n];
-  }
-
-  const wanted=new Set();
-  for(const n of names){
-    wanted.add(wrV42PhotoKey(n));
-    wanted.add(wrV42PhotoSlug(n));
-  }
-
-  for(const [key,rec] of Object.entries(photos||{})){
-    if(wanted.has(wrV42PhotoKey(key))||wanted.has(wrV42PhotoSlug(key)))return rec;
-  }
-
-  return null;
-}
-function wrV42FinalPlayerPhotoUrl(p){
-  if(!p)return '';
-
-  const rec=wrV42FindPhotoRecord(p);
-  const mapped=wrV42DirectImageUrl(wrV42PhotoUrlFromRecord(rec));
-  if(wrV42UsablePhotoUrl(mapped))return mapped;
-
-  for(const k of ['photo','photoUrl','image','imageUrl','headshot','headshotUrl','nrlPhoto','nrlPhotoUrl','playerPhoto']){
-    const u=wrV42DirectImageUrl(p?.[k]);
-    if(wrV42UsablePhotoUrl(u))return u;
-  }
-
-  return '';
-}
-
-playerPhotoUrl = wrV42FinalPlayerPhotoUrl;
-wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
-</script>
-<script src="level3-projection-engine.js">/* =========================================================
-   V42: Final player photo resolver override
-   Generic only. No player-specific hard fixes.
-   ========================================================= */
-function wrV42PhotoText(v){return String(v==null?'':v)}
-function wrV42PhotoKey(v){
-  return wrV42PhotoText(v)
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g,'')
-    .replace(/[\u2018\u2019`\u00b4]/g,"'")
-    .replace(/&apos;|&#39;/g,"'")
-    .replace(/[^a-z0-9]+/g,' ')
-    .replace(/\s+/g,' ')
-    .trim();
-}
-function wrV42PhotoSlug(v){
-  return wrV42PhotoKey(v).replace(/\s+/g,'-').replace(/^-+|-+$/g,'');
-}
-function wrV42PhotoUrlFromRecord(rec){
-  if(!rec)return '';
-  if(typeof rec==='string')return rec;
-  return rec.url||rec.photo||rec.image||rec.headshot||rec.src||rec.photoUrl||rec.imageUrl||rec.headshotUrl||'';
-}
-function wrV42DirectImageUrl(url){
-  return wrV42PhotoText(url).trim().replace(/&amp;/g,'&');
-}
-function wrV42UsablePhotoUrl(url){
-  const u=wrV42DirectImageUrl(url);
-  if(!/^https?:\/\//i.test(u))return false;
-  if(/favicon|badge|icon|sponsor|partner|placeholder|default|crest|(^|[\/_.-])logo([\/_.-]|$)/i.test(u))return false;
-  return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?|\.png(\?|$)|\.jpg(\?|$)|\.jpeg(\?|$)|\.webp(\?|$)/i.test(u);
-}
-function wrV42FindPhotoRecord(p){
-  const photos=App.playerPhotos?.players||App.playerPhotos||{};
-  const names=[p?.name,p?.fullName,p?.playerName,p?.statsSourceName].filter(Boolean);
-
-  for(const n of names){
-    if(photos[n])return photos[n];
-  }
-
-  const wanted=new Set();
-  for(const n of names){
-    wanted.add(wrV42PhotoKey(n));
-    wanted.add(wrV42PhotoSlug(n));
-  }
-
-  for(const [key,rec] of Object.entries(photos||{})){
-    if(wanted.has(wrV42PhotoKey(key))||wanted.has(wrV42PhotoSlug(key)))return rec;
-  }
-
-  return null;
-}
-function wrV42FinalPlayerPhotoUrl(p){
-  if(!p)return '';
-
-  const rec=wrV42FindPhotoRecord(p);
-  const mapped=wrV42DirectImageUrl(wrV42PhotoUrlFromRecord(rec));
-  if(wrV42UsablePhotoUrl(mapped))return mapped;
-
-  for(const k of ['photo','photoUrl','image','imageUrl','headshot','headshotUrl','nrlPhoto','nrlPhotoUrl','playerPhoto']){
-    const u=wrV42DirectImageUrl(p?.[k]);
-    if(wrV42UsablePhotoUrl(u))return u;
-  }
-
-  return '';
-}
-
-playerPhotoUrl = wrV42FinalPlayerPhotoUrl;
-wrCardPlayerPhotoUrl = wrV42FinalPlayerPhotoUrl;
-</script>
+<script src="level3-projection-engine.js"></script>
 <script>
 'use strict';
 const App={
@@ -5205,16 +5064,6 @@ function tryNextPlayerPhoto(img){
 }
 window.tryNextPlayerPhoto=tryNextPlayerPhoto;
 
-
-
-function usablePlayerPhotoUrl(url){
-  const u = String(url || "");
-  if(!u) return false;
-  if(/index\.php\?player=/i.test(u)) return false;
-  if(/previewMain|preview-main|placeholder|logo|badge|crest|favicon/i.test(u)) return false;
-  if(/remote\.axd$/i.test(u)) return false;
-  return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?/i.test(u) || /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u);
-}
 async function ensurePlayerPhotosLoaded(){
   if(App.playerPhotosLoaded) return;
   App.playerPhotosLoaded = true;
@@ -5239,14 +5088,6 @@ function usablePlayerPhotoUrl(url){
   if(/previewMain|preview-main|placeholder|logo|badge|crest|favicon/i.test(u)) return false;
   if(/remote\.axd$/i.test(u)) return false;
   return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?/i.test(u) || /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u);
-}
-function playerPhotoUrl(p){
-  if(!p)return "";
-  const rec=lookupPlayerPhotoRecord(p);
-  const url=playerPhotoRecordUrl(rec);
-  if(usablePlayerPhotoUrl(url)) return url;
-  const fallback=p.photo||p.image||p.headshot||p.nrlPhoto||p.playerPhoto||"";
-  return usablePlayerPhotoUrl(fallback) ? fallback : "";
 }
 async function fetchJson(path,fallback){try{const r=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error(path);return await r.json()}catch(e){return fallback}}
 async function fetchJsonFirst(paths,fallback=null){for(const path of paths){try{const r=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)continue;return await r.json()}catch(e){}}return fallback}
@@ -7340,8 +7181,6 @@ function legalReserveTradeOptions(oldPlayer){
 }
 function playerTradePositions(p){const ps=positions(p);return ps.length?ps:[]}
 function tradeEligibleForPlayer(candidate,oldPlayer){const oldPs=playerTradePositions(oldPlayer);if(!candidate||!oldPlayer||!oldPs.length)return false;const cps=positions(candidate);return oldPs.some(pos=>cps.includes(pos))}
-function tradeOptionButton(r,onclick){const rp=roundProj(r),rs=availabilityStatus(r),cls=statusDotClass(rs);return `<button type="button" onclick="${onclick}" style="display:grid;grid-template-columns:42px minmax(0,1fr) 42px;gap:9px;align-items:center;width:100%;padding:9px;border-radius:14px;border:1px solid #29405f;background:#0b1a2d;color:#f8fafc;text-align:left;cursor:pointer"><span style="width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#10213a;border:1px solid #436180;font-size:11px;font-weight:950">${esc((r.team||'SC').slice(0,3))}</span><span style="min-width:0"><b class="player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(r.name)}')" style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.name)}</b><span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(r.team||'')} | ${esc(positionText(r))}</span><span style="display:block;color:#bfd0e8;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(rs.label||'')}</span></span><span style="text-align:right;font-weight:950;color:#58a6ff;font-size:17px">${rp.expected}<span class="status-dot ${cls}" style="margin-left:4px"></span></span></button>`}
-function tradePopupHtml(title,name,opts,buttonFn){return `<div style="position:fixed;right:18px;bottom:18px;z-index:9999;width:min(640px,calc(100vw - 28px));max-height:min(660px,82vh);overflow:auto;background:#071222;border:1px solid #58a6ff;border-radius:18px;padding:14px;box-shadow:0 24px 80px rgba(0,0,0,.72)"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;position:sticky;top:-14px;background:#071222;padding:4px 0 10px"><div><div style="font-size:12px;color:#bfd0e8;font-weight:800">${esc(title)}</div><div style="font-size:18px;font-weight:950">${esc(name)}</div></div><button type="button" onclick="cancelTeamAction()" style="padding:7px 10px;border-radius:10px">Close</button></div>${opts.length?`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px">${opts.map(r=>tradeOptionButton(r,buttonFn(r))).join('')}</div>`:`<div>No legal trade options available</div>`}</div>`}
 
 function playerPhotoUrl(p){
   if(!p)return "";
@@ -7778,48 +7617,9 @@ function optimizeLineup(){App.lineup={};const names=[...App.myTeam].sort((a,b)=>
 function applyQuickTrade(){const out=$('quickOut')?.value?.trim(),inn=$('quickIn')?.value?.trim();if(!out||!inn){toast('Pick OUT and IN players');return}if(!App.myTeam.includes(out)){toast('OUT player is not in your team');return}if(!App.playerMap.has(inn)){toast('IN player is not in players.json');return}if(App.myTeam.includes(inn)){toast('IN player already in team');return}App.myTeam=App.myTeam.map(n=>n===out?inn:n);for(const k of Object.keys(App.lineup)){if(App.lineup[k]===out){const slot=slotById[k];if(eligible(getPlayer(inn),slot))App.lineup[k]=inn;else delete App.lineup[k]}}ensureLineup();saveLocal();renderTeam();toast(`Trade applied: ${out} → ${inn}`)}
 function addAnyPlayer(){const n=$('quickAdd')?.value?.trim();if(!n||!App.playerMap.has(n)){toast('Pick a valid player');return}if(App.myTeam.includes(n)){toast('Player already in team');return}App.myTeam.push(n);ensureLineup();saveLocal();renderTeam();toast(`${n} added`) }
 async function resetTeamFromFile(){localStorage.removeItem('sc_myTeam');localStorage.removeItem('sc_lineup');localStorage.removeItem('sc_reserveOrder');App.reserveOrder={};const teamJson=await fetchJson('my_team.json',null);let names=teamJson?.players||teamJson?.team||[];if(!Array.isArray(names))names=[];names=names.map(x=>typeof x==='string'?x.trim():(x?.name||x?.player||'')).filter(Boolean);App.myTeam=[...new Set(names.filter(n=>App.playerMap.has(n)))];App.lineup={};ensureLineup();validateLineup();ensureLineup();saveLocal();renderTeam();toast('Team reset from my_team.json')}
-function renderBye(){
- const tp=teamPlayers();
- const currentRound=Number(App.round||1);
- const rounds=Array.from({length:27-currentRound+1},(_,i)=>currentRound+i);
- const classifyByeStatus=(st)=>{
-  const key=String(st?.key||'').toLowerCase().replace(/[\s-]+/g,'_');
-  if(key==='good'||key==='named'||key==='played'||key==='locked')return 'good';
-  if(key==='bye')return 'bye';
-  if(key==='notnamed'||key==='not_named'||key==='omitted'||key==='out_of_side')return 'notnamed';
-  if(key==='expected'||key==='expected_reference')return 'risk';
-  if(key==='extended'||key==='reserve'||key==='risk'||key==='origin'||key==='origin_risk')return 'risk';
-  if(key==='injured'||key==='injury'||key==='suspended'||key==='suspension'||key==='susp'||key==='out')return 'out';
-  return st?.available?'risk':'notnamed';
- };
- $('bye').innerHTML=`<div class="panel"><h2>Bye Planner</h2><table><thead><tr><th>Round</th><th>Confirmed</th><th>Risk</th><th>Out</th><th>Not Named</th><th>Bye</th><th>Status</th><th>Missing</th></tr></thead><tbody>${rounds.map(r=>{
-  const buckets={good:[],risk:[],out:[],notnamed:[],bye:[]};
-  tp.forEach(p=>{
-   const playerByeRounds = (p.bye||p.byes||p.byeRounds||[]).map(Number).filter(Boolean);
-   const trueBye = playerByeRounds.includes(Number(r));
-   const st = availabilityStatus(p,r);
-   let k = classifyByeStatus(st);
-
-   // Bye Planner core rule:
-   // Future planner BYE must come from the player's actual bye rounds only.
-   // Do not carry current-round status_truth BYE into non-bye future rounds.
-   if(k==='bye' && !trueBye){
-    k = 'good';
-   }
-
-   (buckets[k]||buckets.notnamed).push(p);
-  });
-  const conf=buckets.good.length;
-  const chip=(p,cls)=>`<span class="miss ${cls}">${esc(p.name)}</span>`;
-  const miss=[...buckets.out.map(p=>chip(p,'bad')),...buckets.notnamed.map(p=>chip(p,'notnamed')),...buckets.bye.map(p=>chip(p,'bye')),...buckets.risk.map(p=>chip(p,'warn'))].join(' ');
-  return `<tr><td data-label="Round">${r}</td><td data-label="Confirmed">${conf}</td><td data-label="Risk">${buckets.risk.length?'<span class="pill warn">'+buckets.risk.length+'</span>':'-'}</td><td data-label="Out">${buckets.out.length?'<span class="pill bad">'+buckets.out.length+'</span>':'-'}</td><td data-label="Not Named">${buckets.notnamed.length?'<span class="pill">'+buckets.notnamed.length+'</span>':'-'}</td><td data-label="Bye">${buckets.bye.length?'<span class="pill bye">'+buckets.bye.length+'</span>':'-'}</td><td data-label="Status">${conf>=17?'<span class="pill good">OK</span>':conf>=15?'<span class="pill warn">Thin</span>':'<span class="pill bad">Danger</span>'}</td><td data-label="Missing">${miss||'None'}</td></tr>`}).join('')}</tbody></table><p class="small bye-legend"><span class="miss bad">Injured / Suspended / Out</span> <span class="miss notnamed">Not Named</span> <span class="miss warn">Expected / Extended / Risk</span> <span class="miss bye">Bye</span></p></div>`
-}
-
-
 /* v15: restore non-My-Team tab renderers. These are generic screen renderers only. */
 
 
-function renderTrade(){$('trade').innerHTML=`<div class="grid"><div class="panel span4"><h2>Trade Lab</h2><label>Trade OUT</label><input id="tradeOut" list="teamList"><datalist id="teamList">${App.myTeam.map(n=>`<option value="${esc(n)}">`).join('')}</datalist><label>Trade IN</label><input id="tradeIn" list="allList"><datalist id="allList">${App.players.map(p=>`<option value="${esc(p.name)}">`).join('')}</datalist><button onclick="scoreTrade()">Score Trade</button><button onclick="applyTradeFromTradeLab()">Apply Trade</button></div><div class="panel span6"><h2>Trade Verdict</h2><div id="tradeVerdict" class="small">Select players to score the trade.</div></div></div>`}
 function scoreTrade(){const out=getPlayer($('tradeOut').value),inn=getPlayer($('tradeIn').value),box=$('tradeVerdict');if(!out||!inn){box.innerHTML='Pick valid players.';return}const po=roundProj(out),pi=roundProj(inn);const pts=pi.expected-po.expected,cash=safeNum(out.price)-safeNum(inn.price),bye=(availabilityStatus(inn).available?1:0)-(availabilityStatus(out).available?1:0);let score=Math.max(0,Math.min(100,Math.round(50+pts*2+(cash/60000)+bye*12)));box.innerHTML=`<div class="metric ${score>=75?'good':score>=55?'warn':'bad'}">${score}/100</div><table><tbody><tr><td>Points this round</td><td>${pts>=0?'+':''}${pts}</td></tr><tr><td>Cash</td><td>${cash>=0?'+':''}${money(cash)}</td></tr><tr><td>Availability impact R${App.round}</td><td>${bye>=0?'+':''}${bye}</td></tr><tr><td>Verdict</td><td>${score>=75?'Strong trade':score>=55?'Decent, check byes':'Weak trade - probably emotional trash'}</td></tr></tbody></table>`}
 function applyTradeFromTradeLab(){const out=$('tradeOut')?.value?.trim(),inn=$('tradeIn')?.value?.trim();if(!out||!inn){toast('Pick OUT and IN players');return}if(!App.myTeam.includes(out)||!App.playerMap.has(inn)){toast('Invalid trade');return}App.myTeam=App.myTeam.map(n=>n===out?inn:n);for(const k of Object.keys(App.lineup)){if(App.lineup[k]===out){if(eligible(getPlayer(inn),slotById[k]))App.lineup[k]=inn;else delete App.lineup[k]}}ensureLineup();saveLocal();renderTrade();toast(`Trade applied: ${out} → ${inn}`)}
 
