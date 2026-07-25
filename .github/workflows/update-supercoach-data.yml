@@ -36,11 +36,21 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
+      # Level 4 historical database: archives today's real players.json/
+      # fixtures.json state against the current round, then rebuilds the
+      # empirical positional matchup file from everything captured so far.
+      # No fabricated data - this only grows once real rounds accumulate.
+      - name: Capture positional history
+        run: node scripts/capture-positional-history.mjs
+
+      - name: Build positional matchups
+        run: node scripts/build-positional-matchups.mjs
+
       - name: Commit updated players.json
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add players.json
+          git add players.json data/history/positional data/positional_matchups_v2.json
           git commit -m "Update SuperCoach price and BE data" || echo "No changes"
           git pull --rebase origin main
           git push

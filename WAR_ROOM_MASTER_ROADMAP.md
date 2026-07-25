@@ -2,6 +2,44 @@
 
 ## Level 4 Projection Engine
 
+Implementation status (2026-07): the live projection engine is
+`ProjectionEngine` inline in `index.html` (`projectGame`/`project`/
+`nextFive`) - NOT `level3-projection-engine.js`, which is loaded but gets
+immediately shadowed by inline re-definitions and is effectively dead code.
+Any future work on projections must extend `ProjectionEngine`, not the
+standalone file.
+
+Built and live:
+- Positional Matchup Engine - `ProjectionEngine.positionalMatchupImpact`.
+  Prefers real empirical data from `data/positional_matchups_v2.json`
+  (built by `scripts/build-positional-matchups.mjs` from history captured
+  daily by `scripts/capture-positional-history.mjs`) once a team/position
+  has >= 3 independent captured rounds; falls back to the hand-seeded
+  `data/opponent_difficulty.json` starter model otherwise. Adds home/away
+  weighting. Strength-of-schedule surfaces on `ProjectionEngine.nextFive()`
+  as `sos`/`sosLabel`.
+- Teammate Synergy Engine - `ProjectionEngine.teamContextImpact` /
+  `creativeHub`. Fully generic (no hardcoded players): finds each team's
+  highest-season-average HFB/5-8/HOK and adjusts CTW/FLB/2RF teammates
+  based on that player's real live availability and recent form.
+- Goal Kicker Matchup Engine - `ProjectionEngine.goalKickerMatchupBonus`
+  inside `goalKickingImpact`. Scales the existing GK boost by the same
+  positional matchup signal, and cross-checks `App.teamRoles` (loaded but
+  previously unused by any projection) for a confirmed-kicker signal.
+- Historical Database (partial) - `data/history/positional/round_*.json`,
+  real captured snapshots, growing one round at a time from 2026-07-25
+  onward. Not retroactive - no historical per-round score data existed in
+  this repo before that date to backfill from.
+
+Not built - explicitly not faked:
+- Aging/Development Curve Engine - `ProjectionEngine.agingCurveImpact` is a
+  wired, honest no-op (`expected: 0`). No player age, debut year, or
+  experience data exists anywhere in this app's pipeline. Activating this
+  for real requires a new data source (age/DOB) plumbed through
+  `scripts/update-players.mjs` the same way price/BE/avg already are.
+- Injury Availability Engine / Origin Availability Engine / Post Injury
+  Performance Engine - unchanged by this work; not in scope.
+
 ### Positional Matchup Engine
 Track fantasy points conceded by opponent and position:
 
