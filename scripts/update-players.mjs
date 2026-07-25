@@ -487,7 +487,7 @@ async function mergePlayers(sourceRows, dppPlayers) {
 async function investigatePlayerListCoverage() {
   const candidates = [
     "https://www.nrlsupercoachstats.com/playerlist.php",
-    `https://www.nrlsupercoachstats.com/playerlist.php?year=${SEASON}`
+    "https://www.nrlsupercoachstats.com/TeamBEs.php"
   ];
 
   for (const url of candidates) {
