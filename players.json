@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-25T09:01:21.795Z",
+  "updated": "2026-07-25T09:13:43.309Z",
   "source": "https://nrlsupercoachstats.com/playerlist.php",
   "note": "Full source-driven player database. my_team.json remains the selected squad file.",
   "players": [
@@ -1087,7 +1087,7 @@
         16,
         20
       ],
-      "breakeven": 8,
+      "breakeven": 48,
       "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
@@ -1099,7 +1099,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "nrlsupercoachstats-public",
-      "lastDataUpdate": "2026-07-08T20:54:58.026809+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 26,
       "ppm": 3.38,
       "minutes": 26,
@@ -1112,7 +1112,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Apisai Koroisau",
@@ -3426,7 +3432,7 @@
         13,
         21
       ],
-      "breakeven": 8,
+      "breakeven": 5,
       "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
@@ -3438,7 +3444,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "nrlsupercoachstats-public",
-      "lastDataUpdate": "2026-07-08T20:54:58.026993+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 80,
       "ppm": 0.44,
       "minutes": 80,
@@ -3451,7 +3457,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Brian To'o",
@@ -4712,8 +4724,8 @@
         15,
         19
       ],
-      "breakeven": -4,
-      "breakevenStatus": "needs_data",
+      "breakeven": 8,
+      "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
       "captainOwnership": null,
@@ -4724,7 +4736,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "https://nrlsupercoachstats.com/playerlist.php",
-      "lastDataUpdate": "2026-06-04T09:47:01.531842+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 68,
       "ppm": 0.68,
       "minutes": 68,
@@ -4737,7 +4749,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Clayton Faulalo",
@@ -7875,7 +7893,7 @@
         12,
         23
       ],
-      "breakeven": 8,
+      "breakeven": 11,
       "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
@@ -7887,7 +7905,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "nrlsupercoachstats-public",
-      "lastDataUpdate": "2026-07-08T20:54:58.026969+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 61,
       "ppm": 0.82,
       "minutes": 61,
@@ -7900,7 +7918,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Ethan Sanders",
@@ -7919,7 +7943,7 @@
       ],
       "team": "CBR",
       "sourceTeam": "CBR",
-      "price": 395400,
+      "price": 504100,
       "proj": 53,
       "avg": 53,
       "last3Avg": 54,
@@ -7933,7 +7957,7 @@
         18,
         26
       ],
-      "breakeven": 8,
+      "breakeven": 16,
       "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
@@ -7945,7 +7969,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "nrlsupercoachstats-public",
-      "lastDataUpdate": "2026-07-08T20:54:58.026679+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 80,
       "ppm": 0.53,
       "minutes": 80,
@@ -7958,7 +7982,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Ethan Strange",
@@ -13144,7 +13174,7 @@
       ],
       "team": "MAN",
       "sourceTeam": "MNL",
-      "price": 485300,
+      "price": 487800,
       "proj": 40,
       "avg": 40,
       "last3Avg": 67,
@@ -13170,7 +13200,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "nrlsupercoachstats-public",
-      "lastDataUpdate": "2026-07-08T20:54:58.026738+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 79,
       "ppm": 0.55,
       "minutes": 79,
@@ -13183,7 +13213,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Jason Taumalolo",
@@ -17015,7 +17051,7 @@
       ],
       "team": "PEN",
       "sourceTeam": "PTH",
-      "price": 201400,
+      "price": 207900,
       "proj": 17,
       "avg": 17,
       "last3Avg": 17,
@@ -17029,8 +17065,8 @@
         15,
         19
       ],
-      "breakeven": 30,
-      "breakevenStatus": "needs_data",
+      "breakeven": 8,
+      "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
       "captainOwnership": null,
@@ -17041,7 +17077,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "https://nrlsupercoachstats.com/playerlist.php",
-      "lastDataUpdate": "2026-06-04T09:47:01.531842+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 27,
       "ppm": 0.57,
       "minutes": 27,
@@ -17054,7 +17090,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Kalyn Ponga",
@@ -19320,7 +19362,7 @@
         18,
         25
       ],
-      "breakeven": 8,
+      "breakeven": 6,
       "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
@@ -19332,7 +19374,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "nrlsupercoachstats-public",
-      "lastDataUpdate": "2026-07-08T20:54:58.026787+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 80,
       "ppm": 0.76,
       "minutes": 80,
@@ -19345,7 +19387,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Lindsay Collins",
@@ -20026,8 +20074,8 @@
         14,
         18
       ],
-      "breakeven": -69,
-      "breakevenStatus": "needs_data",
+      "breakeven": 27,
+      "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
       "captainOwnership": null,
@@ -20038,7 +20086,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "https://nrlsupercoachstats.com/playerlist.php",
-      "lastDataUpdate": "2026-06-04T09:47:01.531842+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 80,
       "ppm": 0.84,
       "minutes": 80,
@@ -20051,7 +20099,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Luke Laulilii",
@@ -23461,7 +23515,7 @@
       ],
       "team": "GLD",
       "sourceTeam": "GCT",
-      "price": 504500,
+      "price": 552100,
       "proj": 53,
       "avg": 53,
       "last3Avg": 79,
@@ -23475,8 +23529,8 @@
         13,
         18
       ],
-      "breakeven": 16,
-      "breakevenStatus": "needs_data",
+      "breakeven": 3,
+      "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
       "captainOwnership": null,
@@ -23487,7 +23541,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "https://nrlsupercoachstats.com/playerlist.php",
-      "lastDataUpdate": "2026-06-04T09:47:01.531842+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 47,
       "ppm": 0.85,
       "minutes": 47,
@@ -23500,7 +23554,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Oregon Kaufusi",
@@ -23519,7 +23579,7 @@
       ],
       "team": "SHA",
       "sourceTeam": "SHA",
-      "price": 271700,
+      "price": 341200,
       "proj": 31,
       "avg": 31,
       "last3Avg": 29,
@@ -23533,7 +23593,7 @@
         12,
         17
       ],
-      "breakeven": 8,
+      "breakeven": 11,
       "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
@@ -23545,7 +23605,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "nrlsupercoachstats-public",
-      "lastDataUpdate": "2026-07-06T21:19:00.935383+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 25,
       "ppm": 1.17,
       "minutes": 25,
@@ -23558,7 +23618,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Oryn Keeley",
@@ -24232,7 +24298,7 @@
         16,
         19
       ],
-      "breakeven": 8,
+      "breakeven": 12,
       "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
@@ -24244,7 +24310,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "nrlsupercoachstats-public",
-      "lastDataUpdate": "2026-07-08T20:54:58.026585+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 80,
       "ppm": 0.65,
       "minutes": 80,
@@ -24257,7 +24323,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Phillip Sami",
@@ -26614,7 +26686,7 @@
       ],
       "team": "CAN",
       "sourceTeam": "BUL",
-      "price": 201400,
+      "price": 222000,
       "proj": 17,
       "avg": 17,
       "last3Avg": 17,
@@ -26628,7 +26700,7 @@
         15,
         18
       ],
-      "breakeven": 8,
+      "breakeven": 16,
       "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
@@ -26640,7 +26712,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "https://nrlsupercoachstats.com/playerlist.php",
-      "lastDataUpdate": "2026-07-08T20:54:58.026646+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 45,
       "ppm": 0.33,
       "minutes": 45,
@@ -26657,7 +26729,7 @@
       "enrichmentSources": {
         "priceAndBreakeven": {
           "source": "nrlsupercoachstats-public",
-          "updatedAt": "2026-07-08T20:54:58.026646+00:00"
+          "updatedAt": "2026-07-25T09:13:43.309Z"
         }
       }
     },
@@ -28461,7 +28533,7 @@
         13,
         16
       ],
-      "breakeven": 8,
+      "breakeven": 57,
       "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
@@ -28473,7 +28545,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "nrlsupercoachstats-public",
-      "lastDataUpdate": "2026-07-06T21:19:00.935395+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 80,
       "ppm": 1.21,
       "minutes": 80,
@@ -28486,7 +28558,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Tallyn Da Silva",
@@ -29758,7 +29836,7 @@
         12,
         18
       ],
-      "breakeven": 8,
+      "breakeven": 21,
       "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
@@ -29770,7 +29848,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "nrlsupercoachstats-public",
-      "lastDataUpdate": "2026-07-08T20:54:58.026901+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 0,
       "ppm": 0,
       "minutes": 0,
@@ -29783,7 +29861,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Toby Rudolf",
@@ -31099,7 +31183,7 @@
       ],
       "team": "MEL",
       "sourceTeam": "MEL",
-      "price": 242600,
+      "price": 362000,
       "proj": 28,
       "avg": 28,
       "last3Avg": 23,
@@ -31113,7 +31197,7 @@
         18,
         24
       ],
-      "breakeven": 3,
+      "breakeven": 13,
       "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
@@ -31125,7 +31209,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "nrlsupercoachstats-public",
-      "lastDataUpdate": "2026-07-08T20:54:58.026743+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 30,
       "ppm": 3,
       "minutes": 30,
@@ -31138,7 +31222,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Tyrell Sloan",
@@ -31354,7 +31444,7 @@
         15,
         27
       ],
-      "breakeven": 8,
+      "breakeven": 10,
       "breakevenStatus": "updated",
       "cPct": 0,
       "vcPct": 0,
@@ -31366,7 +31456,7 @@
       "playProbability": 100,
       "injuryNote": "",
       "dataSource": "nrlsupercoachstats-public",
-      "lastDataUpdate": "2026-07-08T20:54:58.026765+00:00",
+      "lastDataUpdate": "2026-07-25T09:13:43.309Z",
       "expectedMinutes": 80,
       "ppm": 0.83,
       "minutes": 80,
@@ -31379,7 +31469,13 @@
         "ownership"
       ],
       "level3Ready": true,
-      "positionFixed": true
+      "positionFixed": true,
+      "enrichmentSources": {
+        "priceAndBreakeven": {
+          "source": "nrlsupercoachstats-public",
+          "updatedAt": "2026-07-25T09:13:43.309Z"
+        }
+      }
     },
     {
       "name": "Valentine Holmes",
@@ -33050,9 +33146,9 @@
     "version": "v4-canonical-enrichment-only",
     "source": "https://www.nrlsupercoachstats.com/TeamPricesAndBEs.php",
     "rowsFound": 18,
-    "playersUpdated": 0,
+    "playersUpdated": 17,
     "playersAdded": 0,
-    "unmatchedEnrichmentRows": 18,
+    "unmatchedEnrichmentRows": 1,
     "ambiguousEnrichmentRows": 0,
     "dppSourcePlayers": 107,
     "dppMatchedExisting": 107,
