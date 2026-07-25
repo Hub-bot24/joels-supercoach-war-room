@@ -3238,6 +3238,25 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   .player-profile-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
 .projection-box{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin-top:5px;font-size:9px;line-height:1.05;color:#dbeafe}.projection-box span{display:flex;justify-content:space-between;gap:3px;border:1px solid rgba(88,166,255,.2);background:rgba(8,17,32,.72);border-radius:6px;padding:3px 4px;white-space:nowrap}.projection-box b{color:#fff;font-weight:950}.next5-panel{margin-top:14px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:14px;padding:10px;color:#f8fafc}.next5-panel h4{margin:0 0 8px;font-size:13px;letter-spacing:.04em;text-transform:uppercase}.next5-panel-row{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:8px;align-items:center;padding:7px 0;border-top:1px solid rgba(255,255,255,.08);font-size:12px}.next5-panel-row:first-of-type{border-top:0}.next5-panel-row b{text-align:right;color:#58a6ff;font-size:15px}.next5-panel-meta{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#dbeafe}.next5-panel-empty{font-size:12px;color:#bfd0e8;line-height:1.35}@media(max-width:720px){.projection-box{grid-template-columns:1fr;font-size:8px;gap:2px}.projection-box span{padding:2px 3px}.next5-panel-row{grid-template-columns:38px minmax(0,1fr) 38px;font-size:11px}}
+.captain-advisor{margin:12px 16px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:16px;padding:14px 16px;color:#f8fafc}
+.captain-advisor h3{margin:0 0 10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#c7d2fe}
+.captain-advisor-empty{font-size:12px;color:#bfd0e8;line-height:1.4}
+.captain-advisor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.captain-advisor-card{border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:11px 13px}
+.captain-advisor-card-top{border-color:#58a6ff;background:rgba(88,166,255,.12)}
+.captain-advisor-label{font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#93a5c9;margin-bottom:4px}
+.captain-advisor-name{font-size:16px;font-weight:950;display:flex;align-items:baseline;gap:6px}
+.captain-advisor-pos{font-size:11px;font-weight:800;color:#93a5c9}
+.captain-advisor-stats{display:flex;align-items:baseline;gap:8px;margin-top:4px;flex-wrap:wrap}
+.captain-advisor-stats b{font-size:22px;color:#58a6ff;font-weight:950}
+.captain-advisor-range{font-size:11px;color:#bfd0e8}
+.captain-advisor-conf{font-size:10px;font-weight:900;padding:2px 7px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em}
+.captain-advisor-conf-high{background:rgba(34,197,94,.18);color:#22c55e}
+.captain-advisor-conf-medium{background:rgba(250,204,21,.18);color:#facc15}
+.captain-advisor-conf-low{background:rgba(239,68,68,.18);color:#ef4444}
+.captain-advisor-reason{font-size:12px;color:#dbeafe;margin-top:6px;line-height:1.35}
+.captain-advisor-warn{font-size:11px;color:#facc15;margin-top:6px;font-weight:800}
+@media(max-width:720px){.captain-advisor{margin:10px}.captain-advisor-grid{grid-template-columns:1fr}}
 
 
 /* =========================================================
@@ -6904,6 +6923,64 @@ function formationReservesHtml(state){
  </aside>`;
 }
 
+/* =========================================================
+   Captain Advisor
+   Reads the same live projection every other tab reads (roundProj -
+   ProjectionEngine), so this can never disagree with the numbers shown
+   elsewhere. No separate captain-scoring formula - just three honest
+   lenses (raw ceiling of expected value, safest floor, biggest ceiling)
+   over the field's real floor/expected/ceiling/confidence/reasons.
+   ========================================================= */
+function captainAdvisorRiskNote(player){
+ const st=availabilityStatus(player);
+ const key=String(st?.key||'').toLowerCase();
+ if(key==='risk')return 'Selection risk - team list not fully locked in';
+ if(key==='expected')return 'Not yet officially named - status could still change';
+ return '';
+}
+function captainAdvisorReason(pr){
+ const boring=/^(Recent scores relatively stable|No rain impact detected|Balanced season and recent form|No weather downgrade|Cold conditions noted)/;
+ const picked=(pr.reasons||[]).filter(r=>r&&!boring.test(r)).slice(0,2);
+ return picked.length?picked.join(' · '):'Solid underlying numbers, no standout factor either way';
+}
+function captainAdvisorCandidates(state){
+ return (state.fieldSlots||[])
+  .map(({name,player})=>({name,player,pr:roundProj(player)}))
+  .filter(c=>c.player&&c.pr.expected>0);
+}
+function captainAdvisorCardHtml(label,c,accent){
+ if(!c)return '';
+ const risk=captainAdvisorRiskNote(c.player);
+ return `<div class="captain-advisor-card${accent?' captain-advisor-card-top':''}">
+  <div class="captain-advisor-label">${esc(label)}</div>
+  <div class="captain-advisor-name">${esc(c.name)}<span class="captain-advisor-pos">${esc(positionText(c.player))}</span></div>
+  <div class="captain-advisor-stats"><b>${esc(c.pr.expected)}</b><span class="captain-advisor-range">floor ${esc(c.pr.floor)} / ceiling ${esc(c.pr.ceiling)}</span><span class="captain-advisor-conf captain-advisor-conf-${esc(String(c.pr.confidence||'').toLowerCase())}">${esc(c.pr.confidence||'-')}</span></div>
+  <div class="captain-advisor-reason">${esc(captainAdvisorReason(c.pr))}</div>
+  ${risk?`<div class="captain-advisor-warn">${esc(risk)}</div>`:''}
+ </div>`;
+}
+function captainAdvisorHtml(state){
+ const candidates=captainAdvisorCandidates(state);
+ if(!candidates.length){
+  return `<div class="captain-advisor"><h3>Captain Advisor</h3><div class="captain-advisor-empty">Set your starting field to see captain recommendations.</div></div>`;
+ }
+
+ const byExpected=[...candidates].sort((a,b)=>b.pr.expected-a.pr.expected);
+ const topPick=byExpected[0];
+ const pool=byExpected.slice(0,6);
+ const safePick=[...pool].sort((a,b)=>b.pr.floor-a.pr.floor)[0];
+ const ceilingPick=[...pool].sort((a,b)=>b.pr.ceiling-a.pr.ceiling)[0];
+
+ const cards=[captainAdvisorCardHtml('Recommended Captain',topPick,true)];
+ if(safePick&&safePick.name!==topPick.name)cards.push(captainAdvisorCardHtml('Safest Floor',safePick));
+ if(ceilingPick&&ceilingPick.name!==topPick.name&&ceilingPick.name!==(safePick&&safePick.name))cards.push(captainAdvisorCardHtml('Highest Ceiling',ceilingPick));
+
+ return `<div class="captain-advisor">
+  <h3>Captain Advisor</h3>
+  <div class="captain-advisor-grid">${cards.join('')}</div>
+ </div>`;
+}
+
 function mobileTeamHtml(state=teamRenderState()){
  const sections=[["HOOKER",["HOK1"]],["FRONT ROWERS",["FRF1","FRF2"]],["2ND ROW FORWARDS",["2RF1","2RF2","2RF3"]],["HALFBACK",["HFB1"]],["5/8",["FE1"]],["WINGS / CENTRES",["CTW1","CTW2","CTW3","CTW4"]],["FULLBACK",["FLB1"]],["FLEX",["FLEX1"]]];
  const totalProjected=teamProjection();
@@ -6923,6 +7000,7 @@ function mobileTeamHtml(state=teamRenderState()){
   </div>
   <div class="wr-freshness-row">${dataFreshnessControlHtml()}</div>
   ${authPanelHtml()}
+  ${captainAdvisorHtml(state)}
   <div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot)}</main>${formationReservesHtml(state)}</div>
   <div class="wr-status-legend"><span><i class="status-dot"></i> Available</span><span><i class="status-dot warn"></i> Risk</span><span><i class="status-dot bad"></i> Out</span><span><i class="status-dot bye"></i> Bye</span></div>
  </div>`;
