@@ -3238,25 +3238,10 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   .player-profile-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
 .projection-box{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin-top:5px;font-size:9px;line-height:1.05;color:#dbeafe}.projection-box span{display:flex;justify-content:space-between;gap:3px;border:1px solid rgba(88,166,255,.2);background:rgba(8,17,32,.72);border-radius:6px;padding:3px 4px;white-space:nowrap}.projection-box b{color:#fff;font-weight:950}.next5-panel{margin-top:14px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:14px;padding:10px;color:#f8fafc}.next5-panel h4{margin:0 0 8px;font-size:13px;letter-spacing:.04em;text-transform:uppercase}.next5-panel-row{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:8px;align-items:center;padding:7px 0;border-top:1px solid rgba(255,255,255,.08);font-size:12px}.next5-panel-row:first-of-type{border-top:0}.next5-panel-row b{text-align:right;color:#58a6ff;font-size:15px}.next5-panel-meta{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#dbeafe}.next5-panel-empty{font-size:12px;color:#bfd0e8;line-height:1.35}@media(max-width:720px){.projection-box{grid-template-columns:1fr;font-size:8px;gap:2px}.projection-box span{padding:2px 3px}.next5-panel-row{grid-template-columns:38px minmax(0,1fr) 38px;font-size:11px}}
-.captain-advisor{margin:12px 16px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:16px;padding:14px 16px;color:#f8fafc}
-.captain-advisor h3{margin:0 0 10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#c7d2fe}
-.captain-advisor-empty{font-size:12px;color:#bfd0e8;line-height:1.4}
-.captain-advisor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
-.captain-advisor-card{border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:11px 13px}
-.captain-advisor-card-top{border-color:#58a6ff;background:rgba(88,166,255,.12)}
-.captain-advisor-label{font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#93a5c9;margin-bottom:4px}
-.captain-advisor-name{font-size:16px;font-weight:950;display:flex;align-items:baseline;gap:6px}
-.captain-advisor-pos{font-size:11px;font-weight:800;color:#93a5c9}
-.captain-advisor-stats{display:flex;align-items:baseline;gap:8px;margin-top:4px;flex-wrap:wrap}
-.captain-advisor-stats b{font-size:22px;color:#58a6ff;font-weight:950}
-.captain-advisor-range{font-size:11px;color:#bfd0e8}
-.captain-advisor-conf{font-size:10px;font-weight:900;padding:2px 7px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em}
-.captain-advisor-conf-high{background:rgba(34,197,94,.18);color:#22c55e}
-.captain-advisor-conf-medium{background:rgba(250,204,21,.18);color:#facc15}
-.captain-advisor-conf-low{background:rgba(239,68,68,.18);color:#ef4444}
-.captain-advisor-reason{font-size:12px;color:#dbeafe;margin-top:6px;line-height:1.35}
-.captain-advisor-warn{font-size:11px;color:#facc15;margin-top:6px;font-weight:800}
-@media(max-width:720px){.captain-advisor{margin:10px}.captain-advisor-grid{grid-template-columns:1fr}}
+.formation-cv-badge{position:absolute;top:-8px;right:-8px;z-index:5;width:24px;height:24px;border-radius:999px;display:grid;place-items:center;font-size:11px;font-weight:950;box-shadow:0 4px 10px rgba(0,0,0,.5);cursor:help}
+.formation-cv-captain{background:#facc15;color:#1a1400;border:2px solid #fff7d6}
+.formation-cv-vice{background:#58a6ff;color:#031326;border:2px solid #d6ecff;font-size:9px}
+.formation-cv-badge.formation-cv-nolh{border-style:dashed;filter:saturate(.55) brightness(.92)}
 .trade-radar{margin:0 0 16px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:16px;padding:14px 16px;color:#f8fafc}
 .trade-radar h3{margin:0 0 10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#c7d2fe}
 .trade-radar-empty{font-size:12px;color:#bfd0e8;line-height:1.4}
@@ -6803,7 +6788,7 @@ function formationFigureHtml(cls='formation-face'){return `<div class="${cls}"><
 function shortName(name){const parts=String(name||'').trim().split(/\s+/).filter(Boolean);if(parts.length>=2)return `${parts[0][0]}. ${parts.slice(1).join(' ')}`;return String(name||'')}
 
 function formationStatusClass(p){const st=availabilityStatus(p);return st.key==='bye'?'bye':(st.key==='injured'||st.key==='suspended'||st.key==='notnamed'||st.key==='out')?'out':(st.key==='expected'||st.key==='origin'||st.key==='risk')?'risk':''}
-function formationSlot(slotId,gridArea){
+function formationSlot(slotId,gridArea,picks={}){
  const slot=slotById[slotId],p=getPlayer(App.lineup?.[slotId]);
  if(!slot)return '';
  if(!p){
@@ -6824,8 +6809,13 @@ function formationSlot(slotId,gridArea){
  const avg=safeNum(p.avg??p.average??p.seasonAvg);
  const team=esc((p.team||p.club||'SC').slice(0,3).toUpperCase());
  const playerPosText=positionText(p,slot.short);
+ const isCaptain=picks?.captain?.name===p.name,isVice=!isCaptain&&picks?.vice?.name===p.name;
+ const badgeHtml=isCaptain
+  ?`<div class="formation-cv-badge formation-cv-captain${picks.captain.hasLoophole?'':' formation-cv-nolh'}" title="${esc(picks.captain.tooltip)}">C</div>`
+  :isVice?`<div class="formation-cv-badge formation-cv-vice${picks.vice.hasLoophole?'':' formation-cv-nolh'}" title="${esc(picks.vice.tooltip)}">VC</div>`:'';
  return `<div class="formation-slot" style="grid-area:${gridArea}">
   <div class="formation-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-slot="${slotId}" onpointerdown="pressDragStart(event,'field','${slotId}','${window.jsq(p.name)}')" ondragstart="dragField(event,'${slotId}','${window.jsq(p.name)}')" ondragover="allowDropOnSlot(event,'${slotId}')" ondragleave="clearDrop(event)" ondrop="dropOnSlot(event,'${slotId}')">
+   ${badgeHtml}
    <div class="wr-slot-tag" title="${esc(slot.short)} slot">${esc(playerPosText)}</div>
    ${wrPlayerCardPhotoHtml(p,'wr-team-logo')}
    <div class="formation-name player-name-link" title="${esc(p.name)}" role="button" tabindex="0" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</div>
@@ -6841,7 +6831,7 @@ function formationSlot(slotId,gridArea){
   </div>
  </div>`;
 }
-function formationFieldHtml(fieldBySlot={}){
+function formationFieldHtml(fieldBySlot={},picks={}){
  const slots=[
   ['FRF1','1 / 1 / 2 / 2'],['HOK1','1 / 3 / 2 / 4'],['FRF2','1 / 5 / 2 / 6'],
   ['2RF1','2 / 2 / 3 / 3'],['2RF2','2 / 4 / 3 / 5'],['2RF3','3 / 3 / 4 / 4'],
@@ -6849,7 +6839,7 @@ function formationFieldHtml(fieldBySlot={}){
   ['CTW1','5 / 1 / 6 / 2'],['CTW2','5 / 2 / 6 / 3'],['CTW3','5 / 4 / 6 / 5'],['CTW4','5 / 5 / 6 / 6'],
   ['FLB1','6 / 3 / 7 / 4'],['FLEX1','7 / 3 / 8 / 4']
  ];
- return `<div class="formation-field"><div class="formation-watermark left">WAR</div><div class="formation-watermark right">ROOM</div><div class="formation-grid">${slots.map(([id,area])=>formationSlot(id,area)).join('')}</div></div>`
+ return `<div class="formation-field"><div class="formation-watermark left">WAR</div><div class="formation-watermark right">ROOM</div><div class="formation-grid">${slots.map(([id,area])=>formationSlot(id,area,picks)).join('')}</div></div>`
 }
 function formationReserveCard(p,idx=0,slotId=""){
  const pr=roundProj(p),st=availabilityStatus(p),cls=statusDotClass(st);
@@ -6980,37 +6970,58 @@ function captainAdvisorCandidates(state){
   .map(({name,player})=>({name,player,pr:roundProj(player)}))
   .filter(c=>c.player&&c.pr.expected>0);
 }
-function captainAdvisorCardHtml(label,c,accent){
- if(!c)return '';
- const risk=captainAdvisorRiskNote(c.player);
- return `<div class="captain-advisor-card${accent?' captain-advisor-card-top':''}">
-  <div class="captain-advisor-label">${esc(label)}</div>
-  <div class="captain-advisor-name">${esc(c.name)}<span class="captain-advisor-pos">${esc(positionText(c.player))}</span></div>
-  <div class="captain-advisor-stats"><b>${esc(c.pr.expected)}</b><span class="captain-advisor-range">floor ${esc(c.pr.floor)} / ceiling ${esc(c.pr.ceiling)}</span><span class="captain-advisor-conf captain-advisor-conf-${esc(String(c.pr.confidence||'').toLowerCase())}">${esc(c.pr.confidence||'-')}</span></div>
-  <div class="captain-advisor-reason">${esc(captainAdvisorReason(c.pr))}</div>
-  ${risk?`<div class="captain-advisor-warn">${esc(risk)}</div>`:''}
- </div>`;
+// Compact captain/vice-captain picks - a star/VC badge directly on the
+// field card (see formationSlot) rather than a separate panel, so the
+// team page stays about showing the team.
+//
+// Captain = highest expected on the field. Vice-captain is NOT simply
+// "2nd best" - it follows the real SuperCoach captaincy loophole: the VC
+// must kick off BEFORE the captain, so if the captain's score turns out
+// poor, captaincy can be switched to the VC (already locked in) before
+// the captain's own game has even started. A VC who plays after the
+// captain provides no such cover. If no real loophole candidate exists
+// among the field, that is surfaced honestly rather than silently
+// picking a same-time-or-later player and implying protection that isn't
+// there - a straight, uncovered captain pick is a real, higher-risk
+// situation, not a data gap to paper over.
+function playerKickoffTime(player){
+ const fixture=ProjectionEngine.fixtureForRound(player,App.round);
+ const raw=fixture?.kickoffLocal||fixture?.kickoff||fixture?.date||fixture?.startTime;
+ const t=raw?new Date(raw).getTime():NaN;
+ return Number.isFinite(t)?t:null;
 }
-function captainAdvisorHtml(state){
+function captainVicePicks(state){
  const candidates=captainAdvisorCandidates(state);
- if(!candidates.length){
-  return `<div class="captain-advisor"><h3>Captain Advisor</h3><div class="captain-advisor-empty">Set your starting field to see captain recommendations.</div></div>`;
+ if(!candidates.length)return {captain:null,vice:null};
+ const byExpected=[...candidates].sort((a,b)=>b.pr.expected-a.pr.expected);
+ const captain=byExpected[0];
+ const captainKickoff=playerKickoffTime(captain.player);
+
+ const rest=byExpected.slice(1);
+ const loopholeCandidates=captainKickoff!=null
+  ?rest.filter(c=>{const t=playerKickoffTime(c.player);return t!=null&&t<captainKickoff})
+  :[];
+ const hasLoophole=loopholeCandidates.length>0;
+ // SuperCoach still needs *a* VC named even with no loophole candidate (the
+ // captain could be a late withdrawal) - fall back to next-best rather than
+ // showing nothing, but never claim loophole cover that isn't real.
+ const vicePick=loopholeCandidates[0]||rest[0]||null;
+
+ const captainRisk=captainAdvisorRiskNote(captain.player);
+ const captainReason=captainAdvisorReason(captain.pr);
+ const captainTooltip=`${captain.pr.expected} pts (floor ${captain.pr.floor} / ceiling ${captain.pr.ceiling}, ${captain.pr.confidence} confidence) - ${captainReason}${captainRisk?' - '+captainRisk:''}${!hasLoophole?' - No teammate plays before this game: straight captain, no loophole cover, higher risk if it goes wrong':''}`;
+
+ let vice=null;
+ if(vicePick){
+  const risk=captainAdvisorRiskNote(vicePick.player);
+  const reason=captainAdvisorReason(vicePick.pr);
+  const coverNote=hasLoophole
+   ?`Loophole cover - plays before ${captain.name}, so a poor captain score can still be covered`
+   :`No loophole - plays at the same time or after ${captain.name}, so this is a structural VC only, not real cover`;
+  vice={name:vicePick.name,tooltip:`${coverNote}. ${vicePick.pr.expected} pts (floor ${vicePick.pr.floor} / ceiling ${vicePick.pr.ceiling}, ${vicePick.pr.confidence} confidence) - ${reason}${risk?' - '+risk:''}`,risk,hasLoophole};
  }
 
- const byExpected=[...candidates].sort((a,b)=>b.pr.expected-a.pr.expected);
- const topPick=byExpected[0];
- const pool=byExpected.slice(0,6);
- const safePick=[...pool].sort((a,b)=>b.pr.floor-a.pr.floor)[0];
- const ceilingPick=[...pool].sort((a,b)=>b.pr.ceiling-a.pr.ceiling)[0];
-
- const cards=[captainAdvisorCardHtml('Recommended Captain',topPick,true)];
- if(safePick&&safePick.name!==topPick.name)cards.push(captainAdvisorCardHtml('Safest Floor',safePick));
- if(ceilingPick&&ceilingPick.name!==topPick.name&&ceilingPick.name!==(safePick&&safePick.name))cards.push(captainAdvisorCardHtml('Highest Ceiling',ceilingPick));
-
- return `<div class="captain-advisor">
-  <h3>Captain Advisor</h3>
-  <div class="captain-advisor-grid">${cards.join('')}</div>
- </div>`;
+ return {captain:{name:captain.name,tooltip:captainTooltip,risk:captainRisk,hasLoophole},vice};
 }
 
 /* =========================================================
@@ -7101,9 +7112,8 @@ function mobileTeamHtml(state=teamRenderState()){
   </div>
   <div class="wr-freshness-row">${dataFreshnessControlHtml()}</div>
   ${authPanelHtml()}
-  ${captainAdvisorHtml(state)}
   ${teamPulseHtml(state)}
-  <div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot)}</main>${formationReservesHtml(state)}</div>
+  <div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot,captainVicePicks(state))}</main>${formationReservesHtml(state)}</div>
   <div class="wr-status-legend"><span><i class="status-dot"></i> Available</span><span><i class="status-dot warn"></i> Risk</span><span><i class="status-dot bad"></i> Out</span><span><i class="status-dot bye"></i> Bye</span></div>
  </div>`;
 }
