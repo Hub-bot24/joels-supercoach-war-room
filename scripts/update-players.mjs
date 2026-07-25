@@ -43,6 +43,28 @@ async function writeJson(file, data) {
   );
 }
 
+function stripTags(value) {
+  return String(value || "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+// Source rows are name is formatted "Surname, Given"; canonical identities
+// expect "Given Surname". Shared by every source parser so there is one
+// place that owns this conversion, not a copy per source.
+function sourceNameToAppName(value) {
+  const clean = stripTags(value);
+
+  if (clean.includes(",")) {
+    const [surname, given] = clean.split(",").map(part => part.trim()).filter(Boolean);
+    if (surname && given) return `${given} ${surname}`;
+  }
+
+  return clean;
+}
+
 const DEBUG_DIR = path.join(ROOT, "debug");
 
 // TEST ONLY: captures the raw source response so a parse failure (e.g. a
@@ -88,14 +110,6 @@ function parseRowsFromHtml(html) {
 
   const matches = html.match(/<tr[\s\S]*?<\/tr>/gi) || [];
 
-  // TEST ONLY: source-contract diagnostics, printed to the job log so a
-  // parse failure can be inspected without needing artifact downloads.
-  console.log(`[debug] price-be-source: found ${matches.length} <tr> blocks total`);
-  for (const row of matches.slice(0, 5)) {
-    const text = row.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-    console.log(`[debug] price-be-source raw <tr> sample: ${text.slice(0, 200)}`);
-  }
-
   for (const row of matches) {
     const text = row
       .replace(/<[^>]+>/g, " ")
@@ -104,11 +118,14 @@ function parseRowsFromHtml(html) {
 
     if (!text) continue;
 
-    const nameMatch = text.match(/^([A-Za-z .'-]+)/);
+    // Source formats real player rows as "Surname, Given $price ... BE",
+    // so the name capture must include the comma or it silently truncates
+    // to the surname alone (which then fails identity matching).
+    const nameMatch = text.match(/^([A-Za-z .'-]+(?:,\s*[A-Za-z .'-]+)?)/);
 
     if (!nameMatch) continue;
 
-    const name = nameMatch[1].trim();
+    const name = sourceNameToAppName(nameMatch[1]);
 
     const { price, breakeven } = parsePriceBeText(text);
 
@@ -122,11 +139,6 @@ function parseRowsFromHtml(html) {
     });
   }
 
-  // TEST ONLY: show what the 18 currently-matched rows actually contain.
-  for (const row of rows.slice(0, 18)) {
-    console.log(`[debug] price-be-source matched row: name="${row.name}" price=${row.price} be=${row.breakeven}`);
-  }
-
   return rows;
 }
 
@@ -135,25 +147,6 @@ async function fetchDppPlayers() {
 
   const players = {};
   const validPositions = new Set(["HOK", "FRF", "2RF", "HFB", "5/8", "CTW", "FLB"]);
-
-  function stripTags(value) {
-    return String(value || "")
-      .replace(/<[^>]+>/g, " ")
-      .replace(/&nbsp;/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
-  }
-
-  function sourceNameToAppName(value) {
-    const clean = stripTags(value);
-
-    if (clean.includes(",")) {
-      const [surname, given] = clean.split(",").map(part => part.trim()).filter(Boolean);
-      if (surname && given) return `${given} ${surname}`;
-    }
-
-    return clean;
-  }
 
   function addDppPlayer(rawName, positions) {
     const name = sourceNameToAppName(rawName);
