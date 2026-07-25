@@ -30,4 +30,4 @@ jobs:
           node-version: "20"
 
       - name: Run structured team-list fixture tests
-        run: node --test tests/teamlists/*.test.mjs
+        run: node --test tests/teamlists/*.test.mjs tests/status/*.test.mjs
