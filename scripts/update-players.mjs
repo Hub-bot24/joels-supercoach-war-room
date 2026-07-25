@@ -863,7 +863,32 @@ async function fetchAllPlayerAvgStats(players) {
   return results;
 }
 
+// TEST ONLY: checking the site's own robots.txt and any terms/FAQ page for
+// an explicit stance on scraping, so a legal question can be answered
+// with the site's actual words instead of general assumptions.
+async function investigateTermsOfService() {
+  const candidates = [
+    "https://www.nrlsupercoachstats.com/robots.txt",
+    "https://www.nrlsupercoachstats.com/faq.php",
+    "https://www.nrlsupercoachstats.com/terms.php",
+    "https://www.nrlsupercoachstats.com/tos.php"
+  ];
+
+  for (const url of candidates) {
+    try {
+      const text = await fetchText(url, null);
+      console.log(`[investigate-tos] ${url}: bytes=${text.length}`);
+      console.log(`[investigate-tos] ${url} body: ${text.slice(0, 4000).replace(/\s+/g, " ")}`);
+    } catch (err) {
+      console.log(`[investigate-tos] ${url} failed: ${err.message}`);
+    }
+  }
+}
+
 async function main() {
+  await investigateTermsOfService();
+  return; // TEST ONLY: skip the rest for this investigation-only run
+
   const rows = await fetchSourceRows();
 
   const dppPlayers = await fetchDppPlayers();
