@@ -25,6 +25,12 @@ const SEASON = sourceConfig.season;
 const DPP_URL =
   `https://www.nrlsupercoachstats.com/dualposngrid.php?year=${SEASON}`;
 
+// TeamPricesAndBEs.php's static HTML is only a small per-team highlights
+// table (~18 rows, one per team) - confirmed by comparing to this source,
+// which lists every player (581 rows) with a real structured table.
+const PLAYERLIST_URL =
+  "https://www.nrlsupercoachstats.com/playerlist.php";
+
 const USER_AGENT =
   "Mozilla/5.0 (compatible; SuperCoachWarRoomBot/1.0)";
 
@@ -289,7 +295,7 @@ async function fetchSourceRows() {
 
   return rows;
 }
-async function mergePlayers(sourceRows, dppPlayers) {
+async function mergePlayers(sourceRows, dppPlayers, playerListRows) {
   const existing = await readJson(PLAYERS_FILE, { players: [] });
   const players = existing.players || [];
   const identityIndex = buildIdentityIndex(players);
@@ -297,6 +303,7 @@ async function mergePlayers(sourceRows, dppPlayers) {
   let updated = 0;
   let dppApplied = 0;
   let dppMatchedExisting = 0;
+  let playerListUpdated = 0;
 
   const unmatched = [];
   const ambiguous = [];
@@ -401,6 +408,48 @@ async function mergePlayers(sourceRows, dppPlayers) {
     updated++;
   }
 
+  for (const entry of playerListRows) {
+    if (!entry.name) continue;
+
+    const resolution = resolveIdentity(identityIndex, entry.name);
+
+    if (resolution.status === "unmatched") {
+      unmatched.push({
+        source: "player-list",
+        sourceName: entry.name,
+        reason: "Enrichment sources cannot create canonical players"
+      });
+
+      continue;
+    }
+
+    if (resolution.status === "ambiguous") {
+      ambiguous.push({
+        source: "player-list",
+        sourceName: entry.name,
+        candidates: resolution.candidates.map(player => player.name)
+      });
+
+      continue;
+    }
+
+    const player = resolution.player;
+
+    player.price = entry.price;
+
+    player.enrichmentSources = {
+      ...(player.enrichmentSources || {}),
+      price: {
+        source: "nrlsupercoachstats-playerlist",
+        updatedAt: new Date().toISOString()
+      }
+    };
+
+    player.lastDataUpdate = new Date().toISOString();
+
+    playerListUpdated++;
+  }
+
   if (ambiguous.length > 0) {
     const details = ambiguous
       .map(item =>
@@ -446,10 +495,19 @@ async function mergePlayers(sourceRows, dppPlayers) {
     );
   }
 
+  if (playerListRows.length > 0 && playerListUpdated === 0) {
+    throw new Error(
+      `Player-list source returned ${playerListRows.length} rows, but ` +
+      "matched 0 canonical identities. Check the job log's " +
+      "[debug] playerlist-source lines before assuming this is a real " +
+      "zero-update day."
+    );
+  }
+
   existing.players = players;
   existing.updated = new Date().toISOString();
   existing.dataPipeline = {
-    version: "v4-canonical-enrichment-only",
+    version: "v5-full-league-price-coverage",
     source: SOURCE_URL,
     rowsFound: sourceRows.length,
     playersUpdated: updated,
@@ -459,7 +517,10 @@ async function mergePlayers(sourceRows, dppPlayers) {
     dppSourcePlayers:
       Object.keys(dppPlayers).length,
     dppMatchedExisting,
-    dppApplied
+    dppApplied,
+    playerListSource: PLAYERLIST_URL,
+    playerListRowsFound: playerListRows.length,
+    playerListUpdated
   };
 
   await writeJson(PLAYERS_FILE, existing);
@@ -473,22 +534,91 @@ async function mergePlayers(sourceRows, dppPlayers) {
     `Ambiguous enrichment rows: ${ambiguous.length}`
   );
   console.log(
+    `Player-list rows found: ${playerListRows.length}`
+  );
+  console.log(
+    `Player-list players updated: ${playerListUpdated}`
+  );
+  console.log(
     `DPP matched existing players: ${dppMatchedExisting}`
   );
   console.log(
     `DPP applied to existing players: ${dppApplied}`
   );
 }
+// playerlist.php is the actual full-league player table (confirmed: 581
+// rows vs. TeamPricesAndBEs.php's ~18-row per-team highlights table).
+// Header-driven, like the DPP parser, rather than the fragile
+// regex-over-flattened-text approach - so column order changes don't
+// silently break it.
+function parsePlayerListRows(html) {
+  const trBlocks = html.match(/<tr[\s\S]*?<\/tr>/gi) || [];
+
+  const headerRow = trBlocks.find(row => /<th/i.test(row));
+
+  if (!headerRow) return [];
+
+  const headers = [...headerRow.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/gi)]
+    .map(match => stripTags(match[1]));
+
+  const nameIndex = headers.indexOf("Name");
+  const priceIndex = headers.indexOf("Price");
+
+  if (nameIndex === -1 || priceIndex === -1) return [];
+
+  const rows = [];
+
+  for (const row of trBlocks) {
+    if (row === headerRow) continue;
+
+    const cells = [...row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)]
+      .map(match => stripTags(match[1]));
+
+    if (cells.length <= Math.max(nameIndex, priceIndex)) continue;
+
+    const rawName = cells[nameIndex];
+    const price = toNumber(cells[priceIndex]);
+
+    if (!rawName || price === null) continue;
+
+    const name = sourceNameToAppName(rawName);
+
+    if (!name) continue;
+
+    rows.push({
+      name,
+      norm: normaliseIdentityName(name),
+      price
+    });
+  }
+
+  return rows;
+}
+
+async function fetchPlayerListRows() {
+  console.log(`Fetching ${PLAYERLIST_URL}`);
+
+  const html = await fetchText(PLAYERLIST_URL, "playerlist-source");
+
+  const rows = parsePlayerListRows(html);
+
+  console.log(`Parsed ${rows.length} player-list rows`);
+
+  return rows;
+}
+
 async function main() {
   const rows = await fetchSourceRows();
 
   const dppPlayers = await fetchDppPlayers();
 
+  const playerListRows = await fetchPlayerListRows();
+
   if (!rows.length) {
     throw new Error("No usable player rows found");
   }
 
-  await mergePlayers(rows, dppPlayers);
+  await mergePlayers(rows, dppPlayers, playerListRows);
 
   console.log("Node player updater complete");
 }
