@@ -1,22 +1,16 @@
 # SuperCoach War Room status changes — Round 21
 
-Detected: 2026-07-25T07:44:13.316Z
+Detected: 2026-07-25T09:22:00.875Z
 
-- **Aaron Schoupp** (MAN): EXPECTED → NOT_NAMED
+- **Charnze Nicoll-Klokstad** (NZL): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 21).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Hayze Perham** (BRO): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **Alekolasimi Jones** (CAN): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL
-- **Eddie Ieremia-Toeava** (NZL): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL
-- **Sam Stonestreet** (SHA): EXPECTED → NOT_NAMED
+- **Liam Sutton** (NQC): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **Thomas Hazelton** (SHA): NAMED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Zaidas Muagututia** (MAN): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
+- **Sam Healey** (NZL): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 14).
+  - Source: Official NRL, Zero Tackle
