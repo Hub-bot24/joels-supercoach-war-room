@@ -4947,7 +4947,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 <button data-tab="level3">Level 3</button>
 <button data-tab="explorer">Player Explorer</button>
 <button data-tab="trade">Trade Lab</button>
-<div class="spacer"></div><span id="syncStatus" class="wr-sync-pill warn">Sync off</span><span id="statusFreshness" class="small" style="opacity:0.6;margin-right:8px"></span><span class="live">SC PLUS</span><span class="badge red">LIVE</span><span class="badge on">ON</span>
+<div class="spacer"></div><button type="button" id="notifBell" title="Recent status changes" style="position:relative;padding:9px 11px">🔔<span id="notifBadge" class="badge red" style="position:absolute;top:-4px;right:-4px;display:none;min-width:18px;height:18px;padding:0 4px;border-radius:999px;font-size:11px;align-items:center;justify-content:center;line-height:1"></span></button><span id="syncStatus" class="wr-sync-pill warn">Sync off</span><span id="statusFreshness" class="small" style="opacity:0.6;margin-right:8px"></span><span class="live">SC PLUS</span><span class="badge red">LIVE</span><span class="badge on">ON</span>
 </nav>
 <div class="screen">
 <section id="team" class="tab active-tab"></section>
@@ -5360,6 +5360,84 @@ function openSyncPanel(){
 }
 document.addEventListener('click',e=>{if(e.target?.id==='syncStatus')openSyncPanel();else if($('syncPanel')&&!$('syncPanel').contains(e.target))$('syncPanel').remove()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')$('syncPanel')?.remove()});
+
+function notifLastSeen(){return safeLocalGet('sc_notif_seen','')}
+function notifLatestDetectedAt(){
+ const list=Array.isArray(App.teamlistChanges)?App.teamlistChanges:[];
+ return list.reduce((max,c)=>(c.detectedAt&&c.detectedAt>max)?c.detectedAt:max,'');
+}
+function ensureNotifSeenInitialized(){
+ if(notifLastSeen())return;
+ try{localStorage.setItem('sc_notif_seen',notifLatestDetectedAt()||new Date().toISOString())}catch(e){}
+}
+function notifUnseenCount(){
+ const seen=notifLastSeen();
+ const list=Array.isArray(App.teamlistChanges)?App.teamlistChanges:[];
+ return list.filter(c=>c.detectedAt&&c.detectedAt>seen).length;
+}
+function renderNotifBadge(){
+ const el=$('notifBadge');
+ if(!el)return;
+ const n=notifUnseenCount();
+ el.textContent=n>99?'99+':String(n);
+ el.style.display=n>0?'inline-flex':'none';
+}
+function notifRelativeTime(iso){
+ const then=new Date(iso||'').getTime();
+ if(!Number.isFinite(then))return '';
+ const mins=Math.floor((Date.now()-then)/60000);
+ if(mins<1)return 'just now';
+ if(mins<60)return `${mins}m ago`;
+ const hours=Math.floor(mins/60);
+ if(hours<24)return `${hours}h ago`;
+ return `${Math.floor(hours/24)}d ago`;
+}
+function notifChangeDotClass(key){
+ const k=String(key||'').toLowerCase();
+ if(k==='expected')return 'expected';
+ if(k==='not_named'||k==='notnamed'||k==='omitted')return 'notnamed';
+ if(k==='injured'||k==='injury')return 'injured';
+ if(k==='suspended'||k==='suspension')return 'suspended';
+ if(k==='origin')return 'origin';
+ if(k==='bye')return 'bye';
+ return '';
+}
+function notifPanelHtml(){
+ const list=Array.isArray(App.teamlistChanges)?App.teamlistChanges:[];
+ const sorted=[...list].sort((a,b)=>(b.detectedAt||'').localeCompare(a.detectedAt||''));
+ const recent=sorted.slice(0,60);
+ if(!recent.length){
+  return '<div style="padding:14px"><b>No recent status changes</b><p class="small">Team-list and injury changes will show up here as soon as they\'re detected.</p></div>';
+ }
+ return `<div style="max-height:70vh;overflow:auto">${recent.map(c=>{
+  const mine=App.myTeam.includes(c.player);
+  const dotCls=notifChangeDotClass(c.to);
+  return `<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-bottom:1px solid var(--line);${mine?'background:rgba(88,166,255,.08)':''}">
+   <span class="status-dot ${dotCls}" style="margin-top:6px;flex:none"></span>
+   <div style="min-width:0;flex:1">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+     <b class="player-name-link" onclick="openPlayerCard('${window.jsq(c.player)}')" style="cursor:pointer">${esc(c.player)}${mine?' <span class="small" style="color:var(--blue)">&middot; Your team</span>':''}</b>
+     <span class="small" style="white-space:nowrap">${esc(notifRelativeTime(c.detectedAt))}</span>
+    </div>
+    <div class="small">${esc(c.team||'')} &middot; ${esc(c.from||'?')} &rarr; <b>${esc(c.to||'?')}</b></div>
+    ${c.reason?`<div class="small" style="margin-top:2px">${esc(c.reason)}</div>`:''}
+   </div>
+  </div>`;
+ }).join('')}</div>`;
+}
+function openNotifPanel(){
+ let panel=$('notifPanel');
+ if(panel){panel.remove();return;}
+ panel=document.createElement('div');
+ panel.id='notifPanel';
+ panel.style.cssText='position:fixed;top:54px;right:16px;z-index:99999;width:min(420px,calc(100vw - 32px));background:#07111f;border:1px solid rgba(148,163,184,.35);border-radius:14px;box-shadow:0 18px 48px rgba(0,0,0,.5)';
+ panel.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 12px 8px;border-bottom:1px solid var(--line)"><b>Recent changes</b><button type="button" onclick="$('notifPanel')?.remove()" style="padding:4px 9px">&times;</button></div>${notifPanelHtml()}`;
+ document.body.appendChild(panel);
+ try{localStorage.setItem('sc_notif_seen',notifLatestDetectedAt()||new Date().toISOString())}catch(e){}
+ renderNotifBadge();
+}
+document.addEventListener('click',e=>{if(e.target?.closest?.('#notifBell'))openNotifPanel();else if($('notifPanel')&&!$('notifPanel').contains(e.target)&&!e.target?.closest?.('#notifBell'))$('notifPanel').remove()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('notifPanel')?.remove()});
 async function initCloudSync(){
  App.sync.clientId=safeLocalGet('sc_client_id','')||crypto.randomUUID?.()||String(Date.now())+Math.random();try{localStorage.setItem('sc_client_id',App.sync.clientId)}catch(e){}
  const meta=readLocalMeta();App.sync.localUpdatedAt=meta.updated_at||new Date(0).toISOString();
@@ -5570,7 +5648,7 @@ async function loadDualPositionsCore(){
 async function boot(){
  const rawPlayers=await fetchJson('players.json',[]);let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));buildPlayerNameMap();
  // Browser reads the generated /data contract first; scripts/update-status.mjs owns generation so known contract files are valid JSON, not missing files.
- App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.goalKickerEvidence=await fetchJsonFirst(['data/goal_kicker_evidence.json','goal_kicker_evidence.json'],{players:{},teams:{}});App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);App.playerStatus=await fetchJson('player_status.json',{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],null);App.currentRoundMeta=await fetchJsonFirst(['data/current_round.json','current_round.json'],null);App.playerPhotos=await fetchJson('player_photos.json',{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],null);App.opponentDifficulty=await fetchJson('data/opponent_difficulty.json',{});await loadDualPositionsCore();syncCurrentRound();
+ App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.goalKickerEvidence=await fetchJsonFirst(['data/goal_kicker_evidence.json','goal_kicker_evidence.json'],{players:{},teams:{}});App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);App.playerStatus=await fetchJson('player_status.json',{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],null);App.currentRoundMeta=await fetchJsonFirst(['data/current_round.json','current_round.json'],null);App.playerPhotos=await fetchJson('player_photos.json',{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],null);App.opponentDifficulty=await fetchJson('data/opponent_difficulty.json',{});App.teamlistChanges=await fetchJsonFirst(['data/teamlist_changes.json'],[]);await loadDualPositionsCore();syncCurrentRound();
  const localTeam=safeJsonParse(safeLocalGet('sc_myTeam','null'),null);const teamJson=await fetchJson('my_team.json',null);let names=Array.isArray(localTeam)&&localTeam.length?localTeam:(teamJson?.players||teamJson?.team||[]);if(!Array.isArray(names))names=[];
  names = names.map(x => typeof x === 'string' ? x.trim() : (x?.name || x?.player || '')).filter(Boolean);
  const resolvedNames = names.map(n=>resolvePlayerName(n)).filter(Boolean);
@@ -5578,7 +5656,7 @@ async function boot(){
  if(missingNames.length) console.warn('Players in my_team.json not found in players.json:', missingNames);
  App.myTeam=[...new Set(resolvedNames)];
 App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};App.reserveOrder=safeJsonParse(safeLocalGet('sc_reserveOrder','{}'),{})||{};validateLineup();ensureLineup();wireTabs();renderActive();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
- updateStatusFreshnessLabel();startLiveStatusRefresh();
+ updateStatusFreshnessLabel();startLiveStatusRefresh();ensureNotifSeenInitialized();renderNotifBadge();
 }
 function updateStatusFreshnessLabel(){const fe=$('statusFreshness');if(fe)fe.textContent=''}
 async function refreshTrustDataNow(){const oldUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],App.weather||null);App.playerStatus=await fetchJson('player_status.json',App.playerStatus||{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],App.statusTruth||null);App.currentRoundMeta=await fetchJsonFirst(['data/current_round.json','current_round.json'],App.currentRoundMeta||null);App.availabilityOverrides=await fetchJson('availability_overrides.json',App.availabilityOverrides||{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],App.teamLists||null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],App.officialTeamLists||null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],App.originUnavailable||null);App.opponentDifficulty=await fetchJson('data/opponent_difficulty.json',App.opponentDifficulty||{});App.fixtures=await fetchJson('fixtures.json',App.fixtures||null);syncCurrentRound();App.projectionCache.clear();updateStatusFreshnessLabel();renderActive();const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed')}
