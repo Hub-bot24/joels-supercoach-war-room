@@ -5787,15 +5787,6 @@ function compactStatusLabel(st){
  return 'STATUS';
 }
 
-function statusFromTruth(p,round=App.round){
- const rec=statusTruthRecordFor(p,round);
- if(!rec)return null;
- const key=truthKeyFromRecord(rec);
- if(!key)return null;
- const available = (key==='good'||key==='expected'||key==='origin') ? true : (rec.available!=null ? Boolean(rec.available) : false);
- return {key,available,label:compactStatusLabel({key}),reason:rec.reason||`Status truth: ${rec.displayStatus||rec.status||key}`,source:'data/status_truth.json',truth:rec};
-}
-
 function overrideFor(p){if(!p||!p.name)return null;return App.availabilityOverrides?.players?.[p.name]||App.availabilityOverrides?.[p.name]||null}
 function statusFor(p){if(!p||!p.name)return null;return App.playerStatus?.players?.[p.name]||App.playerStatus?.[p.name]||null}
 
@@ -7788,7 +7779,7 @@ function enhancedStatusFromTruth(p,round=App.round){
   return {key,available,label:compactStatusLabel({key}),reason:richStatusReasonFromTruth(rec,round)||rec.reason||`Status truth: ${rec.displayStatus||rec.status||key}`,source:'data/status_truth.json',truth:rec};
 }
 const __baseAvailabilityStatusV18 = availabilityStatus;
-statusFromTruth = enhancedStatusFromTruth;
+const statusFromTruth = enhancedStatusFromTruth;
 availabilityStatus = function(p,round=App.round){
   if(!p)return {key:'out',available:false,label:'Missing',reason:'Player not found in players.json'};
   const requested=Number(round||App.round||0);
