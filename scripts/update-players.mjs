@@ -31,6 +31,13 @@ const DPP_URL =
 const PLAYERLIST_URL =
   "https://www.nrlsupercoachstats.com/playerlist.php";
 
+// Full-league breakeven list (476 players, confirmed via index.php?player=
+// link count). Its HTML is malformed (unbalanced <td>/<tr> nesting) so it
+// can't be parsed as a normal table - each player is a
+// name-link-then-breakeven-number pair in a flat repeating sequence.
+const TEAM_BES_URL =
+  "https://www.nrlsupercoachstats.com/TeamBEs.php";
+
 const USER_AGENT =
   "Mozilla/5.0 (compatible; SuperCoachWarRoomBot/1.0)";
 
@@ -295,7 +302,7 @@ async function fetchSourceRows() {
 
   return rows;
 }
-async function mergePlayers(sourceRows, dppPlayers, playerListRows) {
+async function mergePlayers(sourceRows, dppPlayers, playerListRows, teamBEsRows) {
   const existing = await readJson(PLAYERS_FILE, { players: [] });
   const players = existing.players || [];
   const identityIndex = buildIdentityIndex(players);
@@ -303,6 +310,7 @@ async function mergePlayers(sourceRows, dppPlayers, playerListRows) {
   let updated = 0;
   let dppApplied = 0;
   let dppMatchedExisting = 0;
+  let teamBEsUpdated = 0;
   let playerListUpdated = 0;
 
   const unmatched = [];
@@ -450,6 +458,49 @@ async function mergePlayers(sourceRows, dppPlayers, playerListRows) {
     playerListUpdated++;
   }
 
+  for (const entry of teamBEsRows) {
+    if (!entry.name) continue;
+
+    const resolution = resolveIdentity(identityIndex, entry.name);
+
+    if (resolution.status === "unmatched") {
+      unmatched.push({
+        source: "team-bes",
+        sourceName: entry.name,
+        reason: "Enrichment sources cannot create canonical players"
+      });
+
+      continue;
+    }
+
+    if (resolution.status === "ambiguous") {
+      ambiguous.push({
+        source: "team-bes",
+        sourceName: entry.name,
+        candidates: resolution.candidates.map(player => player.name)
+      });
+
+      continue;
+    }
+
+    const player = resolution.player;
+
+    player.breakeven = entry.breakeven;
+    player.breakevenStatus = "updated";
+
+    player.enrichmentSources = {
+      ...(player.enrichmentSources || {}),
+      breakeven: {
+        source: "nrlsupercoachstats-teambes",
+        updatedAt: new Date().toISOString()
+      }
+    };
+
+    player.lastDataUpdate = new Date().toISOString();
+
+    teamBEsUpdated++;
+  }
+
   if (ambiguous.length > 0) {
     const details = ambiguous
       .map(item =>
@@ -504,10 +555,18 @@ async function mergePlayers(sourceRows, dppPlayers, playerListRows) {
     );
   }
 
+  if (teamBEsRows.length > 0 && teamBEsUpdated === 0) {
+    throw new Error(
+      `TeamBEs source returned ${teamBEsRows.length} rows, but matched 0 ` +
+      "canonical identities. Check the job log's [debug] team-bes-source " +
+      "lines before assuming this is a real zero-update day."
+    );
+  }
+
   existing.players = players;
   existing.updated = new Date().toISOString();
   existing.dataPipeline = {
-    version: "v5-full-league-price-coverage",
+    version: "v6-full-league-price-and-be-coverage",
     source: SOURCE_URL,
     rowsFound: sourceRows.length,
     playersUpdated: updated,
@@ -520,7 +579,10 @@ async function mergePlayers(sourceRows, dppPlayers, playerListRows) {
     dppApplied,
     playerListSource: PLAYERLIST_URL,
     playerListRowsFound: playerListRows.length,
-    playerListUpdated
+    playerListUpdated,
+    teamBEsSource: TEAM_BES_URL,
+    teamBEsRowsFound: teamBEsRows.length,
+    teamBEsUpdated
   };
 
   await writeJson(PLAYERS_FILE, existing);
@@ -538,6 +600,12 @@ async function mergePlayers(sourceRows, dppPlayers, playerListRows) {
   );
   console.log(
     `Player-list players updated: ${playerListUpdated}`
+  );
+  console.log(
+    `TeamBEs rows found: ${teamBEsRows.length}`
+  );
+  console.log(
+    `TeamBEs players updated: ${teamBEsUpdated}`
   );
   console.log(
     `DPP matched existing players: ${dppMatchedExisting}`
@@ -607,6 +675,45 @@ async function fetchPlayerListRows() {
   return rows;
 }
 
+// TeamBEs.php's HTML is malformed (unbalanced <td>/<tr> nesting, confirmed
+// by inspecting the raw source), so it can't be walked as a normal table.
+// Each player is a flat, reliably repeating sequence instead: a name link
+// immediately followed by its breakeven number. Match that sequence
+// directly rather than trying to parse it as row/column structure.
+function parseTeamBEsRows(html) {
+  const rows = [];
+  const pattern = /<a href="\.\/index\.php\?player=[^"]*"[^>]*>([^<]+)<\/a>[\s\S]{0,150}?>(\d+)<\/td>/g;
+
+  let match;
+
+  while ((match = pattern.exec(html)) !== null) {
+    const name = sourceNameToAppName(match[1]);
+    const breakeven = Number(match[2]);
+
+    if (!name || Number.isNaN(breakeven)) continue;
+
+    rows.push({
+      name,
+      norm: normaliseIdentityName(name),
+      breakeven
+    });
+  }
+
+  return rows;
+}
+
+async function fetchTeamBEsRows() {
+  console.log(`Fetching ${TEAM_BES_URL}`);
+
+  const html = await fetchText(TEAM_BES_URL, "team-bes-source");
+
+  const rows = parseTeamBEsRows(html);
+
+  console.log(`Parsed ${rows.length} team-BEs rows`);
+
+  return rows;
+}
+
 async function main() {
   const rows = await fetchSourceRows();
 
@@ -614,11 +721,13 @@ async function main() {
 
   const playerListRows = await fetchPlayerListRows();
 
+  const teamBEsRows = await fetchTeamBEsRows();
+
   if (!rows.length) {
     throw new Error("No usable player rows found");
   }
 
-  await mergePlayers(rows, dppPlayers, playerListRows);
+  await mergePlayers(rows, dppPlayers, playerListRows, teamBEsRows);
 
   console.log("Node player updater complete");
 }
