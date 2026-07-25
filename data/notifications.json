@@ -1,37 +1,20 @@
 {
-  "updated": "2026-07-25T05:44:26.873Z",
+  "updated": "2026-07-25T07:44:13.316Z",
   "round": 21,
   "newChanges": [
     {
-      "player": "Alexander Brimson",
-      "team": "GLD",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-07-25T05:44:26.873Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-07-25T05:44:26.873Z"
-        }
-      ],
-      "round": 21
-    },
-    {
-      "player": "Christian Tuipulotu",
-      "team": "STG",
+      "player": "Aaron Schoupp",
+      "team": "MAN",
       "from": "EXPECTED",
       "to": "NOT_NAMED",
       "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-07-25T05:44:26.873Z",
+      "detectedAt": "2026-07-25T07:44:13.316Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
-          "updatedAt": "2026-07-25T05:44:26.873Z",
+          "updatedAt": "2026-07-25T07:44:13.316Z",
           "priority": 3,
           "order": 2
         },
@@ -39,7 +22,7 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
-          "updatedAt": "2026-07-25T05:44:26.873Z",
+          "updatedAt": "2026-07-25T07:44:13.316Z",
           "priority": 2,
           "order": 3
         }
@@ -47,18 +30,18 @@
       "round": 21
     },
     {
-      "player": "Coby Black",
-      "team": "CBR",
+      "player": "Alekolasimi Jones",
+      "team": "CAN",
       "from": "EXPECTED",
       "to": "NOT_NAMED",
       "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-07-25T05:44:26.873Z",
+      "detectedAt": "2026-07-25T07:44:13.316Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
-          "updatedAt": "2026-07-25T05:44:26.873Z",
+          "updatedAt": "2026-07-25T07:44:13.316Z",
           "priority": 2,
           "order": 3
         }
@@ -66,52 +49,101 @@
       "round": 21
     },
     {
-      "player": "Heamasi Makasini",
-      "team": "WST",
+      "player": "Eddie Ieremia-Toeava",
+      "team": "NZL",
       "from": "EXPECTED",
       "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-07-25T05:44:26.873Z",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-25T07:44:13.316Z",
       "sources": [
         {
           "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-07-25T05:44:26.873Z"
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-25T07:44:13.316Z",
+          "priority": 2,
+          "order": 3
         }
       ],
       "round": 21
     },
     {
-      "player": "Kurtis Morrin",
-      "team": "GLD",
-      "from": "NAMED",
+      "player": "Sam Stonestreet",
+      "team": "SHA",
+      "from": "EXPECTED",
       "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-07-25T05:44:26.873Z",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-25T07:44:13.316Z",
       "sources": [
         {
           "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-07-25T05:44:26.873Z"
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-25T07:44:13.316Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-25T07:44:13.316Z",
+          "priority": 2,
+          "order": 3
         }
       ],
       "round": 21
     },
     {
-      "player": "Latu Fainu",
-      "team": "WST",
+      "player": "Thomas Hazelton",
+      "team": "SHA",
       "from": "NAMED",
       "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-07-25T05:44:26.873Z",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-25T07:44:13.316Z",
       "sources": [
         {
           "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-07-25T05:44:26.873Z"
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-25T07:44:13.316Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-25T07:44:13.316Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 21
+    },
+    {
+      "player": "Zaidas Muagututia",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-25T07:44:13.316Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-25T07:44:13.316Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-25T07:44:13.316Z",
+          "priority": 2,
+          "order": 3
         }
       ],
       "round": 21
