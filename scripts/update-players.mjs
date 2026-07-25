@@ -607,7 +607,39 @@ async function fetchPlayerListRows() {
   return rows;
 }
 
+// TEST ONLY: mapping TeamBEs.php's structure before writing a real parser.
+// Earlier pass found Twal there but the surrounding markup looked
+// non-standard (a <td> appearing right after </tr> with no <tr> open),
+// and only one <th> ("BRONCOS") was detected - need the full picture.
+async function investigateTeamBEsStructure() {
+  const url = "https://www.nrlsupercoachstats.com/TeamBEs.php";
+
+  try {
+    const html = await fetchText(url, null);
+
+    const allThMatches = [...html.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/gi)]
+      .map(match => stripTags(match[1]))
+      .filter(Boolean);
+    console.log(`[investigate-be] all <th> texts (${allThMatches.length}): ${JSON.stringify(allThMatches.slice(0, 40))}`);
+
+    const playerLinkCount = (html.match(/index\.php\?player=/g) || []).length;
+    console.log(`[investigate-be] index.php?player= link count: ${playerLinkCount}`);
+
+    const twalIndex = html.indexOf("Twal");
+    if (twalIndex !== -1) {
+      console.log(`[investigate-be] wide Twal context: ${html.slice(Math.max(0, twalIndex - 1000), twalIndex + 500).replace(/\s+/g, " ")}`);
+    }
+
+    const bodyStart = html.indexOf("<body");
+    console.log(`[investigate-be] near body start: ${html.slice(bodyStart, bodyStart + 1500).replace(/\s+/g, " ")}`);
+  } catch (err) {
+    console.log(`[investigate-be] failed: ${err.message}`);
+  }
+}
+
 async function main() {
+  await investigateTeamBEsStructure();
+
   const rows = await fetchSourceRows();
 
   const dppPlayers = await fetchDppPlayers();
