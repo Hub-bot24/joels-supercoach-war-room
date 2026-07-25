@@ -726,20 +726,20 @@ async function fetchTeamBEsRows() {
 // page as the most likely candidate before assuming anything.
 async function investigateAvgStatsSource() {
   const candidates = [
-    "https://www.nrlsupercoachstats.com/phpgrid/players.php",
-    `https://www.nrlsupercoachstats.com/phpgrid/players.php?year=${SEASON}`
+    "https://www.nrlsupercoachstats.com/index.php?player=Twal%2C%20Alex"
   ];
 
   for (const url of candidates) {
     try {
       const html = await fetchText(url, null);
       console.log(`[investigate-avg] ${url}: bytes=${html.length}`);
-      console.log(`[investigate-avg] ${url} snippet: ${html.slice(0, 500).replace(/\s+/g, " ")}`);
 
-      const twalIndex = html.indexOf("Twal");
-      console.log(`[investigate-avg] ${url} contains "Twal": ${twalIndex !== -1}`);
-      if (twalIndex !== -1) {
-        console.log(`[investigate-avg] ${url} Twal context: ${html.slice(Math.max(0, twalIndex - 300), twalIndex + 300).replace(/\s+/g, " ")}`);
+      const bodyStart = html.indexOf("<body");
+      console.log(`[investigate-avg] ${url} body: ${html.slice(bodyStart, bodyStart + 3000).replace(/\s+/g, " ")}`);
+
+      const avgIndex = html.search(/avg|average/i);
+      if (avgIndex !== -1) {
+        console.log(`[investigate-avg] ${url} avg context: ${html.slice(Math.max(0, avgIndex - 300), avgIndex + 500).replace(/\s+/g, " ")}`);
       }
     } catch (err) {
       console.log(`[investigate-avg] ${url} failed: ${err.message}`);
