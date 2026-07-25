@@ -5352,6 +5352,9 @@ function authPanelHtml(){
  const email=App.sync.user?.email||'';
  if(!cloudConfigured())return `<div class="wr-auth-panel"><b>Cloud sync not configured</b><span class="small">Add your Supabase URL and anon key in index.html.</span></div>`;
  if(email)return `<div class="wr-auth-panel"><b>Signed in:</b> <span>${esc(email)}</span><span class="small">${esc(App.sync.message||App.sync.status||'')}</span><button type="button" onclick="manualCloudSave(true,true)">Save now</button><button type="button" onclick="exportTeamBackup()">Backup</button><button class="danger" type="button" onclick="signOutWarRoom()">Sign out</button></div>`;
+ if(App.sync.user?.is_anonymous){
+  return `<div class="wr-auth-panel"><b>Backed up automatically</b><span class="small">Your team is saved to the cloud on this browser. Add an email to also recover it on another device.</span><input id="authEmail" type="email" placeholder="Email"><input id="authPassword" type="password" placeholder="Password (min 6 characters)"><button type="button" onclick="upgradeAnonymousAccount()">Save my account</button><button type="button" onclick="exportTeamBackup()">Backup</button></div>`;
+ }
  return `<div class="wr-auth-panel"><b>Sign in to sync</b><input id="authEmail" type="email" placeholder="Email"><input id="authPassword" type="password" placeholder="Password"><button type="button" onclick="signInWarRoom()">Sign in</button><button type="button" onclick="signUpWarRoom()">Create account</button><button type="button" onclick="exportTeamBackup()">Backup</button></div>`;
 }
 function openSyncPanel(){
@@ -5448,7 +5451,21 @@ async function initCloudSync(){
  const {data}=await App.sync.client.auth.getSession();
  App.sync.user=data?.session?.user||null;
  App.sync.client.auth.onAuthStateChange(async (_event,session)=>{App.sync.user=session?.user||null;syncSetStatus(App.sync.user?'syncing':'signedout',App.sync.user?'Syncing...':'Sign in');if(App.sync.user){await syncTeamFromCloud();renderActive()}else renderActive();});
- if(App.sync.user)await syncTeamFromCloud();else syncSetStatus('signedout','Sign in');
+ if(App.sync.user){await syncTeamFromCloud();return}
+ // No session at all yet (first-ever visit to this browser, or a signed-out
+ // anonymous session that expired) - sign in anonymously so cloud backup is
+ // on by default, with no signup wall. Requires "Allow anonymous sign-ins"
+ // enabled in the Supabase project's Auth settings; if it's off, this
+ // silently fails and the app falls back to local-only, same as before.
+ try{
+  const {data:anonData,error:anonError}=await App.sync.client.auth.signInAnonymously();
+  if(anonError||!anonData?.session){syncSetStatus('signedout','Sign in');return}
+  App.sync.user=anonData.session.user;
+  await syncTeamFromCloud();
+ }catch(e){
+  console.warn('Anonymous cloud sign-in failed',e);
+  syncSetStatus('signedout','Sign in');
+ }
 }
 function applyCloudTeam(teamJson){
  if(!teamJson||typeof teamJson!=='object')return false;
@@ -5532,6 +5549,16 @@ async function signUpWarRoom(){
  if(!email||password.length<6)return toast('Use email and password of 6+ characters');
  const {error}=await App.sync.client.auth.signUp({email,password});
  if(error)toast(error.message||'Sign up failed');else toast('Account created. Check email if confirmation is enabled.');
+}
+// Links an email/password to the existing anonymous session (rather than
+// signing up fresh) so the same cloud-saved team carries over, instead of
+// starting a new, empty account.
+async function upgradeAnonymousAccount(){
+ const email=$('authEmail')?.value?.trim(),password=$('authPassword')?.value||'';
+ if(!email||password.length<6)return toast('Use email and password of 6+ characters');
+ const {error}=await App.sync.client.auth.updateUser({email,password});
+ if(error)toast(error.message||'Could not save account');
+ else toast('Account saved. Check email if confirmation is enabled.');
 }
 async function signOutWarRoom(){if(App.sync.client){await App.sync.client.auth.signOut();}App.sync.user=null;syncSetStatus('signedout','Sign in');renderActive()}
 function exportTeamBackup(){
