@@ -3242,6 +3242,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .formation-cv-captain{background:#facc15;color:#1a1400;border:2px solid #fff7d6}
 .formation-cv-vice{background:#58a6ff;color:#031326;border:2px solid #d6ecff;font-size:9px}
 .formation-cv-badge.formation-cv-nolh{border-style:dashed;filter:saturate(.55) brightness(.92)}
+.formation-r-badge{position:absolute;top:-7px;left:-7px;z-index:5;width:20px;height:20px;border-radius:999px;background:#22c55e;color:#04170a;border:2px solid #d3ffe4;display:grid;place-items:center;font-size:10px;font-weight:950;box-shadow:0 4px 10px rgba(0,0,0,.5);cursor:help}
 .trade-radar{margin:0 0 16px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:16px;padding:14px 16px;color:#f8fafc}
 .trade-radar h3{margin:0 0 10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#c7d2fe}
 .trade-radar-empty{font-size:12px;color:#bfd0e8;line-height:1.4}
@@ -6682,7 +6683,14 @@ function teamRenderState(){
   overflowNames
  };
 }
-function teamProjection(){return SLOT_DEFS.reduce((s,slot)=>s+roundProj(getPlayer(App.lineup?.[slot.id])).expected,0)}
+function teamProjection(){
+ const captainName=captainVicePicks(teamRenderState()).captain?.name;
+ return SLOT_DEFS.reduce((s,slot)=>{
+  const p=getPlayer(App.lineup?.[slot.id]);
+  const expected=roundProj(p).expected;
+  return s+(p&&p.name===captainName?expected*2:expected);
+ },0);
+}
 function availableStarters(){return SLOT_DEFS.filter(slot=>availabilityStatus(getPlayer(App.lineup?.[slot.id])).available).length}
 function fieldCount(){return usedOnField().size}
 function reserveCount(){return reserves().length}
@@ -6847,7 +6855,15 @@ function formationReserveCard(p,idx=0,slotId=""){
  const reservePosText=reservePosList.length?reservePosList.join('/'):(p.pos||p.position||"");
  const accent=teamAccent(p),pa=posAccent(reservePosText),opp=esc(p.opponent||p.opp||p.vs||"");
  const team=esc((p.team||p.club||"SC").slice(0,3).toUpperCase());
+ // Real-play flag: this reserve is genuinely confirmed to take the field
+ // this round (roundProj already zeroes expected for BYE/OUT/NOT-NAMED -
+ // same signal every other real/live badge in this app uses), not a fixed
+ // "top 3 reserves" count - the real number of live-scoring reserves
+ // varies round to round with actual team-list news.
+ const willScore=pr.expected>0;
+ const scoreBadge=willScore?`<div class="formation-r-badge" title="Confirmed to play R${App.round} - this score counts if called on">R</div>`:'';
  return `<div class="formation-reserve-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-reserve-slot="${esc(slotId)}" data-reserve="${esc(p.name)}" onpointerdown="pressDragStart(event,'reserve','${window.jsq(slotId)}','${window.jsq(p.name)}')" ondragstart="dragReserve(event,'${window.jsq(p.name)}')" ondragover="allowDropOnReserveCard(event,'${window.jsq(slotId)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(slotId)}')">
+  ${scoreBadge}
   <div class="wr-reserve-no">${idx}</div>
   ${wrPlayerCardPhotoHtml(p,'wr-reserve-logo')}
   <div class="formation-reserve-main">
