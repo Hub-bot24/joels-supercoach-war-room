@@ -724,42 +724,20 @@ async function fetchTeamBEsRows() {
 // last5/minutes/ppm. jqGrid implementations conventionally serve their
 // data from a dedicated endpoint - checking the site's own "Datatable"
 // page as the most likely candidate before assuming anything.
+// Found via the player detail page's inline script: it auto-loads
+// updatedatatable(mainName+";",1) on page load, which does a plain GET
+// to updatedatatable{YEAR}.php?q={Surname, Given} and injects the raw
+// HTML response into the page. Verifying that endpoint directly returns
+// real stats content before building anything around it.
 async function investigateAvgStatsSource() {
-  const pageUrl = "https://www.nrlsupercoachstats.com/index.php?player=Twal%2C%20Alex";
+  const url = `https://www.nrlsupercoachstats.com/updatedatatable${SEASON}.php?q=${encodeURIComponent("Twal, Alex")}`;
 
   try {
-    const html = await fetchText(pageUrl, null);
-
-    const inlineIndex = html.indexOf("function updatedatatable");
-    if (inlineIndex !== -1) {
-      console.log(`[investigate-avg] inline updatedatatable found at ${inlineIndex}: ${html.slice(inlineIndex, inlineIndex + 1500).replace(/\s+/g, " ")}`);
-    } else {
-      console.log("[investigate-avg] updatedatatable not defined inline - checking external scripts");
-    }
-
-    const scriptSrcs = [...html.matchAll(/<script[^>]*\ssrc="([^"]+)"/gi)]
-      .map(match => match[1])
-      .filter(src => !src.includes("google") && !src.includes("analytics"));
-    console.log(`[investigate-avg] external script srcs: ${JSON.stringify(scriptSrcs)}`);
-
-    for (const src of scriptSrcs) {
-      const scriptUrl = src.startsWith("http")
-        ? src
-        : new URL(src, pageUrl).toString();
-
-      try {
-        const js = await fetchText(scriptUrl, null);
-        const fnIndex = js.indexOf("updatedatatable");
-        console.log(`[investigate-avg] ${scriptUrl}: bytes=${js.length} containsFn=${fnIndex !== -1}`);
-        if (fnIndex !== -1) {
-          console.log(`[investigate-avg] ${scriptUrl} fn context: ${js.slice(Math.max(0, fnIndex - 200), fnIndex + 1500).replace(/\s+/g, " ")}`);
-        }
-      } catch (err) {
-        console.log(`[investigate-avg] ${scriptUrl} failed: ${err.message}`);
-      }
-    }
+    const html = await fetchText(url, null);
+    console.log(`[investigate-avg] ${url}: bytes=${html.length}`);
+    console.log(`[investigate-avg] ${url} full body: ${html.replace(/\s+/g, " ")}`);
   } catch (err) {
-    console.log(`[investigate-avg] ${pageUrl} failed: ${err.message}`);
+    console.log(`[investigate-avg] ${url} failed: ${err.message}`);
   }
 }
 
