@@ -504,6 +504,18 @@ async function investigatePlayerListCoverage() {
       if (twalIndex !== -1) {
         console.log(`[investigate] ${url} Twal context: ${html.slice(Math.max(0, twalIndex - 150), twalIndex + 150).replace(/\s+/g, " ")}`);
       }
+
+      const trBlocks = html.match(/<tr[\s\S]*?<\/tr>/gi) || [];
+      const headerRow = trBlocks.find(row => /<th/i.test(row));
+      if (headerRow) {
+        const headers = [...headerRow.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/gi)].map(m => m[1].replace(/<[^>]+>/g, "").trim());
+        console.log(`[investigate] ${url} header columns: ${JSON.stringify(headers)}`);
+      }
+      const twalRow = trBlocks.find(row => row.includes("Twal, Alex"));
+      if (twalRow) {
+        const cells = [...twalRow.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map(m => m[1].replace(/<[^>]+>/g, "").trim());
+        console.log(`[investigate] ${url} Twal row cells: ${JSON.stringify(cells)}`);
+      }
     } catch (err) {
       console.log(`[investigate] ${url} failed: ${err.message}`);
     }
