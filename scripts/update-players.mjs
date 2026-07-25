@@ -85,7 +85,13 @@ async function saveDebugSnapshot(label, response, text) {
   );
 }
 
-async function fetchText(url, debugLabel) {
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+const FETCH_RETRY_DELAYS_MS = [2000, 5000, 10000];
+
+async function fetchOnce(url) {
   const response = await fetch(url, {
     headers: {
       "user-agent": USER_AGENT
@@ -94,15 +100,49 @@ async function fetchText(url, debugLabel) {
 
   const text = await response.text();
 
-  if (debugLabel) {
-    await saveDebugSnapshot(debugLabel, response, text);
+  return { response, text };
+}
+
+// Retries transient network/server failures (timeouts, 5xx, connection
+// resets) so a single flaky request doesn't fail the whole daily run.
+// Does not retry 4xx - a bad URL or blocked request won't fix itself.
+async function fetchText(url, debugLabel) {
+  let lastError;
+
+  for (let attempt = 0; attempt <= FETCH_RETRY_DELAYS_MS.length; attempt++) {
+    let response;
+    let text;
+
+    try {
+      ({ response, text } = await fetchOnce(url));
+    } catch (err) {
+      lastError = err;
+      console.log(`[fetch] ${url} attempt ${attempt + 1} failed: ${err.message}`);
+      if (attempt < FETCH_RETRY_DELAYS_MS.length) {
+        await sleep(FETCH_RETRY_DELAYS_MS[attempt]);
+        continue;
+      }
+      throw lastError;
+    }
+
+    if (debugLabel) {
+      await saveDebugSnapshot(debugLabel, response, text);
+    }
+
+    if (response.status >= 500 && attempt < FETCH_RETRY_DELAYS_MS.length) {
+      console.log(`[fetch] ${url} attempt ${attempt + 1} got ${response.status}, retrying`);
+      await sleep(FETCH_RETRY_DELAYS_MS[attempt]);
+      continue;
+    }
+
+    if (!response.ok) {
+      throw new Error(`${response.status} ${url}`);
+    }
+
+    return text;
   }
 
-  if (!response.ok) {
-    throw new Error(`${response.status} ${url}`);
-  }
-
-  return text;
+  throw lastError;
 }
 
 function parseRowsFromHtml(html) {
@@ -393,6 +433,16 @@ async function mergePlayers(sourceRows, dppPlayers) {
       `DPP parser found ${
         Object.keys(dppPlayers).length
       } players, but applied 0 DPP updates.`
+    );
+  }
+
+  if (sourceRows.length > 0 && updated === 0) {
+    throw new Error(
+      `Price/BE source returned ${sourceRows.length} rows, but matched 0 ` +
+      "canonical identities. This almost always means the source's row " +
+      "format changed (e.g. name formatting) - check the job log's " +
+      "[debug] price-be-source lines before assuming this is a real " +
+      "zero-update day."
     );
   }
 
