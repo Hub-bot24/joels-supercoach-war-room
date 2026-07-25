@@ -43,18 +43,44 @@ async function writeJson(file, data) {
   );
 }
 
-async function fetchText(url) {
+const DEBUG_DIR = path.join(ROOT, "debug");
+
+// TEST ONLY: captures the raw source response so a parse failure (e.g. a
+// source site changing its HTML) can be diagnosed from the workflow logs
+// and artifact instead of guessing. Never read by app logic.
+async function saveDebugSnapshot(label, response, text) {
+  await fs.mkdir(DEBUG_DIR, { recursive: true });
+
+  const snapshotPath = path.join(DEBUG_DIR, `${label}.html`);
+  await fs.writeFile(snapshotPath, text);
+
+  console.log(
+    `[debug] ${label}: status=${response.status} ` +
+    `bytes=${text.length} url=${response.url}`
+  );
+  console.log(
+    `[debug] ${label} snippet: ${text.slice(0, 300).replace(/\s+/g, " ")}`
+  );
+}
+
+async function fetchText(url, debugLabel) {
   const response = await fetch(url, {
     headers: {
       "user-agent": USER_AGENT
     }
   });
 
+  const text = await response.text();
+
+  if (debugLabel) {
+    await saveDebugSnapshot(debugLabel, response, text);
+  }
+
   if (!response.ok) {
     throw new Error(`${response.status} ${url}`);
   }
 
-  return await response.text();
+  return text;
 }
 
 function parseRowsFromHtml(html) {
@@ -92,7 +118,7 @@ function parseRowsFromHtml(html) {
 }
 
 async function fetchDppPlayers() {
-  const html = await fetchText(DPP_URL);
+  const html = await fetchText(DPP_URL, "dpp-source");
 
   const players = {};
   const validPositions = new Set(["HOK", "FRF", "2RF", "HFB", "5/8", "CTW", "FLB"]);
@@ -209,7 +235,7 @@ function parsePriceBeText(value) {
 async function fetchSourceRows() {
   console.log(`Fetching ${SOURCE_URL}`);
 
-  const html = await fetchText(SOURCE_URL);
+  const html = await fetchText(SOURCE_URL, "price-be-source");
 
   const rows = parseRowsFromHtml(html);
 
