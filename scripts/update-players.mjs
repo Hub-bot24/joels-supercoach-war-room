@@ -592,6 +592,11 @@ async function mergePlayers(sourceRows, dppPlayers, playerListRows, teamBEsRows)
   console.log(
     `Unmatched enrichment rows: ${unmatched.length}`
   );
+  // TEST ONLY: print exactly which rows failed to match, so a "why not
+  // 100%" question can be answered with evidence instead of speculation.
+  for (const item of unmatched) {
+    console.log(`[unmatched] source=${item.source} name="${item.sourceName}"`);
+  }
   console.log(
     `Ambiguous enrichment rows: ${ambiguous.length}`
   );
@@ -714,7 +719,37 @@ async function fetchTeamBEsRows() {
   return rows;
 }
 
+// TEST ONLY: existing player records reference "nrlsupercoachstats jqGrid
+// AvgScore" as the historical (manual, one-time) source of avg/proj/last3/
+// last5/minutes/ppm. jqGrid implementations conventionally serve their
+// data from a dedicated endpoint - checking the site's own "Datatable"
+// page as the most likely candidate before assuming anything.
+async function investigateAvgStatsSource() {
+  const candidates = [
+    "https://www.nrlsupercoachstats.com/phpgrid/players.php",
+    `https://www.nrlsupercoachstats.com/phpgrid/players.php?year=${SEASON}`
+  ];
+
+  for (const url of candidates) {
+    try {
+      const html = await fetchText(url, null);
+      console.log(`[investigate-avg] ${url}: bytes=${html.length}`);
+      console.log(`[investigate-avg] ${url} snippet: ${html.slice(0, 500).replace(/\s+/g, " ")}`);
+
+      const twalIndex = html.indexOf("Twal");
+      console.log(`[investigate-avg] ${url} contains "Twal": ${twalIndex !== -1}`);
+      if (twalIndex !== -1) {
+        console.log(`[investigate-avg] ${url} Twal context: ${html.slice(Math.max(0, twalIndex - 300), twalIndex + 300).replace(/\s+/g, " ")}`);
+      }
+    } catch (err) {
+      console.log(`[investigate-avg] ${url} failed: ${err.message}`);
+    }
+  }
+}
+
 async function main() {
+  await investigateAvgStatsSource();
+
   const rows = await fetchSourceRows();
 
   const dppPlayers = await fetchDppPlayers();
