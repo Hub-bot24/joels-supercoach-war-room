@@ -3257,6 +3257,22 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .captain-advisor-reason{font-size:12px;color:#dbeafe;margin-top:6px;line-height:1.35}
 .captain-advisor-warn{font-size:11px;color:#facc15;margin-top:6px;font-weight:800}
 @media(max-width:720px){.captain-advisor{margin:10px}.captain-advisor-grid{grid-template-columns:1fr}}
+.trade-radar{margin:0 0 16px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:16px;padding:14px 16px;color:#f8fafc}
+.trade-radar h3{margin:0 0 10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#c7d2fe}
+.trade-radar-empty{font-size:12px;color:#bfd0e8;line-height:1.4}
+.trade-radar-grid{display:grid;gap:12px}
+.trade-radar-card{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:12px 14px}
+.trade-radar-side{display:flex;flex-direction:column;gap:2px;min-width:0}
+.trade-radar-label{font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#93a5c9}
+.trade-radar-side b{font-size:15px;font-weight:950}
+.trade-radar-meta{font-size:11px;color:#bfd0e8;line-height:1.3}
+.trade-radar-risk{font-size:11px;color:#facc15;font-weight:800;line-height:1.3}
+.trade-radar-arrow{font-size:20px;color:#58a6ff;font-weight:950}
+.trade-radar-impact{grid-column:1/-1;display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:800;border-top:1px solid rgba(255,255,255,.1);padding-top:8px}
+.trade-radar-upgrade{color:#22c55e}
+.trade-radar-cash{color:#dbeafe}
+.trade-radar-card button{grid-column:1/-1;padding:8px 10px;border-radius:10px;border:1px solid #58a6ff;background:#12345a;color:#fff;font-weight:800;cursor:pointer}
+@media(max-width:720px){.trade-radar-card{grid-template-columns:1fr}.trade-radar-arrow{display:none}}
 
 
 /* =========================================================
@@ -7061,6 +7077,89 @@ function legalReserveTradeOptions(oldPlayer){
 function playerTradePositions(p){const ps=positions(p);return ps.length?ps:[]}
 function tradeEligibleForPlayer(candidate,oldPlayer){const oldPs=playerTradePositions(oldPlayer);if(!candidate||!oldPlayer||!oldPs.length)return false;const cps=positions(candidate);return oldPs.some(pos=>cps.includes(pos))}
 
+/* =========================================================
+   Trade Radar
+   Forward-looking (next 5 games), not "who scored more this round".
+   Reuses the same eligibility check (tradeEligibleForPlayer) and player
+   pool (sortedOutsidePlayers' underlying owned-set logic) as the real
+   Trade Lab, and ProjectionEngine.nextFive() - the same next-5 numbers
+   shown on every player card - so a suggestion here can never contradict
+   what the rest of the app already says about either player.
+   ========================================================= */
+function tradeRadarOutlook(player){
+ const pr=roundProj(player);
+ const next5=ProjectionEngine.nextFive(player);
+ return {player,pr,next5,seasonAvg:pr.seasonAvg||0,outlookAvg:next5.available?(next5.avg||0):0};
+}
+function tradeRadarWeakLinks(){
+ return (App.myTeam||[])
+  .map(name=>getPlayer(name))
+  .filter(Boolean)
+  .map(p=>tradeRadarOutlook(p))
+  .filter(o=>o.pr.expected>0&&o.next5.available&&o.seasonAvg>=30)
+  .map(o=>({...o,declineRatio:o.seasonAvg?o.outlookAvg/o.seasonAvg:1}))
+  .filter(o=>o.declineRatio<=0.85)
+  .sort((a,b)=>a.declineRatio-b.declineRatio)
+  .slice(0,3);
+}
+function tradeRadarReplacementFor(weakPlayer){
+ const owned=new Set(App.myTeam||[]);
+ const candidates=(App.players||[])
+  .filter(p=>p&&p.name&&!owned.has(p.name)&&tradeEligibleForPlayer(p,weakPlayer))
+  .map(p=>tradeRadarOutlook(p))
+  .filter(o=>o.next5.available&&o.outlookAvg>0)
+  .sort((a,b)=>b.outlookAvg-a.outlookAvg);
+ return candidates[0]||null;
+}
+function tradeRadarCardHtml(weak){
+ const replacement=tradeRadarReplacementFor(weak.player);
+ if(!replacement)return '';
+ const upgrade=Math.round(replacement.outlookAvg-weak.outlookAvg);
+ if(upgrade<=0)return '';
+ const cashDelta=safeNum(weak.player.price)-safeNum(replacement.player.price);
+ const inThisRound=replacement.pr.expected;
+ const inStatus=availabilityStatus(replacement.player);
+ const inRisk=!inStatus?.available
+  ? `${esc(inStatus?.label||'Unavailable')} this round - scores 0 for R${App.round} if traded in now`
+  : (String(inStatus?.key||'').toLowerCase()==='risk'||String(inStatus?.key||'').toLowerCase()==='expected')
+   ? `Not yet officially named for R${App.round} - this round's score is uncertain`
+   : '';
+ return `<div class="trade-radar-card">
+  <div class="trade-radar-side">
+   <span class="trade-radar-label">Trade out</span>
+   <b>${esc(weak.player.name)}</b>
+   <span class="trade-radar-meta">${esc(positionText(weak.player))} · next 5 avg ${Math.round(weak.outlookAvg)} vs season ${Math.round(weak.seasonAvg)}${weak.next5.sosLabel?' · '+esc(weak.next5.sosLabel):''}</span>
+  </div>
+  <div class="trade-radar-arrow">&#8594;</div>
+  <div class="trade-radar-side">
+   <span class="trade-radar-label">Trade in</span>
+   <b>${esc(replacement.player.name)}</b>
+   <span class="trade-radar-meta">this round ${esc(inThisRound)} · next 5 avg ${Math.round(replacement.outlookAvg)}${replacement.next5.sosLabel?' · '+esc(replacement.next5.sosLabel):''}</span>
+   ${inRisk?`<span class="trade-radar-risk">${inRisk}</span>`:''}
+  </div>
+  <div class="trade-radar-impact">
+   <span class="trade-radar-upgrade">+${upgrade} pts/game (next 5)</span>
+   <span class="trade-radar-cash">${cashDelta>=0?'+':''}${money(cashDelta)} cash</span>
+  </div>
+  <button type="button" onclick="prefillTradeLab('${window.jsq(weak.player.name)}','${window.jsq(replacement.player.name)}')">Load into Trade Lab</button>
+ </div>`;
+}
+function tradeRadarHtml(){
+ const weakLinks=tradeRadarWeakLinks();
+ const cards=weakLinks.map(tradeRadarCardHtml).filter(Boolean).join('');
+ if(!cards){
+  return `<div class="trade-radar"><h3>Trade Radar</h3><div class="trade-radar-empty">No clear downgrade-vs-upgrade signal in your team's next 5 games right now.</div></div>`;
+ }
+ return `<div class="trade-radar"><h3>Trade Radar</h3><div class="trade-radar-grid">${cards}</div></div>`;
+}
+function prefillTradeLab(outName,inName){
+ setActiveTab('trade');
+ const outEl=$('tradeOut'),inEl=$('tradeIn');
+ if(outEl)outEl.value=outName;
+ if(inEl)inEl.value=inName;
+ if(typeof scoreTrade==='function')scoreTrade();
+}
+
 function playerPhotoUrl(p){
   if(!p)return "";
   const rec=lookupPlayerPhotoRecord(p);
@@ -7704,7 +7803,7 @@ function tradePopupHtml(title,name,opts,buttonFn){
   return `<div style="position:fixed;right:18px;bottom:18px;z-index:9999;width:min(720px,calc(100vw - 28px));max-height:min(720px,86vh);overflow:auto;background:#071222;border:1px solid #58a6ff;border-radius:18px;padding:14px;box-shadow:0 24px 80px rgba(0,0,0,.72)"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;position:sticky;top:-14px;background:#071222;padding:4px 0 8px;z-index:10001"><div><div style="font-size:12px;color:#bfd0e8;font-weight:800">${esc(title)}</div><div style="font-size:18px;font-weight:950">${esc(name)}</div></div><button type="button" onclick="cancelTeamAction()" style="padding:7px 10px;border-radius:10px">Close</button></div>${opts.length?`<div class="trade-search"><input id="${sid}" type="search" placeholder="Search eligible players by name, club, position or status..." oninput="filterTradeOptions(this.value)" autocomplete="off"></div><div class="trade-option-grid">${opts.map(r=>tradeOptionButton(r,buttonFn(r))).join('')}</div>`:`<div>No legal trade options available</div>`}</div>`;
 }
 
-function renderTrade(){$('trade').innerHTML=`<div class="grid"><div class="panel span4"><h2>Trade Lab</h2><label>Trade OUT</label><input id="tradeOut" list="teamList"><datalist id="teamList">${App.myTeam.map(n=>`<option value="${esc(n)}">`).join('')}</datalist><label>Trade IN</label><input id="tradeIn" list="allList"><datalist id="allList">${App.players.map(p=>`<option value="${esc(p.name)}">`).join('')}</datalist><button onclick="scoreTrade()">Score Trade</button><button onclick="applyTradeFromTradeLab()">Apply Trade</button></div><div class="panel span6"><h2>Trade Verdict</h2><div id="tradeVerdict" class="small">Select players to score the trade.</div></div></div>`}
+function renderTrade(){$('trade').innerHTML=`${tradeRadarHtml()}<div class="grid"><div class="panel span4"><h2>Trade Lab</h2><label>Trade OUT</label><input id="tradeOut" list="teamList"><datalist id="teamList">${App.myTeam.map(n=>`<option value="${esc(n)}">`).join('')}</datalist><label>Trade IN</label><input id="tradeIn" list="allList"><datalist id="allList">${App.players.map(p=>`<option value="${esc(p.name)}">`).join('')}</datalist><button onclick="scoreTrade()">Score Trade</button><button onclick="applyTradeFromTradeLab()">Apply Trade</button></div><div class="panel span6"><h2>Trade Verdict</h2><div id="tradeVerdict" class="small">Select players to score the trade.</div></div></div>`}
 
 
 
