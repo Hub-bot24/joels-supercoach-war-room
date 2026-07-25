@@ -396,6 +396,16 @@ async function mergePlayers(sourceRows, dppPlayers) {
     );
   }
 
+  if (sourceRows.length > 0 && updated === 0) {
+    throw new Error(
+      `Price/BE source returned ${sourceRows.length} rows, but matched 0 ` +
+      "canonical identities. This almost always means the source's row " +
+      "format changed (e.g. name formatting) - check the job log's " +
+      "[debug] price-be-source lines before assuming this is a real " +
+      "zero-update day."
+    );
+  }
+
   existing.players = players;
   existing.updated = new Date().toISOString();
   existing.dataPipeline = {
