@@ -31,10 +31,20 @@ test("Captain/vice badges are the real highest scorer and the best timing-loopho
       const captainKickoff = picks.captain ? playerKickoffTime(getPlayer(picks.captain.name)) : null;
       const viceKickoff = picks.vice ? playerKickoffTime(getPlayer(picks.vice.name)) : null;
 
+      // C/VC now renders as an inline badge inside the name element itself
+      // (to the left of the name text, not stamped on the photo), so pull
+      // the name out with the badge's own text stripped rather than
+      // reading the whole element's textContent.
+      const nameWithoutBadge = nameEl => {
+        if (!nameEl) return "";
+        const clone = nameEl.cloneNode(true);
+        clone.querySelector(".formation-cv-badge")?.remove();
+        return clone.textContent || "";
+      };
       const captainBadgeCard = [...document.querySelectorAll(".formation-card, .formation-reserve-card")].find(c => c.querySelector(".formation-cv-captain"));
       const viceBadgeCard = [...document.querySelectorAll(".formation-card, .formation-reserve-card")].find(c => c.querySelector(".formation-cv-vice"));
-      const captainBadgeName = captainBadgeCard?.querySelector(".formation-name, .formation-reserve-name")?.textContent || "";
-      const viceBadgeName = viceBadgeCard?.querySelector(".formation-name, .formation-reserve-name")?.textContent || "";
+      const captainBadgeName = nameWithoutBadge(captainBadgeCard?.querySelector(".formation-name, .formation-reserve-name"));
+      const viceBadgeName = nameWithoutBadge(viceBadgeCard?.querySelector(".formation-name, .formation-reserve-name"));
       const captainBadgeOnField = captainBadgeCard ? captainBadgeCard.classList.contains("formation-card") : null;
       const viceBadgeOnField = viceBadgeCard ? viceBadgeCard.classList.contains("formation-card") : null;
       const captainCount = document.querySelectorAll(".formation-cv-captain").length;

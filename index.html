@@ -3238,23 +3238,18 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   .player-profile-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
 .projection-box{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin-top:5px;font-size:9px;line-height:1.05;color:#dbeafe}.projection-box span{display:flex;justify-content:space-between;gap:3px;border:1px solid rgba(88,166,255,.2);background:rgba(8,17,32,.72);border-radius:6px;padding:3px 4px;white-space:nowrap}.projection-box b{color:#fff;font-weight:950}.next5-panel{margin-top:14px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:14px;padding:10px;color:#f8fafc}.next5-panel h4{margin:0 0 8px;font-size:13px;letter-spacing:.04em;text-transform:uppercase}.next5-panel-row{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:8px;align-items:center;padding:7px 0;border-top:1px solid rgba(255,255,255,.08);font-size:12px}.next5-panel-row:first-of-type{border-top:0}.next5-panel-row b{text-align:right;color:#58a6ff;font-size:15px}.next5-panel-meta{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#dbeafe}.next5-panel-empty{font-size:12px;color:#bfd0e8;line-height:1.35}@media(max-width:720px){.projection-box{grid-template-columns:1fr;font-size:8px;gap:2px}.projection-box span{padding:2px 3px}.next5-panel-row{grid-template-columns:38px minmax(0,1fr) 38px;font-size:11px}}
-.formation-cv-badge{position:absolute;top:4px;left:4px;z-index:5;width:24px;height:24px;border-radius:999px;display:grid;place-items:center;font-size:11px;font-weight:950;box-shadow:0 4px 10px rgba(0,0,0,.5);cursor:help}
+.formation-cv-badge{display:inline-grid;place-items:center;vertical-align:middle;margin-right:4px;width:16px;height:16px;min-width:16px;border-radius:999px;font-size:10px;font-weight:950;line-height:1;box-shadow:0 2px 5px rgba(0,0,0,.5);cursor:help}
 .formation-cv-captain{background:#facc15;color:#1a1400;border:2px solid #fff7d6}
-.formation-cv-vice{background:#58a6ff;color:#031326;border:2px solid #d6ecff;font-size:9px}
+.formation-cv-vice{background:#58a6ff;color:#031326;border:2px solid #d6ecff;font-size:8px}
 .formation-cv-badge.formation-cv-nolh{border-style:dashed;filter:saturate(.55) brightness(.92)}
 .formation-r-badge{position:absolute;top:-7px;left:-7px;z-index:5;width:20px;height:20px;border-radius:999px;background:#22c55e;color:#04170a;border:2px solid #d3ffe4;display:grid;place-items:center;font-size:10px;font-weight:950;box-shadow:0 4px 10px rgba(0,0,0,.5);cursor:help}
 .formation-reserve-select{position:absolute;bottom:-7px;right:-7px;z-index:5;width:19px;height:19px;border-radius:999px;background:#0b1a2e;color:#94a3b8;border:2px solid #335074;display:grid;place-items:center;font-size:11px;font-weight:950;line-height:1;padding:0;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.5)}
 .formation-reserve-select:hover{border-color:#58a6ff;color:#cfe4ff}
 .formation-reserve-select-on{background:#22c55e;color:#04170a;border-color:#d3ffe4}
-/* Reserve rows use overflow:hidden for their compact table look (see the many
-   #team .formation-reserve-card breakpoint rules), which clips any badge
-   positioned outside the card's own box - a negative offset there isn't just
-   an ugly clipped sliver, it's also unclickable, since nothing is painted
-   outside the box for the pointer to hit. Field cards have no such overflow
-   clipping, so their C/VC/R badges keep the floating negative-offset look;
-   reserve-card badges get pulled fully inside instead. */
-.formation-reserve-card .formation-cv-badge{top:3px;right:3px;width:18px;height:18px;font-size:9px;box-shadow:none}
-.formation-reserve-card .formation-cv-vice{font-size:8px}
+/* C/VC now renders inline next to the player's name (not stamped on the
+   photo), so it needs no special positioning for the reserve rows'
+   overflow:hidden compact table look - it flows with the text like any
+   other inline element. */
 .formation-reserve-card .formation-r-badge{top:3px;left:3px;width:15px;height:15px;font-size:8px;box-shadow:none}
 .formation-reserve-card .formation-reserve-select{bottom:3px;right:3px;width:15px;height:15px;font-size:9px;box-shadow:none}
 .trade-radar{margin:0 0 16px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:16px;padding:14px 16px;color:#f8fafc}
@@ -7035,15 +7030,16 @@ function formationSlot(slotId,gridArea,picks={}){
  const team=esc((p.team||p.club||'SC').slice(0,3).toUpperCase());
  const playerPosText=positionText(p,slot.short);
  const isCaptain=picks?.captain?.name===p.name,isVice=!isCaptain&&picks?.vice?.name===p.name;
+ // C/VC now renders inline, to the left of the player's name - not as a
+ // badge stamped on the photo.
  const badgeHtml=isCaptain
-  ?`<div class="formation-cv-badge formation-cv-captain${picks.captain.hasLoophole?'':' formation-cv-nolh'}" title="${esc(picks.captain.tooltip)}">C</div>`
-  :isVice?`<div class="formation-cv-badge formation-cv-vice${picks.vice.hasLoophole?'':' formation-cv-nolh'}" title="${esc(picks.vice.tooltip)}">VC</div>`:'';
+  ?`<span class="formation-cv-badge formation-cv-captain${picks.captain.hasLoophole?'':' formation-cv-nolh'}" title="${esc(picks.captain.tooltip)}">C</span>`
+  :isVice?`<span class="formation-cv-badge formation-cv-vice${picks.vice.hasLoophole?'':' formation-cv-nolh'}" title="${esc(picks.vice.tooltip)}">VC</span>`:'';
  return `<div class="formation-slot" style="grid-area:${gridArea}">
   <div class="formation-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-slot="${slotId}" onpointerdown="pressDragStart(event,'field','${slotId}','${window.jsq(p.name)}')" ondragstart="dragField(event,'${slotId}','${window.jsq(p.name)}')" ondragover="allowDropOnSlot(event,'${slotId}')" ondragleave="clearDrop(event)" ondrop="dropOnSlot(event,'${slotId}')">
-   ${badgeHtml}
    <div class="wr-slot-tag" title="${esc(slot.short)} slot">${esc(playerPosText)}</div>
    ${wrPlayerCardPhotoHtml(p,'wr-team-logo')}
-   <div class="formation-name player-name-link" title="${esc(p.name)}" role="button" tabindex="0" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</div>
+   <div class="formation-name player-name-link" title="${esc(p.name)}" role="button" tabindex="0" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${badgeHtml}${esc(p.name)}</div>
    <div class="formation-score">${pr.expected}</div>
    <div class="formation-meta">
     <span>${price}</span>
@@ -7088,9 +7084,11 @@ function formationReserveCard(p,idx=0,slotId="",isSubstituting=false,picks={},is
  // the field (that's the whole point - they're not meant to play), so the
  // C/VC badge needs to be renderable here too, not just on field cards.
  const isCaptain=picks?.captain?.name===p.name,isVice=!isCaptain&&picks?.vice?.name===p.name;
+ // C/VC renders inline, to the left of the name text - not as a badge
+ // stamped on the photo.
  const cvBadge=isCaptain
-  ?`<div class="formation-cv-badge formation-cv-captain${picks.captain.hasLoophole?'':' formation-cv-nolh'}" title="${esc(picks.captain.tooltip)}">C</div>`
-  :isVice?`<div class="formation-cv-badge formation-cv-vice${picks.vice.hasLoophole?'':' formation-cv-nolh'}" title="${esc(picks.vice.tooltip)}">VC</div>`:'';
+  ?`<span class="formation-cv-badge formation-cv-captain${picks.captain.hasLoophole?'':' formation-cv-nolh'}" title="${esc(picks.captain.tooltip)}">C</span>`
+  :isVice?`<span class="formation-cv-badge formation-cv-vice${picks.vice.hasLoophole?'':' formation-cv-nolh'}" title="${esc(picks.vice.tooltip)}">VC</span>`:'';
  // Manual "counts toward score" selection - a real weekly choice (up to 4
  // reserves), not something the app should auto-pick. isSubstituting can
  // still be false while selected (e.g. this group's starter is playing
@@ -7099,12 +7097,11 @@ function formationReserveCard(p,idx=0,slotId="",isSubstituting=false,picks={},is
  const selectToggle=`<button type="button" class="formation-reserve-select${isSelected?' formation-reserve-select-on':''}" title="${isSelected?'Selected - counts toward your score if called on':'Select this reserve to count toward your score (max 4)'}" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();toggleSelectedReserve('${window.jsq(p.name)}')">${isSelected?'&#10003;':''}</button>`;
  return `<div class="formation-reserve-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-reserve-slot="${esc(slotId)}" data-reserve="${esc(p.name)}" onpointerdown="pressDragStart(event,'reserve','${window.jsq(slotId)}','${window.jsq(p.name)}')" ondragstart="dragReserve(event,'${window.jsq(p.name)}')" ondragover="allowDropOnReserveCard(event,'${window.jsq(slotId)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(slotId)}')">
   ${scoreBadge}
-  ${cvBadge}
   ${selectToggle}
   <div class="wr-reserve-no">${idx}</div>
   ${wrPlayerCardPhotoHtml(p,'wr-reserve-logo')}
   <div class="formation-reserve-main">
-   <div class="formation-reserve-name player-name-link" title="${esc(p.name)}" role="button" tabindex="0" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</div>
+   <div class="formation-reserve-name player-name-link" title="${esc(p.name)}" role="button" tabindex="0" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${cvBadge}${esc(p.name)}</div>
    <div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(reservePosText)}</b>  R${App.round}${opp?"  "+opp:""}</div>
   </div>
   <div class="formation-reserve-score">${pr.expected}</div>
