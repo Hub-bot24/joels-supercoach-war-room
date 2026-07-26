@@ -6212,25 +6212,47 @@ function wrGoalKickerInfo(p,rec=wrTruth(p)||{},status=wrStatus(p)){
   const teamInfo=wrGkTeamData(p,rec);
   const team=teamInfo.key;
   const teamData=teamInfo.data;
-  const ladder=wrGkPickList(teamData);
   const season=Number(gk.season||wrGkCurrentSeason());
   const stale=season&&season!==wrGkCurrentSeason();
 
-  if(!team||!ladder.length){
+  if(!team){
     return {isGk:false,boost:0,confidence:'none',label:'No GK boost',detail:'No team goal-kicker ladder'};
   }
 
-  const named=ladder.filter(x=>{
-    const resolved=(typeof resolvePlayerName==='function'?resolvePlayerName(x.name):'')||x.name;
-    const pl=getPlayer(resolved);
-    if(!pl)return false;
-    const r=wrTruth(pl)||{};
-    return wrGkNamed(r,wrStatus(pl));
-  });
+  // The "who is this team's named kicker right now" result only depends on
+  // the team, not on which individual player is asking - but this used to
+  // get recomputed (resolvePlayerName + getPlayer + wrTruth + wrStatus for
+  // every ladder entry) for every single player projected, every round.
+  // With ~30 players and a 10+ entry ladder, that's hundreds of redundant
+  // lookups just to answer the same team-wide question over and over.
+  if(!App.__gkChosenCache||App.__gkChosenCache.round!==App.round)App.__gkChosenCache={round:App.round,map:new Map()};
+  const gkCache=App.__gkChosenCache.map;
+  let chosen;
+  if(gkCache.has(team)){
+    chosen=gkCache.get(team);
+  }else{
+    const ladder=wrGkPickList(teamData);
+    if(!ladder.length){
+      chosen=null;
+    }else{
+      const named=ladder.filter(x=>{
+        const resolved=(typeof resolvePlayerName==='function'?resolvePlayerName(x.name):'')||x.name;
+        const pl=getPlayer(resolved);
+        if(!pl)return false;
+        const r=wrTruth(pl)||{};
+        return wrGkNamed(r,wrStatus(pl));
+      });
+      chosen=named[0]||ladder[0]||null;
+    }
+    gkCache.set(team,chosen);
+  }
 
-  const chosen=named[0]||ladder[0];
-  const chosenName=chosen?((typeof resolvePlayerName==='function'?resolvePlayerName(chosen.name):'')||chosen.name):'';
-  const match=chosen&&wrGkNameMatch(chosenName,p?.name);
+  if(!chosen){
+    return {isGk:false,boost:0,confidence:'none',label:'No GK boost',detail:'No team goal-kicker ladder'};
+  }
+
+  const chosenName=(typeof resolvePlayerName==='function'?resolvePlayerName(chosen.name):'')||chosen.name;
+  const match=wrGkNameMatch(chosenName,p?.name);
 
   if(!match){
     return {isGk:false,boost:0,confidence:'none',label:'No GK boost',detail:chosen?`Team GK currently projects to ${chosen.name}`:'No available team GK'};
@@ -6593,23 +6615,13 @@ const ProjectionEngine={
 };
 function projectionBoxHtml(p){const pr=ProjectionEngine.project(p),next=ProjectionEngine.nextFive(p);return `<div class="projection-box"><span>Projected <b>${pr.expected}</b></span><span>Last Game <b>${pr.lastGame||'-'}</b></span><span>Last 3 Ave <b>${pr.last3Avg||'-'}</b></span><span>Last 5 Ave <b>${pr.last5Avg||'-'}</b></span><span>Season Ave <b>${pr.seasonAvg||'-'}</b></span><span>Next 5 Avg <b>${next.available?next.avg:'-'}</b></span><span>Next 5 Ex Bye <b>${next.available?next.avgExBye:'-'}</b></span></div>`}
 function nextFiveProjectionPanelHtml(p){const next=ProjectionEngine.nextFive(p);if(!next.available)return `<div class="next5-panel"><h4>Next 5 projections</h4><div class="next5-panel-empty">${esc(next.message)}</div></div>`;const sosRow=next.sosLabel?`<div class="next5-panel-row"><span>SoS</span><span class="next5-panel-meta">Strength of schedule</span><b>${esc(next.sosLabel)}</b></div>`:'';return `<div class="next5-panel"><h4>Next 5 projections</h4>${next.games.map(g=>{const opponent=g.opponent&&g.opponent!=='Opponent TBC'?`v ${g.opponent}`:'Opponent TBC';return `<div class="next5-panel-row"><span>R${esc(g.round)}</span><span class="next5-panel-meta">${esc(opponent)}</span><b>${esc(g.score)}</b></div>`}).join('')}<div class="next5-panel-row"><span>Avg</span><span class="next5-panel-meta">Next 5 / excluding bye</span><b>${esc(next.avg)} / ${esc(next.avgExBye)}</b></div>${sosRow}</div>`}
-let __roundProjCache=null;
 function roundProj(p){
  if(!p)return {floor:0,expected:0,ceiling:0,raw:0};
- // roundProj() is the single entry point every tab reads (Level 3, Trade
- // Radar, Team Pulse-era code, formation cards...), often for hundreds of
- // players in one render with zero sharing between calls - each one redid
- // the full projectGame() pass (positional matchup, teammate synergy,
- // goal-kicker matchup, weather) from scratch. Cache by player name for
- // the current round; a round change is the only thing that invalidates it.
- if(!__roundProjCache||__roundProjCache.round!==App.round){
-  __roundProjCache={round:App.round,map:new Map()};
- }
- const key=p.name;
- if(key&&__roundProjCache.map.has(key))return __roundProjCache.map.get(key);
- const result=ProjectionEngine.project(p,App.round);
- if(key)__roundProjCache.map.set(key,result);
- return result;
+ // NOTE: this base implementation is overridden further down the script
+ // (roundProj = function roundProjV41(p){...}) - that reassignment, not
+ // this declaration, is what every real call in the app actually runs.
+ // The caching that matters lives in roundProjV41.
+ return ProjectionEngine.project(p,App.round);
 }
 function usedOnField(){const used=new Set();for(const slot of SLOT_DEFS){const name=App.lineup?.[slot.id];if(name&&App.myTeam.includes(name)&&getPlayer(name))used.add(name)}return used}
 function reserves(){const used=usedOnField();return App.myTeam.map(getPlayer).filter(p=>p&&!used.has(p.name))}
@@ -6869,10 +6881,10 @@ function autoEmergencySubstitutes(state){
 
  return bySlotId;
 }
-function teamProjection(){
- const state=teamRenderState();
- const picks=captainVicePicks(state);
- const subs=autoEmergencySubstitutes(state);
+function teamProjection(state=null,picks=null,subs=null){
+ if(!state)state=teamRenderState();
+ if(!picks)picks=captainVicePicks(state);
+ if(!subs)subs=autoEmergencySubstitutes(state);
 
  const baseTotal=SLOT_DEFS.reduce((s,slot)=>{
   const p=getPlayer(App.lineup?.[slot.id]);
@@ -7176,9 +7188,9 @@ function moveEmptyReserveTeamPlayer(slotId,name){
 }
 
 
-function formationReservesHtml(state,picks={}){
+function formationReservesHtml(state,picks={},subs=null){
  const rows=state.reserveRows||RESERVE_SLOT_IDS.map((slotId,idx)=>({slotId,idx:idx+1,name:"",player:null}));
- const subs=autoEmergencySubstitutes(state);
+ if(!subs)subs=autoEmergencySubstitutes(state);
  const substitutingNames=new Set(Object.values(subs).filter(Boolean).map(p=>p.name));
  const selectedNames=new Set(App.selectedReserves||[]);
  return `<aside class="formation-reserves wr-reserve-panel">
@@ -7293,12 +7305,18 @@ function captainVicePicks(state){
 
 function mobileTeamHtml(state=teamRenderState()){
  const sections=[["HOOKER",["HOK1"]],["FRONT ROWERS",["FRF1","FRF2"]],["2ND ROW FORWARDS",["2RF1","2RF2","2RF3"]],["HALFBACK",["HFB1"]],["5/8",["FE1"]],["WINGS / CENTRES",["CTW1","CTW2","CTW3","CTW4"]],["FULLBACK",["FLB1"]],["FLEX",["FLEX1"]]];
- const totalProjected=teamProjection();
+ // captainVicePicks/autoEmergencySubstitutes each do real work (sorting
+ // candidates, building reserve pools) - computing them once here and
+ // passing them through to teamProjection/formationReservesHtml instead
+ // of letting each recompute its own copy cut a real, measured chunk off
+ // every single My Team render.
+ const captainVicePicksForRender=captainVicePicks(state);
+ const subsForRender=autoEmergencySubstitutes(state);
+ const totalProjected=teamProjection(state,captainVicePicksForRender,subsForRender);
  const players=teamPlayers();
  const teamValue=players.reduce((sum,p)=>sum+safeNum(p.price),0);
  const fieldCount=state.fieldSlots.length;
  const reserveCount=state.reserveNames.length;
- const captainVicePicksForRender=captainVicePicks(state);
  return `<div class="mobile-team-layout formation-page wr-team-room">
   <div class="wr-topbar">
    <div class="wr-brand"><div class="wr-logo-mark">WR</div><div><b>WAR<br>ROOM</b></div></div>
@@ -7311,7 +7329,7 @@ function mobileTeamHtml(state=teamRenderState()){
   </div>
   <div class="wr-freshness-row">${dataFreshnessControlHtml()}</div>
   ${authPanelHtml()}
-  <div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot,captainVicePicksForRender)}</main>${formationReservesHtml(state,captainVicePicksForRender)}</div>
+  <div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot,captainVicePicksForRender)}</main>${formationReservesHtml(state,captainVicePicksForRender,subsForRender)}</div>
   <div class="wr-status-legend"><span><i class="status-dot"></i> Available</span><span><i class="status-dot warn"></i> Risk</span><span><i class="status-dot bad"></i> Out</span><span><i class="status-dot bye"></i> Bye</span></div>
  </div>`;
 }
@@ -8908,20 +8926,40 @@ availabilityStatus = function availabilityStatusV41(p,round=App.round){
   return wrV41ArbitrateStatus(p,round,base);
 };
 
+let __roundProjV41Cache=null;
 roundProj = function roundProjV41(p){
+  if(!p)return {floor:0,expected:0,ceiling:0,raw:0};
+  // This override replaces the base roundProj() entirely (the assignment
+  // above, not a new function declaration), which is why an earlier
+  // caching attempt on the base function had zero effect - every real
+  // call in the app goes through THIS implementation. Every tab
+  // (formation cards, Level 3, Trade Radar...) calls this per player per
+  // render with no sharing, and it does two real passes every time
+  // (ProjectionEngine.project + availabilityStatus). Cache by player name
+  // for the current round; a round change is the only thing that should
+  // invalidate it.
+  if(!__roundProjV41Cache||__roundProjV41Cache.round!==App.round){
+   __roundProjV41Cache={round:App.round,map:new Map()};
+  }
+  const key=p.name;
+  if(key&&__roundProjV41Cache.map.has(key))return __roundProjV41Cache.map.get(key);
   const pr=(typeof ProjectionEngine==='object')?ProjectionEngine.project(p,App.round):wrOriginalRoundProjV41(p);
   const st=availabilityStatus(p);
+  let result;
   if(!st?.available){
-    const key=wrV41Key(st.key||st.label);
+    const rkey=wrV41Key(st.key||st.label);
     let risk='Unavailable', confidence='No projection';
-    if(key.includes('bye'))risk='Bye';
-    else if(key.includes('suspended'))risk='Suspended';
-    else if(key.includes('injur'))risk='Injured';
-    else if(key.includes('not'))risk='Not named';
-    else if(key.includes('origin'))risk='Origin unavailable';
-    return {...pr,expected:0,floor:0,ceiling:0,risk,confidence,projectionUnavailable:true,reasons:[...(pr?.reasons||[]),st.reason||st.label||'Unavailable']};
+    if(rkey.includes('bye'))risk='Bye';
+    else if(rkey.includes('suspended'))risk='Suspended';
+    else if(rkey.includes('injur'))risk='Injured';
+    else if(rkey.includes('not'))risk='Not named';
+    else if(rkey.includes('origin'))risk='Origin unavailable';
+    result={...pr,expected:0,floor:0,ceiling:0,risk,confidence,projectionUnavailable:true,reasons:[...(pr?.reasons||[]),st.reason||st.label||'Unavailable']};
+  }else{
+   result=pr;
   }
-  return pr;
+  if(key)__roundProjV41Cache.map.set(key,result);
+  return result;
 };
 
 projectionRiskPill = function projectionRiskPillV41(pr){
