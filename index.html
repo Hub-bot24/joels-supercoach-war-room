@@ -3238,7 +3238,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   .player-profile-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
 .projection-box{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin-top:5px;font-size:9px;line-height:1.05;color:#dbeafe}.projection-box span{display:flex;justify-content:space-between;gap:3px;border:1px solid rgba(88,166,255,.2);background:rgba(8,17,32,.72);border-radius:6px;padding:3px 4px;white-space:nowrap}.projection-box b{color:#fff;font-weight:950}.next5-panel{margin-top:14px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:14px;padding:10px;color:#f8fafc}.next5-panel h4{margin:0 0 8px;font-size:13px;letter-spacing:.04em;text-transform:uppercase}.next5-panel-row{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:8px;align-items:center;padding:7px 0;border-top:1px solid rgba(255,255,255,.08);font-size:12px}.next5-panel-row:first-of-type{border-top:0}.next5-panel-row b{text-align:right;color:#58a6ff;font-size:15px}.next5-panel-meta{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#dbeafe}.next5-panel-empty{font-size:12px;color:#bfd0e8;line-height:1.35}@media(max-width:720px){.projection-box{grid-template-columns:1fr;font-size:8px;gap:2px}.projection-box span{padding:2px 3px}.next5-panel-row{grid-template-columns:38px minmax(0,1fr) 38px;font-size:11px}}
-.formation-cv-badge{position:absolute;top:-8px;right:-8px;z-index:5;width:24px;height:24px;border-radius:999px;display:grid;place-items:center;font-size:11px;font-weight:950;box-shadow:0 4px 10px rgba(0,0,0,.5);cursor:help}
+.formation-cv-badge{position:absolute;top:4px;left:4px;z-index:5;width:24px;height:24px;border-radius:999px;display:grid;place-items:center;font-size:11px;font-weight:950;box-shadow:0 4px 10px rgba(0,0,0,.5);cursor:help}
 .formation-cv-captain{background:#facc15;color:#1a1400;border:2px solid #fff7d6}
 .formation-cv-vice{background:#58a6ff;color:#031326;border:2px solid #d6ecff;font-size:9px}
 .formation-cv-badge.formation-cv-nolh{border-style:dashed;filter:saturate(.55) brightness(.92)}
@@ -3246,6 +3246,17 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .formation-reserve-select{position:absolute;bottom:-7px;right:-7px;z-index:5;width:19px;height:19px;border-radius:999px;background:#0b1a2e;color:#94a3b8;border:2px solid #335074;display:grid;place-items:center;font-size:11px;font-weight:950;line-height:1;padding:0;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.5)}
 .formation-reserve-select:hover{border-color:#58a6ff;color:#cfe4ff}
 .formation-reserve-select-on{background:#22c55e;color:#04170a;border-color:#d3ffe4}
+/* Reserve rows use overflow:hidden for their compact table look (see the many
+   #team .formation-reserve-card breakpoint rules), which clips any badge
+   positioned outside the card's own box - a negative offset there isn't just
+   an ugly clipped sliver, it's also unclickable, since nothing is painted
+   outside the box for the pointer to hit. Field cards have no such overflow
+   clipping, so their C/VC/R badges keep the floating negative-offset look;
+   reserve-card badges get pulled fully inside instead. */
+.formation-reserve-card .formation-cv-badge{top:3px;right:3px;width:18px;height:18px;font-size:9px;box-shadow:none}
+.formation-reserve-card .formation-cv-vice{font-size:8px}
+.formation-reserve-card .formation-r-badge{top:3px;left:3px;width:15px;height:15px;font-size:8px;box-shadow:none}
+.formation-reserve-card .formation-reserve-select{bottom:3px;right:3px;width:15px;height:15px;font-size:9px;box-shadow:none}
 .trade-radar{margin:0 0 16px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:16px;padding:14px 16px;color:#f8fafc}
 .trade-radar h3{margin:0 0 10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#c7d2fe}
 .trade-radar-empty{font-size:12px;color:#bfd0e8;line-height:1.4}
@@ -7343,9 +7354,9 @@ function mobileTeamHtml(state=teamRenderState()){
   </div>
   <div class="wr-freshness-row">${dataFreshnessControlHtml()}</div>
   ${authPanelHtml()}
-  ${teamPulseHtml(state)}
   <div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot,captainVicePicksForRender)}</main>${formationReservesHtml(state,captainVicePicksForRender)}</div>
   <div class="wr-status-legend"><span><i class="status-dot"></i> Available</span><span><i class="status-dot warn"></i> Risk</span><span><i class="status-dot bad"></i> Out</span><span><i class="status-dot bye"></i> Bye</span></div>
+  ${teamPulseHtml(state)}
  </div>`;
 }
 
