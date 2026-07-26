@@ -1,10 +1,10 @@
 # SuperCoach War Room status changes — Round 21
 
-Detected: 2026-07-25T14:02:12.733Z
+Detected: 2026-07-26T04:06:14.425Z
 
-- **Billy Walters** (BRO): EXPECTED → NAMED
-  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 18).; injury note: ACL
-  - Source: Official NRL, Zero Tackle, Zero Tackle, Existing player_status.json updater
-- **Grant Anderson** (BRO): NAMED → EXPECTED
-  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).
-  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Adam Christensen** (GLD): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Moses Suli** (STG): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL

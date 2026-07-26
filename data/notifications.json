@@ -1,6 +1,51 @@
 {
-  "updated": "2026-07-26T00:15:51.528Z",
+  "updated": "2026-07-26T04:06:14.425Z",
   "round": 21,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Adam Christensen",
+      "team": "GLD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-26T04:06:14.425Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-26T04:06:14.425Z"
+        }
+      ],
+      "round": 21
+    },
+    {
+      "player": "Moses Suli",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-26T04:06:14.425Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+          "updatedAt": "2026-07-26T04:06:14.425Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+          "updatedAt": "2026-07-26T04:06:14.425Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 21
+    }
+  ],
   "allChangeCount": 500
 }
