@@ -4224,7 +4224,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   grid-area:6 / 3 / 7 / 7!important;
 }
 #team.active-tab .formation-slot:has(.formation-card[data-slot="FLEX1"]){
-  grid-area:3 / 10 / 5 / 13!important;
+  grid-area:6 / 10 / 7 / 13!important;
 }
 
 /* One invisible player-relative unit */
@@ -6560,13 +6560,56 @@ const ProjectionEngine={
   return projection;
  },
  project(p,round=App.round){const fixture=this.fixtureForRound(p,round)||{round,match:'',homeTeam:this.teamCode(p),awayTeam:'',venue:''};return this.projectGame(p,fixture,{round})},
- nextFive(p){const fixtures=this.nextFixtures(p,5);if(!fixtures.length)return {available:false,message:'No fixture data available',games:[],avg:0,avgExBye:0,sos:null};const games=fixtures.map(m=>{const pr=this.projectGame(p,m);return {round:pr.round,opponent:pr.opponent,kickoff:m.kickoffLocal||m.kickoff||m.date||m.startTime||'',score:pr.expected,bye:this.statusKey(pr.status)==='bye',matchup:pr.breakdown?.positionalMatchup||null,projection:pr}});const avg=Math.round(this.average(games.map(g=>g.score)));const nonBye=games.filter(g=>!g.bye);const matchupGames=nonBye.filter(g=>g.matchup&&g.matchup.source!=='none');const sos=matchupGames.length?Math.round(this.average(matchupGames.map(g=>g.matchup.expected))*10)/10:null;const sosLabel=sos===null?'Unknown':sos>=2?'Easy run':sos<=-2?'Tough run':'Neutral run';return {available:true,message:'',games,avg,avgExBye:nonBye.length?Math.round(this.average(nonBye.map(g=>g.score))):0,sos,sosLabel}}
+ _nextFiveCache:null,
+ nextFive(p){
+  // Trade Radar calls this once per free-agent candidate, and there are
+  // hundreds of those - each call was recomputing 5 full projectGame()
+  // passes from scratch with zero sharing, which is what made switching
+  // to the Trade tab take real, user-visible seconds. Cache by player
+  // name for the current round; the round changing (or a fresh page
+  // load) is the only thing that should invalidate it.
+  if(!this._nextFiveCache||this._nextFiveCache.round!==App.round){
+   this._nextFiveCache={round:App.round,map:new Map()};
+  }
+  const cache=this._nextFiveCache.map;
+  const key=p?.name;
+  if(key&&cache.has(key))return cache.get(key);
+  const fixtures=this.nextFixtures(p,5);
+  let result;
+  if(!fixtures.length){
+   result={available:false,message:'No fixture data available',games:[],avg:0,avgExBye:0,sos:null};
+  }else{
+   const games=fixtures.map(m=>{const pr=this.projectGame(p,m);return {round:pr.round,opponent:pr.opponent,kickoff:m.kickoffLocal||m.kickoff||m.date||m.startTime||'',score:pr.expected,bye:this.statusKey(pr.status)==='bye',matchup:pr.breakdown?.positionalMatchup||null,projection:pr}});
+   const avg=Math.round(this.average(games.map(g=>g.score)));
+   const nonBye=games.filter(g=>!g.bye);
+   const matchupGames=nonBye.filter(g=>g.matchup&&g.matchup.source!=='none');
+   const sos=matchupGames.length?Math.round(this.average(matchupGames.map(g=>g.matchup.expected))*10)/10:null;
+   const sosLabel=sos===null?'Unknown':sos>=2?'Easy run':sos<=-2?'Tough run':'Neutral run';
+   result={available:true,message:'',games,avg,avgExBye:nonBye.length?Math.round(this.average(nonBye.map(g=>g.score))):0,sos,sosLabel};
+  }
+  if(key)cache.set(key,result);
+  return result;
+ }
 };
 function projectionBoxHtml(p){const pr=ProjectionEngine.project(p),next=ProjectionEngine.nextFive(p);return `<div class="projection-box"><span>Projected <b>${pr.expected}</b></span><span>Last Game <b>${pr.lastGame||'-'}</b></span><span>Last 3 Ave <b>${pr.last3Avg||'-'}</b></span><span>Last 5 Ave <b>${pr.last5Avg||'-'}</b></span><span>Season Ave <b>${pr.seasonAvg||'-'}</b></span><span>Next 5 Avg <b>${next.available?next.avg:'-'}</b></span><span>Next 5 Ex Bye <b>${next.available?next.avgExBye:'-'}</b></span></div>`}
 function nextFiveProjectionPanelHtml(p){const next=ProjectionEngine.nextFive(p);if(!next.available)return `<div class="next5-panel"><h4>Next 5 projections</h4><div class="next5-panel-empty">${esc(next.message)}</div></div>`;const sosRow=next.sosLabel?`<div class="next5-panel-row"><span>SoS</span><span class="next5-panel-meta">Strength of schedule</span><b>${esc(next.sosLabel)}</b></div>`:'';return `<div class="next5-panel"><h4>Next 5 projections</h4>${next.games.map(g=>{const opponent=g.opponent&&g.opponent!=='Opponent TBC'?`v ${g.opponent}`:'Opponent TBC';return `<div class="next5-panel-row"><span>R${esc(g.round)}</span><span class="next5-panel-meta">${esc(opponent)}</span><b>${esc(g.score)}</b></div>`}).join('')}<div class="next5-panel-row"><span>Avg</span><span class="next5-panel-meta">Next 5 / excluding bye</span><b>${esc(next.avg)} / ${esc(next.avgExBye)}</b></div>${sosRow}</div>`}
+let __roundProjCache=null;
 function roundProj(p){
  if(!p)return {floor:0,expected:0,ceiling:0,raw:0};
- return ProjectionEngine.project(p,App.round);
+ // roundProj() is the single entry point every tab reads (Level 3, Trade
+ // Radar, Team Pulse-era code, formation cards...), often for hundreds of
+ // players in one render with zero sharing between calls - each one redid
+ // the full projectGame() pass (positional matchup, teammate synergy,
+ // goal-kicker matchup, weather) from scratch. Cache by player name for
+ // the current round; a round change is the only thing that invalidates it.
+ if(!__roundProjCache||__roundProjCache.round!==App.round){
+  __roundProjCache={round:App.round,map:new Map()};
+ }
+ const key=p.name;
+ if(key&&__roundProjCache.map.has(key))return __roundProjCache.map.get(key);
+ const result=ProjectionEngine.project(p,App.round);
+ if(key)__roundProjCache.map.set(key,result);
+ return result;
 }
 function usedOnField(){const used=new Set();for(const slot of SLOT_DEFS){const name=App.lineup?.[slot.id];if(name&&App.myTeam.includes(name)&&getPlayer(name))used.add(name)}return used}
 function reserves(){const used=usedOnField();return App.myTeam.map(getPlayer).filter(p=>p&&!used.has(p.name))}
@@ -7214,35 +7257,14 @@ function captainVicePicks(state){
  const byExpected=[...candidates].sort((a,b)=>b.pr.expected-a.pr.expected);
  const bestPlayer=byExpected[0];
 
- const onFieldPlayers=(state.fieldSlots||[]).map(f=>f.player).filter(Boolean);
- const byeCandidates=onFieldPlayers.filter(p=>p.name!==bestPlayer.name&&String(availabilityStatus(p)?.key||'').toLowerCase()==='bye');
-
- if(byeCandidates.length){
-  const loopholeCaptainPlayer=byeCandidates.sort((a,b)=>safeNum(a.avg||a.average)-safeNum(b.avg||b.average))[0];
-  const viceReason=captainAdvisorReason(bestPlayer.pr);
-  const viceRisk=captainAdvisorRiskNote(bestPlayer.player);
-  return {
-   captain:{
-    name:loopholeCaptainPlayer.name,
-    tooltip:`Guaranteed loophole captain - confirmed BYE this round, so ${bestPlayer.name}'s score is automatically doubled instead of theirs. Zero risk: this player cannot unexpectedly take the field.`,
-    risk:'',
-    hasLoophole:true,
-    isDeadCert:true
-   },
-   vice:{
-    name:bestPlayer.name,
-    tooltip:`Real scoring player via the guaranteed loophole - ${bestPlayer.pr.expected} pts (floor ${bestPlayer.pr.floor} / ceiling ${bestPlayer.pr.ceiling}, ${bestPlayer.pr.confidence} confidence) - ${viceReason}${viceRisk?' - '+viceRisk:''}. Doubled automatically since the named captain is on bye.`,
-    risk:viceRisk,
-    hasLoophole:true,
-    isDeadCert:true
-   }
-  };
- }
-
- // No confirmed-bye squad member available - fall back to the weaker
- // timing-based loophole: captain your best real player, vice someone who
- // plays before them so the armband could be switched pre-kickoff if the
- // captain's game hadn't started and things looked bad.
+ // The default recommendation is always the straightforward real rule:
+ // captain your highest real scorer, vice your best scorer among those
+ // whose game kicks off before the captain's (so the captain genuinely
+ // plays after the vice) - not an automatic bye-swap suggestion. The
+ // guaranteed bye-loophole (nominate a confirmed-bye fielded player as
+ // captain so the vice's score is doubled instead) is a real, valid, but
+ // deliberate manual trade a user can choose to make themselves - the
+ // advisor should not silently substitute it as the default pick.
  const captain=bestPlayer;
  const captainKickoff=playerKickoffTime(captain.player);
  const rest=byExpected.slice(1);
@@ -7376,8 +7398,20 @@ function tradeRadarWeakLinks(){
 }
 function tradeRadarReplacementFor(weakPlayer){
  const owned=new Set(App.myTeam||[]);
- const candidates=(App.players||[])
-  .filter(p=>p&&p.name&&!owned.has(p.name)&&tradeEligibleForPlayer(p,weakPlayer))
+ // tradeRadarOutlook() is expensive (a real 5-round projection pass per
+ // player), and this used to run it for every eligible free agent in the
+ // whole database - hundreds of players - just to find the single best
+ // one. Season average is already sitting on the player record at zero
+ // cost, and a player near the bottom of it is never going to win this
+ // comparison, so narrow to the real top-20 by that cheap number first
+ // and only run the expensive projection on those.
+ const eligible=(App.players||[]).filter(p=>p&&p.name&&!owned.has(p.name)&&tradeEligibleForPlayer(p,weakPlayer));
+ const shortlist=eligible
+  .map(p=>({p,cheapAvg:safeNum(p.avg??p.average??p.seasonAvg)}))
+  .sort((a,b)=>b.cheapAvg-a.cheapAvg)
+  .slice(0,20)
+  .map(x=>x.p);
+ const candidates=shortlist
   .map(p=>tradeRadarOutlook(p))
   .filter(o=>o.next5.available&&o.outlookAvg>0)
   .sort((a,b)=>b.outlookAvg-a.outlookAvg);
