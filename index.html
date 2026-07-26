@@ -6758,16 +6758,30 @@ function autoEmergencySubstitutes(state){
 }
 function teamProjection(){
  const state=teamRenderState();
- const captainName=captainVicePicks(state).captain?.name;
+ const picks=captainVicePicks(state);
  const subs=autoEmergencySubstitutes(state);
- return SLOT_DEFS.reduce((s,slot)=>{
+
+ const baseTotal=SLOT_DEFS.reduce((s,slot)=>{
   const p=getPlayer(App.lineup?.[slot.id]);
   const starterExpected=roundProj(p).expected;
   const sub=subs[slot.id];
   const effectiveExpected=starterExpected>0?starterExpected:(sub?roundProj(sub).expected:0);
-  const isCaptainSlot=!!(p&&p.name===captainName);
-  return s+(isCaptainSlot?effectiveExpected*2:effectiveExpected);
+  return s+effectiveExpected;
  },0);
+
+ // Real captaincy rule: double the captain's score if they actually play;
+ // if they don't (the guaranteed-bye loophole, or an unexpected
+ // withdrawal), the vice-captain's score doubles instead. The vice is
+ // always an on-field, already-playing candidate (captainAdvisorCandidates
+ // only considers pr.expected>0), so their score is already counted once
+ // in baseTotal above - adding it again here is the actual doubling.
+ const captainPlayer=picks.captain?getPlayer(picks.captain.name):null;
+ const vicePlayer=picks.vice?getPlayer(picks.vice.name):null;
+ const captainPlays=!!(captainPlayer&&roundProj(captainPlayer).expected>0);
+ const doubleTarget=captainPlays?captainPlayer:(vicePlayer&&roundProj(vicePlayer).expected>0?vicePlayer:null);
+ const doublingBonus=doubleTarget?roundProj(doubleTarget).expected:0;
+
+ return baseTotal+doublingBonus;
 }
 function availableStarters(){return SLOT_DEFS.filter(slot=>availabilityStatus(getPlayer(App.lineup?.[slot.id])).available).length}
 function fieldCount(){return usedOnField().size}
@@ -6927,7 +6941,7 @@ function formationFieldHtml(fieldBySlot={},picks={}){
  ];
  return `<div class="formation-field"><div class="formation-watermark left">WAR</div><div class="formation-watermark right">ROOM</div><div class="formation-grid">${slots.map(([id,area])=>formationSlot(id,area,picks)).join('')}</div></div>`
 }
-function formationReserveCard(p,idx=0,slotId="",isSubstituting=false){
+function formationReserveCard(p,idx=0,slotId="",isSubstituting=false,picks={}){
  const pr=roundProj(p),st=availabilityStatus(p),cls=statusDotClass(st);
  const reservePosList=(typeof positions==='function'?positions(p):[]).filter(Boolean);
  const reservePosText=reservePosList.length?reservePosList.join('/'):(p.pos||p.position||"");
@@ -6939,8 +6953,16 @@ function formationReserveCard(p,idx=0,slotId="",isSubstituting=false){
  // A reserve whose own position group's starter is playing normally
  // does NOT count toward score even if they themselves are available.
  const scoreBadge=isSubstituting?`<div class="formation-r-badge" title="Auto-emergency: subbing in for an unavailable starter this round - this score counts toward your total">R</div>`:'';
+ // The guaranteed-bye loophole captain often sits on the bench rather than
+ // the field (that's the whole point - they're not meant to play), so the
+ // C/VC badge needs to be renderable here too, not just on field cards.
+ const isCaptain=picks?.captain?.name===p.name,isVice=!isCaptain&&picks?.vice?.name===p.name;
+ const cvBadge=isCaptain
+  ?`<div class="formation-cv-badge formation-cv-captain${picks.captain.hasLoophole?'':' formation-cv-nolh'}" title="${esc(picks.captain.tooltip)}">C</div>`
+  :isVice?`<div class="formation-cv-badge formation-cv-vice${picks.vice.hasLoophole?'':' formation-cv-nolh'}" title="${esc(picks.vice.tooltip)}">VC</div>`:'';
  return `<div class="formation-reserve-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-reserve-slot="${esc(slotId)}" data-reserve="${esc(p.name)}" onpointerdown="pressDragStart(event,'reserve','${window.jsq(slotId)}','${window.jsq(p.name)}')" ondragstart="dragReserve(event,'${window.jsq(p.name)}')" ondragover="allowDropOnReserveCard(event,'${window.jsq(slotId)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(slotId)}')">
   ${scoreBadge}
+  ${cvBadge}
   <div class="wr-reserve-no">${idx}</div>
   ${wrPlayerCardPhotoHtml(p,'wr-reserve-logo')}
   <div class="formation-reserve-main">
@@ -7028,14 +7050,14 @@ function moveEmptyReserveTeamPlayer(slotId,name){
 }
 
 
-function formationReservesHtml(state){
+function formationReservesHtml(state,picks={}){
  const rows=state.reserveRows||RESERVE_SLOT_IDS.map((slotId,idx)=>({slotId,idx:idx+1,name:"",player:null}));
  const subs=autoEmergencySubstitutes(state);
  const substitutingNames=new Set(Object.values(subs).filter(Boolean).map(p=>p.name));
  return `<aside class="formation-reserves wr-reserve-panel">
   <div class="wr-reserve-head"><span>RESERVES</span><b>1-12</b></div>
   <div class="wr-reserve-list">
-   ${rows.map(r=>r.player?formationReserveCard(r.player,r.idx,r.slotId,substitutingNames.has(r.player.name)):emptyFormationReserveCard(r.slotId,r.idx)).join("")}
+   ${rows.map(r=>r.player?formationReserveCard(r.player,r.idx,r.slotId,substitutingNames.has(r.player.name),picks):emptyFormationReserveCard(r.slotId,r.idx)).join("")}
   </div>
  </aside>`;
 }
@@ -7085,38 +7107,82 @@ function playerKickoffTime(player){
  const t=raw?new Date(raw).getTime():NaN;
  return Number.isFinite(t)?t:null;
 }
+// Real SuperCoach captaincy rule: if the named Captain does not take the
+// field, the Vice-Captain's score is automatically doubled instead. That
+// single fact is what makes a ZERO-RISK loophole possible: nominate a
+// confirmed-BYE player as "Captain" and your actual best real player as
+// "Vice-Captain" - the bye captain's own score never matters, and the
+// VC's score doubles with certainty.
+//
+// Confirmed: Captain AND Vice-Captain must BOTH be chosen from the 14
+// on-field starters - never a bench/reserve player, not even one of the
+// 4 selected reserves that count toward score. A bye player is only
+// eligible for this loophole if they've deliberately been fielded in one
+// of the 14 slots (swapped in for a bench player first) - exactly how the
+// loophole is actually played in practice, not a whole-squad search.
+// Only when no on-field player is a confirmed bye does this fall back to
+// the weaker, timing-based partial loophole (vice plays before captain,
+// so the armband could be moved before captain's kickoff if needed) -
+// which the app is honest about being lower-certainty.
 function captainVicePicks(state){
  const candidates=captainAdvisorCandidates(state);
  if(!candidates.length)return {captain:null,vice:null};
  const byExpected=[...candidates].sort((a,b)=>b.pr.expected-a.pr.expected);
- const captain=byExpected[0];
- const captainKickoff=playerKickoffTime(captain.player);
+ const bestPlayer=byExpected[0];
 
+ const onFieldPlayers=(state.fieldSlots||[]).map(f=>f.player).filter(Boolean);
+ const byeCandidates=onFieldPlayers.filter(p=>p.name!==bestPlayer.name&&String(availabilityStatus(p)?.key||'').toLowerCase()==='bye');
+
+ if(byeCandidates.length){
+  const loopholeCaptainPlayer=byeCandidates.sort((a,b)=>safeNum(a.avg||a.average)-safeNum(b.avg||b.average))[0];
+  const viceReason=captainAdvisorReason(bestPlayer.pr);
+  const viceRisk=captainAdvisorRiskNote(bestPlayer.player);
+  return {
+   captain:{
+    name:loopholeCaptainPlayer.name,
+    tooltip:`Guaranteed loophole captain - confirmed BYE this round, so ${bestPlayer.name}'s score is automatically doubled instead of theirs. Zero risk: this player cannot unexpectedly take the field.`,
+    risk:'',
+    hasLoophole:true,
+    isDeadCert:true
+   },
+   vice:{
+    name:bestPlayer.name,
+    tooltip:`Real scoring player via the guaranteed loophole - ${bestPlayer.pr.expected} pts (floor ${bestPlayer.pr.floor} / ceiling ${bestPlayer.pr.ceiling}, ${bestPlayer.pr.confidence} confidence) - ${viceReason}${viceRisk?' - '+viceRisk:''}. Doubled automatically since the named captain is on bye.`,
+    risk:viceRisk,
+    hasLoophole:true,
+    isDeadCert:true
+   }
+  };
+ }
+
+ // No confirmed-bye squad member available - fall back to the weaker
+ // timing-based loophole: captain your best real player, vice someone who
+ // plays before them so the armband could be switched pre-kickoff if the
+ // captain's game hadn't started and things looked bad.
+ const captain=bestPlayer;
+ const captainKickoff=playerKickoffTime(captain.player);
  const rest=byExpected.slice(1);
  const loopholeCandidates=captainKickoff!=null
   ?rest.filter(c=>{const t=playerKickoffTime(c.player);return t!=null&&t<captainKickoff})
   :[];
  const hasLoophole=loopholeCandidates.length>0;
- // SuperCoach still needs *a* VC named even with no loophole candidate (the
- // captain could be a late withdrawal) - fall back to next-best rather than
- // showing nothing, but never claim loophole cover that isn't real.
  const vicePick=loopholeCandidates[0]||rest[0]||null;
 
  const captainRisk=captainAdvisorRiskNote(captain.player);
  const captainReason=captainAdvisorReason(captain.pr);
- const captainTooltip=`${captain.pr.expected} pts (floor ${captain.pr.floor} / ceiling ${captain.pr.ceiling}, ${captain.pr.confidence} confidence) - ${captainReason}${captainRisk?' - '+captainRisk:''}${!hasLoophole?' - No teammate plays before this game: straight captain, no loophole cover, higher risk if it goes wrong':''}`;
+ const captainTooltip=`${captain.pr.expected} pts (floor ${captain.pr.floor} / ceiling ${captain.pr.ceiling}, ${captain.pr.confidence} confidence) - ${captainReason}${captainRisk?' - '+captainRisk:''}${!hasLoophole?' - No teammate plays before this game and no guaranteed-bye squad member available: straight captain, no loophole cover, higher risk if it goes wrong':''}`;
 
  let vice=null;
  if(vicePick){
   const risk=captainAdvisorRiskNote(vicePick.player);
   const reason=captainAdvisorReason(vicePick.pr);
   const coverNote=hasLoophole
-   ?`Loophole cover - plays before ${captain.name}, so a poor captain score can still be covered`
+   ?`Timing loophole cover - plays before ${captain.name}, so a poor captain score can still be covered`
    :`No loophole - plays at the same time or after ${captain.name}, so this is a structural VC only, not real cover`;
   vice={name:vicePick.name,tooltip:`${coverNote}. ${vicePick.pr.expected} pts (floor ${vicePick.pr.floor} / ceiling ${vicePick.pr.ceiling}, ${vicePick.pr.confidence} confidence) - ${reason}${risk?' - '+risk:''}`,risk,hasLoophole};
  }
 
- return {captain:{name:captain.name,tooltip:captainTooltip,risk:captainRisk,hasLoophole},vice};
+ return {captain:{name:captain.name,tooltip:captainTooltip,risk:captainRisk,hasLoophole,isDeadCert:false},vice};
 }
 
 /* =========================================================
@@ -7195,6 +7261,7 @@ function mobileTeamHtml(state=teamRenderState()){
  const teamValue=players.reduce((sum,p)=>sum+safeNum(p.price),0);
  const fieldCount=state.fieldSlots.length;
  const reserveCount=state.reserveNames.length;
+ const captainVicePicksForRender=captainVicePicks(state);
  return `<div class="mobile-team-layout formation-page wr-team-room">
   <div class="wr-topbar">
    <div class="wr-brand"><div class="wr-logo-mark">WR</div><div><b>WAR<br>ROOM</b></div></div>
@@ -7208,7 +7275,7 @@ function mobileTeamHtml(state=teamRenderState()){
   <div class="wr-freshness-row">${dataFreshnessControlHtml()}</div>
   ${authPanelHtml()}
   ${teamPulseHtml(state)}
-  <div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot,captainVicePicks(state))}</main>${formationReservesHtml(state)}</div>
+  <div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot,captainVicePicksForRender)}</main>${formationReservesHtml(state,captainVicePicksForRender)}</div>
   <div class="wr-status-legend"><span><i class="status-dot"></i> Available</span><span><i class="status-dot warn"></i> Risk</span><span><i class="status-dot bad"></i> Out</span><span><i class="status-dot bye"></i> Bye</span></div>
  </div>`;
 }

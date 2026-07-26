@@ -20,7 +20,14 @@ test("team total doubles the real captain's score and reserve substitutions resp
       const picks = captainVicePicks(state);
       const plainSum = state.fieldSlots.reduce((s, { player }) => s + roundProj(player).expected, 0);
       const withCaptainDouble = teamProjection();
-      const captainExpected = picks.captain ? roundProj(getPlayer(picks.captain.name)).expected : 0;
+
+      // Real rule: double the captain if they play; if they don't (the
+      // guaranteed-bye loophole), double the vice instead.
+      const captainPlayer = picks.captain ? getPlayer(picks.captain.name) : null;
+      const vicePlayer = picks.vice ? getPlayer(picks.vice.name) : null;
+      const captainPlays = !!(captainPlayer && roundProj(captainPlayer).expected > 0);
+      const doubleTarget = captainPlays ? captainPlayer : (vicePlayer && roundProj(vicePlayer).expected > 0 ? vicePlayer : null);
+      const captainExpected = doubleTarget ? roundProj(doubleTarget).expected : 0;
 
       const subs = autoEmergencySubstitutes(state);
       const substitutingNames = new Set(Object.values(subs).filter(Boolean).map(p => p.name));
@@ -44,7 +51,7 @@ test("team total doubles the real captain's score and reserve substitutions resp
     assert.equal(
       result.withCaptainDouble - result.plainSum,
       result.captainExpected,
-      `expected teamProjection() to add exactly the captain's own score on top of the plain sum (captain adds ${result.captainExpected}, actual diff was ${result.withCaptainDouble - result.plainSum})`
+      `expected teamProjection() to add exactly the doubling target's score on top of the plain sum - captain if they play, vice instead if the captain is a confirmed-bye loophole pick (target adds ${result.captainExpected}, actual diff was ${result.withCaptainDouble - result.plainSum})`
     );
 
     // Every badged reserve must genuinely be marked as substituting - never a badge with nothing real behind it.
