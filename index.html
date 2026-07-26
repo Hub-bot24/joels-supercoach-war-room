@@ -3273,22 +3273,6 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .trade-radar-cash{color:#dbeafe}
 .trade-radar-card button{grid-column:1/-1;padding:8px 10px;border-radius:10px;border:1px solid #58a6ff;background:#12345a;color:#fff;font-weight:800;cursor:pointer}
 @media(max-width:720px){.trade-radar-card{grid-template-columns:1fr}.trade-radar-arrow{display:none}}
-.team-pulse{margin:12px 16px 0;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:16px;padding:14px 16px;color:#f8fafc}
-.team-pulse h3{margin:0 0 10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#c7d2fe}
-.team-pulse-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
-.team-pulse-stat{border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:11px 13px;display:flex;flex-direction:column;gap:6px}
-.team-pulse-label{font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#93a5c9}
-.team-pulse-headline{font-size:28px;font-weight:950;line-height:1}
-.team-pulse-headline span{font-size:14px;font-weight:800;color:#93a5c9}
-.team-pulse-conf-high{color:#22c55e}.team-pulse-conf-medium{color:#facc15}.team-pulse-conf-low{color:#ef4444}
-.team-pulse-sub{font-size:11px;color:#bfd0e8;line-height:1.3}
-.team-pulse-tags{display:flex;flex-wrap:wrap;gap:5px}
-.team-pulse-tag{font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;white-space:nowrap}
-.team-pulse-tag-boom{background:rgba(34,197,94,.18);color:#22c55e}
-.team-pulse-tag-bust{background:rgba(239,68,68,.18);color:#ef4444}
-.team-pulse-tag-warn{background:rgba(250,204,21,.18);color:#facc15}
-.team-pulse-none{font-size:11px;color:#bfd0e8}
-@media(max-width:720px){.team-pulse{margin:10px 10px 0}.team-pulse-grid{grid-template-columns:1fr}}
 
 
 /* =========================================================
@@ -4146,7 +4130,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   height:100%!important;
   display:grid!important;
   grid-template-columns:repeat(12,minmax(0,1fr))!important;
-  grid-template-rows:repeat(5,minmax(0,1fr))!important;
+  grid-template-rows:repeat(6,minmax(0,1fr))!important;
   gap:2px 4px!important;
   align-content:stretch!important;
   align-items:center!important;
@@ -4171,7 +4155,13 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   overflow:visible!important;
 }
 
-/* Five-row formation */
+/* Real NRL position shape: props/hooker up front, second-rowers behind the
+   props, lock behind the hooker, then halfback and five-eighth stacked one
+   directly behind the other down the middle (not side-by-side), centres/
+   wings spread wide, fullback at the back. FLEX isn't a real on-field
+   position - it's a fantasy-only 14th slot - so it sits off to the side at
+   the grid's rightmost columns, next to the reserves panel, rather than
+   inside the actual playing shape. */
 #team.active-tab .formation-slot:has(.formation-card[data-slot="FRF1"]){
   grid-area:1 / 1 / 2 / 4!important;
 }
@@ -4193,30 +4183,30 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 }
 
 #team.active-tab .formation-slot:has(.formation-card[data-slot="HFB1"]){
-  grid-area:3 / 3 / 4 / 6!important;
+  grid-area:3 / 5 / 4 / 9!important;
 }
 #team.active-tab .formation-slot:has(.formation-card[data-slot="FE1"]){
-  grid-area:3 / 8 / 4 / 11!important;
+  grid-area:4 / 5 / 5 / 9!important;
 }
 
 #team.active-tab .formation-slot:has(.formation-card[data-slot="CTW1"]){
-  grid-area:4 / 1 / 5 / 4!important;
+  grid-area:5 / 1 / 6 / 4!important;
 }
 #team.active-tab .formation-slot:has(.formation-card[data-slot="CTW2"]){
-  grid-area:4 / 4 / 5 / 7!important;
+  grid-area:5 / 4 / 6 / 7!important;
 }
 #team.active-tab .formation-slot:has(.formation-card[data-slot="CTW3"]){
-  grid-area:4 / 7 / 5 / 10!important;
+  grid-area:5 / 7 / 6 / 10!important;
 }
 #team.active-tab .formation-slot:has(.formation-card[data-slot="CTW4"]){
-  grid-area:4 / 10 / 5 / 13!important;
+  grid-area:5 / 10 / 6 / 13!important;
 }
 
 #team.active-tab .formation-slot:has(.formation-card[data-slot="FLB1"]){
-  grid-area:5 / 3 / 6 / 7!important;
+  grid-area:6 / 3 / 7 / 7!important;
 }
 #team.active-tab .formation-slot:has(.formation-card[data-slot="FLEX1"]){
-  grid-area:5 / 7 / 6 / 11!important;
+  grid-area:3 / 10 / 5 / 13!important;
 }
 
 /* One invisible player-relative unit */
@@ -4409,19 +4399,9 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   transform:translateX(-110px)!important;
 }
 
-/* FLEX1 HORIZONTAL ALIGNMENT */
-#team.active-tab .formation-slot:has(.formation-card[data-slot="FLEX1"]){
-  transform:translateX(300px)!important;
-}
-
-/* HALVES SLOTS INWARD */
-#team.active-tab .formation-slot:has(.formation-card[data-slot="HFB1"]){
-  transform:translate(105px,-20px)!important;
-}
-
-#team.active-tab .formation-slot:has(.formation-card[data-slot="FE1"]){
-  transform:translate(-105px,-20px)!important;
-}
+/* FLEX1 and HFB1/FE1 no longer need a manual pixel nudge here - the
+   CANONICAL 14-PLAYER FORMATION MAP grid-area values above already center
+   the halves and push FLEX1 to the rightmost columns directly. */
 
 /* SELECTED STARTERS DOWN */
 #team.active-tab .formation-slot:has(.formation-card[data-slot="FRF1"]),
@@ -7004,12 +6984,18 @@ function formationSlot(slotId,gridArea,picks={}){
  </div>`;
 }
 function formationFieldHtml(fieldBySlot={},picks={}){
+ // NOTE: these grid-area values are a fallback only. The #team.active-tab
+ // scope (the real My Team view) overrides every slot's position via
+ // higher-specificity :has([data-slot=...]) rules elsewhere in the
+ // stylesheet - search for "CANONICAL 14-PLAYER FORMATION MAP" to find the
+ // block that's actually authoritative there.
  const slots=[
   ['FRF1','1 / 1 / 2 / 2'],['HOK1','1 / 3 / 2 / 4'],['FRF2','1 / 5 / 2 / 6'],
   ['2RF1','2 / 2 / 3 / 3'],['2RF2','2 / 4 / 3 / 5'],['2RF3','3 / 3 / 4 / 4'],
   ['HFB1','4 / 2 / 5 / 3'],['FE1','4 / 4 / 5 / 5'],
   ['CTW1','5 / 1 / 6 / 2'],['CTW2','5 / 2 / 6 / 3'],['CTW3','5 / 4 / 6 / 5'],['CTW4','5 / 5 / 6 / 6'],
-  ['FLB1','6 / 3 / 7 / 4'],['FLEX1','7 / 3 / 8 / 4']
+  ['FLB1','6 / 3 / 7 / 4'],
+  ['FLEX1','4 / 5 / 5 / 6']
  ];
  return `<div class="formation-field"><div class="formation-watermark left">WAR</div><div class="formation-watermark right">ROOM</div><div class="formation-grid">${slots.map(([id,area])=>formationSlot(id,area,picks)).join('')}</div></div>`
 }
@@ -7265,75 +7251,6 @@ function captainVicePicks(state){
  return {captain:{name:captain.name,tooltip:captainTooltip,risk:captainRisk,hasLoophole,isDeadCert:false},vice};
 }
 
-/* =========================================================
-   Team Pulse
-   Every number here (confidenceScore, boomChance, bustChance) is already
-   computed by ProjectionEngine.projectGame()/boomBustProfile() for every
-   player, every round - it just had zero UI surface anywhere in the app
-   until now. No new formula, no new data source: this only synthesizes
-   what the engine already knows into one view instead of leaving it
-   buried in an object nothing ever read.
-   ========================================================= */
-function teamPulseData(state){
- const candidates=captainAdvisorCandidates(state);
- const total=(state.fieldSlots||[]).length;
- if(!candidates.length||!total)return null;
-
- // ProjectionEngine's confidence is a categorical label (High/Medium/Low),
- // not a numeric score - counting the real distribution rather than
- // inventing a blended number out of a qualitative label.
- const confidenceCounts={High:0,Medium:0,Low:0};
- for(const c of candidates){
-  const label=String(c.pr.confidence||'').trim();
-  if(confidenceCounts[label]!==undefined)confidenceCounts[label]++;
- }
- const majorityLabel=Object.entries(confidenceCounts).sort((a,b)=>b[1]-a[1])[0][0];
-
- const boomPicks=candidates.filter(c=>(c.pr.boomChance||0)>=25).sort((a,b)=>(b.pr.boomChance||0)-(a.pr.boomChance||0));
- const bustRisks=candidates.filter(c=>(c.pr.bustChance||0)>=30).sort((a,b)=>(b.pr.bustChance||0)-(a.pr.bustChance||0));
-
- const notLocked=(state.fieldSlots||[]).filter(({player})=>{
-  if(!player)return false;
-  const key=String(availabilityStatus(player)?.key||'').toLowerCase();
-  return key==='risk'||key==='expected';
- }).map(({name})=>name);
-
- return {confidenceCounts,majorityLabel,boomPicks,bustRisks,notLocked,total,available:candidates.length};
-}
-function teamPulseTagsHtml(items,cls,emptyText){
- if(!items.length)return `<span class="team-pulse-none">${esc(emptyText)}</span>`;
- return items.slice(0,4).join('')||`<span class="team-pulse-none">${esc(emptyText)}</span>`;
-}
-function teamPulseHtml(state){
- const data=teamPulseData(state);
- if(!data)return '';
- const boomTags=data.boomPicks.slice(0,4).map(c=>`<span class="team-pulse-tag team-pulse-tag-boom">${esc(c.name)} ${c.pr.boomChance}%</span>`);
- const bustTags=data.bustRisks.slice(0,4).map(c=>`<span class="team-pulse-tag team-pulse-tag-bust">${esc(c.name)} ${c.pr.bustChance}%</span>`);
- const warnTags=data.notLocked.slice(0,4).map(n=>`<span class="team-pulse-tag team-pulse-tag-warn">${esc(n)}</span>`);
- return `<div class="team-pulse">
-  <h3>Team Pulse</h3>
-  <div class="team-pulse-grid">
-   <div class="team-pulse-stat">
-    <span class="team-pulse-label">Team Confidence</span>
-    <div class="team-pulse-headline team-pulse-conf-${esc(data.majorityLabel.toLowerCase())}">${esc(data.majorityLabel)}</div>
-    <span class="team-pulse-sub">${data.confidenceCounts.High} High · ${data.confidenceCounts.Medium} Medium · ${data.confidenceCounts.Low} Low (${data.available}/${data.total} on-field)</span>
-   </div>
-   <div class="team-pulse-stat">
-    <span class="team-pulse-label">Boom Watch</span>
-    <div class="team-pulse-tags">${teamPulseTagsHtml(boomTags,'boom','No standout boom picks this round')}</div>
-   </div>
-   <div class="team-pulse-stat">
-    <span class="team-pulse-label">Bust Risk</span>
-    <div class="team-pulse-tags">${teamPulseTagsHtml(bustTags,'bust','No elevated bust risk detected')}</div>
-   </div>
-   <div class="team-pulse-stat">
-    <span class="team-pulse-label">Not Locked In</span>
-    <div class="team-pulse-tags">${teamPulseTagsHtml(warnTags,'warn','Full team-list confirmed')}</div>
-   </div>
-  </div>
- </div>`;
-}
-
 function mobileTeamHtml(state=teamRenderState()){
  const sections=[["HOOKER",["HOK1"]],["FRONT ROWERS",["FRF1","FRF2"]],["2ND ROW FORWARDS",["2RF1","2RF2","2RF3"]],["HALFBACK",["HFB1"]],["5/8",["FE1"]],["WINGS / CENTRES",["CTW1","CTW2","CTW3","CTW4"]],["FULLBACK",["FLB1"]],["FLEX",["FLEX1"]]];
  const totalProjected=teamProjection();
@@ -7356,7 +7273,6 @@ function mobileTeamHtml(state=teamRenderState()){
   ${authPanelHtml()}
   <div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot,captainVicePicksForRender)}</main>${formationReservesHtml(state,captainVicePicksForRender)}</div>
   <div class="wr-status-legend"><span><i class="status-dot"></i> Available</span><span><i class="status-dot warn"></i> Risk</span><span><i class="status-dot bad"></i> Out</span><span><i class="status-dot bye"></i> Bye</span></div>
-  ${teamPulseHtml(state)}
  </div>`;
 }
 
