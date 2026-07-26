@@ -4121,17 +4121,35 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   margin-left:auto!important;
 }
 
+#team.active-tab .wr-team-room{
+  height:auto!important;
+  min-height:calc(100vh - 66px)!important;
+  overflow:visible!important;
+}
+
 #team.active-tab .formation-field{
   padding:34px 6px 8px!important;
+  height:auto!important;
+  min-height:100%!important;
+  overflow-x:auto!important;
+  overflow-y:visible!important;
+}
+
+#team.active-tab .formation-layout,
+#team.active-tab .formation-layout main{
+  height:auto!important;
+  min-height:0!important;
+  overflow:visible!important;
 }
 
 #team.active-tab .formation-grid{
   width:100%!important;
+  min-width:1000px!important;
   height:auto!important;
   display:grid!important;
   grid-template-columns:repeat(12,minmax(0,1fr))!important;
-  grid-template-rows:repeat(6,68px)!important;
-  gap:22px 4px!important;
+  grid-template-rows:repeat(6,132px)!important;
+  gap:44px 4px!important;
   align-content:start!important;
   align-items:center!important;
   justify-items:center!important;
@@ -4215,9 +4233,9 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   width:190px!important;
   min-width:190px!important;
   max-width:190px!important;
-  height:68px!important;
-  min-height:68px!important;
-  max-height:68px!important;
+  height:132px!important;
+  min-height:132px!important;
+  max-height:132px!important;
   margin:auto!important;
   padding:0!important;
   overflow:visible!important;
@@ -4237,12 +4255,12 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   bottom:0!important;
   transform:translateX(-50%)!important;
   display:block!important;
-  width:65px!important;
-  height:59px!important;
-  min-width:65px!important;
-  min-height:59px!important;
-  max-width:65px!important;
-  max-height:59px!important;
+  width:126px!important;
+  height:113px!important;
+  min-width:126px!important;
+  min-height:113px!important;
+  max-width:126px!important;
+  max-height:113px!important;
   padding:0!important;
   margin:0!important;
   overflow:visible!important;
@@ -4380,10 +4398,12 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   top:-22px!important;
 }
 
-/* MIDDLE 2RF PLAYER SLOT DOWN */
-#team.active-tab .formation-slot:has(.formation-card[data-slot="2RF3"]){
-  transform:translateY(50px)!important;
-}
+/* 2RF3 (Lock) no longer needs a manual downward nudge here - that was
+   tuned for the old layout where the halves shared a single row directly
+   below it. Now that halfback/five-eighth have their own separate rows,
+   this nudge silently ate into the row gap between 2RF3 and HFB1 no
+   matter how much gap was added, which is what caused the real
+   name-label/badge collision a user reported after this shipped. */
 
 /* FLB1 HORIZONTAL ALIGNMENT */
 #team.active-tab .formation-slot:has(.formation-card[data-slot="FLB1"]){
@@ -4411,14 +4431,12 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   transform:translateY(25px)!important;
 }
 
-/* FRONT ROW OUTER SLOTS INWARD */
-#team.active-tab .formation-slot:has(.formation-card[data-slot="FRF1"]){
-  transform:translate(370px,70px)!important;
-}
-
-#team.active-tab .formation-slot:has(.formation-card[data-slot="FRF2"]){
-  transform:translate(-370px,70px)!important;
-}
+/* FRF1/FRF2 no longer get a manual pull-toward-center - that hardcoded
+   +70px downward push silently ate into the row gap before 2RF3 (the
+   same class of bug as the removed 2RF3 nudge above), and the 370px
+   horizontal pull was closing the two props in on each other far enough
+   to collide. The grid-area column spans already place them reasonably
+   without a manual override. */
 
 /* MAXIMISE MY TEAM VIEWPORT */
 #team.active-tab .wr-topbar{
