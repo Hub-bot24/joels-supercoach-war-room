@@ -3243,6 +3243,9 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .formation-cv-vice{background:#58a6ff;color:#031326;border:2px solid #d6ecff;font-size:9px}
 .formation-cv-badge.formation-cv-nolh{border-style:dashed;filter:saturate(.55) brightness(.92)}
 .formation-r-badge{position:absolute;top:-7px;left:-7px;z-index:5;width:20px;height:20px;border-radius:999px;background:#22c55e;color:#04170a;border:2px solid #d3ffe4;display:grid;place-items:center;font-size:10px;font-weight:950;box-shadow:0 4px 10px rgba(0,0,0,.5);cursor:help}
+.formation-reserve-select{position:absolute;bottom:-7px;right:-7px;z-index:5;width:19px;height:19px;border-radius:999px;background:#0b1a2e;color:#94a3b8;border:2px solid #335074;display:grid;place-items:center;font-size:11px;font-weight:950;line-height:1;padding:0;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.5)}
+.formation-reserve-select:hover{border-color:#58a6ff;color:#cfe4ff}
+.formation-reserve-select-on{background:#22c55e;color:#04170a;border-color:#d3ffe4}
 .trade-radar{margin:0 0 16px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:16px;padding:14px 16px;color:#f8fafc}
 .trade-radar h3{margin:0 0 10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#c7d2fe}
 .trade-radar-empty{font-size:12px;color:#bfd0e8;line-height:1.4}
@@ -5028,6 +5031,7 @@ round:Number(localStorage.getItem('sc_round')||14),
 roundSource:'stored',
 trustWarnings:[],
 lineup:null,
+selectedReserves:[],
 drag:null,
 sync:{
  client:null,
@@ -5352,7 +5356,7 @@ function syncSetStatus(status,msg=''){
   el.textContent=msg||({saved:'Saved',syncing:'Syncing...',offline:'Offline',signedout:'Sign in',conflict:'Sync conflict',error:'Sync error',local:'Local save'}[status]||status);
  }
 }
-function teamBundle(){return {myTeam:App.myTeam,lineup:App.lineup||{},reserveOrder:App.reserveOrder||{},round:App.round,client_id:App.sync.clientId,updated_at:App.sync.localUpdatedAt||new Date().toISOString(),version:1}}
+function teamBundle(){return {myTeam:App.myTeam,lineup:App.lineup||{},reserveOrder:App.reserveOrder||{},selectedReserves:App.selectedReserves||[],round:App.round,client_id:App.sync.clientId,updated_at:App.sync.localUpdatedAt||new Date().toISOString(),version:1}}
 function readLocalMeta(){return safeJsonParse(safeLocalGet('sc_team_meta','{}'),{})||{}}
 function writeLocalMeta(meta){try{localStorage.setItem('sc_team_meta',JSON.stringify(meta||{}))}catch(e){}}
 function sanitizeSquadState(){
@@ -5371,6 +5375,9 @@ function sanitizeSquadState(){
  for(const k of Object.keys(App.lineup||{})){
   if(!App.myTeam.includes(App.lineup[k]))delete App.lineup[k];
  }
+
+ if(!Array.isArray(App.selectedReserves))App.selectedReserves=[];
+ App.selectedReserves=[...new Set(App.selectedReserves)].filter(n=>App.myTeam.includes(n)).slice(0,4);
 }
 function saveLocal(opts={}){
  sanitizeSquadState();
@@ -5382,6 +5389,7 @@ function saveLocal(opts={}){
  localStorage.setItem('sc_myTeam',JSON.stringify(App.myTeam));
  localStorage.setItem('sc_lineup',JSON.stringify(App.lineup||{}));
  localStorage.setItem('sc_reserveOrder',JSON.stringify(App.reserveOrder||{}));
+ localStorage.setItem('sc_selectedReserves',JSON.stringify(App.selectedReserves||[]));
  writeLocalMeta({updated_at:App.sync.localUpdatedAt,client_id:App.sync.clientId});
  if(cloud)scheduleCloudSave();
 }
@@ -5512,6 +5520,7 @@ function applyCloudTeam(teamJson){
  App.myTeam=resolved;
  App.lineup=teamJson.lineup&&typeof teamJson.lineup==='object'?teamJson.lineup:{};
  App.reserveOrder=teamJson.reserveOrder&&typeof teamJson.reserveOrder==='object'?teamJson.reserveOrder:{};
+ App.selectedReserves=Array.isArray(teamJson.selectedReserves)?teamJson.selectedReserves:[];
  App.round=Number(teamJson.round)||App.round;
  App.sync.localUpdatedAt=teamJson.updated_at||new Date().toISOString();
  validateLineup();ensureLineup();
@@ -5721,7 +5730,7 @@ async function boot(){
  const missingNames = names.filter(n=>!resolvePlayerName(n));
  if(missingNames.length) console.warn('Players in my_team.json not found in players.json:', missingNames);
  App.myTeam=[...new Set(resolvedNames)];
-App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};App.reserveOrder=safeJsonParse(safeLocalGet('sc_reserveOrder','{}'),{})||{};validateLineup();ensureLineup();wireTabs();renderActive();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
+App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};App.reserveOrder=safeJsonParse(safeLocalGet('sc_reserveOrder','{}'),{})||{};App.selectedReserves=safeJsonParse(safeLocalGet('sc_selectedReserves','[]'),[])||[];validateLineup();ensureLineup();wireTabs();renderActive();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
  updateStatusFreshnessLabel();startLiveStatusRefresh();ensureNotifSeenInitialized();renderNotifBadge();
 }
 function updateStatusFreshnessLabel(){const fe=$('statusFreshness');if(fe)fe.textContent=''}
@@ -6587,6 +6596,30 @@ function reserveSlotAccepts(id,p){
  return !!p&&positions(p).includes(base);
 }
 
+// Real SuperCoach rule: each round you manually select which 4 of your 12
+// reserves are your "active" bench - only those 4 are eligible to count
+// toward score (via auto-emergency substitution) in a normal round. This
+// is a real choice, not something the app should silently decide by
+// picking the highest scorer - that was this feature's first (wrong)
+// version. Bye-gap coverage is deliberately exempt from this selection
+// (see autoEmergencySubstitutes): a bye is scheduled certainty, not a
+// pick, and needs the whole bench available during heavy bye rounds.
+function toggleSelectedReserve(name){
+ if(!Array.isArray(App.selectedReserves))App.selectedReserves=[];
+ const idx=App.selectedReserves.indexOf(name);
+ if(idx!==-1){
+  App.selectedReserves.splice(idx,1);
+ }else{
+  if(App.selectedReserves.length>=4){
+   toast('Only 4 reserves can be selected to count - deselect one first');
+   return;
+  }
+  App.selectedReserves.push(name);
+ }
+ saveLocal();
+ renderTeam();
+}
+
 function setReserveSlot(slotId,name){
  App.reserveOrder=App.reserveOrder||{};
  if(slotId&&!RESERVE_SLOT_IDS.includes(slotId))return App.reserveOrder;
@@ -6673,6 +6706,20 @@ function teamRenderState(){
  const reserveNames=reserveRows.map(r=>r.name).filter(Boolean);
  const overflowNames=rawReserves.filter(name=>!reserveNames.includes(name));
 
+ // One-time sensible default: if the user has never made a reserve
+ // selection, seed the top 4 by current score so the feature isn't an
+ // empty, confusing "nothing counts" state on first use. Never overwrites
+ // an existing selection, even a deliberately smaller one.
+ if(!Array.isArray(App.selectedReserves))App.selectedReserves=[];
+ if(App.selectedReserves.length===0){
+  const seeded=reserveRows
+   .filter(r=>r.player&&roundProj(r.player).expected>0)
+   .sort((a,b)=>roundProj(b.player).expected-roundProj(a.player).expected)
+   .slice(0,4)
+   .map(r=>r.player.name);
+  if(seeded.length)App.selectedReserves=seeded;
+ }
+
  return {
   fieldSlots,
   fieldNames,
@@ -6701,10 +6748,11 @@ function teamRenderState(){
 // sharing a bye at once) can see more than 4 reserves count - that's real
 // bye coverage stacking on top of the unrelated 4-sub DNP cap, not a
 // special-cased round number (no round is ever hardcoded here).
-function reservePoolByGroup(state){
+function reservePoolByGroup(state,restrictToNames=null){
  const pool={};
  for(const row of (state.reserveRows||[])){
   if(!row.player)continue;
+  if(restrictToNames&&!restrictToNames.has(row.player.name))continue;
   const group=reserveSlotBase(row.slotId);
   (pool[group]=pool[group]||[]).push(row.player);
  }
@@ -6716,12 +6764,23 @@ function reservePoolByGroup(state){
  }
  return pool;
 }
+// Real rule, confirmed by the user: each round you manually SELECT up to
+// 4 reserves as your "active" bench - only those 4 are eligible to
+// substitute for a non-bye gap. This is not an app-picked "top 4 by
+// score" (that was this feature's first, wrong version) - it's the
+// user's own choice via toggleSelectedReserve(). Bye-gap coverage
+// deliberately draws from the WHOLE reserve pool regardless of
+// selection: a bye is scheduled and known well in advance, not a weekly
+// pick, and heavy bye rounds need more than 4 covered at once.
 const AUTO_EMERGENCY_NON_BYE_CAP=4;
 function autoEmergencySubstitutes(state){
- const pool=reservePoolByGroup(state);
- const consumed={};
+ const selectedNames=new Set((App.selectedReserves||[]).slice(0,AUTO_EMERGENCY_NON_BYE_CAP));
+ const fullPool=reservePoolByGroup(state);
+ const selectedPool=reservePoolByGroup(state,selectedNames);
+ const consumedBye={};
+ const consumedSelected={};
  const bySlotId={};
- const nextCandidate=group=>{
+ const nextFromPool=(pool,consumed,group)=>{
   const list=pool[group]||[];
   const idx=consumed[group]||0;
   return list[idx]||null;
@@ -6734,18 +6793,20 @@ function autoEmergencySubstitutes(state){
   gaps.push({slotId:slot.id,group:slot.short,isBye});
  }
 
- // Bye gaps: real coverage, uncapped.
+ // Bye gaps: real coverage from the whole bench, uncapped and unrestricted by selection.
  for(const gap of gaps.filter(g=>g.isBye)){
-  const sub=nextCandidate(gap.group);
-  if(sub)consumed[gap.group]=(consumed[gap.group]||0)+1;
+  const sub=nextFromPool(fullPool,consumedBye,gap.group);
+  if(sub)consumedBye[gap.group]=(consumedBye[gap.group]||0)+1;
   bySlotId[gap.slotId]=sub?sub.player:null;
  }
 
- // Non-bye gaps: tentatively assign in slot order, then keep only the
- // AUTO_EMERGENCY_NON_BYE_CAP highest-scoring across the whole team.
+ // Non-bye gaps: only the user's selected reserves are eligible, tentatively
+ // assigned in slot order, then keep only the AUTO_EMERGENCY_NON_BYE_CAP
+ // highest-scoring across the whole team (defensive - selection is already
+ // capped at 4, so this rarely trims anything further in practice).
  const tentative=gaps.filter(g=>!g.isBye).map(gap=>{
-  const sub=nextCandidate(gap.group);
-  if(sub)consumed[gap.group]=(consumed[gap.group]||0)+1;
+  const sub=nextFromPool(selectedPool,consumedSelected,gap.group);
+  if(sub)consumedSelected[gap.group]=(consumedSelected[gap.group]||0)+1;
   return {...gap,sub};
  });
  const ranked=tentative.filter(g=>g.sub).sort((a,b)=>b.sub.pr.expected-a.sub.pr.expected);
@@ -6941,7 +7002,7 @@ function formationFieldHtml(fieldBySlot={},picks={}){
  ];
  return `<div class="formation-field"><div class="formation-watermark left">WAR</div><div class="formation-watermark right">ROOM</div><div class="formation-grid">${slots.map(([id,area])=>formationSlot(id,area,picks)).join('')}</div></div>`
 }
-function formationReserveCard(p,idx=0,slotId="",isSubstituting=false,picks={}){
+function formationReserveCard(p,idx=0,slotId="",isSubstituting=false,picks={},isSelected=false){
  const pr=roundProj(p),st=availabilityStatus(p),cls=statusDotClass(st);
  const reservePosList=(typeof positions==='function'?positions(p):[]).filter(Boolean);
  const reservePosText=reservePosList.length?reservePosList.join('/'):(p.pos||p.position||"");
@@ -6960,9 +7021,16 @@ function formationReserveCard(p,idx=0,slotId="",isSubstituting=false,picks={}){
  const cvBadge=isCaptain
   ?`<div class="formation-cv-badge formation-cv-captain${picks.captain.hasLoophole?'':' formation-cv-nolh'}" title="${esc(picks.captain.tooltip)}">C</div>`
   :isVice?`<div class="formation-cv-badge formation-cv-vice${picks.vice.hasLoophole?'':' formation-cv-nolh'}" title="${esc(picks.vice.tooltip)}">VC</div>`:'';
+ // Manual "counts toward score" selection - a real weekly choice (up to 4
+ // reserves), not something the app should auto-pick. isSubstituting can
+ // still be false while selected (e.g. this group's starter is playing
+ // fine this round), so this toggle is deliberately independent of the R
+ // badge above.
+ const selectToggle=`<button type="button" class="formation-reserve-select${isSelected?' formation-reserve-select-on':''}" title="${isSelected?'Selected - counts toward your score if called on':'Select this reserve to count toward your score (max 4)'}" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();toggleSelectedReserve('${window.jsq(p.name)}')">${isSelected?'&#10003;':''}</button>`;
  return `<div class="formation-reserve-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-reserve-slot="${esc(slotId)}" data-reserve="${esc(p.name)}" onpointerdown="pressDragStart(event,'reserve','${window.jsq(slotId)}','${window.jsq(p.name)}')" ondragstart="dragReserve(event,'${window.jsq(p.name)}')" ondragover="allowDropOnReserveCard(event,'${window.jsq(slotId)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(slotId)}')">
   ${scoreBadge}
   ${cvBadge}
+  ${selectToggle}
   <div class="wr-reserve-no">${idx}</div>
   ${wrPlayerCardPhotoHtml(p,'wr-reserve-logo')}
   <div class="formation-reserve-main">
@@ -7054,10 +7122,11 @@ function formationReservesHtml(state,picks={}){
  const rows=state.reserveRows||RESERVE_SLOT_IDS.map((slotId,idx)=>({slotId,idx:idx+1,name:"",player:null}));
  const subs=autoEmergencySubstitutes(state);
  const substitutingNames=new Set(Object.values(subs).filter(Boolean).map(p=>p.name));
+ const selectedNames=new Set(App.selectedReserves||[]);
  return `<aside class="formation-reserves wr-reserve-panel">
   <div class="wr-reserve-head"><span>RESERVES</span><b>1-12</b></div>
   <div class="wr-reserve-list">
-   ${rows.map(r=>r.player?formationReserveCard(r.player,r.idx,r.slotId,substitutingNames.has(r.player.name),picks):emptyFormationReserveCard(r.slotId,r.idx)).join("")}
+   ${rows.map(r=>r.player?formationReserveCard(r.player,r.idx,r.slotId,substitutingNames.has(r.player.name),picks,selectedNames.has(r.player.name)):emptyFormationReserveCard(r.slotId,r.idx)).join("")}
   </div>
  </aside>`;
 }
