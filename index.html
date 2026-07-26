@@ -4130,7 +4130,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   height:100%!important;
   display:grid!important;
   grid-template-columns:repeat(12,minmax(0,1fr))!important;
-  grid-template-rows:repeat(5,minmax(0,1fr))!important;
+  grid-template-rows:repeat(6,minmax(0,1fr))!important;
   gap:2px 4px!important;
   align-content:stretch!important;
   align-items:center!important;
@@ -4155,7 +4155,13 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   overflow:visible!important;
 }
 
-/* Five-row formation */
+/* Real NRL position shape: props/hooker up front, second-rowers behind the
+   props, lock behind the hooker, then halfback and five-eighth stacked one
+   directly behind the other down the middle (not side-by-side), centres/
+   wings spread wide, fullback at the back. FLEX isn't a real on-field
+   position - it's a fantasy-only 14th slot - so it sits off to the side at
+   the grid's rightmost columns, next to the reserves panel, rather than
+   inside the actual playing shape. */
 #team.active-tab .formation-slot:has(.formation-card[data-slot="FRF1"]){
   grid-area:1 / 1 / 2 / 4!important;
 }
@@ -4177,30 +4183,30 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 }
 
 #team.active-tab .formation-slot:has(.formation-card[data-slot="HFB1"]){
-  grid-area:3 / 3 / 4 / 6!important;
+  grid-area:3 / 5 / 4 / 9!important;
 }
 #team.active-tab .formation-slot:has(.formation-card[data-slot="FE1"]){
-  grid-area:3 / 8 / 4 / 11!important;
+  grid-area:4 / 5 / 5 / 9!important;
 }
 
 #team.active-tab .formation-slot:has(.formation-card[data-slot="CTW1"]){
-  grid-area:4 / 1 / 5 / 4!important;
+  grid-area:5 / 1 / 6 / 4!important;
 }
 #team.active-tab .formation-slot:has(.formation-card[data-slot="CTW2"]){
-  grid-area:4 / 4 / 5 / 7!important;
+  grid-area:5 / 4 / 6 / 7!important;
 }
 #team.active-tab .formation-slot:has(.formation-card[data-slot="CTW3"]){
-  grid-area:4 / 7 / 5 / 10!important;
+  grid-area:5 / 7 / 6 / 10!important;
 }
 #team.active-tab .formation-slot:has(.formation-card[data-slot="CTW4"]){
-  grid-area:4 / 10 / 5 / 13!important;
+  grid-area:5 / 10 / 6 / 13!important;
 }
 
 #team.active-tab .formation-slot:has(.formation-card[data-slot="FLB1"]){
-  grid-area:5 / 3 / 6 / 7!important;
+  grid-area:6 / 3 / 7 / 7!important;
 }
 #team.active-tab .formation-slot:has(.formation-card[data-slot="FLEX1"]){
-  grid-area:5 / 7 / 6 / 11!important;
+  grid-area:3 / 10 / 5 / 13!important;
 }
 
 /* One invisible player-relative unit */
@@ -4393,19 +4399,9 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
   transform:translateX(-110px)!important;
 }
 
-/* FLEX1 HORIZONTAL ALIGNMENT */
-#team.active-tab .formation-slot:has(.formation-card[data-slot="FLEX1"]){
-  transform:translateX(300px)!important;
-}
-
-/* HALVES SLOTS INWARD */
-#team.active-tab .formation-slot:has(.formation-card[data-slot="HFB1"]){
-  transform:translate(105px,-20px)!important;
-}
-
-#team.active-tab .formation-slot:has(.formation-card[data-slot="FE1"]){
-  transform:translate(-105px,-20px)!important;
-}
+/* FLEX1 and HFB1/FE1 no longer need a manual pixel nudge here - the
+   CANONICAL 14-PLAYER FORMATION MAP grid-area values above already center
+   the halves and push FLEX1 to the rightmost columns directly. */
 
 /* SELECTED STARTERS DOWN */
 #team.active-tab .formation-slot:has(.formation-card[data-slot="FRF1"]),
@@ -6988,12 +6984,18 @@ function formationSlot(slotId,gridArea,picks={}){
  </div>`;
 }
 function formationFieldHtml(fieldBySlot={},picks={}){
+ // NOTE: these grid-area values are a fallback only. The #team.active-tab
+ // scope (the real My Team view) overrides every slot's position via
+ // higher-specificity :has([data-slot=...]) rules elsewhere in the
+ // stylesheet - search for "CANONICAL 14-PLAYER FORMATION MAP" to find the
+ // block that's actually authoritative there.
  const slots=[
   ['FRF1','1 / 1 / 2 / 2'],['HOK1','1 / 3 / 2 / 4'],['FRF2','1 / 5 / 2 / 6'],
   ['2RF1','2 / 2 / 3 / 3'],['2RF2','2 / 4 / 3 / 5'],['2RF3','3 / 3 / 4 / 4'],
   ['HFB1','4 / 2 / 5 / 3'],['FE1','4 / 4 / 5 / 5'],
   ['CTW1','5 / 1 / 6 / 2'],['CTW2','5 / 2 / 6 / 3'],['CTW3','5 / 4 / 6 / 5'],['CTW4','5 / 5 / 6 / 6'],
-  ['FLB1','6 / 3 / 7 / 4'],['FLEX1','7 / 3 / 8 / 4']
+  ['FLB1','6 / 3 / 7 / 4'],
+  ['FLEX1','4 / 5 / 5 / 6']
  ];
  return `<div class="formation-field"><div class="formation-watermark left">WAR</div><div class="formation-watermark right">ROOM</div><div class="formation-grid">${slots.map(([id,area])=>formationSlot(id,area,picks)).join('')}</div></div>`
 }
