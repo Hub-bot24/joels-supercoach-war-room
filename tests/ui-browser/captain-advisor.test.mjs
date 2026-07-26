@@ -168,3 +168,46 @@ test("C/VC badge never overlaps a neighboring field card at common widths", asyn
     }
   }
 });
+
+// Second real bug found via user report, once the field cards were
+// redesigned into the real NRL position shape (halfback/five-eighth
+// stacked vertically down the middle): a card's own name label - which
+// intentionally extends below its own card box as a nameplate - visually
+// collided with the C/VC badge of the card stacked directly beneath it.
+// This checks real bounding-box intersection between every field card's
+// name label and every OTHER field card's C/VC badge, not just that both
+// elements exist.
+test("no field card's name label visually collides with another card's C/VC badge", async () => {
+  const { page, pageErrors, close } = await openApp();
+  try {
+    await page.setViewportSize({ width: 1366, height: 900 });
+    const result = await page.evaluate(() => {
+      const rectOf = el => { const r = el.getBoundingClientRect(); return { top: r.top, bottom: r.bottom, left: r.left, right: r.right }; };
+      const intersects = (a, b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+
+      const cards = [...document.querySelectorAll(".formation-card")];
+      const names = cards.map(c => ({
+        owner: c.querySelector(".formation-name")?.textContent || "",
+        rect: rectOf(c.querySelector(".formation-name"))
+      })).filter(n => n.owner);
+      const badges = cards.map(c => ({
+        owner: c.querySelector(".formation-name")?.textContent || "",
+        badge: c.querySelector(".formation-cv-badge")
+      })).filter(b => b.badge).map(b => ({ owner: b.owner, rect: rectOf(b.badge) }));
+
+      const collisions = [];
+      for (const n of names) {
+        for (const b of badges) {
+          if (n.owner === b.owner) continue;
+          if (intersects(n.rect, b.rect)) collisions.push(`${n.owner}'s name label collides with ${b.owner}'s C/VC badge`);
+        }
+      }
+      return { collisions };
+    });
+
+    assert.deepEqual(pageErrors, [], `expected zero uncaught JS exceptions, got: ${pageErrors.join(" | ")}`);
+    assert.deepEqual(result.collisions, [], `expected no name/badge collisions, got: ${result.collisions.join(" | ")}`);
+  } finally {
+    await close();
+  }
+});
