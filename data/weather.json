@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-26T09:14:18.046Z",
+  "updated": "2026-07-26T10:54:42.757Z",
   "round": 21,
   "source": "Open-Meteo hourly forecast API",
   "status": "fresh",
@@ -342,7 +342,7 @@
           "time": "2026-07-26T14:00",
           "phase": "game_window",
           "temperature_2m": 17.4,
-          "precipitation_probability": 1,
+          "precipitation_probability": 2,
           "precipitation_mm": 0,
           "wind_speed_10m": 12.3,
           "wind_gusts_10m": 32
@@ -351,7 +351,7 @@
           "time": "2026-07-26T15:00",
           "phase": "game_window",
           "temperature_2m": 16.9,
-          "precipitation_probability": 2,
+          "precipitation_probability": 5,
           "precipitation_mm": 0,
           "wind_speed_10m": 10.9,
           "wind_gusts_10m": 31.3
@@ -360,7 +360,7 @@
       "weatherRisk": {
         "label": "Low",
         "score": 15,
-        "maxRainProbability": 2,
+        "maxRainProbability": 5,
         "totalGameRainMm": 0,
         "maxWindKmh": 12.3,
         "maxGustKmh": 32,
@@ -758,7 +758,7 @@
           "time": "2026-07-26T14:00",
           "phase": "game_window",
           "temperature_2m": 17.4,
-          "precipitation_probability": 1,
+          "precipitation_probability": 2,
           "precipitation_mm": 0,
           "wind_speed_10m": 12.3,
           "wind_gusts_10m": 32
@@ -767,7 +767,7 @@
           "time": "2026-07-26T15:00",
           "phase": "game_window",
           "temperature_2m": 16.9,
-          "precipitation_probability": 2,
+          "precipitation_probability": 5,
           "precipitation_mm": 0,
           "wind_speed_10m": 10.9,
           "wind_gusts_10m": 31.3
@@ -776,7 +776,7 @@
       "weatherRisk": {
         "label": "Low",
         "score": 15,
-        "maxRainProbability": 2,
+        "maxRainProbability": 5,
         "totalGameRainMm": 0,
         "maxWindKmh": 12.3,
         "maxGustKmh": 32,
