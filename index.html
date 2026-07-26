@@ -6683,12 +6683,60 @@ function teamRenderState(){
   overflowNames
  };
 }
+// Real SuperCoach auto-emergency: reserves are pooled by position group
+// (2 FRF, 3 2RF, 3 CTW, 1 each of HOK/HFB/5-8/FLB - matches this app's own
+// RESERVE_SLOT_IDS grouping, via reserveSlotBase). When a starter in a
+// group doesn't play, the highest-scoring available reserve in that same
+// group substitutes and their score counts instead - not "any reserve
+// with a nonzero projection", which was the earlier, wrong version of
+// this. FLEX has no reserve pool (matches the real rule: no eligible
+// reserve for a position means that slot scores 0), so an unavailable
+// FLEX starter is never covered. In a normal round only 0-2 starters are
+// typically unexpectedly out, so only that many reserves end up counting;
+// on real bye rounds, several starters can share a bye simultaneously,
+// so correspondingly more reserves get pulled in - this emerges from the
+// real per-slot availability check below rather than a hardcoded count.
+function reservePoolByGroup(state){
+ const pool={};
+ for(const row of (state.reserveRows||[])){
+  if(!row.player)continue;
+  const group=reserveSlotBase(row.slotId);
+  (pool[group]=pool[group]||[]).push(row.player);
+ }
+ for(const group of Object.keys(pool)){
+  pool[group]=pool[group]
+   .map(player=>({player,pr:roundProj(player)}))
+   .filter(r=>r.pr.expected>0)
+   .sort((a,b)=>b.pr.expected-a.pr.expected);
+ }
+ return pool;
+}
+function autoEmergencySubstitutes(state){
+ const pool=reservePoolByGroup(state);
+ const consumed={};
+ const bySlotId={};
+ for(const {slot,player} of (state.fieldSlots||[])){
+  if(roundProj(player).expected>0){bySlotId[slot.id]=null;continue}
+  const group=slot.short;
+  const list=pool[group]||[];
+  const idx=consumed[group]||0;
+  const sub=list[idx]||null;
+  if(sub){consumed[group]=idx+1}
+  bySlotId[slot.id]=sub?sub.player:null;
+ }
+ return bySlotId;
+}
 function teamProjection(){
- const captainName=captainVicePicks(teamRenderState()).captain?.name;
+ const state=teamRenderState();
+ const captainName=captainVicePicks(state).captain?.name;
+ const subs=autoEmergencySubstitutes(state);
  return SLOT_DEFS.reduce((s,slot)=>{
   const p=getPlayer(App.lineup?.[slot.id]);
-  const expected=roundProj(p).expected;
-  return s+(p&&p.name===captainName?expected*2:expected);
+  const starterExpected=roundProj(p).expected;
+  const sub=subs[slot.id];
+  const effectiveExpected=starterExpected>0?starterExpected:(sub?roundProj(sub).expected:0);
+  const isCaptainSlot=!!(p&&p.name===captainName);
+  return s+(isCaptainSlot?effectiveExpected*2:effectiveExpected);
  },0);
 }
 function availableStarters(){return SLOT_DEFS.filter(slot=>availabilityStatus(getPlayer(App.lineup?.[slot.id])).available).length}
@@ -6849,19 +6897,18 @@ function formationFieldHtml(fieldBySlot={},picks={}){
  ];
  return `<div class="formation-field"><div class="formation-watermark left">WAR</div><div class="formation-watermark right">ROOM</div><div class="formation-grid">${slots.map(([id,area])=>formationSlot(id,area,picks)).join('')}</div></div>`
 }
-function formationReserveCard(p,idx=0,slotId=""){
+function formationReserveCard(p,idx=0,slotId="",isSubstituting=false){
  const pr=roundProj(p),st=availabilityStatus(p),cls=statusDotClass(st);
  const reservePosList=(typeof positions==='function'?positions(p):[]).filter(Boolean);
  const reservePosText=reservePosList.length?reservePosList.join('/'):(p.pos||p.position||"");
  const accent=teamAccent(p),pa=posAccent(reservePosText),opp=esc(p.opponent||p.opp||p.vs||"");
  const team=esc((p.team||p.club||"SC").slice(0,3).toUpperCase());
- // Real-play flag: this reserve is genuinely confirmed to take the field
- // this round (roundProj already zeroes expected for BYE/OUT/NOT-NAMED -
- // same signal every other real/live badge in this app uses), not a fixed
- // "top 3 reserves" count - the real number of live-scoring reserves
- // varies round to round with actual team-list news.
- const willScore=pr.expected>0;
- const scoreBadge=willScore?`<div class="formation-r-badge" title="Confirmed to play R${App.round} - this score counts if called on">R</div>`:'';
+ // Real auto-emergency flag: this reserve is the actual substitute for an
+ // unavailable same-position-group starter this round (see
+ // autoEmergencySubstitutes) - not merely "has a nonzero projection".
+ // A reserve whose own position group's starter is playing normally
+ // does NOT count toward score even if they themselves are available.
+ const scoreBadge=isSubstituting?`<div class="formation-r-badge" title="Auto-emergency: subbing in for an unavailable starter this round - this score counts toward your total">R</div>`:'';
  return `<div class="formation-reserve-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-reserve-slot="${esc(slotId)}" data-reserve="${esc(p.name)}" onpointerdown="pressDragStart(event,'reserve','${window.jsq(slotId)}','${window.jsq(p.name)}')" ondragstart="dragReserve(event,'${window.jsq(p.name)}')" ondragover="allowDropOnReserveCard(event,'${window.jsq(slotId)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(slotId)}')">
   ${scoreBadge}
   <div class="wr-reserve-no">${idx}</div>
@@ -6953,10 +7000,12 @@ function moveEmptyReserveTeamPlayer(slotId,name){
 
 function formationReservesHtml(state){
  const rows=state.reserveRows||RESERVE_SLOT_IDS.map((slotId,idx)=>({slotId,idx:idx+1,name:"",player:null}));
+ const subs=autoEmergencySubstitutes(state);
+ const substitutingNames=new Set(Object.values(subs).filter(Boolean).map(p=>p.name));
  return `<aside class="formation-reserves wr-reserve-panel">
   <div class="wr-reserve-head"><span>RESERVES</span><b>1-12</b></div>
   <div class="wr-reserve-list">
-   ${rows.map(r=>r.player?formationReserveCard(r.player,r.idx,r.slotId):emptyFormationReserveCard(r.slotId,r.idx)).join("")}
+   ${rows.map(r=>r.player?formationReserveCard(r.player,r.idx,r.slotId,substitutingNames.has(r.player.name)):emptyFormationReserveCard(r.slotId,r.idx)).join("")}
   </div>
  </aside>`;
 }
