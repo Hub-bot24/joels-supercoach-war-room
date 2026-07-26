@@ -74,7 +74,17 @@ test("team total doubles the real captain's score and reserve substitutions resp
 // reserve) and asserts the cap keeps only the 4 highest-scoring
 // substitutes, dropping the lowest one entirely - not an approximation,
 // the exact real mechanism running against real player data.
-test("auto-emergency substitution cap keeps the top 4 by score and drops the rest", async () => {
+// Real rule: since App.selectedReserves itself can never hold more than 4
+// names (the manual "pick your 4 active reserves" feature), the old
+// "rank the whole bench by score and cap substitutions at 4" behavior is
+// gone - eligibility for a non-bye gap is now simply "is this reserve one
+// of your 4 selected ones", which is what actually caps things. This
+// explicitly sets the selection to a known set of (up to 4) real
+// candidates across several forced-out position groups, so the assertion
+// doesn't depend on which reserves happen to have a nonzero projection in
+// today's live data (the old version of this test did, and broke in CI
+// purely from real position-availability data drifting).
+test("auto-emergency substitution cap keeps only the manually selected reserves and drops the rest", async () => {
   const { page, pageErrors, close } = await openApp();
 
   try {
@@ -95,11 +105,31 @@ test("auto-emergency substitution cap keeps the top 4 by score and drops the res
         return originalAvailability(p, round);
       };
 
-      const realCandidateScores = targets.map(t => {
-        const group = t.slot.short;
-        const pool = reservePoolByGroup(state)[group] || [];
-        return { starter: t.name, slotId: t.slot.id, candidate: pool[0] ? { name: pool[0].player.name, expected: pool[0].pr.expected } : null };
-      });
+      // Find one real reserve per targeted position group, regardless of
+      // whether it currently has a nonzero projection (patched below so
+      // this test can't be broken by live data drift).
+      const byGroup = {};
+      for (const row of state.reserveRows || []) {
+        if (!row.player) continue;
+        const group = reserveSlotBase(row.slotId);
+        if (!byGroup[group]) byGroup[group] = row.player;
+      }
+      const candidatesByTarget = targets.map(t => ({ slotId: t.slot.id, group: t.slot.short, player: byGroup[t.slot.short] || null }));
+      const withCandidate = candidatesByTarget.filter(c => c.player);
+
+      const superOriginalRoundProj = window.roundProj;
+      window.roundProj = function (p) {
+        const found = withCandidate.find(c => c.player.name === p?.name);
+        if (found) return { ...originalRoundProj(p), expected: 40 };
+        return superOriginalRoundProj(p);
+      };
+
+      // Select only the first 4 (the real cap on how many reserves can be
+      // manually chosen) - the 5th target's candidate is deliberately left
+      // unselected.
+      const selected = withCandidate.slice(0, 4).map(c => c.player.name);
+      const unselectedTarget = withCandidate[4] || null;
+      App.selectedReserves = selected;
 
       const subs = autoEmergencySubstitutes(state);
       const results = targets.map(t => ({ slotId: t.slot.id, sub: subs[t.slot.id] ? subs[t.slot.id].name : null }));
@@ -107,24 +137,24 @@ test("auto-emergency substitution cap keeps the top 4 by score and drops the res
       window.roundProj = originalRoundProj;
       window.availabilityStatus = originalAvailability;
 
-      return { realCandidateScores, results };
+      return { withCandidateCount: withCandidate.length, selected, unselectedTarget, results };
     });
 
     assert.deepEqual(pageErrors, [], `expected zero uncaught JS exceptions, got: ${pageErrors.join(" | ")}`);
+    assert.ok(result.withCandidateCount >= 2, "test setup expected at least 2 of the targeted position groups to have a real reserve - if this fails, the squad's reserve slots changed and the test's targets need updating");
 
-    const withCandidate = result.realCandidateScores.filter(c => c.candidate);
-    assert.equal(withCandidate.length, 5, "test setup expected all 5 targeted position groups to have exactly one real available reserve this round - if this fails, real round data changed and the test's targets need updating");
-
-    const substitutedCount = result.results.filter(r => r.sub).length;
-    assert.equal(substitutedCount, 4, `expected exactly 4 of 5 real candidate substitutions to be allowed (the cap), got ${substitutedCount}`);
-
-    const lowestScoring = [...withCandidate].sort((a, b) => a.candidate.expected - b.candidate.expected)[0];
-    const droppedResult = result.results.find(r => r.slotId === lowestScoring.slotId);
-    assert.equal(
-      droppedResult.sub,
-      null,
-      `expected the lowest-scoring real candidate (${lowestScoring.candidate.name}, ${lowestScoring.candidate.expected} pts) to be the one dropped by the cap, but it was substituted`
-    );
+    const substitutedNames = result.results.map(r => r.sub).filter(Boolean);
+    for (const name of result.selected) {
+      assert.ok(substitutedNames.includes(name), `expected selected reserve ${name} to substitute in for their forced-out starter`);
+    }
+    if (result.unselectedTarget) {
+      const unselectedResult = result.results.find(r => r.slotId === result.unselectedTarget.slotId);
+      assert.equal(
+        unselectedResult.sub,
+        null,
+        `expected ${result.unselectedTarget.player.name} (not one of the 4 selected reserves) to NOT substitute, but they did`
+      );
+    }
   } finally {
     await close();
   }

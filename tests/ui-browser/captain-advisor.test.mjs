@@ -5,16 +5,17 @@ import { openApp } from "./helpers.mjs";
 
 // Captain/vice picks live as compact star/VC badges directly on field
 // cards, not a full-width panel, so the My Team page stays about showing
-// the team. Two real SuperCoach rules drive the logic, confirmed by the
-// user against their own real team: (1) if the named Captain does not
-// take the field, the Vice-Captain's score is automatically doubled
-// instead - the zero-risk "guaranteed loophole" is nominating a
-// confirmed-BYE player as Captain and your best real player as Vice;
-// (2) Captain AND Vice-Captain must BOTH come from the 14 on-field
-// starters - never a bench/reserve player, even one of the 4 that are
-// selected to count toward score. A bye player is only eligible for the
-// loophole if they've been deliberately fielded in one of the 14 slots.
-test("Captain/vice badges follow the real on-field-only rule with bye-loophole preferred when available", async () => {
+// the team. Real rule, confirmed directly by the user: captain is always
+// the real highest-projected on-field player, vice is the best-scoring
+// player among those whose game kicks off before the captain's (so the
+// captain genuinely plays after the vice) - falling back to the real
+// 2nd-highest scorer with a "no loophole cover" note if no one qualifies
+// on timing. A guaranteed-bye loophole (nominating a confirmed-bye player
+// as captain so the vice's score doubles instead) is a real, valid trade
+// a user can make themselves, but the advisor must never auto-substitute
+// it as the default recommendation - both captain and vice must always be
+// the real on-field starters, never a bench player.
+test("Captain/vice badges are the real highest scorer and the best timing-loophole vice, on-field only", async () => {
   const { page, pageErrors, close } = await openApp();
 
   try {
@@ -35,6 +36,7 @@ test("Captain/vice badges follow the real on-field-only rule with bye-loophole p
       const captainBadgeName = captainBadgeCard?.querySelector(".formation-name, .formation-reserve-name")?.textContent || "";
       const viceBadgeName = viceBadgeCard?.querySelector(".formation-name, .formation-reserve-name")?.textContent || "";
       const captainBadgeOnField = captainBadgeCard ? captainBadgeCard.classList.contains("formation-card") : null;
+      const viceBadgeOnField = viceBadgeCard ? viceBadgeCard.classList.contains("formation-card") : null;
       const captainCount = document.querySelectorAll(".formation-cv-captain").length;
       const viceCount = document.querySelectorAll(".formation-cv-vice").length;
       const noLoopholeBadgeCount = document.querySelectorAll(".formation-cv-nolh").length;
@@ -42,7 +44,7 @@ test("Captain/vice badges follow the real on-field-only rule with bye-loophole p
 
       return {
         fieldNames: [...fieldNames], fieldProjections, picks, captainKickoff, viceKickoff,
-        captainBadgeName, viceBadgeName, captainBadgeOnField, captainCount, viceCount, noLoopholeBadgeCount, panelGone
+        captainBadgeName, viceBadgeName, captainBadgeOnField, viceBadgeOnField, captainCount, viceCount, noLoopholeBadgeCount, panelGone
       };
     });
 
@@ -51,41 +53,33 @@ test("Captain/vice badges follow the real on-field-only rule with bye-loophole p
     assert.ok(result.panelGone, "expected the old full-width Captain Advisor panel to be gone - captain/vice picks now live as compact field badges");
     assert.equal(result.captainCount, 1, "expected exactly one captain (star) badge");
     assert.equal(result.viceCount, 1, "expected exactly one vice-captain badge");
-
-    // Both captain and vice must always be on-field players - never a bench card.
-    assert.ok(result.fieldNames.includes(result.captainBadgeName.trim()) || result.fieldNames.some(n => result.captainBadgeName.startsWith(n)), `captain (${result.captainBadgeName}) must be an on-field player`);
-    assert.ok(result.fieldNames.some(n => result.viceBadgeName.startsWith(n)), `vice (${result.viceBadgeName}) must be an on-field player`);
     assert.equal(result.captainBadgeOnField, true, "captain badge must render on a field card (.formation-card), never a bench card");
+    assert.equal(result.viceBadgeOnField, true, "vice badge must render on a field card (.formation-card), never a bench card");
+    assert.equal(result.picks.captain?.isDeadCert, false, "the guaranteed bye-loophole must never auto-fire as the default recommendation");
 
-    if (result.picks.captain?.isDeadCert) {
-      // Guaranteed loophole path: captain must be a real, on-field, confirmed-bye player.
-      assert.ok(result.fieldNames.includes(result.picks.captain.name), "guaranteed-loophole captain must be an on-field player");
-    } else {
-      // Timing loophole fallback: captain is the real top-projected on-field player.
-      const top = result.fieldProjections[0];
-      assert.ok(result.captainBadgeName.startsWith(top.name), `expected the captain badge (${result.captainBadgeName}) to mark the real highest-projected field player (${top.name}, ${top.expected} pts)`);
+    const top = result.fieldProjections[0];
+    assert.ok(result.captainBadgeName.startsWith(top.name), `expected the captain badge (${result.captainBadgeName}) to mark the real highest-projected field player (${top.name}, ${top.expected} pts)`);
 
-      if (result.picks.vice?.hasLoophole) {
-        assert.ok(
-          result.viceKickoff !== null && result.captainKickoff !== null && result.viceKickoff < result.captainKickoff,
-          `claimed timing loophole cover but vice kickoff (${result.viceKickoff}) is not strictly before captain kickoff (${result.captainKickoff})`
-        );
-        assert.equal(result.noLoopholeBadgeCount, 0, "expected no dashed no-loophole styling when a real loophole was found");
-      } else if (result.picks.vice) {
-        assert.ok(result.noLoopholeBadgeCount >= 1, "expected the no-loophole VC to render with the dashed/no-cover badge styling");
-      }
+    if (result.picks.vice?.hasLoophole) {
+      assert.ok(
+        result.viceKickoff !== null && result.captainKickoff !== null && result.viceKickoff < result.captainKickoff,
+        `claimed timing loophole cover but vice kickoff (${result.viceKickoff}) is not strictly before captain kickoff (${result.captainKickoff})`
+      );
+      assert.equal(result.noLoopholeBadgeCount, 0, "expected no dashed no-loophole styling when a real loophole was found");
+    } else if (result.picks.vice) {
+      assert.ok(result.noLoopholeBadgeCount >= 1, "expected the no-loophole VC to render with the dashed/no-cover badge styling");
     }
   } finally {
     await close();
   }
 });
 
-// Synthetic-but-real: forces a bench player onto BYE and confirms the
-// guaranteed loophole does NOT fire for them (since they're not fielded),
-// then fields that same bye player in place of the real captain and
-// confirms the loophole DOES fire once they're on-field - proving the
-// on-field-only restriction is a real gate, not just an untested claim.
-test("bye-loophole only activates for a bye player once they are actually fielded", async () => {
+// Synthetic-but-real: forces a bench player onto BYE and fields them in
+// place of the real captain, then confirms the advisor still recommends
+// the real highest-projected on-field player as captain (never the bye
+// player) - proving the guaranteed-loophole auto-override is genuinely
+// gone, not just untested.
+test("captain recommendation never auto-switches to a fielded bye player", async () => {
   const { page, pageErrors, close } = await openApp();
 
   try {
@@ -101,28 +95,25 @@ test("bye-loophole only activates for a bye player once they are actually fielde
         return originalAvailability(p, round);
       };
 
-      const picksWhileOnBench = captainVicePicks(state);
-      const loopholeFiredWhileOnBench = picksWhileOnBench.captain?.name === benchByeName;
-
-      // Now field them: swap them into the first field slot in place of whoever is there.
-      const targetSlot = state.fieldSlots[0];
+      // Field them in place of the real captain (highest-projected starter).
+      const byExpected = [...state.fieldSlots].sort((a, b) => roundProj(b.player).expected - roundProj(a.player).expected);
+      const realCaptainSlotIndex = state.fieldSlots.findIndex(f => f.name === byExpected[0].name);
       const fieldStateWithByeFielded = {
         ...state,
-        fieldSlots: state.fieldSlots.map((f, i) => i === 0 ? { ...f, name: benchByeName, player: reserveWithPlayer.player } : f)
+        fieldSlots: state.fieldSlots.map((f, i) => i === realCaptainSlotIndex ? { ...f, name: benchByeName, player: reserveWithPlayer.player } : f)
       };
-      const picksWhileFielded = captainVicePicks(fieldStateWithByeFielded);
-      const loopholeFiredWhileFielded = picksWhileFielded.captain?.name === benchByeName;
+      const picks = captainVicePicks(fieldStateWithByeFielded);
+      const captainIsByePlayer = picks.captain?.name === benchByeName;
 
       window.availabilityStatus = originalAvailability;
 
-      return { skip: false, benchByeName, loopholeFiredWhileOnBench, loopholeFiredWhileFielded };
+      return { skip: false, benchByeName, captainIsByePlayer, captainName: picks.captain?.name };
     });
 
     assert.deepEqual(pageErrors, [], `expected zero uncaught JS exceptions, got: ${pageErrors.join(" | ")}`);
     if (result.skip) return;
 
-    assert.equal(result.loopholeFiredWhileOnBench, false, `${result.benchByeName} is on BYE but still on the bench - the loophole must not fire for them`);
-    assert.equal(result.loopholeFiredWhileFielded, true, `${result.benchByeName} is on BYE and now fielded - the loophole should fire for them`);
+    assert.equal(result.captainIsByePlayer, false, `${result.benchByeName} is fielded and on BYE, but the advisor picked them (${result.captainName}) as captain instead of the real highest-projected starter - the guaranteed-loophole auto-override should be gone`);
   } finally {
     await close();
   }
