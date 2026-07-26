@@ -1,105 +1,5 @@
 [
   {
-    "player": "Braidon Burns",
-    "team": "NQC",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 2).",
-    "detectedAt": "2026-07-21T06:30:12.258Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
-        "updatedAt": "2026-07-21T06:30:12.258Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
-        "updatedAt": "2026-07-21T06:30:12.258Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 21
-  },
-  {
-    "player": "Brandon Smith",
-    "team": "STH",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 9).",
-    "detectedAt": "2026-07-21T06:30:12.258Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
-        "updatedAt": "2026-07-21T06:30:12.258Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
-        "updatedAt": "2026-07-21T06:30:12.258Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 21
-  },
-  {
-    "player": "Brandon Wakeham",
-    "team": "MAN",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-07-21T06:30:12.258Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
-        "updatedAt": "2026-07-21T06:30:12.258Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 21
-  },
-  {
-    "player": "Braydon Trindall",
-    "team": "SHA",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
-    "detectedAt": "2026-07-21T06:30:12.258Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
-        "updatedAt": "2026-07-21T06:30:12.258Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
-        "updatedAt": "2026-07-21T06:30:12.258Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 21
-  },
-  {
     "player": "Brendan Piakura",
     "team": "BRO",
     "from": "EXPECTED",
@@ -13109,6 +13009,122 @@
         "name": "Official NRL",
         "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
         "updatedAt": "2026-07-26T04:06:14.425Z",
+        "priority": 2,
+        "order": 3
+      }
+    ],
+    "round": 21
+  },
+  {
+    "player": "Fletcher Baker",
+    "team": "CAN",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-07-26T06:48:35.244Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+        "updatedAt": "2026-07-26T06:48:35.244Z",
+        "priority": 2,
+        "order": 3
+      }
+    ],
+    "round": 21
+  },
+  {
+    "player": "Luciano Leilua",
+    "team": "STG",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 15).",
+    "detectedAt": "2026-07-26T06:48:35.244Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+        "updatedAt": "2026-07-26T06:48:35.244Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-dragons-titans-10396494-236261",
+        "updatedAt": "2026-07-26T06:48:35.244Z",
+        "priority": 4,
+        "order": 5
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
+        "updatedAt": "2026-07-26T06:48:35.244Z",
+        "priority": 2,
+        "order": 8
+      }
+    ],
+    "round": 21
+  },
+  {
+    "player": "Lyhkan King-Togia",
+    "team": "STG",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 19).",
+    "detectedAt": "2026-07-26T06:48:35.244Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+        "updatedAt": "2026-07-26T06:48:35.244Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-dragons-titans-10396494-236261",
+        "updatedAt": "2026-07-26T06:48:35.244Z",
+        "priority": 4,
+        "order": 5
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-21-team-lists-2026-236116",
+        "updatedAt": "2026-07-26T06:48:35.244Z",
+        "priority": 2,
+        "order": 8
+      }
+    ],
+    "round": 21
+  },
+  {
+    "player": "Niwhai Puru",
+    "team": "SHA",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-07-26T06:48:35.244Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/22/nrl-late-mail-round-21",
+        "updatedAt": "2026-07-26T06:48:35.244Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/21/nrl-team-lists-round-21",
+        "updatedAt": "2026-07-26T06:48:35.244Z",
         "priority": 2,
         "order": 3
       }
