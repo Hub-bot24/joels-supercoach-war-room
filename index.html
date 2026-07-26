@@ -6691,11 +6691,16 @@ function teamRenderState(){
 // with a nonzero projection", which was the earlier, wrong version of
 // this. FLEX has no reserve pool (matches the real rule: no eligible
 // reserve for a position means that slot scores 0), so an unavailable
-// FLEX starter is never covered. In a normal round only 0-2 starters are
-// typically unexpectedly out, so only that many reserves end up counting;
-// on real bye rounds, several starters can share a bye simultaneously,
-// so correspondingly more reserves get pulled in - this emerges from the
-// real per-slot availability check below rather than a hardcoded count.
+// FLEX starter is never covered.
+//
+// Confirmed: only 4 substitutions count toward score in a normal round -
+// a hard cap on the "DNP surprise" case (injury/suspension/not-named/out),
+// not a per-position-group cap. Bye coverage is NOT subject to that cap:
+// a bye is scheduled and known in advance, not a live surprise, which is
+// exactly why "the 2 major bye rounds" (several of a squad's players
+// sharing a bye at once) can see more than 4 reserves count - that's real
+// bye coverage stacking on top of the unrelated 4-sub DNP cap, not a
+// special-cased round number (no round is ever hardcoded here).
 function reservePoolByGroup(state){
  const pool={};
  for(const row of (state.reserveRows||[])){
@@ -6711,19 +6716,44 @@ function reservePoolByGroup(state){
  }
  return pool;
 }
+const AUTO_EMERGENCY_NON_BYE_CAP=4;
 function autoEmergencySubstitutes(state){
  const pool=reservePoolByGroup(state);
  const consumed={};
  const bySlotId={};
- for(const {slot,player} of (state.fieldSlots||[])){
-  if(roundProj(player).expected>0){bySlotId[slot.id]=null;continue}
-  const group=slot.short;
+ const nextCandidate=group=>{
   const list=pool[group]||[];
   const idx=consumed[group]||0;
-  const sub=list[idx]||null;
-  if(sub){consumed[group]=idx+1}
-  bySlotId[slot.id]=sub?sub.player:null;
+  return list[idx]||null;
+ };
+
+ const gaps=[];
+ for(const {slot,player} of (state.fieldSlots||[])){
+  if(roundProj(player).expected>0){bySlotId[slot.id]=null;continue}
+  const isBye=String(availabilityStatus(player)?.key||'').toLowerCase()==='bye';
+  gaps.push({slotId:slot.id,group:slot.short,isBye});
  }
+
+ // Bye gaps: real coverage, uncapped.
+ for(const gap of gaps.filter(g=>g.isBye)){
+  const sub=nextCandidate(gap.group);
+  if(sub)consumed[gap.group]=(consumed[gap.group]||0)+1;
+  bySlotId[gap.slotId]=sub?sub.player:null;
+ }
+
+ // Non-bye gaps: tentatively assign in slot order, then keep only the
+ // AUTO_EMERGENCY_NON_BYE_CAP highest-scoring across the whole team.
+ const tentative=gaps.filter(g=>!g.isBye).map(gap=>{
+  const sub=nextCandidate(gap.group);
+  if(sub)consumed[gap.group]=(consumed[gap.group]||0)+1;
+  return {...gap,sub};
+ });
+ const ranked=tentative.filter(g=>g.sub).sort((a,b)=>b.sub.pr.expected-a.sub.pr.expected);
+ const allowedSlotIds=new Set(ranked.slice(0,AUTO_EMERGENCY_NON_BYE_CAP).map(g=>g.slotId));
+ for(const gap of tentative){
+  bySlotId[gap.slotId]=allowedSlotIds.has(gap.slotId)?gap.sub.player:null;
+ }
+
  return bySlotId;
 }
 function teamProjection(){
