@@ -127,3 +127,44 @@ test("bye-loophole only activates for a bye player once they are actually fielde
     await close();
   }
 });
+
+// Real bug found via user report: the C/VC badge used to sit at a negative
+// offset (poking outside its own field card), which at common laptop widths
+// (<=1280px, where cards sit close together) visually overlapped onto the
+// *next* card - so clicking the badge opened the wrong player's card. This
+// checks the actual rendered hit-test (elementFromPoint at the badge's own
+// center), not just that the badge exists, at several real widths.
+test("C/VC badge never overlaps a neighboring field card at common widths", async () => {
+  const widths = [1920, 1600, 1280, 1024];
+  for (const width of widths) {
+    const { page, pageErrors, close } = await openApp();
+    try {
+      await page.setViewportSize({ width, height: 1000 });
+      const result = await page.evaluate(() => {
+        const badgedCards = [...document.querySelectorAll(".formation-card")].filter(c => c.querySelector(".formation-cv-badge"));
+        return badgedCards.map(card => {
+          const nameEl = card.querySelector(".formation-name");
+          const badge = card.querySelector(".formation-cv-badge");
+          const r = badge.getBoundingClientRect();
+          const hitEl = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+          const hitCard = hitEl ? hitEl.closest(".formation-card") : null;
+          return {
+            ownerName: nameEl?.textContent || "",
+            hitName: hitCard ? (hitCard.querySelector(".formation-name")?.textContent || "") : ""
+          };
+        });
+      });
+
+      assert.deepEqual(pageErrors, [], `width ${width}: expected zero uncaught JS exceptions, got: ${pageErrors.join(" | ")}`);
+      for (const r of result) {
+        assert.equal(
+          r.hitName,
+          r.ownerName,
+          `width ${width}: ${r.ownerName}'s C/VC badge visually lands on ${r.hitName}'s card instead of its own - clicking it would open the wrong player`
+        );
+      }
+    } finally {
+      await close();
+    }
+  }
+});
