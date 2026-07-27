@@ -2,6 +2,15 @@ name: Update Fixtures
 
 "on":
   workflow_dispatch:
+  # This had no schedule at all - fixtures.json (next-game venue, opponent,
+  # kickoff time) only ever updated when someone manually ran it, unlike
+  # weather (15 min) and now prices (2h-gated), which auto-refresh on their
+  # own. That's the actual risk for a card showing inconsistent round
+  # info, not the reverse. The draw rarely changes mid-week, but the NRL
+  # does occasionally reschedule a match for broadcast reasons, so check a
+  # few times a day rather than leaving it to chance.
+  schedule:
+    - cron: "0 */6 * * *"
 
 permissions:
   contents: write
