@@ -5925,7 +5925,6 @@ function syncCurrentRound(){
   App.trustWarnings.push('Could not auto-detect current round from generated truth or fixtures; check round manually.');
  }
 }
-function trustBannerHtml(){const statusAge=dataAgeLabel(App.playerStatus||{}),statusStale=!isFreshRecord(App.playerStatus||{},36);const cls=statusStale?'bad':'good';const warnings=[...App.trustWarnings];if(statusStale)warnings.push(`Player status data may be stale (${statusAge}).`);return `<div style="margin:8px 0;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:#081120"><b>Trust check:</b> Round ${App.round} <span class="pill">${esc(App.roundSource||'')}</span> <span class="pill ${cls}">Status ${esc(statusAge)}</span>${warnings.length?`<br><span class="${statusStale?'bad':'warn'}">${warnings.map(esc).join(' ')}</span>`:''}<br><button onclick="setRound(App.round-1)">R-</button> <button onclick="setRound(App.round+1)">R+</button> <button onclick="refreshTrustDataNow()">Refresh status</button></div>`}
 function setRound(r){App.round=Math.max(1,Math.min(27,Number(r)||App.round));App.roundSource='manual';App.projectionCache.clear();saveLocal();renderActive();toast(`Round set to ${App.round}`)}
 
 function safeJsonParse(value,fallback){
@@ -6019,12 +6018,18 @@ function updateStatusFreshnessLabel(){
  const fe=$('statusFreshness');
  if(!fe)return;
  const iso=App.statusTruth?.updated||App.playerStatus?.updated||App.playerStatus?.generatedAt||'';
- fe.textContent=formatFreshness(iso);
+ const warnings=Array.isArray(App.trustWarnings)?App.trustWarnings:[];
+ // App.trustWarnings is real, computed data (syncCurrentRound() flags a
+ // genuine round auto-correction or detection failure here) that had
+ // zero consumers anywhere in the app before this - it was computed and
+ // then silently discarded every time. Surfacing it, not inventing it.
+ fe.textContent=(warnings.length?'⚠ ':'')+formatFreshness(iso);
  const then=iso?new Date(iso).getTime():NaN;
  const staleMins=Number.isFinite(then)?(Date.now()-then)/60000:Infinity;
- fe.title=staleMins===Infinity?'No status timestamp available':`Status data last confirmed ${new Date(then).toLocaleString()}`;
+ const timeTitle=staleMins===Infinity?'No status timestamp available':`Status data last confirmed ${new Date(then).toLocaleString()}`;
+ fe.title=warnings.length?`${timeTitle}\n\n${warnings.join('\n')}`:timeTitle;
  fe.classList.remove('wr-fresh-ok','wr-fresh-warn','wr-fresh-bad');
- fe.classList.add(staleMins<=30?'wr-fresh-ok':staleMins<=120?'wr-fresh-warn':'wr-fresh-bad');
+ fe.classList.add(warnings.length?'wr-fresh-bad':staleMins<=30?'wr-fresh-ok':staleMins<=120?'wr-fresh-warn':'wr-fresh-bad');
 }
 async function refreshTrustDataNow(){const oldUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],App.weather||null);App.playerStatus=await fetchJson('player_status.json',App.playerStatus||{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],App.statusTruth||null);App.currentRoundMeta=await fetchJsonFirst(['data/current_round.json','current_round.json'],App.currentRoundMeta||null);App.availabilityOverrides=await fetchJson('availability_overrides.json',App.availabilityOverrides||{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],App.teamLists||null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],App.officialTeamLists||null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],App.originUnavailable||null);App.opponentDifficulty=await fetchJson('data/opponent_difficulty.json',App.opponentDifficulty||{});App.positionalMatchupsV2=await fetchJson('data/positional_matchups_v2.json',App.positionalMatchupsV2||{teams:{}});App.fixtures=await fetchJson('fixtures.json',App.fixtures||null);syncCurrentRound();App.projectionCache.clear();updateStatusFreshnessLabel();renderActive();const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed')}
 function startLiveStatusRefresh(){
