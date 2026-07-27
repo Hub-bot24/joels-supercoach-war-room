@@ -2,6 +2,7 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 import {
   buildIdentityIndex,
@@ -805,6 +806,24 @@ function parseAvgStatsHtml(html) {
 
   if (!headers.length || !cells.length) return null;
 
+  // headers and cells are matched by two independent regex passes over the
+  // same HTML, then paired up purely by array index below (cells[ptsIndex]
+  // etc). If the page ever has a different number of data cells than
+  // headers - a formatting quirk, an extra/missing column for one player -
+  // every index after the mismatch silently points at the wrong column
+  // instead of the one its header name says it should. Rather than guess
+  // at a corrupted alignment, refuse to report any stat for this player and
+  // say why, so a real page-layout change surfaces as a loud, visible gap
+  // instead of silently-wrong numbers (e.g. a "5 Rd Avg" that's actually
+  // some other column's value).
+  if (headers.length !== cells.length) {
+    console.warn(
+      `[update-players] avgStats header/cell count mismatch (${headers.length} headers, ${cells.length} cells) - ` +
+      `skipping this player's avg stats rather than risk misaligned columns. Headers: ${headers.join(", ")}`
+    );
+    return null;
+  }
+
   const ptsIndex = headers.indexOf("Pts");
   const minsIndex = headers.indexOf("Mins");
   const roundsIndex = headers.indexOf("3/5Rd");
@@ -881,7 +900,17 @@ async function main() {
   console.log("Node player updater complete");
 }
 
-main().catch(err => {
-  console.error(err);
-  process.exit(1);
-});
+export {
+  parseAvgStatsHtml
+};
+
+const isDirectRun =
+  Boolean(process.argv[1]) &&
+  import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+
+if (isDirectRun) {
+  main().catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
+}
