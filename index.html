@@ -4620,6 +4620,40 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
  text-align:center;
 }
 
+/* Level 3 - matches the Bye Planner's visual language (sky-blue accent,
+   dark navy hero card, uppercase kicker) instead of a bare default table. */
+#level3 .l3-shell{width:min(1500px,100%);margin:0 auto;padding:20px;box-sizing:border-box}
+#level3 .l3-hero{
+ padding:24px 28px;margin:0 0 18px;
+ border:1px solid rgba(56,189,248,.28);border-radius:22px;
+ background:radial-gradient(circle at 88% 5%,rgba(56,189,248,.18),transparent 31%),linear-gradient(135deg,#102743,#07111f 68%);
+ box-shadow:0 26px 65px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.045);
+}
+#level3 .l3-kicker{margin:0 0 6px;color:#7dd3fc;font-size:11px;font-weight:950;letter-spacing:.17em;text-transform:uppercase}
+#level3 .l3-hero h1{margin:0;color:#fff;font-size:clamp(30px,4vw,44px);line-height:1;letter-spacing:-.03em}
+#level3 .l3-hero p{max-width:760px;margin:12px 0 0;color:#c8d7ea;font-size:13px;line-height:1.5}
+#level3 .l3-table-card{
+ border:1px solid rgba(56,189,248,.2);border-radius:18px;overflow:hidden;
+ background:linear-gradient(180deg,#0b1626,#070f1c);
+ box-shadow:0 18px 40px rgba(0,0,0,.3);
+}
+#level3 table{width:100%;border-collapse:collapse;font-size:13px}
+#level3 thead th{
+ position:sticky;top:0;z-index:1;
+ background:#0d1c30;color:#7dd3fc;
+ font-size:10px;font-weight:950;letter-spacing:.09em;text-transform:uppercase;
+ text-align:left;padding:12px 14px;border-bottom:1px solid rgba(56,189,248,.24);
+ white-space:nowrap;
+}
+#level3 tbody td{padding:11px 14px;color:#e6edf6;border-bottom:1px solid rgba(148,163,184,.1);vertical-align:middle}
+#level3 tbody tr:hover{background:rgba(56,189,248,.06)}
+#level3 tbody tr:last-child td{border-bottom:0}
+#level3 .level-player-cell{display:flex;align-items:center;gap:9px}
+#level3 .level-player-cell b{font-weight:800;color:#f8fafc}
+#level3 .level-team-badge{width:24px;height:24px;border-radius:50%;flex:0 0 auto}
+#level3 td.small{color:#93a5c9;font-size:11.5px;line-height:1.4;max-width:340px}
+@media(max-width:920px){#level3 .l3-shell{padding:12px}#level3 .l3-hero{padding:18px 20px}}
+
 #bye .bye-round-grid{
  display:grid;
  grid-template-columns:repeat(2,minmax(0,1fr));
@@ -6400,7 +6434,7 @@ const ProjectionEngine={
     ?`${opponent||code} matchup: real captured history (${matchup.rounds} rounds, ${matchup.samples} samples)`
     :matchup.source==='empirical-overall'
      ?`${opponent||code} matchup: real captured history, team-wide (${matchup.rounds} rounds)`
-     :`${opponent||code} fixture adjustment (starter model, builds toward real history over the season)`;
+     :`${opponent||code} fixture adjustment (early-season model, limited history so far)`;
    reasons.push(label);
   }
   reasons.push(home?'Home fixture':'Away fixture');
@@ -6531,7 +6565,7 @@ const ProjectionEngine={
   if(statusKey==='expected')uncertainty.push('Team list not final');
   if(weatherProfile.source==='estimated')uncertainty.push('Weather estimated');
   if(positional.source==='empirical'||positional.source==='empirical-overall')uncertainty.push('Positional matchup uses real captured history');
-  else if(positional.source==='starter')uncertainty.push('Opponent difficulty starter model (builds toward real history over the season)');
+  else if(positional.source==='starter')uncertainty.push('Opponent difficulty uses an early-season model, not yet real history');
   if(trend.state==='Role Changed')uncertainty.push('Recent role unstable');
   if(trend.state==='Insufficient Data')uncertainty.push('Insufficient current data');
   if(volatility.label==='High')uncertainty.push('High volatility');
@@ -8724,7 +8758,14 @@ function renderLevel3(){
     .sort((a, b) => b.pr.expected - a.pr.expected)
     .slice(0, 100);
 
-  box.innerHTML = `<div class="panel"><h2>Level 3</h2><p class="small">Projection v2 uses form, role, minutes, status truth, weather and selection risk. Showing top 100 for speed.</p><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Risk</th><th>Status</th><th>Why</th></tr></thead><tbody>${rows.map(row => { const p = row.p, pr = row.pr; return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b class="player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b></span></td><td>${esc(positionText(p))}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${projectionRiskPill(pr)}</td><td>${statusPill(p)}</td><td class="small">${(pr.reasons||[]).slice(0,2).map(esc).join(' | ')}</td></tr>`; }).join('')}</tbody></table></div></div>`;
+  box.innerHTML = `<div class="l3-shell">
+   <div class="l3-hero">
+    <p class="l3-kicker">War Room Projection Intelligence</p>
+    <h1>Level 3</h1>
+    <p>Projection v2 uses form, role, minutes, status truth, weather and selection risk. Showing the real top 100 by expected score.</p>
+   </div>
+   <div class="l3-table-card"><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Risk</th><th>Status</th><th>Why</th></tr></thead><tbody>${rows.map(row => { const p = row.p, pr = row.pr; return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b class="player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b></span></td><td>${esc(positionText(p))}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${projectionRiskPill(pr)}</td><td>${statusPill(p)}</td><td class="small">${(pr.reasons||[]).slice(0,2).map(esc).join(' | ')}</td></tr>`; }).join('')}</tbody></table></div></div>
+  </div>`;
   box.dataset.rendered = '1';
   App.__level3CacheKey = key;
 }
@@ -8761,7 +8802,7 @@ function updateExplorer(){
     const cat = typeof explorerStatusCategory === 'function' ? explorerStatusCategory(p) : (badge.category || 'other');
 
     if (filter !== 'all' && cat !== filter) return false;
-    if (!q) return filter !== 'all';
+    if (!q) return true;
 
     const hay = norm([
       p.name,
@@ -8788,19 +8829,19 @@ function updateExplorer(){
     .sort((a, b) => b.pr.expected - a.pr.expected)
     .slice(0, 40);
 
-  if (!q && filter === 'all') {
-    box.innerHTML = '<p class="small">Search a player, team, position, or use a simple status filter above.</p>';
-    return;
-  }
+  const defaultView = !q && filter === 'all';
+  const heading = defaultView
+    ? '<p class="small explorer-default-heading">Top 40 by expected score this round - search or filter above to narrow it down.</p>'
+    : '';
 
-  box.innerHTML = res.map(row => {
+  box.innerHTML = heading + (res.map(row => {
     const p = row.p;
     const pr = row.pr;
     const weather = weatherLine(p);
     const detail = typeof statusDetailHtml === 'function' ? statusDetailHtml(p) : '';
     const gkNote = (pr.reasons || []).find(r => /kick/i.test(r)) || 'No goal-kicking boost';
     return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b class="player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(positionText(p))} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}${detail?detail+'<br>':''}<span class="small">${esc(gkNote)}</span></div>`;
-  }).join('') || '<p class="small">No matches for this filter/search.</p>';
+  }).join('') || '<p class="small">No matches for this filter/search.</p>');
 }
 
 boot().catch(err=>{
