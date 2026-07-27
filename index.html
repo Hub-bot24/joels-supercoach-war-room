@@ -3118,6 +3118,10 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .wr-auth-panel .danger{border-color:#ef4444;background:#3a1111}
 .wr-sync-pill{font-size:12px;opacity:.88;margin-right:8px;white-space:nowrap}
 .wr-sync-pill.good{color:#22c55e}.wr-sync-pill.warn{color:#facc15}.wr-sync-pill.bad{color:#ef4444}
+.wr-sync-pill::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:6px;vertical-align:middle}
+.wr-sync-pill.warn::before{animation:wr-pulse 1.4s ease-in-out infinite}
+@keyframes wr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@media(prefers-reduced-motion:reduce){.wr-sync-pill.warn::before{animation:none}}
 /* =========================================================
    PLAYER PROFILE MODAL
    Click/tap player name opens profile. Card body still drags.
@@ -4633,16 +4637,16 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 /* Level 3 - matches the Bye Planner's visual language (sky-blue accent,
    dark navy hero card, uppercase kicker) instead of a bare default table. */
-#level3 .l3-shell,#trade .l3-shell{width:min(1500px,100%);margin:0 auto;padding:var(--sp-5);box-sizing:border-box}
-#level3 .l3-hero,#trade .l3-hero{
+#level3 .l3-shell,#trade .l3-shell,#explorer .l3-shell{width:min(1500px,100%);margin:0 auto;padding:var(--sp-5);box-sizing:border-box}
+#level3 .l3-hero,#trade .l3-hero,#explorer .l3-hero{
  padding:var(--sp-6) var(--sp-7);margin:0 0 var(--sp-5);
  border:1px solid rgba(56,189,248,.28);border-radius:var(--radius-xl);
  background:radial-gradient(circle at 88% 5%,rgba(56,189,248,.18),transparent 31%),linear-gradient(135deg,#102743,#07111f 68%);
  box-shadow:0 26px 65px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.045);
 }
-#level3 .l3-kicker,#trade .l3-kicker{margin:0 0 var(--sp-1);color:#7dd3fc;font-size:var(--fs-xs);font-weight:950;letter-spacing:.17em;text-transform:uppercase}
-#level3 .l3-hero h1,#trade .l3-hero h1{margin:0;color:#fff;font-size:clamp(var(--fs-2xl),4vw,var(--fs-4xl));line-height:1;letter-spacing:-.03em}
-#level3 .l3-hero p,#trade .l3-hero p{max-width:760px;margin:var(--sp-3) 0 0;color:#c8d7ea;font-size:var(--fs-sm);line-height:1.5}
+#level3 .l3-kicker,#trade .l3-kicker,#explorer .l3-kicker{margin:0 0 var(--sp-1);color:#7dd3fc;font-size:var(--fs-xs);font-weight:950;letter-spacing:.17em;text-transform:uppercase}
+#level3 .l3-hero h1,#trade .l3-hero h1,#explorer .l3-hero h1{margin:0;color:#fff;font-size:clamp(var(--fs-2xl),4vw,var(--fs-4xl));line-height:1;letter-spacing:-.03em}
+#level3 .l3-hero p,#trade .l3-hero p,#explorer .l3-hero p{max-width:760px;margin:var(--sp-3) 0 0;color:#c8d7ea;font-size:var(--fs-sm);line-height:1.5}
 #trade .trade-lab-actions{display:flex;gap:var(--sp-2);margin-top:var(--sp-4)}
 #trade .trade-lab-actions button{flex:1}
 
@@ -4653,6 +4657,27 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .wr-empty svg{width:34px;height:34px;opacity:.55;stroke:#7dd3fc}
 .wr-empty .wr-empty-title{color:#fff;font-weight:900;font-size:var(--fs-md)}
 .wr-empty .wr-empty-sub{font-size:var(--fs-sm);max-width:360px;line-height:1.5}
+
+/* Icon system - one shared stroke grid used everywhere an icon appears:
+   nav tabs, the notification bell and hero-header badges. Keeps the app
+   from mixing emoji, ad-hoc SVGs and bare text as "icons" from screen to
+   screen. See WR_ICON_PATHS for the source paths. */
+.wr-icon{display:inline-block;vertical-align:-3px;flex:0 0 auto}
+nav button{display:inline-flex;align-items:center;gap:7px}
+.nav-icon{width:15px;height:15px;opacity:.8}
+nav button.active .nav-icon{opacity:1}
+#notifBell{display:inline-flex;align-items:center;justify-content:center}
+#notifBell .nav-icon{width:16px;height:16px;opacity:.85}
+.wr-hero-row{display:flex;align-items:flex-start;gap:var(--sp-4)}
+.wr-hero-icon{
+ flex:0 0 auto;width:52px;height:52px;border-radius:var(--radius-md);
+ display:grid;place-items:center;color:#e0f2fe;
+ background:radial-gradient(circle at 30% 20%,rgba(125,211,252,.35),rgba(56,189,248,.08));
+ border:1px solid rgba(125,211,252,.4);
+ box-shadow:0 10px 24px rgba(56,189,248,.18),inset 0 1px rgba(255,255,255,.08);
+}
+.wr-hero-icon .wr-icon{width:26px;height:26px;vertical-align:middle}
+@media(max-width:480px){.wr-hero-icon{width:42px;height:42px}.wr-hero-icon .wr-icon{width:21px;height:21px}}
 #level3 .l3-table-card{
  border:1px solid rgba(56,189,248,.2);border-radius:18px;overflow:hidden;
  background:linear-gradient(180deg,#0b1626,#070f1c);
@@ -4673,7 +4698,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 #level3 .level-player-cell b{font-weight:800;color:#f8fafc}
 #level3 .level-team-badge{width:24px;height:24px;border-radius:50%;flex:0 0 auto}
 #level3 td.small{color:#93a5c9;font-size:11.5px;line-height:1.4;max-width:340px}
-@media(max-width:920px){#level3 .l3-shell{padding:12px}#level3 .l3-hero{padding:18px 20px}}
+@media(max-width:920px){#level3 .l3-shell,#trade .l3-shell,#explorer .l3-shell{padding:12px}#level3 .l3-hero,#trade .l3-hero,#explorer .l3-hero{padding:18px 20px}}
 
 #bye .bye-round-grid{
  display:grid;
@@ -5043,12 +5068,12 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 </head>
 <body>
 <nav>
-<button class="active" data-tab="team">My Team</button>
-<button data-tab="bye">Bye Planner</button>
-<button data-tab="level3">Level 3</button>
-<button data-tab="explorer">Player Explorer</button>
-<button data-tab="trade">Trade Lab</button>
-<div class="spacer"></div><button type="button" id="notifBell" title="Recent status changes" style="position:relative;padding:9px 11px">🔔<span id="notifBadge" class="badge red" style="position:absolute;top:-4px;right:-4px;display:none;min-width:18px;height:18px;padding:0 4px;border-radius:999px;font-size:11px;align-items:center;justify-content:center;line-height:1"></span></button><span id="syncStatus" class="wr-sync-pill warn">Sync off</span><span id="statusFreshness" class="small" style="opacity:0.6;margin-right:8px"></span><span class="live">SC PLUS</span><span class="badge red">LIVE</span><span class="badge on">ON</span>
+<button class="active" data-tab="team"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="8.2" r="3.1"/><path d="M3.3 19.5c.7-3.4 3-5.4 5.7-5.4s5 2 5.7 5.4"/><circle cx="17.3" cy="8.8" r="2.3"/><path d="M15.6 14.4c2.3.4 4.1 2.1 4.7 4.6"/></svg><span>My Team</span></button>
+<button data-tab="bye"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.4" y="5.2" width="17.2" height="15.3" rx="3"/><path d="M3.4 10h17.2M8 3v4M16 3v4"/></svg><span>Bye Planner</span></button>
+<button data-tab="level3"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 16l5.2-5.8 3.8 3 6-7.4"/><path d="M15 5.8h4.2V10"/></svg><span>Level 3</span></button>
+<button data-tab="explorer"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg><span>Player Explorer</span></button>
+<button data-tab="trade"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.6 8.2h14.7M14.6 4l3.7 4.2-3.7 4.2"/><path d="M20.4 15.8H5.7M9.4 20l-3.7-4.2 3.7-4.2"/></svg><span>Trade Lab</span></button>
+<div class="spacer"></div><button type="button" id="notifBell" title="Recent status changes" style="position:relative;padding:9px 11px"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.2 9.4a5.8 5.8 0 0 1 11.6 0c0 4.2 1.6 5.7 2.2 6.6H4c.6-.9 2.2-2.4 2.2-6.6Z"/><path d="M9.6 18.4a2.4 2.4 0 0 0 4.8 0"/></svg><span id="notifBadge" class="badge red" style="position:absolute;top:-4px;right:-4px;display:none;min-width:18px;height:18px;padding:0 4px;border-radius:999px;font-size:11px;align-items:center;justify-content:center;line-height:1"></span></button><span id="syncStatus" class="wr-sync-pill warn">Sync off</span><span id="statusFreshness" class="small" style="opacity:0.6;margin-right:8px"></span><span class="live">SC PLUS</span><span class="badge red">LIVE</span><span class="badge on">ON</span>
 </nav>
 <div class="screen">
 <section id="team" class="tab active-tab"></section>
@@ -5107,6 +5132,19 @@ sync:{
 
 window.App = App;
 const $=id=>document.getElementById(id);const safeNum=v=>Number.isFinite(Number(v))?Number(v):0;const money=n=>'$'+safeNum(n).toLocaleString();
+/* Shared icon language - one 24x24 stroke grid (1.6 weight, round caps),
+   currentColor so every placement can recolor via CSS. Single source of
+   truth for every icon rendered from JS templates (nav's own icons are
+   static markup in the HTML using these exact same paths). */
+const WR_ICON_PATHS={
+ team:'<circle cx="9" cy="8.2" r="3.1"/><path d="M3.3 19.5c.7-3.4 3-5.4 5.7-5.4s5 2 5.7 5.4"/><circle cx="17.3" cy="8.8" r="2.3"/><path d="M15.6 14.4c2.3.4 4.1 2.1 4.7 4.6"/>',
+ bye:'<rect x="3.4" y="5.2" width="17.2" height="15.3" rx="3"/><path d="M3.4 10h17.2M8 3v4M16 3v4"/>',
+ level3:'<path d="M4 16l5.2-5.8 3.8 3 6-7.4"/><path d="M15 5.8h4.2V10"/>',
+ explorer:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/>',
+ trade:'<path d="M3.6 8.2h14.7M14.6 4l3.7 4.2-3.7 4.2"/><path d="M20.4 15.8H5.7M9.4 20l-3.7-4.2 3.7-4.2"/>',
+ bell:'<path d="M6.2 9.4a5.8 5.8 0 0 1 11.6 0c0 4.2 1.6 5.7 2.2 6.6H4c.6-.9 2.2-2.4 2.2-6.6Z"/><path d="M9.6 18.4a2.4 2.4 0 0 0 4.8 0"/>'
+};
+function wrIcon(name,cls){return `<svg class="wr-icon${cls?' '+cls:''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${WR_ICON_PATHS[name]||''}</svg>`}
 function esc(s){return String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 window.jsq = function(value){const s=String(value==null?'':value);return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\r/g,'\\r').replace(/\n/g,'\\n').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029')}
 function norm(s){return String(s||'').toLowerCase().replace(/[^a-z0-9/\s'-]/g,' ').replace(/\s+/g,' ').trim()}
@@ -8181,9 +8219,14 @@ function tradePopupHtml(title,name,opts,buttonFn){
 
 function renderTrade(){$('trade').innerHTML=`<div class="l3-shell">
  <div class="l3-hero">
-  <p class="l3-kicker">War Room Trade Intelligence</p>
-  <h1>Trade Lab</h1>
-  <p>Trade Radar surfaces real downgrade-vs-upgrade signals from your squad's next 5 games. Use Trade Lab below to score or apply any trade yourself.</p>
+  <div class="wr-hero-row">
+   <div class="wr-hero-icon">${wrIcon('trade')}</div>
+   <div>
+    <p class="l3-kicker">War Room Trade Intelligence</p>
+    <h1>Trade Lab</h1>
+    <p>Trade Radar surfaces real downgrade-vs-upgrade signals from your squad's next 5 games. Use Trade Lab below to score or apply any trade yourself.</p>
+   </div>
+  </div>
  </div>
  ${tradeRadarHtml()}
  <div class="grid">
@@ -8488,10 +8531,13 @@ function renderBye(){
 
  $('bye').innerHTML=`<div class="bye-planner-shell">
   <header class="bye-planner-hero">
-   <div>
-    <p class="bye-planner-kicker">War Room availability intelligence</p>
-    <h1>Bye Planner</h1>
-    <p>See immediately whether your squad can field a legal side, where coverage breaks down and what needs fixing before each round.</p>
+   <div class="wr-hero-row">
+    <div class="wr-hero-icon">${wrIcon('bye')}</div>
+    <div>
+     <p class="bye-planner-kicker">War Room availability intelligence</p>
+     <h1>Bye Planner</h1>
+     <p>See immediately whether your squad can field a legal side, where coverage breaks down and what needs fixing before each round.</p>
+    </div>
    </div>
 
    <div class="bye-planner-rule">
@@ -8802,9 +8848,14 @@ function renderLevel3(){
 
   box.innerHTML = `<div class="l3-shell">
    <div class="l3-hero">
-    <p class="l3-kicker">War Room Projection Intelligence</p>
-    <h1>Level 3</h1>
-    <p>Projection v2 uses form, role, minutes, status truth, weather and selection risk. Showing the real top 100 by expected score.</p>
+    <div class="wr-hero-row">
+     <div class="wr-hero-icon">${wrIcon('level3')}</div>
+     <div>
+      <p class="l3-kicker">War Room Projection Intelligence</p>
+      <h1>Level 3</h1>
+      <p>Projection v2 uses form, role, minutes, status truth, weather and selection risk. Showing the real top 100 by expected score.</p>
+     </div>
+    </div>
    </div>
    <div class="l3-table-card"><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Risk</th><th>Status</th><th>Why</th></tr></thead><tbody>${rows.map(row => { const p = row.p, pr = row.pr; return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b class="player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b></span></td><td>${esc(positionText(p))}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${projectionRiskPill(pr)}</td><td>${statusPill(p)}</td><td class="small">${(pr.reasons||[]).slice(0,2).map(esc).join(' | ')}</td></tr>`; }).join('')}</tbody></table></div></div>
   </div>`;
@@ -8817,7 +8868,19 @@ function renderExplorer(){
   const counts = explorerCounts();
   const filters = ['all','named','expected','not_named','injured','suspended'];
 
-  $('explorer').innerHTML = `<div class="panel"><h2>Player Explorer</h2><label>Search player, position, team, or status</label><input id="explorerInput" placeholder="Type a name, team, position..." oninput="scheduleExplorerUpdate()"><div class="explorer-filters">${filters.map(f => `<button type="button" class="explorer-filter ${App.explorerFilter===f?'active':''}" onclick="setExplorerFilter('${f}')">${esc(explorerFilterLabel(f))} <b>${counts[f]||0}</b></button>`).join('')}</div><div id="explorerResults" style="margin-top:12px"></div></div>`;
+  $('explorer').innerHTML = `<div class="l3-shell">
+   <div class="l3-hero">
+    <div class="wr-hero-row">
+     <div class="wr-hero-icon">${wrIcon('explorer')}</div>
+     <div>
+      <p class="l3-kicker">War Room Player Intelligence</p>
+      <h1>Player Explorer</h1>
+      <p>Search or filter the full player pool by name, team, position or live status - every card carries real floor/expected/ceiling and status detail.</p>
+     </div>
+    </div>
+   </div>
+   <div class="panel"><label>Search player, position, team, or status</label><input id="explorerInput" placeholder="Type a name, team, position..." oninput="scheduleExplorerUpdate()"><div class="explorer-filters">${filters.map(f => `<button type="button" class="explorer-filter ${App.explorerFilter===f?'active':''}" onclick="setExplorerFilter('${f}')">${esc(explorerFilterLabel(f))} <b>${counts[f]||0}</b></button>`).join('')}</div><div id="explorerResults" style="margin-top:12px"></div></div>
+  </div>`;
 
   updateExplorer();
 }
