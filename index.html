@@ -8472,13 +8472,17 @@ window.closePlayerCard = function(){
 };
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('wrPlayerCardOverlay'))window.closePlayerCard()});
 
-function playerCardInjuryDetailsHtml(p,st,truth){
+// Shared by the always-visible injury summary and the fuller "Details"
+// breakdown, so both read from one extraction of the real, sourced injury
+// data (NRL casualty ward / Zero Tackle, see scripts/update-status.mjs) -
+// no duplicated parsing to drift out of sync.
+function injuryFactsFor(p,st,truth){
   const rec=truth||st?.truth||{};
   const key=String(st?.key||truthKeyFromRecord(rec)||"").toLowerCase();
   const rawStatus=String(rec?.raw?.status||rec?.status||"").toLowerCase().trim();
   const displayStatus=String(rec?.displayStatus||"").toUpperCase().trim();
   const isInjury=key==="injured"||key==="injury"||displayStatus==="INJURED"||displayStatus==="INJURY"||rawStatus==="injured"||rawStatus==="injury"||(rawStatus==="out"&&displayStatus==="INJURED");
-  if(!isInjury)return "";
+  if(!isInjury)return null;
   const type=rec?.injuryType||rec?.injuryNote||rec?.raw?.reason||"";
   const expected=rec?.expectedReturnText||rec?.raw?.expectedReturn||"";
   const min=rec?.expectedReturnRoundMin||rec?.raw?.returnWindowMinRound;
@@ -8488,16 +8492,42 @@ function playerCardInjuryDetailsHtml(p,st,truth){
   const src=truthSourceText(rec)||((rec?.raw?.sources||[]).map(s=>s?.source||s?.name).filter(Boolean).slice(0,3).join(" + "));
   const updatedRec={updatedAt:rec?.injuryUpdatedAt||rec?.updatedAt||rec?.raw?.lastUpdated||""};
   const updated=updatedRec.updatedAt&&typeof dateTimeLabelFromRecord==="function"?dateTimeLabelFromRecord(updatedRec):updatedRec.updatedAt;
+  let returnText="";
+  if(expected)returnText=expected;
+  else if(min&&max&&min!==max)returnText=`R${min}–R${max}`;
+  else if(min)returnText=`R${min}`;
+  else if(minW&&maxW&&minW!==maxW)returnText=`${minW}–${maxW} weeks`;
+  else if(minW)returnText=`${minW} week${Number(minW)===1?"":"s"}`;
+  return {type,returnText,src,updated:updated&&updated!=="unknown"?updated:""};
+}
+
+// Always visible on the card - no click required. Previously the only
+// injury detail shown up front was a generic "INJURED" status tile; the
+// actual injury type and expected return were real, correctly sourced data
+// (NRL casualty ward / Zero Tackle) that existed the whole time but was
+// buried one click deep behind "Details", which isn't what "tell me what's
+// wrong and how long they're out" means in practice.
+function playerCardInjurySummaryHtml(p,st,truth){
+  const facts=injuryFactsFor(p,st,truth);
+  if(!facts)return "";
+  const headline=facts.type?`Injury: ${esc(facts.type)}`:"Injury reported";
+  const returnLine=facts.returnText?`Expected return: ${esc(facts.returnText)}`:"Expected return: not yet confirmed";
+  return `<div style="margin-top:12px;border-radius:16px;background:rgba(255,77,77,.14);box-shadow:inset 0 0 0 1px rgba(255,77,77,.4);padding:12px 14px;color:#ffe1e1">
+    <div style="font-size:11px;font-weight:900;letter-spacing:.08em;opacity:.85;color:#ffb3b3">INJURY UPDATE</div>
+    <div style="font-size:17px;font-weight:950;margin-top:3px;color:#fff">${headline}</div>
+    <div style="font-size:14px;font-weight:750;margin-top:2px">${returnLine}</div>
+    ${facts.src?`<div style="font-size:11px;font-weight:700;margin-top:6px;opacity:.75">Source: ${esc(facts.src)}${facts.updated?` · Updated ${esc(facts.updated)}`:""}</div>`:""}
+  </div>`;
+}
+
+function playerCardInjuryDetailsHtml(p,st,truth){
+  const facts=injuryFactsFor(p,st,truth);
+  if(!facts)return "";
   const lines=[];
-  if(type)lines.push(`Injury: ${type}`);
-  if(expected)lines.push(`Expected return: ${expected}`);
-  else if(min&&max&&min!==max)lines.push(`Expected return: R${min}–R${max}`);
-  else if(min)lines.push(`Expected return: R${min}`);
-  else if(minW&&maxW&&minW!==maxW)lines.push(`Expected absence: ${minW}–${maxW} weeks`);
-  else if(minW)lines.push(`Expected absence: ${minW} week${Number(minW)===1?"":"s"}`);
-  if(!lines.length)lines.push("Injury details not yet confirmed");
-  if(src)lines.push(`Source: ${src}`);
-  if(updated&&updated!=="unknown")lines.push(`Updated: ${updated}`);
+  if(facts.type)lines.push(`Injury: ${facts.type}`);
+  lines.push(facts.returnText?`Expected return: ${facts.returnText}`:"Injury details not yet confirmed");
+  if(facts.src)lines.push(`Source: ${facts.src}`);
+  if(facts.updated)lines.push(`Updated: ${facts.updated}`);
   return `<div style="border-top:1px solid rgba(255,255,255,.16);padding-top:10px"><b style="display:block;margin-bottom:6px">Injury information</b>${lines.map(x=>`<div>${esc(x)}</div>`).join("")}</div>`;
 }
 
@@ -8548,6 +8578,7 @@ window.openPlayerCard = function(name){
           ${esc(st.reason || truth.reason || "No status note")}
         </div>`;
   const injuryDetailsHtml=playerCardInjuryDetailsHtml(p,st,truth);
+  const injurySummaryHtml=playerCardInjurySummaryHtml(p,st,truth);
 
   const tradeButton = fieldSlot
     ? `<button type="button" onclick="window.closePlayerCard();teamActionTradeOut('${window.jsq(fieldSlot)}')">Trade</button>`
@@ -8608,6 +8639,7 @@ window.openPlayerCard = function(name){
           ${stat("Last 5", pr.last5Avg || "-")}
           ${stat("Season", pr.seasonAvg || avg || "-")}
         </div>
+        ${injurySummaryHtml}
 
         ${wrRangeBarHtml(pr)}
         ${playerCardNextGameHtml(p)}
