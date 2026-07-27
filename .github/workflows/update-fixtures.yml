@@ -29,21 +29,7 @@ jobs:
           node-version: "20"
 
       - name: Update fixtures
-        env:
-          DEBUG_FIXTURES: "1"
         run: node scripts/update-fixtures.mjs
-
-      # TEST ONLY: temporary diagnostic commit of raw source HTML so a
-      # parser failure can be inspected directly - remove once the real
-      # fix lands. Runs even if the updater step above failed/exited 1.
-      - name: Commit debug snapshots
-        if: always()
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add -f debug/ fixtures_update_report.json
-          git commit -m "TEST ONLY: fixture parser debug snapshot" || echo "No changes"
-          git push
 
       - name: Commit fixtures
         run: |

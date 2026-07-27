@@ -224,7 +224,43 @@ function extractTables(html) {
 }
 
 function extractRows(tableHtml) {
-  return String(tableHtml || "").match(/<tr[\s\S]*?<\/tr>/gi) || [];
+  const html = String(tableHtml || "");
+  // A naive "<tr...>...</tr>" non-greedy match breaks on real source HTML
+  // like nrlsupercoachstats.com's draw page, which has a stray empty <tr>
+  // immediately followed by a complete <tr>...</tr> before the actual
+  // header row's closing tag. Browsers auto-close an open <tr> the moment
+  // a new <tr> starts (rows can't nest), and auto-open an implicit row for
+  // a <td>/<th> with no enclosing <tr> - neither of which a plain regex
+  // match understands, so it paired the first "<tr>" with the wrong
+  // "</tr>" and silently skipped the whole Rd1..Rd27 header row entirely.
+  // Replicate that browser behavior with a small state machine instead.
+  const tokenRe = /<tr\b[^>]*>|<\/tr\s*>|<t[dh]\b[^>]*>/gi;
+  const rows = [];
+  let rowOpen = false;
+  let rowStart = -1;
+  let match;
+
+  while ((match = tokenRe.exec(html))) {
+    const tag = match[0].toLowerCase();
+
+    if (tag.startsWith("<tr")) {
+      if (rowOpen) rows.push(html.slice(rowStart, match.index));
+      rowStart = match.index;
+      rowOpen = true;
+    } else if (tag.startsWith("</tr")) {
+      if (rowOpen) {
+        rows.push(html.slice(rowStart, match.index + match[0].length));
+        rowOpen = false;
+      }
+    } else if (!rowOpen) {
+      rowStart = match.index;
+      rowOpen = true;
+    }
+  }
+
+  if (rowOpen) rows.push(html.slice(rowStart));
+
+  return rows;
 }
 
 function extractCells(rowHtml) {
@@ -304,8 +340,32 @@ function extractFromMatrixTable(tableHtml) {
     if (seenTeamRows.has(team)) continue;
     seenTeamRows.add(team);
 
+    // The header's "Team" cell uses colspan=2 to visually span both the
+    // team-code and logo columns as ONE header <th>, while every data row
+    // spells that same span out as two separate cells (code, then a blank
+    // logo <img> cell) - a real mismatch on nrlsupercoachstats.com's draw
+    // page that silently shifted every round's data into the wrong column
+    // when the header's array index was applied directly to a data row
+    // (round N read round N-1's real opponent). Comparing row.length to
+    // header.length doesn't work either: this row also has a trailing
+    // repeat of the team's own code tacked on the end, which inflates the
+    // row by an extra cell that has nothing to do with the leading
+    // logo-column offset. Instead, find where round data actually starts
+    // in THIS row by looking for the first cell that looks like real round
+    // data (a bye or a valid opponent code) - that position, compared to
+    // where the header says Rd1 lives, is the real leading offset.
+    let columnOffset = 0;
+    const firstRoundHeaderIndex = roundColumns[0].index;
+    for (let i = 1; i < row.length; i++) {
+      const cellText = clean(row[i]).toUpperCase();
+      if (cellText.includes("BYE") || opponentFromMatrixCell(row[i])) {
+        columnOffset = i - firstRoundHeaderIndex;
+        break;
+      }
+    }
+
     for (const roundColumn of roundColumns) {
-      const opponent = opponentFromMatrixCell(row[roundColumn.index]);
+      const opponent = opponentFromMatrixCell(row[roundColumn.index + columnOffset]);
       if (!opponent) continue;
 
       const round = roundColumn.round;
@@ -486,6 +546,52 @@ function dedupeFixtures(fixtures) {
   return out;
 }
 
+function mergeWithPrevious(freshFixtures, previousFixtures) {
+  if (!Array.isArray(previousFixtures) || !previousFixtures.length) {
+    return { fixtures: freshFixtures, carriedOver: [] };
+  }
+
+  const previousByKey = new Map();
+  for (const f of previousFixtures) {
+    if (!f || !f.homeTeam || !f.awayTeam) continue;
+    const pairKey = [f.homeTeam, f.awayTeam].sort().join("-");
+    previousByKey.set(`${f.round}|${pairKey}`, f);
+  }
+
+  const carriedOver = [];
+
+  const merged = freshFixtures.map(fixture => {
+    const pairKey = [fixture.homeTeam, fixture.awayTeam].sort().join("-");
+    const previous = previousByKey.get(`${fixture.round}|${pairKey}`);
+    if (!previous) return fixture;
+
+    // The round-by-opponent matrix table this script currently parses has
+    // no venue/kickoff column at all - it only ever supplies the fixture
+    // pairing itself. Never let a fresh scrape from that source silently
+    // erase real venue/kickoff/city/lat/lon data an earlier run already
+    // captured (e.g. from a richer source) for the exact same real game.
+    let usedCarryover = false;
+    const result = { ...fixture };
+    if (!result.venue && previous.venue) {
+      result.venue = previous.venue;
+      usedCarryover = true;
+    }
+    if (!result.kickoffLocal && previous.kickoffLocal) {
+      result.kickoffLocal = previous.kickoffLocal;
+      usedCarryover = true;
+    }
+    if (!result.city && previous.city) result.city = previous.city;
+    if (result.lat == null && previous.lat != null) result.lat = previous.lat;
+    if (result.lon == null && previous.lon != null) result.lon = previous.lon;
+    if (previous.timezone && previous.venue) result.timezone = previous.timezone;
+
+    if (usedCarryover) carriedOver.push(`R${fixture.round} ${fixture.match}`);
+    return result;
+  });
+
+  return { fixtures: merged, carriedOver };
+}
+
 async function main() {
   const report = {
     updated: nowIso(),
@@ -508,19 +614,6 @@ async function main() {
       const tables = extractTables(html);
       source.tables = tables.length;
 
-      // TEST ONLY: temporary diagnostic dump to find why extraction yields
-      // 0 fixtures despite a valid 200 response with real content - remove
-      // once the real parser fix lands. Not part of the normal pipeline.
-      if (process.env.DEBUG_FIXTURES) {
-        await fs.mkdir(path.join(ROOT, "debug"), { recursive: true });
-        const slug = url.replace(/[^a-z0-9]+/gi, "-");
-        await fs.writeFile(path.join(ROOT, "debug", `${slug}.html`), html);
-        await fs.writeFile(
-          path.join(ROOT, "debug", `${slug}-tables.json`),
-          JSON.stringify(tables.map(t => t.slice(0, 4000)), null, 2)
-        );
-      }
-
       for (const table of tables) {
         fixtures.push(...extractFromTable(table));
       }
@@ -533,7 +626,12 @@ async function main() {
     report.sources.push(source);
   }
 
-  const cleanFixtures = dedupeFixtures(fixtures);
+  const dedupedFixtures = dedupeFixtures(fixtures);
+
+  const previousData = await readJson(OUT, null);
+  const previousFixtures = Array.isArray(previousData?.fixtures) ? previousData.fixtures : [];
+  const { fixtures: cleanFixtures, carriedOver } = mergeWithPrevious(dedupedFixtures, previousFixtures);
+
   const rounds = [...new Set(cleanFixtures.map(f => Number(f.round)).filter(Boolean))].sort((a, b) => a - b);
   const byes = calculateByes(cleanFixtures);
 
@@ -541,10 +639,17 @@ async function main() {
     report.warnings.push("No fixtures parsed from public draw tables.");
   }
 
+  if (carriedOver.length) {
+    report.warnings.push(
+      `${carriedOver.length} fixture(s) had no venue/kickoff from either current source - carried ` +
+      `over from the previous fixtures.json instead of erasing it: ${carriedOver.join(", ")}`
+    );
+  }
+
   const missingVenue = cleanFixtures.filter(f => !f.venue);
   if (missingVenue.length) {
     report.warnings.push(
-      `${missingVenue.length} fixture(s) have no venue from either source: ` +
+      `${missingVenue.length} fixture(s) have no venue from either current source or a previous run: ` +
       missingVenue.map(f => `R${f.round} ${f.match}`).join(", ")
     );
   }
@@ -575,7 +680,7 @@ async function main() {
   }
 }
 
-export { dedupeFixtures, extractFromTable, extractFromMatrixTable, calculateByes };
+export { dedupeFixtures, extractFromTable, extractFromMatrixTable, calculateByes, extractRows, extractCells, extractTables, mergeWithPrevious };
 
 const isDirectRun =
   Boolean(process.argv[1]) &&
