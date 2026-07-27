@@ -1021,12 +1021,36 @@ function addOrMerge(map, player, statusRec){
   if(a > b) map[key] = {...prev, ...statusRec, sources: mergedSources};
   else map[key] = {...prev, sources: mergedSources};
 }
+// player_status.json's own update workflow is workflow_dispatch-only (no schedule), so it can go
+// stale for weeks between manual runs while this generator keeps running every 15 minutes and
+// re-asserting whatever is in the file as current-round truth. NRL rounds run roughly weekly, so
+// data older than two full rounds cannot reliably describe who is out THIS round - this is the
+// same principle already applied to "previous week" evidence elsewhere ("can only produce
+// EXPECTED/YELLOW, never NAMED/GREEN"), extended here to INJURED/SUSPENDED, which are just as
+// wrong to assert on stale evidence as a false NAMED/GREEN would be. Generic time-based gate, not
+// tied to any player/club/round.
+const MAX_BACKUP_STATUS_AGE_DAYS = 14;
+function backupRecordAgeDays(rec, fileUpdatedAt, now=NOW){
+  const ts = rec?.updatedAt || rec?.updated || rec?.lastUpdated || fileUpdatedAt || '';
+  const t = new Date(ts).getTime();
+  if(!Number.isFinite(t)) return Infinity;
+  return (now.getTime() - t) / 86400000;
+}
 function fromBackupStatus(players, playerStatus, teamlistsOut, injuriesOut, suspensionsOut, round){
   const pool = getPool(playerStatus);
-  let namedCount = 0, injuryCount = 0, suspensionCount = 0;
+  const fileUpdatedAt = playerStatus?.updated || playerStatus?.generatedAt || playerStatus?.lastUpdated || '';
+  const fileAgeDays = backupRecordAgeDays({}, fileUpdatedAt);
+  let namedCount = 0, injuryCount = 0, suspensionCount = 0, staleSkippedCount = 0;
+  const staleSkippedSample = [];
   for(const p of players){
     const rec = findInPool(pool, p);
     if(!rec) continue;
+    const ageDays = backupRecordAgeDays(rec, fileUpdatedAt);
+    if(ageDays > MAX_BACKUP_STATUS_AGE_DAYS){
+      staleSkippedCount++;
+      if(staleSkippedSample.length < 8) staleSkippedSample.push({player:p.name, ageDays:Math.round(ageDays)});
+      continue;
+    }
     const st = statusFromRecord(rec);
     const srcName = rec.source || rec.sourceName || rec.provider || 'Existing player_status.json updater';
     const src = sourceObj(isTeamListEvidence(rec) ? 'teamlist' : 'status', srcName, rec.sourceUrl || rec.url || 'player_status.json', rec.updatedAt || rec.updated || NOW_ISO);
@@ -1047,7 +1071,7 @@ function fromBackupStatus(players, playerStatus, teamlistsOut, injuriesOut, susp
       teamlistsOut[p.name] = makeStatus(STATUS.NOT_NAMED, rec.reason || rec.note || 'Explicitly not named from team-list source status file', [src], {selectionStatus:'not_named', team:p.team, teamCanonical:playerTeam(p), raw:compactEvidenceRecord(rec)});
     }
   }
-  return {namedCount, injuryCount, suspensionCount};
+  return {namedCount, injuryCount, suspensionCount, staleSkippedCount, staleSkippedSample, fileAgeDays: Number.isFinite(fileAgeDays) ? Math.round(fileAgeDays) : null, maxAgeDays: MAX_BACKUP_STATUS_AGE_DAYS};
 }
 function fromOriginFile(players, originJson){
   const pool = getPool(originJson);
@@ -3068,7 +3092,8 @@ async function main(){
         ...(teamlistsLoaded ? [] : ['No current team-list data was loaded. No player can be GREEN/NAMED from fallback data.']),
         ...(teamlistCompleteness.incompleteTeams.length ? [`Incomplete current team-list truth. Missing/suspicious clubs: ${teamlistCompleteness.incompleteTeams.join(', ')}`] : []),
         ...(players.length ? [] : ['players.json empty']),
-        ...(weatherRoundMismatch ? [`Weather round ${weather?.round ?? 'unknown'} does not match active round ${round || 'unknown'}`] : [])
+        ...(weatherRoundMismatch ? [`Weather round ${weather?.round ?? 'unknown'} does not match active round ${round || 'unknown'}`] : []),
+        ...(backupStats.staleSkippedCount ? [`player_status.json is ${backupStats.fileAgeDays ?? 'unknown'} days old (max trusted age ${backupStats.maxAgeDays} days). Ignored stale backup status for ${backupStats.staleSkippedCount} player(s) instead of asserting it as current-round truth.`] : [])
       ],
       detectedRound,
       roundSource: 'single_resolver',
@@ -3203,7 +3228,9 @@ export {
   fromFetchedInjuries,
   isSpecificArticleUrl,
   hasConfirmedInjuryPhrase,
-  localWindowAroundNameScoped
+  localWindowAroundNameScoped,
+  fromBackupStatus,
+  backupRecordAgeDays
 };
 
 const isDirectRun =
