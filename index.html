@@ -6488,6 +6488,28 @@ function positiveEvidenceFromPlayer(p,round=App.round){
  return '';
 }
 function fallbackPlayerRiskRecord(p){return {status:p?.injuryStatus||p?.status||'',reason:p?.injuryNote||p?.statusNote||p?.note||p?.availabilityNote||'',sourceConfidence:p?.sourceConfidence||p?.confidence||'',playProbability:p?.playProbability,updated:p?.updated||p?.updatedAt||p?.lastUpdated||p?.generatedAt}}
+// Manual trump file: availability_overrides.json's own contract is "overrides scraped
+// player_status.json" - a fresh, explicit, non-weak entry is a deliberate human correction and
+// must beat every automated layer, including the generated status_truth.json master truth. It
+// cannot do that job if the master truth always answers first. Weak/stale overrides are
+// deliberately NOT promoted here; they stay handled by the normal lower-priority override path,
+// deferring to real evidence instead of silently masking it. Single shared implementation -
+// availabilityStatus is reassigned more than once further down this file (V18, then V41 wrappers,
+// the latter being what every real call in the app actually goes through), so this must be called
+// from each active layer rather than living only inside the base function below, or it silently
+// becomes dead code the moment a later wrapper answers first.
+function freshExplicitOverrideStatus(p,round=App.round){
+ if(!p)return null;
+ const bye=(p.bye||[]).map(Number).includes(Number(round));
+ if(bye)return null;
+ const ov=overrideFor(p);
+ if(!ov||!isFreshRecord(ov,72)||isWeakRiskRecord(ov))return null;
+ const ovText=String(ov?.status||'').toLowerCase().trim();
+ if(isHardOutStatus(ovText))return {key:'out',available:false,label:ovText==='suspended'?'Suspended':'Out',reason:ov.reason||'Override: unavailable',source:'availability_overrides.json',truth:ov};
+ if(isSoftRiskStatus(ovText)||safeNum(ov.playProbability)<60)return {key:'risk',available:true,label:'Risk',reason:ov.reason||'Override: risk',source:'availability_overrides.json',truth:ov};
+ if(freshPositiveStatus(ovText,ov,72))return {key:'good',available:true,label:ovText.includes('named')?'Named':'Available',reason:ov.reason||'Fresh override: available',source:'availability_overrides.json',truth:ov};
+ return null;
+}
 function availabilityStatus(p,round=App.round){
  if(!p)return {key:'out',available:false,label:'Missing',reason:'Player not found in players.json'};
  const ss=statusFor(p),ov=overrideFor(p),bye=(p.bye||[]).map(Number).includes(Number(round));
@@ -6496,7 +6518,9 @@ function availabilityStatus(p,round=App.round){
  const playerPositive=positiveEvidenceFromPlayer(p,round);
  // Bye is not an availability injury call. If the current round is a bye, purple wins.
  if(bye)return {key:'bye',available:false,label:'Bye',reason:`Bye round ${round}`};
- // Master truth: generated data/status_truth.json beats all fallback UI logic.
+ const overrideStatus=freshExplicitOverrideStatus(p,round);
+ if(overrideStatus)return overrideStatus;
+ // Master truth: generated data/status_truth.json beats all remaining fallback UI logic.
  const truthStatus=statusFromTruth(p,round);
  if(truthStatus)return truthStatus;
  // Hard source of truth: official club team list, if loaded. It beats old player data and projections.
@@ -6507,9 +6531,9 @@ function availabilityStatus(p,round=App.round){
  if(originStatus)return originStatus;
  // Highest trust: fresh named/available/confirmed/final-17 style records.
  if(freshPositiveStatus(statusText,ss,36))return {key:'good',available:true,label:statusText.includes('named')?'Named':'Available',reason:ss.reason||`Fresh status: ${ss.status||'available'}`};
- if(freshPositiveStatus(ovText,ov,72))return {key:'good',available:true,label:ovText.includes('named')?'Named':'Available',reason:ov.reason||'Fresh override: available'};
  if(playerPositive)return {key:'good',available:true,label:'Available',reason:playerPositive};
- // Overrides next. Only fresh, trusted evidence can keep yellow/red.
+ // Overrides next: only weak/stale evidence reaches here - fresh, trusted overrides already
+ // returned above, ahead of the master truth.
  if(ov){
   const ovMinR=ov.returnWindowMinRound;
   if(isWeakRiskRecord(ov))return weakRiskCleared(ov,'override');
@@ -6517,8 +6541,6 @@ function availabilityStatus(p,round=App.round){
    if(ovMinR!=null&&Number(round)<Number(ovMinR))return {key:'out',available:false,label:'Out',reason:ov.reason||`Expected back around R${ovMinR}`};
    return staleCleared(ov,'override');
   }
-  if(freshOverride&&isHardOutStatus(ovText))return {key:'out',available:false,label:ovText==='suspended'?'Suspended':'Out',reason:ov.reason||'Override: unavailable'};
-  if(freshOverride&&(isSoftRiskStatus(ovText)||safeNum(ov.playProbability)<60))return {key:'risk',available:true,label:'Risk',reason:ov.reason||'Override: risk'};
  }
  // Player status feed. Screenshot/question-mark/manual visual hints are weak evidence, not true injury data.
  if(ss){
@@ -9635,6 +9657,12 @@ function wrV41ArbitrateStatus(p,round,base){
   return base;
 }
 availabilityStatus = function availabilityStatusV41(p,round=App.round){
+  // This is the actual entry point every real call in the app goes through (the base
+  // availabilityStatus() and the V18 wrapper it delegates to both get bypassed whenever
+  // enhancedStatusFromTruth() answers, which is true for virtually every player) - so the manual
+  // override must be checked here, not only inside those inner layers, or it stays dead code.
+  const overrideStatus=(typeof freshExplicitOverrideStatus==='function')?freshExplicitOverrideStatus(p,round):null;
+  if(overrideStatus)return overrideStatus;
   const base=wrOriginalAvailabilityStatusV41(p,round);
   return wrV41ArbitrateStatus(p,round,base);
 };
