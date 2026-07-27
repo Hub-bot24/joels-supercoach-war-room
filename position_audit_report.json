@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-20T21:12:45.593Z",
+  "updated": "2026-07-27T21:10:51.663Z",
   "total_players_seen": 577,
   "positions_from_import": 569,
   "manual_overrides_applied": 10,
@@ -37,7 +37,25 @@
       ]
     }
   ],
+  "invalid_positions_dropped": [
+    {
+      "player": "Latrell Siegwalt",
+      "positions": [
+        "CTW",
+        "FLB",
+        "HFB"
+      ]
+    },
+    {
+      "player": "Hugo Savala",
+      "positions": [
+        "CTW",
+        "5/8",
+        "HFB"
+      ]
+    }
+  ],
   "dpp_import": {
-    "position_master_dpp_count": 110
+    "position_master_dpp_count": 108
   }
 }
