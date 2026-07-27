@@ -20,58 +20,32 @@
 }
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 20% 0%,#0b1a33,#050914 45%,#02040a);color:var(--text);font-family:var(--font)}button,input,select{font:inherit}button{background:linear-gradient(180deg,#1b2d4a,#111d31);color:var(--text);border:1px solid var(--line);border-radius:var(--radius-sm);padding:var(--sp-2) var(--sp-3);font-size:var(--fs-sm);font-weight:900;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.22);transition:transform .15s var(--ease),filter .15s var(--ease),box-shadow .15s var(--ease)}button.active{background:linear-gradient(180deg,#63b2ff,#348ef2);color:#031225}button:hover{filter:brightness(1.08);transform:translateY(-1px)}button:active{transform:translateY(0)}input,select{background:#081120;color:var(--text);border:1px solid var(--line);border-radius:var(--radius-sm);padding:var(--sp-2);font-size:var(--fs-sm);width:100%;transition:border-color .15s var(--ease),box-shadow .15s var(--ease)}input:focus,select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(88,166,255,.22)}label{display:block;color:var(--muted);font-size:var(--fs-sm);margin:var(--sp-3) 0 var(--sp-1)}nav{position:sticky;top:0;z-index:20;display:flex;gap:var(--sp-2);align-items:center;padding:var(--sp-3) var(--sp-4);background:rgba(3,7,15,.92);border-bottom:1px solid var(--line);backdrop-filter:blur(14px);overflow:auto}.spacer{flex:1}.live{font-size:12px;font-weight:900}.badge{display:inline-flex;gap:var(--sp-1);align-items:center;padding:var(--sp-1) var(--sp-2);font-size:var(--fs-xs);border-radius:999px;background:#10213a;border:1px solid var(--line)}.on{background:#21c55d;color:#031225}.red{background:#ef4444}.tab{display:none}.tab.active-tab{display:block;animation:wr-tab-in .18s var(--ease)}
 @keyframes wr-tab-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-@media(prefers-reduced-motion:reduce){.tab.active-tab{animation:none}}.screen{min-height:calc(100vh - 66px);padding:14px}.team-layout{display:grid;grid-template-columns:245px minmax(720px,1fr) 360px;gap:14px;align-items:stretch}.side,.reserves,.tips,.panel{background:linear-gradient(180deg,rgba(15,26,43,.96),rgba(7,14,26,.96));border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 45px rgba(0,0,0,.28);transition:box-shadow .2s ease}.side{padding:16px}.side h2,.reserves h2{margin:0 0 14px;font-size:22px}.metric-label{color:var(--muted);font-size:13px;margin-top:15px}.metric{font-size:28px;font-weight:950;margin-top:4px}.metric.good{color:var(--good)}.side-actions{display:grid;gap:9px;margin-top:18px}.legend{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}.legend-row{display:flex;gap:9px;align-items:center;margin:10px 0;color:var(--muted);font-size:13px}.dot{width:13px;height:13px;border-radius:50%;display:inline-block;background:var(--good);box-shadow:0 0 12px currentColor}.dot.warn{background:var(--warn)}.dot.bad{background:var(--bad)}.dot.bye{background:var(--bye)}.hr{border:0;border-top:1px solid var(--line);margin:14px 0}.small{font-size:var(--fs-xs);color:var(--muted);line-height:1.35}.field-wrap{position:relative;border-radius:14px;overflow:hidden;border:1px solid #306840;box-shadow:inset 0 0 80px rgba(0,0,0,.35),0 20px 50px rgba(0,0,0,.32);min-height:920px;background:linear-gradient(180deg,rgba(21,112,52,.96),rgba(42,145,80,.92),rgba(30,120,60,.95));}.field-wrap:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,.035) 0 72px,rgba(0,0,0,.045) 72px 144px),radial-gradient(circle at 30% 20%,rgba(255,255,255,.1),transparent 26%),radial-gradient(circle at 72% 80%,rgba(0,0,0,.15),transparent 30%);}.field-lines{position:absolute;inset:34px 72px;border:2px solid rgba(255,255,255,.38);}.field-lines:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:2px solid rgba(255,255,255,.27)}.field-lines:after{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:2px dashed rgba(255,255,255,.18)}.zone-line{position:absolute;left:0;right:0;border-top:1px solid rgba(255,255,255,.23)}.z1{top:12.5%}.z2{top:25%}.z3{top:37.5%}.z4{top:62.5%}.z5{top:75%}.z6{top:87.5%}.field-inner{position:relative;z-index:2;height:920px;padding:36px 28px 28px 28px}.slot-row{position:absolute;left:20px;right:20px;display:flex;gap:18px;justify-content:center;align-items:center}.row-hok{top:34px}.row-frf{top:138px}.row-2rf{top:248px}.row-halves{top:358px}.row-ctw1{top:468px}.row-ctw2{top:578px}.row-flb{top:730px}.row-label{position:absolute;left:20px;width:96px;background:rgba(5,13,26,.94);border:1px solid rgba(255,255,255,.12);border-radius:10px;text-align:center;font-weight:950;padding:10px 5px;line-height:1.25;box-shadow:0 8px 22px rgba(0,0,0,.35)}.lbl-hok{top:43px}.lbl-frf{top:158px}.lbl-2rf{top:267px}.lbl-halves{top:376px}.lbl-ctw{top:520px}.lbl-flb{top:745px}.slot-select{margin-top:7px;padding:6px 8px;border-radius:9px;font-size:12px;background:#071222;color:white;border:1px solid #335074}.player-card{width:252px;min-height:84px;background:linear-gradient(180deg,#071222,#020814);border:1px solid #335074;border-radius:10px;padding:10px 12px;display:grid;grid-template-columns:34px 1fr 46px;gap:9px;align-items:center;box-shadow:0 12px 24px rgba(0,0,0,.42);cursor:grab;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}.player-card:hover,.reserve-card:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(0,0,0,.5)}.player-card:active,.reserve-card:active{cursor:grabbing;transform:translateY(0)}.player-card.drop-ok,.reserve-card.drop-ok,.reserve-group.drop-ok{outline:3px solid var(--good)}.player-card.drop-no,.reserve-card.drop-no,.reserve-group.drop-no{outline:3px solid var(--bad)}.empty-card{border-style:dashed;opacity:.86}.player-card.out,.reserve-card.out{border-color:rgba(255,77,77,.8);box-shadow:0 0 0 1px rgba(255,77,77,.25),0 12px 24px rgba(0,0,0,.42)}.player-card.bye,.reserve-card.bye{border-color:rgba(139,92,246,.95);box-shadow:0 0 0 1px rgba(139,92,246,.35),0 12px 24px rgba(0,0,0,.42)}.player-card.risk,.reserve-card.risk{border-color:rgba(245,197,66,.9);box-shadow:0 0 0 1px rgba(245,197,66,.28),0 12px 24px rgba(0,0,0,.42)}.logo{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:#10213a;border:1px solid #436180;font-size:11px;font-weight:950}.pname{font-size:15px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{font-size:12px;color:#dbeafe;margin-top:3px}.proj{text-align:right;font-size:12px;color:#dbeafe}.proj b{font-size:18px;color:white}.status-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-left:4px;background:var(--good)}.status-dot.warn{background:var(--warn)}.status-dot.bad{background:var(--bad)}.status-dot.bye{background:var(--bye)}
+@media(prefers-reduced-motion:reduce){.tab.active-tab{animation:none}}.screen{min-height:calc(100vh - 66px);padding:14px}.side,.reserves,.tips,.panel{background:linear-gradient(180deg,rgba(15,26,43,.96),rgba(7,14,26,.96));border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 45px rgba(0,0,0,.28);transition:box-shadow .2s ease}.side{padding:16px}.side h2,.reserves h2{margin:0 0 14px;font-size:22px}.metric-label{color:var(--muted);font-size:13px;margin-top:15px}.metric{font-size:28px;font-weight:950;margin-top:4px}.metric.good{color:var(--good)}.side-actions{display:grid;gap:9px;margin-top:18px}.legend{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}.legend-row{display:flex;gap:9px;align-items:center;margin:10px 0;color:var(--muted);font-size:13px}.dot{width:13px;height:13px;border-radius:50%;display:inline-block;background:var(--good);box-shadow:0 0 12px currentColor}.dot.warn{background:var(--warn)}.dot.bad{background:var(--bad)}.dot.bye{background:var(--bye)}.hr{border:0;border-top:1px solid var(--line);margin:14px 0}.small{font-size:var(--fs-xs);color:var(--muted);line-height:1.35}.status-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-left:4px;background:var(--good)}.status-dot.warn{background:var(--warn)}.status-dot.bad{background:var(--bad)}.status-dot.bye{background:var(--bye)}
 .status-dot.expected{background:var(--warn);box-shadow:0 0 10px var(--warn)}
 .status-dot.origin{background:#f97316;box-shadow:0 0 10px #f97316}
 .status-dot.notnamed{background:#94a3b8;box-shadow:0 0 10px #64748b}
 .status-dot.injured{background:var(--bad);box-shadow:0 0 10px var(--bad)}
 .status-dot.suspended{background:#ec4899;box-shadow:0 0 10px #ec4899}
 .status-dot.bye{background:var(--bye);box-shadow:0 0 10px var(--bye)}
-.player-card .proj .status-dot,.reserve-card .proj .status-dot,.wr-card-footer .status-dot,.mobile-proj .status-dot{display:inline-block!important;visibility:visible!important;opacity:1!important;width:11px!important;height:11px!important;border-radius:999px!important;vertical-align:middle!important;margin-left:6px!important;border:1px solid rgba(255,255,255,.28)}
-.player-card .proj .status-dot,.reserve-card .proj .status-dot{display:block!important;margin:5px 0 0 auto!important}
+.wr-card-footer .status-dot,.mobile-proj .status-dot{display:inline-block!important;visibility:visible!important;opacity:1!important;width:11px!important;height:11px!important;border-radius:999px!important;vertical-align:middle!important;margin-left:6px!important;border:1px solid rgba(255,255,255,.28)}
 
 .reserves{padding:14px;max-height:920px;overflow:auto}.reserve-group{border:1px solid var(--line);border-radius:12px;margin:10px 0 14px;overflow:hidden;background:rgba(6,13,25,.75)}.reserve-head{background:linear-gradient(90deg,#176b3b,#23a455);padding:8px 12px;font-weight:950;letter-spacing:.3px}.reserve-card{display:grid;grid-template-columns:22px 36px 1fr 48px;gap:8px;align-items:center;padding:10px;border-top:1px solid var(--line);cursor:grab;transition:background .15s ease,transform .15s ease}.reserve-card:hover{background:rgba(88,166,255,.1)}.drag{font-size:18px;color:#cbd5e1}.reserve-name{font-weight:950}.tips{margin-top:14px;padding:14px;display:grid;grid-template-columns:120px repeat(3,1fr);gap:12px;align-items:center}.tip-card{background:rgba(13,28,49,.82);border:1px solid var(--line);border-radius:12px;padding:12px;color:var(--muted)}.tip-title{font-weight:950;color:white}.panel{padding:var(--sp-4)}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--sp-3)}.span12{grid-column:span 12}.span6{grid-column:span 6}.span4{grid-column:span 4}.result{padding:var(--sp-2);border:1px solid var(--line);border-radius:var(--radius-md);background:#081120;margin:var(--sp-2) 0}.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px var(--sp-2);font-size:var(--fs-xs)}
 .miss{display:inline-block;padding:1px 7px;margin:2px 3px 2px 0;border-radius:8px;font-size:11px;font-weight:700;border:1px solid var(--line);background:#10213a;white-space:nowrap}
 .miss.bad{color:var(--bad)}.miss.warn{color:var(--warn)}.miss.bye{color:var(--bye)}.miss.notnamed{color:#94a3b8}.miss.mute{color:var(--muted)}
 .bye-legend{margin-top:10px;display:flex;flex-wrap:wrap;gap:2px;align-items:center}.good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}.bye{color:var(--bye)}table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid var(--line);text-align:left}.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#071222;border:1px solid var(--line);border-radius:999px;padding:10px 16px;z-index:99;box-shadow:0 20px 55px rgba(0,0,0,.45);display:none}.toast.show{display:block}.trade-row{display:grid;grid-template-columns:1fr;gap:8px}
-.slot-row{position:absolute;left:20px;right:20px;display:flex;justify-content:center;align-items:center;gap:14px}.row-flb{top:34px}.row-flex{top:132px}.row-ctw1{top:250px;gap:10px}.row-halves{top:376px}.row-2rf{top:494px}.row-frf{top:612px}.row-frf-extra{top:730px}.row-hok,.row-ctw2{top:612px}.row-flb .player-card,.row-flex .player-card{width:230px}.row-ctw1 .player-card{width:165px}.row-halves .player-card,.row-2rf .player-card{width:230px}.row-frf .player-card,.row-frf-extra .player-card{width:220px}.slot-role{font-size:18px;font-weight:950;line-height:1;color:#fff;letter-spacing:.04em}.slot-player{font-size:13px;font-weight:900;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.player-card{height:112px;grid-template-columns:76px minmax(0,1fr) 46px}.player-card .logo,.player-card .face,.player-card .photo,.player-card .avatar,.player-card img{width:76px;height:76px;min-width:76px;max-width:76px;min-height:76px;max-height:76px;border-radius:50%;object-fit:cover;object-position:center top;overflow:hidden}.reserve-card{min-height:68px;grid-template-columns:22px 44px minmax(0,1fr) 48px}.reserve-card .logo,.reserve-card .face,.reserve-card .photo,.reserve-card .avatar,.reserve-card img{width:44px;height:44px;min-width:44px;max-width:44px;min-height:44px;max-height:44px;border-radius:50%;object-fit:cover;object-position:center top;overflow:hidden}
 .mobile-team-layout{display:block;max-width:1180px;margin:0 auto;padding-bottom:18px}.mobile-team-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:12px;align-items:start}.mobile-team-main,.mobile-team-reserve-col{display:grid;gap:10px}.mobile-team-head,.mobile-team-section{background:linear-gradient(180deg,rgba(15,26,43,.96),rgba(7,14,26,.96));border:1px solid var(--line);border-radius:14px;padding:12px;margin:0 0 10px}.mobile-team-head h2{margin:0 0 8px}.mobile-counts{display:flex;gap:10px;flex-wrap:wrap}.mobile-counts span{background:#10213a;border:1px solid var(--line);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:900}.mobile-section-title{font-size:13px;font-weight:950;color:#dbeafe;letter-spacing:.06em;margin-bottom:8px}.mobile-tile-list{display:grid;gap:8px}.mobile-player-tile{display:grid;grid-template-columns:58px minmax(0,1fr) 50px;gap:10px;align-items:center;min-height:76px;background:linear-gradient(180deg,#071222,#020814);border:1px solid #335074;border-radius:12px;padding:9px}.mobile-face{width:58px;height:58px;min-width:58px;max-width:58px;min-height:58px;max-height:58px;border-radius:50%;display:grid;place-items:center;background:#10213a;border:1px solid #436180;font-weight:950;font-size:13px;overflow:hidden}.mobile-face img{width:58px;height:58px;min-width:58px;max-width:58px;min-height:58px;max-height:58px;object-fit:cover;object-position:center top}.mobile-player-name{font-size:14px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mobile-pos-badge{display:inline-block;margin-top:5px;border:1px solid var(--line);background:#12345a;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:950}.mobile-proj{text-align:right;font-size:11px;color:#dbeafe}.mobile-proj b{display:block;font-size:18px;color:white}.mobile-reserve-block{margin-top:8px;border-top:1px solid var(--line);padding-top:8px}.mobile-reserve-title{font-size:11px;font-weight:950;color:var(--muted);letter-spacing:.05em;margin-bottom:6px}.mobile-reserves .mobile-face{width:46px;height:46px;min-width:46px;max-width:46px;min-height:46px;max-height:46px}.mobile-reserves .mobile-face img{width:46px;height:46px;min-width:46px;max-width:46px;min-height:46px;max-height:46px}.mobile-reserves .mobile-player-tile,.mobile-reserve-tile{grid-template-columns:46px minmax(0,1fr) 50px;min-height:64px}
-@media(max-width:1180px){.team-layout{grid-template-columns:1fr}.field-wrap{min-height:840px}.field-inner{height:840px}.reserves{max-height:none}.tips{grid-template-columns:1fr}.player-card{width:220px}.row-label{display:none}.slot-row{left:8px;right:8px;gap:8px}.row-flb{top:25px}.row-flex{top:120px}.row-ctw1{top:230px}.row-halves{top:345px}.row-2rf{top:455px}.row-frf{top:570px}.row-frf-extra{top:680px}.row-hok,.row-ctw2{top:570px}.row-flb .player-card,.row-flex .player-card{width:230px}.row-ctw1 .player-card{width:180px}.row-halves .player-card,.row-2rf .player-card{width:230px}.row-frf .player-card,.row-frf-extra .player-card{width:220px}}
 @media(max-width:720px){nav{gap:6px}button{padding:9px 10px}.screen{padding:8px}.field-wrap{overflow:auto}.field-inner{width:780px;height:840px}.field-lines{left:44px;right:44px}.player-card{width:210px}.team-layout{display:none}.mobile-team-layout{display:block}.side,.reserves,.tips{border-radius:12px}.mobile-team-layout{padding-bottom:18px}.mobile-team-head,.mobile-team-section{background:linear-gradient(180deg,rgba(15,26,43,.96),rgba(7,14,26,.96));border:1px solid var(--line);border-radius:14px;padding:12px;margin:0 0 10px}.mobile-team-head h2{margin:0 0 8px}.mobile-counts{display:flex;gap:10px;flex-wrap:wrap}.mobile-counts span{background:#10213a;border:1px solid var(--line);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:900}.mobile-section-title{font-size:13px;font-weight:950;color:#dbeafe;letter-spacing:.06em;margin-bottom:8px}.mobile-tile-list{display:grid;gap:8px}.mobile-player-tile{display:grid;grid-template-columns:58px minmax(0,1fr) 50px;gap:10px;align-items:center;min-height:76px;background:linear-gradient(180deg,#071222,#020814);border:1px solid #335074;border-radius:12px;padding:9px}.mobile-face{width:58px;height:58px;min-width:58px;max-width:58px;min-height:58px;max-height:58px;border-radius:50%;display:grid;place-items:center;background:#10213a;border:1px solid #436180;font-weight:950;font-size:13px;overflow:hidden}.mobile-face img{width:58px;height:58px;min-width:58px;max-width:58px;min-height:58px;max-height:58px;object-fit:cover;object-position:center top}.mobile-player-name{font-size:14px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mobile-pos-badge{display:inline-block;margin-top:5px;border:1px solid var(--line);background:#12345a;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:950}.mobile-proj{text-align:right;font-size:11px;color:#dbeafe}.mobile-proj b{display:block;font-size:18px;color:white}.mobile-reserves .mobile-face{width:46px;height:46px;min-width:46px;max-width:46px;min-height:46px;max-height:46px}.mobile-reserves .mobile-face img{width:46px;height:46px;min-width:46px;max-width:46px;min-height:46px;max-height:46px}.mobile-reserves .mobile-player-tile{grid-template-columns:46px minmax(0,1fr) 50px;min-height:64px}}
 
 
 
-/* PHONE HD SCALED FIELD FIX - keeps the SuperCoach-style field, scales it to screen width */
-.field-shell{position:relative;border-radius:14px;overflow:hidden;min-height:920px}
-.field-shell>.field-wrap{width:100%;height:100%}
-@media(max-width:1180px){
-  .field-shell{min-height:840px}
-}
 @media(max-width:720px){
   .screen{padding:8px;overflow-x:hidden}
-  .team-layout{display:none;width:100%;overflow:hidden}
   .side{margin-bottom:8px;padding:10px}
   .side h2{font-size:18px}.metric{font-size:22px}
   .side-actions{grid-template-columns:1fr 1fr;gap:6px}
   .side-actions button{font-size:12px;padding:8px}
   .legend{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:10px;padding-top:8px}
   .legend-row{font-size:11px;margin:3px 0}
-  .field-shell{width:100%;height:calc(840px * var(--fieldScale,1));min-height:0;margin:8px 0;border-radius:14px;overflow:hidden;background:#104c27;border:1px solid #306840}
-  .field-shell>.field-wrap{width:780px;height:840px;min-height:840px;transform:scale(var(--fieldScale,1));transform-origin:top left;overflow:hidden;border-radius:14px}
-  .field-inner{width:780px;height:840px;min-height:840px;padding:36px 28px 28px 28px;display:block;position:relative;z-index:2}
-  .field-lines,.field-lines:before,.field-lines:after,.zone-line{display:block}
-  .field-lines{left:44px;right:44px}
-  .slot-row{position:absolute;left:8px;right:8px;display:flex;gap:8px;justify-content:center;align-items:center;width:auto}
-  .row-flb{top:25px}.row-flex{top:120px}.row-ctw1{top:230px}.row-halves{top:345px}.row-2rf{top:455px}.row-frf{top:570px}.row-frf-extra{top:680px}.row-hok,.row-ctw2{top:570px}
-  .row-flb .player-card,.row-flex .player-card{width:230px}.row-ctw1 .player-card{width:180px}.row-halves .player-card,.row-2rf .player-card{width:230px}.row-frf .player-card,.row-frf-extra .player-card{width:220px}
-  .row-label{display:block;position:absolute;left:8px;width:82px;padding:8px 4px;font-size:11px;background:rgba(5,13,26,.94)}
-  .lbl-hok{top:34px}.lbl-frf{top:150px}.lbl-2rf{top:258px}.lbl-halves{top:366px}.lbl-ctw{top:510px}.lbl-flb{top:736px}
-  .player-card{width:210px;min-width:0;height:112px;min-height:112px;grid-template-columns:76px minmax(0,1fr) 34px;gap:6px;padding:8px;border-radius:10px}
-  .player-card .logo,.player-card .face,.player-card .photo,.player-card .avatar,.player-card img{width:76px;height:76px;min-width:76px;max-width:76px;min-height:76px;max-height:76px;object-fit:cover;object-position:center top}
-  .logo{width:24px;height:24px;font-size:9px}
-  .pname{font-size:12px;white-space:nowrap;line-height:1.1;overflow:hidden;text-overflow:ellipsis}
-  .meta{font-size:10px;margin-top:2px}.proj{font-size:9px}.proj b{font-size:14px}
-  .slot-select{font-size:10px;padding:5px;margin-top:5px;border-radius:8px}
   .reserves{margin-top:8px;padding:10px;max-height:none;overflow:visible;border-radius:12px}
   .reserves h2{font-size:18px}.reserve-group{margin:8px 0;border-radius:10px}.reserve-head{padding:7px 9px;font-size:12px}
   .reserve-card{min-height:68px;grid-template-columns:18px 44px minmax(0,1fr) 34px;gap:6px;padding:8px}
@@ -90,6 +64,7 @@
   #level3 .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:12px}
   #level3 .tbl-scroll table{min-width:600px;margin:0}
   #level3 .tbl-scroll th,#level3 .tbl-scroll td{white-space:nowrap}
+  #level3 .tbl-scroll td.small{white-space:normal;max-width:200px}
   #bye table,#bye thead,#bye tbody,#bye tr,#bye th,#bye td{display:block}
   #bye thead{position:absolute;left:-9999px;top:-9999px}
   #bye tr{border:1px solid var(--line);border-radius:12px;margin:0 0 10px;padding:8px 12px;background:linear-gradient(180deg,rgba(15,26,43,.96),rgba(7,14,26,.96))}
@@ -3118,6 +3093,10 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .wr-auth-panel .danger{border-color:#ef4444;background:#3a1111}
 .wr-sync-pill{font-size:12px;opacity:.88;margin-right:8px;white-space:nowrap}
 .wr-sync-pill.good{color:#22c55e}.wr-sync-pill.warn{color:#facc15}.wr-sync-pill.bad{color:#ef4444}
+.wr-sync-pill::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:6px;vertical-align:middle}
+.wr-sync-pill.warn::before{animation:wr-pulse 1.4s ease-in-out infinite}
+@keyframes wr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@media(prefers-reduced-motion:reduce){.wr-sync-pill.warn::before{animation:none}}
 /* =========================================================
    PLAYER PROFILE MODAL
    Click/tap player name opens profile. Card body still drags.
@@ -4633,16 +4612,16 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 /* Level 3 - matches the Bye Planner's visual language (sky-blue accent,
    dark navy hero card, uppercase kicker) instead of a bare default table. */
-#level3 .l3-shell,#trade .l3-shell{width:min(1500px,100%);margin:0 auto;padding:var(--sp-5);box-sizing:border-box}
-#level3 .l3-hero,#trade .l3-hero{
+#level3 .l3-shell,#trade .l3-shell,#explorer .l3-shell{width:min(1500px,100%);margin:0 auto;padding:var(--sp-5);box-sizing:border-box}
+#level3 .l3-hero,#trade .l3-hero,#explorer .l3-hero{
  padding:var(--sp-6) var(--sp-7);margin:0 0 var(--sp-5);
  border:1px solid rgba(56,189,248,.28);border-radius:var(--radius-xl);
  background:radial-gradient(circle at 88% 5%,rgba(56,189,248,.18),transparent 31%),linear-gradient(135deg,#102743,#07111f 68%);
  box-shadow:0 26px 65px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.045);
 }
-#level3 .l3-kicker,#trade .l3-kicker{margin:0 0 var(--sp-1);color:#7dd3fc;font-size:var(--fs-xs);font-weight:950;letter-spacing:.17em;text-transform:uppercase}
-#level3 .l3-hero h1,#trade .l3-hero h1{margin:0;color:#fff;font-size:clamp(var(--fs-2xl),4vw,var(--fs-4xl));line-height:1;letter-spacing:-.03em}
-#level3 .l3-hero p,#trade .l3-hero p{max-width:760px;margin:var(--sp-3) 0 0;color:#c8d7ea;font-size:var(--fs-sm);line-height:1.5}
+#level3 .l3-kicker,#trade .l3-kicker,#explorer .l3-kicker{margin:0 0 var(--sp-1);color:#7dd3fc;font-size:var(--fs-xs);font-weight:950;letter-spacing:.17em;text-transform:uppercase}
+#level3 .l3-hero h1,#trade .l3-hero h1,#explorer .l3-hero h1{margin:0;color:#fff;font-size:clamp(var(--fs-2xl),4vw,var(--fs-4xl));line-height:1;letter-spacing:-.03em}
+#level3 .l3-hero p,#trade .l3-hero p,#explorer .l3-hero p{max-width:760px;margin:var(--sp-3) 0 0;color:#c8d7ea;font-size:var(--fs-sm);line-height:1.5}
 #trade .trade-lab-actions{display:flex;gap:var(--sp-2);margin-top:var(--sp-4)}
 #trade .trade-lab-actions button{flex:1}
 
@@ -4653,6 +4632,76 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .wr-empty svg{width:34px;height:34px;opacity:.55;stroke:#7dd3fc}
 .wr-empty .wr-empty-title{color:#fff;font-weight:900;font-size:var(--fs-md)}
 .wr-empty .wr-empty-sub{font-size:var(--fs-sm);max-width:360px;line-height:1.5}
+
+/* Boot splash - the app is a static file making several sequential JSON
+   fetches before its first real paint, so a blank tab is a real (if
+   short) first impression. Gives that beat an actual identity instead of
+   silence, then fades out once boot() finishes its first render. */
+#wrBootSplash{
+ position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--sp-3);
+ background:radial-gradient(circle at 50% 30%,#0b1a33,#050914 55%,#02040a);
+ transition:opacity .35s var(--ease),visibility .35s var(--ease);
+}
+#wrBootSplash.wr-boot-done{opacity:0;visibility:hidden;pointer-events:none}
+.wr-boot-mark{
+ width:64px;height:64px;border-radius:20px;display:grid;place-items:center;color:#e0f2fe;
+ background:radial-gradient(circle at 30% 20%,rgba(125,211,252,.4),rgba(56,189,248,.08));
+ border:1px solid rgba(125,211,252,.45);
+ box-shadow:0 14px 34px rgba(56,189,248,.22),inset 0 1px rgba(255,255,255,.1);
+ animation:wr-boot-pulse 1.8s ease-in-out infinite;
+}
+.wr-boot-mark svg{width:32px;height:32px}
+.wr-boot-word{color:#fff;font-weight:950;font-size:22px;letter-spacing:.14em}
+.wr-boot-sub{color:#7dd3fc;font-size:12px;font-weight:800;letter-spacing:.04em}
+@keyframes wr-boot-pulse{0%,100%{transform:scale(1);box-shadow:0 14px 34px rgba(56,189,248,.22),inset 0 1px rgba(255,255,255,.1)}50%{transform:scale(1.06);box-shadow:0 18px 42px rgba(56,189,248,.34),inset 0 1px rgba(255,255,255,.14)}}
+@media(prefers-reduced-motion:reduce){.wr-boot-mark{animation:none}}
+
+/* Icon system - one shared stroke grid used everywhere an icon appears:
+   nav tabs, the notification bell and hero-header badges. Keeps the app
+   from mixing emoji, ad-hoc SVGs and bare text as "icons" from screen to
+   screen. See WR_ICON_PATHS for the source paths. */
+.wr-icon{display:inline-block;vertical-align:-3px;flex:0 0 auto}
+nav button{display:inline-flex;align-items:center;gap:7px}
+.nav-icon{width:15px;height:15px;opacity:.8}
+nav button.active .nav-icon{opacity:1}
+#notifBell{display:inline-flex;align-items:center;justify-content:center}
+#notifBell .nav-icon{width:16px;height:16px;opacity:.85}
+.wr-hero-row{display:flex;align-items:flex-start;gap:var(--sp-4)}
+.wr-hero-icon{
+ flex:0 0 auto;width:52px;height:52px;border-radius:var(--radius-md);
+ display:grid;place-items:center;color:#e0f2fe;
+ background:radial-gradient(circle at 30% 20%,rgba(125,211,252,.35),rgba(56,189,248,.08));
+ border:1px solid rgba(125,211,252,.4);
+ box-shadow:0 10px 24px rgba(56,189,248,.18),inset 0 1px rgba(255,255,255,.08);
+}
+.wr-hero-icon .wr-icon{width:26px;height:26px;vertical-align:middle}
+@media(max-width:480px){.wr-hero-icon{width:42px;height:42px}.wr-hero-icon .wr-icon{width:21px;height:21px}}
+
+/* Explorer result rows cram team badge + name + status pill + position
+   text into one flex line (.explorer-player-line, defined earlier) - fine
+   down to tablet widths, but on a real phone there isn't room and the
+   player's own name gets ellipsis-truncated. Let it wrap there instead. */
+@media(max-width:480px){
+ #explorer .explorer-player-line{flex-wrap:wrap!important;row-gap:4px!important}
+ #explorer .explorer-player-line b{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;flex:1 1 auto!important}
+}
+
+/* Focus visibility - buttons/links only had the browser default outline
+   (fine, but inconsistent across browsers and easy to lose against these
+   dark card backgrounds). One clear ring, keyed off :focus-visible so it
+   only shows for keyboard users, not every mouse click. */
+button:focus-visible,
+.explorer-filter:focus-visible,
+a:focus-visible{
+ outline:2px solid #58a6ff!important;
+ outline-offset:2px!important;
+}
+.player-name-link:focus-visible{
+ outline:2px solid #58a6ff!important;
+ outline-offset:2px!important;
+ border-radius:4px;
+}
+
 #level3 .l3-table-card{
  border:1px solid rgba(56,189,248,.2);border-radius:18px;overflow:hidden;
  background:linear-gradient(180deg,#0b1626,#070f1c);
@@ -4673,7 +4722,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 #level3 .level-player-cell b{font-weight:800;color:#f8fafc}
 #level3 .level-team-badge{width:24px;height:24px;border-radius:50%;flex:0 0 auto}
 #level3 td.small{color:#93a5c9;font-size:11.5px;line-height:1.4;max-width:340px}
-@media(max-width:920px){#level3 .l3-shell{padding:12px}#level3 .l3-hero{padding:18px 20px}}
+@media(max-width:920px){#level3 .l3-shell,#trade .l3-shell,#explorer .l3-shell{padding:12px}#level3 .l3-hero,#trade .l3-hero,#explorer .l3-hero{padding:18px 20px}}
 
 #bye .bye-round-grid{
  display:grid;
@@ -5042,13 +5091,20 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 </head>
 <body>
+<div id="wrBootSplash" aria-hidden="true">
+ <div class="wr-boot-mark">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>
+ </div>
+ <div class="wr-boot-word">WAR ROOM</div>
+ <div class="wr-boot-sub">Loading live SuperCoach intelligence&hellip;</div>
+</div>
 <nav>
-<button class="active" data-tab="team">My Team</button>
-<button data-tab="bye">Bye Planner</button>
-<button data-tab="level3">Level 3</button>
-<button data-tab="explorer">Player Explorer</button>
-<button data-tab="trade">Trade Lab</button>
-<div class="spacer"></div><button type="button" id="notifBell" title="Recent status changes" style="position:relative;padding:9px 11px">🔔<span id="notifBadge" class="badge red" style="position:absolute;top:-4px;right:-4px;display:none;min-width:18px;height:18px;padding:0 4px;border-radius:999px;font-size:11px;align-items:center;justify-content:center;line-height:1"></span></button><span id="syncStatus" class="wr-sync-pill warn">Sync off</span><span id="statusFreshness" class="small" style="opacity:0.6;margin-right:8px"></span><span class="live">SC PLUS</span><span class="badge red">LIVE</span><span class="badge on">ON</span>
+<button class="active" data-tab="team"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="8.2" r="3.1"/><path d="M3.3 19.5c.7-3.4 3-5.4 5.7-5.4s5 2 5.7 5.4"/><circle cx="17.3" cy="8.8" r="2.3"/><path d="M15.6 14.4c2.3.4 4.1 2.1 4.7 4.6"/></svg><span>My Team</span></button>
+<button data-tab="bye"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.4" y="5.2" width="17.2" height="15.3" rx="3"/><path d="M3.4 10h17.2M8 3v4M16 3v4"/></svg><span>Bye Planner</span></button>
+<button data-tab="level3"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 16l5.2-5.8 3.8 3 6-7.4"/><path d="M15 5.8h4.2V10"/></svg><span>Level 3</span></button>
+<button data-tab="explorer"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg><span>Player Explorer</span></button>
+<button data-tab="trade"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.6 8.2h14.7M14.6 4l3.7 4.2-3.7 4.2"/><path d="M20.4 15.8H5.7M9.4 20l-3.7-4.2 3.7-4.2"/></svg><span>Trade Lab</span></button>
+<div class="spacer"></div><button type="button" id="notifBell" title="Recent status changes" aria-label="Recent status changes" style="position:relative;padding:9px 11px"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.2 9.4a5.8 5.8 0 0 1 11.6 0c0 4.2 1.6 5.7 2.2 6.6H4c.6-.9 2.2-2.4 2.2-6.6Z"/><path d="M9.6 18.4a2.4 2.4 0 0 0 4.8 0"/></svg><span id="notifBadge" class="badge red" style="position:absolute;top:-4px;right:-4px;display:none;min-width:18px;height:18px;padding:0 4px;border-radius:999px;font-size:11px;align-items:center;justify-content:center;line-height:1"></span></button><span id="syncStatus" class="wr-sync-pill warn">Sync off</span><span id="statusFreshness" class="small" style="opacity:0.6;margin-right:8px"></span><span class="live">SC PLUS</span><span class="badge red">LIVE</span><span class="badge on">ON</span>
 </nav>
 <div class="screen">
 <section id="team" class="tab active-tab"></section>
@@ -5107,6 +5163,19 @@ sync:{
 
 window.App = App;
 const $=id=>document.getElementById(id);const safeNum=v=>Number.isFinite(Number(v))?Number(v):0;const money=n=>'$'+safeNum(n).toLocaleString();
+/* Shared icon language - one 24x24 stroke grid (1.6 weight, round caps),
+   currentColor so every placement can recolor via CSS. Single source of
+   truth for every icon rendered from JS templates (nav's own icons are
+   static markup in the HTML using these exact same paths). */
+const WR_ICON_PATHS={
+ team:'<circle cx="9" cy="8.2" r="3.1"/><path d="M3.3 19.5c.7-3.4 3-5.4 5.7-5.4s5 2 5.7 5.4"/><circle cx="17.3" cy="8.8" r="2.3"/><path d="M15.6 14.4c2.3.4 4.1 2.1 4.7 4.6"/>',
+ bye:'<rect x="3.4" y="5.2" width="17.2" height="15.3" rx="3"/><path d="M3.4 10h17.2M8 3v4M16 3v4"/>',
+ level3:'<path d="M4 16l5.2-5.8 3.8 3 6-7.4"/><path d="M15 5.8h4.2V10"/>',
+ explorer:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/>',
+ trade:'<path d="M3.6 8.2h14.7M14.6 4l3.7 4.2-3.7 4.2"/><path d="M20.4 15.8H5.7M9.4 20l-3.7-4.2 3.7-4.2"/>',
+ bell:'<path d="M6.2 9.4a5.8 5.8 0 0 1 11.6 0c0 4.2 1.6 5.7 2.2 6.6H4c.6-.9 2.2-2.4 2.2-6.6Z"/><path d="M9.6 18.4a2.4 2.4 0 0 0 4.8 0"/>'
+};
+function wrIcon(name,cls){return `<svg class="wr-icon${cls?' '+cls:''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${WR_ICON_PATHS[name]||''}</svg>`}
 function esc(s){return String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 window.jsq = function(value){const s=String(value==null?'':value);return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\r/g,'\\r').replace(/\n/g,'\\n').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029')}
 function norm(s){return String(s||'').toLowerCase().replace(/[^a-z0-9/\s'-]/g,' ').replace(/\s+/g,' ').trim()}
@@ -5469,6 +5538,17 @@ function openSyncPanel(){
 }
 document.addEventListener('click',e=>{if(e.target?.id==='syncStatus')openSyncPanel();else if($('syncPanel')&&!$('syncPanel').contains(e.target))$('syncPanel').remove()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')$('syncPanel')?.remove()});
+/* Player names rendered as role="button" (field cards, reserves, table
+   rows, explorer results, trade cards) are real click targets but not
+   native buttons - without this they're reachable by Tab but Enter/Space
+   does nothing. One delegated listener covers every one of them. */
+document.addEventListener('keydown',e=>{
+ if(e.key!=='Enter'&&e.key!==' ')return;
+ const btn=e.target?.closest?.('[role="button"]');
+ if(!btn)return;
+ e.preventDefault();
+ btn.click();
+});
 
 function notifLastSeen(){return safeLocalGet('sc_notif_seen','')}
 function notifLatestDetectedAt(){
@@ -5525,7 +5605,7 @@ function notifPanelHtml(){
    <span class="status-dot ${dotCls}" style="margin-top:6px;flex:none"></span>
    <div style="min-width:0;flex:1">
     <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
-     <b class="player-name-link" onclick="openPlayerCard('${window.jsq(c.player)}')" style="cursor:pointer">${esc(c.player)}${mine?' <span class="small" style="color:var(--blue)">&middot; Your team</span>':''}</b>
+     <b class="player-name-link" role="button" tabindex="0" onclick="openPlayerCard('${window.jsq(c.player)}')" style="cursor:pointer">${esc(c.player)}${mine?' <span class="small" style="color:var(--blue)">&middot; Your team</span>':''}</b>
      <span class="small" style="white-space:nowrap">${esc(notifRelativeTime(c.detectedAt))}</span>
     </div>
     <div class="small">${esc(c.team||'')} &middot; ${esc(c.from||'?')} &rarr; <b>${esc(c.to||'?')}</b></div>
@@ -5779,6 +5859,12 @@ async function loadDualPositionsCore(){
  App.dualPositions={players:merged};
  console.log('[positions] loaded',Object.keys(App.dualPositions?.players||{}).length,'players');
 }
+function dismissBootSplash(){
+ const el=$('wrBootSplash');
+ if(!el)return;
+ el.classList.add('wr-boot-done');
+ setTimeout(()=>el.remove(),400);
+}
 async function boot(){
  const rawPlayers=await fetchJson('players.json',[]);let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));buildPlayerNameMap();
  // Browser reads the generated /data contract first; scripts/update-status.mjs owns generation so known contract files are valid JSON, not missing files.
@@ -5789,23 +5875,12 @@ async function boot(){
  const missingNames = names.filter(n=>!resolvePlayerName(n));
  if(missingNames.length) console.warn('Players in my_team.json not found in players.json:', missingNames);
  App.myTeam=[...new Set(resolvedNames)];
-App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};App.reserveOrder=safeJsonParse(safeLocalGet('sc_reserveOrder','{}'),{})||{};App.selectedReserves=safeJsonParse(safeLocalGet('sc_selectedReserves','[]'),[])||[];validateLineup();ensureLineup();wireTabs();renderActive();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
+App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};App.reserveOrder=safeJsonParse(safeLocalGet('sc_reserveOrder','{}'),{})||{};App.selectedReserves=safeJsonParse(safeLocalGet('sc_selectedReserves','[]'),[])||[];validateLineup();ensureLineup();wireTabs();renderActive();dismissBootSplash();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
  updateStatusFreshnessLabel();startLiveStatusRefresh();ensureNotifSeenInitialized();renderNotifBadge();
 }
 function updateStatusFreshnessLabel(){const fe=$('statusFreshness');if(fe)fe.textContent=''}
 async function refreshTrustDataNow(){const oldUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],App.weather||null);App.playerStatus=await fetchJson('player_status.json',App.playerStatus||{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],App.statusTruth||null);App.currentRoundMeta=await fetchJsonFirst(['data/current_round.json','current_round.json'],App.currentRoundMeta||null);App.availabilityOverrides=await fetchJson('availability_overrides.json',App.availabilityOverrides||{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],App.teamLists||null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],App.officialTeamLists||null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],App.originUnavailable||null);App.opponentDifficulty=await fetchJson('data/opponent_difficulty.json',App.opponentDifficulty||{});App.positionalMatchupsV2=await fetchJson('data/positional_matchups_v2.json',App.positionalMatchupsV2||{teams:{}});App.fixtures=await fetchJson('fixtures.json',App.fixtures||null);syncCurrentRound();App.projectionCache.clear();updateStatusFreshnessLabel();renderActive();const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed')}
 function startLiveStatusRefresh(){if(App._statusRefreshTimer)return;App._statusRefreshTimer=setInterval(refreshTrustDataNow,10*60*1000)}
-
-function scaleField(){
-  const shell=document.querySelector('.field-shell');
-  if(!shell) return;
-  const w=shell.clientWidth || window.innerWidth;
-  const base=780;
-  const scale=Math.min(1, Math.max(0.42, w/base));
-  shell.style.setProperty('--fieldScale', scale.toFixed(4));
-}
-
-window.addEventListener('resize', ()=>requestAnimationFrame(scaleField));
 
 
 function movePlayerCore(name, toSlot, type){
@@ -6987,20 +7062,12 @@ function renderTeam(){
   }
 }
 function datalists(){return `<datalist id="teamDataList">${App.myTeam.map(n=>`<option value="${esc(n)}">`).join('')}</datalist><datalist id="allDataList">${App.players.map(p=>`<option value="${esc(p.name)}">`).join('')}</datalist>`}
-function fieldLabels(){return `<div class="row-label lbl-hok">HOOKER<br>HOK</div><div class="row-label lbl-frf">FRONT ROW<br>FRF</div><div class="row-label lbl-2rf">2ND ROW<br>2RF</div><div class="row-label lbl-halves">HALVES<br>HFB / 5-8</div><div class="row-label lbl-ctw">CENTRES / WINGS<br>CTW</div><div class="row-label lbl-flb">FULLBACK<br>FLB</div>`}
-function fieldRows(){const rows=['row-flb','row-flex','row-ctw1','row-halves','row-2rf','row-frf','row-frf-extra'];return rows.map(r=>`<div class="slot-row ${r}">${SLOT_DEFS.filter(s=>s.row===r).map(slotCard).join('')}</div>`).join('')}
-function cardStateClass(p){const st=availabilityStatus(p);return st.key==='bye'?'bye':(st.key==='injured'||st.key==='suspended'||st.key==='notnamed'||st.key==='out')?'out':(st.key==='expected'||st.key==='origin'||st.key==='risk')?'risk':''}
-function eligibleOptions(slot,currentName=''){const list=App.myTeam.map(getPlayer).filter(Boolean).filter(p=>eligible(p,slot)).sort((a,b)=>roundProj(b).expected-roundProj(a).expected);return `<option value="">Change ${slot.short}...</option>`+list.map(p=>`<option value="${esc(p.name)}" ${p.name===currentName?'selected':''}>${esc(p.name)} — ${esc(positionText(p))} ${esc(p.team||'')} Exp ${roundProj(p).expected}</option>`).join('')}
-function setSlotPlayer(slotId,newName){const slot=slotById[slotId],incoming=getPlayer(newName);if(!slot||!incoming)return;if(!App.myTeam.includes(incoming.name)){toast('Player is not in your squad');return}if(!eligible(incoming,slot)){toast(`${incoming.name} cannot play ${slot.short}`);return}const old=App.lineup?.[slotId];for(const k of Object.keys(App.lineup||{})){if(App.lineup[k]===incoming.name)delete App.lineup[k]}App.lineup[slotId]=incoming.name;ensureLineup();saveLocal();renderTeam();toast(`${incoming.name} selected at ${slot.short}`)}
-function slotCard(slot){const p=getPlayer(App.lineup?.[slot.id]);if(!p)return `<div class="player-card empty-card" data-slot="${slot.id}" ondragover="allowDropOnSlot(event,'${slot.id}')" ondragleave="clearDrop(event)" ondrop="dropOnSlot(event,'${slot.id}')"><div class="logo">${slot.short}</div><div><div class="slot-role">${slot.short}</div><div class="slot-player">Empty ${slot.label}</div><div class="meta">Drop eligible player</div><select class="slot-select" onclick="event.stopPropagation()" onmousedown="event.stopPropagation()" onchange="setSlotPlayer('${slot.id}',this.value)">${eligibleOptions(slot)}</select></div><div class="proj"><b>--</b></div></div>`;const pr=roundProj(p);const st=availabilityStatus(p);return `<div class="player-card ${cardStateClass(p)}" draggable="true" data-slot="${slot.id}" ondragstart="dragField(event,'${slot.id}','${window.jsq(p.name)}')" ondragover="allowDropOnSlot(event,'${slot.id}')" ondragleave="clearDrop(event)" ondrop="dropOnSlot(event,'${slot.id}')"><div class="logo">${esc(slot.short)}</div><div><div class="slot-role">${esc(slot.short)}</div><div class="slot-player player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</div><div class="meta">Eligible: ${esc(p.pos||'')}</div><div class="meta">${esc(st.reason)}</div><select class="slot-select" onclick="event.stopPropagation()" onmousedown="event.stopPropagation()" onchange="setSlotPlayer('${slot.id}',this.value)">${eligibleOptions(slot,p.name)}</select></div><div class="proj">Proj.<br><b>${pr.expected}</b>${statusDot(p)}</div></div>`}
-function reserveGroupsHtml(list=reserves()){const players=[...list].sort((a,b)=>roundProj(b).expected-roundProj(a).expected);return `<div class="reserve-group" data-group="ALL RESERVES" ondragover="allowDropOnReserveGroup(event)" ondragleave="clearDrop(event)" ondrop="dropOnReserveGroup(event)"><div class="reserve-head">ALL RESERVES</div>${players.map(reserveCard).join('')}</div>`}
-function reserveCard(p){const pr=roundProj(p),st=availabilityStatus(p);return `<div class="reserve-card ${cardStateClass(p)}" draggable="true" data-reserve="${esc(p.name)}" ondragstart="dragReserve(event,'${window.jsq(p.name)}')" ondragover="allowDropOnReserveCard(event,'${window.jsq(p.name)}')" ondragleave="clearDrop(event)" ondrop="dropOnReserveCard(event,'${window.jsq(p.name)}')"><div class="drag">⠿</div><div class="logo">${esc((p.team||'SC').slice(0,3))}</div><div><div class="reserve-name player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</div><div class="small">${esc(p.team||'')} | ${esc(positionText(p))}</div><div class="small">${esc(st.reason)}</div></div><div class="proj">Proj.<br><b>${pr.expected}</b>${statusDot(p)}</div></div>`}
 function mobileTile(p,pos,isReserve=false,slotId=''){
  const pr=roundProj(p),st=availabilityStatus(p),cls=statusDotClass(st),click=!isReserve&&p&&slotId?` onclick="selectTeamSlot('${slotId}')"`:'';
  let actions='';
  if(!isReserve&&p&&slotId)actions=`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><button type="button" onclick="event.stopPropagation();teamActionSwap('${slotId}')" style="padding:5px 10px;border-radius:10px;border:1px solid #22c55e;background:#0b3522;color:#fff;font-weight:700;cursor:pointer">Swap</button><button type="button" onclick="event.stopPropagation();teamActionTradeOut('${slotId}')" style="padding:5px 10px;border-radius:10px;border:1px solid #58a6ff;background:#12345a;color:#fff;font-weight:700;cursor:pointer">Trade</button></div>`;
  if(isReserve&&p)actions=`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><button type="button" onclick="event.stopPropagation();reserveActionSwap('${window.jsq(p.name)}')" style="padding:5px 10px;border-radius:10px;border:1px solid #22c55e;background:#0b3522;color:#fff;font-weight:700;cursor:pointer">Swap</button><button type="button" onclick="event.stopPropagation();reserveActionTradeOut('${window.jsq(p.name)}')" style="padding:5px 10px;border-radius:10px;border:1px solid #58a6ff;background:#12345a;color:#fff;font-weight:700;cursor:pointer">Trade</button></div>`;
- return `<div class="mobile-player-tile ${isReserve?'mobile-reserve-tile':''}"${click}>${faceHtml(p,'mobile-face')}<div><div class="mobile-player-name player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p?.name||'')}')">${esc(p?.name||'Empty')}</div><span class="mobile-pos-badge">${esc(pos)}</span>${actions}</div><div class="mobile-proj"><b>${pr.expected}</b><span class="status-dot ${cls}"></span></div></div>`
+ return `<div class="mobile-player-tile ${isReserve?'mobile-reserve-tile':''}"${click}>${faceHtml(p,'mobile-face')}<div><div class="mobile-player-name player-name-link" role="button" tabindex="0" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p?.name||'')}')">${esc(p?.name||'Empty')}</div><span class="mobile-pos-badge">${esc(pos)}</span>${actions}</div><div class="mobile-proj"><b>${pr.expected}</b><span class="status-dot ${cls}"></span></div></div>`
 }
 function reserveBucket(p){
  const ps=positions(p);
@@ -7868,6 +7935,7 @@ function applyReserveSwap(reserveName,slotId){
  toast(`${reservePlayer.name} swapped in for ${fieldPlayer?.name||slot.short}`);
 }
 function cancelTeamAction(){App.selectedTeamSlot='';App.selectedReserveTradeName='';App.teamActionMode='';const panel=document.getElementById('teamActionPanel');if(panel)panel.remove()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('teamActionPanel'))cancelTeamAction()});
 function applyTeamSwap(slotId,name){const slot=slotById[slotId],p=getPlayer(name);if(!slot||!p||!App.myTeam.includes(p.name)||!eligible(p,slot))return toast('Invalid swap');for(const k of Object.keys(App.lineup||{})){if(App.lineup[k]===p.name)delete App.lineup[k]}App.lineup[slotId]=p.name;App.teamActionMode='';saveLocal();renderTeam();toast(`${p.name} swapped in`)}
 function applyTeamTradeOut(slotId,name){const slot=slotById[slotId],oldName=App.lineup?.[slotId],p=getPlayer(name);if(!slot||!oldName||!p||App.myTeam.includes(p.name)||!eligible(p,slot))return toast('Invalid trade');App.myTeam=App.myTeam.map(n=>n===oldName?p.name:n);App.lineup[slotId]=p.name;App.selectedReserveTradeName='';App.teamActionMode='';clearTradeOptionCache();validateLineup();ensureLineup();saveLocal();renderTeam();toast(`Trade applied: ${oldName} → ${p.name}`)}
 function applyReserveTrade(oldName,newName){
@@ -7989,6 +8057,7 @@ window.closePlayerCard = function(){
   const old = document.getElementById("wrPlayerCardOverlay");
   if(old) old.remove();
 };
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('wrPlayerCardOverlay'))window.closePlayerCard()});
 
 function playerCardInjuryDetailsHtml(p,st,truth){
   const rec=truth||st?.truth||{};
@@ -8181,9 +8250,14 @@ function tradePopupHtml(title,name,opts,buttonFn){
 
 function renderTrade(){$('trade').innerHTML=`<div class="l3-shell">
  <div class="l3-hero">
-  <p class="l3-kicker">War Room Trade Intelligence</p>
-  <h1>Trade Lab</h1>
-  <p>Trade Radar surfaces real downgrade-vs-upgrade signals from your squad's next 5 games. Use Trade Lab below to score or apply any trade yourself.</p>
+  <div class="wr-hero-row">
+   <div class="wr-hero-icon">${wrIcon('trade')}</div>
+   <div>
+    <p class="l3-kicker">War Room Trade Intelligence</p>
+    <h1>Trade Lab</h1>
+    <p>Trade Radar surfaces real downgrade-vs-upgrade signals from your squad's next 5 games. Use Trade Lab below to score or apply any trade yourself.</p>
+   </div>
+  </div>
  </div>
  ${tradeRadarHtml()}
  <div class="grid">
@@ -8488,10 +8562,13 @@ function renderBye(){
 
  $('bye').innerHTML=`<div class="bye-planner-shell">
   <header class="bye-planner-hero">
-   <div>
-    <p class="bye-planner-kicker">War Room availability intelligence</p>
-    <h1>Bye Planner</h1>
-    <p>See immediately whether your squad can field a legal side, where coverage breaks down and what needs fixing before each round.</p>
+   <div class="wr-hero-row">
+    <div class="wr-hero-icon">${wrIcon('bye')}</div>
+    <div>
+     <p class="bye-planner-kicker">War Room availability intelligence</p>
+     <h1>Bye Planner</h1>
+     <p>See immediately whether your squad can field a legal side, where coverage breaks down and what needs fixing before each round.</p>
+    </div>
    </div>
 
    <div class="bye-planner-rule">
@@ -8737,7 +8814,11 @@ function forceOnlyActiveTab(){
     sec.style.overflow = on ? '' : 'hidden';
     sec.style.pointerEvents = on ? 'auto' : 'none';
   });
-  document.querySelectorAll('nav button[data-tab]').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === active));
+  document.querySelectorAll('nav button[data-tab]').forEach(btn => {
+    const on = btn.dataset.tab === active;
+    btn.classList.toggle('active', on);
+    if (on) btn.setAttribute('aria-current', 'page'); else btn.removeAttribute('aria-current');
+  });
 }
 
 function setActiveTab(tab){
@@ -8802,11 +8883,16 @@ function renderLevel3(){
 
   box.innerHTML = `<div class="l3-shell">
    <div class="l3-hero">
-    <p class="l3-kicker">War Room Projection Intelligence</p>
-    <h1>Level 3</h1>
-    <p>Projection v2 uses form, role, minutes, status truth, weather and selection risk. Showing the real top 100 by expected score.</p>
+    <div class="wr-hero-row">
+     <div class="wr-hero-icon">${wrIcon('level3')}</div>
+     <div>
+      <p class="l3-kicker">War Room Projection Intelligence</p>
+      <h1>Level 3</h1>
+      <p>Projection v2 uses form, role, minutes, status truth, weather and selection risk. Showing the real top 100 by expected score.</p>
+     </div>
+    </div>
    </div>
-   <div class="l3-table-card"><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Risk</th><th>Status</th><th>Why</th></tr></thead><tbody>${rows.map(row => { const p = row.p, pr = row.pr; return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b class="player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b></span></td><td>${esc(positionText(p))}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${projectionRiskPill(pr)}</td><td>${statusPill(p)}</td><td class="small">${(pr.reasons||[]).slice(0,2).map(esc).join(' | ')}</td></tr>`; }).join('')}</tbody></table></div></div>
+   <div class="l3-table-card"><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Risk</th><th>Status</th><th>Why</th></tr></thead><tbody>${rows.map(row => { const p = row.p, pr = row.pr; return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b class="player-name-link" role="button" tabindex="0" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b></span></td><td>${esc(positionText(p))}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${projectionRiskPill(pr)}</td><td>${statusPill(p)}</td><td class="small">${(pr.reasons||[]).slice(0,2).map(esc).join(' | ')}</td></tr>`; }).join('')}</tbody></table></div></div>
   </div>`;
   box.dataset.rendered = '1';
   App.__level3CacheKey = key;
@@ -8817,7 +8903,19 @@ function renderExplorer(){
   const counts = explorerCounts();
   const filters = ['all','named','expected','not_named','injured','suspended'];
 
-  $('explorer').innerHTML = `<div class="panel"><h2>Player Explorer</h2><label>Search player, position, team, or status</label><input id="explorerInput" placeholder="Type a name, team, position..." oninput="scheduleExplorerUpdate()"><div class="explorer-filters">${filters.map(f => `<button type="button" class="explorer-filter ${App.explorerFilter===f?'active':''}" onclick="setExplorerFilter('${f}')">${esc(explorerFilterLabel(f))} <b>${counts[f]||0}</b></button>`).join('')}</div><div id="explorerResults" style="margin-top:12px"></div></div>`;
+  $('explorer').innerHTML = `<div class="l3-shell">
+   <div class="l3-hero">
+    <div class="wr-hero-row">
+     <div class="wr-hero-icon">${wrIcon('explorer')}</div>
+     <div>
+      <p class="l3-kicker">War Room Player Intelligence</p>
+      <h1>Player Explorer</h1>
+      <p>Search or filter the full player pool by name, team, position or live status - every card carries real floor/expected/ceiling and status detail.</p>
+     </div>
+    </div>
+   </div>
+   <div class="panel"><label>Search player, position, team, or status</label><input id="explorerInput" placeholder="Type a name, team, position..." oninput="scheduleExplorerUpdate()"><div class="explorer-filters">${filters.map(f => `<button type="button" class="explorer-filter ${App.explorerFilter===f?'active':''}" onclick="setExplorerFilter('${f}')">${esc(explorerFilterLabel(f))} <b>${counts[f]||0}</b></button>`).join('')}</div><div id="explorerResults" style="margin-top:12px"></div></div>
+  </div>`;
 
   updateExplorer();
 }
@@ -8882,12 +8980,13 @@ function updateExplorer(){
     const weather = weatherLine(p);
     const detail = typeof statusDetailHtml === 'function' ? statusDetailHtml(p) : '';
     const gkNote = (pr.reasons || []).find(r => /kick/i.test(r)) || 'No goal-kicking boost';
-    return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b class="player-name-link" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(positionText(p))} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}${detail?detail+'<br>':''}<span class="small">${esc(gkNote)}</span></div>`;
+    return `<div class="result"><span class="explorer-player-line">${teamIconHtml(p,'explorer-team-badge')}<b class="player-name-link" role="button" tabindex="0" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b> ${statusPill(p)} <span class="small">${esc(positionText(p))} - ${esc(p.team||'')}</span></span><br>Price: ${money(p.price)} | Avg: ${safeNum(p.avg||p.average)} | BE: ${p.be??p.breakEven??'N/A'}<br>Floor ${pr.floor} / <b>Expected ${pr.expected}</b> / Ceiling ${pr.ceiling}<br>${weather?`<span class="small">${weather}</span><br>`:''}${detail?detail+'<br>':''}<span class="small">${esc(gkNote)}</span></div>`;
   }).join('') || '<div class="wr-empty"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg><div class="wr-empty-title">No matches</div><div class="wr-empty-sub">Try a different name, or clear the filter above to see the real top 40.</div></div>');
 }
 
 boot().catch(err=>{
  console.error('BOOT FAILED:',err);
+ dismissBootSplash();
  const team=document.getElementById('team');
  if(team){
   team.innerHTML=`<div class="panel"><h2>Page failed to load</h2><p class="bad">${esc(err.message||err)}</p><p class="small">Open DevTools Console and check BOOT FAILED.</p></div>`;
