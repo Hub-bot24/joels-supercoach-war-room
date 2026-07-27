@@ -5174,6 +5174,40 @@ a:focus-visible{
   margin-right:16px;
  }
 }
+
+/* =========================================================
+   MY TEAM MOBILE FIELD FIX
+   UI only: the V18 reserves-panel patch above forces a fixed
+   330-370px reserves column at every viewport width, which on
+   phones narrower than ~480px squeezes the field column down to
+   a sliver (unusable). Below that width, stack field above
+   reserves instead of splitting them side by side, and let the
+   reserves panel size to its own content instead of being locked
+   to match a field-column height that no longer exists.
+   No projection/status/trade/data logic changed.
+   ========================================================= */
+@media(max-width:480px){
+ #team.active-tab .formation-layout{
+  grid-template-columns:1fr!important;
+  gap:14px!important;
+ }
+ #team.active-tab .wr-reserve-panel,
+ #team.active-tab .formation-reserves{
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow:visible!important;
+  justify-self:stretch!important;
+  margin-left:0!important;
+ }
+ #team.active-tab .wr-reserve-list,
+ #team.active-tab .formation-reserve-list{
+  grid-template-rows:none!important;
+  overflow:visible!important;
+ }
+}
 </style>
 
 </head>
