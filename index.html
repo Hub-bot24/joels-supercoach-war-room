@@ -5659,6 +5659,32 @@ function canonicalPlayerNameKey(value){
  return String(value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');
 }
 
+// Every lookupPositionAuthority() call used to fall back to
+// Object.keys(table).find(k=>keys.includes(canonicalPlayerNameKey(k))) -
+// a full rescan of the table with a Unicode-normalizing key computed fresh
+// for every entry, every single call. positions()/eligible() call this per
+// player per slot check, so a Bye Planner render (rounds x slots x
+// candidates) or any formation render triggered thousands of these scans.
+// Cache the canonical-key index per table object instead: a WeakMap keyed
+// on the table reference itself invalidates automatically the moment a
+// data refresh swaps in a genuinely new positionMaster/dualPositions/
+// positionOverrides object, so this can never serve a stale table.
+const _posTableIndexCache=new WeakMap();
+function canonicalKeyIndexFor(table){
+ let idx=_posTableIndexCache.get(table);
+ if(!idx){
+  idx=new Map();
+  // First-occurrence wins, matching the original Object.keys(table).find()
+  // iteration order.
+  for(const k of Object.keys(table)){
+   const ck=canonicalPlayerNameKey(k);
+   if(!idx.has(ck))idx.set(ck,k);
+  }
+  _posTableIndexCache.set(table,idx);
+ }
+ return idx;
+}
+
 function lookupPositionAuthority(p){
  if(!p)return [];
  const names=[p.name,p.sourceName,p.statsSourceName].filter(Boolean);
@@ -5682,7 +5708,9 @@ function lookupPositionAuthority(p){
    }
   }
 
-  const found=Object.keys(table).find(k=>keys.includes(canonicalPlayerNameKey(k)));
+  const idx=canonicalKeyIndexFor(table);
+  let found;
+  for(const key of keys){if(idx.has(key)){found=idx.get(key);break;}}
   if(found){
    const got=normalisePosList(table[found]);
    if(got.length)return got;
@@ -8994,17 +9022,22 @@ function renderBye(){
   return st?.label||'Unavailable';
  };
 
- const byeTeamCount=(round)=>{
-  const teams=new Set();
-  App.players.forEach(p=>{
-   const byes=(p.bye||p.byes||[]).map(Number);
-   if(byes.includes(Number(round))){
-    const t=String(p.team||p.club||'').trim();
-    if(t)teams.add(t);
-   }
-  });
-  return teams.size;
- };
+ // Precompute round -> set of teams on bye in ONE pass over all players,
+ // instead of the old byeTeamCount(round) which rescanned every player from
+ // scratch. isMajorByeRound() below is called once per remaining round in
+ // the rounds loop (~26x), so that used to be a full 563-player scan done
+ // 26 times over for one render.
+ const teamsByByeRound=new Map();
+ App.players.forEach(p=>{
+  const byes=(p.bye||p.byes||[]).map(Number);
+  const t=String(p.team||p.club||'').trim();
+  if(!t)return;
+  for(const r of byes){
+   if(!teamsByByeRound.has(r))teamsByByeRound.set(r,new Set());
+   teamsByByeRound.get(r).add(t);
+  }
+ });
+ const byeTeamCount=(round)=>teamsByByeRound.get(Number(round))?.size||0;
 
  const isMajorByeRound=(round)=>byeTeamCount(round)>=6;
 
