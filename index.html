@@ -90,6 +90,7 @@
   #level3 .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:12px}
   #level3 .tbl-scroll table{min-width:600px;margin:0}
   #level3 .tbl-scroll th,#level3 .tbl-scroll td{white-space:nowrap}
+  #level3 .tbl-scroll td.small{white-space:normal;max-width:200px}
   #bye table,#bye thead,#bye tbody,#bye tr,#bye th,#bye td{display:block}
   #bye thead{position:absolute;left:-9999px;top:-9999px}
   #bye tr{border:1px solid var(--line);border-radius:12px;margin:0 0 10px;padding:8px 12px;background:linear-gradient(180deg,rgba(15,26,43,.96),rgba(7,14,26,.96))}
@@ -4678,6 +4679,15 @@ nav button.active .nav-icon{opacity:1}
 }
 .wr-hero-icon .wr-icon{width:26px;height:26px;vertical-align:middle}
 @media(max-width:480px){.wr-hero-icon{width:42px;height:42px}.wr-hero-icon .wr-icon{width:21px;height:21px}}
+
+/* Explorer result rows cram team badge + name + status pill + position
+   text into one flex line (.explorer-player-line, defined earlier) - fine
+   down to tablet widths, but on a real phone there isn't room and the
+   player's own name gets ellipsis-truncated. Let it wrap there instead. */
+@media(max-width:480px){
+ #explorer .explorer-player-line{flex-wrap:wrap!important;row-gap:4px!important}
+ #explorer .explorer-player-line b{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;flex:1 1 auto!important}
+}
 #level3 .l3-table-card{
  border:1px solid rgba(56,189,248,.2);border-radius:18px;overflow:hidden;
  background:linear-gradient(180deg,#0b1626,#070f1c);
