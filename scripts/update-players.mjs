@@ -51,6 +51,19 @@ function avgStatsUrl(sourceName) {
 const USER_AGENT =
   "Mozilla/5.0 (compatible; SuperCoachWarRoomBot/1.0)";
 
+const FIXTURES_FILE = path.join(ROOT, "fixtures.json");
+const CURRENT_ROUND_FILE = path.join(ROOT, "data/current_round.json");
+const PRICE_UPDATE_STATE_FILE = path.join(ROOT, "data/price_update_state.json");
+
+// The real nrlsupercoachstats.com/SuperCoach price recalculation lands once
+// per round: normally Monday around noon Sydney time, but if the round's
+// last game is itself on a Monday night, the site doesn't have it ready
+// until Thursday instead. This is real, user-confirmed domain knowledge
+// about the source's own cadence, not something to guess at - fixtures.json
+// already carries real kickoff times per round, so the target day/time is
+// computed from that instead of a hardcoded date.
+const SYDNEY_TZ = "Australia/Sydney";
+
 async function readJson(file, fallback = {}) {
   try {
     return JSON.parse(await fs.readFile(file, "utf8"));
@@ -882,7 +895,161 @@ async function fetchAllPlayerAvgStats(players) {
   return results;
 }
 
+// How far a given IANA time zone is ahead of/behind UTC (in minutes) at a
+// specific instant - computed live via Intl so daylight saving is handled
+// automatically instead of a hardcoded offset that would drift wrong twice
+// a year.
+function getTimeZoneOffsetMinutes(date, timeZone) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    hourCycle: "h23",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  })
+    .formatToParts(date)
+    .reduce((acc, p) => {
+      acc[p.type] = p.value;
+      return acc;
+    }, {});
+
+  const asUtc = Date.UTC(
+    Number(parts.year),
+    Number(parts.month) - 1,
+    Number(parts.day),
+    Number(parts.hour),
+    Number(parts.minute),
+    Number(parts.second)
+  );
+
+  return (asUtc - date.getTime()) / 60000;
+}
+
+// Interprets a naive wall-clock datetime string (no zone attached, e.g.
+// "2026-08-03T12:00:00") as if it were local time in `timeZone`, returning
+// the real UTC instant. Standard two-pass technique: guess it's UTC, then
+// correct by that zone's actual offset at the guessed instant.
+function zonedWallTimeToUtc(isoLocal, timeZone) {
+  const guess = new Date(`${isoLocal}Z`);
+  const offsetMin = getTimeZoneOffsetMinutes(guess, timeZone);
+  return new Date(guess.getTime() - offsetMin * 60000);
+}
+
+// fixtures.json's kickoffLocal is already the venue's own wall-clock time,
+// so its date portion IS the local calendar day - no zone conversion needed
+// to find which weekday a game falls on.
+function localWeekdayOf(isoLocal) {
+  const [datePart] = String(isoLocal).split("T");
+  return new Date(`${datePart}T00:00:00Z`).getUTCDay(); // 0=Sun .. 6=Sat
+}
+
+// Works out when the real SuperCoach site is expected to post new prices
+// for a given completed round: the next Monday noon (Sydney time) after the
+// round's last game, unless the round itself has a Monday-night game, in
+// which case the site pushes it to the following Thursday noon instead.
+function computeNextPriceUpdateTarget(fixtures, round) {
+  const roundFixtures = fixtures.filter(
+    f => Number(f.round) === Number(round) && f.kickoffLocal
+  );
+  if (!roundFixtures.length) return null;
+
+  let latestDatePart = null;
+  let hasMondayGame = false;
+  for (const f of roundFixtures) {
+    const [datePart] = String(f.kickoffLocal).split("T");
+    if (!latestDatePart || datePart > latestDatePart) latestDatePart = datePart;
+    if (localWeekdayOf(f.kickoffLocal) === 1) hasMondayGame = true;
+  }
+
+  const targetWeekdayNum = hasMondayGame ? 4 : 1; // Thursday : Monday
+  const cursor = new Date(`${latestDatePart}T00:00:00Z`);
+  cursor.setUTCDate(cursor.getUTCDate() + 1);
+  while (cursor.getUTCDay() !== targetWeekdayNum) {
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+  }
+
+  const targetDatePart = cursor.toISOString().slice(0, 10);
+  return {
+    targetUtc: zonedWallTimeToUtc(`${targetDatePart}T12:00:00`, SYDNEY_TZ),
+    targetWeekdayLabel: hasMondayGame ? "Thursday" : "Monday",
+    hasMondayGame,
+    round
+  };
+}
+
+// Decides whether this run should actually scrape prices, or skip until the
+// real source's next expected update window. Local file reads only (no
+// network) so the workflow can be scheduled often without hammering the
+// source site - most firings will just check and skip.
+async function shouldFetchPricesNow(now = new Date(), files = {}) {
+  const {
+    currentRoundFile = CURRENT_ROUND_FILE,
+    fixturesFile = FIXTURES_FILE,
+    stateFile = PRICE_UPDATE_STATE_FILE
+  } = files;
+
+  const currentRoundMeta = await readJson(currentRoundFile, {});
+  const round = currentRoundMeta.detectedRound ?? currentRoundMeta.round;
+
+  if (!round) {
+    console.log("[update-players] No detected round yet - proceeding (nothing to gate against).");
+    return { proceed: true, round: null };
+  }
+
+  const fixturesRaw = await readJson(fixturesFile, []);
+  const fixtures = Array.isArray(fixturesRaw)
+    ? fixturesRaw
+    : fixturesRaw.fixtures || fixturesRaw.matches || [];
+
+  const target = computeNextPriceUpdateTarget(fixtures, round);
+  if (!target) {
+    console.log(`[update-players] No fixtures found for round ${round} - proceeding (nothing to gate against).`);
+    return { proceed: true, round };
+  }
+
+  const state = await readJson(stateFile, {});
+  if (state.lastPricedRound === round) {
+    console.log(`[update-players] Prices already fetched for round ${round} - skipping until round ${round + 1} completes.`);
+    return { proceed: false, round };
+  }
+
+  if (now < target.targetUtc) {
+    console.log(
+      `[update-players] Round ${round}'s real price update isn't expected until ` +
+      `${target.targetWeekdayLabel} ${target.targetUtc.toISOString()} ` +
+      `(round has a Monday game: ${target.hasMondayGame}) - skipping until then.`
+    );
+    return { proceed: false, round };
+  }
+
+  console.log(`[update-players] Past round ${round}'s expected ${target.targetWeekdayLabel} price-update window - fetching now.`);
+  return { proceed: true, round };
+}
+
+// Exposes whether this run actually fetched prices as a GitHub Actions step
+// output (when running in CI), so the workflow can skip its downstream
+// history/matchup-building and commit steps on the many runs that just
+// check-and-skip, instead of generating redundant snapshots every firing.
+async function reportProceeded(proceeded) {
+  if (!process.env.GITHUB_OUTPUT) return;
+  await fs.appendFile(process.env.GITHUB_OUTPUT, `proceeded=${proceeded}\n`);
+}
+
 async function main() {
+  const forced = process.env.FORCE_PRICE_UPDATE === "true";
+  const gate = forced
+    ? { proceed: true, round: (await readJson(CURRENT_ROUND_FILE, {})).detectedRound ?? null }
+    : await shouldFetchPricesNow();
+
+  if (!gate.proceed) {
+    console.log("Node player updater skipped this run - not yet the expected price-update window.");
+    await reportProceeded(false);
+    return;
+  }
+
   const rows = await fetchSourceRows();
 
   const dppPlayers = await fetchDppPlayers();
@@ -897,11 +1064,21 @@ async function main() {
 
   await mergePlayers(rows, dppPlayers, playerListRows, teamBEsRows);
 
+  if (gate.round != null) {
+    await writeJson(PRICE_UPDATE_STATE_FILE, {
+      lastPricedRound: gate.round,
+      updatedAt: new Date().toISOString()
+    });
+  }
+
+  await reportProceeded(true);
   console.log("Node player updater complete");
 }
 
 export {
-  parseAvgStatsHtml
+  parseAvgStatsHtml,
+  computeNextPriceUpdateTarget,
+  shouldFetchPricesNow
 };
 
 const isDirectRun =
