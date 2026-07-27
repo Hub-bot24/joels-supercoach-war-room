@@ -6300,7 +6300,7 @@ async function refreshTrustDataNow(){
   fetchJson('fixtures.json',App.fixtures||null)
  ]);
  App.weather=weather;App.playerStatus=playerStatus;App.statusTruth=statusTruth;App.currentRoundMeta=currentRoundMeta;App.availabilityOverrides=availabilityOverrides;App.teamLists=teamLists;App.officialTeamLists=officialTeamLists;App.originUnavailable=originUnavailable;App.opponentDifficulty=opponentDifficulty;App.positionalMatchupsV2=positionalMatchupsV2;App.fixtures=fixtures;
- syncCurrentRound();App.projectionCache.clear();updateStatusFreshnessLabel();renderActive();
+ syncCurrentRound();App.projectionCache.clear();if(typeof invalidateRoundProjCache==='function')invalidateRoundProjCache();updateStatusFreshnessLabel();renderActive();
  const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';
  if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed');
 }
@@ -9640,6 +9640,15 @@ availabilityStatus = function availabilityStatusV41(p,round=App.round){
 };
 
 let __roundProjV41Cache=null;
+// refreshTrustDataNow()'s 10-minute cycle pulls fresh status/injury/weather
+// data and clears App.projectionCache, but that Map was never actually read
+// by this cache - roundProj was overridden below to keep its own cache,
+// keyed only by round, with no link back to App.projectionCache. That let
+// a mid-session status change (e.g. a player going from fit to injured)
+// keep serving the stale pre-refresh projection until the round itself
+// changed. invalidateRoundProjCache() is called from refreshTrustDataNow()
+// so a real data refresh busts it too, not just a round change.
+function invalidateRoundProjCache(){__roundProjV41Cache=null}
 roundProj = function roundProjV41(p){
   if(!p)return {floor:0,expected:0,ceiling:0,raw:0};
   // This override replaces the base roundProj() entirely (the assignment
