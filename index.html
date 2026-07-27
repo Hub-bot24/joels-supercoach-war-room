@@ -4633,6 +4633,29 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .wr-empty .wr-empty-title{color:#fff;font-weight:900;font-size:var(--fs-md)}
 .wr-empty .wr-empty-sub{font-size:var(--fs-sm);max-width:360px;line-height:1.5}
 
+/* Boot splash - the app is a static file making several sequential JSON
+   fetches before its first real paint, so a blank tab is a real (if
+   short) first impression. Gives that beat an actual identity instead of
+   silence, then fades out once boot() finishes its first render. */
+#wrBootSplash{
+ position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--sp-3);
+ background:radial-gradient(circle at 50% 30%,#0b1a33,#050914 55%,#02040a);
+ transition:opacity .35s var(--ease),visibility .35s var(--ease);
+}
+#wrBootSplash.wr-boot-done{opacity:0;visibility:hidden;pointer-events:none}
+.wr-boot-mark{
+ width:64px;height:64px;border-radius:20px;display:grid;place-items:center;color:#e0f2fe;
+ background:radial-gradient(circle at 30% 20%,rgba(125,211,252,.4),rgba(56,189,248,.08));
+ border:1px solid rgba(125,211,252,.45);
+ box-shadow:0 14px 34px rgba(56,189,248,.22),inset 0 1px rgba(255,255,255,.1);
+ animation:wr-boot-pulse 1.8s ease-in-out infinite;
+}
+.wr-boot-mark svg{width:32px;height:32px}
+.wr-boot-word{color:#fff;font-weight:950;font-size:22px;letter-spacing:.14em}
+.wr-boot-sub{color:#7dd3fc;font-size:12px;font-weight:800;letter-spacing:.04em}
+@keyframes wr-boot-pulse{0%,100%{transform:scale(1);box-shadow:0 14px 34px rgba(56,189,248,.22),inset 0 1px rgba(255,255,255,.1)}50%{transform:scale(1.06);box-shadow:0 18px 42px rgba(56,189,248,.34),inset 0 1px rgba(255,255,255,.14)}}
+@media(prefers-reduced-motion:reduce){.wr-boot-mark{animation:none}}
+
 /* Icon system - one shared stroke grid used everywhere an icon appears:
    nav tabs, the notification bell and hero-header badges. Keeps the app
    from mixing emoji, ad-hoc SVGs and bare text as "icons" from screen to
@@ -5068,6 +5091,13 @@ a:focus-visible{
 
 </head>
 <body>
+<div id="wrBootSplash" aria-hidden="true">
+ <div class="wr-boot-mark">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>
+ </div>
+ <div class="wr-boot-word">WAR ROOM</div>
+ <div class="wr-boot-sub">Loading live SuperCoach intelligence&hellip;</div>
+</div>
 <nav>
 <button class="active" data-tab="team"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="8.2" r="3.1"/><path d="M3.3 19.5c.7-3.4 3-5.4 5.7-5.4s5 2 5.7 5.4"/><circle cx="17.3" cy="8.8" r="2.3"/><path d="M15.6 14.4c2.3.4 4.1 2.1 4.7 4.6"/></svg><span>My Team</span></button>
 <button data-tab="bye"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.4" y="5.2" width="17.2" height="15.3" rx="3"/><path d="M3.4 10h17.2M8 3v4M16 3v4"/></svg><span>Bye Planner</span></button>
@@ -5829,6 +5859,12 @@ async function loadDualPositionsCore(){
  App.dualPositions={players:merged};
  console.log('[positions] loaded',Object.keys(App.dualPositions?.players||{}).length,'players');
 }
+function dismissBootSplash(){
+ const el=$('wrBootSplash');
+ if(!el)return;
+ el.classList.add('wr-boot-done');
+ setTimeout(()=>el.remove(),400);
+}
 async function boot(){
  const rawPlayers=await fetchJson('players.json',[]);let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));buildPlayerNameMap();
  // Browser reads the generated /data contract first; scripts/update-status.mjs owns generation so known contract files are valid JSON, not missing files.
@@ -5839,7 +5875,7 @@ async function boot(){
  const missingNames = names.filter(n=>!resolvePlayerName(n));
  if(missingNames.length) console.warn('Players in my_team.json not found in players.json:', missingNames);
  App.myTeam=[...new Set(resolvedNames)];
-App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};App.reserveOrder=safeJsonParse(safeLocalGet('sc_reserveOrder','{}'),{})||{};App.selectedReserves=safeJsonParse(safeLocalGet('sc_selectedReserves','[]'),[])||[];validateLineup();ensureLineup();wireTabs();renderActive();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
+App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};App.reserveOrder=safeJsonParse(safeLocalGet('sc_reserveOrder','{}'),{})||{};App.selectedReserves=safeJsonParse(safeLocalGet('sc_selectedReserves','[]'),[])||[];validateLineup();ensureLineup();wireTabs();renderActive();dismissBootSplash();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
  updateStatusFreshnessLabel();startLiveStatusRefresh();ensureNotifSeenInitialized();renderNotifBadge();
 }
 function updateStatusFreshnessLabel(){const fe=$('statusFreshness');if(fe)fe.textContent=''}
@@ -8950,6 +8986,7 @@ function updateExplorer(){
 
 boot().catch(err=>{
  console.error('BOOT FAILED:',err);
+ dismissBootSplash();
  const team=document.getElementById('team');
  if(team){
   team.innerHTML=`<div class="panel"><h2>Page failed to load</h2><p class="bad">${esc(err.message||err)}</p><p class="small">Open DevTools Console and check BOOT FAILED.</p></div>`;
