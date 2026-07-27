@@ -5465,9 +5465,13 @@ function wrRangeBarHtml(pr){
  const floor=safeNum(pr?.floor),ceiling=safeNum(pr?.ceiling),expected=safeNum(pr?.expected);
  if(!(ceiling>floor))return '';
  const pct=Math.max(4,Math.min(96,((expected-floor)/(ceiling-floor))*100));
+ // No number label on the marker itself - the exact expected value is
+ // already shown in the "WR Proj" stat tile right above this bar, so
+ // repeating it here was pure duplication. The marker's position on the
+ // floor-ceiling track is the actual new information this bar adds.
  return `<div class="wr-range">
   <div class="wr-range-track">
-   <div class="wr-range-marker" style="left:${pct}%"><b>${expected}</b></div>
+   <div class="wr-range-marker" style="left:${pct}%"></div>
   </div>
   <div class="wr-range-labels"><span>Floor ${floor}</span><span>Ceiling ${ceiling}</span></div>
  </div>`;
@@ -8512,11 +8516,13 @@ function playerCardInjurySummaryHtml(p,st,truth){
   if(!facts)return "";
   const headline=facts.type?`Injury: ${esc(facts.type)}`:"Injury reported";
   const returnLine=facts.returnText?`Expected return: ${esc(facts.returnText)}`:"Expected return: not yet confirmed";
+  // Source/updated-at intentionally left off the always-visible summary -
+  // that attribution still lives in the "Details" disclosure below
+  // (playerCardInjuryDetailsHtml). This box is just injured/what/how long.
   return `<div style="margin-top:12px;border-radius:16px;background:rgba(255,77,77,.14);box-shadow:inset 0 0 0 1px rgba(255,77,77,.4);padding:12px 14px;color:#ffe1e1">
     <div style="font-size:11px;font-weight:900;letter-spacing:.08em;opacity:.85;color:#ffb3b3">INJURY UPDATE</div>
     <div style="font-size:17px;font-weight:950;margin-top:3px;color:#fff">${headline}</div>
     <div style="font-size:14px;font-weight:750;margin-top:2px">${returnLine}</div>
-    ${facts.src?`<div style="font-size:11px;font-weight:700;margin-top:6px;opacity:.75">Source: ${esc(facts.src)}${facts.updated?` · Updated ${esc(facts.updated)}`:""}</div>`:""}
   </div>`;
 }
 
@@ -8595,9 +8601,14 @@ window.openPlayerCard = function(name){
     : `<div style="width:255px;height:310px;display:grid;place-items:center;font-size:74px;font-weight:950;color:rgba(255,255,255,.88)">${team}</div>`;
 
   function stat(label,value){
-    return `<div style="border-radius:16px;background:rgba(255,255,255,.12);padding:10px 12px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)">
-      <div style="font-size:11px;font-weight:900;letter-spacing:.08em;opacity:.8">${esc(label)}</div>
-      <div style="font-size:22px;font-weight:950;line-height:1.05">${esc(value ?? "-")}</div>
+    // font-size:clamp(...) instead of a fixed 22px - on a narrow phone a
+    // 4-column grid gives each tile ~75px, and a value like "$365,400" at
+    // 22px doesn't fit and has nowhere to go (no overflow:hidden here
+    // before), so it visually spilled into the neighboring tile. Real bug
+    // found via a user screenshot, not just a tight fit.
+    return `<div style="border-radius:16px;background:rgba(255,255,255,.12);padding:10px 12px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);overflow:hidden">
+      <div style="font-size:11px;font-weight:900;letter-spacing:.08em;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(label)}</div>
+      <div style="font-size:clamp(13px,4.2vw,22px);font-weight:950;line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(value ?? "-")}</div>
     </div>`;
   }
 
@@ -8629,7 +8640,7 @@ window.openPlayerCard = function(name){
       </div>
 
       <div style="position:relative;z-index:3;margin-top:365px;padding:18px 22px 22px;background:linear-gradient(180deg,rgba(2,6,23,.1),rgba(2,6,23,.72))">
-        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px">
           ${stat("WR Proj", pr.expected)}
           ${stat("Price", price)}
           ${stat("BE", be)}
