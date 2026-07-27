@@ -56,12 +56,13 @@ const CURRENT_ROUND_FILE = path.join(ROOT, "data/current_round.json");
 const PRICE_UPDATE_STATE_FILE = path.join(ROOT, "data/price_update_state.json");
 
 // The real nrlsupercoachstats.com/SuperCoach price recalculation lands once
-// per round: normally Monday around noon Sydney time, but if the round's
-// last game is itself on a Monday night, the site doesn't have it ready
-// until Thursday instead. This is real, user-confirmed domain knowledge
-// about the source's own cadence, not something to guess at - fixtures.json
-// already carries real kickoff times per round, so the target day/time is
-// computed from that instead of a hardcoded date.
+// per round, once final scores are released: normally Monday around noon
+// Sydney time, but if the round has a game played on the Monday itself, the
+// scores for that round can't be finalised until the next day, so it lands
+// Tuesday instead. This is real, user-confirmed domain knowledge about the
+// source's own cadence, not something to guess at - fixtures.json already
+// carries real kickoff times per round, so the target day/time is computed
+// from that instead of a hardcoded date.
 const SYDNEY_TZ = "Australia/Sydney";
 
 async function readJson(file, fallback = {}) {
@@ -948,8 +949,9 @@ function localWeekdayOf(isoLocal) {
 
 // Works out when the real SuperCoach site is expected to post new prices
 // for a given completed round: the next Monday noon (Sydney time) after the
-// round's last game, unless the round itself has a Monday-night game, in
-// which case the site pushes it to the following Thursday noon instead.
+// round's last game, unless the round itself has a Monday-night game - final
+// scores for that round can't be released until the next day, so the site
+// pushes it to Tuesday noon instead.
 function computeNextPriceUpdateTarget(fixtures, round) {
   const roundFixtures = fixtures.filter(
     f => Number(f.round) === Number(round) && f.kickoffLocal
@@ -964,7 +966,7 @@ function computeNextPriceUpdateTarget(fixtures, round) {
     if (localWeekdayOf(f.kickoffLocal) === 1) hasMondayGame = true;
   }
 
-  const targetWeekdayNum = hasMondayGame ? 4 : 1; // Thursday : Monday
+  const targetWeekdayNum = hasMondayGame ? 2 : 1; // Tuesday : Monday
   const cursor = new Date(`${latestDatePart}T00:00:00Z`);
   cursor.setUTCDate(cursor.getUTCDate() + 1);
   while (cursor.getUTCDay() !== targetWeekdayNum) {
@@ -974,7 +976,7 @@ function computeNextPriceUpdateTarget(fixtures, round) {
   const targetDatePart = cursor.toISOString().slice(0, 10);
   return {
     targetUtc: zonedWallTimeToUtc(`${targetDatePart}T12:00:00`, SYDNEY_TZ),
-    targetWeekdayLabel: hasMondayGame ? "Thursday" : "Monday",
+    targetWeekdayLabel: hasMondayGame ? "Tuesday" : "Monday",
     hasMondayGame,
     round
   };

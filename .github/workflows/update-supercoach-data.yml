@@ -8,7 +8,7 @@
         type: boolean
         default: false
   # The real SuperCoach site only posts new prices once per round (Monday
-  # noon Sydney time normally, Thursday if the round has a Monday-night
+  # noon Sydney time normally, Tuesday if the round has a Monday-night
   # game) - scripts/update-players.mjs works this out itself from real
   # fixture data and skips every run that isn't past that window, so
   # firing every 2 hours is cheap (a local file check, no network) rather

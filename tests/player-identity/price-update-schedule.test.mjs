@@ -10,10 +10,11 @@ import {
 } from "../../scripts/update-players.mjs";
 
 // Real user-confirmed domain knowledge: the actual SuperCoach site posts
-// new prices once per round, Monday ~noon Sydney time - unless the round's
-// last game is itself on a Monday night, in which case it isn't ready until
-// Thursday instead. fixtures.json already carries real kickoff times, so
-// this is computed from that rather than a hardcoded weekly cron.
+// new prices once per round, once final scores are released - Monday ~noon
+// Sydney time normally, or Tuesday instead if the round has a game played
+// on the Monday itself (final scores for that round can't be released
+// until the next day). fixtures.json already carries real kickoff times,
+// so this is computed from that rather than a hardcoded weekly cron.
 
 test("a round with no Monday game targets the following Monday, noon Sydney time", () => {
   const fixtures = [
@@ -27,15 +28,15 @@ test("a round with no Monday game targets the following Monday, noon Sydney time
   assert.equal(target.targetUtc.toISOString(), "2026-08-03T02:00:00.000Z");
 });
 
-test("a round with a Monday game shifts the target to the following Thursday", () => {
+test("a round with a Monday game shifts the target to the following Tuesday", () => {
   const fixtures = [
     { round: 5, kickoffLocal: "2026-05-01T19:50:00" },
     { round: 5, kickoffLocal: "2026-05-04T19:30:00" } // Monday night game
   ];
   const target = computeNextPriceUpdateTarget(fixtures, 5);
-  assert.equal(target.targetWeekdayLabel, "Thursday");
+  assert.equal(target.targetWeekdayLabel, "Tuesday");
   assert.equal(target.hasMondayGame, true);
-  assert.equal(target.targetUtc.toISOString(), "2026-05-07T02:00:00.000Z");
+  assert.equal(target.targetUtc.toISOString(), "2026-05-05T02:00:00.000Z");
 });
 
 test("daylight saving is handled automatically, not hardcoded - a March round targets UTC+11, not UTC+10", () => {
