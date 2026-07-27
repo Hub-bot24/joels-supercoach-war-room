@@ -508,6 +508,19 @@ async function main() {
       const tables = extractTables(html);
       source.tables = tables.length;
 
+      // TEST ONLY: temporary diagnostic dump to find why extraction yields
+      // 0 fixtures despite a valid 200 response with real content - remove
+      // once the real parser fix lands. Not part of the normal pipeline.
+      if (process.env.DEBUG_FIXTURES) {
+        await fs.mkdir(path.join(ROOT, "debug"), { recursive: true });
+        const slug = url.replace(/[^a-z0-9]+/gi, "-");
+        await fs.writeFile(path.join(ROOT, "debug", `${slug}.html`), html);
+        await fs.writeFile(
+          path.join(ROOT, "debug", `${slug}-tables.json`),
+          JSON.stringify(tables.map(t => t.slice(0, 4000)), null, 2)
+        );
+      }
+
       for (const table of tables) {
         fixtures.push(...extractFromTable(table));
       }
