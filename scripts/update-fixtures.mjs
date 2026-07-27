@@ -172,6 +172,159 @@ async function fetchText(url) {
   return await response.text();
 }
 
+// The round-by-opponent matrix from nrlsupercoachstats.com has no venue
+// column at all, so it can only ever supply who's playing whom. The real
+// venue/city for each match comes from the official NRL draw pages
+// instead - https://www.nrl.com/draw/nrl-premiership/{YEAR}/round-{N}/ -
+// which embed each match as an HTML-entity-encoded JSON object (not a
+// __NEXT_DATA__ script tag, just inline in the markup). YEAR and the round
+// number are both already parameters here, not hardcoded, so this keeps
+// working every season without needing a seasonal URL update.
+function decodeHtmlEntities(text) {
+  return String(text || "")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&");
+}
+
+// Finds every JSON object in decodedText that contains `marker`, without
+// needing to know which HTML tag or attribute wraps it (that's an
+// implementation detail of NRL's page that could change; the object shape
+// itself - a "type":"Match" record with venue/team fields - is the actual
+// stable contract). Scans backward from the marker to find its enclosing
+// "{", then forward (respecting quoted strings, so braces inside a venue
+// name or similar can't miscount) to find the matching "}".
+function extractJsonObjectsWithMarker(decodedText, marker) {
+  const objects = [];
+  let searchFrom = 0;
+
+  while (true) {
+    const markerIndex = decodedText.indexOf(marker, searchFrom);
+    if (markerIndex < 0) break;
+
+    let depth = 0;
+    let start = -1;
+    for (let i = markerIndex; i >= 0; i--) {
+      const ch = decodedText[i];
+      if (ch === "}") depth++;
+      else if (ch === "{") {
+        if (depth === 0) {
+          start = i;
+          break;
+        }
+        depth--;
+      }
+    }
+
+    if (start < 0) {
+      searchFrom = markerIndex + marker.length;
+      continue;
+    }
+
+    let d = 0;
+    let inString = false;
+    let escaped = false;
+    let end = -1;
+    for (let i = start; i < decodedText.length; i++) {
+      const ch = decodedText[i];
+      if (inString) {
+        if (escaped) escaped = false;
+        else if (ch === "\\") escaped = true;
+        else if (ch === '"') inString = false;
+        continue;
+      }
+      if (ch === '"') inString = true;
+      else if (ch === "{") d++;
+      else if (ch === "}") {
+        d--;
+        if (d === 0) {
+          end = i;
+          break;
+        }
+      }
+    }
+
+    if (end < 0) {
+      searchFrom = markerIndex + marker.length;
+      continue;
+    }
+
+    try {
+      objects.push(JSON.parse(decodedText.slice(start, end + 1)));
+    } catch {
+      // Not real JSON (e.g. the marker text appeared somewhere unrelated) - skip it.
+    }
+    searchFrom = end + 1;
+  }
+
+  return objects;
+}
+
+async function fetchNrlRoundVenues(round) {
+  const url = `https://www.nrl.com/draw/nrl-premiership/${YEAR}/round-${round}/`;
+  const html = await fetchText(url);
+  const decoded = decodeHtmlEntities(html);
+  const matchObjects = extractJsonObjectsWithMarker(decoded, '"type":"Match"');
+
+  const venues = [];
+  for (const obj of matchObjects) {
+    const homeCode = codeFromText(obj?.homeTeam?.nickName);
+    const awayCode = codeFromText(obj?.awayTeam?.nickName);
+    const venue = clean(obj?.venue || "");
+    if (!homeCode || !awayCode || !venue) continue;
+
+    venues.push({
+      round,
+      homeTeam: homeCode,
+      awayTeam: awayCode,
+      venue,
+      venueCity: clean(obj?.venueCity || "")
+    });
+  }
+
+  return venues;
+}
+
+async function fetchAllNrlVenues(rounds) {
+  const byKey = new Map();
+  const errors = [];
+
+  for (const round of rounds) {
+    try {
+      const venues = await fetchNrlRoundVenues(round);
+      for (const v of venues) {
+        const pairKey = [v.homeTeam, v.awayTeam].sort().join("-");
+        byKey.set(`${v.round}|${pairKey}`, v);
+      }
+    } catch (error) {
+      errors.push(`R${round}: ${error.message}`);
+    }
+  }
+
+  return { byKey, errors };
+}
+
+function applyNrlVenues(fixtures, nrlVenuesByKey) {
+  let filled = 0;
+
+  const result = fixtures.map(fixture => {
+    if (fixture.venue) return fixture;
+
+    const pairKey = [fixture.homeTeam, fixture.awayTeam].sort().join("-");
+    const nrlVenue = nrlVenuesByKey.get(`${fixture.round}|${pairKey}`);
+    if (!nrlVenue) return fixture;
+
+    filled++;
+    const enriched = { ...fixture, venue: nrlVenue.venue };
+    if (nrlVenue.venueCity) enriched.city = nrlVenue.venueCity;
+    return addVenueMeta(enriched);
+  });
+
+  return { fixtures: result, filled };
+}
+
 function clean(value) {
   return String(value ?? "")
     .replace(/&nbsp;/gi, " ")
@@ -628,9 +781,19 @@ async function main() {
 
   const dedupedFixtures = dedupeFixtures(fixtures);
 
+  // The matrix table above has no venue column at all - it only ever
+  // supplies who's playing whom. Real venue/city comes from NRL's own
+  // per-round draw pages, fetched here for every round that's actually in
+  // this scrape (not a hardcoded list), so a missing venue only means
+  // "NRL.com doesn't have it either", not "this scraper never tried".
+  const roundsToEnrich = [...new Set(dedupedFixtures.map(f => Number(f.round)).filter(Boolean))].sort((a, b) => a - b);
+  const { byKey: nrlVenuesByKey, errors: nrlErrors } = await fetchAllNrlVenues(roundsToEnrich);
+  const { fixtures: nrlEnrichedFixtures, filled: nrlFilledCount } = applyNrlVenues(dedupedFixtures, nrlVenuesByKey);
+  report.nrlVenueSource = { roundsChecked: roundsToEnrich.length, filled: nrlFilledCount, errors: nrlErrors };
+
   const previousData = await readJson(OUT, null);
   const previousFixtures = Array.isArray(previousData?.fixtures) ? previousData.fixtures : [];
-  const { fixtures: cleanFixtures, carriedOver } = mergeWithPrevious(dedupedFixtures, previousFixtures);
+  const { fixtures: cleanFixtures, carriedOver } = mergeWithPrevious(nrlEnrichedFixtures, previousFixtures);
 
   const rounds = [...new Set(cleanFixtures.map(f => Number(f.round)).filter(Boolean))].sort((a, b) => a - b);
   const byes = calculateByes(cleanFixtures);
@@ -680,7 +843,19 @@ async function main() {
   }
 }
 
-export { dedupeFixtures, extractFromTable, extractFromMatrixTable, calculateByes, extractRows, extractCells, extractTables, mergeWithPrevious };
+export {
+  dedupeFixtures,
+  extractFromTable,
+  extractFromMatrixTable,
+  calculateByes,
+  extractRows,
+  extractCells,
+  extractTables,
+  mergeWithPrevious,
+  decodeHtmlEntities,
+  extractJsonObjectsWithMarker,
+  applyNrlVenues
+};
 
 const isDirectRun =
   Boolean(process.argv[1]) &&
