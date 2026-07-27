@@ -351,10 +351,19 @@ function textOf(v){
   try{ return JSON.stringify(v || {}).toLowerCase(); }catch{ return String(v || '').toLowerCase(); }
 }
 function hasAny(txt, words){ return words.some(w => txt.includes(w)); }
+// Plain substring matching is unsafe for short/common injury and suspension words: "squad"
+// contains "quad", "expected" contains "pec", "comeback"/"setback" contain "back", "describe"/
+// "contribute" contain "rib", "bandage" contains "ban". NRL reporting uses "squad" and "back"
+// constantly for reasons that have nothing to do with an actual injury or suspension, so this was
+// a real, generic false-positive source across every player, not specific to any one case. Word-
+// boundary matching fixes it without weakening genuine matches ("a hamstring injury" still hits).
+function hasAnyWholeWord(txt, words){
+  return words.some(w => new RegExp(`\\b${String(w).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\b`).test(txt));
+}
 const INJURY_WORDS = ['ruled out','injured','injury','hamstring','calf','knee','shoulder','ankle','hia','concussion','casualty ward','syndesmosis','acl','mcl','fracture','broken','pec','pectoral','adductor','quad','quadriceps','groin','neck','back','wrist','foot','toe','rib'];
 const SUSPENSION_WORDS = ['suspended','suspension','judiciary','ban','banned','charge','charged','guilty plea','dangerous contact','high tackle','grade 1','grade 2','grade 3'];
-function hasInjuryWords(txt){ return hasAny(txt, INJURY_WORDS); }
-function hasSuspensionWords(txt){ return hasAny(txt, SUSPENSION_WORDS); }
+function hasInjuryWords(txt){ return hasAnyWholeWord(txt, INJURY_WORDS); }
+function hasSuspensionWords(txt){ return hasAnyWholeWord(txt, SUSPENSION_WORDS); }
 // A confirmed-finality phrase near a player's name on a dedicated injury article (not a broad
 // hub/index page) is strong evidence, generic across every player: real "season-ending" reporting
 // language, not just a body-part word floating on a casualty-ward list.
@@ -387,7 +396,9 @@ function firstMatchText(txt, patterns){
 function injuryTypeFromText(txt){
   const bodyParts = ['hamstring','calf','knee','shoulder','ankle','hia','concussion','syndesmosis','acl','mcl','fracture','broken','pec','pectoral','adductor','quad','quadriceps','groin','neck','back','wrist','foot','toe','rib'];
   const lower = String(txt||'').toLowerCase();
-  const hit = bodyParts.find(w => lower.includes(w));
+  // Same word-boundary fix as hasAnyWholeWord above: without it "expectedReturn" reports a "Pec"
+  // injury and "squad" reports a "Quad" injury, purely from the substring appearing mid-word.
+  const hit = bodyParts.find(w => new RegExp(`\\b${w}\\b`).test(lower));
   return hit ? titleCaseWords(hit === 'hia' ? 'HIA' : hit) : '';
 }
 function injuryReturnMetaFromRecord(rec, round){
@@ -2134,7 +2145,11 @@ function injuryWindowHasPlayerEvidence(windowText){
   if(!hasInjuryWords(txt)) return false;
   // Do not assign a player an injury just because their name appears on a giant casualty page.
   // The injury word must be near that player, and the window must look like an injury/return row.
-  return /injur|hamstring|calf|knee|shoulder|ankle|hia|concussion|groin|quad|neck|back|wrist|rib|return|round|week|tbc|indefinite|test|monitor|ruled out/i.test(txt);
+  // Short standalone words are boundary-checked so this can't fire on "squad" (quad), "comeback"/
+  // "background" (back), "ground"/"around" (round), or "describe" (rib) - the same false-positive
+  // class hasAnyWholeWord fixes above. "injur" stays a bare prefix on purpose, to still match
+  // injury/injured/injuries.
+  return /injur|hamstring|calf|knee|shoulder|ankle|hia|concussion|\bgroin\b|\bquad\b|\bneck\b|\bback\b|\bwrist\b|\brib\b|\breturn\b|\bround\b|\bweek\b|tbc|indefinite|\btest\b|\bmonitor\b|ruled out/i.test(txt);
 }
 function fromFetchedInjuries(players, pages, injuriesOut){
   let count = 0;
@@ -3230,7 +3245,11 @@ export {
   hasConfirmedInjuryPhrase,
   localWindowAroundNameScoped,
   fromBackupStatus,
-  backupRecordAgeDays
+  backupRecordAgeDays,
+  hasInjuryWords,
+  hasSuspensionWords,
+  injuryTypeFromText,
+  injuryWindowHasPlayerEvidence
 };
 
 const isDirectRun =
