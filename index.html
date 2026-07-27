@@ -3096,6 +3096,13 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .wr-sync-pill::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:6px;vertical-align:middle}
 .wr-sync-pill.warn::before{animation:wr-pulse 1.4s ease-in-out infinite}
 @keyframes wr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+/* Status-truth freshness readout - see updateStatusFreshnessLabel(). Fresh
+   (<=30m) is neutral, stale (30m-2h) warns, badly stale (>2h) flags red -
+   an honest "how old is this" instead of a permanently blank label. */
+#statusFreshness{font-weight:800}
+#statusFreshness.wr-fresh-ok{color:var(--muted)}
+#statusFreshness.wr-fresh-warn{opacity:1!important;color:#facc15}
+#statusFreshness.wr-fresh-bad{opacity:1!important;color:#ff6b6b}
 @media(prefers-reduced-motion:reduce){.wr-sync-pill.warn::before{animation:none}}
 /* =========================================================
    PLAYER PROFILE MODAL
@@ -5992,9 +5999,42 @@ async function boot(){
 App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};App.reserveOrder=safeJsonParse(safeLocalGet('sc_reserveOrder','{}'),{})||{};App.selectedReserves=safeJsonParse(safeLocalGet('sc_selectedReserves','[]'),[])||[];validateLineup();ensureLineup();wireTabs();renderActive();dismissBootSplash();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
  updateStatusFreshnessLabel();startLiveStatusRefresh();ensureNotifSeenInitialized();renderNotifBadge();
 }
-function updateStatusFreshnessLabel(){const fe=$('statusFreshness');if(fe)fe.textContent=''}
+/* Real freshness readout instead of the always-blank stub this was. The
+   status-truth pipeline is configured to run every 15 minutes, but
+   GitHub's scheduled-workflow runner is well documented to lag under
+   load - verified against this repo's own run history that the real
+   cadence is closer to hourly. A war-room tool claiming "live" data
+   should say how old that data actually is, not hide it. */
+function formatFreshness(iso){
+ const then=iso?new Date(iso).getTime():NaN;
+ if(!Number.isFinite(then))return '';
+ const mins=Math.max(0,Math.round((Date.now()-then)/60000));
+ if(mins<1)return 'Updated just now';
+ if(mins<60)return `Updated ${mins}m ago`;
+ const hrs=Math.floor(mins/60);
+ if(hrs<24)return `Updated ${hrs}h ${mins%60}m ago`;
+ return `Updated ${Math.floor(hrs/24)}d ago`;
+}
+function updateStatusFreshnessLabel(){
+ const fe=$('statusFreshness');
+ if(!fe)return;
+ const iso=App.statusTruth?.updated||App.playerStatus?.updated||App.playerStatus?.generatedAt||'';
+ fe.textContent=formatFreshness(iso);
+ const then=iso?new Date(iso).getTime():NaN;
+ const staleMins=Number.isFinite(then)?(Date.now()-then)/60000:Infinity;
+ fe.title=staleMins===Infinity?'No status timestamp available':`Status data last confirmed ${new Date(then).toLocaleString()}`;
+ fe.classList.remove('wr-fresh-ok','wr-fresh-warn','wr-fresh-bad');
+ fe.classList.add(staleMins<=30?'wr-fresh-ok':staleMins<=120?'wr-fresh-warn':'wr-fresh-bad');
+}
 async function refreshTrustDataNow(){const oldUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],App.weather||null);App.playerStatus=await fetchJson('player_status.json',App.playerStatus||{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],App.statusTruth||null);App.currentRoundMeta=await fetchJsonFirst(['data/current_round.json','current_round.json'],App.currentRoundMeta||null);App.availabilityOverrides=await fetchJson('availability_overrides.json',App.availabilityOverrides||{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],App.teamLists||null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],App.officialTeamLists||null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],App.originUnavailable||null);App.opponentDifficulty=await fetchJson('data/opponent_difficulty.json',App.opponentDifficulty||{});App.positionalMatchupsV2=await fetchJson('data/positional_matchups_v2.json',App.positionalMatchupsV2||{teams:{}});App.fixtures=await fetchJson('fixtures.json',App.fixtures||null);syncCurrentRound();App.projectionCache.clear();updateStatusFreshnessLabel();renderActive();const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed')}
-function startLiveStatusRefresh(){if(App._statusRefreshTimer)return;App._statusRefreshTimer=setInterval(refreshTrustDataNow,10*60*1000)}
+function startLiveStatusRefresh(){
+ if(App._statusRefreshTimer)return;
+ App._statusRefreshTimer=setInterval(refreshTrustDataNow,10*60*1000);
+ // Ticks the "Updated Xm ago" label between real data refreshes so it
+ // stays honest even if refreshTrustDataNow's 10-minute cycle hasn't
+ // fired yet - a stopped clock is worse than no clock on a live tool.
+ if(!App._freshnessTickTimer)App._freshnessTickTimer=setInterval(updateStatusFreshnessLabel,60*1000);
+}
 
 
 function movePlayerCore(name, toSlot, type){
