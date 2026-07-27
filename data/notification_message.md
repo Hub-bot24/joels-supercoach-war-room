@@ -1,76 +1,28 @@
 # SuperCoach War Room status changes — Round 22
 
-Detected: 2026-07-27T10:34:04.336Z
+Detected: 2026-07-27T10:45:35.524Z
 
-- **Adam Elliott** (STH): INJURED → EXPECTED
+- **Bailey Simonsson** (PAR): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Blake Steep** (SYD): INJURED → EXPECTED
+- **Dylan Brown** (NEW): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Brock Gray** (GLD): INJURED → EXPECTED
+- **Dylan Lucas** (NEW): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Corey Jensen** (BRO): INJURED → EXPECTED
+- **Hugo Savala** (SYD): EXPECTED → INJURED
+  - Head knock; Origin/representative-duty context present
+  - Source: Existing player_status.json updater, origin_players.json
+- **Jake Turpin** (CAN): EXPECTED → INJURED
+  - Biceps
+  - Source: Existing player_status.json updater
+- **Sean Keppie** (STH): EXPECTED → INJURED
+  - Thumb
+  - Source: Existing player_status.json updater
+- **Sean Russell** (PAR): INJURED → EXPECTED
   - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
   - Source: Current club team-list not confirmed
-- **Daniel Tupou** (SYD): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Dylan Brown** (NEW): EXPECTED → INJURED
-  - Ankle confirmed near player on injury article (Zero Tackle): Season.
-  - Source: Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
-- **Dylan Lucas** (NEW): EXPECTED → INJURED
-  - Ankle confirmed near player on injury article (Zero Tackle): Season.; Origin/representative-duty context present
-  - Source: Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, origin_players.json
-- **Eliesa Katoa** (MEL): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Hugo Savala** (SYD): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jaimin Jolliffe** (GLD): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jake Turpin** (CAN): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Jaydn Su'A** (STG): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Junior Paulo** (PAR): EXPECTED → INJURED
-  - Knee confirmed near player on injury article (Zero Tackle): Round 23.
-  - Source: Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
-- **Kai Pearce-Paul** (WST): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Mitchell Woods** (CAN): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Noah Martin** (CBR): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Royce Hunt** (WST): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Samuel Hughes** (CAN): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Sean Keppie** (STH): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Sean Russell** (PAR): EXPECTED → INJURED
-  - Knee confirmed near player on injury article (Zero Tackle): Round 23.
-  - Source: Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
-- **Talanoa Penitani** (STH): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Tanah Boyd** (NZL): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Tui Kamikamica** (MEL): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Xavier Coates** (MEL): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
+- **Tui Kamikamica** (MEL): EXPECTED → INJURED
+  - Medical Episode
+  - Source: Existing player_status.json updater
