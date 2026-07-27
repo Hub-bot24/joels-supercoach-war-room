@@ -70,7 +70,23 @@ function extractDppPlayers(html) {
 
     const positions = parsePositions(clean);
 
-    if (positions.length < 2) continue;
+    // A DPP (dual position player) grid row is dual by definition: real
+    // NRL SuperCoach rules make a player eligible in exactly two positions
+    // here, never one and never three or more. parsePositions() scans the
+    // whole flattened row for any of the 7 valid codes, so a row whose
+    // team/stat columns happen to also contain a matching substring can
+    // over-match. Rather than silently write an impossible 3-position
+    // player, reject the row and say so loudly so it can be reviewed -
+    // matches the project rule against ever guessing at football data.
+    if (positions.length !== 2) {
+      if (positions.length > 2) {
+        console.warn(
+          `[update-dpp] Skipping row with ${positions.length} matched positions ` +
+          `(a DPP row must be exactly 2): ${positions.join("/")} - raw row text: "${clean.slice(0, 160)}"`
+        );
+      }
+      continue;
+    }
 
     const nameMatch = clean.match(/^([A-Za-z .'-]+)/);
 

@@ -5521,19 +5521,29 @@ function addPositionsUnique(out,value){
  return out;
 }
 
+// Real NRL SuperCoach rules make a player eligible in at most 2 positions,
+// ever - this is a permanent domain fact, not a guess. Every position list
+// this app resolves has to pass through here as the final checkpoint, so a
+// corrupt upstream source (bad scrape, stale generated file, a malformed
+// override) can never reach the UI as an impossible 3+ position player.
+function capPositions(list,p){
+ if(!Array.isArray(list)||list.length<=2)return list;
+ console.warn(`[positions] ${p?.name||'unknown player'} resolved to ${list.length} positions (${list.join('/')}) - impossible for SuperCoach (max 2 ever). Showing first 2 only; upstream data needs correction.`);
+ return list.slice(0,2);
+}
 function positions(p){
  if(!p)return [];
 
  // CORE RULE: generated/master position authority wins first.
  const authority=lookupPositionAuthority(p);
- if(authority.length)return authority;
+ if(authority.length)return capPositions(authority,p);
 
  // Fallback only when the player has no generated/master authority.
  const out=[];
  for(const key of ['positions','eligiblePositions','dualPositions','positionList','eligible','pos','position','primaryPosition']){
   addPositionsUnique(out,p[key]);
  }
- return out;
+ return capPositions(out,p);
 }
 
 function positionText(p,fallback=''){
