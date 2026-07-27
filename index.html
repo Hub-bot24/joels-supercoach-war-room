@@ -3248,7 +3248,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .formation-cv-vice{background:#58a6ff;color:#031326;border:2px solid #d6ecff;font-size:8px}
 .formation-cv-badge.formation-cv-nolh{border-style:dashed;filter:saturate(.55) brightness(.92)}
 .formation-r-badge{position:absolute;top:-7px;left:-7px;z-index:5;width:20px;height:20px;border-radius:999px;background:#22c55e;color:#04170a;border:2px solid #d3ffe4;display:grid;place-items:center;font-size:10px;font-weight:950;box-shadow:0 4px 10px rgba(0,0,0,.5);cursor:help}
-.formation-reserve-select{position:absolute;bottom:-7px;right:-7px;z-index:5;width:19px;height:19px;border-radius:999px;background:#0b1a2e;color:#94a3b8;border:2px solid #335074;display:grid;place-items:center;font-size:11px;font-weight:950;line-height:1;padding:0;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.5)}
+.formation-reserve-select{position:absolute;top:-7px;right:-7px;z-index:5;width:19px;height:19px;border-radius:999px;background:#0b1a2e;color:#94a3b8;border:2px solid #335074;display:grid;place-items:center;font-size:11px;font-weight:950;line-height:1;padding:0;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.5)}
 .formation-reserve-select:hover{border-color:#58a6ff;color:#cfe4ff}
 .formation-reserve-select-on{background:#22c55e;color:#04170a;border-color:#d3ffe4}
 /* C/VC now renders inline next to the player's name (not stamped on the
@@ -3256,7 +3256,7 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
    overflow:hidden compact table look - it flows with the text like any
    other inline element. */
 .formation-reserve-card .formation-r-badge{top:3px;left:3px;width:15px;height:15px;font-size:8px;box-shadow:none}
-.formation-reserve-card .formation-reserve-select{bottom:3px;right:3px;width:15px;height:15px;font-size:9px;box-shadow:none}
+.formation-reserve-card .formation-reserve-select{top:3px;right:3px;width:15px;height:15px;font-size:9px;box-shadow:none}
 .trade-radar{margin:0 0 16px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:16px;padding:14px 16px;color:#f8fafc}
 .trade-radar h3{margin:0 0 10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#c7d2fe}
 .trade-radar-empty{font-size:12px;color:#bfd0e8;line-height:1.4}
@@ -7658,7 +7658,7 @@ function formationSlot(slotId,gridArea,picks={}){
   <div class="formation-card ${formationStatusClass(p)}" style="--accent:${accent};--pos:${pa}" draggable="true" data-slot="${slotId}" onpointerdown="pressDragStart(event,'field','${slotId}','${window.jsq(p.name)}')" ondragstart="dragField(event,'${slotId}','${window.jsq(p.name)}')" ondragover="allowDropOnSlot(event,'${slotId}')" ondragleave="clearDrop(event)" ondrop="dropOnSlot(event,'${slotId}')">
    <div class="wr-slot-tag" title="${esc(slot.short)} slot">${esc(playerPosText)}</div>
    ${wrPlayerCardPhotoHtml(p,'wr-team-logo')}
-   <div class="formation-name player-name-link" title="${esc(p.name)}" role="button" tabindex="0" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${badgeHtml}${esc(p.name)}</div>
+   <div class="formation-name player-name-link" title="${esc(p.name)}" role="button" tabindex="0" onclick="openPlayerCard('${window.jsq(p.name)}')">${badgeHtml}${esc(p.name)}</div>
    <div class="formation-score">${pr.expected}</div>
    <div class="formation-meta">
     <span>${price}</span>
@@ -7720,7 +7720,7 @@ function formationReserveCard(p,idx=0,slotId="",isSubstituting=false,picks={},is
   <div class="wr-reserve-no">${idx}</div>
   ${wrPlayerCardPhotoHtml(p,'wr-reserve-logo')}
   <div class="formation-reserve-main">
-   <div class="formation-reserve-name player-name-link" title="${esc(p.name)}" role="button" tabindex="0" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${cvBadge}${esc(p.name)}</div>
+   <div class="formation-reserve-name player-name-link" title="${esc(p.name)}" role="button" tabindex="0" onclick="openPlayerCard('${window.jsq(p.name)}')">${cvBadge}${esc(p.name)}</div>
    <div class="formation-reserve-meta"><b style="color:var(--pos)">${esc(reservePosText)}</b>  R${App.round}${opp?"  "+opp:""}</div>
   </div>
   <div class="formation-reserve-score">${pr.expected}</div>
@@ -8523,9 +8523,23 @@ function pressDragStart(ev,type,slotId,name){
  let started=false;
  let moved=false;
  const d={type:type==='field'?'field':'reserve',slotId,name};
- const startTimer=setTimeout(()=>{started=true;App.drag=d;el.classList.add('press-dragging');try{el.setPointerCapture(ev.pointerId)}catch(e){}},260);
+ function activate(){
+  if(started)return;
+  started=true;
+  clearTimeout(startTimer);
+  App.drag=d;el.classList.add('press-dragging');try{el.setPointerCapture(ev.pointerId)}catch(e){}
+ }
+ // A stationary press-and-hold still enters drag mode via this timer, but
+ // real movement below activates immediately instead of waiting the
+ // timer out - that unconditional wait was why a normal, fast drag
+ // gesture felt laggy (no visual feedback until 260ms had elapsed) and,
+ // for a flick completed within that window, why the drop never
+ // committed at all (started stayed false, so up() didn't count it as a
+ // drag, but moved was already true so it didn't open the player card
+ // either - the interaction silently did nothing).
+ const startTimer=setTimeout(activate,260);
  function cleanup(){clearTimeout(startTimer);window.removeEventListener('pointermove',move,{capture:true});window.removeEventListener('pointerup',up,{capture:true});window.removeEventListener('pointercancel',cancel,{capture:true});el.classList.remove('press-dragging');el.style.transform='';el.style.zIndex=''}
- function move(e){const dx=e.clientX-startX,dy=e.clientY-startY;if(Math.hypot(dx,dy)>7)moved=true;if(started){e.preventDefault();el.style.transform=`translate(${dx}px,${dy}px) scale(.98)`;el.style.zIndex='10000';}}
+ function move(e){const dx=e.clientX-startX,dy=e.clientY-startY;if(!moved&&Math.hypot(dx,dy)>7){moved=true;activate();}if(started){e.preventDefault();el.style.transform=`translate(${dx}px,${dy}px) scale(.98)`;el.style.zIndex='10000';}}
  function cancel(){cleanup()}
  function up(e){const wasStarted=started;cleanup();if(wasStarted){const target=document.elementFromPoint(e.clientX,e.clientY);const slot=target?.closest?.('[data-slot]')?.getAttribute('data-slot');const reserve=target?.closest?.('[data-reserve-slot]')?.getAttribute('data-reserve-slot');if(type==='reserve'&&slot){commitDragToSlot(d,slot);return}if((type==='field'||type==='reserve')&&reserve){commitDragToReserveCard(d,reserve);return}if(type==='field'&&target?.closest?.('.formation-reserves,.wr-reserve-panel')){commitDragToReserveGroup(d);return}toast('Drop on an eligible player/slot');return;}if(!moved){openPlayerCard(name);}}
  window.addEventListener('pointermove',move,{capture:true,passive:false});window.addEventListener('pointerup',up,{capture:true});window.addEventListener('pointercancel',cancel,{capture:true});
