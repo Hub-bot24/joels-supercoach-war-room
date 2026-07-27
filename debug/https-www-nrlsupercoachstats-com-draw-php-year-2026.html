@@ -1,0 +1,979 @@
+
+<html bgcolor="#4E6898" style="width:100%">
+<head>
+		<meta name="description" content="2026 Draw & Bye Schedule, NRL Supercoach Stats, Scores, Averages, Minutes and PPMs.  Sort and filter lists based on player name, position or round.  View totals and stats for each round.">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ 		<meta property="og:url" content="https://www.nrlsupercoachstats.com/2026draw.php"/>
+		<meta property="og:type" content="website"><meta name="theme-color" content="#4E6898"/><meta name="theme-color" content="#4E6898"/>
+		<meta property="og:locale" content="en_GB" />
+		<meta property="og:image" content="https://www.nrlsupercoachstats.com/previewDraw.jpg" />
+		<meta property="og:title" content="NRL Supercoach Stats - 2026 Draw & Bye Schedule" />
+		<meta property="og:description" content="2026 Draw & Bye Schedule, NRL Supercoach Stats, Scores, Averages, Minutes and PPMs.  Sort and filter lists based on player name, position or round.  View totals and stats for each round." />
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:site" content="@NRLSCStats">
+		<meta name="twitter:title" content="NRL Supercoach Stats - 2026 Draw & Bye Schedule.">
+		<meta name="twitter:description" content="2026 Draw & Bye Schedule, NRL Supercoach Stats, Scores, Averages, Minutes and PPMs.  Sort and filter lists based on player name, position or round.  View totals and stats for each round.">
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+		
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		
+        <title>NRL Supercoach Stats - 2026 Draw & Bye Schedule</title>
+	<link rel="stylesheet" href="./css/combined.css">
+    <script src="./phpgrid/lib/js/jquery.min.js" type="text/javascript"></script>
+    <script src="./phpgrid/lib/js/jqgrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
+    <script src="./phpgrid/lib/js/jqgrid/js/jquery.jqGrid.min.js" type="text/javascript"></script>  
+    <script src="./phpgrid/lib/js/themes/jquery-ui.custom.min.js" type="text/javascript"></script>
+    <!-- these css and js files are required by php grid -->	
+	
+</head>
+<style>
+.ui-jqgrid .loading {
+	//visibility: hidden;
+	color: gray;
+	font-size: 100px;
+	border: 0px solid red !important;
+	background: none !important;
+}
+
+td {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+</style>
+
+<script>
+// e.g. to show footer summary
+function grid_onload() 
+{
+    var grid = $("#list1");
+
+    // sum of displayed result
+    //sum = grid.jqGrid('getCol', 'total', false, 'sum'); // 'sum, 'avg', 'count' (use count-1 as it count footer row).
+
+    // sum of running total records
+    //sum_running = grid.jqGrid('getCol', 'running_total')[0];
+
+    // sum of total records
+    //sum_table = grid.jqGrid('getCol', 'table_total')[0];
+
+    // record count
+    c = grid.jqGrid('getCol', 'id', false, 'count');
+	avgptsfooter = grid.jqGrid('getCol', 'Score', false, 'avg');
+
+    grid.jqGrid('footerData','set', {Name: 'Count: ' + c, AvgScore: '' + avgptsfooter});
+	// grid.jqGrid('footerData','set', {Name: 'Count: ' + c, invdate: 'Sub Total: '+sum_running, total: 'Grand Total: '+sum_table});
+};
+
+function grid_onselect()  
+    { 
+
+        var grid = $("#list1"); 
+
+        var t = 0; 
+		var totalptsfooter = 0;
+		var totalminsfooter = 0;
+		var totalCVfooter = 0;
+		var countrows = 0;
+        var selr = grid.jqGrid('getGridParam','selarrrow'); // array of id's of the selected rows when multiselect options is true. Empty array if not selection  
+        for (var x=0;x<selr.length;x++) 
+        { 
+            t += parseFloat(grid.jqGrid('getCell', selr[x], 'id'));
+			totalptsfooter += parseFloat(grid.jqGrid('getCell', selr[x], 'Score'));
+			totalminsfooter += parseFloat(grid.jqGrid('getCell', selr[x], 'Mins'));
+			totalCVfooter += parseFloat(grid.jqGrid('getCell', selr[x], 'CVRd'));
+			countrows += 1;
+        } 
+        grid.jqGrid('footerData','set', 
+			{Name: 'Count: '+ countrows, 
+			 Score: ''+totalptsfooter, 
+			 AvgScore: ''+(totalptsfooter/countrows).toFixed(1),
+			 Mins: ''+totalminsfooter,
+			 AvgMins: ''+(totalminsfooter/countrows).toFixed(1),
+			 CVRd: ''+(totalCVfooter/countrows).toFixed(2)
+			 	
+		},false); 
+    }; 
+</script>
+
+
+
+
+		<script type="text/javascript">
+		$(function(){
+		  $('a[href="#"]').on('click', function(e){
+			e.preventDefault();
+		  });
+		  
+		  $('#menu > li').on('mouseover', function(e){
+			$(this).find("ul:first").show();
+			$(this).find('> a').addClass('active');
+		  }).on('mouseout', function(e){
+			$(this).find("ul:first").hide();
+			$(this).find('> a').removeClass('active');
+		  });
+		  
+		  $('#menu li li').on('mouseover',function(e){
+			if($(this).has('ul').length) {
+			  $(this).parent().addClass('expanded');
+			}
+			$('ul:first',this).parent().find('> a').addClass('active');
+			$('ul:first',this).show();
+		  }).on('mouseout',function(e){
+			$(this).parent().removeClass('expanded');
+			$('ul:first',this).parent().find('> a').removeClass('active');
+			$('ul:first', this).hide();
+		  });
+		});
+		</script>
+		
+
+    <body style="background-color:#f1f1f1;margin: 0; padding: 0;"">
+
+<div style="padding-left: 0em; padding-top: 0em; margin-bottom:0.5em; height:165px !important;" bgcolor="#4E6898" border=0>
+<table style="padding-left: 0em; padding-top: 0em; margin-bottom:0.5em;height:163px" width="100%" height="100%" bgcolor="#4E6898" border=0>
+
+<tr style="height:103px;">
+<td style="style="background: #F1F1F1;padding: 0em 0em 0em 0em; margin 0 auto;">
+<div style="text-align:center; width:200px; height:80px;">
+<a href="./">
+<img src="./logopale90x180.png" alt="NRL Supercoach Stats"></a></div></td>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65835534-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<td align="left" style="width:100%;padding-left:13em;"><script type="text/javascript">
+    google_ad_client = "ca-pub-7537497632512390";
+    google_ad_slot = "8571754466";
+    google_ad_width = 728;
+    google_ad_height = 90;
+</script>
+
+
+<!-- nrlsupercoachstats-728x90 -->
+<script type="text/javascript"
+src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</td> 
+
+
+</tr>
+
+<tr style="height:57px;">
+<td colspan=1 height=3em style="padding:0em 0em 0em 0em;margin: 0 auto; text-align:center;width:200px;border-width: 0px">
+		<span>
+<h1 style='color:white;'>2026 Draw</h1></font>
+
+</span>	
+</td>
+<td colspan=2>
+<table border=0 width=100% style="padding: 0em 0em 0em 0em;margin: 0 auto;"><tr><td width=70% style="padding: 0em 0em 0em 0em;margin: 0 auto;">
+
+<nav>
+    <div class="wrapper">
+      <ul id="menu" class="clearfix">
+	  
+	    <!--<li class="blue"><a href="./teamselector.php" style="background-color:red;">TeamBuilder</a></li>-->
+		<li class="blue"><a href="#">Stats</a>
+          <ul>
+			<li class="blue"><a href="#">2026<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./index.php?year=2026">Player Profiles</a></li>
+				<li class="blue"><a href="./stats.php?year=2026">Stats Table</a></li>
+				<li class="blue"><a href="./mattsstats.php?year=2026">Matt's Stats</a></li>
+				<li class="blue"><a href="./minutes.php?year=2026">Minutes</a></li>
+				<li class="blue"><a href="./drawV2.php?year=2026">Draw</a></li>
+				<li class="blue"><a href="./turnarounds.php?year=2026">Short Turnarounds</a></li>
+				<li class="blue"><a href="./scoresbyround.php?year=2026">Team Pts By Round</a></li>
+				<li class="blue"><a href="./teamptsallowed.php?year=2026">Team Pts Allowed</a></li>
+				<li class="blue"><a href="./posnvsteam.php?year=2026">Posn-vs-Team</a></li>
+				<li class="blue"><a href="./draftgrid.php?year=2026">Draft Day</a></li>
+				<li class="blue"><a href="./initialvalue.php?year=2026">Player Price Variance</a></li>
+				<li class="blue"><a href="./dualposngrid.php?year=2026">Dual Posn</a></li>
+				<li class="blue"><a href="./pivotchart.php?year=2026">Pivot Chart</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">2025<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./index.php?year=2025">Player Profiles</a></li>
+				<li class="blue"><a href="./stats.php?year=2025">Stats Table</a></li>
+				<li class="blue"><a href="./mattsstats.php?year=2025">Matt's Stats</a></li>
+				<li class="blue"><a href="./minutes.php?year=2025">Minutes</a></li>
+				<li class="blue"><a href="./drawV2.php?year=2025">Draw</a></li>
+				<li class="blue"><a href="./turnarounds.php?year=2025">Short Turnarounds</a></li>
+				<li class="blue"><a href="./scoresbyround.php?year=2025">Team Pts By Round</a></li>
+				<li class="blue"><a href="./teamptsallowed.php?year=2025">Team Pts Allowed</a></li>
+				<li class="blue"><a href="./posnvsteam.php?year=2025">Posn-vs-Team</a></li>
+				<li class="blue"><a href="./draftgrid.php?year=2025">Draft Day</a></li>
+				<li class="blue"><a href="./initialvalue.php?year=2025">Player Price Variance</a></li>
+				<li class="blue"><a href="./dualposngrid.php?year=2025">Dual Posn</a></li>
+				<li class="blue"><a href="./pivotchart.php?year=2025">Pivot Chart</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">2024<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./index.php?year=2024">Player Profiles</a></li>
+				<li class="blue"><a href="./stats.php?year=2024">Stats Table</a></li>
+				<li class="blue"><a href="./mattsstats.php?year=2024">Matt's Stats</a></li>
+				<li class="blue"><a href="./minutes.php?year=2024">Minutes</a></li>
+				<li class="blue"><a href="./drawV2.php?year=2024">Draw</a></li>
+				<li class="blue"><a href="./turnarounds.php?year=2024">Short Turnarounds</a></li>
+				<li class="blue"><a href="./scoresbyround.php?year=2024">Team Pts By Round</a></li>
+				<li class="blue"><a href="./teamptsallowed.php?year=2024">Team Pts Allowed</a></li>
+				<li class="blue"><a href="./posnvsteam.php?year=2024">Posn-vs-Team</a></li>
+				<li class="blue"><a href="./draftgrid.php?year=2024">Draft Day</a></li>
+				<li class="blue"><a href="./initialvalue.php?year=2024">Player Price Variance</a></li>
+				<li class="blue"><a href="./dualposngrid.php?year=2024">Dual Posn</a></li>
+				<li class="blue"><a href="./pivotchart.php?year=2024">Pivot Chart</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">2023<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./index.php?year=2023">Player Profiles</a></li>
+				<li class="blue"><a href="./stats.php?year=2023">Stats Table</a></li>
+				<li class="blue"><a href="./mattsstats.php?year=2023">Matt's Stats</a></li>
+				<li class="blue"><a href="./minutes.php?year=2023">Minutes</a></li>
+				<li class="blue"><a href="./drawV2.php?year=2023">Draw</a></li>
+				<li class="blue"><a href="./turnarounds.php?year=2023">Short Turnarounds</a></li>
+				<li class="blue"><a href="./scoresbyround.php?year=2023">Team Pts By Round</a></li>
+				<li class="blue"><a href="./teamptsallowed.php?year=2023">Team Pts Allowed</a></li>
+				<li class="blue"><a href="./posnvsteam.php?year=2023">Posn-vs-Team</a></li>
+				<!--<li class="blue"><a href="./draft.php?year=2023">Draft Rankings</a></li>-->
+				<li class="blue"><a href="./draftgrid.php?year=2023">Draft Day</a></li>
+				<li class="blue"><a href="./initialvalue.php?year=2023">Player Price Variance</a></li>
+				<li class="blue"><a href="./dualposngrid.php?year=2023">Dual Posn</a></li>
+				<li class="blue"><a href="./pivotchart.php?year=2023">Pivot Chart</a></li>
+				</ul>
+			</li>
+		    <li class="blue"><a href="#">2022<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./index.php?year=2022">Player Profiles</a></li>
+				<li class="blue"><a href="./stats.php?year=2022">Stats Table</a></li>
+				<li class="blue"><a href="./mattsstats.php?year=2022">Matt's Stats</a></li>
+				<li class="blue"><a href="./minutes.php?year=2022">Minutes</a></li>
+				<li class="blue"><a href="./drawV2.php?year=2022">Draw</a></li>
+				<li class="blue"><a href="./turnarounds.php?year=2022">Short Turnarounds</a></li>
+				<li class="blue"><a href="./scoresbyround.php?year=2022">Team Pts By Round</a></li>
+				<li class="blue"><a href="./teamptsallowed.php?year=2022">Team Pts Allowed</a></li>
+				<li class="blue"><a href="./posnvsteam.php?year=2022">Posn-vs-Team</a></li>
+				<li class="blue"><a href="./draft.php?year=2022">Draft Rankings</a></li>
+				<li class="blue"><a href="./draftgrid.php?year=2022">Draft Day</a></li>
+				<li class="blue"><a href="./initialvalue.php?year=2022">Player Price Variance</a></li>
+				<li class="blue"><a href="./dualposngrid.php?year=2022">Dual Posn</a></li>
+				<li class="blue"><a href="./pivotchart.php?year=2022">Pivot Chart</a></li>
+				</ul>
+			</li>
+		    <li class="blue"><a href="#">2021<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./2021index.php">Player Profiles</a></li>
+				<li class="blue"><a href="./stats.php?year=2021">Stats Table</a></li>
+				<li class="blue"><a href="./mattsstats.php?year=2021">Matt's Stats</a></li>
+				<li class="blue"><a href="./minutes.php?year=2021">Minutes</a></li>
+				<li class="blue"><a href="./drawV2.php?year=2021">Draw</a></li>
+				<li class="blue"><a href="./turnarounds.php?year=2021">Short Turnarounds</a></li>
+				<li class="blue"><a href="./scoresbyround.php?year=2021">Team Pts By Round</a></li>
+				<li class="blue"><a href="./teamptsallowed.php?year=2021">Team Pts Allowed</a></li>			
+				<li class="blue"><a href="./posnvsteam.php?year=2021">Posn-vs-Team</a></li>
+				<li class="blue"><a href="./draft.php?year=2021">Draft Rankings</a></li>
+				<li class="blue"><a href="./draftgrid.php?year=2021">Draft Day</a></li>
+				<li class="blue"><a href="./initialvalue.php?year=2021">Player Price Variance</a></li>
+				<li class="blue"><a href="./dualposngrid.php?year=2021">Dual Posn</a></li>
+				<!--<li class="blue"><a href="./2020watchlist.php">Watchlist</a></li>-->
+				<li class="blue"><a href="./pivotchart.php?year=2021">Pivot Chart</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">2020<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./2020index.php">Player Profiles</a></li>
+				<li class="blue"><a href="./stats.php?year=2020">Stats Table</a></li>
+				<li class="blue"><a href="./mattsstats.php?year=2020">Matt's Stats</a></li>
+				<li class="blue"><a href="./minutes.php?year=2020">Minutes</a></li>
+				<li class="blue"><a href="./drawV2.php?year=2020">Draw</a></li>
+				<li class="blue"><a href="./turnarounds.php?year=2020">Short Turnarounds</a></li>
+				<li class="blue"><a href="./scoresbyround.php?year=2020">Team Pts By Round</a></li>
+				<li class="blue"><a href="./teamptsallowed.php?year=2020">Team Pts Allowed</a></li>						
+				<li class="blue"><a href="./posnvsteam.php?year=2020">Posn-vs-Team</a></li>
+				<li class="blue"><a href="./draft.php?year=2020">Draft Rankings</a></li>
+				<li class="blue"><a href="./draftgrid.php?year=2020">Draft Day</a></li>
+				<li class="blue"><a href="./initialvalue.php?year=2020">Player Price Variance</a></li>
+				<li class="blue"><a href="./dualposngrid.php?year=2020">Dual Posn</a></li>
+				<!--<li class="blue"><a href="./2020watchlist.php">Watchlist</a></li>-->
+				<li class="blue"><a href="./pivotchart.php?year=2020">Pivot Chart</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">2019<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./2019index.php">Player Profiles</a></li>
+				<li class="blue"><a href="./stats.php?year=2019">Stats Table</a></li>
+				<li class="blue"><a href="./mattsstats.php?year=2019">Matt's Stats</a></li>
+				<li class="blue"><a href="./minutes.php?year=2019">Minutes</a></li>
+				<li class="blue"><a href="./drawV2.php?year=2019">Draw</a></li>
+				<li class="blue"><a href="./turnarounds.php?year=2019">Short Turnarounds</a></li>
+				<li class="blue"><a href="./scoresbyround.php?year=2019">Team Pts By Round</a></li>
+				<li class="blue"><a href="./teamptsallowed.php?year=2019">Team Pts Allowed</a></li>					
+				<li class="blue"><a href="./posnvsteam.php?year=2019">Posn-vs-Team</a></li>
+				<li class="blue"><a href="./draft.php?year=2019">Draft Rankings</a></li>
+				<li class="blue"><a href="./draftgrid.php?year=2019">Draft Day</a></li>
+				<li class="blue"><a href="./initialvalue.php?year=2019">Player Price Variance</a></li>
+				<li class="blue"><a href="./dualposngrid.php?year=2019">Dual Posn</a></li>
+				<!--<li class="blue"><a href="./2019watchlist.php">Watchlist</a></li>-->			
+				<li class="blue"><a href="./pivotchart.php?year=2019">Pivot Chart</a></li>
+				
+				
+				</ul>
+			</li>
+			<li class="blue"><a href="#">2018<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./2018index.php">Player Profiles</a></li>
+				<li class="blue"><a href="./stats.php?year=2018">Stats Table</a></li>
+				<li class="blue"><a href="./mattsstats.php?year=2018">Matt's Stats</a></li>
+				<li class="blue"><a href="./minutes.php?year=2018">Minutes</a></li>
+				<li class="blue"><a href="./drawV2.php?year=2018">Draw</a></li>
+				<li class="blue"><a href="./turnarounds.php?year=2018">Short Turnarounds</a></li>
+				<li class="blue"><a href="./scoresbyround.php?year=2018">Team Pts By Round</a></li>
+				<li class="blue"><a href="./teamptsallowed.php?year=2018">Team Pts Allowed</a></li>						
+				<li class="blue"><a href="./posnvsteam.php?year=2018">Posn-vs-Team</a></li>
+				<li class="blue"><a href="./draft.php?year=2018">Draft Rankings</a></li>
+				<li class="blue"><a href="./draftgrid.php?year=2018">Draft Day</a></li>
+				<li class="blue"><a href="./dualposngrid.php?year=2018">Dual Posn</a></li>
+				<!--<li class="blue"><a href="./2018watchlist.php">Watchlist</a></li>-->
+				<li class="blue"><a href="./pivotchart.php?year=2018">Pivot Chart</a></li>
+				
+				
+				</ul>
+			</li>
+            <li class="blue"><a href="#">2017<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./2017index.php">Player Profiles</a></li>
+				<li class="blue"><a href="./stats.php?year=2017">Stats Table</a></li>
+				<li class="blue"><a href="./mattsstats.php?year=2017">Matt's Stats</a></li>
+				<li class="blue"><a href="./minutes.php?year=2017">Minutes</a></li>
+				<li class="blue"><a href="./drawV2.php?year=2017">Draw</a></li>
+				<li class="blue"><a href="./turnarounds.php?year=2017">Short Turnarounds</a></li>
+				<li class="blue"><a href="./scoresbyround.php?year=2017">Team Pts By Round</a></li>
+				<li class="blue"><a href="./teamptsallowed.php?year=2017">Team Pts Allowed</a></li>			
+				<li class="blue"><a href="./posnvsteam.php?year=2017">Posn-vs-Team</a></li>
+				<li class="blue"><a href="./draft.php?year=2017">Draft Rankings</a></li>
+				<li class="blue"><a href="./draftgrid.php?year=2017">Draft Day</a></li>
+				<li class="blue"><a href="./2017tipping.php">Tipping</a></li>
+				<li class="blue"><a href="./dualposngrid.php?year=2017">Dual Posn</a></li>
+				<li class="blue"><a href="./pivotchart.php?year=2017">Pivot Chart</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">2016<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./2016index.php">Player Profiles</a></li>
+				<li class="blue"><a href="./stats.php?year=2016">Stats Table</a></li>
+				<li class="blue"><a href="./minutes.php?year=2016">Minutes</a></li>
+				<li class="blue"><a href="./drawV2.php?year=2016">Draw</a></li>
+				<li class="blue"><a href="./scoresbyround.php?year=2016">Team Pts By Round</a></li>
+				<li class="blue"><a href="./posnvsteam.php?year=2016">Posn-vs-Team</a></li>
+				<li class="blue"><a href="./draft.php?year=2016">Draft Rankings</a></li>
+				<li class="blue"><a href="./dualposngrid.php?year=2016">Dual Posn</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">2015<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./stats.php?year=2015">Stats Table</a></li>
+				<li class="blue"><a href="./scoresbyround.php?year=2015">Team Pts By Round</a></li>
+				<li class="blue"><a href="./posnvsteam.php?year=2015">Posn-vs-Team</a></li>
+				<li class="blue"><a href="./draft.php?year=2015">Draft Rankings</a></li>
+				<li class="blue"><a href="./dualposngrid.php?year=2015">Dual Posn</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">2014<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./2014stats.php">Stats Table</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">2013<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./2013stats.php">Stats Table</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">2012<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./2012stats.php">Stats Table</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">2011<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./2011stats.php">Stats Table</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">2010<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./2010stats.php">Stats Table</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">2009<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./2009stats.php">Stats Table</a></li>
+							
+				</ul>
+			</li>
+			
+			<li class="blue"><a href="#"><span style='float:right;color:white;'>>></span></a>
+				<ul>
+				</ul>
+			</li>
+			<li class="blue"><a href="#"><span style='float:right;color:white;'>>></span></a>
+				<ul>
+				</ul>
+			</li>
+			
+			
+          </ul>
+        </li>
+	  <li class="blue"><a href="#">Profiles</a>
+		  <ul>
+		    <li class="blue"><a href="./teamoftheweek.php">Team of the Week</a></li>
+			<li class="blue"><a href="./combinedstats.php">Alltime Stats</a></li>
+			<li class="blue"><a href="./players.php">Age/Weight/Height</a></li>
+			<li class="blue"><a href="./Top10s.php">Top 10s</a></li>
+			<li class="blue"><a href="#">Highest Scores<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./alltimehighestscores.php">Player</a></li>
+				<li class="blue"><a href="./alltimehighestscores-teams.php">Team</a></li>
+				<li class="blue"><a href="./alltimehighestscores-games.php">Game</a></li>
+				<li class="blue"><a href="./alltimehighestscores-rounds.php">Round</a></li>
+				<li class="blue"><a href="./scoringbuckets-games.php">Game Scoring Buckets</a></li>	
+				<li class="blue"><a href="./margins-games.php">Game Scoring Margins</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">Lowest Scores<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a href="./alltimelowestscores.php">Player</a></li>
+				<li class="blue"><a href="./alltimelowestscores-teams.php">Team</a></li>
+				<li class="blue"><a href="./alltimelowestscores-games.php">Game</a></li>
+				<li class="blue"><a href="./alltimelowestscores-rounds.php">Round</a></li>
+				<!--<li class="blue"><a href="./scoringbuckets-games.php">Game Scoring Buckets</a></li>	-->
+				<!--<li class="blue"><a href="./margins-games.php">Game Scoring Margins</a></li>-->
+				</ul>
+			</li>
+						
+			<li class="blue"><a href="./teamprofiles.php">Team Profiles</a></li>
+					
+			<li class="blue"><a href="./combinedpivotchart.php">Combined Pivotchart</a></li>
+			<li class="blue"><a href="./playerlist.php">Player List</a></li>
+			
+          </ul>
+		</li>
+		
+		
+		<li class="blue"><a href="#">Price&BEs</a>
+		  <ul>
+			<li class="blue"><a href="./TeamBEs.php">Team BEs</a></li>
+			<li class="blue"><a href="./TeamPrices.php">Team Prices</a></li>
+			<li class="blue"><a href="./TeamPricesAndBEs.php">Team Prices & BEs</a></li>			
+          </ul>
+		</li>
+		
+		
+		
+        <li class="blue"><a href="#">Tools</a>
+		  <ul>
+			<li class="blue"><a href="./byeplannerV2.php">Bye Planner</a></li>
+			<li class="blue"><a href="./teamselectorflex.php">Team Builder</a></li>
+			<li class="blue"><a href="./playercompare.php">Player Compare</a></li>
+			<li class="blue"><a href="./dualposition.php">Dual Posn Players</a></li>
+			<li class="blue"><a href="./drafttradeevaluator.php">Draft Trade Calc</a></li>
+			<li class="blue"><a href="./pricechangecalcV2.php">Price Change Calc</a></li>
+			<!--<li class="blue"><a href="./pricechangecalcV2.php"><span style='color:red;font-weight:bold;'>NEW</span> Price Change Calc</a></li>-->
+			<li class="blue"><a href="./vcloop.php">VC Loop Calc</a></li>
+          </ul>
+		</li>
+		
+		<li class="blue"><a href="#">Links</a>
+		  <ul>
+			<li class="blue"><a href="https://nrlsupercoachlive.com/" target="_blank">Live Scores</a></li>
+			<li class="blue"><a href="http://supercoach.dailytelegraph.com.au/nrl/classic/gameday" target="_blank">SC Gameday</a></li>
+			<li class="blue"><a href="#">Injuries<span style='float:right;'>>></span></a>
+			<ul>
+				<li class="blue"><a href="http://www.zerotackle.com/rugby-league/injuries-suspensions" target="_blank">Zero Tackle</a></li>
+				<li class="blue"><a href="https://twitter.com/nrlphysio" target="_blank">NRL Physio</a></li>
+				<li class="blue"><a href="https://realsport101.com/news/sports/rugby/rugby-league/" target="_blank">Real Sport 101</a></li>	
+				<li class="blue"><a href="https://www.nrl.com/news/topic/injuries/" target="_blank">NRL.com Injuries</a></li>				
+			</ul>
+			</li>
+			<li class="blue"><a href="#">Forums & Chat<span style='float:right;'>>></span></a>
+			<ul>
+			
+				<li class="blue"><a href="https://www.facebook.com/NRLSCaddicts/" target="_blank">NRLSC Addicts</a></li>
+				<li class="blue"><a href="https://www.facebook.com/groups/1553657534872861/" target="_blank">NRLSC Fanatics</a></li>
+				<li class="blue"><a href="https://www.facebook.com/groups/131240143689605/" target="_blank">NRLSC Renegades</a></li>
+				<li class="blue"><a href="https://www.facebook.com/groups/708694305965837/" target="_blank">SC NRL Central</a></li>	
+				<li class="blue"><a href="https://www.facebook.com/groups/1168341526511064/" target="_blank">NRLSC Tragics</a></li>
+				<li class="blue"><a href="https://www.facebook.com/NRLscTragics/" target="_blank">NRLSC Tragics Page</a></li>
+				<li class="blue"><a href="https://discord.me/nrlscchat" target="_blank">Live Supercoach Chat</a></li>
+			</ul>
+			</li>
+			<li class="blue"><a href="#">Draft Analysis<span style='float:right;'>>></span></a>
+			<ul>						
+				<li class="blue"><a href="https://twitter.com/NRLSCTalkDRAFT" target="_blank">NRLSCTalkDRAFT</a></li>	
+				<li class="blue"><a href="https://twitter.com/3WiseDraftmen" target="_blank">3 Wise Draftmen</a></li>
+				<li class="blue"><a target='_blank' href="https://www.soundcloud.com/weeklyrubdown">Weekly Rubdown</a></li>
+				<li class="blue"><a target='_blank' href="https://twitter.com/headbinpodcast">The Head Bin</a></li>
+				
+			</ul>
+			</li>
+			<li class="blue"><a href="#">Classic Analysis<span style='float:right;'>>></span></a>
+			<ul>	
+				<li class="blue"><a href="http://www.nrlsupercoachtalk.com" target="_blank">NRLSC Talk</a></li>
+				<li class="blue"><a href="http://www.jockreynolds.com.au/category/nrl-supercoach/" target="_blank">Jock Reynolds</a></li>			
+			</ul>
+			</li>
+			<li class="blue"><a href="#">Teams & News<span style='float:right;'>>></span></a>
+			<ul>
+				<li class="blue"><a href="http://www.dailytelegraph.com.au/sport/nrl/footy-form" target="_blank">Daily Telegraph</a></li>
+				<li class="blue"><a href="http://www.dailytelegraph.com.au/sport/nrl/supercoach" target="_blank">DT Supercoach</a></li>				
+				<li class="blue"><a href="http://www.supercoachpros.com" target="_blank">Supercoach Pros</a></li>
+				<li class="blue"><a href="http://www.scplaybook.com.au" target="_blank">Supercoach Playbook</a></li>
+				
+			</ul>
+			<li class="blue"><a href="#">Videos<span style='float:right;'>>></span></a>
+			<ul>
+			<li class="blue"><a href="https://www.youtube.com/channel/UCf1s3PC9aOw5MUOcklUWosg">Aman Talks NRL SC</a></li>
+			<li class="blue"><a href="https://www.youtube.com/channel/UCR6ShOD55jYkG5GPdMJuWyg">BJ On Gameday</a></li>
+			<li class="blue"><a href="https://www.youtube.com/channel/UCB_MXuri6ILKayRVBIVrCmQ">NRL SC Huddle</a></li>
+			
+		
+			</ul>
+			<li class="blue"><a href="#">SC Podcasts<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a target='_blank' href="https://soundcloud.com/the-3-wise-draftmen-nrl-podcast">3WiseDraftmen</a></li>
+				<li class="blue"><a target='_blank' href="https://soundcloud.com/mikeandsavsshow/">Mike & Savs Show</a></li>
+				<li class="blue"><a target='_blank' href="https://www.podomatic.com/podcasts/nrlsupercoachtalkdraft">NRLSCTalk Draft</a></li>
+				<li class="blue"><a target='_blank' href="https://soundcloud.com/nrlscdraftcast">NRLSCDraftcast</a></li>			
+				<li class="blue"><a target='_blank' href="https://soundcloud.com/user-974247664/">NRLSCTalk Classic</a></li>
+				<li class="blue"><a target='_blank' href="https://twitter.com/NRL_SC_Allstars">NRL SC Allstars</a></li>	
+				<li class="blue"><a target='_blank' href="https://nrlsupercoachchampions.podbean.com">NRL SC Champions</a></li>			
+				<li class="blue"><a target='_blank' href="https://www.podomatic.com/podcasts/pointsperminutescpodcast">Point Per Minute</a></li>
+				<li class="blue"><a target='_blank' href="https://https://twitter.com/RL_Guru">Rugby League Guru</a></li>
+				<li class="blue"><a target='_blank' href="https://twitter.com/SearchingCorey">Searching For Corey Parker</a></li>
+				<li class="blue"><a target='_blank' href="https://player.whooshkaa.com/shows/supercoach-360">Supercoach360</a></li>				
+				<li class="blue"><a target='_blank' href="https://twitter.com/ask10inthebin">10InTheBin</a></li>
+				</ul>
+			</li>
+			<li class="blue"><a href="#">RSS<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a target='_blank' href="https://anchor.fm/s/82feff60/podcast/rss">Supercoach Tragics</a></li>
+				</ul>
+			</li>
+		</li>
+			
+			</li>
+			
+			
+			<li class="blue"><a href="#">NRL Podcasts<span style='float:right;'>>></span></a>
+				<ul>
+				<li class="blue"><a target='_blank' href="https://twitter.com/7tackleset">7 Tackle Set</a></li>
+				
+				</ul>
+			</li>
+		
+			<li class="blue"><a target='_blank' href="https://www.legz.com.au/nrl/tryscorer-tipping">Tryscore Tipping Comp</a></li>
+
+
+
+			<li class="blue"><a href="#"><span style='float:right;color:white;'>>></span></a><ul></ul></li>
+			<li class="blue"><a href="#"><span style='float:right;color:white;'>>></span></a><ul></ul></li>
+			<li class="blue"><a href="#"><span style='float:right;color:white;'>>></span></a><ul></ul></li>
+			<li class="blue"><a href="#"><span style='float:right;color:white;'>>></span></a><ul></ul></li>
+			
+          </ul>
+		</li>
+		
+        <li class="blue"><a href="#">Contact</a>
+          <ul>
+			<li class="blue"><a href="/cdn-cgi/l/email-protection#e180858c888fa18f938d9294918493828e8082899295809592cf828e8c">Email</a></li>
+			<li class="blue"><a href="https://www.facebook.com/nrlsupercoachstats/" target="_blank">Facebook Page</a></li>
+			<li class="blue"><a href="https://www.facebook.com/groups/402073143512685/" target="_blank">Facebook Group</a></li>			
+			<li class="blue"><a href="https://twitter.com/NRLSCStats" target="_blank">Twitter</a></li>
+			<li class="blue"><a href="./faq.php">FAQ</a></li>
+		  </ul>
+		</li>
+		
+		<!--<li class="blue"><a href="https://rugbyleague.store/" target="_blank">Shop</a>
+		   <ul>
+			<li class="blue"><a href="https://rugbyleague.store/" target="_blank">rugbyleague.store</a></li>			
+		  </ul>
+		</li>-->
+		
+		
+		<li><!--<a href="https://donorbox.org/nrl-supercoach-stats" target="_blank">Donate</a>-->
+			
+			<!--<form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style='padding-top:20px;'>
+			<input type="hidden" name="cmd" value="_s-xclick">
+			<input type="hidden" name="hosted_button_id" value="ZV4RB9YK5Z2G6">
+			<input type="image" src="donate2.png" border="0" name="submit" alt="PayPal — The safer, easier way to pay online." style="vertical-align:middle;height:15px;margin-top:5px;">
+			<img alt="Paypal Donation" border="0" src="https://www.paypalobjects.com/en_AU/i/scr/pixel.gif" alt="Donations" width="1" height="1"><font size="3" color=white>
+			</form>-->	
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+			<input type="hidden" name="cmd" value="_donations" />
+			<input type="hidden" name="business" value="MEZV443VGK83S" />
+			<input type="hidden" name="item_name" value="NRL Supercoach Stats" />
+			<input type="hidden" name="currency_code" value="AUD" />
+			<input style='padding-top:18px;' type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+			<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1" height="1" />
+			</form>	
+		</li>
+		<li class="x"><a href="https://twitter.com/NRLSCStats" target="_blank" style='padding: 0 5px;'><img src="./twitter.png" height="15px" style="vertical-align:middle;"></a>
+		<a href="https://www.facebook.com/nrlsupercoachstats/" target="_blank" style='padding: 0 5px;'><img src="./facebook.png" height="15px" style="vertical-align:middle;"></a></li>
+		
+      </ul>
+    </div>
+</nav>
+
+
+
+
+</td>
+</tr>
+</table>
+</tr>
+
+</table>
+</div>
+
+<table width=99% bgcolor="#f1f1f1" Style="margin: auto 0; padding 0em 0em 0em 0em;width:100%">
+<tr><td>
+<div bgcolor="#4E6898" style="margin:0px;width:100%">
+
+<br/><br/><table><tr>
+
+<tr><td colspan=100 style='font-size:18pt;text-align:center;'>Strength of Schedule <span style='font-size:12px;'>nrlscstats.com</span></td></tr>
+
+<th colspan=2>Team</th>
+<th>Rd1</th>
+<th>Rd2</th>
+<th>Rd3</th>
+<th>Rd4</th>
+<th>Rd5</th>
+<th>Rd6</th>
+<th>Rd7</th>
+<th>Rd8</th>
+<th>Rd9</th>
+<th>Rd10</th>
+<th>Rd11</th>
+<th>Rd12</th>
+<th>Rd13</th>
+<th>Rd14</th>
+<th>Rd15</th>
+<th>Rd16</th>
+<th>Rd17</th>
+<th>Rd18</th>
+<th>Rd19</th>
+<th>Rd20</th>
+<th>Rd21</th>
+<th>Rd22</th>
+<th>Rd23</th>
+<th>Rd24</th>
+<th>Rd25</th>
+<th>Rd26</th>
+<th>Rd27</th>
+</tr><tr><td>BRO</td><td><img src=../highcharts/TeamPictures/BRO.png width=20px height=12px></img></td><td style='background-color:#F8696B;text-align:center;'>PTH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>-35</div></td><td style='background-color:#FFEB84;text-align:center;'>PAR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>119</div></td><td style='background-color:#FCBF7B;text-align:center;'>MEL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>83</div></td><td style='background-color:#FCBF7B;text-align:center;'>DOL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>53</div></td><td style='background-color:#FCBF7B;text-align:center;'>GCT(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>55</div></td><td style='background-color:#FFEB84;text-align:center;'>NQC<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>106</div></td><td style='background-color:#FFEB84;text-align:center;'>WST(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>118</div></td><td style='background-color:#FA9473;text-align:center;'>BUL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>14</div></td><td style='background-color:#F8696B;text-align:center;'>SYD(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>-30</div></td><td style='background-color:#FA9473;text-align:center;'>MNL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>30</div></td><td style='background-color:#F8696B;text-align:center;'>NZL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>-14</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-727</div></td><td style='background-color:#FCBF7B;text-align:center;'>STG<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>65</div></td><td style='background-color:#FCBF7B;text-align:center;'>GCT<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>55</div></td><td style='background-color:#FA9473;text-align:center;'>STH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>11</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-727</div></td><td style='background-color:#F8696B;text-align:center;'>SYD<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>-30</div></td><td style='background-color:#F8696B;text-align:center;'>SHA<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>-8</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-727</div></td><td style='background-color:#F8696B;text-align:center;'>PTH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>-35</div></td><td style='background-color:#FFEB84;text-align:center;'>NQC(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>106</div></td><td style='background-color:#FCBF7B;text-align:center;'>NEW<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>57</div></td><td style='background-color:#FCBF7B;text-align:center;'>DOL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>53</div></td><td style='background-color:#F8696B;text-align:center;'>NZL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>-14</div></td><td style='background-color:#FCBF7B;text-align:center;'>CBR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>89</div></td><td style='background-color:#FCBF7B;text-align:center;'>MEL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>83</div></td><td style='background-color:#FA9473;text-align:center;'>BUL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>14</div></td><td>BRO</td></tr><tr><td>BUL</td><td><img src=../highcharts/TeamPictures/BUL.png width=20px height=12px></img></td><td style='background-color:#CCDD82;text-align:center;'>STG<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>135</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-657</div></td><td style='background-color:#CCDD82;text-align:center;'>CBR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>159</div></td><td style='background-color:#FFEB84;text-align:center;'>NEW<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>127</div></td><td style='background-color:#FCBF7B;text-align:center;'>STH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>81</div></td><td style='background-color:#FA9473;text-align:center;'>PTH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>34</div></td><td style='background-color:#98CE7F;text-align:center;'>PAR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>189</div></td><td style='background-color:#FCBF7B;text-align:center;'>BRO(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>87</div></td><td style='background-color:#98CE7F;text-align:center;'>NQC<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>176</div></td><td style='background-color:#FFEB84;text-align:center;'>DOL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>123</div></td><td style='background-color:#FCBF7B;text-align:center;'>SHA(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>62</div></td><td style='background-color:#CCDD82;text-align:center;'>MEL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>153</div></td><td style='background-color:#98CE7F;text-align:center;'>WST(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>188</div></td><td style='background-color:#98CE7F;text-align:center;'>PAR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>189</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-657</div></td><td style='background-color:#FFEB84;text-align:center;'>MNL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>99</div></td><td style='background-color:#FFEB84;text-align:center;'>GCT(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>125</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-657</div></td><td style='background-color:#CCDD82;text-align:center;'>CBR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>159</div></td><td style='background-color:#98CE7F;text-align:center;'>WST<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>188</div></td><td style='background-color:#FCBF7B;text-align:center;'>NZL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>55</div></td><td style='background-color:#CCDD82;text-align:center;'>MEL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>153</div></td><td style='background-color:#FA9473;text-align:center;'>SYD(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>40</div></td><td style='background-color:#FCBF7B;text-align:center;'>STH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>81</div></td><td style='background-color:#CCDD82;text-align:center;'>STG(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>135</div></td><td style='background-color:#FA9473;text-align:center;'>PTH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>34</div></td><td style='background-color:#FCBF7B;text-align:center;'>BRO<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>87</div></td><td>BUL</td></tr><tr><td>CBR</td><td><img src=../highcharts/TeamPictures/CBR.png width=20px height=12px></img></td><td style='background-color:#CCDD82;text-align:center;'>MNL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>140</div></td><td style='background-color:#FFEB84;text-align:center;'>NZL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>96</div></td><td style='background-color:#FFEB84;text-align:center;'>BUL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>124</div></td><td style='background-color:#FFEB84;text-align:center;'>SHA<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>103</div></td><td style='background-color:#CCDD82;text-align:center;'>NEW(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>167</div></td><td style='background-color:#FFEB84;text-align:center;'>STH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>122</div></td><td style='background-color:#98CE7F;text-align:center;'>MEL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>193</div></td><td style='background-color:#63BE7B;text-align:center;'>WST(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>228</div></td><td style='background-color:#CCDD82;text-align:center;'>GCT(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>165</div></td><td style='background-color:#FCBF7B;text-align:center;'>PTH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>75</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-617</div></td><td style='background-color:#CCDD82;text-align:center;'>DOL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>163</div></td><td style='background-color:#63BE7B;text-align:center;'>NQC<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>216</div></td><td style='background-color:#FCBF7B;text-align:center;'>SYD<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>80</div></td><td style='background-color:#63BE7B;text-align:center;'>PAR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>229</div></td><td style='background-color:#98CE7F;text-align:center;'>MEL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>193</div></td><td style='background-color:#98CE7F;text-align:center;'>STG<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>176</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-617</div></td><td style='background-color:#FFEB84;text-align:center;'>BUL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>124</div></td><td style='background-color:#FFEB84;text-align:center;'>STH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>122</div></td><td style='background-color:#63BE7B;text-align:center;'>WST<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>228</div></td><td style='background-color:#FCBF7B;text-align:center;'>PTH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>75</div></td><td style='background-color:#CCDD82;text-align:center;'>NEW<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>167</div></td><td style='background-color:#FFEB84;text-align:center;'>SHA(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>103</div></td><td style='background-color:#FFEB84;text-align:center;'>BRO<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>128</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-617</div></td><td style='background-color:#63BE7B;text-align:center;'>NQC(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>216</div></td><td>CBR</td></tr><tr><td>DOL</td><td><img src=../highcharts/TeamPictures/DOL.png width=20px height=12px></img></td><td style='background-color:#98CE7F;text-align:center;'>STH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>192</div></td><td style='background-color:#63BE7B;text-align:center;'>GCT<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>235</div></td><td style='background-color:#CCDD82;text-align:center;'>SHA(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>173</div></td><td style='background-color:#98CE7F;text-align:center;'>BRO(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>198</div></td><td style='background-color:#98CE7F;text-align:center;'>MNL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>210</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-546</div></td><td style='background-color:#CCDD82;text-align:center;'>PTH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>145</div></td><td style='background-color:#CCDD82;text-align:center;'>NZL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>166</div></td><td style='background-color:#63BE7B;text-align:center;'>MEL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>264</div></td><td style='background-color:#98CE7F;text-align:center;'>BUL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>194</div></td><td style='background-color:#98CE7F;text-align:center;'>STH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>192</div></td><td style='background-color:#63BE7B;text-align:center;'>CBR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>269</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-546</div></td><td style='background-color:#63BE7B;text-align:center;'>NQC(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>287</div></td><td style='background-color:#CCDD82;text-align:center;'>SYD<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>150</div></td><td style='background-color:#63BE7B;text-align:center;'>WST(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>298</div></td><td style='background-color:#CCDD82;text-align:center;'>NZL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>166</div></td><td style='background-color:#63BE7B;text-align:center;'>NEW(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>237</div></td><td style='background-color:#CCDD82;text-align:center;'>SHA<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>173</div></td><td style='background-color:#63BE7B;text-align:center;'>NQC<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>287</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-546</div></td><td style='background-color:#63BE7B;text-align:center;'>STG(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>246</div></td><td style='background-color:#98CE7F;text-align:center;'>BRO<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>198</div></td><td style='background-color:#98CE7F;text-align:center;'>MNL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>210</div></td><td style='background-color:#63BE7B;text-align:center;'>PAR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>299</div></td><td style='background-color:#CCDD82;text-align:center;'>SYD(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>150</div></td><td style='background-color:#63BE7B;text-align:center;'>GCT(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>235</div></td><td>DOL</td></tr><tr><td>GCT</td><td><img src=../highcharts/TeamPictures/GCT.png width=20px height=12px></img></td><td style='background-color:#FA9473;text-align:center;'>SHA(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>48</div></td><td style='background-color:#FFEB84;text-align:center;'>DOL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>108</div></td><td style='background-color:#CCDD82;text-align:center;'>NQC(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>162</div></td><td style='background-color:#FFEB84;text-align:center;'>STG<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>121</div></td><td style='background-color:#FCBF7B;text-align:center;'>BRO<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>73</div></td><td style='background-color:#98CE7F;text-align:center;'>PAR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>174</div></td><td style='background-color:#FA9473;text-align:center;'>NZL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>41</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-672</div></td><td style='background-color:#CCDD82;text-align:center;'>CBR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>144</div></td><td style='background-color:#FA9473;text-align:center;'>SYD(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>25</div></td><td style='background-color:#FFEB84;text-align:center;'>NEW<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>112</div></td><td style='background-color:#FCBF7B;text-align:center;'>MNL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>85</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-672</div></td><td style='background-color:#FCBF7B;text-align:center;'>BRO(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>73</div></td><td style='background-color:#CCDD82;text-align:center;'>WST(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>173</div></td><td style='background-color:#FA9473;text-align:center;'>PTH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>20</div></td><td style='background-color:#FCBF7B;text-align:center;'>BUL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>69</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-672</div></td><td style='background-color:#CCDD82;text-align:center;'>MEL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>138</div></td><td style='background-color:#FCBF7B;text-align:center;'>MNL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>85</div></td><td style='background-color:#FFEB84;text-align:center;'>STG(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>121</div></td><td style='background-color:#FA9473;text-align:center;'>NZL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>41</div></td><td style='background-color:#CCDD82;text-align:center;'>NQC<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>162</div></td><td style='background-color:#FFEB84;text-align:center;'>NEW(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>112</div></td><td style='background-color:#FA9473;text-align:center;'>SHA<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>48</div></td><td style='background-color:#FCBF7B;text-align:center;'>STH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>67</div></td><td style='background-color:#FFEB84;text-align:center;'>DOL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>108</div></td><td>GCT</td></tr><tr><td>MEL</td><td><img src=../highcharts/TeamPictures/MEL.png width=20px height=12px></img></td><td style='background-color:#63BE7B;text-align:center;'>PAR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>231</div></td><td style='background-color:#98CE7F;text-align:center;'>STG(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>177</div></td><td style='background-color:#FFEB84;text-align:center;'>BRO<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>129</div></td><td style='background-color:#63BE7B;text-align:center;'>NQC(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>218</div></td><td style='background-color:#FCBF7B;text-align:center;'>PTH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>77</div></td><td style='background-color:#FFEB84;text-align:center;'>NZL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>98</div></td><td style='background-color:#98CE7F;text-align:center;'>CBR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>201</div></td><td style='background-color:#FFEB84;text-align:center;'>STH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>123</div></td><td style='background-color:#CCDD82;text-align:center;'>DOL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>165</div></td><td style='background-color:#63BE7B;text-align:center;'>WST<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>230</div></td><td style='background-color:#63BE7B;text-align:center;'>PAR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>231</div></td><td style='background-color:#FFEB84;text-align:center;'>BUL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>126</div></td><td style='background-color:#FCBF7B;text-align:center;'>SYD<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>82</div></td><td style='background-color:#CCDD82;text-align:center;'>NEW<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>169</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-615</div></td><td style='background-color:#98CE7F;text-align:center;'>CBR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>201</div></td><td style='background-color:#CCDD82;text-align:center;'>MNL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>142</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-615</div></td><td style='background-color:#CCDD82;text-align:center;'>GCT<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>167</div></td><td style='background-color:#FCBF7B;text-align:center;'>SYD(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>82</div></td><td style='background-color:#FFEB84;text-align:center;'>STH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>123</div></td><td style='background-color:#FFEB84;text-align:center;'>BUL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>126</div></td><td style='background-color:#CCDD82;text-align:center;'>MNL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>142</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-615</div></td><td style='background-color:#FCBF7B;text-align:center;'>PTH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>77</div></td><td style='background-color:#FFEB84;text-align:center;'>BRO(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>129</div></td><td style='background-color:#FFEB84;text-align:center;'>SHA(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>104</div></td><td>MEL</td></tr><tr><td>MNL</td><td><img src=../highcharts/TeamPictures/MNL.png width=20px height=12px></img></td><td style='background-color:#98CE7F;text-align:center;'>CBR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>212</div></td><td style='background-color:#98CE7F;text-align:center;'>NEW<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>179</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-604</div></td><td style='background-color:#FFEB84;text-align:center;'>SYD<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>93</div></td><td style='background-color:#98CE7F;text-align:center;'>DOL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>176</div></td><td style='background-color:#98CE7F;text-align:center;'>STG(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>188</div></td><td style='background-color:#63BE7B;text-align:center;'>NQC(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>229</div></td><td style='background-color:#63BE7B;text-align:center;'>PAR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>242</div></td><td style='background-color:#FCBF7B;text-align:center;'>PTH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>87</div></td><td style='background-color:#CCDD82;text-align:center;'>BRO<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>140</div></td><td style='background-color:#63BE7B;text-align:center;'>WST(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>240</div></td><td style='background-color:#98CE7F;text-align:center;'>GCT<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>177</div></td><td style='background-color:#FFEB84;text-align:center;'>SHA(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>115</div></td><td style='background-color:#CCDD82;text-align:center;'>STH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>134</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-604</div></td><td style='background-color:#CCDD82;text-align:center;'>BUL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>136</div></td><td style='background-color:#98CE7F;text-align:center;'>MEL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>206</div></td><td style='background-color:#63BE7B;text-align:center;'>PAR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>242</div></td><td style='background-color:#63BE7B;text-align:center;'>NQC<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>229</div></td><td style='background-color:#98CE7F;text-align:center;'>GCT(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>177</div></td><td style='background-color:#FFEB84;text-align:center;'>SHA<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>115</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-604</div></td><td style='background-color:#98CE7F;text-align:center;'>MEL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>206</div></td><td style='background-color:#98CE7F;text-align:center;'>DOL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>176</div></td><td style='background-color:#98CE7F;text-align:center;'>NEW(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>179</div></td><td style='background-color:#98CE7F;text-align:center;'>STG<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>188</div></td><td style='background-color:#FFEB84;text-align:center;'>NZL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>108</div></td><td>MNL</td></tr><tr><td>NEW</td><td><img src=../highcharts/TeamPictures/NEW.png width=20px height=12px></img></td><td style='background-color:#63BE7B;text-align:center;'>NQC<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>256</div></td><td style='background-color:#98CE7F;text-align:center;'>MNL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>179</div></td><td style='background-color:#CCDD82;text-align:center;'>NZL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>135</div></td><td style='background-color:#CCDD82;text-align:center;'>BUL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>163</div></td><td style='background-color:#63BE7B;text-align:center;'>CBR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>239</div></td><td style='background-color:#63BE7B;text-align:center;'>WST(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>268</div></td><td style='background-color:#FFEB84;text-align:center;'>SYD(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>120</div></td><td style='background-color:#FFEB84;text-align:center;'>PTH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>114</div></td><td style='background-color:#CCDD82;text-align:center;'>STH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>161</div></td><td style='background-color:#98CE7F;text-align:center;'>STG(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>215</div></td><td style='background-color:#98CE7F;text-align:center;'>GCT(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>205</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-577</div></td><td style='background-color:#63BE7B;text-align:center;'>PAR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>269</div></td><td style='background-color:#63BE7B;text-align:center;'>MEL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>233</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-577</div></td><td style='background-color:#98CE7F;text-align:center;'>STG<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>215</div></td><td style='background-color:#63BE7B;text-align:center;'>WST<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>268</div></td><td style='background-color:#98CE7F;text-align:center;'>DOL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>203</div></td><td style='background-color:#CCDD82;text-align:center;'>STH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>161</div></td><td style='background-color:#CCDD82;text-align:center;'>SHA(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>142</div></td><td style='background-color:#FFEB84;text-align:center;'>SYD<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>120</div></td><td style='background-color:#CCDD82;text-align:center;'>BRO(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>167</div></td><td style='background-color:#63BE7B;text-align:center;'>CBR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>239</div></td><td style='background-color:#98CE7F;text-align:center;'>GCT<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>205</div></td><td style='background-color:#98CE7F;text-align:center;'>MNL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>179</div></td><td style='background-color:#CCDD82;text-align:center;'>NZL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>135</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-577</div></td><td>NEW</td></tr><tr><td>NQC</td><td><img src=../highcharts/TeamPictures/NQC.png width=20px height=12px></img></td><td style='background-color:#98CE7F;text-align:center;'>NEW(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>183</div></td><td style='background-color:#63BE7B;text-align:center;'>WST(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>244</div></td><td style='background-color:#98CE7F;text-align:center;'>GCT<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>181</div></td><td style='background-color:#98CE7F;text-align:center;'>MEL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>210</div></td><td style='background-color:#98CE7F;text-align:center;'>STG(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>192</div></td><td style='background-color:#CCDD82;text-align:center;'>BRO(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>144</div></td><td style='background-color:#CCDD82;text-align:center;'>MNL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>156</div></td><td style='background-color:#FFEB84;text-align:center;'>SHA<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>119</div></td><td style='background-color:#CCDD82;text-align:center;'>BUL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>140</div></td><td style='background-color:#63BE7B;text-align:center;'>PAR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>245</div></td><td style='background-color:#FFEB84;text-align:center;'>SYD(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>97</div></td><td style='background-color:#CCDD82;text-align:center;'>STH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>138</div></td><td style='background-color:#63BE7B;text-align:center;'>CBR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>216</div></td><td style='background-color:#98CE7F;text-align:center;'>DOL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>179</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-600</div></td><td style='background-color:#FFEB84;text-align:center;'>NZL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>112</div></td><td style='background-color:#FFEB84;text-align:center;'>PTH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>91</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-600</div></td><td style='background-color:#CCDD82;text-align:center;'>MNL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>156</div></td><td style='background-color:#98CE7F;text-align:center;'>DOL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>179</div></td><td style='background-color:#CCDD82;text-align:center;'>BRO<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>144</div></td><td style='background-color:#FFEB84;text-align:center;'>SYD<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>97</div></td><td style='background-color:#98CE7F;text-align:center;'>GCT(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>181</div></td><td style='background-color:#63BE7B;text-align:center;'>PAR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>245</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-600</div></td><td style='background-color:#63BE7B;text-align:center;'>WST<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>244</div></td><td style='background-color:#63BE7B;text-align:center;'>CBR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>216</div></td><td>NQC</td></tr><tr><td>NZL</td><td><img src=../highcharts/TeamPictures/NZL.png width=20px height=12px></img></td><td style='background-color:#FCBF7B;text-align:center;'>SYD<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>68</div></td><td style='background-color:#98CE7F;text-align:center;'>CBR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>187</div></td><td style='background-color:#CCDD82;text-align:center;'>NEW(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>155</div></td><td style='background-color:#63BE7B;text-align:center;'>WST<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>216</div></td><td style='background-color:#FCBF7B;text-align:center;'>SHA(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>90</div></td><td style='background-color:#98CE7F;text-align:center;'>MEL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>181</div></td><td style='background-color:#CCDD82;text-align:center;'>GCT<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>153</div></td><td style='background-color:#CCDD82;text-align:center;'>DOL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>151</div></td><td style='background-color:#63BE7B;text-align:center;'>PAR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>217</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-629</div></td><td style='background-color:#FFEB84;text-align:center;'>BRO<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>115</div></td><td style='background-color:#CCDD82;text-align:center;'>STG(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>163</div></td><td style='background-color:#FCBF7B;text-align:center;'>PTH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>63</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-629</div></td><td style='background-color:#FCBF7B;text-align:center;'>SHA<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>90</div></td><td style='background-color:#98CE7F;text-align:center;'>NQC<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>204</div></td><td style='background-color:#CCDD82;text-align:center;'>DOL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>151</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-629</div></td><td style='background-color:#63BE7B;text-align:center;'>WST(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>216</div></td><td style='background-color:#CCDD82;text-align:center;'>STG<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>163</div></td><td style='background-color:#FFEB84;text-align:center;'>BUL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>112</div></td><td style='background-color:#CCDD82;text-align:center;'>GCT(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>153</div></td><td style='background-color:#FCBF7B;text-align:center;'>PTH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>63</div></td><td style='background-color:#FFEB84;text-align:center;'>BRO(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>115</div></td><td style='background-color:#FFEB84;text-align:center;'>STH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>109</div></td><td style='background-color:#CCDD82;text-align:center;'>NEW<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>155</div></td><td style='background-color:#FFEB84;text-align:center;'>MNL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>128</div></td><td>NZL</td></tr><tr><td>PAR</td><td><img src=../highcharts/TeamPictures/PAR.png width=20px height=12px></img></td><td style='background-color:#FFEB84;text-align:center;'>MEL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>129</div></td><td style='background-color:#FCBF7B;text-align:center;'>BRO(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>64</div></td><td style='background-color:#FFEB84;text-align:center;'>STG<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>112</div></td><td style='background-color:#FA9473;text-align:center;'>PTH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>11</div></td><td style='background-color:#CCDD82;text-align:center;'>WST<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>164</div></td><td style='background-color:#FFEB84;text-align:center;'>GCT<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>101</div></td><td style='background-color:#FCBF7B;text-align:center;'>BUL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>60</div></td><td style='background-color:#FCBF7B;text-align:center;'>MNL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>76</div></td><td style='background-color:#FA9473;text-align:center;'>NZL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>32</div></td><td style='background-color:#CCDD82;text-align:center;'>NQC(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>153</div></td><td style='background-color:#FFEB84;text-align:center;'>MEL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>129</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-681</div></td><td style='background-color:#FFEB84;text-align:center;'>NEW(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>103</div></td><td style='background-color:#FCBF7B;text-align:center;'>BUL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>60</div></td><td style='background-color:#CCDD82;text-align:center;'>CBR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>135</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-681</div></td><td style='background-color:#FCBF7B;text-align:center;'>STH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>58</div></td><td style='background-color:#FCBF7B;text-align:center;'>MNL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>76</div></td><td style='background-color:#FA9473;text-align:center;'>SYD(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>16</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-681</div></td><td style='background-color:#FA9473;text-align:center;'>PTH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>11</div></td><td style='background-color:#CCDD82;text-align:center;'>WST(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>164</div></td><td style='background-color:#FCBF7B;text-align:center;'>STH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>58</div></td><td style='background-color:#CCDD82;text-align:center;'>NQC<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>153</div></td><td style='background-color:#FFEB84;text-align:center;'>DOL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>99</div></td><td style='background-color:#FA9473;text-align:center;'>SHA<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>39</div></td><td style='background-color:#FFEB84;text-align:center;'>STG(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>112</div></td><td>PAR</td></tr><tr><td>PTH</td><td><img src=../highcharts/TeamPictures/PTH.png width=20px height=12px></img></td><td style='background-color:#CCDD82;text-align:center;'>BRO(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>173</div></td><td style='background-color:#CCDD82;text-align:center;'>SHA<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>148</div></td><td style='background-color:#FFEB84;text-align:center;'>SYD(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>126</div></td><td style='background-color:#63BE7B;text-align:center;'>PAR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>275</div></td><td style='background-color:#63BE7B;text-align:center;'>MEL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>239</div></td><td style='background-color:#CCDD82;text-align:center;'>BUL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>170</div></td><td style='background-color:#98CE7F;text-align:center;'>DOL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>209</div></td><td style='background-color:#98CE7F;text-align:center;'>NEW(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>213</div></td><td style='background-color:#98CE7F;text-align:center;'>MNL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>186</div></td><td style='background-color:#63BE7B;text-align:center;'>CBR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>245</div></td><td style='background-color:#63BE7B;text-align:center;'>STG<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>221</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-571</div></td><td style='background-color:#CCDD82;text-align:center;'>NZL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>142</div></td><td style='background-color:#63BE7B;text-align:center;'>WST(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>274</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-571</div></td><td style='background-color:#98CE7F;text-align:center;'>GCT(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>211</div></td><td style='background-color:#63BE7B;text-align:center;'>NQC(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>262</div></td><td style='background-color:#CCDD82;text-align:center;'>STH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>167</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-571</div></td><td style='background-color:#CCDD82;text-align:center;'>BRO<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>173</div></td><td style='background-color:#63BE7B;text-align:center;'>PAR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>275</div></td><td style='background-color:#63BE7B;text-align:center;'>CBR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>245</div></td><td style='background-color:#CCDD82;text-align:center;'>NZL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>142</div></td><td style='background-color:#FFEB84;text-align:center;'>SYD<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>126</div></td><td style='background-color:#63BE7B;text-align:center;'>MEL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>239</div></td><td style='background-color:#CCDD82;text-align:center;'>BUL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>170</div></td><td style='background-color:#63BE7B;text-align:center;'>WST<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>274</div></td><td>PTH</td></tr><tr><td>SHA</td><td><img src=../highcharts/TeamPictures/SHA.png width=20px height=12px></img></td><td style='background-color:#CCDD82;text-align:center;'>GCT<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>157</div></td><td style='background-color:#FCBF7B;text-align:center;'>PTH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>67</div></td><td style='background-color:#CCDD82;text-align:center;'>DOL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>155</div></td><td style='background-color:#98CE7F;text-align:center;'>CBR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>192</div></td><td style='background-color:#FCBF7B;text-align:center;'>NZL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>88</div></td><td style='background-color:#FCBF7B;text-align:center;'>SYD<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>73</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-624</div></td><td style='background-color:#98CE7F;text-align:center;'>NQC(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>209</div></td><td style='background-color:#63BE7B;text-align:center;'>WST<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>220</div></td><td style='background-color:#FFEB84;text-align:center;'>STH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>114</div></td><td style='background-color:#FFEB84;text-align:center;'>BUL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>116</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-624</div></td><td style='background-color:#FFEB84;text-align:center;'>MNL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>132</div></td><td style='background-color:#CCDD82;text-align:center;'>STG<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>168</div></td><td style='background-color:#FCBF7B;text-align:center;'>NZL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>88</div></td><td style='background-color:#FCBF7B;text-align:center;'>SYD(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>73</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-624</div></td><td style='background-color:#FFEB84;text-align:center;'>BRO(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>120</div></td><td style='background-color:#CCDD82;text-align:center;'>DOL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>155</div></td><td style='background-color:#CCDD82;text-align:center;'>NEW<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>159</div></td><td style='background-color:#FFEB84;text-align:center;'>MNL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>132</div></td><td style='background-color:#FFEB84;text-align:center;'>STH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>114</div></td><td style='background-color:#CCDD82;text-align:center;'>STG(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>168</div></td><td style='background-color:#98CE7F;text-align:center;'>CBR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>192</div></td><td style='background-color:#CCDD82;text-align:center;'>GCT(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>157</div></td><td style='background-color:#63BE7B;text-align:center;'>PAR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>221</div></td><td style='background-color:#98CE7F;text-align:center;'>MEL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>186</div></td><td>SHA</td></tr><tr><td>STG</td><td><img src=../highcharts/TeamPictures/STG.png width=20px height=12px></img></td><td style='background-color:#FA9473;text-align:center;'>BUL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>39</div></td><td style='background-color:#FFEB84;text-align:center;'>MEL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>108</div></td><td style='background-color:#CCDD82;text-align:center;'>PAR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>144</div></td><td style='background-color:#FCBF7B;text-align:center;'>GCT(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>80</div></td><td style='background-color:#FFEB84;text-align:center;'>NQC<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>132</div></td><td style='background-color:#FCBF7B;text-align:center;'>MNL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>55</div></td><td style='background-color:#FA9473;text-align:center;'>STH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>37</div></td><td style='background-color:#F8696B;text-align:center;'>SYD<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>-5</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-702</div></td><td style='background-color:#FCBF7B;text-align:center;'>NEW<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>82</div></td><td style='background-color:#F8696B;text-align:center;'>PTH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>-10</div></td><td style='background-color:#FA9473;text-align:center;'>NZL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>11</div></td><td style='background-color:#FA9473;text-align:center;'>BRO(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>43</div></td><td style='background-color:#FA9473;text-align:center;'>SHA(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>18</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-702</div></td><td style='background-color:#FCBF7B;text-align:center;'>NEW(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>82</div></td><td style='background-color:#FFEB84;text-align:center;'>CBR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>114</div></td><td style='background-color:#CCDD82;text-align:center;'>WST<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>143</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-702</div></td><td style='background-color:#FA9473;text-align:center;'>NZL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>11</div></td><td style='background-color:#FCBF7B;text-align:center;'>GCT<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>80</div></td><td style='background-color:#FCBF7B;text-align:center;'>DOL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>78</div></td><td style='background-color:#FA9473;text-align:center;'>SHA<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>18</div></td><td style='background-color:#CCDD82;text-align:center;'>WST(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>143</div></td><td style='background-color:#FA9473;text-align:center;'>BUL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>39</div></td><td style='background-color:#FCBF7B;text-align:center;'>MNL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>55</div></td><td style='background-color:#CCDD82;text-align:center;'>PAR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>144</div></td><td>STG</td></tr><tr><td>STH</td><td><img src=../highcharts/TeamPictures/STH.png width=20px height=12px></img></td><td style='background-color:#CCDD82;text-align:center;'>DOL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>143</div></td><td style='background-color:#FCBF7B;text-align:center;'>SYD(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>60</div></td><td style='background-color:#98CE7F;text-align:center;'>WST<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>208</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-637</div></td><td style='background-color:#FFEB84;text-align:center;'>BUL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>104</div></td><td style='background-color:#98CE7F;text-align:center;'>CBR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>179</div></td><td style='background-color:#CCDD82;text-align:center;'>STG<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>156</div></td><td style='background-color:#CCDD82;text-align:center;'>MEL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>173</div></td><td style='background-color:#CCDD82;text-align:center;'>NEW(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>147</div></td><td style='background-color:#FCBF7B;text-align:center;'>SHA<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>82</div></td><td style='background-color:#CCDD82;text-align:center;'>DOL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>143</div></td><td style='background-color:#98CE7F;text-align:center;'>NQC(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>196</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-637</div></td><td style='background-color:#FFEB84;text-align:center;'>MNL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>120</div></td><td style='background-color:#FFEB84;text-align:center;'>BRO<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>107</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-637</div></td><td style='background-color:#98CE7F;text-align:center;'>PAR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>209</div></td><td style='background-color:#FCBF7B;text-align:center;'>PTH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>55</div></td><td style='background-color:#CCDD82;text-align:center;'>NEW<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>147</div></td><td style='background-color:#98CE7F;text-align:center;'>CBR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>179</div></td><td style='background-color:#CCDD82;text-align:center;'>MEL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>173</div></td><td style='background-color:#FCBF7B;text-align:center;'>SHA(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>82</div></td><td style='background-color:#98CE7F;text-align:center;'>PAR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>209</div></td><td style='background-color:#FFEB84;text-align:center;'>BUL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>104</div></td><td style='background-color:#FCBF7B;text-align:center;'>NZL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>76</div></td><td style='background-color:#CCDD82;text-align:center;'>GCT(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>145</div></td><td style='background-color:#FCBF7B;text-align:center;'>SYD<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>60</div></td><td>STH</td></tr><tr><td>SYD</td><td><img src=../highcharts/TeamPictures/SYD.png width=20px height=12px></img></td><td style='background-color:#FCBF7B;text-align:center;'>NZL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>78</div></td><td style='background-color:#FFEB84;text-align:center;'>STH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>104</div></td><td style='background-color:#FCBF7B;text-align:center;'>PTH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>57</div></td><td style='background-color:#FFEB84;text-align:center;'>MNL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>122</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-635</div></td><td style='background-color:#FCBF7B;text-align:center;'>SHA(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>85</div></td><td style='background-color:#CCDD82;text-align:center;'>NEW<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>149</div></td><td style='background-color:#CCDD82;text-align:center;'>STG(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>158</div></td><td style='background-color:#FFEB84;text-align:center;'>BRO<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>110</div></td><td style='background-color:#CCDD82;text-align:center;'>GCT<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>147</div></td><td style='background-color:#98CE7F;text-align:center;'>NQC<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>199</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-635</div></td><td style='background-color:#98CE7F;text-align:center;'>MEL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>175</div></td><td style='background-color:#98CE7F;text-align:center;'>CBR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>181</div></td><td style='background-color:#CCDD82;text-align:center;'>DOL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>145</div></td><td style='background-color:#FCBF7B;text-align:center;'>SHA<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>85</div></td><td style='background-color:#FFEB84;text-align:center;'>BRO(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>110</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-635</div></td><td style='background-color:#98CE7F;text-align:center;'>PAR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>211</div></td><td style='background-color:#98CE7F;text-align:center;'>MEL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>175</div></td><td style='background-color:#CCDD82;text-align:center;'>NEW(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>149</div></td><td style='background-color:#98CE7F;text-align:center;'>NQC(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>199</div></td><td style='background-color:#FFEB84;text-align:center;'>BUL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>106</div></td><td style='background-color:#FCBF7B;text-align:center;'>PTH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>57</div></td><td style='background-color:#98CE7F;text-align:center;'>WST<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>210</div></td><td style='background-color:#CCDD82;text-align:center;'>DOL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>145</div></td><td style='background-color:#FFEB84;text-align:center;'>STH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>104</div></td><td>SYD</td></tr><tr><td>WST</td><td><img src=../highcharts/TeamPictures/WST.png width=20px height=12px></img></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-625</div></td><td style='background-color:#98CE7F;text-align:center;'>NQC<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>208</div></td><td style='background-color:#FFEB84;text-align:center;'>STH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>113</div></td><td style='background-color:#FCBF7B;text-align:center;'>NZL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>87</div></td><td style='background-color:#63BE7B;text-align:center;'>PAR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>221</div></td><td style='background-color:#CCDD82;text-align:center;'>NEW<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>158</div></td><td style='background-color:#FFEB84;text-align:center;'>BRO<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>119</div></td><td style='background-color:#98CE7F;text-align:center;'>CBR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>191</div></td><td style='background-color:#FFEB84;text-align:center;'>SHA(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>94</div></td><td style='background-color:#98CE7F;text-align:center;'>MEL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>185</div></td><td style='background-color:#FFEB84;text-align:center;'>MNL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>131</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-625</div></td><td style='background-color:#FFEB84;text-align:center;'>BUL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>115</div></td><td style='background-color:#FCBF7B;text-align:center;'>PTH<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>66</div></td><td style='background-color:#CCDD82;text-align:center;'>GCT<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>157</div></td><td style='background-color:#CCDD82;text-align:center;'>DOL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>155</div></td><td style='background-color:#CCDD82;text-align:center;'>NEW(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>158</div></td><td style='background-color:#CCDD82;text-align:center;'>STG(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>167</div></td><td style='background-color:#FCBF7B;text-align:center;'>NZL<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>87</div></td><td style='background-color:#FFEB84;text-align:center;'>BUL(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>115</div></td><td style='background-color:#98CE7F;text-align:center;'>CBR(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>191</div></td><td style='background-color:#63BE7B;text-align:center;'>PAR<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>221</div></td><td style='background-color:lightblue;text-align:center;'>BYE<div style='width:100%;text-align:center;font-size:8px;color:lightblue;'>-625</div></td><td style='background-color:#CCDD82;text-align:center;'>STG<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>167</div></td><td style='background-color:#FCBF7B;text-align:center;'>SYD(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>72</div></td><td style='background-color:#98CE7F;text-align:center;'>NQC(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>208</div></td><td style='background-color:#FCBF7B;text-align:center;'>PTH(A)<div style='width:100%;text-align:center;font-size:8px;color:#000000;'>66</div></td><td>WST</td></tr><tr><td colspan=99 style='text-align:center;'>numbers = (SC points scored by team + SC points allowed by the opponent) / scalingconstant</td></tr></table>    </div> 
+</td>
+</tr>
+</table>  
+</tr></td></table>
+</br></br>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script> 
+     
+    $(window).load( function () { 
+        // bind custom reload handler 
+        $('#refresh_list1').unbind( "click" ); 
+        $('#refresh_list1').click( function (event) { 
+             reloadGrid();       
+         }); 
+    }); 
+     
+    // new handler for reload button - with postData 
+    function reloadGrid() 
+    { 
+        var grid = $("#list1"); 
+         
+        // reset default values of filters 
+        var filters = ; 
+        for(var i in filters.rules) 
+        { 
+            var f = filters.rules[i].field; 
+            var d = filters.rules[i].data; 
+            $('input[id="gs_'+f+'"]').val(d); 
+        } 
+         
+        $.extend(grid[0].p.postData,{filters:JSON.stringify()}); 
+        grid.trigger("reloadGrid",[{page:1}]);              
+    } 
+</script> 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65835534-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+	<footer>
+	<table style="min-width:1115px;vertical-align:top" width="100%" height="200px" bgcolor="#4E6898" border=0>
+	<tr><td><center><table width=100% style='background-color:#4E6898;padding-top:10px;text-decoration: none;border-collapse:collapse;'><tr><td>
+<center><table width=90% style="border-collapse:collapse;margin-left: 15px; padding-top: 0px; color:white; font-size:8pt;font-family: 'Open Sans', Roboto,'trebuchet ms', verdana, arial;" border=0>
+<tr style="vertical-align: top;">
+
+<td style="width:7%;">
+</td>
+
+<td style="width:7%;">
+<div style='font-size:11pt;font-weight:bold;'>Dashboards</div>
+
+<a href="./index.php?year=2026" style="color:white;text-decoration:none;">2026 Profiles</a></br>
+<a href="./index.php?year=2025" style="color:white;text-decoration:none;">2025 Profiles</a></br>
+<a href="./index.php?year=2024" style="color:white;text-decoration:none;">2024 Profiles</a></br>
+<a href="./index.php?year=2023" style="color:white;text-decoration:none;">2023 Profiles</a></br>
+<a href="./index.php?year=2022" style="color:white;text-decoration:none;">2022 Profiles</a></br>
+<a href="./2021index.php" style="color:white;text-decoration:none;">2021 Profiles</a></br>
+<a href="./2020index.php" style="color:white;text-decoration:none;">2020 Profiles</a></br>
+<a href="./2019index.php" style="color:white;text-decoration:none;">2019 Profiles</a></br>
+<a href="./2018index.php" style="color:white;text-decoration:none;">2018 Profiles</a></br>
+<a href="./2017index.php" style="color:white;text-decoration:none;">2017 Profiles</a></br>
+<a href="./2016index.php" style="color:white;text-decoration:none;">2016 Profiles</a></br>
+</td>
+
+<td style="width:7%;">
+<div style='font-size:11pt;font-weight:bold;'>PlayerTables</div>
+<a href="./combinedstats.php"style="color:white;text-decoration:none;">All Player Table</a></br>
+
+<a href="./stats.php?year=2026"style="color:white;text-decoration:none;">2026 Player Table</a></br>
+<a href="./stats.php?year=2025"style="color:white;text-decoration:none;">2025 Player Table</a></br>
+<a href="./stats.php?year=2024"style="color:white;text-decoration:none;">2024 Player Table</a></br>
+<a href="./stats.php?year=2023"style="color:white;text-decoration:none;">2023 Player Table</a></br>
+<a href="./stats.php?year=2022"style="color:white;text-decoration:none;">2022 Player Table</a></br>
+<a href="./stats.php?year=2021"style="color:white;text-decoration:none;">2021 Player Table</a></br>
+<a href="./stats.php?year=2020"style="color:white;text-decoration:none;">2020 Player Table</a></br>
+<a href="./stats.php?year=2019"style="color:white;text-decoration:none;">2019 Player Table</a></br>
+<a href="./stats.php?year=2018"style="color:white;text-decoration:none;">2018 Player Table</a></br>
+<a href="./stats.php?year=2017"style="color:white;text-decoration:none;">2017 Player Table</a></br>
+<a href="./stats.php?year=2016"style="color:white;text-decoration:none;">2016 Player Table</a></br>
+<a href="./stats.php?year=2015"style="color:white;text-decoration:none;">2015 Player Table</a></br>
+<a href="./2014stats.php"style="color:white;text-decoration:none;">2014 Player Table</a></br>
+<a href="./2013stats.php"style="color:white;text-decoration:none;">2013 Player Table</a></br>
+<a href="./2012stats.php"style="color:white;text-decoration:none;">2012 Player Table</a></br>
+<a href="./2011stats.php"style="color:white;text-decoration:none;">2011 Player Table</a></br>
+<a href="./2010stats.php"style="color:white;text-decoration:none;">2010 Player Table</a></br>
+<a href="./2009stats.php"style="color:white;text-decoration:none;">2009 Player Table</a></br>
+</td>
+
+<td style="width:7%;">
+<div style='font-size:11pt;font-weight:bold;'>Draw</div>
+<a href="./drawV2.php?year=2026" style="color:white;text-decoration:none;">2026 Draw</a></br>
+<a href="./drawV2.php?year=2025" style="color:white;text-decoration:none;">2025 Draw</a></br>
+<a href="./drawV2.php?year=2024" style="color:white;text-decoration:none;">2024 Draw</a></br>
+<a href="./drawV2.php?year=2023" style="color:white;text-decoration:none;">2023 Draw</a></br>
+<a href="./drawV2.php?year=2022" style="color:white;text-decoration:none;">2022 Draw</a></br>
+<a href="./drawV2.php?year=2021" style="color:white;text-decoration:none;">2021 Draw</a></br>
+<a href="./drawV2.php?year=2020" style="color:white;text-decoration:none;">2020 Draw</a></br>
+<a href="./drawV2.php?year=2019" style="color:white;text-decoration:none;">2019 Draw</a></br>
+<a href="./drawV2.php?year=2018" style="color:white;text-decoration:none;">2018 Draw</a></br>
+<a href="./drawV2.php?year=2017" style="color:white;text-decoration:none;">2017 Draw</a></br>
+<a href="./drawV2.php?year=2016" style="color:white;text-decoration:none;">2016 Draw</a></br>
+</td>
+
+<td style="width:7%;">
+<div style='font-size:11pt;font-weight:bold;'>Posn-v-Team</div>
+<a href="./posnvsteam.php?year=2026" style="color:white;text-decoration:none;">2026 Posn-vs-Team</a></br>
+<a href="./posnvsteam.php?year=2025" style="color:white;text-decoration:none;">2025 Posn-vs-Team</a></br>
+<a href="./posnvsteam.php?year=2024" style="color:white;text-decoration:none;">2024 Posn-vs-Team</a></br>
+<a href="./posnvsteam.php?year=2023" style="color:white;text-decoration:none;">2023 Posn-vs-Team</a></br>
+<a href="./posnvsteam.php?year=2022" style="color:white;text-decoration:none;">2022 Posn-vs-Team</a></br>
+<a href="./posnvsteam.php?year=2021" style="color:white;text-decoration:none;">2021 Posn-vs-Team</a></br>
+<a href="./posnvsteam.php?year=2020" style="color:white;text-decoration:none;">2020 Posn-vs-Team</a></br>
+<a href="./posnvsteam.php?year=2019" style="color:white;text-decoration:none;">2019 Posn-vs-Team</a></br>
+<a href="./posnvsteam.php?year=2018" style="color:white;text-decoration:none;">2018 Posn-vs-Team</a></br>
+<a href="./posnvsteam.php?year=2017" style="color:white;text-decoration:none;">2017 Posn-vs-Team</a></br>
+<a href="./posnvsteam.php?year=2016" style="color:white;text-decoration:none;">2016 Posn-vs-Team</a></br>
+<a href="./posnvsteam.php?year=2015" style="color:white;text-decoration:none;">2015 Posn-vs-Team</a></br>
+</td>
+
+<td style="width:7%;">
+<div style='font-size:11pt;font-weight:bold;'>Turnarounds</div>
+<a href="./turnarounds.php?year=2026" style="color:white;text-decoration:none;">2026 Turnarounds</a></br>
+<a href="./turnarounds.php?year=2025" style="color:white;text-decoration:none;">2025 Turnarounds</a></br>
+<a href="./turnarounds.php?year=2024" style="color:white;text-decoration:none;">2024 Turnarounds</a></br>
+<a href="./turnarounds.php?year=2023" style="color:white;text-decoration:none;">2023 Turnarounds</a></br>
+<a href="./turnarounds.php?year=2022" style="color:white;text-decoration:none;">2022 Turnarounds</a></br>
+<a href="./turnarounds.php?year=2021" style="color:white;text-decoration:none;">2021 Turnarounds</a></br>
+<a href="./turnarounds.php?year=2020" style="color:white;text-decoration:none;">2020 Turnarounds</a></br>
+<a href="./turnarounds.php?year=2019" style="color:white;text-decoration:none;">2019 Turnarounds</a></br>
+<a href="./turnarounds.php?year=2018" style="color:white;text-decoration:none;">2018 Turnarounds</a></br>
+<a href="./turnarounds.php?year=2017" style="color:white;text-decoration:none;">2017 Turnarounds</a></br>
+</td>
+
+<td style="width:7%;">
+<div style='font-size:11pt;font-weight:bold;'>Profiles</div>
+<a href="./teamoftheweek.php" style="color:white;text-decoration:none;">Team of the Week</a></br>
+<a href="./players.php" style="color:white;text-decoration:none;">Players</a></br>
+<a href="./Top10s.php" style="color:white;text-decoration:none;">Top 10s</a></br>
+<a href="./TeamBEs.php" style="color:white;text-decoration:none;">Team BEs</a></br>
+<a href="./TeamPrices.php" style="color:white;text-decoration:none;">Team Prices</a></br>
+<a href="./TeamPricesAndBEs.php" style="color:white;text-decoration:none;">Team Prices & BEs</a></br>
+<a href="./alltimehighestscores.php" style="color:white;text-decoration:none;">Highest - Players</a></br>
+<a href="./alltimehighestscores-teams.php" style="color:white;text-decoration:none;">Highest - Teams</a></br>
+<a href="./alltimehighestscores-games.php" style="color:white;text-decoration:none;">Highest - Games</a></br>
+<a href="./alltimehighestscores-round.php" style="color:white;text-decoration:none;">Highest - Rounds</a></br>
+<a href="./teamprofiles.php" style="color:white;text-decoration:none;">Team Profiles</a></br>
+<a href="./playerlist.php" style="color:white;text-decoration:none;">Player List</a></br>
+</td>
+
+<td style="width:7%;">
+<div style='font-size:11pt;font-weight:bold;'>Pivot Charts</div>
+<a href="./pivotchart.php?year=2026" style="color:white;text-decoration:none;">2026 Pivot Chart</a></br>
+<a href="./pivotchart.php?year=2025" style="color:white;text-decoration:none;">2025 Pivot Chart</a></br>
+<a href="./pivotchart.php?year=2024" style="color:white;text-decoration:none;">2024 Pivot Chart</a></br>
+<a href="./pivotchart.php?year=2023" style="color:white;text-decoration:none;">2023 Pivot Chart</a></br>
+<a href="./pivotchart.php?year=2022" style="color:white;text-decoration:none;">2022 Pivot Chart</a></br>
+<a href="./pivotchart.php?year=2021" style="color:white;text-decoration:none;">2021 Pivot Chart</a></br>
+<a href="./pivotchart.php?year=2020" style="color:white;text-decoration:none;">2020 Pivot Chart</a></br>
+<a href="./pivotchart.php?year=2019" style="color:white;text-decoration:none;">2019 Pivot Chart</a></br>
+<a href="./pivotchart.php?year=2018" style="color:white;text-decoration:none;">2018 Pivot Chart</a></br>
+<a href="./pivotchart.php?year=2017" style="color:white;text-decoration:none;">2017 Pivot Chart</a></br>
+</td>
+
+<td style="width:7%;">
+<div style='font-size:11pt;font-weight:bold;'>Draft Rank</div>           
+<a href="./draft.php?year=2026" style="color:white;text-decoration:none;">2026 Draft</a></br>
+<a href="./draft.php?year=2025" style="color:white;text-decoration:none;">2025 Draft</a></br>
+<a href="./draft.php?year=2024" style="color:white;text-decoration:none;">2024 Draft</a></br>
+<a href="./draft.php?year=2023" style="color:white;text-decoration:none;">2023 Draft</a></br>
+<a href="./draft.php?year=2022" style="color:white;text-decoration:none;">2022 Draft</a></br>
+<a href="./draft.php?year=2021" style="color:white;text-decoration:none;">2021 Draft</a></br>
+<a href="./draft.php?year=2020" style="color:white;text-decoration:none;">2020 Draft</a></br>
+<a href="./draft.php?year=2019" style="color:white;text-decoration:none;">2019 Draft</a></br>
+<a href="./draft.php?year=2018" style="color:white;text-decoration:none;">2018 Draft</a></br>
+<a href="./draft.php?year=2017" style="color:white;text-decoration:none;">2017 Draft</a></br>
+<a href="./draft.php?year=2016" style="color:white;text-decoration:none;">2016 Draft</a></br>
+<a href="./draft.php?year=2015" style="color:white;text-decoration:none;">2015 Draft</a></br>
+</td>
+
+<td style="width:7%;">
+<div style='font-size:11pt;font-weight:bold;'>Draft Day</div>
+<a href="./draftgrid.php?year=2026" style="color:white;text-decoration:none;">2026 Draft Day</a></br>
+<a href="./draftgrid.php?year=2025" style="color:white;text-decoration:none;">2025 Draft Day</a></br>	
+<a href="./draftgrid.php?year=2024" style="color:white;text-decoration:none;">2024 Draft Day</a></br>
+<a href="./draftgrid.php?year=2023" style="color:white;text-decoration:none;">2023 Draft Day</a></br>
+<a href="./draftgrid.php?year=2022" style="color:white;text-decoration:none;">2022 Draft Day</a></br>
+<a href="./draftgrid.php?year=2021" style="color:white;text-decoration:none;">2021 Draft Day</a></br>
+<a href="./draftgrid.php?year=2020" style="color:white;text-decoration:none;">2020 Draft Day</a></br>
+<a href="./draftgrid.php?year=2019" style="color:white;text-decoration:none;">2019 Draft Day</a></br>
+<a href="./draftgrid.php?year=2018" style="color:white;text-decoration:none;">2018 Draft Day</a></br>
+<a href="./draftgrid.php?year=2017" style="color:white;text-decoration:none;">2017 Draft Day</a></br>
+			
+			
+</td>
+
+<td style="width:7%;">
+<div style='font-size:11pt;font-weight:bold;'>Tools</div>
+			<a href="./drafttradeevaluator.php" style="color:white;text-decoration:none;">Draft Calculator</a></br>
+			<a href="./byeplannerV2.php" style="color:white;text-decoration:none;">Bye Planner</a></br>
+			<a href="./teamselectorflex.php" style="color:white;text-decoration:none;">Team Selector</a></br>
+			<a href="./playercompare.php" style="color:white;text-decoration:none;">Player Compare</a></br>
+			<a href="./dualposition.php" style="color:white;text-decoration:none;">Dual Position Players</a></br>
+			<a href="./pricechangecalcV2.php" style="color:white;text-decoration:none;">Price Change Calc</a></br>
+			<a href="./vcloop.php" style="color:white;text-decoration:none;">VC Loop Calc</a></br>
+</td>
+
+<td style="width:7%;">
+<div style='font-size:11pt;font-weight:bold;'>Links</div>
+			<a href="http://www.zerotackle.com/rugby-league/injuries-suspensions" target="_blank" style="color:white;text-decoration:none;">Injuries</a></br>
+			<a href="https://twitter.com/nrlphysio" target="_blank" style="color:white;text-decoration:none;">NRL Physio</a></br>
+			<a href="https://www.nrlsupercoachlive.com" target="_blank" style="color:white;text-decoration:none;">Live Scores</a></br>
+			<a href="https://www.facebook.com/groups/1553657534872861/" target="_blank" style="color:white;text-decoration:none;">NRLSC Fanatics</a></br>
+            <a href="http://www.nrlsupercoachtalk.com" target="_blank" style="color:white;text-decoration:none;">NRLSC Talk</a></br>
+			<a href="http://www.supercoachpros.com" target="_blank" style="color:white;text-decoration:none;">Supercoach Pros</a></br>
+			<a href="http://www.dailytelegraph.com.au/sport/nrl/footy-form" target="_blank" style="color:white;text-decoration:none;">Teams & News</a></br>
+			<a href="http://supercoach.dailytelegraph.com.au/nrl/classic/gameday" target="_blank" style="color:white;text-decoration:none;">Supercoach Gameday</a></br>
+			<a href="https://discord.me/nrlscchat" target="_blank" style="color:white;text-decoration:none;">Live Supercoach Chat</a></br>
+			<a href="http://www.nrlfantasystats.com" target="_blank" style="color:white;text-decoration:none;">Fantasy Stats</a></br>
+			<a href="https://www.legz.com.au/nrl/tryscorer-tipping" target="_blank" style="color:white;text-decoration:none;">Legz Tryscore Tipping</a></br>
+			
+</td>
+
+<td style="width:7%;">
+<div style='font-size:11pt;font-weight:bold;'>ContactUs</div>
+<a href="/cdn-cgi/l/email-protection#4a2b2e2723240a243826393f3a2f3829252b2922393e2b3e3964292527" style="color:white;text-decoration:none;">Email</a></br>
+			<a href="https://www.facebook.com/nrlsupercoachstats/" target="_blank" style="color:white;text-decoration:none;">Facebook</a></br>
+			<a href="https://twitter.com/NRLSCStats" target="_blank" style="color:white;text-decoration:none;">Twitter</a></br>
+			<a href="./faq.php" style="color:white;text-decoration:none;" style="color:white;text-decoration:none;">FAQ</a></br>
+			<a href="https://rugbyleague.store/" target="_blank" style="color:white;text-decoration:none;" style="color:white;text-decoration:none;">Rugbyleague.store</a></br>
+</td>
+
+<td style="width:7%;">
+</td>
+
+
+
+</tr>
+
+</table></center>
+
+</td></tr></table></center>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1823018214595996',
+      xfbml      : true,
+      version    : 'v2.9'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+<!--DETECT ADBLOCKING-->
+<script src="/ads.js" type="text/javascript"></script>
+<script type="text/javascript">
+if(document.getElementById('NdvqJMebcjaV')){
+  NdvqJMebcjaV='No';
+} else {
+  NdvqJMebcjaV='Yes';
+}
+
+if(!document.getElementById('NdvqJMebcjaV')){
+  alert('Our website is made possible by displaying online advertisements to our visitors.  Please support us by disabling your ad blocker');
+}
+
+if(typeof ga !=='undefined'){
+  ga('send','event','Blocking Ads',NdvqJMebcjaV,{'nonInteraction':1});
+} else if(typeof _gaq !=='undefined'){
+  _gaq.push(['_trackEvent','Blocking Ads',NdvqJMebcjaV,undefined,undefined,true]);
+}
+
+</script>
+</td></tr>
+	</table>
+	</footer>
+	N</html>
