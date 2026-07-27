@@ -2046,6 +2046,59 @@ function localWindowAroundName(text, name, before=360, after=520){
   const end = Math.min(src.length, m.index + String(m[0]).length + after);
   return src.slice(start, end);
 }
+function otherPlayerNameSpans(text, players, excludeName){
+  const spans = [];
+  for(const other of players){
+    if(other.name === excludeName) continue;
+    const re = nameRegex(other.name);
+    if(!re) continue;
+    const global = new RegExp(re.source, re.flags.includes('g') ? re.flags : `${re.flags}g`);
+    let m;
+    while((m = global.exec(text))){
+      spans.push({start:m.index, end:m.index + m[0].length});
+      if(m.index === global.lastIndex) global.lastIndex++;
+    }
+  }
+  return spans.sort((a,b) => a.start - b.start);
+}
+// A multi-subject article (e.g. "club confirms season-ending injuries for two stars") can put
+// two different players' paragraphs close enough together that a fixed-radius window around one
+// player's name spills into text that is actually about the other player - misattributing body
+// part, confirmation language, or return timeline. Clipping the window at the nearest mention of
+// any other real player's name keeps each player's evidence scoped to their own paragraph. This is
+// generic (driven by the full players.json roster, not any specific name) and only ever narrows
+// the window, so it can reduce recall (a real signal near a name gets clipped) but never invents
+// or reassigns evidence between players.
+function localWindowAroundNameScoped(text, name, players, before=360, after=520){
+  const src = String(text || '').replace(/\s+/g,' ');
+  const re = nameRegex(name);
+  if(!re) return '';
+  const m = re.exec(src);
+  if(!m) return '';
+  const matchStart = m.index;
+  const matchEnd = m.index + String(m[0]).length;
+  let start = Math.max(0, matchStart - before);
+  let end = Math.min(src.length, matchEnd + after);
+
+  const otherSpans = otherPlayerNameSpans(src, players, name);
+
+  // Forward: this player's own paragraph runs from their name up to wherever the next real
+  // player's name starts. Stop there so a later player's paragraph never bleeds in.
+  for(const span of otherSpans){
+    if(span.start >= matchEnd && span.start < end){ end = span.start; break; }
+  }
+
+  // Backward: article convention puts a player's descriptive text AFTER their name, not before
+  // it ("Player X ... suffered ..."), so text between an earlier player's name and this match is
+  // that earlier player's forward paragraph, not neutral lead-in for this one. If any other
+  // player's name falls anywhere in the backward candidate range, discard all backward context
+  // rather than guess a boundary inside someone else's paragraph.
+  const hasOtherBefore = otherSpans.some(span => span.start >= start && span.end <= matchStart);
+  if(hasOtherBefore) start = matchStart;
+
+  if(start >= end) return '';
+  return src.slice(start, end);
+}
 function injuryWindowHasPlayerEvidence(windowText){
   const txt = String(windowText || '').toLowerCase();
   if(!hasInjuryWords(txt)) return false;
@@ -2059,7 +2112,7 @@ function fromFetchedInjuries(players, pages, injuriesOut){
   for(const page of pages){
     const found = findPlayerNamesInText(players, page.text);
     for(const p of found){
-      const window = localWindowAroundName(page.text, p.name);
+      const window = localWindowAroundNameScoped(page.text, p.name, players);
       if(!injuryWindowHasPlayerEvidence(window)){
         skippedBroadPageMentions++;
         continue;
@@ -3143,7 +3196,8 @@ export {
   suspensionMetaFromRecord,
   fromFetchedInjuries,
   isSpecificArticleUrl,
-  hasConfirmedInjuryPhrase
+  hasConfirmedInjuryPhrase,
+  localWindowAroundNameScoped
 };
 
 const isDirectRun =
