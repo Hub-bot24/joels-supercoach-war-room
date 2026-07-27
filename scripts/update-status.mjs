@@ -431,6 +431,21 @@ function injuryReturnMetaFromRecord(rec, round){
     meta.injuryRiskUntilRound = rr;
     return meta;
   }
+  // "Next season" is real, specific signal (this player is out for the rest
+  // of the year) - checked against directText only, never the whole-record
+  // blob below, and before the generic tbc/indefinite fallback, so it is
+  // never swallowed into a generic "Indefinite" alongside sources that
+  // genuinely have no timeline at all.
+  if(/next season/i.test(directText)){
+    meta.expectedReturnText = 'Next season';
+    return meta;
+  }
+  // blob is JSON.stringify(rec) (see textOf) - it can contain the word
+  // "indefinite" purely because an upstream classifier field like
+  // returnType:"indefinite" happens to be present on the record, not
+  // because any actual injury text said so. Matching indefinite/tbc against
+  // that raw blob is why the "next season" check above must run first and
+  // must not itself look at blob.
   if(/\btbc\b|indefinite|unknown|no timeline|yet to be confirmed/i.test(txt)){
     meta.expectedReturnText = /indefinite/i.test(txt) ? 'Indefinite' : 'TBC';
   }
@@ -500,7 +515,14 @@ function suspensionMetaFromRecord(rec, round){
     return meta;
   }
 
-  if(/\btbc\b|indefinite|unknown|no timeline|yet to be confirmed/i.test(txt)){
+  // See the matching comment in injuryReturnMetaFromRecord: "next season" is
+  // specific, real signal and must be checked against directText only,
+  // before the whole-record blob (which can contain the word "indefinite"
+  // purely from an upstream classifier field) swallows it into a generic
+  // Indefinite/TBC bucket.
+  if(/next season/i.test(directText)){
+    meta.expectedReturnText = 'Next season';
+  } else if(/\btbc\b|indefinite|unknown|no timeline|yet to be confirmed/i.test(txt)){
     meta.expectedReturnText = /indefinite/i.test(txt) ? 'Indefinite' : 'TBC';
   }
 
@@ -3085,7 +3107,9 @@ export {
   stripHtmlLite,
   normName,
   playerTeam,
-  lineupRoleForIndex
+  lineupRoleForIndex,
+  injuryReturnMetaFromRecord,
+  suspensionMetaFromRecord
 };
 
 const isDirectRun =
