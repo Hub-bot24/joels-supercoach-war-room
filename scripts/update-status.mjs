@@ -355,6 +355,18 @@ const INJURY_WORDS = ['ruled out','injured','injury','hamstring','calf','knee','
 const SUSPENSION_WORDS = ['suspended','suspension','judiciary','ban','banned','charge','charged','guilty plea','dangerous contact','high tackle','grade 1','grade 2','grade 3'];
 function hasInjuryWords(txt){ return hasAny(txt, INJURY_WORDS); }
 function hasSuspensionWords(txt){ return hasAny(txt, SUSPENSION_WORDS); }
+// A confirmed-finality phrase near a player's name on a dedicated injury article (not a broad
+// hub/index page) is strong evidence, generic across every player: real "season-ending" reporting
+// language, not just a body-part word floating on a casualty-ward list.
+const CONFIRMED_INJURY_PHRASES = ['ruled out for the season','ruled out for the year','season-ending','season ending','out for the season','out for the year','miss the rest of the season','miss the remainder of the season','done for the season','season is over','ended his season','career-ending','requires surgery','will undergo surgery','scans confirmed','confirmed the injury'];
+function hasConfirmedInjuryPhrase(txt){ return hasAny(String(txt||'').toLowerCase(), CONFIRMED_INJURY_PHRASES); }
+// Generic URL shape check, no player/club names: a dedicated news article has a trailing numeric
+// article id (e.g. .../knights-confirm-season-ending-injuries-for-two-stars-236256/), while a
+// standing hub/index page like .../nrl/injuries-suspensions/ does not.
+function isSpecificArticleUrl(url){
+  try{ return /-\d{3,}\/?$/.test(new URL(url).pathname); }
+  catch{ return false; }
+}
 
 function titleCaseWords(s){
   return String(s||'').replace(/[_-]+/g,' ').replace(/\s+/g,' ').trim().replace(/\b\w/g,c=>c.toUpperCase());
@@ -438,6 +450,15 @@ function injuryReturnMetaFromRecord(rec, round){
   // genuinely have no timeline at all.
   if(/next season/i.test(directText)){
     meta.expectedReturnText = 'Next season';
+    return meta;
+  }
+  // Same precision rule as "next season" above: a confirmed season-ending phrase is real,
+  // specific signal that the player is out for the rest of the current season. Checked against
+  // directText only and before the generic tbc/indefinite fallback, so it is never swallowed
+  // into a generic "Indefinite" bucket. No return round is known, so injuryReturnKnown stays
+  // false and injuryPhaseForRound() falls through to its persistent "red" default.
+  if(hasConfirmedInjuryPhrase(directText)){
+    meta.expectedReturnText = 'Season';
     return meta;
   }
   // blob is JSON.stringify(rec) (see textOf) - it can contain the word
@@ -2045,7 +2066,17 @@ function fromFetchedInjuries(players, pages, injuriesOut){
       }
       const src = sourceObj('injury', page.sourceName, page.url, NOW_ISO);
       const meta = injuryReturnMetaFromRecord({reason:window, source:page.sourceName, url:page.url, updatedAt:NOW_ISO}, null);
-      addOrMerge(injuriesOut, p, makeStatus(STATUS.INJURED, `${meta.injuryType || 'Injury'} context found near player on injury/casualty source page (${page.sourceName}).`, [src], {...meta, injuryStatus:'injury_local_context_match', team:p.team, teamCanonical:playerTeam(p)}));
+      // A dedicated news article (not the standing hub/index page) that uses confirmed,
+      // finality language ("season-ending", "ruled out for the season", etc.) near the player's
+      // name is strong evidence, not a bare name-proximity guess - generic across every player,
+      // driven only by URL shape and reported language. sourcePriority makes this win the merge
+      // over a same-run weak hub mention regardless of which page was fetched first.
+      const isConfirmedArticle = isSpecificArticleUrl(page.url) && hasConfirmedInjuryPhrase(window);
+      if(isConfirmedArticle){
+        addOrMerge(injuriesOut, p, makeStatus(STATUS.INJURED, `${meta.injuryType || 'Injury'} confirmed near player on injury article (${page.sourceName}): ${meta.expectedReturnText || 'season-ending'}.`, [src], {...meta, injuryStatus:'injury_confirmed_article_match', team:p.team, teamCanonical:playerTeam(p), sourcePriority:2}));
+      } else {
+        addOrMerge(injuriesOut, p, makeStatus(STATUS.INJURED, `${meta.injuryType || 'Injury'} context found near player on injury/casualty source page (${page.sourceName}).`, [src], {...meta, injuryStatus:'injury_local_context_match', team:p.team, teamCanonical:playerTeam(p), sourcePriority:1}));
+      }
       count++;
     }
   }
@@ -3109,7 +3140,10 @@ export {
   playerTeam,
   lineupRoleForIndex,
   injuryReturnMetaFromRecord,
-  suspensionMetaFromRecord
+  suspensionMetaFromRecord,
+  fromFetchedInjuries,
+  isSpecificArticleUrl,
+  hasConfirmedInjuryPhrase
 };
 
 const isDirectRun =
