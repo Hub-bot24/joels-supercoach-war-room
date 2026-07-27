@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-27T19:55:26.433Z",
+  "updated": "2026-07-27T20:53:24.603Z",
   "round": 22,
   "source": "Open-Meteo hourly forecast API",
   "status": "fresh",
@@ -8,229 +8,6 @@
   "games": [
     {
       "round": 22,
-      "match": "Cowboys v Roosters",
-      "homeTeam": "NQC",
-      "awayTeam": "SYD",
-      "venue": "Qld Country Bank Stadium",
-      "kickoffLocal": "2026-07-30T19:50:00",
-      "city": "Townsville",
-      "lat": -19.2564,
-      "lon": 146.8183,
-      "timezone": "Australia/Brisbane",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-07-30T19:20",
-        "to": "2026-07-30T21:40",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-07-30T20:00",
-          "phase": "game_window",
-          "temperature_2m": 20.2,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 17.3,
-          "wind_gusts_10m": 33.8
-        },
-        {
-          "time": "2026-07-30T21:00",
-          "phase": "game_window",
-          "temperature_2m": 20,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 16.6,
-          "wind_gusts_10m": 33.1
-        }
-      ],
-      "weatherRisk": {
-        "label": "Low",
-        "score": 15,
-        "maxRainProbability": 0,
-        "totalGameRainMm": 0,
-        "maxWindKmh": 17.3,
-        "maxGustKmh": 33.8,
-        "avgTemp": 20.1,
-        "reasons": [
-          "moderate wind/gusts"
-        ],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
-      }
-    },
-    {
-      "round": 22,
-      "match": "Dragons v Dolphins",
-      "homeTeam": "STG",
-      "awayTeam": "DOL",
-      "venue": "WIN Stadium",
-      "kickoffLocal": "2026-07-31T18:00:00",
-      "city": "Wollongong",
-      "lat": -34.4269,
-      "lon": 150.9027,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-07-31T17:30",
-        "to": "2026-07-31T19:50",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-07-31T18:00",
-          "phase": "game_window",
-          "temperature_2m": 11.8,
-          "precipitation_probability": 1,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 12.8,
-          "wind_gusts_10m": 36
-        },
-        {
-          "time": "2026-07-31T19:00",
-          "phase": "game_window",
-          "temperature_2m": 11.1,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 12.7,
-          "wind_gusts_10m": 34.6
-        }
-      ],
-      "weatherRisk": {
-        "label": "Low",
-        "score": 15,
-        "maxRainProbability": 1,
-        "totalGameRainMm": 0,
-        "maxWindKmh": 12.8,
-        "maxGustKmh": 36,
-        "avgTemp": 11.4,
-        "reasons": [
-          "moderate wind/gusts"
-        ],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
-      }
-    },
-    {
-      "round": 22,
-      "match": "Storm v Bulldogs",
-      "homeTeam": "MEL",
-      "awayTeam": "CAN",
-      "venue": "AAMI Park",
-      "kickoffLocal": "2026-07-31T20:00:00",
-      "city": "Melbourne",
-      "lat": -37.824,
-      "lon": 144.9834,
-      "timezone": "Australia/Melbourne",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-07-31T19:30",
-        "to": "2026-07-31T21:50",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-07-31T20:00",
-          "phase": "game_window",
-          "temperature_2m": 8.3,
-          "precipitation_probability": 1,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 3,
-          "wind_gusts_10m": 8.6
-        },
-        {
-          "time": "2026-07-31T21:00",
-          "phase": "game_window",
-          "temperature_2m": 7.7,
-          "precipitation_probability": 2,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 3.8,
-          "wind_gusts_10m": 9.4
-        }
-      ],
-      "weatherRisk": {
-        "label": "Low",
-        "score": 0,
-        "maxRainProbability": 2,
-        "totalGameRainMm": 0,
-        "maxWindKmh": 3.8,
-        "maxGustKmh": 9.4,
-        "avgTemp": 8,
-        "reasons": [],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
-      }
-    },
-    {
-      "round": 22,
-      "match": "Titans v Warriors",
-      "homeTeam": "GLD",
-      "awayTeam": "NZL",
-      "venue": "Cbus Super Stadium",
-      "kickoffLocal": "2026-08-01T15:00:00",
-      "city": "Gold Coast",
-      "lat": -28.0064,
-      "lon": 153.3783,
-      "timezone": "Australia/Brisbane",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-08-01T14:30",
-        "to": "2026-08-01T16:50",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-08-01T15:00",
-          "phase": "game_window",
-          "temperature_2m": 17.9,
-          "precipitation_probability": 35,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 20.7,
-          "wind_gusts_10m": 47.9
-        },
-        {
-          "time": "2026-08-01T16:00",
-          "phase": "game_window",
-          "temperature_2m": 17.2,
-          "precipitation_probability": 35,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 19.9,
-          "wind_gusts_10m": 47.5
-        }
-      ],
-      "weatherRisk": {
-        "label": "Medium",
-        "score": 30,
-        "maxRainProbability": 35,
-        "totalGameRainMm": 0,
-        "maxWindKmh": 20.7,
-        "maxGustKmh": 47.9,
-        "avgTemp": 17.5,
-        "reasons": [
-          "strong wind/gusts"
-        ],
-        "captainImpact": "Medium weather risk over game window. Review outdoor captain/ceiling assumptions."
-      }
-    },
-    {
-      "round": 22,
-      "match": "Panthers v Raiders",
-      "homeTeam": "PEN",
-      "awayTeam": "CBR",
-      "venue": "",
-      "kickoffLocal": "2026-08-01T17:30:00",
-      "city": "",
-      "lat": null,
-      "lon": null,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "source_failed",
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "score": 0,
-        "label": "Unknown",
-        "reasons": [
-          "missing weather coordinates or kickoff for Panthers v Raiders"
-        ]
-      }
-    },
-    {
-      "round": 22,
       "match": "Broncos v Knights",
       "homeTeam": "BRO",
       "awayTeam": "NEW",
@@ -289,6 +66,278 @@
     },
     {
       "round": 22,
+      "match": "Bulldogs v Storm",
+      "homeTeam": "CAN",
+      "awayTeam": "MEL",
+      "venue": "AAMI Park",
+      "kickoffLocal": "2026-07-31T20:00:00",
+      "city": "Melbourne",
+      "lat": -37.824,
+      "lon": 144.9834,
+      "timezone": "Australia/Melbourne",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-07-31T19:30",
+        "to": "2026-07-31T21:50",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-07-31T20:00",
+          "phase": "game_window",
+          "temperature_2m": 8.3,
+          "precipitation_probability": 1,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 3,
+          "wind_gusts_10m": 8.6
+        },
+        {
+          "time": "2026-07-31T21:00",
+          "phase": "game_window",
+          "temperature_2m": 7.7,
+          "precipitation_probability": 2,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 3.8,
+          "wind_gusts_10m": 9.4
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 0,
+        "maxRainProbability": 2,
+        "totalGameRainMm": 0,
+        "maxWindKmh": 3.8,
+        "maxGustKmh": 9.4,
+        "avgTemp": 8,
+        "reasons": [],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 22,
+      "match": "Raiders v Panthers",
+      "homeTeam": "CBR",
+      "awayTeam": "PEN",
+      "venue": "",
+      "kickoffLocal": "2026-08-01T17:30:00",
+      "city": "",
+      "lat": null,
+      "lon": null,
+      "timezone": "Australia/Brisbane",
+      "weatherStatus": "source_failed",
+      "gameWindowWeather": [],
+      "weatherRisk": {
+        "score": 0,
+        "label": "Unknown",
+        "reasons": [
+          "missing weather coordinates or kickoff for Raiders v Panthers"
+        ]
+      }
+    },
+    {
+      "round": 22,
+      "match": "Dolphins v Dragons",
+      "homeTeam": "DOL",
+      "awayTeam": "STG",
+      "venue": "WIN Stadium",
+      "kickoffLocal": "2026-07-31T18:00:00",
+      "city": "Wollongong",
+      "lat": -34.4269,
+      "lon": 150.9027,
+      "timezone": "Australia/Sydney",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-07-31T17:30",
+        "to": "2026-07-31T19:50",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-07-31T18:00",
+          "phase": "game_window",
+          "temperature_2m": 11.8,
+          "precipitation_probability": 1,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 12.8,
+          "wind_gusts_10m": 36
+        },
+        {
+          "time": "2026-07-31T19:00",
+          "phase": "game_window",
+          "temperature_2m": 11.1,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 12.7,
+          "wind_gusts_10m": 34.6
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 15,
+        "maxRainProbability": 1,
+        "totalGameRainMm": 0,
+        "maxWindKmh": 12.8,
+        "maxGustKmh": 36,
+        "avgTemp": 11.4,
+        "reasons": [
+          "moderate wind/gusts"
+        ],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 22,
+      "match": "Titans v Warriors",
+      "homeTeam": "GLD",
+      "awayTeam": "NZL",
+      "venue": "Cbus Super Stadium",
+      "kickoffLocal": "2026-08-01T15:00:00",
+      "city": "Gold Coast",
+      "lat": -28.0064,
+      "lon": 153.3783,
+      "timezone": "Australia/Brisbane",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-08-01T14:30",
+        "to": "2026-08-01T16:50",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-08-01T15:00",
+          "phase": "game_window",
+          "temperature_2m": 17.9,
+          "precipitation_probability": 35,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 20.7,
+          "wind_gusts_10m": 47.9
+        },
+        {
+          "time": "2026-08-01T16:00",
+          "phase": "game_window",
+          "temperature_2m": 17.2,
+          "precipitation_probability": 35,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 19.9,
+          "wind_gusts_10m": 47.5
+        }
+      ],
+      "weatherRisk": {
+        "label": "Medium",
+        "score": 30,
+        "maxRainProbability": 35,
+        "totalGameRainMm": 0,
+        "maxWindKmh": 20.7,
+        "maxGustKmh": 47.9,
+        "avgTemp": 17.5,
+        "reasons": [
+          "strong wind/gusts"
+        ],
+        "captainImpact": "Medium weather risk over game window. Review outdoor captain/ceiling assumptions."
+      }
+    },
+    {
+      "round": 22,
+      "match": "Cowboys v Roosters",
+      "homeTeam": "NQC",
+      "awayTeam": "SYD",
+      "venue": "Qld Country Bank Stadium",
+      "kickoffLocal": "2026-07-30T19:50:00",
+      "city": "Townsville",
+      "lat": -19.2564,
+      "lon": 146.8183,
+      "timezone": "Australia/Brisbane",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-07-30T19:20",
+        "to": "2026-07-30T21:40",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-07-30T20:00",
+          "phase": "game_window",
+          "temperature_2m": 20.2,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 17.3,
+          "wind_gusts_10m": 33.8
+        },
+        {
+          "time": "2026-07-30T21:00",
+          "phase": "game_window",
+          "temperature_2m": 20,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 16.6,
+          "wind_gusts_10m": 33.1
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 15,
+        "maxRainProbability": 0,
+        "totalGameRainMm": 0,
+        "maxWindKmh": 17.3,
+        "maxGustKmh": 33.8,
+        "avgTemp": 20.1,
+        "reasons": [
+          "moderate wind/gusts"
+        ],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 22,
+      "match": "Eels v Tigers",
+      "homeTeam": "PAR",
+      "awayTeam": "WST",
+      "venue": "Commbank Stadium",
+      "kickoffLocal": "2026-08-02T16:05:00",
+      "city": "Sydney",
+      "lat": -33.8081,
+      "lon": 150.9996,
+      "timezone": "Australia/Sydney",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-08-02T15:35",
+        "to": "2026-08-02T17:55",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-08-02T16:00",
+          "phase": "game_window",
+          "temperature_2m": 19.3,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 6.7,
+          "wind_gusts_10m": 22.7
+        },
+        {
+          "time": "2026-08-02T17:00",
+          "phase": "game_window",
+          "temperature_2m": 17.8,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 9.4,
+          "wind_gusts_10m": 24.5
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 0,
+        "maxRainProbability": 0,
+        "totalGameRainMm": 0,
+        "maxWindKmh": 9.4,
+        "maxGustKmh": 24.5,
+        "avgTemp": 18.6,
+        "reasons": [],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 22,
       "match": "Sharks v Rabbitohs",
       "homeTeam": "SHA",
       "awayTeam": "STH",
@@ -335,55 +384,6 @@
         "reasons": [
           "moderate wind/gusts"
         ],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
-      }
-    },
-    {
-      "round": 22,
-      "match": "Tigers v Eels",
-      "homeTeam": "WST",
-      "awayTeam": "PAR",
-      "venue": "Commbank Stadium",
-      "kickoffLocal": "2026-08-02T16:05:00",
-      "city": "Sydney",
-      "lat": -33.8081,
-      "lon": 150.9996,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-08-02T15:35",
-        "to": "2026-08-02T17:55",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-08-02T16:00",
-          "phase": "game_window",
-          "temperature_2m": 19.3,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 6.7,
-          "wind_gusts_10m": 22.7
-        },
-        {
-          "time": "2026-08-02T17:00",
-          "phase": "game_window",
-          "temperature_2m": 17.8,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 9.4,
-          "wind_gusts_10m": 24.5
-        }
-      ],
-      "weatherRisk": {
-        "label": "Low",
-        "score": 0,
-        "maxRainProbability": 0,
-        "totalGameRainMm": 0,
-        "maxWindKmh": 9.4,
-        "maxGustKmh": 24.5,
-        "avgTemp": 18.6,
-        "reasons": [],
         "captainImpact": "Low weather risk over game window. Normal captain logic applies."
       }
     }
@@ -391,229 +391,6 @@
   "matches": [
     {
       "round": 22,
-      "match": "Cowboys v Roosters",
-      "homeTeam": "NQC",
-      "awayTeam": "SYD",
-      "venue": "Qld Country Bank Stadium",
-      "kickoffLocal": "2026-07-30T19:50:00",
-      "city": "Townsville",
-      "lat": -19.2564,
-      "lon": 146.8183,
-      "timezone": "Australia/Brisbane",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-07-30T19:20",
-        "to": "2026-07-30T21:40",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-07-30T20:00",
-          "phase": "game_window",
-          "temperature_2m": 20.2,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 17.3,
-          "wind_gusts_10m": 33.8
-        },
-        {
-          "time": "2026-07-30T21:00",
-          "phase": "game_window",
-          "temperature_2m": 20,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 16.6,
-          "wind_gusts_10m": 33.1
-        }
-      ],
-      "weatherRisk": {
-        "label": "Low",
-        "score": 15,
-        "maxRainProbability": 0,
-        "totalGameRainMm": 0,
-        "maxWindKmh": 17.3,
-        "maxGustKmh": 33.8,
-        "avgTemp": 20.1,
-        "reasons": [
-          "moderate wind/gusts"
-        ],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
-      }
-    },
-    {
-      "round": 22,
-      "match": "Dragons v Dolphins",
-      "homeTeam": "STG",
-      "awayTeam": "DOL",
-      "venue": "WIN Stadium",
-      "kickoffLocal": "2026-07-31T18:00:00",
-      "city": "Wollongong",
-      "lat": -34.4269,
-      "lon": 150.9027,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-07-31T17:30",
-        "to": "2026-07-31T19:50",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-07-31T18:00",
-          "phase": "game_window",
-          "temperature_2m": 11.8,
-          "precipitation_probability": 1,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 12.8,
-          "wind_gusts_10m": 36
-        },
-        {
-          "time": "2026-07-31T19:00",
-          "phase": "game_window",
-          "temperature_2m": 11.1,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 12.7,
-          "wind_gusts_10m": 34.6
-        }
-      ],
-      "weatherRisk": {
-        "label": "Low",
-        "score": 15,
-        "maxRainProbability": 1,
-        "totalGameRainMm": 0,
-        "maxWindKmh": 12.8,
-        "maxGustKmh": 36,
-        "avgTemp": 11.4,
-        "reasons": [
-          "moderate wind/gusts"
-        ],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
-      }
-    },
-    {
-      "round": 22,
-      "match": "Storm v Bulldogs",
-      "homeTeam": "MEL",
-      "awayTeam": "CAN",
-      "venue": "AAMI Park",
-      "kickoffLocal": "2026-07-31T20:00:00",
-      "city": "Melbourne",
-      "lat": -37.824,
-      "lon": 144.9834,
-      "timezone": "Australia/Melbourne",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-07-31T19:30",
-        "to": "2026-07-31T21:50",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-07-31T20:00",
-          "phase": "game_window",
-          "temperature_2m": 8.3,
-          "precipitation_probability": 1,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 3,
-          "wind_gusts_10m": 8.6
-        },
-        {
-          "time": "2026-07-31T21:00",
-          "phase": "game_window",
-          "temperature_2m": 7.7,
-          "precipitation_probability": 2,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 3.8,
-          "wind_gusts_10m": 9.4
-        }
-      ],
-      "weatherRisk": {
-        "label": "Low",
-        "score": 0,
-        "maxRainProbability": 2,
-        "totalGameRainMm": 0,
-        "maxWindKmh": 3.8,
-        "maxGustKmh": 9.4,
-        "avgTemp": 8,
-        "reasons": [],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
-      }
-    },
-    {
-      "round": 22,
-      "match": "Titans v Warriors",
-      "homeTeam": "GLD",
-      "awayTeam": "NZL",
-      "venue": "Cbus Super Stadium",
-      "kickoffLocal": "2026-08-01T15:00:00",
-      "city": "Gold Coast",
-      "lat": -28.0064,
-      "lon": 153.3783,
-      "timezone": "Australia/Brisbane",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-08-01T14:30",
-        "to": "2026-08-01T16:50",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-08-01T15:00",
-          "phase": "game_window",
-          "temperature_2m": 17.9,
-          "precipitation_probability": 35,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 20.7,
-          "wind_gusts_10m": 47.9
-        },
-        {
-          "time": "2026-08-01T16:00",
-          "phase": "game_window",
-          "temperature_2m": 17.2,
-          "precipitation_probability": 35,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 19.9,
-          "wind_gusts_10m": 47.5
-        }
-      ],
-      "weatherRisk": {
-        "label": "Medium",
-        "score": 30,
-        "maxRainProbability": 35,
-        "totalGameRainMm": 0,
-        "maxWindKmh": 20.7,
-        "maxGustKmh": 47.9,
-        "avgTemp": 17.5,
-        "reasons": [
-          "strong wind/gusts"
-        ],
-        "captainImpact": "Medium weather risk over game window. Review outdoor captain/ceiling assumptions."
-      }
-    },
-    {
-      "round": 22,
-      "match": "Panthers v Raiders",
-      "homeTeam": "PEN",
-      "awayTeam": "CBR",
-      "venue": "",
-      "kickoffLocal": "2026-08-01T17:30:00",
-      "city": "",
-      "lat": null,
-      "lon": null,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "source_failed",
-      "gameWindowWeather": [],
-      "weatherRisk": {
-        "score": 0,
-        "label": "Unknown",
-        "reasons": [
-          "missing weather coordinates or kickoff for Panthers v Raiders"
-        ]
-      }
-    },
-    {
-      "round": 22,
       "match": "Broncos v Knights",
       "homeTeam": "BRO",
       "awayTeam": "NEW",
@@ -672,6 +449,278 @@
     },
     {
       "round": 22,
+      "match": "Bulldogs v Storm",
+      "homeTeam": "CAN",
+      "awayTeam": "MEL",
+      "venue": "AAMI Park",
+      "kickoffLocal": "2026-07-31T20:00:00",
+      "city": "Melbourne",
+      "lat": -37.824,
+      "lon": 144.9834,
+      "timezone": "Australia/Melbourne",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-07-31T19:30",
+        "to": "2026-07-31T21:50",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-07-31T20:00",
+          "phase": "game_window",
+          "temperature_2m": 8.3,
+          "precipitation_probability": 1,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 3,
+          "wind_gusts_10m": 8.6
+        },
+        {
+          "time": "2026-07-31T21:00",
+          "phase": "game_window",
+          "temperature_2m": 7.7,
+          "precipitation_probability": 2,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 3.8,
+          "wind_gusts_10m": 9.4
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 0,
+        "maxRainProbability": 2,
+        "totalGameRainMm": 0,
+        "maxWindKmh": 3.8,
+        "maxGustKmh": 9.4,
+        "avgTemp": 8,
+        "reasons": [],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 22,
+      "match": "Raiders v Panthers",
+      "homeTeam": "CBR",
+      "awayTeam": "PEN",
+      "venue": "",
+      "kickoffLocal": "2026-08-01T17:30:00",
+      "city": "",
+      "lat": null,
+      "lon": null,
+      "timezone": "Australia/Brisbane",
+      "weatherStatus": "source_failed",
+      "gameWindowWeather": [],
+      "weatherRisk": {
+        "score": 0,
+        "label": "Unknown",
+        "reasons": [
+          "missing weather coordinates or kickoff for Raiders v Panthers"
+        ]
+      }
+    },
+    {
+      "round": 22,
+      "match": "Dolphins v Dragons",
+      "homeTeam": "DOL",
+      "awayTeam": "STG",
+      "venue": "WIN Stadium",
+      "kickoffLocal": "2026-07-31T18:00:00",
+      "city": "Wollongong",
+      "lat": -34.4269,
+      "lon": 150.9027,
+      "timezone": "Australia/Sydney",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-07-31T17:30",
+        "to": "2026-07-31T19:50",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-07-31T18:00",
+          "phase": "game_window",
+          "temperature_2m": 11.8,
+          "precipitation_probability": 1,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 12.8,
+          "wind_gusts_10m": 36
+        },
+        {
+          "time": "2026-07-31T19:00",
+          "phase": "game_window",
+          "temperature_2m": 11.1,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 12.7,
+          "wind_gusts_10m": 34.6
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 15,
+        "maxRainProbability": 1,
+        "totalGameRainMm": 0,
+        "maxWindKmh": 12.8,
+        "maxGustKmh": 36,
+        "avgTemp": 11.4,
+        "reasons": [
+          "moderate wind/gusts"
+        ],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 22,
+      "match": "Titans v Warriors",
+      "homeTeam": "GLD",
+      "awayTeam": "NZL",
+      "venue": "Cbus Super Stadium",
+      "kickoffLocal": "2026-08-01T15:00:00",
+      "city": "Gold Coast",
+      "lat": -28.0064,
+      "lon": 153.3783,
+      "timezone": "Australia/Brisbane",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-08-01T14:30",
+        "to": "2026-08-01T16:50",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-08-01T15:00",
+          "phase": "game_window",
+          "temperature_2m": 17.9,
+          "precipitation_probability": 35,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 20.7,
+          "wind_gusts_10m": 47.9
+        },
+        {
+          "time": "2026-08-01T16:00",
+          "phase": "game_window",
+          "temperature_2m": 17.2,
+          "precipitation_probability": 35,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 19.9,
+          "wind_gusts_10m": 47.5
+        }
+      ],
+      "weatherRisk": {
+        "label": "Medium",
+        "score": 30,
+        "maxRainProbability": 35,
+        "totalGameRainMm": 0,
+        "maxWindKmh": 20.7,
+        "maxGustKmh": 47.9,
+        "avgTemp": 17.5,
+        "reasons": [
+          "strong wind/gusts"
+        ],
+        "captainImpact": "Medium weather risk over game window. Review outdoor captain/ceiling assumptions."
+      }
+    },
+    {
+      "round": 22,
+      "match": "Cowboys v Roosters",
+      "homeTeam": "NQC",
+      "awayTeam": "SYD",
+      "venue": "Qld Country Bank Stadium",
+      "kickoffLocal": "2026-07-30T19:50:00",
+      "city": "Townsville",
+      "lat": -19.2564,
+      "lon": 146.8183,
+      "timezone": "Australia/Brisbane",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-07-30T19:20",
+        "to": "2026-07-30T21:40",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-07-30T20:00",
+          "phase": "game_window",
+          "temperature_2m": 20.2,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 17.3,
+          "wind_gusts_10m": 33.8
+        },
+        {
+          "time": "2026-07-30T21:00",
+          "phase": "game_window",
+          "temperature_2m": 20,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 16.6,
+          "wind_gusts_10m": 33.1
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 15,
+        "maxRainProbability": 0,
+        "totalGameRainMm": 0,
+        "maxWindKmh": 17.3,
+        "maxGustKmh": 33.8,
+        "avgTemp": 20.1,
+        "reasons": [
+          "moderate wind/gusts"
+        ],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 22,
+      "match": "Eels v Tigers",
+      "homeTeam": "PAR",
+      "awayTeam": "WST",
+      "venue": "Commbank Stadium",
+      "kickoffLocal": "2026-08-02T16:05:00",
+      "city": "Sydney",
+      "lat": -33.8081,
+      "lon": 150.9996,
+      "timezone": "Australia/Sydney",
+      "weatherStatus": "updated",
+      "gameWindow": {
+        "from": "2026-08-02T15:35",
+        "to": "2026-08-02T17:55",
+        "gameMinutes": 110
+      },
+      "gameWindowWeather": [
+        {
+          "time": "2026-08-02T16:00",
+          "phase": "game_window",
+          "temperature_2m": 19.3,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 6.7,
+          "wind_gusts_10m": 22.7
+        },
+        {
+          "time": "2026-08-02T17:00",
+          "phase": "game_window",
+          "temperature_2m": 17.8,
+          "precipitation_probability": 0,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 9.4,
+          "wind_gusts_10m": 24.5
+        }
+      ],
+      "weatherRisk": {
+        "label": "Low",
+        "score": 0,
+        "maxRainProbability": 0,
+        "totalGameRainMm": 0,
+        "maxWindKmh": 9.4,
+        "maxGustKmh": 24.5,
+        "avgTemp": 18.6,
+        "reasons": [],
+        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+      }
+    },
+    {
+      "round": 22,
       "match": "Sharks v Rabbitohs",
       "homeTeam": "SHA",
       "awayTeam": "STH",
@@ -720,62 +769,13 @@
         ],
         "captainImpact": "Low weather risk over game window. Normal captain logic applies."
       }
-    },
-    {
-      "round": 22,
-      "match": "Tigers v Eels",
-      "homeTeam": "WST",
-      "awayTeam": "PAR",
-      "venue": "Commbank Stadium",
-      "kickoffLocal": "2026-08-02T16:05:00",
-      "city": "Sydney",
-      "lat": -33.8081,
-      "lon": 150.9996,
-      "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-08-02T15:35",
-        "to": "2026-08-02T17:55",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-08-02T16:00",
-          "phase": "game_window",
-          "temperature_2m": 19.3,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 6.7,
-          "wind_gusts_10m": 22.7
-        },
-        {
-          "time": "2026-08-02T17:00",
-          "phase": "game_window",
-          "temperature_2m": 17.8,
-          "precipitation_probability": 0,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 9.4,
-          "wind_gusts_10m": 24.5
-        }
-      ],
-      "weatherRisk": {
-        "label": "Low",
-        "score": 0,
-        "maxRainProbability": 0,
-        "totalGameRainMm": 0,
-        "maxWindKmh": 9.4,
-        "maxGustKmh": 24.5,
-        "avgTemp": 18.6,
-        "reasons": [],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
-      }
     }
   ],
   "failures": [
     {
-      "match": "Panthers v Raiders",
+      "match": "Raiders v Panthers",
       "venue": "",
-      "reason": "missing weather coordinates or kickoff for Panthers v Raiders"
+      "reason": "missing weather coordinates or kickoff for Raiders v Panthers"
     }
   ]
 }
