@@ -5216,6 +5216,139 @@ a:focus-visible{
   overflow:visible!important;
  }
 }
+
+/* =========================================================
+   MY TEAM CARD FRAME
+   An earlier "No card box" patch deliberately dropped the card's
+   border/background so the player cutout floats directly on the pitch.
+   In practice that leaves score, position tag, photo and name as four
+   disconnected floating elements with nothing tying them into one card -
+   reads as scattered pieces rather than a single designed card. This adds
+   a real frame back without touching any of that patch's photo/name/
+   score/tag positioning math, which is otherwise sound.
+
+   display:block is load-bearing here, not cosmetic: an unrelated legacy
+   rule elsewhere still applies grid-template-columns to this same element,
+   and its position:absolute children (score/tag/photo/name) still carry
+   old grid-column/grid-row placements from an even earlier card design.
+   Per the CSS Grid spec, an absolutely-positioned grid item with an
+   explicit grid area uses THAT area as its containing block, not the
+   whole card - so those children were rendering positioned against a
+   ~32px-wide grid cell instead of the full 190px card, spilling outside
+   the frame this rule adds. Forcing block layout removes the grid
+   formatting context entirely, so top/left/bottom/right resolve against
+   the full card padding box, exactly as the patch's positioning math
+   assumes. */
+#team.active-tab .formation-card:not(.formation-empty){
+ display:block!important;
+ width:190px!important;
+ min-width:190px!important;
+ max-width:190px!important;
+ height:170px!important;
+ min-height:170px!important;
+ max-height:170px!important;
+ background:linear-gradient(180deg,rgba(12,26,17,.38) 0%,rgba(5,14,9,.86) 58%,rgba(2,8,5,.96) 100%)!important;
+ border:1px solid color-mix(in srgb,var(--accent) 55%,rgba(255,255,255,.16))!important;
+ border-radius:16px!important;
+ box-shadow:0 10px 22px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.06)!important;
+}
+/* A separate, later duplicate of the original "Bigger player cutout" patch
+   (search "Projected score: upper-left shoulder") carries a stale
+   left:calc(50% - 226px) for the score, clearly leftover math from a
+   different, wider container - it wins by source order and throws the
+   score off-card entirely. Restating the correct values here, later again,
+   settles it without having to excavate and delete every duplicate. */
+#team.active-tab .formation-card:not(.formation-empty) .wr-player-photo,
+#team.active-tab .formation-card:not(.formation-empty) .wr-player-photo.team-logo-img,
+#team.active-tab .formation-card:not(.formation-empty) .wr-team-logo,
+#team.active-tab .formation-card:not(.formation-empty) .wr-team-logo.team-logo-img{
+ left:50%!important;
+ right:auto!important;
+ bottom:27px!important;
+ top:auto!important;
+ transform:translateX(-50%)!important;
+}
+#team.active-tab .formation-card:not(.formation-empty) .formation-name{
+ left:50%!important;
+ right:auto!important;
+ bottom:30px!important;
+ top:auto!important;
+ transform:translateX(-50%)!important;
+}
+#team.active-tab .formation-card:not(.formation-empty) .formation-score{
+ left:7px!important;
+ right:auto!important;
+ top:27px!important;
+ bottom:auto!important;
+ transform:none!important;
+}
+#team.active-tab .formation-card:not(.formation-empty) .wr-slot-tag{
+ left:auto!important;
+ right:7px!important;
+ top:32px!important;
+ bottom:auto!important;
+ transform:none!important;
+}
+#team.active-tab .formation-card:not(.formation-empty) > .status-dot,
+#team.active-tab .formation-card:not(.formation-empty) > .status-indicators{
+ left:15px!important;
+ right:auto!important;
+ top:55px!important;
+ bottom:auto!important;
+}
+
+/* Real bug found via the pre-existing card-collision regression test: the
+   4-across CTW row's column spacing is only ~141px center-to-center at
+   1024-1400px container widths (vs 190px+ at wider ones) - a pre-existing
+   fact of this grid, unrelated to the card frame above. Adjacent 190px
+   cards have always visually overlapped by ~49px there; it was invisible
+   only because the score/tag positioning bug above (now fixed) happened
+   to keep both badges out of the shared zone by accident. Now that they
+   sit correctly on their own card, that accidental safety is gone, so the
+   card needs to actually fit the available column width at this range
+   instead of just moving badges around within an oversized card. */
+@media(max-width:1400px){
+ #team.active-tab .formation-card:not(.formation-empty){
+  width:138px!important;
+  min-width:138px!important;
+  max-width:138px!important;
+  height:124px!important;
+  min-height:124px!important;
+  max-height:124px!important;
+ }
+ #team.active-tab .formation-card:not(.formation-empty) .wr-player-photo,
+ #team.active-tab .formation-card:not(.formation-empty) .wr-player-photo.team-logo-img,
+ #team.active-tab .formation-card:not(.formation-empty) .wr-team-logo,
+ #team.active-tab .formation-card:not(.formation-empty) .wr-team-logo.team-logo-img{
+  width:86px!important;
+  height:83px!important;
+  min-width:86px!important;
+  min-height:83px!important;
+  max-width:86px!important;
+  max-height:83px!important;
+  bottom:20px!important;
+ }
+ #team.active-tab .formation-card:not(.formation-empty) .formation-name{
+  bottom:22px!important;
+  font-size:11px!important;
+  max-width:128px!important;
+ }
+ #team.active-tab .formation-card:not(.formation-empty) .formation-score{
+  left:5px!important;
+  top:20px!important;
+  font-size:18px!important;
+ }
+ #team.active-tab .formation-card:not(.formation-empty) .wr-slot-tag{
+  right:5px!important;
+  top:24px!important;
+  font-size:9px!important;
+ }
+ #team.active-tab .formation-card:not(.formation-empty) > .status-dot,
+ #team.active-tab .formation-card:not(.formation-empty) > .status-indicators{
+  left:11px!important;
+  top:41px!important;
+ }
+}
 </style>
 
 </head>
