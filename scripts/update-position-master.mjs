@@ -194,6 +194,26 @@ for (const [name, positionsRaw] of Object.entries(overrides)) {
   report.manual_overrides_applied++;
 }
 
+// This file is the single authoritative position source every screen in
+// the app reads - "All app screens must read this file" per the header
+// comment above. Real NRL SuperCoach rules make a player eligible in at
+// most two positions, ever - never three or more, from any source
+// (imported data, the seed file, or a manual override typo). Enforce
+// that here as the last checkpoint before anything is written, rather
+// than silently emitting an impossible player and letting every screen
+// downstream inherit the bad data.
+report.invalid_positions_dropped = [];
+for (const [name, positions] of Object.entries(master)) {
+  if (positions.length > 2) {
+    console.warn(
+      `[update-position-master] Dropping ${name}: ${positions.length} positions ` +
+      `(${positions.join("/")}) is impossible - a SuperCoach player is eligible in at most 2.`
+    );
+    report.invalid_positions_dropped.push({ player: name, positions });
+    delete master[name];
+  }
+}
+
 const sortedMaster = Object.fromEntries(
   Object.entries(master).sort((a, b) =>
     a[0].localeCompare(b[0])
