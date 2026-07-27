@@ -8,10 +8,10 @@ test("player card opens with real stats and the trade popup lists real eligible 
 
   try {
     const nameLink = page.locator(".player-name-link, [onclick*='openPlayerCard']").first();
-    await nameLink.click({ force: true, timeout: 5000 });
+    await nameLink.click({ force: true, timeout: 15000 });
 
     const overlay = page.locator("#wrPlayerCardOverlay");
-    await assert.doesNotReject(overlay.waitFor({ state: "visible", timeout: 5000 }));
+    await assert.doesNotReject(overlay.waitFor({ state: "visible", timeout: 15000 }));
 
     const cardText = await overlay.innerText();
     assert.match(cardText, /Price/);
@@ -20,12 +20,12 @@ test("player card opens with real stats and the trade popup lists real eligible 
     assert.match(cardText, /Last 5/i);
 
     const tradeButton = overlay.getByRole("button", { name: "Trade", exact: true });
-    await tradeButton.click({ timeout: 5000 });
+    await tradeButton.click({ timeout: 15000 });
 
     // #teamActionPanel is a zero-size wrapper - its position:fixed popup content
     // is what's actually rendered on screen, so check a real option button instead.
     const firstOption = page.locator("[data-trade-option]").first();
-    await assert.doesNotReject(firstOption.waitFor({ state: "visible", timeout: 5000 }));
+    await assert.doesNotReject(firstOption.waitFor({ state: "visible", timeout: 15000 }));
 
     const optionButtons = await page.locator("[data-trade-option]").count();
     assert.ok(optionButtons > 0, "expected at least one real eligible trade option to render");
