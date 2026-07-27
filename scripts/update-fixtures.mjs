@@ -389,9 +389,20 @@ function extractFromTable(tableHtml) {
 
       const unique = [...new Set(found)];
 
-      if (unique.length >= 2) {
+      // A fixture row means exactly 2 teams. If the row's text matched 3+
+      // team aliases (extra promo/broadcast text, an unrelated mention),
+      // picking "the first two" would be a guess at which pairing is
+      // actually correct - reject the row instead of silently writing a
+      // possibly-wrong fixture, matching the project rule against ever
+      // guessing at football data.
+      if (unique.length === 2) {
         home = unique[0];
         away = unique[1];
+      } else if (unique.length > 2) {
+        console.warn(
+          `[update-fixtures] Skipping ambiguous row with ${unique.length} team matches ` +
+          `(${unique.join("/")}) - a fixture row must resolve to exactly 2: "${matchText.slice(0, 160)}"`
+        );
       }
     }
 
