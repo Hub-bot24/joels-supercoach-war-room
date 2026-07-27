@@ -4622,16 +4622,18 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 
 /* Level 3 - matches the Bye Planner's visual language (sky-blue accent,
    dark navy hero card, uppercase kicker) instead of a bare default table. */
-#level3 .l3-shell{width:min(1500px,100%);margin:0 auto;padding:20px;box-sizing:border-box}
-#level3 .l3-hero{
+#level3 .l3-shell,#trade .l3-shell{width:min(1500px,100%);margin:0 auto;padding:20px;box-sizing:border-box}
+#level3 .l3-hero,#trade .l3-hero{
  padding:24px 28px;margin:0 0 18px;
  border:1px solid rgba(56,189,248,.28);border-radius:22px;
  background:radial-gradient(circle at 88% 5%,rgba(56,189,248,.18),transparent 31%),linear-gradient(135deg,#102743,#07111f 68%);
  box-shadow:0 26px 65px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.045);
 }
-#level3 .l3-kicker{margin:0 0 6px;color:#7dd3fc;font-size:11px;font-weight:950;letter-spacing:.17em;text-transform:uppercase}
-#level3 .l3-hero h1{margin:0;color:#fff;font-size:clamp(30px,4vw,44px);line-height:1;letter-spacing:-.03em}
-#level3 .l3-hero p{max-width:760px;margin:12px 0 0;color:#c8d7ea;font-size:13px;line-height:1.5}
+#level3 .l3-kicker,#trade .l3-kicker{margin:0 0 6px;color:#7dd3fc;font-size:11px;font-weight:950;letter-spacing:.17em;text-transform:uppercase}
+#level3 .l3-hero h1,#trade .l3-hero h1{margin:0;color:#fff;font-size:clamp(30px,4vw,44px);line-height:1;letter-spacing:-.03em}
+#level3 .l3-hero p,#trade .l3-hero p{max-width:760px;margin:12px 0 0;color:#c8d7ea;font-size:13px;line-height:1.5}
+#trade .trade-lab-actions{display:flex;gap:10px;margin-top:16px}
+#trade .trade-lab-actions button{flex:1}
 #level3 .l3-table-card{
  border:1px solid rgba(56,189,248,.2);border-radius:18px;overflow:hidden;
  background:linear-gradient(180deg,#0b1626,#070f1c);
@@ -8158,7 +8160,28 @@ function tradePopupHtml(title,name,opts,buttonFn){
   return `<div style="position:fixed;right:18px;bottom:18px;z-index:9999;width:min(720px,calc(100vw - 28px));max-height:min(720px,86vh);overflow:auto;background:#071222;border:1px solid #58a6ff;border-radius:18px;padding:14px;box-shadow:0 24px 80px rgba(0,0,0,.72)"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;position:sticky;top:-14px;background:#071222;padding:4px 0 8px;z-index:10001"><div><div style="font-size:12px;color:#bfd0e8;font-weight:800">${esc(title)}</div><div style="font-size:18px;font-weight:950">${esc(name)}</div></div><button type="button" onclick="cancelTeamAction()" style="padding:7px 10px;border-radius:10px">Close</button></div>${opts.length?`<div class="trade-search"><input id="${sid}" type="search" placeholder="Search eligible players by name, club, position or status..." oninput="filterTradeOptions(this.value)" autocomplete="off"></div><div class="trade-option-grid">${opts.map(r=>tradeOptionButton(r,buttonFn(r))).join('')}</div>`:`<div>No legal trade options available</div>`}</div>`;
 }
 
-function renderTrade(){$('trade').innerHTML=`${tradeRadarHtml()}<div class="grid"><div class="panel span4"><h2>Trade Lab</h2><label>Trade OUT</label><input id="tradeOut" list="teamList"><datalist id="teamList">${App.myTeam.map(n=>`<option value="${esc(n)}">`).join('')}</datalist><label>Trade IN</label><input id="tradeIn" list="allList"><datalist id="allList">${App.players.map(p=>`<option value="${esc(p.name)}">`).join('')}</datalist><button onclick="scoreTrade()">Score Trade</button><button onclick="applyTradeFromTradeLab()">Apply Trade</button></div><div class="panel span6"><h2>Trade Verdict</h2><div id="tradeVerdict" class="small">Select players to score the trade.</div></div></div>`}
+function renderTrade(){$('trade').innerHTML=`<div class="l3-shell">
+ <div class="l3-hero">
+  <p class="l3-kicker">War Room Trade Intelligence</p>
+  <h1>Trade Lab</h1>
+  <p>Trade Radar surfaces real downgrade-vs-upgrade signals from your squad's next 5 games. Use Trade Lab below to score or apply any trade yourself.</p>
+ </div>
+ ${tradeRadarHtml()}
+ <div class="grid">
+  <div class="panel span4">
+   <h2>Trade Lab</h2>
+   <label>Trade OUT</label><input id="tradeOut" list="teamList" placeholder="Search a player in your team...">
+   <datalist id="teamList">${App.myTeam.map(n=>`<option value="${esc(n)}">`).join('')}</datalist>
+   <label>Trade IN</label><input id="tradeIn" list="allList" placeholder="Search any player...">
+   <datalist id="allList">${App.players.map(p=>`<option value="${esc(p.name)}">`).join('')}</datalist>
+   <div class="trade-lab-actions"><button onclick="scoreTrade()">Score Trade</button><button onclick="applyTradeFromTradeLab()">Apply Trade</button></div>
+  </div>
+  <div class="panel span6">
+   <h2>Trade Verdict</h2>
+   <div id="tradeVerdict" class="small">Select players to score the trade.</div>
+  </div>
+ </div>
+</div>`}
 
 
 
