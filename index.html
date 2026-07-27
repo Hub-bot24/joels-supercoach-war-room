@@ -6,7 +6,15 @@
 <title>Joel's SuperCoach War Room V10 - Mobile Fit Field</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<!-- Loaded non-blocking: a plain <link rel="stylesheet"> here forces the
+     browser to wait on a third-party font request before it can even start
+     parsing the rest of this document - on a slow or flaky connection
+     (mobile, stadium wifi on match day) that stalls first paint on a
+     request that has nothing to do with the app itself. Preload the font
+     CSS in parallel, then swap it in as a real stylesheet once it lands. -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
 :root{--bg:#050914;--panel:#0d1626;--panel2:#132139;--card:#071222;--line:#29405f;--text:#f8fafc;--muted:#bfd0e8;--blue:#58a6ff;--good:#32d168;--warn:#f5c542;--bad:#ff4d4d;--purple:#a855f7;--bye:#8b5cf6;--font:'Inter',Arial,Helvetica,sans-serif;--font-display:'Chakra Petch','Inter',Arial,sans-serif;--font-mono:'JetBrains Mono','SF Mono',Consolas,monospace;
  /* Type scale - a fixed ratio (1.2, "minor third") instead of ad-hoc pixel
@@ -5398,7 +5406,7 @@ async function ensurePlayerPhotosLoaded(){
   App.playerPhotosLoaded = true;
 
   try{
-    const res = await fetch(`player_photos.json?v=${Date.now()}`, { cache: "no-store" });
+    const res = await fetch(`player_photos.json?v=${cacheBustKey()}`);
     if(!res.ok) throw new Error(`player_photos.json ${res.status}`);
   App.playerPhotos = normalisePlayerPhotos(await res.json());
     buildPlayerPhotoLookup();
@@ -5418,8 +5426,15 @@ function usablePlayerPhotoUrl(url){
   if(/remote\.axd$/i.test(u)) return false;
   return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?/i.test(u) || /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u);
 }
-async function fetchJson(path,fallback){try{const r=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error(path);return await r.json()}catch(e){return fallback}}
-async function fetchJsonFirst(paths,fallback=null){for(const path of paths){try{const r=await fetch(path+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)continue;return await r.json()}catch(e){}}return fallback}
+// Data files change on a ~15min+ generation cadence (see startLiveStatusRefresh),
+// but the old cache-busting query was unique to the millisecond, so the browser
+// re-downloaded every JSON file (2+MB) from network on every single page open,
+// even seconds apart. Bucketing the cache-buster to a 5-minute window lets the
+// browser reuse what it already fetched this window instead, without giving up
+// meaningful freshness.
+function cacheBustKey(){return Math.floor(Date.now()/300000)}
+async function fetchJson(path,fallback){try{const r=await fetch(path+'?v='+cacheBustKey());if(!r.ok)throw new Error(path);return await r.json()}catch(e){return fallback}}
+async function fetchJsonFirst(paths,fallback=null){for(const path of paths){try{const r=await fetch(path+'?v='+cacheBustKey());if(!r.ok)continue;return await r.json()}catch(e){}}return fallback}
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
 const SLOT_DEFS=[
  {id:'FRF1',label:'Front Row',short:'FRF',accept:['FRF'],row:'row-frf'},
@@ -6015,9 +6030,9 @@ async function loadDualPositionsCore(){
   'data/position_overrides.json',
   'position_overrides.json'
  ];
+ const results=await Promise.all(sources.map(src=>fetchJson(src,null)));
  const merged={};
- for(const src of sources){
-  const data=await fetchJson(src,null);
+ for(const data of results){
   if(data)mergePositionPlayers(merged,data);
  }
  App.dualPositions={players:merged};
@@ -6030,10 +6045,39 @@ function dismissBootSplash(){
  setTimeout(()=>el.remove(),400);
 }
 async function boot(){
- const rawPlayers=await fetchJson('players.json',[]);let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));buildPlayerNameMap();
  // Browser reads the generated /data contract first; scripts/update-status.mjs owns generation so known contract files are valid JSON, not missing files.
- App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],null);App.goalKickers=await fetchJson('goal_kickers.json',null);App.goalKickerEvidence=await fetchJsonFirst(['data/goal_kicker_evidence.json','goal_kicker_evidence.json'],{players:{},teams:{}});App.teamRoles=await fetchJson('team_roles.json',null);App.availabilityOverrides=await fetchJson('availability_overrides.json',{players:{}});App.fixtures=await fetchJson('fixtures.json',null);App.playerStatus=await fetchJson('player_status.json',{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],null);App.currentRoundMeta=await fetchJsonFirst(['data/current_round.json','current_round.json'],null);App.playerPhotos=await fetchJson('player_photos.json',{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],null);App.opponentDifficulty=await fetchJson('data/opponent_difficulty.json',{});App.positionalMatchupsV2=await fetchJson('data/positional_matchups_v2.json',{teams:{}});App.teamlistChanges=await fetchJsonFirst(['data/teamlist_changes.json'],[]);await loadDualPositionsCore();syncCurrentRound();
- const localTeam=safeJsonParse(safeLocalGet('sc_myTeam','null'),null);const teamJson=await fetchJson('my_team.json',null);let names=Array.isArray(localTeam)&&localTeam.length?localTeam:(teamJson?.players||teamJson?.team||[]);if(!Array.isArray(names))names=[];
+ // These 18 fetches are all independent of each other's results, so they run
+ // concurrently instead of one-at-a-time - the old sequential await chain here
+ // was the single biggest contributor to a ~14s blank-screen first load.
+ const [
+  rawPlayers,weather,goalKickers,goalKickerEvidence,teamRoles,availabilityOverrides,
+  fixtures,playerStatus,statusTruth,currentRoundMeta,playerPhotos,teamLists,
+  officialTeamLists,originUnavailable,opponentDifficulty,positionalMatchupsV2,teamlistChanges,
+  teamJson
+ ]=await Promise.all([
+  fetchJson('players.json',[]),
+  fetchJsonFirst(['data/weather.json','weather.json'],null),
+  fetchJson('goal_kickers.json',null),
+  fetchJsonFirst(['data/goal_kicker_evidence.json','goal_kicker_evidence.json'],{players:{},teams:{}}),
+  fetchJson('team_roles.json',null),
+  fetchJson('availability_overrides.json',{players:{}}),
+  fetchJson('fixtures.json',null),
+  fetchJson('player_status.json',{players:{}}),
+  fetchJsonFirst(['data/status_truth.json','status_truth.json'],null),
+  fetchJsonFirst(['data/current_round.json','current_round.json'],null),
+  fetchJson('player_photos.json',{players:{}}),
+  fetchJsonFirst(['data/teamlists.json','teamlists.json'],null),
+  fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],null),
+  fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],null),
+  fetchJson('data/opponent_difficulty.json',{}),
+  fetchJson('data/positional_matchups_v2.json',{teams:{}}),
+  fetchJsonFirst(['data/teamlist_changes.json'],[]),
+  fetchJson('my_team.json',null)
+ ]);
+ let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));buildPlayerNameMap();
+ App.weather=weather;App.goalKickers=goalKickers;App.goalKickerEvidence=goalKickerEvidence;App.teamRoles=teamRoles;App.availabilityOverrides=availabilityOverrides;App.fixtures=fixtures;App.playerStatus=playerStatus;App.statusTruth=statusTruth;App.currentRoundMeta=currentRoundMeta;App.playerPhotos=playerPhotos;App.teamLists=teamLists;App.officialTeamLists=officialTeamLists;App.originUnavailable=originUnavailable;App.opponentDifficulty=opponentDifficulty;App.positionalMatchupsV2=positionalMatchupsV2;App.teamlistChanges=teamlistChanges;
+ await loadDualPositionsCore();syncCurrentRound();
+ const localTeam=safeJsonParse(safeLocalGet('sc_myTeam','null'),null);let names=Array.isArray(localTeam)&&localTeam.length?localTeam:(teamJson?.players||teamJson?.team||[]);if(!Array.isArray(names))names=[];
  names = names.map(x => typeof x === 'string' ? x.trim() : (x?.name || x?.player || '')).filter(Boolean);
  const resolvedNames = names.map(n=>resolvePlayerName(n)).filter(Boolean);
  const missingNames = names.filter(n=>!resolvePlayerName(n));
@@ -6075,7 +6119,26 @@ function updateStatusFreshnessLabel(){
  fe.classList.remove('wr-fresh-ok','wr-fresh-warn','wr-fresh-bad');
  fe.classList.add(warnings.length?'wr-fresh-bad':staleMins<=30?'wr-fresh-ok':staleMins<=120?'wr-fresh-warn':'wr-fresh-bad');
 }
-async function refreshTrustDataNow(){const oldUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';App.weather=await fetchJsonFirst(['data/weather.json','weather.json'],App.weather||null);App.playerStatus=await fetchJson('player_status.json',App.playerStatus||{players:{}});App.statusTruth=await fetchJsonFirst(['data/status_truth.json','status_truth.json'],App.statusTruth||null);App.currentRoundMeta=await fetchJsonFirst(['data/current_round.json','current_round.json'],App.currentRoundMeta||null);App.availabilityOverrides=await fetchJson('availability_overrides.json',App.availabilityOverrides||{players:{}});App.teamLists=await fetchJsonFirst(['data/teamlists.json','teamlists.json'],App.teamLists||null);App.officialTeamLists=await fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],App.officialTeamLists||null);App.originUnavailable=await fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],App.originUnavailable||null);App.opponentDifficulty=await fetchJson('data/opponent_difficulty.json',App.opponentDifficulty||{});App.positionalMatchupsV2=await fetchJson('data/positional_matchups_v2.json',App.positionalMatchupsV2||{teams:{}});App.fixtures=await fetchJson('fixtures.json',App.fixtures||null);syncCurrentRound();App.projectionCache.clear();updateStatusFreshnessLabel();renderActive();const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed')}
+async function refreshTrustDataNow(){
+ const oldUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';
+ const [weather,playerStatus,statusTruth,currentRoundMeta,availabilityOverrides,teamLists,officialTeamLists,originUnavailable,opponentDifficulty,positionalMatchupsV2,fixtures]=await Promise.all([
+  fetchJsonFirst(['data/weather.json','weather.json'],App.weather||null),
+  fetchJson('player_status.json',App.playerStatus||{players:{}}),
+  fetchJsonFirst(['data/status_truth.json','status_truth.json'],App.statusTruth||null),
+  fetchJsonFirst(['data/current_round.json','current_round.json'],App.currentRoundMeta||null),
+  fetchJson('availability_overrides.json',App.availabilityOverrides||{players:{}}),
+  fetchJsonFirst(['data/teamlists.json','teamlists.json'],App.teamLists||null),
+  fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],App.officialTeamLists||null),
+  fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],App.originUnavailable||null),
+  fetchJson('data/opponent_difficulty.json',App.opponentDifficulty||{}),
+  fetchJson('data/positional_matchups_v2.json',App.positionalMatchupsV2||{teams:{}}),
+  fetchJson('fixtures.json',App.fixtures||null)
+ ]);
+ App.weather=weather;App.playerStatus=playerStatus;App.statusTruth=statusTruth;App.currentRoundMeta=currentRoundMeta;App.availabilityOverrides=availabilityOverrides;App.teamLists=teamLists;App.officialTeamLists=officialTeamLists;App.originUnavailable=originUnavailable;App.opponentDifficulty=opponentDifficulty;App.positionalMatchupsV2=positionalMatchupsV2;App.fixtures=fixtures;
+ syncCurrentRound();App.projectionCache.clear();updateStatusFreshnessLabel();renderActive();
+ const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';
+ if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed');
+}
 function startLiveStatusRefresh(){
  if(App._statusRefreshTimer)return;
  App._statusRefreshTimer=setInterval(refreshTrustDataNow,10*60*1000);
