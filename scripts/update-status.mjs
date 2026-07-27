@@ -358,7 +358,13 @@ function hasSuspensionWords(txt){ return hasAny(txt, SUSPENSION_WORDS); }
 // A confirmed-finality phrase near a player's name on a dedicated injury article (not a broad
 // hub/index page) is strong evidence, generic across every player: real "season-ending" reporting
 // language, not just a body-part word floating on a casualty-ward list.
-const CONFIRMED_INJURY_PHRASES = ['ruled out for the season','ruled out for the year','season-ending','season ending','out for the season','out for the year','miss the rest of the season','miss the remainder of the season','done for the season','season is over','ended his season','career-ending','requires surgery','will undergo surgery','scans confirmed','confirmed the injury'];
+// "next season" belongs here for the same reason injuryReturnMetaFromRecord already special-cases
+// it (see the "Next season" precision fix): it is standard NRL injury-reporting language for a
+// player who is out for the rest of the current season, just as specific as "season-ending" or
+// "ruled out for the season" - found missing from this list via a real live-data comparison (two
+// players named in the same confirmed article, one phrased "ruled out for the season", the other
+// "next season" - only the first was being promoted, though both are equally confirmed).
+const CONFIRMED_INJURY_PHRASES = ['ruled out for the season','ruled out for the year','season-ending','season ending','out for the season','out for the year','miss the rest of the season','miss the remainder of the season','done for the season','season is over','ended his season','career-ending','requires surgery','will undergo surgery','scans confirmed','confirmed the injury','next season'];
 function hasConfirmedInjuryPhrase(txt){ return hasAny(String(txt||'').toLowerCase(), CONFIRMED_INJURY_PHRASES); }
 // Generic URL shape check, no player/club names: a dedicated news article has a trailing numeric
 // article id (e.g. .../knights-confirm-season-ending-injuries-for-two-stars-236256/), while a
