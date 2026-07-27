@@ -2,8 +2,20 @@
 
 "on":
   workflow_dispatch:
+    inputs:
+      force:
+        description: "Fetch prices now regardless of the expected update window"
+        type: boolean
+        default: false
+  # The real SuperCoach site only posts new prices once per round (Monday
+  # noon Sydney time normally, Thursday if the round has a Monday-night
+  # game) - scripts/update-players.mjs works this out itself from real
+  # fixture data and skips every run that isn't past that window, so
+  # firing every 2 hours is cheap (a local file check, no network) rather
+  # than hammering the source site daily regardless of whether anything
+  # changed.
   schedule:
-    - cron: "0 20 * * *"
+    - cron: "0 */2 * * *"
 
 permissions:
   contents: write
@@ -22,6 +34,9 @@ jobs:
           node-version: "20"
 
       - name: Run updater
+        id: run_updater
+        env:
+          FORCE_PRICE_UPDATE: ${{ inputs.force == true && 'true' || '' }}
         run: node scripts/update-players.mjs
 
       # TEST ONLY: diagnostic capture of the raw source responses so a
@@ -36,21 +51,29 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
+      # Most firings of this every-2-hours schedule are expected to skip
+      # (see update-players.mjs's shouldFetchPricesNow) - only build/commit
+      # anything on the ~1-in-84 runs that actually fetched fresh prices,
+      # so history/matchups don't get a redundant snapshot every 2 hours.
+      #
       # Level 4 historical database: archives today's real players.json/
       # fixtures.json state against the current round, then rebuilds the
       # empirical positional matchup file from everything captured so far.
       # No fabricated data - this only grows once real rounds accumulate.
       - name: Capture positional history
+        if: steps.run_updater.outputs.proceeded == 'true'
         run: node scripts/capture-positional-history.mjs
 
       - name: Build positional matchups
+        if: steps.run_updater.outputs.proceeded == 'true'
         run: node scripts/build-positional-matchups.mjs
 
       - name: Commit updated players.json
+        if: steps.run_updater.outputs.proceeded == 'true'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add players.json data/history/positional data/positional_matchups_v2.json
+          git add players.json data/history/positional data/positional_matchups_v2.json data/price_update_state.json
           git commit -m "Update SuperCoach price and BE data" || echo "No changes"
           git pull --rebase origin main
           git push
