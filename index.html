@@ -6794,8 +6794,28 @@ function wrGoalKickerInfo(p,rec=wrTruth(p)||{},status=wrStatus(p)){
 }
 function wrLineupRole(rec){return String(rec?.lineupRole||rec?.selectionRole||'').toLowerCase()}function wrPlayableLineupRole(rec){const role=wrLineupRole(rec);return role==='starter'||role==='interchange'}
 const ProjectionEngine={
+ // scores(p) and playerDNA(p) are pure functions of the player record alone
+ // (no round/fixture dependence), but projectGame() and its sub-methods
+ // each call them independently with no sharing - scores(p) ends up
+ // recomputed 5+ times and playerDNA(p) twice for a single player's single
+ // projection. Measured cost: projecting all ~560 players cold took
+ // ~1.5s, which is the actual freeze behind "switching to Level 3 feels
+ // like it hangs". Memoizing these two by player reference removes the
+ // redundant work with zero change to what they compute - cleared
+ // whenever a fresh players.json load swaps in new player objects, since
+ // the WeakMap keys on object identity.
+ _scoresCache:new WeakMap(),
+ _dnaCache:new WeakMap(),
  scoreValue(item){if(typeof item==='number')return Number(item);if(!item||typeof item!=='object')return NaN;return Number(item.score??item.sc??item.points??item.supercoach??item.total)},
- scores(p){const lists=[p?.scores,p?.recentScores,p?.lastScores,p?.gameScores,p?.history,p?.matches];for(const raw of lists){if(!Array.isArray(raw))continue;const arr=raw.map(x=>this.scoreValue(x)).filter(Number.isFinite);if(arr.length)return arr}return []},
+ scores(p){
+  if(!p)return [];
+  if(this._scoresCache.has(p))return this._scoresCache.get(p);
+  const lists=[p?.scores,p?.recentScores,p?.lastScores,p?.gameScores,p?.history,p?.matches];
+  let result=[];
+  for(const raw of lists){if(!Array.isArray(raw))continue;const arr=raw.map(x=>this.scoreValue(x)).filter(Number.isFinite);if(arr.length){result=arr;break}}
+  this._scoresCache.set(p,result);
+  return result;
+ },
  average(values){const arr=(values||[]).map(Number).filter(Number.isFinite);return arr.length?arr.reduce((s,n)=>s+n,0)/arr.length:0},
  seasonAverage(p){return safeNum(p?.avg??p?.average??p?.seasonAvg)||this.average(this.scores(p))},
  lastGame(p){const scores=this.scores(p);return scores.length?Math.round(scores[scores.length-1]):0},
@@ -6812,7 +6832,13 @@ const ProjectionEngine={
  nextFixtures(p,count=5){const current=Number(App.round||0);return this.allFixtures().filter(m=>this.fixtureRound(m)>=current&&this.teamMatchesFixture(p,m)).sort((a,b)=>this.fixtureRound(a)-this.fixtureRound(b)||this.fixtureTime(a)-this.fixtureTime(b)).slice(0,count)},
  playerPosition(p){const ps=(typeof positions==='function'?positions(p):[]);const raw=ps[0]||(Array.isArray(p?.positions)?p.positions[0]:p?.position||p?.pos||p?.primaryPosition||p?.role||'');return String(raw||'').toUpperCase()},
  playerMinutes(p){return safeNum(p?.expectedMinutes??p?.projectedMinutes??p?.minutes??p?.avgMinutes??p?.minuteAvg??p?.mins)},
- playerDNA(p){const pos=this.playerPosition(p),avg=this.seasonAverage(p),scores=this.scores(p),mins=this.playerMinutes(p),gk=typeof wrGoalKickerInfo==='function'?wrGoalKickerInfo(p):null,reasons=[];let type='Unknown',scoringStyle='Unknown',repeatability='Unknown',baseReliability='Unknown',upsideType='Unknown';if(!pos&&!avg&&!scores.length)reasons.push('Insufficient player role and scoring data');if(['FRF','2RF','HOK'].includes(pos)){type=mins&&mins<50?'Minutes-dependent forward':'Work-rate forward';scoringStyle='Base / work-rate';repeatability=avg>=55?'High':'Medium';baseReliability=mins&&mins<45?'Medium':'High';upsideType='Minutes and workload'}else if(['HFB','5/8'].includes(pos)){type='Playmaker';scoringStyle='Role and attacking involvement';repeatability='Medium';baseReliability='Medium';upsideType='Attacking stats'}else if(pos==='CTW'){type='Outside back';scoringStyle='Try/assist dependent';repeatability='Low';baseReliability='Low';upsideType='Attacking ceiling'}else if(pos==='FLB'){type='Fullback';scoringStyle='High involvement attacker';repeatability='Medium';baseReliability='Medium';upsideType='Attacking ceiling'}if(gk?.isGk){type=type==='Unknown'?'Goal kicker':type;upsideType=upsideType==='Unknown'?'Goal kicking':'Goal kicking plus '+upsideType;reasons.push(gk.label||'Goal kicking data available')}if(type==='Unknown')reasons.push('Unable to infer player scoring type from available data');return {type,scoringStyle,repeatability,baseReliability,upsideType,reasons}},
+ playerDNA(p){
+  if(p&&this._dnaCache.has(p))return this._dnaCache.get(p);
+  const pos=this.playerPosition(p),avg=this.seasonAverage(p),scores=this.scores(p),mins=this.playerMinutes(p),gk=typeof wrGoalKickerInfo==='function'?wrGoalKickerInfo(p):null,reasons=[];let type='Unknown',scoringStyle='Unknown',repeatability='Unknown',baseReliability='Unknown',upsideType='Unknown';if(!pos&&!avg&&!scores.length)reasons.push('Insufficient player role and scoring data');if(['FRF','2RF','HOK'].includes(pos)){type=mins&&mins<50?'Minutes-dependent forward':'Work-rate forward';scoringStyle='Base / work-rate';repeatability=avg>=55?'High':'Medium';baseReliability=mins&&mins<45?'Medium':'High';upsideType='Minutes and workload'}else if(['HFB','5/8'].includes(pos)){type='Playmaker';scoringStyle='Role and attacking involvement';repeatability='Medium';baseReliability='Medium';upsideType='Attacking stats'}else if(pos==='CTW'){type='Outside back';scoringStyle='Try/assist dependent';repeatability='Low';baseReliability='Low';upsideType='Attacking ceiling'}else if(pos==='FLB'){type='Fullback';scoringStyle='High involvement attacker';repeatability='Medium';baseReliability='Medium';upsideType='Attacking ceiling'}if(gk?.isGk){type=type==='Unknown'?'Goal kicker':type;upsideType=upsideType==='Unknown'?'Goal kicking':'Goal kicking plus '+upsideType;reasons.push(gk.label||'Goal kicking data available')}if(type==='Unknown')reasons.push('Unable to infer player scoring type from available data');
+  const result={type,scoringStyle,repeatability,baseReliability,upsideType,reasons};
+  if(p)this._dnaCache.set(p,result);
+  return result;
+ },
  outlierProfile(p){const scores=this.scores(p),reasons=[];if(scores.length<5)return {high:[],low:[],ignored:[],capped:[],reasons:['Insufficient score history for outlier classification']};const avg=this.average(scores),spread=Math.max(...scores)-Math.min(...scores),high=scores.filter(s=>s>avg+Math.max(22,avg*.35)),low=scores.filter(s=>s<avg-Math.max(18,avg*.3)),ignored=[],capped=[];if(high.length){capped.push(...high);reasons.push('High score spikes support ceiling more than expected')}if(low.length){reasons.push('Low score outliers classified for floor and volatility')}if(spread>45)reasons.push('Wide scoring spread retained as volatility');return {high,low,ignored,capped,reasons}},
  volatilityProfile(p){
  const reasons=[];
@@ -6950,15 +6976,33 @@ const ProjectionEngine={
     live data, then adjusts complementary positions based on that player's
     real availability and recent form this round.
     ========================================================= */
+ // creativeHub() used to filter+sort the ENTIRE player list from scratch
+ // on every call. It's called once per player inside teamContextImpact(),
+ // which projectGame() calls once per player - so projecting all ~560
+ // players did a full 560-player scan 560 times over (~314,000
+ // iterations), and measured as the single dominant cost behind Level 3
+ // and Trade Lab feeling like they hang on first open (~1.2s of the
+ // ~1.5s total). Grouping candidates by team once, cached against the
+ // current App.players reference, turns each call into a lookup over a
+ // handful of same-team players instead of the whole league.
+ _hubCandidatesCache:null,
  creativeHub(team,excludeName){
-  const candidates=(App.players||[]).filter(pl=>{
-   if(!pl||pl.name===excludeName)return false;
-   if(String(pl.team||pl.club||'').toUpperCase()!==team)return false;
-   const pos=this.playerPosition(pl);
-   return pos==='HFB'||pos==='5/8'||pos==='HOK';
-  });
+  if(!this._hubCandidatesCache||this._hubCandidatesCache.playersRef!==App.players){
+   const byTeam=new Map();
+   for(const pl of (App.players||[])){
+    if(!pl)continue;
+    const pos=this.playerPosition(pl);
+    if(pos!=='HFB'&&pos!=='5/8'&&pos!=='HOK')continue;
+    const t=String(pl.team||pl.club||'').toUpperCase();
+    if(!t)continue;
+    if(!byTeam.has(t))byTeam.set(t,[]);
+    byTeam.get(t).push(pl);
+   }
+   for(const list of byTeam.values())list.sort((a,b)=>this.seasonAverage(b)-this.seasonAverage(a));
+   this._hubCandidatesCache={playersRef:App.players,byTeam};
+  }
+  const candidates=(this._hubCandidatesCache.byTeam.get(team)||[]).filter(pl=>pl.name!==excludeName);
   if(!candidates.length)return null;
-  candidates.sort((a,b)=>this.seasonAverage(b)-this.seasonAverage(a));
   const top=candidates[0],avg=this.seasonAverage(top);
   if(!avg||avg<35)return null;
   return top;
