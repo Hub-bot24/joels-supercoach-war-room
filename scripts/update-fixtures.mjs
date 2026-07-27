@@ -2,6 +2,7 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 const ROOT = process.cwd();
 
@@ -455,15 +456,31 @@ function calculateByes(fixtures) {
 
 function dedupeFixtures(fixtures) {
   const out = [];
-  const seen = new Set();
+  const indexByKey = new Map();
 
   for (const fixture of fixtures) {
     const pairKey = [fixture.homeTeam, fixture.awayTeam].sort().join("-");
     const key = `${fixture.round}|${pairKey}`;
 
-    if (seen.has(key)) continue;
-    seen.add(key);
-    out.push(fixture);
+    const existingIndex = indexByKey.get(key);
+    if (existingIndex === undefined) {
+      indexByKey.set(key, out.length);
+      out.push(fixture);
+      continue;
+    }
+
+    // Two source URLs can disagree on how complete their data is for the
+    // same real fixture (e.g. one draw table is missing a venue for a
+    // match the other has it for). Keep whichever duplicate is more
+    // complete instead of blindly keeping whichever was seen first, so a
+    // gap in one source can't silently shadow better data already found
+    // in another for the exact same game.
+    const existing = out[existingIndex];
+    const existingScore = (existing.venue ? 1 : 0) + (existing.kickoffLocal ? 1 : 0);
+    const candidateScore = (fixture.venue ? 1 : 0) + (fixture.kickoffLocal ? 1 : 0);
+    if (candidateScore > existingScore) {
+      out[existingIndex] = fixture;
+    }
   }
 
   return out;
@@ -511,6 +528,14 @@ async function main() {
     report.warnings.push("No fixtures parsed from public draw tables.");
   }
 
+  const missingVenue = cleanFixtures.filter(f => !f.venue);
+  if (missingVenue.length) {
+    report.warnings.push(
+      `${missingVenue.length} fixture(s) have no venue from either source: ` +
+      missingVenue.map(f => `R${f.round} ${f.match}`).join(", ")
+    );
+  }
+
   const data = {
     updated: nowIso(),
     source: "auto update fixtures from public draw tables",
@@ -537,16 +562,24 @@ async function main() {
   }
 }
 
-main().catch(async error => {
-  const report = {
-    updated: nowIso(),
-    status: "failed",
-    error: error.message,
-    message: "Node fixture import failed. Check fixture source HTML and parser contract."
-  };
+export { dedupeFixtures, extractFromTable, extractFromMatrixTable, calculateByes };
 
-  await writeJson(REPORT, report);
-  console.error(JSON.stringify(report, null, 2));
-  process.exit(1);
-});
+const isDirectRun =
+  Boolean(process.argv[1]) &&
+  import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+
+if (isDirectRun) {
+  main().catch(async error => {
+    const report = {
+      updated: nowIso(),
+      status: "failed",
+      error: error.message,
+      message: "Node fixture import failed. Check fixture source HTML and parser contract."
+    };
+
+    await writeJson(REPORT, report);
+    console.error(JSON.stringify(report, null, 2));
+    process.exit(1);
+  });
+}
 
