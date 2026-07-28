@@ -1,22 +1,5 @@
 [
   {
-    "player": "Brian To'o",
-    "team": "PEN",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-26T16:14:45.716Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-26T16:14:45.716Z"
-      }
-    ],
-    "round": 22
-  },
-  {
     "player": "Briton Nikora",
     "team": "SHA",
     "from": "NAMED",
@@ -9185,6 +9168,23 @@
         "name": "Current club team-list not confirmed",
         "url": "data/status_truth.json",
         "updatedAt": "2026-07-27T11:07:22.500Z"
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Junior Paulo",
+    "team": "PAR",
+    "from": "INJURED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-07-28T04:29:14.761Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-07-28T04:29:14.761Z"
       }
     ],
     "round": 22

@@ -1,6 +1,24 @@
 {
-  "updated": "2026-07-28T01:05:26.108Z",
+  "updated": "2026-07-28T04:29:14.761Z",
   "round": 22,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Junior Paulo",
+      "team": "PAR",
+      "from": "INJURED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-07-28T04:29:14.761Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-07-28T04:29:14.761Z"
+        }
+      ],
+      "round": 22
+    }
+  ],
   "allChangeCount": 500
 }
