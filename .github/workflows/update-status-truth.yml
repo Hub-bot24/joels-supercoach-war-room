@@ -76,6 +76,7 @@ jobs:
             data/teamlist_changes.json \
             data/notifications.json \
             data/goal_kicker_evidence.json \
+            venues.json \
             data/history/*.json || true
 
           if [ -f data/source_audit.json ]; then

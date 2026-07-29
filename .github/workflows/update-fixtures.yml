@@ -28,6 +28,9 @@ jobs:
         with:
           node-version: "20"
 
+      - name: TEST ONLY - geocoding reachability check
+        run: node scripts/_diag-geocode.mjs
+
       - name: Update fixtures
         run: node scripts/update-fixtures.mjs
 
