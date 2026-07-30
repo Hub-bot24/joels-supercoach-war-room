@@ -1,14 +1,18 @@
 const UA = "Mozilla/5.0 (compatible; SuperCoachWarRoomBot/1.0)";
-const url = `https://www.nrlsupercoachstats.com/index.php?player=${encodeURIComponent("Nathan Cleary")}`;
-const res = await fetch(url, { headers: { "user-agent": UA } });
-const html = await res.text();
-console.log("[diag] status:", res.status, "length:", html.length);
-// Find all <script> blocks and print any that mention "chart4" or ajax/data-loading patterns
-const scripts = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/gi)].map(m => m[1]);
-console.log("[diag] total <script> blocks:", scripts.length);
-scripts.forEach((s, i) => {
-  if (/chart4|chart\(|ajax|XMLHttpRequest|fetch\(|txtHint|onchange|\.php\?/.test(s)) {
-    console.log(`--- script block ${i} (length ${s.length}) ---`);
-    console.log(s.slice(0, 4000));
-  }
-});
+const name = "Nathan Cleary";
+
+// Hypothesis 1: the old endpoint needs X-Requested-With to not be empty
+const url1 = `https://www.nrlsupercoachstats.com/updatedatatable2026.php?q=${encodeURIComponent(name)}`;
+const res1 = await fetch(url1, { headers: { "user-agent": UA, "X-Requested-With": "XMLHttpRequest" } });
+const html1 = await res1.text();
+console.log("[diag] updatedatatable WITH XMLHttpRequest header -> status", res1.status, "length", html1.length);
+console.log(html1.slice(0, 2000));
+
+console.log("=====");
+
+// Hypothesis 2: the real per-round score JSON endpoint
+const url2 = `https://www.nrlsupercoachstats.com/highcharts/data-scoresbyrd.php?dropdown1=${encodeURIComponent(name)}&YEAR=2026`;
+const res2 = await fetch(url2, { headers: { "user-agent": UA } });
+const text2 = await res2.text();
+console.log("[diag] data-scoresbyrd.php -> status", res2.status, "length", text2.length);
+console.log(text2.slice(0, 3000));
