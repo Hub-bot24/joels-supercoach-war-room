@@ -28,6 +28,9 @@ jobs:
         with:
           node-version: "20"
 
+      - name: TEST ONLY - inspect live per-player page structure
+        run: node scripts/_diag-player-page.mjs
+
       - name: Update fixtures
         run: node scripts/update-fixtures.mjs
 
