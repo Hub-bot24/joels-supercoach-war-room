@@ -4687,6 +4687,25 @@ nav .wr-brand-word{
 .wr-gauge b{display:block;color:#fff;font-size:28px;line-height:.85;letter-spacing:-.03em;font-family:var(--font-mono)}
 .wr-gauge span{display:block;margin-top:3px;color:#9fb0c7;font-size:9px;font-weight:850;letter-spacing:.04em;text-transform:uppercase}
 
+/* Crystal Ball - real projection-accuracy scorecard on Level 3. Reuses
+   the same .wr-gauge/.wr-hero-row instrument-reading language as the
+   rest of the app rather than inventing new patterns. Two honest states:
+   "gathering" (a progress gauge toward having enough real samples to
+   trust) and the real metric once minSamplesOverall is actually met -
+   see build-projection-accuracy.mjs, which never lets this render a
+   number it can't back with real comparisons. */
+.l3-accuracy-card{margin-top:18px;padding:20px 22px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(135deg,#0d1b2e,#070d17 70%)}
+.l3-accuracy-stats{display:flex;flex-wrap:wrap;gap:24px;align-items:center;margin-top:16px}
+.l3-accuracy-stat b{display:block;font-size:30px;font-family:var(--font-mono);color:#fff;line-height:1}
+.l3-accuracy-stat span{display:block;margin-top:5px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:800}
+.l3-accuracy-bias{padding:5px 12px;border-radius:999px;font-size:12px;font-weight:900;display:inline-block}
+.l3-accuracy-bias.under{background:rgba(56,189,248,.16);color:#38bdf8}
+.l3-accuracy-bias.over{background:rgba(245,197,66,.16);color:#f5c542}
+.l3-accuracy-bias.neutral{background:rgba(148,163,184,.16);color:#94a3b8}
+.l3-accuracy-positions{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+.l3-accuracy-pos-pill{padding:6px 11px;border-radius:8px;background:#0b1626;border:1px solid var(--line);font-size:11px;font-weight:800;color:#dbeafe}
+.l3-accuracy-pos-pill small{opacity:.6;font-weight:700;margin-left:3px}
+
 /* Captain/Vice reveal - the C/VC badge is the single highest-stakes call
    on the page (it doubles or loses a score) but used to just sit there as
    a flat pill. Gives it a real "the pick has been made" moment: badge
@@ -5436,7 +5455,8 @@ const WR_ICON_PATHS={
  level3:'<path d="M4 16l5.2-5.8 3.8 3 6-7.4"/><path d="M15 5.8h4.2V10"/>',
  explorer:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/>',
  trade:'<path d="M3.6 8.2h14.7M14.6 4l3.7 4.2-3.7 4.2"/><path d="M20.4 15.8H5.7M9.4 20l-3.7-4.2 3.7-4.2"/>',
- bell:'<path d="M6.2 9.4a5.8 5.8 0 0 1 11.6 0c0 4.2 1.6 5.7 2.2 6.6H4c.6-.9 2.2-2.4 2.2-6.6Z"/><path d="M9.6 18.4a2.4 2.4 0 0 0 4.8 0"/>'
+ bell:'<path d="M6.2 9.4a5.8 5.8 0 0 1 11.6 0c0 4.2 1.6 5.7 2.2 6.6H4c.6-.9 2.2-2.4 2.2-6.6Z"/><path d="M9.6 18.4a2.4 2.4 0 0 0 4.8 0"/>',
+ crystal:'<circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1"/>'
 };
 function wrIcon(name,cls){return `<svg class="wr-icon${cls?' '+cls:''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${WR_ICON_PATHS[name]||''}</svg>`}
 /* Animates a .wr-gauge from 0 to a real value instead of snapping straight
@@ -6211,14 +6231,14 @@ function dismissBootSplash(){
 }
 async function boot(){
  // Browser reads the generated /data contract first; scripts/update-status.mjs owns generation so known contract files are valid JSON, not missing files.
- // These 18 fetches are all independent of each other's results, so they run
+ // These 19 fetches are all independent of each other's results, so they run
  // concurrently instead of one-at-a-time - the old sequential await chain here
  // was the single biggest contributor to a ~14s blank-screen first load.
  const [
   rawPlayers,weather,goalKickers,goalKickerEvidence,teamRoles,availabilityOverrides,
   fixtures,playerStatus,statusTruth,currentRoundMeta,playerPhotos,teamLists,
   officialTeamLists,originUnavailable,opponentDifficulty,positionalMatchupsV2,teamlistChanges,
-  teamJson
+  teamJson,projectionAccuracy
  ]=await Promise.all([
   fetchJson('players.json',[]),
   fetchJsonFirst(['data/weather.json','weather.json'],null),
@@ -6237,10 +6257,11 @@ async function boot(){
   fetchJson('data/opponent_difficulty.json',{}),
   fetchJson('data/positional_matchups_v2.json',{teams:{}}),
   fetchJsonFirst(['data/teamlist_changes.json'],[]),
-  fetchJson('my_team.json',null)
+  fetchJson('my_team.json',null),
+  fetchJson('data/projection_accuracy.json',null)
  ]);
  let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));buildPlayerNameMap();
- App.weather=weather;App.goalKickers=goalKickers;App.goalKickerEvidence=goalKickerEvidence;App.teamRoles=teamRoles;App.availabilityOverrides=availabilityOverrides;App.fixtures=fixtures;App.playerStatus=playerStatus;App.statusTruth=statusTruth;App.currentRoundMeta=currentRoundMeta;App.playerPhotos=playerPhotos;App.teamLists=teamLists;App.officialTeamLists=officialTeamLists;App.originUnavailable=originUnavailable;App.opponentDifficulty=opponentDifficulty;App.positionalMatchupsV2=positionalMatchupsV2;App.teamlistChanges=teamlistChanges;
+ App.weather=weather;App.goalKickers=goalKickers;App.goalKickerEvidence=goalKickerEvidence;App.teamRoles=teamRoles;App.availabilityOverrides=availabilityOverrides;App.fixtures=fixtures;App.playerStatus=playerStatus;App.statusTruth=statusTruth;App.currentRoundMeta=currentRoundMeta;App.playerPhotos=playerPhotos;App.teamLists=teamLists;App.officialTeamLists=officialTeamLists;App.originUnavailable=originUnavailable;App.opponentDifficulty=opponentDifficulty;App.positionalMatchupsV2=positionalMatchupsV2;App.teamlistChanges=teamlistChanges;App.projectionAccuracy=projectionAccuracy;
  await loadDualPositionsCore();syncCurrentRound();
  const localTeam=safeJsonParse(safeLocalGet('sc_myTeam','null'),null);let names=Array.isArray(localTeam)&&localTeam.length?localTeam:(teamJson?.players||teamJson?.team||[]);if(!Array.isArray(names))names=[];
  names = names.map(x => typeof x === 'string' ? x.trim() : (x?.name || x?.player || '')).filter(Boolean);
@@ -6286,7 +6307,7 @@ function updateStatusFreshnessLabel(){
 }
 async function refreshTrustDataNow(){
  const oldUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';
- const [weather,playerStatus,statusTruth,currentRoundMeta,availabilityOverrides,teamLists,officialTeamLists,originUnavailable,opponentDifficulty,positionalMatchupsV2,fixtures]=await Promise.all([
+ const [weather,playerStatus,statusTruth,currentRoundMeta,availabilityOverrides,teamLists,officialTeamLists,originUnavailable,opponentDifficulty,positionalMatchupsV2,fixtures,projectionAccuracy]=await Promise.all([
   fetchJsonFirst(['data/weather.json','weather.json'],App.weather||null),
   fetchJson('player_status.json',App.playerStatus||{players:{}}),
   fetchJsonFirst(['data/status_truth.json','status_truth.json'],App.statusTruth||null),
@@ -6297,9 +6318,10 @@ async function refreshTrustDataNow(){
   fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],App.originUnavailable||null),
   fetchJson('data/opponent_difficulty.json',App.opponentDifficulty||{}),
   fetchJson('data/positional_matchups_v2.json',App.positionalMatchupsV2||{teams:{}}),
-  fetchJson('fixtures.json',App.fixtures||null)
+  fetchJson('fixtures.json',App.fixtures||null),
+  fetchJson('data/projection_accuracy.json',App.projectionAccuracy||null)
  ]);
- App.weather=weather;App.playerStatus=playerStatus;App.statusTruth=statusTruth;App.currentRoundMeta=currentRoundMeta;App.availabilityOverrides=availabilityOverrides;App.teamLists=teamLists;App.officialTeamLists=officialTeamLists;App.originUnavailable=originUnavailable;App.opponentDifficulty=opponentDifficulty;App.positionalMatchupsV2=positionalMatchupsV2;App.fixtures=fixtures;
+ App.weather=weather;App.playerStatus=playerStatus;App.statusTruth=statusTruth;App.currentRoundMeta=currentRoundMeta;App.availabilityOverrides=availabilityOverrides;App.teamLists=teamLists;App.officialTeamLists=officialTeamLists;App.originUnavailable=originUnavailable;App.opponentDifficulty=opponentDifficulty;App.positionalMatchupsV2=positionalMatchupsV2;App.fixtures=fixtures;App.projectionAccuracy=projectionAccuracy;
  syncCurrentRound();App.projectionCache.clear();if(typeof invalidateRoundProjCache==='function')invalidateRoundProjCache();updateStatusFreshnessLabel();renderActive();
  const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';
  if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed');
@@ -9434,7 +9456,8 @@ function level3CacheKey(){
     App.players?.length || 0,
     App.playerStatus?.updated || App.playerStatus?.generatedAt || '',
     App.statusTruth?.updated || App.statusTruth?.generatedAt || '',
-    App.currentRoundMeta?.round || ''
+    App.currentRoundMeta?.round || '',
+    App.projectionAccuracy?.generatedAt || ''
   ].join('|');
 }
 
@@ -9463,9 +9486,67 @@ function renderLevel3(){
     </div>
    </div>
    <div class="l3-table-card"><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Risk</th><th>Status</th><th>Why</th></tr></thead><tbody>${rows.map(row => { const p = row.p, pr = row.pr; return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b class="player-name-link" role="button" tabindex="0" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b></span></td><td>${esc(positionText(p))}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${projectionRiskPill(pr)}</td><td>${statusPill(p)}</td><td class="small">${(pr.reasons||[]).slice(0,2).map(esc).join(' | ')}</td></tr>`; }).join('')}</tbody></table></div></div>
+   ${renderProjectionAccuracy()}
   </div>`;
   box.dataset.rendered = '1';
   App.__level3CacheKey = key;
+  const gatherGauge = $('accuracyGatherGauge');
+  if(gatherGauge){
+    const acc = App.projectionAccuracy;
+    const total = safeNum(acc?.totalComparisons) || 0;
+    const needed = safeNum(acc?.minSamplesOverall) || 20;
+    const pct = Math.max(0, Math.min(100, Math.round((total / needed) * 100)));
+    animateGauge(gatherGauge, pct, pct);
+  }
+}
+/* Crystal Ball - see the CSS comment above .l3-accuracy-card for the
+   full rationale. Two honest states: still gathering real samples (a
+   progress gauge, never a fabricated accuracy number), or the real
+   metric once data/projection_accuracy.json's own MIN_SAMPLES gates say
+   it can be trusted (see build-projection-accuracy.mjs). */
+function renderProjectionAccuracy(){
+  const acc = App.projectionAccuracy;
+
+  if(!acc || !acc.overall){
+    const total = safeNum(acc?.totalComparisons) || 0;
+    const needed = safeNum(acc?.minSamplesOverall) || 20;
+    return `<div class="l3-accuracy-card">
+     <div class="wr-hero-row">
+      <div class="wr-gauge" id="accuracyGatherGauge" style="--gauge-color:#38bdf8"><div><b>0</b><span>% ready</span></div></div>
+      <div>
+       <p class="l3-kicker">Crystal Ball</p>
+       <h2 style="margin:2px 0">Gathering real results</h2>
+       <p>${total} of ${needed} real round results collected so far. Projection accuracy shows up here honestly once there's enough real data to trust it - never guessed at.</p>
+      </div>
+     </div>
+    </div>`;
+  }
+
+  const mae = acc.overall.meanAbsoluteError;
+  const bias = acc.overall.meanBias;
+  const biasTier = Math.abs(bias) < 2 ? 'neutral' : bias > 0 ? 'under' : 'over';
+  const biasLabel = biasTier === 'neutral'
+    ? 'No consistent bias'
+    : biasTier === 'under'
+      ? `Tends to underestimate by ~${Math.abs(bias)} pts`
+      : `Tends to overestimate by ~${Math.abs(bias)} pts`;
+  const positions = Object.entries(acc.byPosition || {});
+
+  return `<div class="l3-accuracy-card">
+   <div class="wr-hero-row">
+    <div class="wr-hero-icon">${wrIcon('crystal')}</div>
+    <div>
+     <p class="l3-kicker">Crystal Ball</p>
+     <h2 style="margin:2px 0">Real Projection Accuracy</h2>
+     <p>Based on ${acc.overall.samples} real results across ${acc.roundsCompared.length} round(s) this season.</p>
+    </div>
+   </div>
+   <div class="l3-accuracy-stats">
+    <div class="l3-accuracy-stat"><b>±${mae}</b><span>Avg Error (pts)</span></div>
+    <div class="l3-accuracy-stat"><span class="l3-accuracy-bias ${biasTier}">${esc(biasLabel)}</span></div>
+   </div>
+   ${positions.length ? `<div class="l3-accuracy-positions">${positions.map(([pos, s]) => `<div class="l3-accuracy-pos-pill">${esc(pos)}: ±${s.meanAbsoluteError}<small>(${s.samples})</small></div>`).join('')}</div>` : ''}
+  </div>`;
 }
 
 function renderExplorer(){
