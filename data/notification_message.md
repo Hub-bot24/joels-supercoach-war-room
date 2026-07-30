@@ -1,19 +1,19 @@
 # SuperCoach War Room status changes — Round 22
 
-Detected: 2026-07-29T10:08:44.410Z
+Detected: 2026-07-30T09:44:54.460Z
 
-- **Benaiah Ioelu** (SYD): EXPECTED → NOT_NAMED
+- **Brian Pouniu** (DOL): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **DeLaSalle Vaa** (SYD): EXPECTED → NOT_NAMED
+- **Christian Tuipulotu** (STG): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **John Bateman** (NQC): NAMED → NOT_NAMED
+- **Liam Sutton** (NQC): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **Ronald Philitoga** (NQC): EXPECTED → NOT_NAMED
+- **Tevita Naufahu** (DOL): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **Sam McIntyre** (NQC): EXPECTED → NAMED
-  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 18).
-  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
+- **Tom Rodwell** (SYD): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
