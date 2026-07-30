@@ -68,12 +68,16 @@ jobs:
         if: steps.run_updater.outputs.proceeded == 'true'
         run: node scripts/build-positional-matchups.mjs
 
+      - name: Capture real per-round player scores
+        if: steps.run_updater.outputs.proceeded == 'true'
+        run: node scripts/capture-player-scores.mjs
+
       - name: Commit updated players.json
         if: steps.run_updater.outputs.proceeded == 'true'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add players.json data/history/positional data/positional_matchups_v2.json data/price_update_state.json
+          git add players.json data/history/positional data/history/scores data/positional_matchups_v2.json data/price_update_state.json
           git commit -m "Update SuperCoach price and BE data" || echo "No changes"
           git pull --rebase origin main
           git push

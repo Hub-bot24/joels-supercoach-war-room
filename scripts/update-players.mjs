@@ -1080,7 +1080,8 @@ async function main() {
 export {
   parseAvgStatsHtml,
   computeNextPriceUpdateTarget,
-  shouldFetchPricesNow
+  shouldFetchPricesNow,
+  appNameToSourceName
 };
 
 const isDirectRun =
