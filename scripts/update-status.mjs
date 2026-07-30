@@ -221,6 +221,33 @@ function weatherRiskFromHours(hours){
 function venueMapFromJson(venuesJson){
   return new Map(asArray(venuesJson?.venues).map(v => [norm(v.venue), v]).filter(([k]) => k));
 }
+// venues.json only covers the regular-rotation stadiums. NRL occasionally
+// plays a "home game away from home" at a smaller regional venue (this is
+// how the Panthers v Raiders R22 venue - Glen Willow Oval, Mudgee - showed
+// up with no weather at all: real venue, but nowhere in the static list).
+// Rather than hand-typing coordinates from memory (which the project rules
+// forbid guessing at), resolve them via Open-Meteo's own free geocoding
+// API - the same trusted provider already used for the weather forecast
+// itself - and persist the result into venues.json so this venue never
+// needs re-resolving again, this season or any future one.
+async function geocodeVenue(cityName){
+  const name = String(cityName || '').trim();
+  if(!name) return null;
+  try{
+    const url = new URL('https://geocoding-api.open-meteo.com/v1/search');
+    url.searchParams.set('name', name);
+    url.searchParams.set('count', '1');
+    url.searchParams.set('country', 'AU');
+    url.searchParams.set('language', 'en');
+    url.searchParams.set('format', 'json');
+    const data = await fetchJsonUrl(url.href);
+    const hit = data?.results?.[0];
+    if(!hit || !Number.isFinite(hit.latitude) || !Number.isFinite(hit.longitude)) return null;
+    return {lat: hit.latitude, lon: hit.longitude, timezone: hit.timezone || 'Australia/Sydney'};
+  }catch{
+    return null;
+  }
+}
 function datePart(localDateTime){
   return String(localDateTime || '').slice(0, 10);
 }
@@ -256,6 +283,21 @@ async function fetchOpenMeteoGameWeather(fixture, venue){
   if(!gameWindowWeather.length) throw new Error(`no hourly weather returned for ${fixture.match || fixture.venue || 'fixture'}`);
   return {...fixture, city:fixture.city || venue?.city || '', lat, lon, timezone, weatherStatus:'updated', gameWindow:{from, to, gameMinutes:110}, gameWindowWeather, weatherRisk:weatherRiskFromHours(gameWindowWeather)};
 }
+// Extracted from generateFreshWeatherContract so the geocode-then-persist
+// wiring can be verified directly (mocked fetch, in-memory Map) rather than
+// only indirectly through a full fixtures.json/venues.json read+write pass.
+async function resolveFixtureVenue(fixture, venues){
+  let venue = venues.get(norm(fixture.venue));
+  if(!venue && !Number.isFinite(Number(fixture.lat)) && fixture.venue){
+    const geocoded = await geocodeVenue(fixture.city || fixture.venue);
+    if(geocoded){
+      venue = {venue: fixture.venue, city: fixture.city || '', lat: geocoded.lat, lon: geocoded.lon, timezone: geocoded.timezone};
+      venues.set(norm(fixture.venue), venue);
+      return {venue, isNew:true};
+    }
+  }
+  return {venue, isNew:false};
+}
 async function generateFreshWeatherContract(round){
   const fixturesJson = await readJson('fixtures.json', {});
   const venuesJson = await readJson('venues.json', {});
@@ -265,14 +307,19 @@ async function generateFreshWeatherContract(round){
   if(!fixtures.length) throw new Error(`no fixtures with kickoff times found for round ${round}`);
   const matches = [];
   const failures = [];
+  const newVenues = [];
   for(const fixture of fixtures){
-    const venue = venues.get(norm(fixture.venue));
+    const {venue, isNew} = await resolveFixtureVenue(fixture, venues);
+    if(isNew) newVenues.push(venue);
     try{
       matches.push(await fetchOpenMeteoGameWeather(fixture, venue));
     }catch(e){
       failures.push({match:fixture.match || '', venue:fixture.venue || '', reason:e.message});
       matches.push({...fixture, weatherStatus:'source_failed', gameWindowWeather:[], weatherRisk:{score:0,label:'Unknown',reasons:[e.message]}});
     }
+  }
+  if(newVenues.length){
+    await writeJson('venues.json', {updated: NOW_ISO, venues: [...asArray(venuesJson?.venues), ...newVenues]});
   }
   if(!matches.some(m => Array.isArray(m.gameWindowWeather) && m.gameWindowWeather.length)) throw new Error(`fresh weather failed for all round ${round} fixtures`);
   return {updated: NOW_ISO, round, source:'Open-Meteo hourly forecast API', status:'fresh', note:'Weather covers pre-game through full game window. Forecast updates when workflow runs.', fixtures:{}, games:matches, matches, failures};
@@ -3249,7 +3296,10 @@ export {
   hasInjuryWords,
   hasSuspensionWords,
   injuryTypeFromText,
-  injuryWindowHasPlayerEvidence
+  injuryWindowHasPlayerEvidence,
+  geocodeVenue,
+  venueMapFromJson,
+  resolveFixtureVenue
 };
 
 const isDirectRun =
