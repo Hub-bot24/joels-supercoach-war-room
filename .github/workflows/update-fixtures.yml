@@ -28,6 +28,9 @@ jobs:
         with:
           node-version: "20"
 
+      - name: TEST ONLY - check nrlsupercoachstats.com robots.txt
+        run: node scripts/_diag-stats-robots.mjs
+
       - name: Update fixtures
         run: node scripts/update-fixtures.mjs
 
