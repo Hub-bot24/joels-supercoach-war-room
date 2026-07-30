@@ -72,12 +72,33 @@ jobs:
         if: steps.run_updater.outputs.proceeded == 'true'
         run: node scripts/capture-player-scores.mjs
 
+      # Only installed/run on the same rare price-update runs as the other
+      # capture steps above - a full Chromium install on every 2-hourly
+      # skip-run would be pure waste for a step that only ever fires once
+      # per round anyway.
+      - name: Install dependencies for projection capture
+        if: steps.run_updater.outputs.proceeded == 'true'
+        run: npm ci
+
+      - name: Install Chromium for projection capture
+        if: steps.run_updater.outputs.proceeded == 'true'
+        run: npx playwright install --with-deps chromium
+
+      # Captures the live ProjectionEngine's real output for the round via
+      # a headless browser (not a re-implementation of the formula), so a
+      # captured projection is always exactly what a user would have seen.
+      # Never overwrites an existing round's file - the first capture is
+      # the one that counts as "what we predicted".
+      - name: Capture round projections
+        if: steps.run_updater.outputs.proceeded == 'true'
+        run: node scripts/capture-projections.mjs
+
       - name: Commit updated players.json
         if: steps.run_updater.outputs.proceeded == 'true'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add players.json data/history/positional data/history/scores data/positional_matchups_v2.json data/price_update_state.json
+          git add players.json data/history/positional data/history/scores data/history/projections data/positional_matchups_v2.json data/price_update_state.json
           git commit -m "Update SuperCoach price and BE data" || echo "No changes"
           git pull --rebase origin main
           git push
