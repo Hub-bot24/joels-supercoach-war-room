@@ -116,3 +116,22 @@ test("resolveFixtureVenue leaves the venue undefined (not a thrown error) when g
     assert.equal(isNew, false);
   });
 });
+
+// Regression: real fixtures.json rows carry lat:null (not an omitted field)
+// for a venue with no known coordinates. Number(null) coerces to 0, which
+// IS finite, so a Number()-coerced check silently treated every unresolved
+// fixture as "already has coordinates" and never geocoded it - this is
+// exactly why Glen Willow Oval (Mudgee) kept showing "Weather unavailable"
+// even after the geocoding fallback shipped and was verified working.
+test("resolveFixtureVenue still geocodes a fixture whose lat/lon are explicitly null (the real fixtures.json shape)", async () => {
+  const venues = venueMapFromJson({venues:[]});
+  await withMockedFetch(async () => ({
+    ok: true,
+    text: async () => JSON.stringify({results:[{latitude:-32.59426, longitude:149.5871, timezone:"Australia/Sydney"}]})
+  }), async () => {
+    const {venue, isNew} = await resolveFixtureVenue({venue:"Glen Willow Oval", city:"Mudgee", lat:null, lon:null, timezone:"Australia/Brisbane"}, venues);
+    assert.equal(isNew, true);
+    assert.equal(venue.lat, -32.59426);
+    assert.equal(venue.lon, 149.5871);
+  });
+});
