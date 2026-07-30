@@ -5679,7 +5679,7 @@ async function ensurePlayerPhotosLoaded(){
   App.playerPhotosLoaded = true;
 
   try{
-    const res = await fetch(`player_photos.json?v=${cacheBustKey()}`);
+    const res = await fetch('player_photos.json',{cache:'no-cache'});
     if(!res.ok) throw new Error(`player_photos.json ${res.status}`);
   App.playerPhotos = normalisePlayerPhotos(await res.json());
     buildPlayerPhotoLookup();
@@ -5700,14 +5700,22 @@ function usablePlayerPhotoUrl(url){
   return /rugbyimages\.statsperform\.com|Player%20Bodyshots|Player\+Bodyshots|remote\.axd\?/i.test(u) || /\.(png|jpg|jpeg|webp)(\?|$)/i.test(u);
 }
 // Data files change on a ~15min+ generation cadence (see startLiveStatusRefresh),
-// but the old cache-busting query was unique to the millisecond, so the browser
-// re-downloaded every JSON file (2+MB) from network on every single page open,
-// even seconds apart. Bucketing the cache-buster to a 5-minute window lets the
-// browser reuse what it already fetched this window instead, without giving up
-// meaningful freshness.
-function cacheBustKey(){return Math.floor(Date.now()/300000)}
-async function fetchJson(path,fallback){try{const r=await fetch(path+'?v='+cacheBustKey());if(!r.ok)throw new Error(path);return await r.json()}catch(e){return fallback}}
-async function fetchJsonFirst(paths,fallback=null){for(const path of paths){try{const r=await fetch(path+'?v='+cacheBustKey());if(!r.ok)continue;return await r.json()}catch(e){}}return fallback}
+// but a millisecond-unique cache-busting query used to force the browser to
+// re-download every JSON file (2+MB) from network on every single page open,
+// even seconds apart - a 5-minute bucketed cache key was a first pass at this,
+// but it only ever helped a reload within the SAME 5-minute window; the
+// 10-minute refreshTrustDataNow() cycle always crosses that boundary, so it
+// still re-downloaded everything on every tick regardless of whether the
+// data underneath had actually changed.
+//
+// {cache:'no-cache'} (not to be confused with no-store) tells the browser to
+// always revalidate with the server - never silently serve a stale response -
+// but to accept a 304 Not Modified with no body when the server reports
+// nothing changed (via the ETag/Last-Modified headers virtually every static
+// host sends by default), instead of always paying for the full download.
+// Real freshness on every request, at the actual bandwidth cost of a 304.
+async function fetchJson(path,fallback){try{const r=await fetch(path,{cache:'no-cache'});if(!r.ok)throw new Error(path);return await r.json()}catch(e){return fallback}}
+async function fetchJsonFirst(paths,fallback=null){for(const path of paths){try{const r=await fetch(path,{cache:'no-cache'});if(!r.ok)continue;return await r.json()}catch(e){}}return fallback}
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
 const SLOT_DEFS=[
  {id:'FRF1',label:'Front Row',short:'FRF',accept:['FRF'],row:'row-frf'},
@@ -6484,15 +6492,38 @@ function dismissBootSplash(){
  el.classList.add('wr-boot-done');
  setTimeout(()=>el.remove(),400);
 }
+// Speed Audit fix: player_photos.json (176KB) and data/teamlist_changes.json
+// (343KB, notification-badge only) were both sitting in the same
+// must-finish-before-first-render Promise.all as players.json/status_truth.json,
+// even though neither is needed to draw the first frame - ~520KB (14% of the
+// total boot payload) off the critical path for zero loss of functionality.
+// Loaded right after the first renderActive() instead; loadDeferredBootData()
+// re-renders once photos land so formation cards pick them up, and refreshes
+// the notif badge once teamlist changes land.
+async function loadDeferredBootData(){
+ const [playerPhotos,teamlistChanges]=await Promise.all([
+  fetchJson('player_photos.json',{players:{}}),
+  fetchJsonFirst(['data/teamlist_changes.json'],[])
+ ]);
+ App.playerPhotos=playerPhotos;
+ App.playerPhotosLoaded=true;
+ buildPlayerPhotoLookup();
+ App.teamlistChanges=teamlistChanges;
+ ensureNotifSeenInitialized();
+ renderNotifBadge();
+ renderActive();
+}
 async function boot(){
  // Browser reads the generated /data contract first; scripts/update-status.mjs owns generation so known contract files are valid JSON, not missing files.
- // These 19 fetches are all independent of each other's results, so they run
+ // These 17 fetches are all independent of each other's results, so they run
  // concurrently instead of one-at-a-time - the old sequential await chain here
  // was the single biggest contributor to a ~14s blank-screen first load.
+ // (player_photos.json and data/teamlist_changes.json are deferred - see
+ // loadDeferredBootData() - since neither is needed for the first frame.)
  const [
   rawPlayers,weather,goalKickers,goalKickerEvidence,teamRoles,availabilityOverrides,
-  fixtures,playerStatus,statusTruth,currentRoundMeta,playerPhotos,teamLists,
-  officialTeamLists,originUnavailable,opponentDifficulty,positionalMatchupsV2,teamlistChanges,
+  fixtures,playerStatus,statusTruth,currentRoundMeta,teamLists,
+  officialTeamLists,originUnavailable,opponentDifficulty,positionalMatchupsV2,
   teamJson,projectionAccuracy
  ]=await Promise.all([
   fetchJson('players.json',[]),
@@ -6505,18 +6536,16 @@ async function boot(){
   fetchJson('player_status.json',{players:{}}),
   fetchJsonFirst(['data/status_truth.json','status_truth.json'],null),
   fetchJsonFirst(['data/current_round.json','current_round.json'],null),
-  fetchJson('player_photos.json',{players:{}}),
   fetchJsonFirst(['data/teamlists.json','teamlists.json'],null),
   fetchJsonFirst(['data/official_teamlists.json','official_teamlists.json'],null),
   fetchJsonFirst(['data/origin_unavailable.json','origin_unavailable.json'],null),
   fetchJson('data/opponent_difficulty.json',{}),
   fetchJson('data/positional_matchups_v2.json',{teams:{}}),
-  fetchJsonFirst(['data/teamlist_changes.json'],[]),
   fetchJson('my_team.json',null),
   fetchJson('data/projection_accuracy.json',null)
  ]);
  let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));buildPlayerNameMap();
- App.weather=weather;App.goalKickers=goalKickers;App.goalKickerEvidence=goalKickerEvidence;App.teamRoles=teamRoles;App.availabilityOverrides=availabilityOverrides;App.fixtures=fixtures;App.playerStatus=playerStatus;App.statusTruth=statusTruth;App.currentRoundMeta=currentRoundMeta;App.playerPhotos=playerPhotos;App.teamLists=teamLists;App.officialTeamLists=officialTeamLists;App.originUnavailable=originUnavailable;App.opponentDifficulty=opponentDifficulty;App.positionalMatchupsV2=positionalMatchupsV2;App.teamlistChanges=teamlistChanges;App.projectionAccuracy=projectionAccuracy;
+ App.weather=weather;App.goalKickers=goalKickers;App.goalKickerEvidence=goalKickerEvidence;App.teamRoles=teamRoles;App.availabilityOverrides=availabilityOverrides;App.fixtures=fixtures;App.playerStatus=playerStatus;App.statusTruth=statusTruth;App.currentRoundMeta=currentRoundMeta;App.teamLists=teamLists;App.officialTeamLists=officialTeamLists;App.originUnavailable=originUnavailable;App.opponentDifficulty=opponentDifficulty;App.positionalMatchupsV2=positionalMatchupsV2;App.projectionAccuracy=projectionAccuracy;
  // Season Journey needs to know the round that's about to be superseded
  // BEFORE syncCurrentRound() advances App.round to the real current one,
  // and whether a round was ever genuinely stored at all (a brand new
@@ -6536,7 +6565,7 @@ const snapshotTaken=hadStoredRoundForSeasonJournal&&captureSeasonJournalSnapshot
 syncCurrentRound();
 const entriesFinalized=finalizeSeasonJournalEntries();
 if(snapshotTaken||entriesFinalized)saveLocal({cloud:false});
-wireTabs();renderActive();dismissBootSplash();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
+wireTabs();renderActive();dismissBootSplash();loadDeferredBootData().catch(e=>console.warn('Deferred boot data failed',e));initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
  updateStatusFreshnessLabel();startLiveStatusRefresh();ensureNotifSeenInitialized();renderNotifBadge();
 }
 /* Real freshness readout instead of the always-blank stub this was. The
