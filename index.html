@@ -3284,6 +3284,24 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .form-trend-trade-info .player-name-link{font-size:14px;font-weight:900}
 .form-trend-trade-card button{padding:8px 10px;border-radius:10px;border:1px solid #58a6ff;background:#12345a;color:#fff;font-weight:800;cursor:pointer;flex:0 0 auto}
 
+/* War Room Briefing - see warRoomBriefingHtml(). Synthesizes existing
+   real signals (Form Radar, Trade Radar, Crystal Ball, bye data) into
+   one glance at the top of My Team, instead of making the user hunt
+   across 5 tabs for what actually matters this round. No new fetch,
+   no new computation beyond what those features already do. */
+.wr-briefing-card{margin:14px 0 18px;background:rgba(8,17,32,.88);border:1px solid rgba(88,166,255,.32);border-radius:16px;padding:16px 18px;color:#f8fafc}
+.wr-briefing-rows{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+.wr-briefing-row{display:flex;align-items:flex-start;gap:10px;font-size:13px;font-weight:700;line-height:1.4;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.05)}
+.wr-briefing-row svg{width:18px;height:18px;flex:0 0 auto;margin-top:1px}
+.wr-briefing-row.good{color:#7cffb0}
+.wr-briefing-row.good svg{color:#32d168}
+.wr-briefing-row.bad{color:#ffb4b4}
+.wr-briefing-row.bad svg{color:#ff4d4d}
+.wr-briefing-row.warn{color:#ffe08a}
+.wr-briefing-row.warn svg{color:#f5c542}
+.wr-briefing-row.info{color:#dbeafe}
+.wr-briefing-row.info svg{color:#58a6ff}
+
 
 /* =========================================================
    V18 RESERVES RIGHT PANEL FIT PATCH
@@ -8047,6 +8065,7 @@ function mobileTeamHtml(state=teamRenderState()){
   </div>
   <div class="wr-freshness-row">${dataFreshnessControlHtml()}</div>
   ${authPanelHtml()}
+  ${warRoomBriefingHtml()}
   <div class="formation-layout"><main>${formationFieldHtml(state.fieldBySlot,captainVicePicksForRender)}</main>${formationReservesHtml(state,captainVicePicksForRender,subsForRender)}</div>
   <div class="wr-status-legend"><span><i class="status-dot"></i> Available</span><span><i class="status-dot warn"></i> Risk</span><span><i class="status-dot bad"></i> Out</span><span><i class="status-dot bye"></i> Bye</span></div>
  </div>`;
@@ -8238,6 +8257,48 @@ function formRadarTradeTargetsHtml(){
   <h3>Trending Trade Targets</h3>
   <div class="trade-radar-empty" style="margin-bottom:12px">Real Form Radar risers you don't already own - pick who to trade out yourself.</div>
   <div class="form-trend-trade-grid">${targets.map(card).join('')}</div>
+ </div>`;
+}
+
+/* War Room Briefing - one glance at the top of My Team synthesizing the
+   real signals the rest of the app already computes: your own team's
+   Form Radar movers, Trade Radar's single best real upgrade, Crystal
+   Ball's real accuracy status, and any of your players on bye next
+   round. Every row only appears when its underlying feature already has
+   real data to show; nothing here is computed specially for this card. */
+function warRoomBriefingRows(){
+ const rows=[];
+ const owned=new Set(App.myTeam||[]);
+ const mine=formRadarRows().filter(o=>owned.has(o.p.name));
+ const riser=[...mine].filter(o=>o.delta>=5).sort((a,b)=>b.delta-a.delta)[0];
+ const faller=[...mine].filter(o=>o.delta<=-5).sort((a,b)=>a.delta-b.delta)[0];
+ if(riser)rows.push({icon:'pulse',tone:'good',text:`${riser.p.name} is heating up - last 3 rounds +${Math.round(riser.delta)} above season average.`});
+ if(faller)rows.push({icon:'pulse',tone:'bad',text:`${faller.p.name} has cooled off - last 3 rounds ${Math.round(faller.delta)} below season average.`});
+
+ const weak=tradeRadarWeakLinks()[0];
+ if(weak){
+  const replacement=tradeRadarReplacementFor(weak.player);
+  const upgrade=replacement?Math.round(replacement.outlookAvg-weak.outlookAvg):0;
+  if(replacement&&upgrade>0)rows.push({icon:'trade',tone:'info',text:`Trade Radar: ${weak.player.name} → ${replacement.player.name} is worth +${upgrade} pts/game over the next 5.`});
+ }
+
+ const acc=App.projectionAccuracy;
+ if(acc?.overall)rows.push({icon:'crystal',tone:'info',text:`Crystal Ball: projections are averaging ±${acc.overall.meanAbsoluteError} pts real error across ${acc.overall.samples} results this season.`});
+
+ const nextRound=Number(App.round||1)+1;
+ const affected=teamPlayers().filter(p=>(p.bye||p.byes||[]).map(Number).includes(nextRound));
+ if(affected.length)rows.push({icon:'bye',tone:'warn',text:`${affected.length} of your players ${affected.length===1?'is':'are'} on bye in R${nextRound}: ${affected.map(p=>p.name).join(', ')}.`});
+
+ return rows;
+}
+function warRoomBriefingHtml(){
+ const rows=warRoomBriefingRows();
+ const body=rows.length
+  ?rows.map(r=>`<div class="wr-briefing-row ${r.tone}">${wrIcon(r.icon)}<span>${esc(r.text)}</span></div>`).join('')
+  :`<div class="wr-briefing-row info">${wrIcon('crystal')}<span>Nothing urgent right now - your team looks steady this round.</span></div>`;
+ return `<div class="wr-briefing-card">
+  <div class="wr-hero-row"><div class="wr-hero-icon">${wrIcon('pulse')}</div><div><p class="l3-kicker">War Room Briefing</p><h2 style="margin:2px 0">This Round At A Glance</h2></div></div>
+  <div class="wr-briefing-rows">${body}</div>
  </div>`;
 }
 

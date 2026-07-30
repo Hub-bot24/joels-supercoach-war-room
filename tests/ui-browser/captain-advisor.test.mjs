@@ -146,6 +146,14 @@ test("C/VC badge never overlaps a neighboring field card at common widths", asyn
         return badgedCards.map(card => {
           const nameEl = card.querySelector(".formation-name");
           const badge = card.querySelector(".formation-cv-badge");
+          // elementFromPoint only ever hits within the current viewport - a
+          // badge sitting below the fold (e.g. once page content above the
+          // field grows, like the War Room Briefing card) would otherwise
+          // read back as a false "hits nothing" rather than a real overlap.
+          // Scrolling it into view first is exactly what a real user would
+          // do before clicking it, so this keeps testing the actual bug
+          // (wrong-card hit) without depending on total page height.
+          badge.scrollIntoView({ block: "center" });
           const r = badge.getBoundingClientRect();
           const hitEl = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
           const hitCard = hitEl ? hitEl.closest(".formation-card") : null;
