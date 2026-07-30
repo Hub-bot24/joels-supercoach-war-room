@@ -5,6 +5,7 @@ on:
     paths:
       - "players.json"
       - "scripts/update-players.mjs"
+      - "scripts/capture-player-scores.mjs"
       - "scripts/update-dpp.mjs"
       - "scripts/lib/player-identity.mjs"
       - "scripts/lib/player-identity-migration.mjs"
@@ -23,6 +24,7 @@ on:
     paths:
       - "players.json"
       - "scripts/update-players.mjs"
+      - "scripts/capture-player-scores.mjs"
       - "scripts/update-dpp.mjs"
       - "scripts/lib/player-identity.mjs"
       - "scripts/lib/player-identity-migration.mjs"
@@ -63,6 +65,7 @@ jobs:
           node --check scripts/lib/player-identity-migration.mjs
           node --check scripts/migrate-player-identities.mjs
           node --check scripts/update-players.mjs
+          node --check scripts/capture-player-scores.mjs
           node --check scripts/update-dpp.mjs
           node --check scripts/update-player-photos.mjs
           node --check scripts/lib/player-photo-pipeline.mjs
