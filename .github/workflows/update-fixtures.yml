@@ -28,9 +28,6 @@ jobs:
         with:
           node-version: "20"
 
-      - name: TEST ONLY - check index.php?player= real player page
-        run: node scripts/_diag-index-player.mjs
-
       - name: Update fixtures
         run: node scripts/update-fixtures.mjs
 
