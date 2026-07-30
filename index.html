@@ -3274,6 +3274,16 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .trade-radar-card button{grid-column:1/-1;padding:8px 10px;border-radius:10px;border:1px solid #58a6ff;background:#12345a;color:#fff;font-weight:800;cursor:pointer}
 @media(max-width:720px){.trade-radar-card{grid-template-columns:1fr}.trade-radar-arrow{display:none}}
 
+/* Trending Trade Targets - see formRadarTradeTargetsHtml(). Reuses the
+   Trade Radar shell but for real Form Radar risers you don't own yet,
+   rather than a paired out/in suggestion - you still choose who to
+   trade out yourself, this only surfaces genuine "who's hot" targets. */
+.form-trend-trade-grid{display:grid;gap:10px}
+.form-trend-trade-card{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:10px 14px}
+.form-trend-trade-info{display:flex;flex-direction:column;gap:2px;min-width:0}
+.form-trend-trade-info .player-name-link{font-size:14px;font-weight:900}
+.form-trend-trade-card button{padding:8px 10px;border-radius:10px;border:1px solid #58a6ff;background:#12345a;color:#fff;font-weight:800;cursor:pointer;flex:0 0 auto}
+
 
 /* =========================================================
    V18 RESERVES RIGHT PANEL FIT PATCH
@@ -8191,6 +8201,45 @@ function prefillTradeLab(outName,inName){
  if(inEl)inEl.value=inName;
  if(typeof scoreTrade==='function')scoreTrade();
 }
+function prefillTradeIn(inName){
+ setActiveTab('trade');
+ const inEl=$('tradeIn');
+ if(inEl)inEl.value=inName;
+}
+// Real Form Radar risers (see formRadarRows()) who aren't already on your
+// team - a genuine "who's trending and available" list, not a paired
+// out/in suggestion like Trade Radar above. Who to trade out is always
+// the user's own call; this only surfaces the "trade in" side, grounded
+// in the same real last3Avg-vs-seasonAvg data as the Level 3 card.
+function formRadarTradeTargets(){
+ const owned=new Set(App.myTeam||[]);
+ return formRadarRows()
+  .filter(o=>o.delta>=5&&!owned.has(o.p.name))
+  .sort((a,b)=>b.delta-a.delta)
+  .slice(0,5);
+}
+function formRadarTradeTargetsHtml(){
+ const targets=formRadarTradeTargets();
+ if(!targets.length)return '';
+ const card=o=>{
+  const status=availabilityStatus(o.p);
+  const risk=!status?.available?`<span class="trade-radar-risk">${esc(status?.label||'Unavailable')} this round</span>`:'';
+  return `<div class="form-trend-trade-card">
+   <div class="form-trend-trade-info">
+    <span class="player-name-link" role="button" tabindex="0" onclick="openPlayerCard('${window.jsq(o.p.name)}')">${esc(o.p.name)}</span>
+    <span class="l3-form-meta">${esc(positionText(o.p))} · ${esc(o.p.team||'')} · ${money(o.p.price)}</span>
+    <span class="l3-form-delta up">+${Math.round(o.delta)} last 3 vs season</span>
+    ${risk}
+   </div>
+   <button type="button" onclick="prefillTradeIn('${window.jsq(o.p.name)}')">Load into Trade Lab</button>
+  </div>`;
+ };
+ return `<div class="trade-radar">
+  <h3>Trending Trade Targets</h3>
+  <div class="trade-radar-empty" style="margin-bottom:12px">Real Form Radar risers you don't already own - pick who to trade out yourself.</div>
+  <div class="form-trend-trade-grid">${targets.map(card).join('')}</div>
+ </div>`;
+}
 
 function playerPhotoUrl(p){
   if(!p)return "";
@@ -8918,6 +8967,7 @@ function renderTrade(){$('trade').innerHTML=`<div class="l3-shell">
   </div>
  </div>
  ${tradeRadarHtml()}
+ ${formRadarTradeTargetsHtml()}
  <div class="grid">
   <div class="panel span4">
    <h2>Trade Lab</h2>
