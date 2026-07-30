@@ -288,7 +288,10 @@ async function fetchOpenMeteoGameWeather(fixture, venue){
 // only indirectly through a full fixtures.json/venues.json read+write pass.
 async function resolveFixtureVenue(fixture, venues){
   let venue = venues.get(norm(fixture.venue));
-  if(!venue && !Number.isFinite(Number(fixture.lat)) && fixture.venue){
+  // fixtures.json stores an unresolved coordinate as lat:null, not omitted -
+  // Number(null) coerces to 0 (finite!), so this must check the raw value,
+  // not a Number()-coerced one, or a genuinely missing venue never geocodes.
+  if(!venue && !Number.isFinite(fixture.lat) && fixture.venue){
     const geocoded = await geocodeVenue(fixture.city || fixture.venue);
     if(geocoded){
       venue = {venue: fixture.venue, city: fixture.city || '', lat: geocoded.lat, lon: geocoded.lon, timezone: geocoded.timezone};
