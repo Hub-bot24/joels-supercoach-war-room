@@ -10181,9 +10181,13 @@ function renderExplorer(){
 
 let explorerSearchTimer = null;
 
+// 160ms was overly conservative - real measurement shows updateExplorer()
+// itself only costs ~35ms even over the full real player pool, so a much
+// shorter debounce still comfortably coalesces fast typing while feeling
+// snappy instead of laggy.
 function scheduleExplorerUpdate(){
   clearTimeout(explorerSearchTimer);
-  explorerSearchTimer = setTimeout(updateExplorer, 160);
+  explorerSearchTimer = setTimeout(updateExplorer, 60);
 }
 
 function updateExplorer(){
