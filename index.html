@@ -3302,6 +3302,30 @@ html,body{width:100%;min-height:100%;overflow-x:hidden;background:#02050b!import
 .wr-briefing-row.info{color:#dbeafe}
 .wr-briefing-row.info svg{color:#58a6ff}
 
+/* Season Journey - see renderSeason(). A real record of what your OWN
+   team actually scored each round, built by genuinely recording your
+   lineup at the time and filling in the real result once it's captured
+   - never backfilled or guessed for rounds before you started tracking. */
+.season-empty-card{margin-top:18px;padding:28px 24px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(135deg,#0d1b2e,#070d17 70%);text-align:center}
+.season-empty-card p{max-width:480px;margin:10px auto 0;color:var(--muted)}
+.season-stats-row{margin-top:18px;display:flex;flex-wrap:wrap;gap:24px;align-items:center}
+.season-stat b{display:block;font-size:28px;font-family:var(--font-mono);color:#fff;line-height:1}
+.season-stat span{display:block;margin-top:5px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:800}
+.season-chart-card{margin-top:18px;padding:20px 22px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(135deg,#0d1b2e,#070d17 70%)}
+.season-chart-card h3{margin:0 0 14px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.season-chart-svg{width:100%;height:220px;display:block}
+.season-chart-svg .season-line{fill:none;stroke:#58a6ff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.season-chart-svg .season-area{fill:url(#seasonAreaGradient);opacity:.35}
+.season-chart-svg .season-dot{fill:#fff;stroke:#58a6ff;stroke-width:2.5}
+.season-chart-svg .season-axis-label{fill:var(--muted);font-size:10px;font-family:var(--font-mono)}
+.season-rounds-card{margin-top:18px;padding:20px 22px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(8,17,32,.88)}
+.season-rounds-card h3{margin:0 0 12px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.season-round-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid rgba(255,255,255,.06);font-size:13px;font-weight:700}
+.season-round-row:first-of-type{border-top:0}
+.season-round-row .season-round-meta{color:var(--muted);font-weight:600;font-size:11px}
+.season-round-row .season-round-score{font-family:var(--font-mono);font-size:15px;color:#fff}
+.season-round-row .season-round-pending{font-family:var(--font-mono);font-size:12px;color:#f5c542;text-transform:uppercase;letter-spacing:.04em}
+
 
 /* =========================================================
    V18 RESERVES RIGHT PANEL FIT PATCH
@@ -5435,6 +5459,7 @@ a:focus-visible{
 <button data-tab="level3"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 16l5.2-5.8 3.8 3 6-7.4"/><path d="M15 5.8h4.2V10"/></svg><span>Level 3</span></button>
 <button data-tab="explorer"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg><span>Player Explorer</span></button>
 <button data-tab="trade"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.6 8.2h14.7M14.6 4l3.7 4.2-3.7 4.2"/><path d="M20.4 15.8H5.7M9.4 20l-3.7-4.2 3.7-4.2"/></svg><span>Trade Lab</span></button>
+<button data-tab="season"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 19V9M10 19V5M16 19v-7"/><path d="M3 19h18"/></svg><span>Season</span></button>
 <div class="spacer"></div><button type="button" id="navRefreshBtn" onclick="refreshTrustDataNow()" title="Refresh live data now" aria-label="Refresh live data now" style="padding:9px 11px">Refresh</button><button type="button" id="notifBell" title="Recent status changes" aria-label="Recent status changes" style="position:relative;padding:9px 11px"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.2 9.4a5.8 5.8 0 0 1 11.6 0c0 4.2 1.6 5.7 2.2 6.6H4c.6-.9 2.2-2.4 2.2-6.6Z"/><path d="M9.6 18.4a2.4 2.4 0 0 0 4.8 0"/></svg><span id="notifBadge" class="badge red" style="position:absolute;top:-4px;right:-4px;display:none;min-width:18px;height:18px;padding:0 4px;border-radius:999px;font-size:11px;align-items:center;justify-content:center;line-height:1"></span></button><span id="syncStatus" class="wr-sync-pill warn">Sync off</span><span id="statusFreshness" class="small" style="opacity:0.6;margin-right:8px"></span><span class="live">SC PLUS</span><span class="badge red wr-live-badge"><span class="wr-live-dot"></span>LIVE</span><span class="badge on">ON</span>
 </nav>
 <div class="screen">
@@ -5443,6 +5468,7 @@ a:focus-visible{
 <section id="level3" class="tab"></section>
 <section id="explorer" class="tab"></section>
 <section id="trade" class="tab"></section>
+<section id="season" class="tab"></section>
 </div>
 <div id="toast" class="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -5471,6 +5497,7 @@ opponentDifficulty:{},
 positionalMatchupsV2:{teams:{}},
 dualPositions:{players:{}},
 projectionCache:new Map(),
+seasonJournal:[],
 active:'team',
 rendered:new Set(),
 round:Number(localStorage.getItem('sc_round')||14),
@@ -5506,7 +5533,8 @@ const WR_ICON_PATHS={
  trade:'<path d="M3.6 8.2h14.7M14.6 4l3.7 4.2-3.7 4.2"/><path d="M20.4 15.8H5.7M9.4 20l-3.7-4.2 3.7-4.2"/>',
  bell:'<path d="M6.2 9.4a5.8 5.8 0 0 1 11.6 0c0 4.2 1.6 5.7 2.2 6.6H4c.6-.9 2.2-2.4 2.2-6.6Z"/><path d="M9.6 18.4a2.4 2.4 0 0 0 4.8 0"/>',
  crystal:'<circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1"/>',
- pulse:'<path d="M3 12h4l2-7 4 14 2-7h6"/>'
+ pulse:'<path d="M3 12h4l2-7 4 14 2-7h6"/>',
+ season:'<path d="M4 19V9M10 19V5M16 19v-7"/><path d="M3 19h18"/>'
 };
 function wrIcon(name,cls){return `<svg class="wr-icon${cls?' '+cls:''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${WR_ICON_PATHS[name]||''}</svg>`}
 /* Animates a .wr-gauge from 0 to a real value instead of snapping straight
@@ -5937,7 +5965,7 @@ function syncSetStatus(status,msg=''){
   el.textContent=msg||({saved:'Saved',syncing:'Syncing...',offline:'Offline',signedout:'Sign in',conflict:'Sync conflict',error:'Sync error',local:'Local save'}[status]||status);
  }
 }
-function teamBundle(){return {myTeam:App.myTeam,lineup:App.lineup||{},reserveOrder:App.reserveOrder||{},selectedReserves:App.selectedReserves||[],round:App.round,client_id:App.sync.clientId,updated_at:App.sync.localUpdatedAt||new Date().toISOString(),version:1}}
+function teamBundle(){return {myTeam:App.myTeam,lineup:App.lineup||{},reserveOrder:App.reserveOrder||{},selectedReserves:App.selectedReserves||[],round:App.round,seasonJournal:App.seasonJournal||[],client_id:App.sync.clientId,updated_at:App.sync.localUpdatedAt||new Date().toISOString(),version:1}}
 function readLocalMeta(){return safeJsonParse(safeLocalGet('sc_team_meta','{}'),{})||{}}
 function writeLocalMeta(meta){try{localStorage.setItem('sc_team_meta',JSON.stringify(meta||{}))}catch(e){}}
 function sanitizeSquadState(){
@@ -5971,6 +5999,7 @@ function saveLocal(opts={}){
  localStorage.setItem('sc_lineup',JSON.stringify(App.lineup||{}));
  localStorage.setItem('sc_reserveOrder',JSON.stringify(App.reserveOrder||{}));
  localStorage.setItem('sc_selectedReserves',JSON.stringify(App.selectedReserves||[]));
+ localStorage.setItem('sc_season_journal',JSON.stringify(App.seasonJournal||[]));
  writeLocalMeta({updated_at:App.sync.localUpdatedAt,client_id:App.sync.clientId});
  if(cloud)scheduleCloudSave();
 }
@@ -6114,6 +6143,7 @@ function applyCloudTeam(teamJson){
  App.reserveOrder=teamJson.reserveOrder&&typeof teamJson.reserveOrder==='object'?teamJson.reserveOrder:{};
  App.selectedReserves=Array.isArray(teamJson.selectedReserves)?teamJson.selectedReserves:[];
  App.round=Number(teamJson.round)||App.round;
+ App.seasonJournal=mergeSeasonJournal(App.seasonJournal,teamJson.seasonJournal);
  App.sync.localUpdatedAt=teamJson.updated_at||new Date().toISOString();
  validateLineup();ensureLineup();
  saveLocal({touch:false,cloud:false});
@@ -6303,6 +6333,134 @@ async function loadFormHistory(){
  const year=App.fixtures?.year||wrGkCurrentSeason();
  App.formHistory=await fetchJson(`data/history/scores/${year}.json`,null);
 }
+
+/* Season Journey - a real, honest record of what your OWN team actually
+   scored each round, built by literally recording your real lineup at
+   the moment each round ends and later filling in the real result once
+   it's captured (data/history/scores/<year>.json - see #277). This can
+   only ever start from the round you first open the app after shipping
+   this feature; there is no way to reconstruct earlier rounds without
+   guessing at a lineup that was never recorded, so those are an honest
+   gap, not backfilled. See captureSeasonJournalSnapshotIfNeeded() and
+   finalizeSeasonJournalEntries(), called from boot() around the exact
+   moment App.round advances to a new real round. */
+
+// The nrlsupercoachstats.com per-round columns are published for the
+// whole site at once (see capture-player-scores.mjs), not incrementally
+// per real-world game - so the highest round number seen ANYWHERE in the
+// captured dataset is real evidence that round is fully finalized site-
+// wide, without needing every one of your own 13 fielded players to have
+// personally played (a genuine bye/DNP for one of them would otherwise
+// look identical to "not captured yet" and stall this forever).
+function seasonJournalMaxCapturedRound(){
+ let max=0;
+ const players=App.formHistory?.players||{};
+ for(const rec of Object.values(players)){
+  if(!rec||typeof rec!=='object')continue;
+  for(const r of Object.keys(rec)){
+   const n=Number(r);
+   if(Number.isFinite(n)&&n>max)max=n;
+  }
+ }
+ return max;
+}
+
+// Pure so it's directly testable. entry: {round,lineup,captain,vice}.
+// playersScores: App.formHistory.players shape, {name:{round:score}}.
+// A fielded player absent from playersScores for this round is scored 0
+// (real bye/DNP), never fabricated or estimated - same real captain/vice
+// fallback rule teamProjection() already uses for live projections
+// (double the captain if they played, otherwise the vice), just applied
+// to real captured scores instead of a projection.
+function computeActualRoundScore(entry,playersScores){
+ const lineup=entry?.lineup||{};
+ const names=Object.values(lineup).filter(Boolean);
+ if(!names.length)return null;
+ const roundKey=String(entry.round);
+ const perPlayer={};
+ let base=0;
+ for(const name of names){
+  const rec=playersScores?.[name];
+  const raw=rec?Number(rec[roundKey]):undefined;
+  const score=Number.isFinite(raw)?raw:0;
+  perPlayer[name]=score;
+  base+=score;
+ }
+ const captainScore=entry.captain?(perPlayer[entry.captain]||0):0;
+ const captainPlayed=Boolean(entry.captain)&&captainScore>0;
+ const viceScore=entry.vice?(perPlayer[entry.vice]||0):0;
+ const doubled=captainPlayed?captainScore:viceScore;
+ return {total:Math.round(base+doubled),perPlayer};
+}
+
+// Called from boot() while App.round still equals the round that's
+// about to be superseded (i.e. before syncCurrentRound() advances it) -
+// at that exact moment App.lineup/App.myTeam are still whatever they
+// really were during that just-finished round, since nothing has
+// changed yet this page load.
+function captureSeasonJournalSnapshotIfNeeded(previousRound){
+ if(!Number.isFinite(previousRound)||previousRound<1)return false;
+ if(App.round!==previousRound)return false;
+ if(!Array.isArray(App.myTeam)||!App.myTeam.length)return false;
+ App.seasonJournal=Array.isArray(App.seasonJournal)?App.seasonJournal:[];
+ if(App.seasonJournal.some(e=>e.round===previousRound))return false;
+ const state=teamRenderState();
+ if(!state.fieldSlots.length)return false;
+ const picks=captainVicePicks(state);
+ const teamValue=teamPlayers().reduce((sum,p)=>sum+safeNum(p.price),0);
+ const lineup={};
+ for(const {slot,name} of state.fieldSlots)lineup[slot.id]=name;
+ App.seasonJournal.push({
+  round:previousRound,
+  snapshotAt:new Date().toISOString(),
+  lineup,
+  captain:picks.captain?.name||null,
+  vice:picks.vice?.name||null,
+  teamValue,
+  actualScore:null,
+  scoredAt:null
+ });
+ return true;
+}
+
+// Called after syncCurrentRound() (and after loadFormHistory()) so any
+// journal entry whose round has real data available now gets its
+// honest final score filled in - idempotent, never rescoring an entry
+// that's already been finalized once.
+function finalizeSeasonJournalEntries(){
+ if(!Array.isArray(App.seasonJournal)||!App.seasonJournal.length)return false;
+ const maxRound=seasonJournalMaxCapturedRound();
+ if(!maxRound)return false;
+ const scores=App.formHistory?.players||{};
+ let changed=false;
+ for(const entry of App.seasonJournal){
+  if(entry.actualScore!=null)continue;
+  if(entry.round>maxRound)continue;
+  const result=computeActualRoundScore(entry,scores);
+  if(!result)continue;
+  entry.actualScore=result.total;
+  entry.scoredAt=new Date().toISOString();
+  changed=true;
+ }
+ return changed;
+}
+
+// Cross-device durability: a device merging in a cloud copy must never
+// silently drop a round the OTHER device already recorded or scored -
+// keep every distinct round, preferring whichever copy of a shared round
+// already has a real actualScore over one still pending.
+function mergeSeasonJournal(local,cloud){
+ const byRound=new Map();
+ for(const e of (Array.isArray(local)?local:[])){
+  if(e&&Number.isFinite(e.round))byRound.set(e.round,e);
+ }
+ for(const e of (Array.isArray(cloud)?cloud:[])){
+  if(!e||!Number.isFinite(e.round))continue;
+  const existing=byRound.get(e.round);
+  if(!existing||(existing.actualScore==null&&e.actualScore!=null))byRound.set(e.round,e);
+ }
+ return [...byRound.values()].sort((a,b)=>a.round-b.round);
+}
 async function loadDualPositionsCore(){
  const sources=[
   'data/dual_positions.json',
@@ -6359,14 +6517,26 @@ async function boot(){
  ]);
  let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));buildPlayerNameMap();
  App.weather=weather;App.goalKickers=goalKickers;App.goalKickerEvidence=goalKickerEvidence;App.teamRoles=teamRoles;App.availabilityOverrides=availabilityOverrides;App.fixtures=fixtures;App.playerStatus=playerStatus;App.statusTruth=statusTruth;App.currentRoundMeta=currentRoundMeta;App.playerPhotos=playerPhotos;App.teamLists=teamLists;App.officialTeamLists=officialTeamLists;App.originUnavailable=originUnavailable;App.opponentDifficulty=opponentDifficulty;App.positionalMatchupsV2=positionalMatchupsV2;App.teamlistChanges=teamlistChanges;App.projectionAccuracy=projectionAccuracy;
- await loadDualPositionsCore();await loadFormHistory();syncCurrentRound();
+ // Season Journey needs to know the round that's about to be superseded
+ // BEFORE syncCurrentRound() advances App.round to the real current one,
+ // and whether a round was ever genuinely stored at all (a brand new
+ // user with no sc_round yet must never get a bogus first snapshot off
+ // App.round's hardcoded fallback default).
+ const hadStoredRoundForSeasonJournal=Boolean(localStorage.getItem('sc_round'));
+ const previousRoundForSeasonJournal=App.round;
+ await loadDualPositionsCore();await loadFormHistory();
  const localTeam=safeJsonParse(safeLocalGet('sc_myTeam','null'),null);let names=Array.isArray(localTeam)&&localTeam.length?localTeam:(teamJson?.players||teamJson?.team||[]);if(!Array.isArray(names))names=[];
  names = names.map(x => typeof x === 'string' ? x.trim() : (x?.name || x?.player || '')).filter(Boolean);
  const resolvedNames = names.map(n=>resolvePlayerName(n)).filter(Boolean);
  const missingNames = names.filter(n=>!resolvePlayerName(n));
  if(missingNames.length) console.warn('Players in my_team.json not found in players.json:', missingNames);
  App.myTeam=[...new Set(resolvedNames)];
-App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};App.reserveOrder=safeJsonParse(safeLocalGet('sc_reserveOrder','{}'),{})||{};App.selectedReserves=safeJsonParse(safeLocalGet('sc_selectedReserves','[]'),[])||[];validateLineup();ensureLineup();wireTabs();renderActive();dismissBootSplash();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
+App.lineup=safeJsonParse(safeLocalGet('sc_lineup','{}'),{})||{};App.reserveOrder=safeJsonParse(safeLocalGet('sc_reserveOrder','{}'),{})||{};App.selectedReserves=safeJsonParse(safeLocalGet('sc_selectedReserves','[]'),[])||[];App.seasonJournal=safeJsonParse(safeLocalGet('sc_season_journal','[]'),[])||[];validateLineup();ensureLineup();
+const snapshotTaken=hadStoredRoundForSeasonJournal&&captureSeasonJournalSnapshotIfNeeded(previousRoundForSeasonJournal);
+syncCurrentRound();
+const entriesFinalized=finalizeSeasonJournalEntries();
+if(snapshotTaken||entriesFinalized)saveLocal({cloud:false});
+wireTabs();renderActive();dismissBootSplash();initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
  updateStatusFreshnessLabel();startLiveStatusRefresh();ensureNotifSeenInitialized();renderNotifBadge();
 }
 /* Real freshness readout instead of the always-blank stub this was. The
@@ -6420,7 +6590,12 @@ async function refreshTrustDataNow(){
  ]);
  App.weather=weather;App.playerStatus=playerStatus;App.statusTruth=statusTruth;App.currentRoundMeta=currentRoundMeta;App.availabilityOverrides=availabilityOverrides;App.teamLists=teamLists;App.officialTeamLists=officialTeamLists;App.originUnavailable=originUnavailable;App.opponentDifficulty=opponentDifficulty;App.positionalMatchupsV2=positionalMatchupsV2;App.fixtures=fixtures;App.projectionAccuracy=projectionAccuracy;
  await loadFormHistory();
- syncCurrentRound();App.projectionCache.clear();if(typeof invalidateRoundProjCache==='function')invalidateRoundProjCache();updateStatusFreshnessLabel();renderActive();
+ const previousRoundForSeasonJournal=App.round;
+ captureSeasonJournalSnapshotIfNeeded(previousRoundForSeasonJournal);
+ syncCurrentRound();
+ const seasonJournalChanged=finalizeSeasonJournalEntries();
+ if(seasonJournalChanged)saveLocal();
+ App.projectionCache.clear();if(typeof invalidateRoundProjCache==='function')invalidateRoundProjCache();updateStatusFreshnessLabel();renderActive();
  const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';
  if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed');
 }
@@ -9596,7 +9771,7 @@ function forceOnlyActiveTab(){
 }
 
 function setActiveTab(tab){
-  if (!['team','bye','level3','explorer','trade'].includes(tab)) tab = 'team';
+  if (!['team','bye','level3','explorer','trade','season'].includes(tab)) tab = 'team';
   if (App.active === tab && App.__renderedTab === tab) {
     forceOnlyActiveTab();
     return;
@@ -9621,6 +9796,7 @@ function renderActive(){
     else if (App.active === 'level3') renderLevel3();
     else if (App.active === 'explorer') renderExplorer();
     else if (App.active === 'trade') renderTrade();
+    else if (App.active === 'season') renderSeason();
     App.__renderedTab = App.active;
     forceOnlyActiveTab();
     refreshOpenPlayerCardAfterRender();
@@ -9770,6 +9946,79 @@ function formRadarCardHtml(){
    ${risers.length ? `<div class="l3-form-col"><h3>Risers</h3>${risers.map(o => row(o, 'up')).join('')}</div>` : ''}
    ${fallers.length ? `<div class="l3-form-col"><h3>Fallers</h3>${fallers.map(o => row(o, 'down')).join('')}</div>` : ''}
   </div>
+ </div>`;
+}
+
+/* Season Journey - the real, honest history of what your OWN team has
+   actually scored, round by round (see the Season Journey block near
+   loadFormHistory() for the capture/finalize logic). Renders a real SVG
+   line chart from actual entries only - never interpolating or
+   fabricating a round that hasn't been recorded or scored yet. */
+function seasonChartSvg(scored){
+ const w=760,h=220,padL=44,padR=16,padT=16,padB=32;
+ const scores=scored.map(e=>e.actualScore);
+ const lo=Math.min(...scores,0),hi=Math.max(...scores);
+ const span=(hi-lo)||1;
+ const coords=scored.map((e,i)=>{
+  const x=scored.length>1?padL+(i/(scored.length-1))*(w-padL-padR):(w/2);
+  const y=padT+(1-(e.actualScore-lo)/span)*(h-padT-padB);
+  return {x,y,round:e.round,score:e.actualScore};
+ });
+ const lineD=coords.map((c,i)=>`${i===0?'M':'L'}${c.x.toFixed(1)},${c.y.toFixed(1)}`).join(' ');
+ const areaD=`${lineD} L${coords[coords.length-1].x.toFixed(1)},${(h-padB).toFixed(1)} L${coords[0].x.toFixed(1)},${(h-padB).toFixed(1)} Z`;
+ const dots=coords.map(c=>`<circle class="season-dot" cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="4"/>`).join('');
+ const labels=coords.map(c=>`<text class="season-axis-label" x="${c.x.toFixed(1)}" y="${h-10}" text-anchor="middle">R${esc(c.round)}</text>`).join('');
+ return `<svg class="season-chart-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" role="img" aria-label="Your team's real round-by-round score">
+  <defs><linearGradient id="seasonAreaGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#58a6ff" stop-opacity=".7"/><stop offset="100%" stop-color="#58a6ff" stop-opacity="0"/></linearGradient></defs>
+  <path class="season-area" d="${areaD}"/>
+  <path class="season-line" d="${lineD}"/>
+  ${dots}
+  ${labels}
+ </svg>`;
+}
+function renderSeason(){
+ const box=$('season');
+ if(!box)return;
+ const journal=[...(App.seasonJournal||[])].sort((a,b)=>a.round-b.round);
+ const scored=journal.filter(e=>Number.isFinite(e.actualScore));
+ const pending=journal.filter(e=>!Number.isFinite(e.actualScore));
+
+ let body;
+ if(!journal.length){
+  body=`<div class="season-empty-card">
+   <div class="wr-hero-icon" style="margin:0 auto">${wrIcon('season')}</div>
+   <h2 style="margin:14px 0 0">Season Journey starts now</h2>
+   <p>Your team's real round-by-round score will appear here once this round finishes and its results are captured. There's no way to honestly reconstruct earlier rounds you weren't tracked for, so this never backfills or guesses - it only ever records what genuinely happens from here.</p>
+  </div>`;
+ }else{
+  const totalScored=scored.length;
+  const avg=totalScored?Math.round(scored.reduce((s,e)=>s+e.actualScore,0)/totalScored):null;
+  const best=totalScored?[...scored].sort((a,b)=>b.actualScore-a.actualScore)[0]:null;
+  const statsRow=`<div class="season-stats-row">
+   <div class="season-stat"><b>${totalScored}</b><span>Rounds Scored</span></div>
+   ${avg!=null?`<div class="season-stat"><b>${avg}</b><span>Average Score</span></div>`:''}
+   ${best?`<div class="season-stat"><b>${best.actualScore}</b><span>Best Round (R${esc(best.round)})</span></div>`:''}
+  </div>`;
+  const chartCard=totalScored>=2
+   ?`<div class="season-chart-card"><h3>Real Score By Round</h3>${seasonChartSvg(scored)}</div>`
+   :(totalScored===1?`<div class="season-chart-card"><h3>Real Score By Round</h3><p class="small" style="color:var(--muted)">R${esc(scored[0].round)}: ${esc(scored[0].actualScore)} pts. The chart appears once a second round is scored.</p></div>`:'');
+  const roundsList=[...journal].reverse().map(e=>`<div class="season-round-row"><span>R${esc(e.round)}</span><span class="season-round-meta">${e.captain?'C: '+esc(e.captain):''}</span>${Number.isFinite(e.actualScore)?`<span class="season-round-score">${e.actualScore} pts</span>`:'<span class="season-round-pending">Pending</span>'}</div>`).join('');
+  const roundsCard=`<div class="season-rounds-card"><h3>Round By Round</h3>${roundsList}</div>`;
+  body=`${statsRow}${chartCard}${roundsCard}`;
+ }
+
+ box.innerHTML=`<div class="l3-shell">
+  <div class="l3-hero">
+   <div class="wr-hero-row">
+    <div class="wr-hero-icon">${wrIcon('season')}</div>
+    <div>
+     <p class="l3-kicker">War Room Season Intelligence</p>
+     <h1>Season Journey</h1>
+     <p>Your team's real score, round by round - recorded from your actual lineup and finalized once real results are captured. ${pending.length?`${pending.length} round${pending.length===1?'':'s'} still waiting on real results.`:''}</p>
+    </div>
+   </div>
+  </div>
+  ${body}
  </div>`;
 }
 
