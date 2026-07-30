@@ -27,6 +27,19 @@
  --ease:cubic-bezier(.22,.9,.32,1);
 }
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 20% 0%,#0b1a33,#050914 45%,#02040a);color:var(--text);font-family:var(--font)}button,input,select{font:inherit}button{background:linear-gradient(180deg,#1b2d4a,#111d31);color:var(--text);border:1px solid var(--line);border-radius:var(--radius-sm);padding:var(--sp-2) var(--sp-3);font-size:var(--fs-sm);font-weight:900;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.22);transition:transform .15s var(--ease),filter .15s var(--ease),box-shadow .15s var(--ease)}button.active{background:linear-gradient(180deg,#63b2ff,#348ef2);color:#031225}button:hover{filter:brightness(1.08);transform:translateY(-1px)}button:active{transform:translateY(0)}input,select{background:#081120;color:var(--text);border:1px solid var(--line);border-radius:var(--radius-sm);padding:var(--sp-2);font-size:var(--fs-sm);width:100%;transition:border-color .15s var(--ease),box-shadow .15s var(--ease)}input:focus,select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(88,166,255,.22)}label{display:block;color:var(--muted);font-size:var(--fs-sm);margin:var(--sp-3) 0 var(--sp-1)}nav{position:sticky;top:0;z-index:20;display:flex;gap:var(--sp-2);align-items:center;padding:var(--sp-3) var(--sp-4);background:rgba(3,7,15,.92);border-bottom:1px solid var(--line);backdrop-filter:blur(14px);overflow:auto}.spacer{flex:1}.live{font-size:12px;font-weight:900}.badge{display:inline-flex;gap:var(--sp-1);align-items:center;padding:var(--sp-1) var(--sp-2);font-size:var(--fs-xs);border-radius:999px;background:#10213a;border:1px solid var(--line)}.on{background:#21c55d;color:#031225}.red{background:#ef4444}.tab{display:none}.tab.active-tab{display:block;animation:wr-tab-in .18s var(--ease)}
+/* Real bug found via UX walkthrough: on narrow widths nav overflows and
+   scrolls horizontally (Trade Lab/Season/Refresh/notifications end up
+   off-screen), but nothing ever hinted it was scrollable at all - a real
+   user has no reason to think to swipe a top nav bar. This is a sticky
+   child of nav itself (not a separate overlay), so it always sits at the
+   true visible right edge as the user scrolls, and updateNavScrollHint()
+   (wired to nav's scroll/resize) hides it once there's genuinely nothing
+   further to reveal. */
+.nav-scroll-hint{position:sticky;right:0;flex:0 0 auto;display:none;align-items:center;justify-content:center;width:30px;height:30px;margin-left:-10px;border-radius:50%;background:linear-gradient(90deg,transparent,rgba(3,7,15,.96) 60%);pointer-events:none}
+.nav-scroll-hint.show{display:flex}
+.nav-scroll-hint svg{width:15px;height:15px;color:#58a6ff;animation:navScrollHintNudge 1.6s ease-in-out infinite}
+@keyframes navScrollHintNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(3px)}}
+@media(prefers-reduced-motion:reduce){.nav-scroll-hint svg{animation:none}}
 @keyframes wr-tab-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.tab.active-tab{animation:none}}.screen{min-height:calc(100vh - 66px);padding:14px}.side,.reserves,.tips,.panel{background:linear-gradient(180deg,rgba(15,26,43,.96),rgba(7,14,26,.96));border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 45px rgba(0,0,0,.28);transition:box-shadow .2s ease}.side{padding:16px}.side h2,.reserves h2{margin:0 0 14px;font-size:22px}.metric-label{color:var(--muted);font-size:13px;margin-top:15px}.metric{font-size:28px;font-weight:950;margin-top:4px}.metric.good{color:var(--good)}.side-actions{display:grid;gap:9px;margin-top:18px}.legend{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}.legend-row{display:flex;gap:9px;align-items:center;margin:10px 0;color:var(--muted);font-size:13px}.dot{width:13px;height:13px;border-radius:50%;display:inline-block;background:var(--good);box-shadow:0 0 12px currentColor}.dot.warn{background:var(--warn)}.dot.bad{background:var(--bad)}.dot.bye{background:var(--bye)}.hr{border:0;border-top:1px solid var(--line);margin:14px 0}.small{font-size:var(--fs-xs);color:var(--muted);line-height:1.35}.status-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-left:4px;background:var(--good)}.status-dot.warn{background:var(--warn)}.status-dot.bad{background:var(--bad)}.status-dot.bye{background:var(--bye)}
 .status-dot.expected{background:var(--warn);box-shadow:0 0 10px var(--warn)}
@@ -5460,7 +5473,7 @@ a:focus-visible{
 <button data-tab="explorer"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg><span>Player Explorer</span></button>
 <button data-tab="trade"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.6 8.2h14.7M14.6 4l3.7 4.2-3.7 4.2"/><path d="M20.4 15.8H5.7M9.4 20l-3.7-4.2 3.7-4.2"/></svg><span>Trade Lab</span></button>
 <button data-tab="season"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 19V9M10 19V5M16 19v-7"/><path d="M3 19h18"/></svg><span>Season</span></button>
-<div class="spacer"></div><button type="button" id="navRefreshBtn" onclick="refreshTrustDataNow()" title="Refresh live data now" aria-label="Refresh live data now" style="padding:9px 11px">Refresh</button><button type="button" id="notifBell" title="Recent status changes" aria-label="Recent status changes" style="position:relative;padding:9px 11px"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.2 9.4a5.8 5.8 0 0 1 11.6 0c0 4.2 1.6 5.7 2.2 6.6H4c.6-.9 2.2-2.4 2.2-6.6Z"/><path d="M9.6 18.4a2.4 2.4 0 0 0 4.8 0"/></svg><span id="notifBadge" class="badge red" style="position:absolute;top:-4px;right:-4px;display:none;min-width:18px;height:18px;padding:0 4px;border-radius:999px;font-size:11px;align-items:center;justify-content:center;line-height:1"></span></button><span id="syncStatus" class="wr-sync-pill warn">Sync off</span><span id="statusFreshness" class="small" style="opacity:0.6;margin-right:8px"></span><span class="live">SC PLUS</span><span class="badge red wr-live-badge"><span class="wr-live-dot"></span>LIVE</span><span class="badge on">ON</span>
+<div class="spacer"></div><button type="button" id="navRefreshBtn" onclick="refreshTrustDataNow()" title="Refresh live data now" aria-label="Refresh live data now" style="padding:9px 11px">Refresh</button><button type="button" id="notifBell" title="Recent status changes" aria-label="Recent status changes" style="position:relative;padding:9px 11px"><svg class="wr-icon nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.2 9.4a5.8 5.8 0 0 1 11.6 0c0 4.2 1.6 5.7 2.2 6.6H4c.6-.9 2.2-2.4 2.2-6.6Z"/><path d="M9.6 18.4a2.4 2.4 0 0 0 4.8 0"/></svg><span id="notifBadge" class="badge red" style="position:absolute;top:-4px;right:-4px;display:none;min-width:18px;height:18px;padding:0 4px;border-radius:999px;font-size:11px;align-items:center;justify-content:center;line-height:1"></span></button><span id="syncStatus" class="wr-sync-pill warn">Sync off</span><span id="statusFreshness" class="small" style="opacity:0.6;margin-right:8px"></span><span class="live">SC PLUS</span><span class="badge red wr-live-badge"><span class="wr-live-dot"></span>LIVE</span><span class="badge on">ON</span><span id="navScrollHint" class="nav-scroll-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span>
 </nav>
 <div class="screen">
 <section id="team" class="tab active-tab"></section>
@@ -6565,7 +6578,7 @@ const snapshotTaken=hadStoredRoundForSeasonJournal&&captureSeasonJournalSnapshot
 syncCurrentRound();
 const entriesFinalized=finalizeSeasonJournalEntries();
 if(snapshotTaken||entriesFinalized)saveLocal({cloud:false});
-wireTabs();renderActive();dismissBootSplash();loadDeferredBootData().catch(e=>console.warn('Deferred boot data failed',e));initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
+wireTabs();wireNavScrollHint();renderActive();dismissBootSplash();loadDeferredBootData().catch(e=>console.warn('Deferred boot data failed',e));initCloudSync().then(()=>renderActive()).catch(e=>{console.warn('Cloud sync startup failed',e);syncSetStatus('error','Sync error');renderActive();});
  updateStatusFreshnessLabel();startLiveStatusRefresh();ensureNotifSeenInitialized();renderNotifBadge();
 }
 /* Real freshness readout instead of the always-blank stub this was. The
@@ -9299,12 +9312,10 @@ function renderTrade(){$('trade').innerHTML=`<div class="l3-shell">
    <div>
     <p class="l3-kicker">War Room Trade Intelligence</p>
     <h1>Trade Lab</h1>
-    <p>Trade Radar surfaces real downgrade-vs-upgrade signals from your squad's next 5 games. Use Trade Lab below to score or apply any trade yourself.</p>
+    <p>Pick a trade below to score or apply it yourself - Trade Radar and Trending Trade Targets further down surface real suggestions if you want ideas first.</p>
    </div>
   </div>
  </div>
- ${tradeRadarHtml()}
- ${formRadarTradeTargetsHtml()}
  <div class="grid">
   <div class="panel span4">
    <h2>Trade Lab</h2>
@@ -9319,6 +9330,8 @@ function renderTrade(){$('trade').innerHTML=`<div class="l3-shell">
    <div id="tradeVerdict"><div class="wr-empty"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17V10M12 17V6M17 17v-4"/></svg><div class="wr-empty-title">No trade scored yet</div><div class="wr-empty-sub">Pick a player to trade out and one to trade in above, then Score Trade.</div></div></div>
   </div>
  </div>
+ ${tradeRadarHtml()}
+ ${formRadarTradeTargetsHtml()}
 </div>`}
 
 
@@ -9887,6 +9900,26 @@ function wireTabs(){
     b.onclick = ev => { ev.preventDefault(); ev.stopPropagation(); setActiveTab(b.dataset.tab); return false; };
     b.ontouchend = ev => { ev.preventDefault(); ev.stopPropagation(); setActiveTab(b.dataset.tab); return false; };
   });
+}
+
+// Shows the sticky nav-scroll-hint chevron only when nav is genuinely
+// scrolled horizontally with real content still hidden past the right
+// edge - hides itself once there's nothing further to reveal, so it
+// never lingers as a false "there's more" signal.
+function updateNavScrollHint(){
+  const nav=document.querySelector('nav'),hint=$('navScrollHint');
+  if(!nav||!hint)return;
+  const hasOverflow=nav.scrollWidth>nav.clientWidth+2;
+  const atEnd=nav.scrollLeft+nav.clientWidth>=nav.scrollWidth-2;
+  hint.classList.toggle('show',hasOverflow&&!atEnd);
+}
+function wireNavScrollHint(){
+  const nav=document.querySelector('nav');
+  if(!nav||nav.dataset.scrollHintWired)return;
+  nav.dataset.scrollHintWired='1';
+  nav.addEventListener('scroll',updateNavScrollHint,{passive:true});
+  window.addEventListener('resize',updateNavScrollHint);
+  updateNavScrollHint();
 }
 
 function renderActive(){
