@@ -4706,6 +4706,19 @@ nav .wr-brand-word{
 .l3-accuracy-pos-pill{padding:6px 11px;border-radius:8px;background:#0b1626;border:1px solid var(--line);font-size:11px;font-weight:800;color:#dbeafe}
 .l3-accuracy-pos-pill small{opacity:.6;font-weight:700;margin-left:3px}
 
+/* Form Radar - see formRadarCardHtml(). League-wide real risers/fallers,
+   built only from data already on every player record. */
+.l3-form-radar-card{margin-top:18px;padding:20px 22px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(135deg,#0d1b2e,#070d17 70%)}
+.l3-form-radar-cols{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.l3-form-col h3{margin:0 0 8px;font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.l3-form-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid rgba(255,255,255,.06)}
+.l3-form-row:first-of-type{border-top:0}
+.l3-form-row .player-name-link{font-weight:850;color:#fff;flex:0 0 auto}
+.l3-form-meta{flex:1 1 auto;font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.l3-form-delta{font-family:var(--font-mono);font-size:14px;flex:0 0 auto}
+.l3-form-delta.up{color:#32d168}
+.l3-form-delta.down{color:#ff4d4d}
+
 /* Captain/Vice reveal - the C/VC badge is the single highest-stakes call
    on the page (it doubles or loses a score) but used to just sit there as
    a flat pill. Gives it a real "the pick has been made" moment: badge
@@ -5464,7 +5477,8 @@ const WR_ICON_PATHS={
  explorer:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/>',
  trade:'<path d="M3.6 8.2h14.7M14.6 4l3.7 4.2-3.7 4.2"/><path d="M20.4 15.8H5.7M9.4 20l-3.7-4.2 3.7-4.2"/>',
  bell:'<path d="M6.2 9.4a5.8 5.8 0 0 1 11.6 0c0 4.2 1.6 5.7 2.2 6.6H4c.6-.9 2.2-2.4 2.2-6.6Z"/><path d="M9.6 18.4a2.4 2.4 0 0 0 4.8 0"/>',
- crystal:'<circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1"/>'
+ crystal:'<circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1"/>',
+ pulse:'<path d="M3 12h4l2-7 4 14 2-7h6"/>'
 };
 function wrIcon(name,cls){return `<svg class="wr-icon${cls?' '+cls:''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${WR_ICON_PATHS[name]||''}</svg>`}
 /* Animates a .wr-gauge from 0 to a real value instead of snapping straight
@@ -9544,6 +9558,7 @@ function renderLevel3(){
    </div>
    <div class="l3-table-card"><div class="tbl-scroll"><table><thead><tr><th>Player</th><th>Pos</th><th>Team</th><th>Floor</th><th>Expected</th><th>Ceiling</th><th>Risk</th><th>Status</th><th>Why</th></tr></thead><tbody>${rows.map(row => { const p = row.p, pr = row.pr; return `<tr><td><span class="level-player-cell">${teamIconHtml(p,'level-team-badge')}<b class="player-name-link" role="button" tabindex="0" onpointerdown="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation()" onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();openPlayerCard('${window.jsq(p.name)}')">${esc(p.name)}</b></span></td><td>${esc(positionText(p))}</td><td>${esc(p.team||'')}</td><td>${pr.floor}</td><td><b>${pr.expected}</b></td><td>${pr.ceiling}</td><td>${projectionRiskPill(pr)}</td><td>${statusPill(p)}</td><td class="small">${(pr.reasons||[]).slice(0,2).map(esc).join(' | ')}</td></tr>`; }).join('')}</tbody></table></div></div>
    ${renderProjectionAccuracy()}
+   ${formRadarCardHtml()}
   </div>`;
   box.dataset.rendered = '1';
   App.__level3CacheKey = key;
@@ -9604,6 +9619,47 @@ function renderProjectionAccuracy(){
    </div>
    ${positions.length ? `<div class="l3-accuracy-positions">${positions.map(([pos, s]) => `<div class="l3-accuracy-pos-pill">${esc(pos)}: ±${s.meanAbsoluteError}<small>(${s.samples})</small></div>`).join('')}</div>` : ''}
   </div>`;
+}
+
+/* Form Radar - a real, league-wide "who's actually hot/cold right now"
+   view, built entirely from data already on every player's own record
+   (last3Avg/seasonAvg - the same numbers already shown as stat tiles on
+   the player card). Never a separate fetch or a guessed number: a
+   player only appears once they have a genuine last3Avg and a season
+   average with a reasonable sample (seasonAvg >= 25), so a fringe
+   player who has barely played can't dominate the list off one big
+   game. Complements the per-player Form Sparkline with a cross-player
+   discovery view - who's trending, not just how one player has trended. */
+function formRadarRows(){
+ return (App.players || [])
+  .filter(p => p && p.name && p.team)
+  .map(p => { const pr = roundProj(p); return { p, pr, delta: (pr.last3Avg||0) - (pr.seasonAvg||0) }; })
+  .filter(o => o.pr.seasonAvg >= 25 && o.pr.last3Avg > 0);
+}
+function formRadarCardHtml(){
+ const rows = formRadarRows();
+ if(rows.length < 6) return '';
+ // A +/-5pt threshold, not just "any positive/negative delta" - round-to-
+ // round noise on real scores easily produces a +1 or -1 that isn't a real
+ // trend, and showing it as a "riser" would be misleading.
+ const risers = [...rows].sort((a, b) => b.delta - a.delta).slice(0, 5).filter(o => o.delta >= 5);
+ const fallers = [...rows].sort((a, b) => a.delta - b.delta).slice(0, 5).filter(o => o.delta <= -5);
+ if(!risers.length && !fallers.length) return '';
+ const row = (o, dir) => `<div class="l3-form-row"><span class="player-name-link" role="button" tabindex="0" onclick="openPlayerCard('${window.jsq(o.p.name)}')">${esc(o.p.name)}</span><span class="l3-form-meta">${esc(positionText(o.p))} · ${esc(o.p.team||'')}</span><b class="l3-form-delta ${dir}">${dir==='up'?'+':''}${Math.round(o.delta)}</b></div>`;
+ return `<div class="l3-form-radar-card">
+  <div class="wr-hero-row">
+   <div class="wr-hero-icon">${wrIcon('pulse')}</div>
+   <div>
+    <p class="l3-kicker">Form Radar</p>
+    <h2 style="margin:2px 0">Real Risers &amp; Fallers</h2>
+    <p>Last 3 rounds vs season average, across the real player pool - who's genuinely heating up or cooling off right now.</p>
+   </div>
+  </div>
+  <div class="l3-form-radar-cols">
+   ${risers.length ? `<div class="l3-form-col"><h3>Risers</h3>${risers.map(o => row(o, 'up')).join('')}</div>` : ''}
+   ${fallers.length ? `<div class="l3-form-col"><h3>Fallers</h3>${fallers.map(o => row(o, 'down')).join('')}</div>` : ''}
+  </div>
+ </div>`;
 }
 
 function renderExplorer(){
