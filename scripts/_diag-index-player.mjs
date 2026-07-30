@@ -1,11 +1,10 @@
 const UA = "Mozilla/5.0 (compatible; SuperCoachWarRoomBot/1.0)";
-const names = ["Nathan Cleary", "Cameron Munster"];
-for (const name of names) {
-  const url = `https://www.nrlsupercoachstats.com/index.php?player=${encodeURIComponent(name)}`;
-  const res = await fetch(url, { headers: { "user-agent": UA } });
-  const html = await res.text();
-  console.log(`[diag] ${name} -> status ${res.status}, length ${html.length}`);
-  const drawIdx = html.indexOf("Draw");
-  console.log(`[diag] ${name} snippet around "Draw":`, drawIdx !== -1 ? html.slice(drawIdx - 200, drawIdx + 3000) : "NOT FOUND");
-  console.log("=====");
-}
+const url = `https://www.nrlsupercoachstats.com/index.php?player=${encodeURIComponent("Nathan Cleary")}`;
+const res = await fetch(url, { headers: { "user-agent": UA } });
+const html = await res.text();
+console.log("[diag] status:", res.status, "length:", html.length);
+// Find the body content, skip the nav menu
+const bodyIdx = html.indexOf("</nav>");
+const altBodyIdx = bodyIdx !== -1 ? bodyIdx : html.indexOf("<body");
+console.log("[diag] content from offset", altBodyIdx, "to +6000:");
+console.log(html.slice(altBodyIdx, altBodyIdx + 6000));
