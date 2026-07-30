@@ -93,12 +93,21 @@ jobs:
         if: steps.run_updater.outputs.proceeded == 'true'
         run: node scripts/capture-projections.mjs
 
+      # Real "how right were we" record - compares whatever rounds now have
+      # both a captured projection and a real completed score. Withholds
+      # any metric until enough real comparisons exist (see the script's
+      # own MIN_SAMPLES gates), so this never publishes a number before it
+      # can be trusted.
+      - name: Build projection accuracy
+        if: steps.run_updater.outputs.proceeded == 'true'
+        run: node scripts/build-projection-accuracy.mjs
+
       - name: Commit updated players.json
         if: steps.run_updater.outputs.proceeded == 'true'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add players.json data/history/positional data/history/scores data/history/projections data/positional_matchups_v2.json data/price_update_state.json
+          git add players.json data/history/positional data/history/scores data/history/projections data/projection_accuracy.json data/positional_matchups_v2.json data/price_update_state.json
           git commit -m "Update SuperCoach price and BE data" || echo "No changes"
           git pull --rebase origin main
           git push
