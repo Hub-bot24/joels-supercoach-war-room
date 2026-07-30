@@ -18,13 +18,14 @@ test("Trade Lab's manual trade tool renders before Trade Radar and Trending Trad
 
     const result = await page.evaluate(() => {
       const html = document.getElementById("trade").innerHTML;
+      const tradeOutTop = document.getElementById("tradeOut")?.getBoundingClientRect().top ?? null;
+      const tradeRadarHeading = [...document.querySelectorAll(".trade-radar h3")].find(h => h.textContent === "Trade Radar");
       return {
         tradeLabIndex: html.indexOf('id="tradeOut"'),
         tradeRadarIndex: html.indexOf(">Trade Radar<"),
         trendingIndex: html.indexOf(">Trending Trade Targets<"),
-        scoreTradeVisible: document.getElementById("tradeOut")
-          ? document.getElementById("tradeOut").getBoundingClientRect().top < 400
-          : null
+        tradeOutTop,
+        tradeRadarHeadingTop: tradeRadarHeading?.getBoundingClientRect().top ?? null
       };
     });
 
@@ -34,7 +35,11 @@ test("Trade Lab's manual trade tool renders before Trade Radar and Trending Trad
     if (result.trendingIndex >= 0) {
       assert.ok(result.trendingIndex > result.tradeLabIndex, "expected Trending Trade Targets to come after the manual Trade Lab tool");
     }
-    assert.ok(result.scoreTradeVisible, "expected the Trade OUT input to be near the top of the page, not buried below the fold");
+    // Relative position, not an absolute pixel threshold - hero text can
+    // wrap differently across environments/font stacks, but the manual
+    // tool must always render physically above Trade Radar's real card.
+    assert.ok(result.tradeOutTop != null && result.tradeRadarHeadingTop != null, "expected both the Trade OUT input and the Trade Radar heading to be real, measurable elements");
+    assert.ok(result.tradeOutTop < result.tradeRadarHeadingTop, "expected the Trade OUT input to render physically above the Trade Radar card, not buried below it");
   } finally {
     await close();
   }
