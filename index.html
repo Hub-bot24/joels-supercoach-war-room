@@ -4727,6 +4727,14 @@ nav .wr-brand-word{
 .wr-range-marker:before{content:'';display:block;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid #58a6ff;box-shadow:0 0 12px rgba(88,166,255,.75)}
 .wr-range-marker b{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);font-size:13px;font-weight:950;color:#fff;font-family:var(--font-mono);white-space:nowrap;text-shadow:0 2px 6px rgba(0,0,0,.6)}
 .wr-range-labels{display:flex;justify-content:space-between;margin-top:9px;font-size:10px;font-weight:800;color:rgba(255,255,255,.65);letter-spacing:.04em;text-transform:uppercase}
+
+/* Real per-round score trend on the player card - see playerFormSparklineHtml().
+   Renders only when there's genuine captured history, so this is absent
+   entirely for most players until Level 4 capture has run a few rounds. */
+.wr-form-spark{width:100%;margin-top:14px;border-radius:14px;background:rgba(255,255,255,.06);padding:10px 12px}
+.wr-form-spark-head{display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:800;color:rgba(255,255,255,.65);letter-spacing:.04em;text-transform:uppercase}
+.wr-form-spark-head b{font-size:12px;font-family:var(--font-mono);letter-spacing:0;text-transform:none}
+.wr-form-spark svg{display:block;width:100%;height:44px;margin-top:6px}
 @keyframes wr-marker-in{from{opacity:0;transform:translate(-50%,-50%) scale(0)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 @media(prefers-reduced-motion:reduce){.wr-range-marker{animation:none}}
 
@@ -5496,6 +5504,44 @@ function wrRangeBarHtml(pr){
   <div class="wr-range-labels"><span>Floor ${floor}</span><span>Ceiling ${ceiling}</span></div>
  </div>`;
 }
+// Real per-round score trend on the player card, drawn straight from
+// App.formHistory (data/history/scores/<year>.json - see #277/loadFormHistory).
+// Every point plotted is a genuine captured SuperCoach score for that exact
+// round; a round the player didn't play (or that hasn't been captured yet)
+// is simply absent, never interpolated or zero-filled. Renders nothing
+// rather than a misleading line when there's fewer than 2 real points.
+function playerFormSparklineHtml(p){
+ const rounds=App.formHistory?.players?.[p?.name];
+ if(!rounds||typeof rounds!=='object')return '';
+ const points=Object.entries(rounds)
+  .map(([round,score])=>({round:Number(round),score:Number(score)}))
+  .filter(pt=>Number.isFinite(pt.round)&&Number.isFinite(pt.score))
+  .sort((a,b)=>a.round-b.round)
+  .slice(-8);
+ if(points.length<2)return '';
+ const scores=points.map(pt=>pt.score);
+ const lo=Math.min(...scores),hi=Math.max(...scores);
+ const span=hi-lo||1;
+ const w=200,h=44,pad=4;
+ const coords=points.map((pt,i)=>{
+  const x=points.length>1?pad+(i/(points.length-1))*(w-pad*2):w/2;
+  const y=pad+(1-(pt.score-lo)/span)*(h-pad*2);
+  return {x,y};
+ });
+ const pathD=coords.map((c,i)=>`${i===0?'M':'L'}${c.x.toFixed(1)},${c.y.toFixed(1)}`).join(' ');
+ const first=scores[0],last=scores[scores.length-1];
+ const trendUp=last>first,trendFlat=last===first;
+ const trendColor=trendFlat?'#9fb0c7':(trendUp?'#32d168':'#ff4d4d');
+ const trendArrow=trendFlat?'→':(trendUp?'↑':'↓');
+ const dots=coords.map((c,i)=>`<circle cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="${i===coords.length-1?3.4:2.2}" fill="${i===coords.length-1?trendColor:'rgba(255,255,255,.55)'}"/>`).join('');
+ return `<div class="wr-form-spark">
+  <div class="wr-form-spark-head"><span>Last ${points.length} Rounds</span><b style="color:${trendColor}">${trendArrow} ${esc(first)} → ${esc(last)}</b></div>
+  <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" role="img" aria-label="Recent SuperCoach score trend">
+   <path d="${pathD}" fill="none" stroke="${trendColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+   ${dots}
+  </svg>
+ </div>`;
+}
 function esc(s){return String(s??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 window.jsq = function(value){const s=String(value==null?'':value);return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\r/g,'\\r').replace(/\n/g,'\\n').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029')}
 function norm(s){return String(s||'').toLowerCase().replace(/[^a-z0-9/\s'-]/g,' ').replace(/\s+/g,' ').trim()}
@@ -6206,6 +6252,15 @@ function mergePositionPlayers(target,data){
  }
  return target;
 }
+// Real per-round score history (data/history/scores/<year>.json, built by
+// scripts/capture-player-scores.mjs from real, verified per-round
+// SuperCoach scores - see #277). Season comes from fixtures.json's own
+// "year" field, already loaded, rather than hardcoding a season number
+// that would silently go stale next year.
+async function loadFormHistory(){
+ const year=App.fixtures?.year||wrGkCurrentSeason();
+ App.formHistory=await fetchJson(`data/history/scores/${year}.json`,null);
+}
 async function loadDualPositionsCore(){
  const sources=[
   'data/dual_positions.json',
@@ -6262,7 +6317,7 @@ async function boot(){
  ]);
  let arr=Array.isArray(rawPlayers)?rawPlayers:(Array.isArray(rawPlayers.players)?rawPlayers.players:[]);App.players=arr.map(cleanPlayer).filter(p=>p.name);App.playerMap=new Map(App.players.map(p=>[p.name,p]));buildPlayerNameMap();
  App.weather=weather;App.goalKickers=goalKickers;App.goalKickerEvidence=goalKickerEvidence;App.teamRoles=teamRoles;App.availabilityOverrides=availabilityOverrides;App.fixtures=fixtures;App.playerStatus=playerStatus;App.statusTruth=statusTruth;App.currentRoundMeta=currentRoundMeta;App.playerPhotos=playerPhotos;App.teamLists=teamLists;App.officialTeamLists=officialTeamLists;App.originUnavailable=originUnavailable;App.opponentDifficulty=opponentDifficulty;App.positionalMatchupsV2=positionalMatchupsV2;App.teamlistChanges=teamlistChanges;App.projectionAccuracy=projectionAccuracy;
- await loadDualPositionsCore();syncCurrentRound();
+ await loadDualPositionsCore();await loadFormHistory();syncCurrentRound();
  const localTeam=safeJsonParse(safeLocalGet('sc_myTeam','null'),null);let names=Array.isArray(localTeam)&&localTeam.length?localTeam:(teamJson?.players||teamJson?.team||[]);if(!Array.isArray(names))names=[];
  names = names.map(x => typeof x === 'string' ? x.trim() : (x?.name || x?.player || '')).filter(Boolean);
  const resolvedNames = names.map(n=>resolvePlayerName(n)).filter(Boolean);
@@ -6322,6 +6377,7 @@ async function refreshTrustDataNow(){
   fetchJson('data/projection_accuracy.json',App.projectionAccuracy||null)
  ]);
  App.weather=weather;App.playerStatus=playerStatus;App.statusTruth=statusTruth;App.currentRoundMeta=currentRoundMeta;App.availabilityOverrides=availabilityOverrides;App.teamLists=teamLists;App.officialTeamLists=officialTeamLists;App.originUnavailable=originUnavailable;App.opponentDifficulty=opponentDifficulty;App.positionalMatchupsV2=positionalMatchupsV2;App.fixtures=fixtures;App.projectionAccuracy=projectionAccuracy;
+ await loadFormHistory();
  syncCurrentRound();App.projectionCache.clear();if(typeof invalidateRoundProjCache==='function')invalidateRoundProjCache();updateStatusFreshnessLabel();renderActive();
  const newUpdated=App.playerStatus?.updated||App.playerStatus?.generatedAt||'';
  if(newUpdated&&newUpdated!==oldUpdated)toast('Status data refreshed');
@@ -8783,6 +8839,7 @@ window.openPlayerCard = function(name){
         ${injurySummaryHtml}
 
         ${wrRangeBarHtml(pr)}
+        ${playerFormSparklineHtml(p)}
         ${playerCardNextGameHtml(p)}
         <details data-player-card-details="1" style="margin-top:12px;border-radius:16px;background:rgba(255,255,255,.10);padding:9px 11px;color:#e5edf8;font-weight:750;font-size:13px;line-height:1.35" ontoggle="this.querySelector('[data-wr-details-label]').textContent=this.open?'Hide details ▴':'Details ▾'">
           <summary style="cursor:pointer;display:inline-flex;align-items:center;gap:6px;border-radius:999px;background:rgba(16,33,58,.92);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);padding:5px 10px;font-size:12px;font-weight:950;list-style:none"><span data-wr-details-label>Details ▾</span></summary>
