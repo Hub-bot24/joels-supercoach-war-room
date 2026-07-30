@@ -28,6 +28,9 @@ jobs:
         with:
           node-version: "20"
 
+      - name: TEST ONLY - check official supercoach.com.au robots.txt and homepage
+        run: node scripts/_diag-official-site.mjs
+
       - name: Update fixtures
         run: node scripts/update-fixtures.mjs
 
