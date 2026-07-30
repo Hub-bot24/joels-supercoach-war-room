@@ -7956,12 +7956,12 @@ function formationSlot(slotId,gridArea,picks={}){
  if(!slot)return '';
  if(!p){
   return `<div class="formation-slot" style="grid-area:${gridArea}">
-   <div class="formation-card formation-empty" style="--accent:#335074;--pos:#335074" data-slot="${slotId}" ondragover="allowDropOnSlot(event,'${slotId}')" ondragleave="clearDrop(event)" ondrop="dropOnSlot(event,'${slotId}')">
+   <div class="formation-card formation-empty" style="--accent:#335074;--pos:#335074" data-slot="${slotId}" ondragover="allowDropOnSlot(event,'${slotId}')" ondragleave="clearDrop(event)" ondrop="dropOnSlot(event,'${slotId}')" onclick="emptyFieldTrade('${slotId}')">
     <div class="wr-slot-tag">${esc(slot.short)}</div>
     <div class="wr-team-logo">+</div>
     <div class="formation-name">Empty</div>
     <div class="formation-score">--</div>
-    <div class="formation-meta">Drop player</div>
+    <div class="formation-meta">Tap to add a player</div>
    </div>
   </div>`;
  }
@@ -8125,6 +8125,55 @@ function moveEmptyReserveTeamPlayer(slotId,name){
  saveLocal();
  renderTeam();
  toast(`${p.name} moved to ${slotId}`);
+}
+
+// Real bug this fixes: an empty FIELD slot only ever had drag/drop
+// handlers - no click handler at all - so a brand new user (or anyone
+// with an empty roster) had literally nowhere to click to add their
+// first player, since there's nothing on the bench yet to drag from.
+// Empty RESERVE slots already had this exact working flow
+// (emptyReserveTrade/applyEmptyReserveTrade above); this mirrors it for
+// field slots rather than inventing a new pattern.
+function emptyFieldTrade(slotId){
+ if(!slotById[slotId])return toast("Invalid field slot");
+ App.selectedTeamSlot=slotId;
+ App.selectedReserveTradeName="";
+ App.teamActionMode="emptyFieldTrade";
+ renderTeamActionPanelOnly();
+}
+function applyEmptyFieldTrade(slotId,name){
+ const slot=slotById[slotId],p=getPlayer(name);
+ if(!slot||!p||App.myTeam.includes(p.name)||!eligible(p,slot))return toast("Invalid field trade");
+ if(App.lineup[slotId])return toast(`${slotId} is already full`);
+ App.myTeam.push(p.name);
+ App.lineup[slotId]=p.name;
+ App.selectedTeamSlot="";
+ App.teamActionMode="";
+ clearTradeOptionCache();
+ validateLineup();
+ ensureLineup();
+ saveLocal();
+ renderTeam();
+ toast(`${p.name} added to ${slot.short}`);
+}
+function moveEmptyFieldTeamPlayer(slotId,name){
+ const slot=slotById[slotId],p=getPlayer(name);
+ if(!slot||!p||!App.myTeam.includes(p.name)||!eligible(p,slot))return toast("Invalid field move");
+ if(App.lineup[slotId])return toast(`${slotId} is already full`);
+ for(const k of Object.keys(App.lineup||{})){
+  if(App.lineup[k]===p.name)delete App.lineup[k];
+ }
+ for(const k in (App.reserveOrder||{})){
+  if(App.reserveOrder[k]===p.name)delete App.reserveOrder[k];
+ }
+ App.lineup[slotId]=p.name;
+ App.selectedTeamSlot="";
+ App.teamActionMode="";
+ validateLineup();
+ ensureLineup();
+ saveLocal();
+ renderTeam();
+ toast(`${p.name} moved to ${slot.short}`);
 }
 
 
@@ -8731,6 +8780,29 @@ function projectionIntelligenceHtml(p,pr){const b=pr?.breakdown||{},unc=b.uncert
  return `<div class="player-detail-card"><div class="player-detail-head"><div><div class="player-detail-sub">${esc(subtitle)}</div><div class="player-detail-title">${esc(p.name)}</div></div><button type="button" onclick="cancelTeamAction()">Close</button></div><div class="small">${teamIconHtml(p,'detail-inline-team-badge')} ${esc(p.team||'')}  ${esc(positionText(p))}  ${esc(st.reason||st.label||'')}</div><div class="player-detail-grid"><div class="player-detail-stat"><span>WR Proj</span><b>${pr.expected}</b></div><div class="player-detail-stat"><span>Last Game</span><b>${pr.lastGame||'-'}</b></div><div class="player-detail-stat"><span>Last 3 Ave</span><b>${pr.last3Avg||'-'}</b></div><div class="player-detail-stat"><span>Last 5 Ave</span><b>${pr.last5Avg||'-'}</b></div><div class="player-detail-stat"><span>Season Ave</span><b>${pr.seasonAvg||avg||'-'}</b></div><div class="player-detail-stat"><span>Next 5 Avg</span><b>${next.available?next.avg:'-'}</b></div><div class="player-detail-stat"><span>Next 5 Ex Bye</span><b>${next.available?next.avgExBye:'-'}</b></div><div class="player-detail-stat"><span>BE</span><b>${be||'-'}</b></div><div class="player-detail-stat"><span>Price</span><b style="font-size:16px">${price}</b></div><div class="player-detail-stat"><span>Status</span><b style="font-size:16px">${esc(st.label||'')}</b></div><div class="player-detail-stat"><span>Round</span><b>${App.round}</b></div></div>${projectionIntelligenceHtml(p,pr)}${nextFiveProjectionPanelHtml(p)}<div class="player-detail-actions"><button type="button" onclick="${tradeCall}">Trade</button><button type="button" onclick="cancelTeamAction()">Cancel</button></div></div>`;
 }
 function teamActionHtml(){
+ if(App.teamActionMode==="emptyFieldTrade"){
+  const slotId=App.selectedTeamSlot||"";
+  const slot=slotById[slotId];
+  if(!slot)return '<span style="opacity:.75">Invalid slot.</span>';
+  const usedNow=usedOnField();
+  const currentOpts=App.myTeam
+   .map(n=>getPlayer(n))
+   .filter(Boolean)
+   .filter(p=>!usedNow.has(p.name)&&eligible(p,slot))
+   .sort((a,b)=>roundProj(b).expected-roundProj(a).expected)
+   .slice(0,120);
+  const tradeOpts=App.players
+   .filter(r=>!App.myTeam.includes(r.name)&&eligible(r,slot))
+   .sort((a,b)=>roundProj(b).expected-roundProj(a).expected);
+  const button=(p,fn)=>`<button type="button" onclick="${fn}" style="width:100%;display:grid;grid-template-columns:1fr auto;gap:8px;text-align:left;margin:6px 0"><span><b>${esc(p.name)}</b><br><span class="small">${esc(p.team||"")} · ${esc((positions(p)||[]).join("/")||p.pos||"")}</span></span><b>${roundProj(p).expected}</b></button>`;
+  const moveButtons=currentOpts.length
+   ? `<div class="result"><b>Move current team player (${currentOpts.length})</b><p class="small">Moves a valid player already in your squad into this empty ${esc(slot.short)} slot.</p>${currentOpts.map(p=>button(p,`moveEmptyFieldTeamPlayer('${slotId}','${window.jsq(p.name)}')`)).join("")}</div>`
+   : `<div class="result"><b>Move current team player (0)</b><p class="small">No current squad player is eligible for this empty ${esc(slot.short)} slot.</p></div>`;
+  const tradeButtons=tradeOpts.length
+   ? `<div class="result"><b>Add a new player (${tradeOpts.length})</b><div class="trade-search"><input type="search" placeholder="Search every eligible player by name, club, position or status..." oninput="filterTradeOptions(this.value)" autocomplete="off"></div><div class="trade-option-grid">${tradeOpts.map(p=>tradeOptionButton(p,`applyEmptyFieldTrade('${slotId}','${window.jsq(p.name)}')`)).join("")}</div></div>`
+   : `<div class="result"><b>Add a new player (0)</b><p class="small">No outside player is eligible for this empty ${esc(slot.short)} slot.</p></div>`;
+  return `<div style="position:fixed;right:18px;bottom:18px;z-index:9999;width:min(760px,calc(100vw - 28px));max-height:min(720px,82vh);overflow:auto;background:#071222;border:1px solid #58a6ff;border-radius:18px;padding:14px;box-shadow:0 24px 80px rgba(0,0,0,.72)"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;position:sticky;top:-14px;background:#071222;padding:4px 0 10px"><div><div style="font-size:12px;color:#bfd0e8;font-weight:800">EMPTY ${esc(slot.short)} SLOT</div><div style="font-size:18px;font-weight:950">Add a player to ${esc(slotId)}</div></div><button type="button" onclick="cancelTeamAction()" style="padding:7px 10px;border-radius:10px">Close</button></div>${moveButtons}${tradeButtons}</div>`;
+ }
  if(App.teamActionMode==="emptyReserveTrade"){
   const slotId=App.emptyReserveSlot||"";
   const label=reserveSlotLabel(slotId);
