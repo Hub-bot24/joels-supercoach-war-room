@@ -1,6 +1,540 @@
 {
-  "updated": "2026-07-31T03:50:58.923Z",
+  "updated": "2026-07-31T06:45:53.074Z",
   "round": 22,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Adam Christensen",
+      "team": "GLD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-31T06:45:53.074Z"
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Brock Gray",
+      "team": "GLD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-31T06:45:53.074Z"
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Demitric Vaimauga",
+      "team": "NZL",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Felise Kaufusi",
+      "team": "DOL",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dragons-dolphins-10396498-236414",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 4,
+          "order": 5
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 2,
+          "order": 9
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Isaiya Katoa",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 7, jersey 22).",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dragons-dolphins-10396498-236414",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 4,
+          "order": 5
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 2,
+          "order": 9
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Jacob Halangahu",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dragons-dolphins-10396498-236414",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 4,
+          "order": 5
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 2,
+          "order": 9
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Jaimin Jolliffe",
+      "team": "GLD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-31T06:45:53.074Z"
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Jake Averillo",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Jensen Taumoepeau",
+      "team": "GLD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-31T06:45:53.074Z"
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Jett Liu",
+      "team": "GLD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-31T06:45:53.074Z"
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Luke Sommerton",
+      "team": "GLD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-31T06:45:53.074Z"
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Lyhkan King-Togia",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 6, jersey 19).",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dragons-dolphins-10396498-236414",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 4,
+          "order": 5
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 2,
+          "order": 9
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Mathew Feagai",
+      "team": "STG",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Max Feagai",
+      "team": "GLD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-31T06:45:53.074Z"
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Moses Suli",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 4, jersey 18).",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dragons-dolphins-10396498-236414",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 4,
+          "order": 5
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 2,
+          "order": 9
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Rocco Berry",
+      "team": "NZL",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+          "updatedAt": "2026-07-31T06:45:53.074Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Sialetili Faeamani",
+      "team": "GLD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-31T06:45:53.074Z"
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Tony Francis",
+      "team": "GLD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-31T06:45:53.074Z"
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Tukimihia Simpkins",
+      "team": "GLD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-07-31T06:45:53.074Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-07-31T06:45:53.074Z"
+        }
+      ],
+      "round": 22
+    }
+  ],
   "allChangeCount": 500
 }
