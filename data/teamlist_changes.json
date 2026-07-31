@@ -1,83 +1,5 @@
 [
   {
-    "player": "Roger Tuivasa-Sheck",
-    "team": "NZL",
-    "from": "INJURED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-27T11:07:22.500Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-27T11:07:22.500Z"
-      }
-    ],
-    "round": 22
-  },
-  {
-    "player": "Stephen Crichton",
-    "team": "CAN",
-    "from": "INJURED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-27T11:07:22.500Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-27T11:07:22.500Z"
-      }
-    ],
-    "round": 22
-  },
-  {
-    "player": "Junior Paulo",
-    "team": "PAR",
-    "from": "INJURED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-07-28T04:29:14.761Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-07-28T04:29:14.761Z"
-      }
-    ],
-    "round": 22
-  },
-  {
-    "player": "Adam Doueihi",
-    "team": "WST",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 7).",
-    "detectedAt": "2026-07-28T07:19:07.011Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 22
-  },
-  {
     "player": "Adam Pompey",
     "team": "NZL",
     "from": "EXPECTED",
@@ -12195,6 +12117,146 @@
         "updatedAt": "2026-07-31T09:46:08.865Z",
         "priority": 2,
         "order": 3
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Brad Schneider",
+    "team": "DOL",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 7).",
+    "detectedAt": "2026-07-31T12:01:23.561Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+        "updatedAt": "2026-07-31T12:01:23.561Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-dragons-dolphins-10396498-236414",
+        "updatedAt": "2026-07-31T12:01:23.561Z",
+        "priority": 4,
+        "order": 8
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+        "updatedAt": "2026-07-31T12:01:23.561Z",
+        "priority": 2,
+        "order": 11
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Daniel Atkinson",
+    "team": "STG",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 6).",
+    "detectedAt": "2026-07-31T12:01:23.561Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+        "updatedAt": "2026-07-31T12:01:23.561Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-dragons-dolphins-10396498-236414",
+        "updatedAt": "2026-07-31T12:01:23.561Z",
+        "priority": 4,
+        "order": 8
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+        "updatedAt": "2026-07-31T12:01:23.561Z",
+        "priority": 2,
+        "order": 11
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Emre Guler",
+    "team": "STG",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 20).",
+    "detectedAt": "2026-07-31T12:01:23.561Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+        "updatedAt": "2026-07-31T12:01:23.561Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-dragons-dolphins-10396498-236414",
+        "updatedAt": "2026-07-31T12:01:23.561Z",
+        "priority": 4,
+        "order": 8
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+        "updatedAt": "2026-07-31T12:01:23.561Z",
+        "priority": 2,
+        "order": 11
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Luciano Leilua",
+    "team": "STG",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 15).",
+    "detectedAt": "2026-07-31T12:01:23.561Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+        "updatedAt": "2026-07-31T12:01:23.561Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-dragons-dolphins-10396498-236414",
+        "updatedAt": "2026-07-31T12:01:23.561Z",
+        "priority": 4,
+        "order": 8
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+        "updatedAt": "2026-07-31T12:01:23.561Z",
+        "priority": 2,
+        "order": 11
       }
     ],
     "round": 22
