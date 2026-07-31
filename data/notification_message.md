@@ -1,61 +1,34 @@
 # SuperCoach War Room status changes — Round 22
 
-Detected: 2026-07-31T06:45:53.074Z
+Detected: 2026-07-31T09:46:08.865Z
 
-- **Adam Christensen** (GLD): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Brock Gray** (GLD): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Demitric Vaimauga** (NZL): NAMED → NOT_NAMED
+- **Connor Votano** (NEW): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **Felise Kaufusi** (DOL): NAMED → EXPECTED
-  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).
-  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
-- **Isaiya Katoa** (DOL): EXPECTED → NAMED
-  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 7, jersey 22).
-  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
-- **Jacob Halangahu** (STG): NAMED → EXPECTED
-  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).
-  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
-- **Jaimin Jolliffe** (GLD): EXPECTED → NOT_NAMED
+- **Jahrome Hughes** (MEL): NAMED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Jake Averillo** (DOL): EXPECTED → NOT_NAMED
+- **Jake Turpin** (CAN): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **Jensen Taumoepeau** (GLD): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Jett Liu** (GLD): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Luke Sommerton** (GLD): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Lyhkan King-Togia** (STG): EXPECTED → NAMED
-  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 6, jersey 19).
-  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
-- **Mathew Feagai** (STG): NAMED → NOT_NAMED
+- **Jesse Arthars** (BRO): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **Max Feagai** (GLD): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Moses Suli** (STG): EXPECTED → NAMED
-  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 4, jersey 18).
+- **Joe Chan** (MEL): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 18).
   - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
-- **Rocco Berry** (NZL): EXPECTED → NOT_NAMED
+- **Kalani Going** (PEN): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **Sialetili Faeamani** (GLD): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Tony Francis** (GLD): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Tukimihia Simpkins** (GLD): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
+- **Kyle McCarthy** (NEW): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
+- **Luron Patea** (PEN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
+- **Simi Sasagi** (CBR): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
+- **Vena Patuki-Case** (CBR): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
