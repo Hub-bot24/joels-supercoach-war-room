@@ -1,73 +1,25 @@
 # SuperCoach War Room status changes — Round 22
 
-Detected: 2026-08-01T07:28:28.961Z
+Detected: 2026-08-01T09:32:50.542Z
 
-- **Blaize Talagi** (PEN): EXPECTED → NOT_NAMED
+- **Adam Pompey** (NZL): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 4).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Billy Scott** (PEN): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 14).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Eddie Ieremia-Toeava** (NZL): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 16, jersey 20).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Harrison Graham** (NEW): NAMED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **Bunty Afoa** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Coby Black** (CBR): EXPECTED → NOT_NAMED
+- **Izack Tago** (PEN): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 18).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Noah Martin** (CBR): NAMED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Ethan Roberts** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Faaletino Tavana** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Jack Bird** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Jared Haywood** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Jeral Skelton** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Jock Madden** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Jonah Pezet** (PAR): EXPECTED → NOT_NAMED
+  - Source: Official NRL
+- **Simi Sasagi** (CBR): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Jordan Miller** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Kai Pearce-Paul** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Kit Laulilii** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Lachlan Broederlow** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Latu Fainu** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Luke Laulilii** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Mavrik Geyer** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Royce Hunt** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Ryley Smith** (PAR): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Simi Sasagi** (CBR): NOT_NAMED → EXPECTED
-  - Named in team-list article extended squad only (Official NRL, jersey 24).
-  - Source: Official NRL, Official NRL
-- **Solomone Saukuru** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Taylan May** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Will Craig** (WST): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
+  - Source: Official NRL

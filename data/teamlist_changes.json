@@ -1,154 +1,5 @@
 [
   {
-    "player": "Billy Smith",
-    "team": "SYD",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-07-28T07:19:07.011Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 22
-  },
-  {
-    "player": "Billy Walters",
-    "team": "BRO",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
-    "detectedAt": "2026-07-28T07:19:07.011Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 22
-  },
-  {
-    "player": "Blake Hosking",
-    "team": "SHA",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-07-28T07:19:07.011Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 22
-  },
-  {
-    "player": "Blake Lawrie",
-    "team": "STG",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-07-28T07:19:07.011Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 22
-  },
-  {
-    "player": "Blake Mozer",
-    "team": "BRO",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-07-28T07:19:07.011Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 22
-  },
-  {
-    "player": "Blake Steep",
-    "team": "SYD",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-07-28T07:19:07.011Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 22
-  },
-  {
-    "player": "Blayke Brailey",
-    "team": "SHA",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 9).",
-    "detectedAt": "2026-07-28T07:19:07.011Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 22
-  },
-  {
     "player": "Brad Schneider",
     "team": "DOL",
     "from": "EXPECTED",
@@ -12165,6 +12016,211 @@
         "name": "Parsed current team-list source",
         "url": "",
         "updatedAt": "2026-08-01T07:28:28.961Z"
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Adam Pompey",
+    "team": "NZL",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 4).",
+    "detectedAt": "2026-08-01T09:32:50.542Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-titans-warriors-10396500-236436",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 4,
+        "order": 10
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 2,
+        "order": 11
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Billy Scott",
+    "team": "PEN",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 14).",
+    "detectedAt": "2026-08-01T09:32:50.542Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-panthers-raiders-10396501-236448",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 4,
+        "order": 8
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 2,
+        "order": 11
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Eddie Ieremia-Toeava",
+    "team": "NZL",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 16, jersey 20).",
+    "detectedAt": "2026-08-01T09:32:50.542Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-titans-warriors-10396500-236436",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 4,
+        "order": 10
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 2,
+        "order": 11
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Harrison Graham",
+    "team": "NEW",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-01T09:32:50.542Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 2,
+        "order": 3
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Izack Tago",
+    "team": "PEN",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 18).",
+    "detectedAt": "2026-08-01T09:32:50.542Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-panthers-raiders-10396501-236448",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 4,
+        "order": 8
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 2,
+        "order": 11
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Noah Martin",
+    "team": "CBR",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-01T09:32:50.542Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 2,
+        "order": 3
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Simi Sasagi",
+    "team": "CBR",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-01T09:32:50.542Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+        "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 2,
+        "order": 3
       }
     ],
     "round": 22
