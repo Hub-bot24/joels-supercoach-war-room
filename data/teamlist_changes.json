@@ -1,32 +1,5 @@
 [
   {
-    "player": "Bradman Best",
-    "team": "NEW",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 3).",
-    "detectedAt": "2026-07-28T07:19:07.011Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 22
-  },
-  {
     "player": "Braidon Burns",
     "team": "NQC",
     "from": "EXPECTED",
@@ -12213,6 +12186,41 @@
         "updatedAt": "2026-08-01T11:05:18.134Z",
         "priority": 2,
         "order": 3
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Lachlan Crouch",
+    "team": "NEW",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 19).",
+    "detectedAt": "2026-08-01T12:12:53.528Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+        "updatedAt": "2026-08-01T12:12:53.528Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-broncos-knights-10396502-236453",
+        "updatedAt": "2026-08-01T12:12:53.528Z",
+        "priority": 4,
+        "order": 5
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+        "updatedAt": "2026-08-01T12:12:53.528Z",
+        "priority": 2,
+        "order": 11
       }
     ],
     "round": 22

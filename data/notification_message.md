@@ -1,7 +1,7 @@
 # SuperCoach War Room status changes — Round 22
 
-Detected: 2026-08-01T11:05:18.134Z
+Detected: 2026-08-01T12:12:53.528Z
 
-- **VJ Semu** (BRO): NAMED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL
+- **Lachlan Crouch** (NEW): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 19).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
