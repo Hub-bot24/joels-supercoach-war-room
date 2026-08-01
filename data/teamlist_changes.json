@@ -1,32 +1,5 @@
 [
   {
-    "player": "Brad Schneider",
-    "team": "DOL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
-    "detectedAt": "2026-07-28T07:19:07.011Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 22
-  },
-  {
     "player": "Bradman Best",
     "team": "NEW",
     "from": "EXPECTED",
@@ -12219,6 +12192,25 @@
         "name": "Official NRL",
         "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
         "updatedAt": "2026-08-01T09:32:50.542Z",
+        "priority": 2,
+        "order": 3
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "VJ Semu",
+    "team": "BRO",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-01T11:05:18.134Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+        "updatedAt": "2026-08-01T11:05:18.134Z",
         "priority": 2,
         "order": 3
       }

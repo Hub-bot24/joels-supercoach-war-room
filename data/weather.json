@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-01T09:32:50.542Z",
+  "updated": "2026-08-01T11:05:18.134Z",
   "round": 22,
   "source": "Open-Meteo hourly forecast API",
   "status": "fresh",
@@ -244,7 +244,7 @@
           "time": "2026-08-01T15:00",
           "phase": "game_window",
           "temperature_2m": 17.4,
-          "precipitation_probability": 27,
+          "precipitation_probability": 64,
           "precipitation_mm": 0.2,
           "wind_speed_10m": 18.9,
           "wind_gusts_10m": 42.8
@@ -253,24 +253,25 @@
           "time": "2026-08-01T16:00",
           "phase": "game_window",
           "temperature_2m": 16.7,
-          "precipitation_probability": 31,
+          "precipitation_probability": 73,
           "precipitation_mm": 0.1,
           "wind_speed_10m": 14.9,
           "wind_gusts_10m": 41
         }
       ],
       "weatherRisk": {
-        "label": "Low",
-        "score": 15,
-        "maxRainProbability": 31,
+        "label": "High",
+        "score": 60,
+        "maxRainProbability": 73,
         "totalGameRainMm": 0.3,
         "maxWindKmh": 18.9,
         "maxGustKmh": 42.8,
         "avgTemp": 17,
         "reasons": [
+          "high rain risk",
           "moderate wind/gusts"
         ],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+        "captainImpact": "High weather risk over game window. Review outdoor captain/ceiling assumptions."
       }
     },
     {
@@ -662,7 +663,7 @@
           "time": "2026-08-01T15:00",
           "phase": "game_window",
           "temperature_2m": 17.4,
-          "precipitation_probability": 27,
+          "precipitation_probability": 64,
           "precipitation_mm": 0.2,
           "wind_speed_10m": 18.9,
           "wind_gusts_10m": 42.8
@@ -671,24 +672,25 @@
           "time": "2026-08-01T16:00",
           "phase": "game_window",
           "temperature_2m": 16.7,
-          "precipitation_probability": 31,
+          "precipitation_probability": 73,
           "precipitation_mm": 0.1,
           "wind_speed_10m": 14.9,
           "wind_gusts_10m": 41
         }
       ],
       "weatherRisk": {
-        "label": "Low",
-        "score": 15,
-        "maxRainProbability": 31,
+        "label": "High",
+        "score": 60,
+        "maxRainProbability": 73,
         "totalGameRainMm": 0.3,
         "maxWindKmh": 18.9,
         "maxGustKmh": 42.8,
         "avgTemp": 17,
         "reasons": [
+          "high rain risk",
           "moderate wind/gusts"
         ],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+        "captainImpact": "High weather risk over game window. Review outdoor captain/ceiling assumptions."
       }
     },
     {
