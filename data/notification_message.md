@@ -1,13 +1,19 @@
 # SuperCoach War Room status changes — Round 22
 
-Detected: 2026-07-31T14:35:55.541Z
+Detected: 2026-08-01T04:52:29.153Z
 
-- **Angus Hinchey** (MEL): EXPECTED → NAMED
-  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 16, jersey 19).
-  - Source: Official NRL, Zero Tackle, Zero Tackle
-- **Jack Hetherington** (MEL): NAMED → EXPECTED
-  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 16).
-  - Source: Official NRL, Zero Tackle, Zero Tackle
-- **Shawn Blore** (MEL): NAMED → EXPECTED
-  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 17).
-  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Braden Uele** (SHA): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
+- **Edward Kosi** (STH): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
+- **Lachlan Ilias** (GLD): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Mawene Hiroti** (SHA): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
+- **Tallis Duncan** (STH): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
