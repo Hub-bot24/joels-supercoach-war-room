@@ -1,6 +1,112 @@
 {
-  "updated": "2026-08-02T00:12:41.121Z",
+  "updated": "2026-08-02T03:55:55.086Z",
   "round": 22,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Adam Elliott",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 12, jersey 22).",
+      "detectedAt": "2026-08-02T03:55:55.086Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-08-02T03:55:55.086Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-08-02T03:55:55.086Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+          "updatedAt": "2026-08-02T03:55:55.086Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-sharks-rabbitohs-10396503-236468",
+          "updatedAt": "2026-08-02T03:55:55.086Z",
+          "priority": 4,
+          "order": 5
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-22-team-lists-2026-236336",
+          "updatedAt": "2026-08-02T03:55:55.086Z",
+          "priority": 2,
+          "order": 7
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Euan Aitken",
+      "team": "STH",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-02T03:55:55.086Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-08-02T03:55:55.086Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+          "updatedAt": "2026-08-02T03:55:55.086Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 22
+    },
+    {
+      "player": "Niwhai Puru",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-02T03:55:55.086Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+          "updatedAt": "2026-08-02T03:55:55.086Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+          "updatedAt": "2026-08-02T03:55:55.086Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 22
+    }
+  ],
   "allChangeCount": 500
 }
