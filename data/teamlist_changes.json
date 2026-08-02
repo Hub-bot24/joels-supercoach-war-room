@@ -1,43 +1,5 @@
 [
   {
-    "player": "Brendan Piakura",
-    "team": "BRO",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-07-28T07:19:07.011Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 22
-  },
-  {
-    "player": "Brent Woolf",
-    "team": "DOL",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-07-28T07:19:07.011Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
-        "updatedAt": "2026-07-28T07:19:07.011Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 22
-  },
-  {
     "player": "Brian Kelly",
     "team": "PAR",
     "from": "EXPECTED",
@@ -12245,6 +12207,50 @@
         "updatedAt": "2026-08-02T03:55:55.086Z",
         "priority": 2,
         "order": 3
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Araz Nanva",
+    "team": "PAR",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-02T06:36:19.382Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/29/nrl-late-mail-round-22---katoa-unlikely-bateman-hamstrung",
+        "updatedAt": "2026-08-02T06:36:19.382Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/07/28/nrl-team-lists-round-22",
+        "updatedAt": "2026-08-02T06:36:19.382Z",
+        "priority": 2,
+        "order": 3
+      }
+    ],
+    "round": 22
+  },
+  {
+    "player": "Javon Andrews",
+    "team": "WST",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-08-02T06:36:19.382Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "",
+        "updatedAt": "2026-08-02T06:36:19.382Z"
       }
     ],
     "round": 22
