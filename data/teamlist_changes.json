@@ -1,39 +1,5 @@
 [
   {
-    "player": "Trent Toelau",
-    "team": "MEL",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Trey Mooney",
-    "team": "NEW",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
     "player": "Tristan Hope",
     "team": "WST",
     "from": "EXPECTED",
@@ -11651,6 +11617,210 @@
         "updatedAt": "2026-08-04T08:09:14.769Z",
         "priority": 2,
         "order": 2
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Dylan Walker",
+    "team": "PAR",
+    "from": "NOT_NAMED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
+    "detectedAt": "2026-08-04T10:49:56.164Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-04T10:49:56.164Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+        "updatedAt": "2026-08-04T10:49:56.164Z",
+        "priority": 2,
+        "order": 5
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Jonah Pezet",
+    "team": "PAR",
+    "from": "NOT_NAMED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).; injury note: Injury confirmed near player on injury article (Zero Tackle): Round 23.",
+    "detectedAt": "2026-08-04T10:49:56.164Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-04T10:49:56.164Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+        "updatedAt": "2026-08-04T10:49:56.164Z",
+        "priority": 2,
+        "order": 5
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#brisbane-broncos",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canberra-raiders",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#canterbury-bankstown-bulldogs",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#cronulla-sharks",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#dolphins",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#gold-coast-titans",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#manly-sea-eagles",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#melbourne-storm",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#new-zealand-warriors",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#newcastle-knights",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#north-queensland-cowboys",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#parramatta-eels",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#penrith-panthers",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#perth-bears",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#png-chiefs",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#south-sydney-rabbitohs",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#st-george-illawarra-dragons",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#sydney-roosters",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/nrl/injuries-suspensions/#wests-tigers",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/eels-reveal-reason-for-strange-dylan-walker-call-confirm-jonah-pezet-injured-again-236589/",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/zane-harrison-learns-injury-fate-in-latest-titans-blow-236569/",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/cowboys-suffer-late-injury-withdrawal-for-roosters-clash-236382/",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/warriors-suffer-injury-blow-to-key-spine-member-236359/",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
+      },
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/raiders-forward-injured-at-training-return-date-revealed-236341/",
+        "updatedAt": "2026-08-04T10:49:56.164Z"
       }
     ],
     "round": 23
