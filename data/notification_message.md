@@ -1,154 +1,154 @@
 # SuperCoach War Room status changes — Round 23
 
-Detected: 2026-08-02T16:12:36.391Z
+Detected: 2026-08-04T08:09:14.769Z
 
-- **Aaron Schoupp** (MAN): BYE → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Adam Christensen** (GLD): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Adam Doueihi** (WST): NAMED → BYE
-  - Bye round 23
-  - Source: players.json bye data
-- **Adam Elliott** (STH): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Adam Reynolds** (BRO): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Addin Fonua-Blake** (SHA): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Alec MacDonald** (MEL): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Alekolasimi Jones** (CAN): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Alex Johnston** (STH): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Alex Seyfarth** (WST): NAMED → BYE
-  - Bye round 23
-  - Source: players.json bye data
-- **Alex Twal** (WST): NAMED → BYE
-  - Bye round 23
-  - Source: players.json bye data
-- **Alexander Brimson** (GLD): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Ali Leiataua** (NZL): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Alofiana Khan-Pereira** (NZL): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Angus Crichton** (SYD): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Angus Hinchey** (MEL): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Antonio Verhoeven** (BRO): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Apa Twidle** (PAR): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Apisai Koroisau** (WST): NAMED → BYE
-  - Bye round 23
-  - Source: players.json bye data
-- **Arama Hau** (GLD): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Araz Nanva** (PAR): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Ashton Ward** (STH): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Asu Kepaoa** (NEW): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Ata Mariota** (CBR): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Ativalu Lisati** (MEL): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Aublix Tawha** (BRO): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Bailey Hayward** (CAN): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Bailey Simonsson** (PAR): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Bayleigh Bentley-Hape** (STH): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Beau Fermor** (GLD): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Ben Hunt** (BRO): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Ben Talty** (BRO): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Ben Trbojevic** (MAN): BYE → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Benaiah Ioelu** (SYD): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Benjamin TeKura** (BRO): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Billy Burns** (SHA): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Billy Phillips** (PEN): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Billy Smith** (SYD): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Billy Walters** (BRO): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Blaize Talagi** (PEN): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Blake Hosking** (SHA): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Blake Lawrie** (STG): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Blake Mozer** (BRO): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Blake Steep** (SYD): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Blake Wilson** (MAN): BYE → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Blayke Brailey** (SHA): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Braden Uele** (SHA): NOT_NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Bradman Best** (NEW): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Braidon Burns** (NQC): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
-- **Brandon Smith** (STH): NAMED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
+- **Aaron Schoupp** (MAN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Adam Elliott** (STH): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 12).
+  - Source: Official NRL, Zero Tackle
+- **Adam Reynolds** (BRO): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Addin Fonua-Blake** (SHA): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 7).
+  - Source: Official NRL, Zero Tackle
+- **Alec MacDonald** (MEL): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Alex Johnston** (STH): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 2).
+  - Source: Official NRL, Zero Tackle
+- **Alexander Brimson** (GLD): EXPECTED → NAMED
+  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 4, jersey 4).
+  - Source: Official NRL, Zero Tackle
+- **Ali Leiataua** (NZL): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 3).
+  - Source: Official NRL, Zero Tackle
+- **Alofiana Khan-Pereira** (NZL): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 5).
+  - Source: Official NRL, Zero Tackle
+- **Angus Crichton** (SYD): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Angus Hinchey** (MEL): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 17).
+  - Source: Official NRL, Zero Tackle
+- **Antonio Verhoeven** (BRO): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Apa Twidle** (PAR): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Arama Hau** (GLD): EXPECTED → NAMED
+  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 11, jersey 11).
+  - Source: Official NRL, Zero Tackle
+- **Araz Nanva** (PAR): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Ashton Ward** (STH): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 7).
+  - Source: Official NRL, Zero Tackle
+- **Asu Kepaoa** (NEW): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Ata Mariota** (CBR): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 12).
+  - Source: Official NRL, Zero Tackle
+- **Ativalu Lisati** (MEL): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Bailey Hayward** (CAN): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 8).
+  - Source: Official NRL, Zero Tackle
+- **Bailey Simonsson** (PAR): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Bayleigh Bentley-Hape** (STH): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Beau Fermor** (GLD): EXPECTED → NAMED
+  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 12, jersey 12).
+  - Source: Official NRL, Zero Tackle
+- **Ben Hunt** (BRO): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 14).
+  - Source: Official NRL, Zero Tackle
+- **Ben Talty** (BRO): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 15).
+  - Source: Official NRL, Zero Tackle
+- **Ben Trbojevic** (MAN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Benjamin TeKura** (BRO): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Billy Burns** (SHA): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 14).
+  - Source: Official NRL, Zero Tackle
+- **Billy Phillips** (PEN): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 16).
+  - Source: Official NRL, Zero Tackle
+- **Billy Scott** (PEN): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 14).
+  - Source: Official NRL, Zero Tackle
+- **Billy Smith** (SYD): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 2).
+  - Source: Official NRL, Zero Tackle
+- **Billy Walters** (BRO): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 8).
+  - Source: Official NRL, Zero Tackle
+- **Blake Hosking** (SHA): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Blake Lawrie** (STG): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Blake Steep** (SYD): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Blake Wilson** (MAN): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 4).
+  - Source: Official NRL, Zero Tackle
+- **Blayke Brailey** (SHA): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 8).
+  - Source: Official NRL, Zero Tackle
+- **Bradman Best** (NEW): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 3).
+  - Source: Official NRL, Zero Tackle
+- **Braidon Burns** (NQC): EXPECTED → NAMED
+  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 2, jersey 2).
+  - Source: Official NRL, Zero Tackle
+- **Brandon Smith** (STH): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 9).
+  - Source: Official NRL, Zero Tackle
+- **Brandon Wakeham** (MAN): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 8).
+  - Source: Official NRL, Zero Tackle
+- **Braydon Trindall** (SHA): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 5).
+  - Source: Official NRL, Zero Tackle
+- **Brendan Piakura** (BRO): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Brent Woolf** (DOL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Brian Kelly** (PAR): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 1).
+  - Source: Official NRL, Zero Tackle
+- **Brian To'o** (PEN): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 4).
+  - Source: Official NRL, Zero Tackle
+- **Briton Nikora** (SHA): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 10).
+  - Source: Official NRL, Zero Tackle
+- **Brock Gray** (GLD): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Bronson Garlick** (STH): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Bronson Xerri** (CAN): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 17).
+  - Source: Official NRL, Zero Tackle
