@@ -1,39 +1,5 @@
 [
   {
-    "player": "Tristan Hope",
-    "team": "WST",
-    "from": "EXPECTED",
-    "to": "BYE",
-    "reason": "Bye round 23",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "fixture",
-        "name": "players.json bye data",
-        "url": "players.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Tui Kamikamica",
-    "team": "MEL",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
     "player": "Tukimihia Simpkins",
     "team": "GLD",
     "from": "NOT_NAMED",
@@ -11821,6 +11787,44 @@
         "name": "Zero Tackle",
         "url": "https://www.zerotackle.com/raiders-forward-injured-at-training-return-date-revealed-236341/",
         "updatedAt": "2026-08-04T10:49:56.164Z"
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Dylan Walker",
+    "team": "PAR",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-04T23:12:06.347Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-04T23:12:06.347Z",
+        "priority": 2,
+        "order": 2
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Jonah Pezet",
+    "team": "PAR",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-04T23:12:06.347Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-04T23:12:06.347Z",
+        "priority": 2,
+        "order": 2
       }
     ],
     "round": 23

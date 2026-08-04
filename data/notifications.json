@@ -1,6 +1,45 @@
 {
-  "updated": "2026-08-04T21:58:38.685Z",
+  "updated": "2026-08-04T23:12:06.347Z",
   "round": 23,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Dylan Walker",
+      "team": "PAR",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-04T23:12:06.347Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-04T23:12:06.347Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Jonah Pezet",
+      "team": "PAR",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-04T23:12:06.347Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-04T23:12:06.347Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 23
+    }
+  ],
   "allChangeCount": 500
 }

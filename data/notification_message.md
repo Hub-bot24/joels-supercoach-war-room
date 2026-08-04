@@ -1,10 +1,10 @@
 # SuperCoach War Room status changes — Round 23
 
-Detected: 2026-08-04T10:49:56.164Z
+Detected: 2026-08-04T23:12:06.347Z
 
-- **Dylan Walker** (PAR): NOT_NAMED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 4).
-  - Source: Official NRL, Zero Tackle
-- **Jonah Pezet** (PAR): NOT_NAMED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 4).; injury note: Injury confirmed near player on injury article (Zero Tackle): Round 23.
-  - Source: Official NRL, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Dylan Walker** (PAR): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Jonah Pezet** (PAR): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
