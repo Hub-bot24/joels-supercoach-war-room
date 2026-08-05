@@ -1,39 +1,5 @@
 [
   {
-    "player": "Tukimihia Simpkins",
-    "team": "GLD",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Tuku HauTapuha",
-    "team": "SHA",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
     "player": "Tyran Wishart",
     "team": "MEL",
     "from": "NAMED",
@@ -11825,6 +11791,60 @@
         "updatedAt": "2026-08-04T23:12:06.347Z",
         "priority": 2,
         "order": 2
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Jackson Ford",
+    "team": "NZL",
+    "from": "NOT_NAMED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+    "detectedAt": "2026-08-05T03:43:56.348Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-05T03:43:56.348Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+        "updatedAt": "2026-08-05T03:43:56.348Z",
+        "priority": 2,
+        "order": 6
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Siosifa Talakai",
+    "team": "SHA",
+    "from": "NOT_NAMED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+    "detectedAt": "2026-08-05T03:43:56.348Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-05T03:43:56.348Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+        "updatedAt": "2026-08-05T03:43:56.348Z",
+        "priority": 2,
+        "order": 6
       }
     ],
     "round": 23

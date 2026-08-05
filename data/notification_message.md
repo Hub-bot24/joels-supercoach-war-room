@@ -1,10 +1,10 @@
 # SuperCoach War Room status changes — Round 23
 
-Detected: 2026-08-04T23:12:06.347Z
+Detected: 2026-08-05T03:43:56.348Z
 
-- **Dylan Walker** (PAR): NAMED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL
-- **Jonah Pezet** (PAR): NAMED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL
+- **Jackson Ford** (NZL): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 5).
+  - Source: Official NRL, Zero Tackle
+- **Siosifa Talakai** (SHA): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 5).
+  - Source: Official NRL, Zero Tackle
