@@ -1,6 +1,79 @@
 {
-  "updated": "2026-08-05T09:09:23.012Z",
+  "updated": "2026-08-05T11:29:42.364Z",
   "round": 23,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Jett Liu",
+      "team": "GLD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-05T11:29:42.364Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-05T11:29:42.364Z"
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Kaiden Lahrs",
+      "team": "NQC",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-05T11:29:42.364Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-05T11:29:42.364Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Ronald Philitoga",
+      "team": "NQC",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-05T11:29:42.364Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-05T11:29:42.364Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Sialetili Faeamani",
+      "team": "GLD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-05T11:29:42.364Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-05T11:29:42.364Z"
+        }
+      ],
+      "round": 23
+    }
+  ],
   "allChangeCount": 500
 }

@@ -1,73 +1,5 @@
 [
   {
-    "player": "Tyrone Munro",
-    "team": "STH",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Tyson Frizell",
-    "team": "NEW",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Tyson Gamble",
-    "team": "NEW",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Valentine Holmes",
-    "team": "STG",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
     "player": "Vena Patuki-Case",
     "team": "CBR",
     "from": "NOT_NAMED",
@@ -11849,6 +11781,78 @@
         "updatedAt": "2026-08-05T06:13:23.782Z",
         "priority": 2,
         "order": 2
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Jett Liu",
+    "team": "GLD",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-08-05T11:29:42.364Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "",
+        "updatedAt": "2026-08-05T11:29:42.364Z"
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Kaiden Lahrs",
+    "team": "NQC",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-05T11:29:42.364Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-05T11:29:42.364Z",
+        "priority": 2,
+        "order": 2
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Ronald Philitoga",
+    "team": "NQC",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-05T11:29:42.364Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-05T11:29:42.364Z",
+        "priority": 2,
+        "order": 2
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Sialetili Faeamani",
+    "team": "GLD",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-08-05T11:29:42.364Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "",
+        "updatedAt": "2026-08-05T11:29:42.364Z"
       }
     ],
     "round": 23
