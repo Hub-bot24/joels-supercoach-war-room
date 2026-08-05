@@ -1,39 +1,5 @@
 [
   {
-    "player": "Tyran Wishart",
-    "team": "MEL",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Tyrell Sloan",
-    "team": "STG",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
     "player": "Tyrone Munro",
     "team": "STH",
     "from": "NOT_NAMED",
@@ -11845,6 +11811,44 @@
         "updatedAt": "2026-08-05T03:43:56.348Z",
         "priority": 2,
         "order": 6
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Jackson Ford",
+    "team": "NZL",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-05T06:13:23.782Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-05T06:13:23.782Z",
+        "priority": 2,
+        "order": 2
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Siosifa Talakai",
+    "team": "SHA",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-05T06:13:23.782Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-05T06:13:23.782Z",
+        "priority": 2,
+        "order": 2
       }
     ],
     "round": 23

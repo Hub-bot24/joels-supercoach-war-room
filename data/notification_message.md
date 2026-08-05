@@ -1,10 +1,10 @@
 # SuperCoach War Room status changes — Round 23
 
-Detected: 2026-08-05T03:43:56.348Z
+Detected: 2026-08-05T06:13:23.782Z
 
-- **Jackson Ford** (NZL): NOT_NAMED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 5).
-  - Source: Official NRL, Zero Tackle
-- **Siosifa Talakai** (SHA): NOT_NAMED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 5).
-  - Source: Official NRL, Zero Tackle
+- **Jackson Ford** (NZL): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Siosifa Talakai** (SHA): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
