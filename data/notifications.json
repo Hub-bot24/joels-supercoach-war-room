@@ -1,45 +1,205 @@
 {
-  "updated": "2026-08-06T09:22:14.823Z",
+  "updated": "2026-08-06T11:40:48.465Z",
   "round": 23,
   "newChanges": [
     {
-      "player": "Adam Christensen",
+      "player": "Alekolasimi Jones",
+      "team": "CAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-06T11:40:48.465Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-06T11:40:48.465Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Arama Hau",
       "team": "GLD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 11).",
+      "detectedAt": "2026-08-06T11:40:48.465Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-06T11:40:48.465Z",
+          "priority": 2,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-titans-cowboys-10396506-236624",
+          "updatedAt": "2026-08-06T11:40:48.465Z",
+          "priority": 4,
+          "order": 5
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+          "updatedAt": "2026-08-06T11:40:48.465Z",
+          "priority": 2,
+          "order": 8
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Bronson Xerri",
+      "team": "CAN",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 19).",
+      "detectedAt": "2026-08-06T11:40:48.465Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-06T11:40:48.465Z",
+          "priority": 2,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-bulldogs-10396508-236672",
+          "updatedAt": "2026-08-06T11:40:48.465Z",
+          "priority": 4,
+          "order": 4
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+          "updatedAt": "2026-08-06T11:40:48.465Z",
+          "priority": 2,
+          "order": 8
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Cody Ramsey",
+      "team": "SYD",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 1, jersey 18).",
+      "detectedAt": "2026-08-06T11:40:48.465Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-06T11:40:48.465Z",
+          "priority": 2,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-bulldogs-10396508-236672",
+          "updatedAt": "2026-08-06T11:40:48.465Z",
+          "priority": 4,
+          "order": 4
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+          "updatedAt": "2026-08-06T11:40:48.465Z",
+          "priority": 2,
+          "order": 8
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "DeLaSalle Vaa",
+      "team": "SYD",
       "from": "EXPECTED",
       "to": "NOT_NAMED",
       "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-06T09:22:14.823Z",
+      "detectedAt": "2026-08-06T11:40:48.465Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Parsed current team-list source",
           "url": "",
-          "updatedAt": "2026-08-06T09:22:14.823Z"
+          "updatedAt": "2026-08-06T11:40:48.465Z"
         }
       ],
       "round": 23
     },
     {
-      "player": "Blaize Talagi",
-      "team": "PEN",
+      "player": "James Tedesco",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-06T11:40:48.465Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-06T11:40:48.465Z"
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Jonathan Sua",
+      "team": "CAN",
       "from": "EXPECTED",
-      "to": "NAMED",
-      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 6, jersey 19).",
-      "detectedAt": "2026-08-06T09:22:14.823Z",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-06T11:40:48.465Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
+          "updatedAt": "2026-08-06T11:40:48.465Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Lachlan Ilias",
+      "team": "GLD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 7).",
+      "detectedAt": "2026-08-06T11:40:48.465Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-06T11:40:48.465Z",
           "priority": 2,
           "order": 2
         },
         {
           "type": "teamlist",
           "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-warriors-vs-panthers-10396507-236664",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
+          "url": "https://www.zerotackle.com/updated-team-lists-titans-cowboys-10396506-236624",
+          "updatedAt": "2026-08-06T11:40:48.465Z",
           "priority": 4,
           "order": 5
         },
@@ -47,295 +207,9 @@
           "type": "teamlist",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
+          "updatedAt": "2026-08-06T11:40:48.465Z",
           "priority": 2,
-          "order": 7
-        }
-      ],
-      "round": 23
-    },
-    {
-      "player": "Cooper Bai",
-      "team": "GLD",
-      "from": "NAMED",
-      "to": "EXPECTED",
-      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 17).",
-      "detectedAt": "2026-08-06T09:22:14.823Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 2
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-titans-cowboys-10396506-236624",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 4,
-          "order": 4
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 7
-        }
-      ],
-      "round": 23
-    },
-    {
-      "player": "Jack Cogger",
-      "team": "PEN",
-      "from": "NAMED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-08-06T09:22:14.823Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 2
-        }
-      ],
-      "round": 23
-    },
-    {
-      "player": "Jack Cole",
-      "team": "PEN",
-      "from": "NAMED",
-      "to": "EXPECTED",
-      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 18).",
-      "detectedAt": "2026-08-06T09:22:14.823Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 2
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-warriors-vs-panthers-10396507-236664",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 4,
-          "order": 5
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 7
-        }
-      ],
-      "round": 23
-    },
-    {
-      "player": "Jaylan De Groot",
-      "team": "GLD",
-      "from": "EXPECTED",
-      "to": "NAMED",
-      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 4, jersey 20).",
-      "detectedAt": "2026-08-06T09:22:14.823Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 2
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-titans-cowboys-10396506-236624",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 4,
-          "order": 4
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 7
-        }
-      ],
-      "round": 23
-    },
-    {
-      "player": "Kalani Going",
-      "team": "PEN",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-08-06T09:22:14.823Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 2
-        }
-      ],
-      "round": 23
-    },
-    {
-      "player": "Klese Haas",
-      "team": "GLD",
-      "from": "NAMED",
-      "to": "EXPECTED",
-      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 16).",
-      "detectedAt": "2026-08-06T09:22:14.823Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 2
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-titans-cowboys-10396506-236624",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 4,
-          "order": 4
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 7
-        }
-      ],
-      "round": 23
-    },
-    {
-      "player": "Liam Sutton",
-      "team": "NQC",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-08-06T09:22:14.823Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 2
-        }
-      ],
-      "round": 23
-    },
-    {
-      "player": "Luke Metcalf",
-      "team": "NZL",
-      "from": "EXPECTED",
-      "to": "NAMED",
-      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 7, jersey 18).",
-      "detectedAt": "2026-08-06T09:22:14.823Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 2
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-warriors-vs-panthers-10396507-236664",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 4,
-          "order": 5
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 7
-        }
-      ],
-      "round": 23
-    },
-    {
-      "player": "Sam Verrills",
-      "team": "GLD",
-      "from": "EXPECTED",
-      "to": "NAMED",
-      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 9, jersey 18).",
-      "detectedAt": "2026-08-06T09:22:14.823Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 2
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-titans-cowboys-10396506-236624",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 4,
-          "order": 4
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 7
-        }
-      ],
-      "round": 23
-    },
-    {
-      "player": "Te Maire Martin",
-      "team": "NZL",
-      "from": "NAMED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-08-06T09:22:14.823Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-          "updatedAt": "2026-08-06T09:22:14.823Z",
-          "priority": 2,
-          "order": 2
+          "order": 8
         }
       ],
       "round": 23

@@ -1,141 +1,5 @@
 [
   {
-    "player": "William Warbrick",
-    "team": "MEL",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Wilson DeCourcey",
-    "team": "NEW",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Wiremu Greig",
-    "team": "NQC",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Xavier Coates",
-    "team": "MEL",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Xavier Kerrisk",
-    "team": "NQC",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Xavier Savage",
-    "team": "CBR",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Xavier Vaa",
-    "team": "SYD",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Xavier Willison",
-    "team": "BRO",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-02T16:12:36.391Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-02T16:12:36.391Z"
-      }
-    ],
-    "round": 23
-  },
-  {
     "player": "Zac Herdegen",
     "team": "NQC",
     "from": "NOT_NAMED",
@@ -11987,6 +11851,218 @@
         "updatedAt": "2026-08-06T09:22:14.823Z",
         "priority": 2,
         "order": 2
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Alekolasimi Jones",
+    "team": "CAN",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-06T11:40:48.465Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-06T11:40:48.465Z",
+        "priority": 2,
+        "order": 2
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Arama Hau",
+    "team": "GLD",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 11).",
+    "detectedAt": "2026-08-06T11:40:48.465Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-06T11:40:48.465Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-titans-cowboys-10396506-236624",
+        "updatedAt": "2026-08-06T11:40:48.465Z",
+        "priority": 4,
+        "order": 5
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+        "updatedAt": "2026-08-06T11:40:48.465Z",
+        "priority": 2,
+        "order": 8
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Bronson Xerri",
+    "team": "CAN",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 19).",
+    "detectedAt": "2026-08-06T11:40:48.465Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-06T11:40:48.465Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-bulldogs-10396508-236672",
+        "updatedAt": "2026-08-06T11:40:48.465Z",
+        "priority": 4,
+        "order": 4
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+        "updatedAt": "2026-08-06T11:40:48.465Z",
+        "priority": 2,
+        "order": 8
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Cody Ramsey",
+    "team": "SYD",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 1, jersey 18).",
+    "detectedAt": "2026-08-06T11:40:48.465Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-06T11:40:48.465Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-bulldogs-10396508-236672",
+        "updatedAt": "2026-08-06T11:40:48.465Z",
+        "priority": 4,
+        "order": 4
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+        "updatedAt": "2026-08-06T11:40:48.465Z",
+        "priority": 2,
+        "order": 8
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "DeLaSalle Vaa",
+    "team": "SYD",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-08-06T11:40:48.465Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "",
+        "updatedAt": "2026-08-06T11:40:48.465Z"
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "James Tedesco",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-08-06T11:40:48.465Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "",
+        "updatedAt": "2026-08-06T11:40:48.465Z"
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Jonathan Sua",
+    "team": "CAN",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-06T11:40:48.465Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-06T11:40:48.465Z",
+        "priority": 2,
+        "order": 2
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Lachlan Ilias",
+    "team": "GLD",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 7).",
+    "detectedAt": "2026-08-06T11:40:48.465Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-06T11:40:48.465Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-titans-cowboys-10396506-236624",
+        "updatedAt": "2026-08-06T11:40:48.465Z",
+        "priority": 4,
+        "order": 5
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+        "updatedAt": "2026-08-06T11:40:48.465Z",
+        "priority": 2,
+        "order": 8
       }
     ],
     "round": 23
