@@ -1,55 +1,108 @@
 {
-  "updated": "2026-08-07T06:47:12.523Z",
+  "updated": "2026-08-07T08:15:31.262Z",
   "round": 23,
   "newChanges": [
     {
-      "player": "Blaize Talagi",
-      "team": "PEN",
+      "player": "Aublix Tawha",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-07T08:15:31.262Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-07T08:15:31.262Z"
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Jack Gosiewski",
+      "team": "BRO",
       "from": "NAMED",
       "to": "EXPECTED",
-      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 19).",
-      "detectedAt": "2026-08-07T06:47:12.523Z",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 18).",
+      "detectedAt": "2026-08-07T08:15:31.262Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-          "updatedAt": "2026-08-07T06:47:12.523Z",
+          "updatedAt": "2026-08-07T08:15:31.262Z",
           "priority": 2,
           "order": 2
         },
         {
           "type": "teamlist",
           "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-warriors-panthers-10396507-236664",
-          "updatedAt": "2026-08-07T06:47:12.523Z",
+          "url": "https://www.zerotackle.com/updated-team-lists-dolphins-vs-broncos-10396510-236712",
+          "updatedAt": "2026-08-07T08:15:31.262Z",
           "priority": 4,
-          "order": 6
+          "order": 4
         },
         {
           "type": "teamlist",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
-          "updatedAt": "2026-08-07T06:47:12.523Z",
+          "updatedAt": "2026-08-07T08:15:31.262Z",
           "priority": 2,
-          "order": 7
+          "order": 8
         }
       ],
       "round": 23
     },
     {
-      "player": "Jesse McLean",
-      "team": "PEN",
+      "player": "Jake Averillo",
+      "team": "DOL",
       "from": "EXPECTED",
       "to": "NOT_NAMED",
       "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-08-07T06:47:12.523Z",
+      "detectedAt": "2026-08-07T08:15:31.262Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-          "updatedAt": "2026-08-07T06:47:12.523Z",
+          "updatedAt": "2026-08-07T08:15:31.262Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Jesse Arthars",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-07T08:15:31.262Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-07T08:15:31.262Z"
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Sebastian Sua",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-07T08:15:31.262Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-07T08:15:31.262Z",
           "priority": 2,
           "order": 2
         }
