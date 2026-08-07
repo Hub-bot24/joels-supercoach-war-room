@@ -1,59 +1,5 @@
 [
   {
-    "player": "Ali Leiataua",
-    "team": "NZL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 3).",
-    "detectedAt": "2026-08-04T08:09:14.769Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-        "updatedAt": "2026-08-04T08:09:14.769Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
-        "updatedAt": "2026-08-04T08:09:14.769Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Alofiana Khan-Pereira",
-    "team": "NZL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
-    "detectedAt": "2026-08-04T08:09:14.769Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-        "updatedAt": "2026-08-04T08:09:14.769Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
-        "updatedAt": "2026-08-04T08:09:14.769Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 23
-  },
-  {
     "player": "Angus Crichton",
     "team": "SYD",
     "from": "EXPECTED",
@@ -12115,6 +12061,42 @@
         "name": "Official NRL",
         "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
         "updatedAt": "2026-08-07T08:15:31.262Z",
+        "priority": 2,
+        "order": 2
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Benaiah Ioelu",
+    "team": "SYD",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-08-07T09:32:35.843Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "",
+        "updatedAt": "2026-08-07T09:32:35.843Z"
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Sean O'Sullivan",
+    "team": "CAN",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-07T09:32:35.843Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-07T09:32:35.843Z",
         "priority": 2,
         "order": 2
       }
