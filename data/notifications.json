@@ -1,6 +1,110 @@
 {
-  "updated": "2026-08-07T03:39:40.424Z",
+  "updated": "2026-08-07T05:23:59.172Z",
   "round": 23,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Ethan Bullemor",
+      "team": "MAN",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-07T05:23:59.172Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-07T05:23:59.172Z"
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Hugo Hart",
+      "team": "MAN",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-07T05:23:59.172Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-07T05:23:59.172Z"
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Jack Howarth",
+      "team": "MEL",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-07T05:23:59.172Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-07T05:23:59.172Z"
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Joe Chan",
+      "team": "MEL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 4, jersey 18).",
+      "detectedAt": "2026-08-07T05:23:59.172Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-07T05:23:59.172Z",
+          "priority": 2,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-storm-vs-sea-eagles-10396509-236700",
+          "updatedAt": "2026-08-07T05:23:59.172Z",
+          "priority": 4,
+          "order": 4
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+          "updatedAt": "2026-08-07T05:23:59.172Z",
+          "priority": 2,
+          "order": 6
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Stanley Huen",
+      "team": "MEL",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-07T05:23:59.172Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-07T05:23:59.172Z"
+        }
+      ],
+      "round": 23
+    }
+  ],
   "allChangeCount": 500
 }
