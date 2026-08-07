@@ -1,51 +1,5 @@
 [
   {
-    "player": "Aaron Schoupp",
-    "team": "MAN",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-08-04T08:09:14.769Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-        "updatedAt": "2026-08-04T08:09:14.769Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 23
-  },
-  {
-    "player": "Adam Elliott",
-    "team": "STH",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).",
-    "detectedAt": "2026-08-04T08:09:14.769Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
-        "updatedAt": "2026-08-04T08:09:14.769Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
-        "updatedAt": "2026-08-04T08:09:14.769Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 23
-  },
-  {
     "player": "Adam Reynolds",
     "team": "BRO",
     "from": "EXPECTED",
@@ -12117,6 +12071,60 @@
         "name": "Parsed current team-list source",
         "url": "",
         "updatedAt": "2026-08-07T05:23:59.172Z"
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Blaize Talagi",
+    "team": "PEN",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 19).",
+    "detectedAt": "2026-08-07T06:47:12.523Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-07T06:47:12.523Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-warriors-panthers-10396507-236664",
+        "updatedAt": "2026-08-07T06:47:12.523Z",
+        "priority": 4,
+        "order": 6
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+        "updatedAt": "2026-08-07T06:47:12.523Z",
+        "priority": 2,
+        "order": 7
+      }
+    ],
+    "round": 23
+  },
+  {
+    "player": "Jesse McLean",
+    "team": "PEN",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-07T06:47:12.523Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+        "updatedAt": "2026-08-07T06:47:12.523Z",
+        "priority": 2,
+        "order": 2
       }
     ],
     "round": 23
