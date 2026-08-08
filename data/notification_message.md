@@ -1,10 +1,16 @@
 # SuperCoach War Room status changes — Round 23
 
-Detected: 2026-08-07T13:52:16.728Z
+Detected: 2026-08-08T04:41:19.913Z
 
-- **Jake Turpin** (CAN): EXPECTED → NAMED
-  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 20).
-  - Source: Official NRL, Zero Tackle, Zero Tackle
-- **Joshua Curran** (CAN): NAMED → EXPECTED
-  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 15).
-  - Source: Official NRL, Zero Tackle
+- **Bradman Best** (NEW): NAMED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Gabriel Satrick** (MEL): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Kyle McCarthy** (NEW): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Vena Patuki-Case** (CBR): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL

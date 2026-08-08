@@ -1,6 +1,81 @@
 {
-  "updated": "2026-08-08T03:44:00.720Z",
+  "updated": "2026-08-08T04:41:19.913Z",
   "round": 23,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Bradman Best",
+      "team": "NEW",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-08T04:41:19.913Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-08T04:41:19.913Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Gabriel Satrick",
+      "team": "MEL",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-08T04:41:19.913Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-08T04:41:19.913Z"
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Kyle McCarthy",
+      "team": "NEW",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-08T04:41:19.913Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-08T04:41:19.913Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Vena Patuki-Case",
+      "team": "CBR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-08T04:41:19.913Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-08T04:41:19.913Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 23
+    }
+  ],
   "allChangeCount": 500
 }
