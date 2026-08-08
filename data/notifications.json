@@ -1,6 +1,77 @@
 {
-  "updated": "2026-08-08T09:00:56.274Z",
+  "updated": "2026-08-08T09:54:32.649Z",
   "round": 23,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Ben Hunt",
+      "team": "BRO",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 14).",
+      "detectedAt": "2026-08-08T09:54:32.649Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-08T09:54:32.649Z",
+          "priority": 2,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dolphins-broncos-10396510-236712",
+          "updatedAt": "2026-08-08T09:54:32.649Z",
+          "priority": 4,
+          "order": 6
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+          "updatedAt": "2026-08-08T09:54:32.649Z",
+          "priority": 2,
+          "order": 10
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Blake Mozer",
+      "team": "BRO",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 20).",
+      "detectedAt": "2026-08-08T09:54:32.649Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-08T09:54:32.649Z",
+          "priority": 2,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dolphins-broncos-10396510-236712",
+          "updatedAt": "2026-08-08T09:54:32.649Z",
+          "priority": 4,
+          "order": 6
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+          "updatedAt": "2026-08-08T09:54:32.649Z",
+          "priority": 2,
+          "order": 10
+        }
+      ],
+      "round": 23
+    }
+  ],
   "allChangeCount": 500
 }
