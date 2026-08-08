@@ -1,6 +1,80 @@
 {
-  "updated": "2026-08-08T07:16:03.455Z",
+  "updated": "2026-08-08T08:06:45.898Z",
   "round": 23,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Joash Papalii",
+      "team": "PAR",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-08T08:06:45.898Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-08T08:06:45.898Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Liam Le Blanc",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-08T08:06:45.898Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-08T08:06:45.898Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Ryley Smith",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 9, jersey 22).",
+      "detectedAt": "2026-08-08T08:06:45.898Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-08T08:06:45.898Z",
+          "priority": 2,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-eels-10396511-236717",
+          "updatedAt": "2026-08-08T08:06:45.898Z",
+          "priority": 4,
+          "order": 8
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+          "updatedAt": "2026-08-08T08:06:45.898Z",
+          "priority": 2,
+          "order": 10
+        }
+      ],
+      "round": 23
+    }
+  ],
   "allChangeCount": 500
 }
