@@ -1,6 +1,80 @@
 {
-  "updated": "2026-08-09T04:01:58.413Z",
+  "updated": "2026-08-09T05:18:36.429Z",
   "round": 23,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Luciano Leilua",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-09T05:18:36.429Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-09T05:18:36.429Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Mathew Feagai",
+      "team": "STG",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 5, jersey 19).",
+      "detectedAt": "2026-08-09T05:18:36.429Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-09T05:18:36.429Z",
+          "priority": 2,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dragons-sharks-10396513-236742",
+          "updatedAt": "2026-08-09T05:18:36.429Z",
+          "priority": 4,
+          "order": 4
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-23-team-lists-2026-236562",
+          "updatedAt": "2026-08-09T05:18:36.429Z",
+          "priority": 2,
+          "order": 7
+        }
+      ],
+      "round": 23
+    },
+    {
+      "player": "Niwhai Puru",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-09T05:18:36.429Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/04/nrl-team-lists-round-23",
+          "updatedAt": "2026-08-09T05:18:36.429Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 23
+    }
+  ],
   "allChangeCount": 500
 }
