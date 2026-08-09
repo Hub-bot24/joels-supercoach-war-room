@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-09T11:48:06.358Z",
+  "updated": "2026-08-09T12:54:26.779Z",
   "round": 23,
   "source": "Open-Meteo hourly forecast API",
   "status": "fresh",
@@ -393,10 +393,10 @@
         {
           "time": "2026-08-09T16:00",
           "phase": "game_window",
-          "temperature_2m": 16.5,
+          "temperature_2m": 16.4,
           "precipitation_probability": 43,
           "precipitation_mm": 0.1,
-          "wind_speed_10m": 12.8,
+          "wind_speed_10m": 11.3,
           "wind_gusts_10m": 27.4
         },
         {
@@ -404,18 +404,18 @@
           "phase": "game_window",
           "temperature_2m": 15.4,
           "precipitation_probability": 61,
-          "precipitation_mm": 0.1,
-          "wind_speed_10m": 16.9,
-          "wind_gusts_10m": 34.6
+          "precipitation_mm": 0.2,
+          "wind_speed_10m": 16.2,
+          "wind_gusts_10m": 32.8
         }
       ],
       "weatherRisk": {
         "label": "Medium",
         "score": 40,
         "maxRainProbability": 61,
-        "totalGameRainMm": 0.2,
-        "maxWindKmh": 16.9,
-        "maxGustKmh": 34.6,
+        "totalGameRainMm": 0.3,
+        "maxWindKmh": 16.2,
+        "maxGustKmh": 32.8,
         "avgTemp": 15.9,
         "reasons": [
           "rain risk",
@@ -813,10 +813,10 @@
         {
           "time": "2026-08-09T16:00",
           "phase": "game_window",
-          "temperature_2m": 16.5,
+          "temperature_2m": 16.4,
           "precipitation_probability": 43,
           "precipitation_mm": 0.1,
-          "wind_speed_10m": 12.8,
+          "wind_speed_10m": 11.3,
           "wind_gusts_10m": 27.4
         },
         {
@@ -824,18 +824,18 @@
           "phase": "game_window",
           "temperature_2m": 15.4,
           "precipitation_probability": 61,
-          "precipitation_mm": 0.1,
-          "wind_speed_10m": 16.9,
-          "wind_gusts_10m": 34.6
+          "precipitation_mm": 0.2,
+          "wind_speed_10m": 16.2,
+          "wind_gusts_10m": 32.8
         }
       ],
       "weatherRisk": {
         "label": "Medium",
         "score": 40,
         "maxRainProbability": 61,
-        "totalGameRainMm": 0.2,
-        "maxWindKmh": 16.9,
-        "maxGustKmh": 34.6,
+        "totalGameRainMm": 0.3,
+        "maxWindKmh": 16.2,
+        "maxGustKmh": 32.8,
         "avgTemp": 15.9,
         "reasons": [
           "rain risk",
