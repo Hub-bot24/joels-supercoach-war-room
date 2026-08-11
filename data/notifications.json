@@ -1,6 +1,47 @@
 {
-  "updated": "2026-08-10T23:40:02.922Z",
+  "updated": "2026-08-11T00:34:12.026Z",
   "round": 24,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Braden Uele",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "INJURED",
+      "reason": "Injury confirmed near player on injury article (Zero Tackle): Round 4.",
+      "detectedAt": "2026-08-11T00:34:12.026Z",
+      "sources": [
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/season-not-over-for-siosifa-talakai-as-sharks-reveal-promising-injury-update-236608/",
+          "updatedAt": "2026-08-11T00:34:12.026Z"
+        }
+      ],
+      "round": 24
+    },
+    {
+      "player": "Jarome Luai",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "INJURED",
+      "reason": "Injury confirmed near player on injury article (Zero Tackle): Season.; Origin/representative-duty context present",
+      "detectedAt": "2026-08-11T00:34:12.026Z",
+      "sources": [
+        {
+          "type": "injury",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/eels-reveal-reason-for-strange-dylan-walker-call-confirm-jonah-pezet-injured-again-236589/",
+          "updatedAt": "2026-08-11T00:34:12.026Z"
+        },
+        {
+          "type": "origin",
+          "name": "origin_players.json",
+          "url": "origin_players.json",
+          "updatedAt": "2026-08-10T23:40:02.922Z"
+        }
+      ],
+      "round": 24
+    }
+  ],
   "allChangeCount": 500
 }

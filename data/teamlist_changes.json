@@ -1,39 +1,5 @@
 [
   {
-    "player": "Billy Walters",
-    "team": "BRO",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-09T16:37:14.831Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-09T16:37:14.831Z"
-      }
-    ],
-    "round": 24
-  },
-  {
-    "player": "Blake Hosking",
-    "team": "SHA",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-09T16:37:14.831Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-09T16:37:14.831Z"
-      }
-    ],
-    "round": 24
-  },
-  {
     "player": "Blake Lawrie",
     "team": "STG",
     "from": "NOT_NAMED",
@@ -8495,6 +8461,46 @@
         "name": "Current club team-list not confirmed",
         "url": "data/status_truth.json",
         "updatedAt": "2026-08-09T16:37:14.831Z"
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Braden Uele",
+    "team": "SHA",
+    "from": "EXPECTED",
+    "to": "INJURED",
+    "reason": "Injury confirmed near player on injury article (Zero Tackle): Round 4.",
+    "detectedAt": "2026-08-11T00:34:12.026Z",
+    "sources": [
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/season-not-over-for-siosifa-talakai-as-sharks-reveal-promising-injury-update-236608/",
+        "updatedAt": "2026-08-11T00:34:12.026Z"
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Jarome Luai",
+    "team": "WST",
+    "from": "EXPECTED",
+    "to": "INJURED",
+    "reason": "Injury confirmed near player on injury article (Zero Tackle): Season.; Origin/representative-duty context present",
+    "detectedAt": "2026-08-11T00:34:12.026Z",
+    "sources": [
+      {
+        "type": "injury",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/eels-reveal-reason-for-strange-dylan-walker-call-confirm-jonah-pezet-injured-again-236589/",
+        "updatedAt": "2026-08-11T00:34:12.026Z"
+      },
+      {
+        "type": "origin",
+        "name": "origin_players.json",
+        "url": "origin_players.json",
+        "updatedAt": "2026-08-10T23:40:02.922Z"
       }
     ],
     "round": 24
