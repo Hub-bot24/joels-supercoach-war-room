@@ -1,7 +1,58 @@
 # SuperCoach War Room status changes — Round 24
 
-Detected: 2026-08-12T02:45:05.535Z
+Detected: 2026-08-12T06:01:25.934Z
 
-- **Hudson Young** (CBR): NAMED → NOT_NAMED
+- **Adam Christensen** (GLD): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Brad Schneider** (DOL): NAMED → EXPECTED
+  - Named in official NRL role-line team-list extended squad only (Official NRL, Interchange, jersey 18).
+  - Source: Official NRL, Official NRL, Zero Tackle
+- **Brock Gray** (GLD): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Daniel Atkinson** (STG): NAMED → EXPECTED
+  - Named in official NRL role-line team-list extended squad only (Official NRL, Interchange, jersey 18).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle
+- **Jaimin Jolliffe** (GLD): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Jensen Taumoepeau** (GLD): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Junior Tupou** (SYD): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Official NRL, jersey 2).
+  - Source: Official NRL
+- **Luke Sommerton** (GLD): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Max Feagai** (GLD): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Morgan Gannon** (NZL): EXPECTED → NAMED
+  - Named in team-list article starting side (Official NRL, jersey 2).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle
+- **Peter Mamouzelos** (STH): NAMED → EXPECTED
+  - Named in official NRL role-line team-list extended squad only (Official NRL, Interchange, jersey 18).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle
+- **Sam McIntyre** (NQC): NAMED → EXPECTED
+  - Named in official NRL role-line team-list extended squad only (Official NRL, Interchange, jersey 18).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle
+- **Sam Verrills** (GLD): NAMED → EXPECTED
+  - Named in official NRL role-line team-list extended squad only (Official NRL, Interchange, jersey 18).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle
+- **Taine Tuaupiki** (NZL): NAMED → EXPECTED
+  - Named in official NRL role-line team-list extended squad only (Official NRL, Interchange, jersey 18).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle
+- **Tom Duffy** (BRO): NAMED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Zero Tackle
+- **Tom Trbojevic** (MAN): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Official NRL, jersey 1).
+  - Source: Official NRL
+- **Vena Patuki-Case** (CBR): NAMED → EXPECTED
+  - Named in official NRL role-line team-list extended squad only (Official NRL, Interchange, jersey 18).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle
+- **VJ Semu** (BRO): NOT_NAMED → NAMED
+  - Named in team-list article interchange (Official NRL, jersey 17).
   - Source: Official NRL
