@@ -1,7 +1,10 @@
 # SuperCoach War Room status changes — Round 24
 
-Detected: 2026-08-13T06:02:31.860Z
+Detected: 2026-08-13T07:53:31.727Z
 
-- **Jezaiah Funa-Iuta** (PAR): NAMED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL, Zero Tackle
+- **Isaah Yeo** (PEN): NOT_NAMED → INJURED
+  - Back confirmed near player on injury article (Zero Tackle): Next season.
+  - Source: Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
+- **Jesse Ramien** (SHA): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 13).
+  - Source: Official NRL, Official NRL, Zero Tackle, Zero Tackle
