@@ -1,22 +1,5 @@
 [
   {
-    "player": "Wayde Egan",
-    "team": "NZL",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-09T16:37:14.831Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-09T16:37:14.831Z"
-      }
-    ],
-    "round": 24
-  },
-  {
     "player": "Wil Sullivan",
     "team": "NEW",
     "from": "NOT_NAMED",
@@ -12443,6 +12426,41 @@
         "name": "Parsed current team-list source",
         "url": "",
         "updatedAt": "2026-08-12T10:28:30.546Z"
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Jezaiah Funa-Iuta",
+    "team": "PAR",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-13T06:02:31.860Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/12/nrl-late-mail-round-24---teddy-races-clock-knights-stars-return",
+        "updatedAt": "2026-08-13T06:02:31.860Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
+        "updatedAt": "2026-08-13T06:02:31.860Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-24-team-lists-2026-236834",
+        "updatedAt": "2026-08-13T06:02:31.860Z",
+        "priority": 2,
+        "order": 6
       }
     ],
     "round": 24
