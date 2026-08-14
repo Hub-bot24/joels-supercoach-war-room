@@ -1,19 +1,16 @@
 {
-  "updated": "2026-08-14T01:41:32.037Z",
+  "updated": "2026-08-14T07:19:02.180Z",
   "sources": [
     {
       "url": "https://www.nrlsupercoachstats.com/drawV2.php?year=2026",
-      "http_status": 200,
-      "content_length": 121847,
-      "tables": 3,
-      "fixtures_after": 204
+      "error": "525 https://www.nrlsupercoachstats.com/drawV2.php?year=2026"
     },
     {
       "url": "https://www.nrlsupercoachstats.com/draw.php?year=2026",
       "http_status": 200,
       "content_length": 121563,
       "tables": 3,
-      "fixtures_after": 408
+      "fixtures_after": 204
     }
   ],
   "fixturesFound": 204,
