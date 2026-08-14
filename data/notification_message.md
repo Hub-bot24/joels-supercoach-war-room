@@ -1,19 +1,19 @@
 # SuperCoach War Room status changes — Round 24
 
-Detected: 2026-08-14T09:08:56.158Z
+Detected: 2026-08-14T10:16:46.690Z
 
-- **Blake Wilson** (MAN): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Caleb Navale** (MAN): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Jonah Glover** (STH): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Kurt Donoghoe** (DOL): NAMED → NOT_NAMED
+- **Ben Talty** (BRO): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL
-- **Sean O'Sullivan** (CAN): EXPECTED → NOT_NAMED
+- **Jesse Arthars** (BRO): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Luke Hanson** (NZL): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
+- **Morgan Gannon** (NZL): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 20, jersey 21).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
+- **Tom Duffy** (BRO): NOT_NAMED → NAMED
+  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 7, jersey 7).
+  - Source: Official NRL, Zero Tackle, Zero Tackle

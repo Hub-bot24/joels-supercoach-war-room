@@ -1,114 +1,5 @@
 [
   {
-    "player": "Ali Leiataua",
-    "team": "NZL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 2).",
-    "detectedAt": "2026-08-11T06:37:21.295Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
-        "updatedAt": "2026-08-11T06:37:21.295Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-24-team-lists-2026-236834",
-        "updatedAt": "2026-08-11T06:37:21.295Z",
-        "priority": 2,
-        "order": 5
-      }
-    ],
-    "round": 24
-  },
-  {
-    "player": "Alofiana Khan-Pereira",
-    "team": "NZL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
-    "detectedAt": "2026-08-11T06:37:21.295Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
-        "updatedAt": "2026-08-11T06:37:21.295Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-24-team-lists-2026-236834",
-        "updatedAt": "2026-08-11T06:37:21.295Z",
-        "priority": 2,
-        "order": 5
-      }
-    ],
-    "round": 24
-  },
-  {
-    "player": "Angus Crichton",
-    "team": "SYD",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-08-11T06:37:21.295Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
-        "updatedAt": "2026-08-11T06:37:21.295Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 24
-  },
-  {
-    "player": "Antonio Verhoeven",
-    "team": "BRO",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Current club team list loaded for club and player was not in that list.",
-    "detectedAt": "2026-08-11T06:37:21.295Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Parsed current team-list source",
-        "url": "data/teamlists.json",
-        "updatedAt": "2026-08-11T06:37:21.295Z"
-      }
-    ],
-    "round": 24
-  },
-  {
-    "player": "Apa Twidle",
-    "team": "PAR",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in official NRL role-line team-list starting side (Official NRL, Fullback, jersey 1).",
-    "detectedAt": "2026-08-11T06:37:21.295Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
-        "updatedAt": "2026-08-11T06:37:21.295Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 24
-  },
-  {
     "player": "Apisai Koroisau",
     "team": "WST",
     "from": "EXPECTED",
@@ -12607,6 +12498,157 @@
         "updatedAt": "2026-08-14T09:08:56.158Z",
         "priority": 2,
         "order": 3
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Ben Talty",
+    "team": "BRO",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-14T10:16:46.690Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/12/nrl-late-mail-round-24---teddy-races-clock-knights-stars-return",
+        "updatedAt": "2026-08-14T10:16:46.690Z",
+        "priority": 3,
+        "order": 2
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Jesse Arthars",
+    "team": "BRO",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-14T10:16:46.690Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/12/nrl-late-mail-round-24---teddy-races-clock-knights-stars-return",
+        "updatedAt": "2026-08-14T10:16:46.690Z",
+        "priority": 3,
+        "order": 2
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Luke Hanson",
+    "team": "NZL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-14T10:16:46.690Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/12/nrl-late-mail-round-24---teddy-races-clock-knights-stars-return",
+        "updatedAt": "2026-08-14T10:16:46.690Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
+        "updatedAt": "2026-08-14T10:16:46.690Z",
+        "priority": 2,
+        "order": 3
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Morgan Gannon",
+    "team": "NZL",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 20, jersey 21).",
+    "detectedAt": "2026-08-14T10:16:46.690Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/12/nrl-late-mail-round-24---teddy-races-clock-knights-stars-return",
+        "updatedAt": "2026-08-14T10:16:46.690Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/12/nrl-late-mail-round-24---teddy-races-clock-knights-stars-return",
+        "updatedAt": "2026-08-14T10:16:46.690Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
+        "updatedAt": "2026-08-14T10:16:46.690Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-broncos-vs-warriors-10397672-236985",
+        "updatedAt": "2026-08-14T10:16:46.690Z",
+        "priority": 4,
+        "order": 8
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-24-team-lists-2026-236834",
+        "updatedAt": "2026-08-14T10:16:46.690Z",
+        "priority": 2,
+        "order": 11
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Tom Duffy",
+    "team": "BRO",
+    "from": "NOT_NAMED",
+    "to": "NAMED",
+    "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 7, jersey 7).",
+    "detectedAt": "2026-08-14T10:16:46.690Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/12/nrl-late-mail-round-24---teddy-races-clock-knights-stars-return",
+        "updatedAt": "2026-08-14T10:16:46.690Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-broncos-vs-warriors-10397672-236985",
+        "updatedAt": "2026-08-14T10:16:46.690Z",
+        "priority": 4,
+        "order": 8
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-24-team-lists-2026-236834",
+        "updatedAt": "2026-08-14T10:16:46.690Z",
+        "priority": 2,
+        "order": 11
       }
     ],
     "round": 24
