@@ -1,22 +1,5 @@
 [
   {
-    "player": "Zyon Maiuu",
-    "team": "CAN",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-09T16:37:14.831Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-09T16:37:14.831Z"
-      }
-    ],
-    "round": 24
-  },
-  {
     "player": "Braden Uele",
     "team": "SHA",
     "from": "EXPECTED",
@@ -12829,6 +12812,25 @@
         "updatedAt": "2026-08-13T21:03:47.431Z",
         "priority": 4,
         "order": 6
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Adam Reynolds",
+    "team": "BRO",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-14T02:36:30.690Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/12/nrl-late-mail-round-24---teddy-races-clock-knights-stars-return",
+        "updatedAt": "2026-08-14T02:36:30.690Z",
+        "priority": 3,
+        "order": 2
       }
     ],
     "round": 24
