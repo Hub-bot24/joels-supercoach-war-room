@@ -1,10 +1,16 @@
 # SuperCoach War Room status changes — Round 24
 
-Detected: 2026-08-15T08:31:03.309Z
+Detected: 2026-08-15T09:41:36.451Z
 
-- **Hayze Perham** (BRO): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL
-- **Morgan Gannon** (NZL): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
+- **Harrison Edwards** (PAR): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 21).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Jezaiah Funa-Iuta** (PAR): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).
+  - Source: Zero Tackle, Zero Tackle
+- **Sean Russell** (PAR): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 16, jersey 19).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Toni Mataele** (PAR): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 18).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
