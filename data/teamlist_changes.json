@@ -1,32 +1,5 @@
 [
   {
-    "player": "Charnze Nicoll-Klokstad",
-    "team": "NZL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
-    "detectedAt": "2026-08-11T06:37:21.295Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
-        "updatedAt": "2026-08-11T06:37:21.295Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-24-team-lists-2026-236834",
-        "updatedAt": "2026-08-11T06:37:21.295Z",
-        "priority": 2,
-        "order": 5
-      }
-    ],
-    "round": 24
-  },
-  {
     "player": "Chevy Stewart",
     "team": "CBR",
     "from": "EXPECTED",
@@ -12917,6 +12890,41 @@
         "name": "Zero Tackle",
         "url": "https://www.zerotackle.com/round-24-team-lists-2026-236834",
         "updatedAt": "2026-08-15T11:28:49.972Z",
+        "priority": 2,
+        "order": 10
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Demitric Vaimauga",
+    "team": "NZL",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 16).",
+    "detectedAt": "2026-08-15T13:17:43.975Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
+        "updatedAt": "2026-08-15T13:17:43.975Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-broncos-warriors-10397672-236985",
+        "updatedAt": "2026-08-15T13:17:43.975Z",
+        "priority": 4,
+        "order": 5
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-24-team-lists-2026-236834",
+        "updatedAt": "2026-08-15T13:17:43.975Z",
         "priority": 2,
         "order": 10
       }
