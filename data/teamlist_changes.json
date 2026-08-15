@@ -1,43 +1,5 @@
 [
   {
-    "player": "Brodie Jones",
-    "team": "NEW",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-08-11T06:37:21.295Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
-        "updatedAt": "2026-08-11T06:37:21.295Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 24
-  },
-  {
-    "player": "Bronson Garlick",
-    "team": "STH",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-08-11T06:37:21.295Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
-        "updatedAt": "2026-08-11T06:37:21.295Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 24
-  },
-  {
     "player": "Bunty Afoa",
     "team": "WST",
     "from": "EXPECTED",
@@ -12847,6 +12809,52 @@
         "name": "Parsed current team-list source",
         "url": "",
         "updatedAt": "2026-08-15T06:40:26.695Z"
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Hayze Perham",
+    "team": "BRO",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-15T08:31:03.309Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/12/nrl-late-mail-round-24---teddy-races-clock-knights-stars-return",
+        "updatedAt": "2026-08-15T08:31:03.309Z",
+        "priority": 3,
+        "order": 2
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Morgan Gannon",
+    "team": "NZL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-15T08:31:03.309Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/12/nrl-late-mail-round-24---teddy-races-clock-knights-stars-return",
+        "updatedAt": "2026-08-15T08:31:03.309Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
+        "updatedAt": "2026-08-15T08:31:03.309Z",
+        "priority": 2,
+        "order": 3
       }
     ],
     "round": 24
