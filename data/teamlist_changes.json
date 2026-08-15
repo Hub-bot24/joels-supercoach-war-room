@@ -1,70 +1,5 @@
 [
   {
-    "player": "Casey McLean",
-    "team": "PEN",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-08-11T06:37:21.295Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
-        "updatedAt": "2026-08-11T06:37:21.295Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 24
-  },
-  {
-    "player": "Chanel Harris-Tavita",
-    "team": "NZL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
-    "detectedAt": "2026-08-11T06:37:21.295Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
-        "updatedAt": "2026-08-11T06:37:21.295Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-24-team-lists-2026-236834",
-        "updatedAt": "2026-08-11T06:37:21.295Z",
-        "priority": 2,
-        "order": 5
-      }
-    ],
-    "round": 24
-  },
-  {
-    "player": "Charlie Guymer",
-    "team": "PAR",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-08-11T06:37:21.295Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
-        "updatedAt": "2026-08-11T06:37:21.295Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 24
-  },
-  {
     "player": "Charnze Nicoll-Klokstad",
     "team": "NZL",
     "from": "EXPECTED",
@@ -12879,6 +12814,111 @@
         "name": "Parsed current team-list source",
         "url": "",
         "updatedAt": "2026-08-15T09:59:57.738Z"
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Ben Hunt",
+    "team": "BRO",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 14).",
+    "detectedAt": "2026-08-15T11:28:49.972Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
+        "updatedAt": "2026-08-15T11:28:49.972Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-broncos-warriors-10397672-236985",
+        "updatedAt": "2026-08-15T11:28:49.972Z",
+        "priority": 4,
+        "order": 5
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-24-team-lists-2026-236834",
+        "updatedAt": "2026-08-15T11:28:49.972Z",
+        "priority": 2,
+        "order": 10
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Blake Mozer",
+    "team": "BRO",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 16, jersey 18).",
+    "detectedAt": "2026-08-15T11:28:49.972Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
+        "updatedAt": "2026-08-15T11:28:49.972Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-broncos-warriors-10397672-236985",
+        "updatedAt": "2026-08-15T11:28:49.972Z",
+        "priority": 4,
+        "order": 5
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-24-team-lists-2026-236834",
+        "updatedAt": "2026-08-15T11:28:49.972Z",
+        "priority": 2,
+        "order": 10
+      }
+    ],
+    "round": 24
+  },
+  {
+    "player": "Gehamat Shibasaki",
+    "team": "BRO",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 20).",
+    "detectedAt": "2026-08-15T11:28:49.972Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/11/nrl-team-lists-round-24",
+        "updatedAt": "2026-08-15T11:28:49.972Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-broncos-warriors-10397672-236985",
+        "updatedAt": "2026-08-15T11:28:49.972Z",
+        "priority": 4,
+        "order": 5
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-24-team-lists-2026-236834",
+        "updatedAt": "2026-08-15T11:28:49.972Z",
+        "priority": 2,
+        "order": 10
       }
     ],
     "round": 24
