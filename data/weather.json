@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-15T10:32:40.310Z",
+  "updated": "2026-08-15T10:59:02.180Z",
   "round": 24,
   "source": "Open-Meteo hourly forecast API",
   "status": "fresh",
@@ -224,45 +224,14 @@
       "lat": -32.9188,
       "lon": 151.726,
       "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-08-16T13:30",
-        "to": "2026-08-16T15:50",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-08-16T14:00",
-          "phase": "game_window",
-          "temperature_2m": 17,
-          "precipitation_probability": 51,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 17.5,
-          "wind_gusts_10m": 43.9
-        },
-        {
-          "time": "2026-08-16T15:00",
-          "phase": "game_window",
-          "temperature_2m": 17,
-          "precipitation_probability": 31,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 17.2,
-          "wind_gusts_10m": 40.7
-        }
-      ],
+      "weatherStatus": "source_failed",
+      "gameWindowWeather": [],
       "weatherRisk": {
-        "label": "Medium",
-        "score": 40,
-        "maxRainProbability": 51,
-        "totalGameRainMm": 0,
-        "maxWindKmh": 17.5,
-        "maxGustKmh": 43.9,
-        "avgTemp": 17,
+        "score": 0,
+        "label": "Unknown",
         "reasons": [
-          "rain risk",
-          "moderate wind/gusts"
-        ],
-        "captainImpact": "Medium weather risk over game window. Review outdoor captain/ceiling assumptions."
+          "503 https://api.open-meteo.com/v1/forecast?latitude=-32.9188&longitude=151.726&hourly=temperature_2m%2Cprecipitation_probability%2Cprecipitation%2Cwind_speed_10m%2Cwind_gusts_10m&timezone=Australia%2FSydney&start_date=2026-08-16&end_date=2026-08-16"
+        ]
       }
     },
     {
@@ -645,45 +614,14 @@
       "lat": -32.9188,
       "lon": 151.726,
       "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-08-16T13:30",
-        "to": "2026-08-16T15:50",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-08-16T14:00",
-          "phase": "game_window",
-          "temperature_2m": 17,
-          "precipitation_probability": 51,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 17.5,
-          "wind_gusts_10m": 43.9
-        },
-        {
-          "time": "2026-08-16T15:00",
-          "phase": "game_window",
-          "temperature_2m": 17,
-          "precipitation_probability": 31,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 17.2,
-          "wind_gusts_10m": 40.7
-        }
-      ],
+      "weatherStatus": "source_failed",
+      "gameWindowWeather": [],
       "weatherRisk": {
-        "label": "Medium",
-        "score": 40,
-        "maxRainProbability": 51,
-        "totalGameRainMm": 0,
-        "maxWindKmh": 17.5,
-        "maxGustKmh": 43.9,
-        "avgTemp": 17,
+        "score": 0,
+        "label": "Unknown",
         "reasons": [
-          "rain risk",
-          "moderate wind/gusts"
-        ],
-        "captainImpact": "Medium weather risk over game window. Review outdoor captain/ceiling assumptions."
+          "503 https://api.open-meteo.com/v1/forecast?latitude=-32.9188&longitude=151.726&hourly=temperature_2m%2Cprecipitation_probability%2Cprecipitation%2Cwind_speed_10m%2Cwind_gusts_10m&timezone=Australia%2FSydney&start_date=2026-08-16&end_date=2026-08-16"
+        ]
       }
     },
     {
@@ -847,5 +785,11 @@
       }
     }
   ],
-  "failures": []
+  "failures": [
+    {
+      "match": "Titans v Knights",
+      "venue": "McDonald Jones Stadium",
+      "reason": "503 https://api.open-meteo.com/v1/forecast?latitude=-32.9188&longitude=151.726&hourly=temperature_2m%2Cprecipitation_probability%2Cprecipitation%2Cwind_speed_10m%2Cwind_gusts_10m&timezone=Australia%2FSydney&start_date=2026-08-16&end_date=2026-08-16"
+    }
+  ]
 }
