@@ -1,7 +1,7 @@
 # SuperCoach War Room status changes — Round 24
 
-Detected: 2026-08-15T21:22:31.155Z
+Detected: 2026-08-16T02:43:25.362Z
 
-- **Bradman Best** (NEW): NOT_NAMED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 16).
-  - Source: Official NRL, Official NRL, Zero Tackle, Zero Tackle, Zero Tackle
+- **Jaylan De Groot** (GLD): EXPECTED → NAMED
+  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 5, jersey 19).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
