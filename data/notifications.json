@@ -1,6 +1,24 @@
 {
-  "updated": "2026-08-18T01:44:23.774Z",
+  "updated": "2026-08-18T02:42:45.691Z",
   "round": 25,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Isaiah Iongi",
+      "team": "PAR",
+      "from": "INJURED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-08-18T02:42:45.691Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-08-18T02:42:45.691Z"
+        }
+      ],
+      "round": 25
+    }
+  ],
   "allChangeCount": 500
 }

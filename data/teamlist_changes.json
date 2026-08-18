@@ -1,22 +1,5 @@
 [
   {
-    "player": "Billy Phillips",
-    "team": "PEN",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-16T16:27:00.211Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-16T16:27:00.211Z"
-      }
-    ],
-    "round": 25
-  },
-  {
     "player": "Billy Smith",
     "team": "SYD",
     "from": "NAMED",
@@ -8897,6 +8880,23 @@
         "name": "Zero Tackle",
         "url": "https://www.zerotackle.com/sharks-provide-braydon-trindall-injury-update-237073/",
         "updatedAt": "2026-08-16T21:45:32.422Z"
+      }
+    ],
+    "round": 25
+  },
+  {
+    "player": "Isaiah Iongi",
+    "team": "PAR",
+    "from": "INJURED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-08-18T02:42:45.691Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-08-18T02:42:45.691Z"
       }
     ],
     "round": 25
