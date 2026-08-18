@@ -1,7 +1,154 @@
 # SuperCoach War Room status changes — Round 25
 
-Detected: 2026-08-18T02:42:45.691Z
+Detected: 2026-08-18T06:02:40.707Z
 
-- **Isaiah Iongi** (PAR): INJURED → EXPECTED
-  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
-  - Source: Current club team-list not confirmed
+- **Aaron Schoupp** (MAN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Adam Doueihi** (WST): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Adam Elliott** (STH): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Adam Pompey** (NZL): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 17).
+  - Source: Official NRL, Zero Tackle
+- **Adam Reynolds** (BRO): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Addin Fonua-Blake** (SHA): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 7).
+  - Source: Official NRL, Zero Tackle
+- **Alec MacDonald** (MEL): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 15, jersey 15).
+  - Source: Official NRL, Zero Tackle
+- **Alekolasimi Jones** (CAN): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 16).
+  - Source: Official NRL, Zero Tackle
+- **Alex Johnston** (STH): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 2).
+  - Source: Official NRL, Zero Tackle
+- **Alex Seyfarth** (WST): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 15).
+  - Source: Official NRL, Zero Tackle
+- **Alex Twal** (WST): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 12).
+  - Source: Official NRL, Zero Tackle
+- **Alexander Brimson** (GLD): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 4).
+  - Source: Official NRL, Zero Tackle
+- **Ali Leiataua** (NZL): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 2).
+  - Source: Official NRL, Zero Tackle
+- **Alofiana Khan-Pereira** (NZL): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 4).
+  - Source: Official NRL, Zero Tackle
+- **Angus Crichton** (SYD): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Angus Hinchey** (MEL): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 16, jersey 16).
+  - Source: Official NRL, Zero Tackle
+- **Antonio Verhoeven** (BRO): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Apa Twidle** (PAR): EXPECTED → NAMED
+  - Named in official NRL role-line team-list starting side (Official NRL, Fullback, jersey 1).
+  - Source: Official NRL
+- **Apisai Koroisau** (WST): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 8).
+  - Source: Official NRL, Zero Tackle
+- **Arama Hau** (GLD): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 11).
+  - Source: Official NRL, Zero Tackle
+- **Asu Kepaoa** (NEW): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Ata Mariota** (CBR): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 13).
+  - Source: Official NRL, Zero Tackle
+- **Ativalu Lisati** (MEL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Aublix Tawha** (BRO): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 14).
+  - Source: Official NRL, Zero Tackle
+- **Bailey Hayward** (CAN): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 8).
+  - Source: Official NRL, Zero Tackle
+- **Bailey Simonsson** (PAR): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Bayleigh Bentley-Hape** (STH): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Beau Fermor** (GLD): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 12).
+  - Source: Official NRL, Zero Tackle
+- **Ben Hunt** (BRO): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 6).
+  - Source: Official NRL, Zero Tackle
+- **Ben Trbojevic** (MAN): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 11).
+  - Source: Official NRL, Zero Tackle
+- **Benjamin TeKura** (BRO): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Billy Burns** (SHA): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 14).
+  - Source: Official NRL, Zero Tackle
+- **Billy Phillips** (PEN): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 17).
+  - Source: Official NRL, Zero Tackle
+- **Billy Scott** (PEN): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 14, jersey 14).
+  - Source: Official NRL, Zero Tackle
+- **Billy Smith** (SYD): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 2).
+  - Source: Official NRL, Zero Tackle
+- **Billy Walters** (BRO): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 8).
+  - Source: Official NRL, Zero Tackle
+- **Blake Hosking** (SHA): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Blake Mozer** (BRO): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 14).
+  - Source: Official NRL, Zero Tackle
+- **Blake Steep** (SYD): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Blayke Brailey** (SHA): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 8).
+  - Source: Official NRL, Zero Tackle
+- **Bradman Best** (NEW): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 4).
+  - Source: Official NRL, Zero Tackle
+- **Brandon Smith** (STH): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 9).
+  - Source: Official NRL, Zero Tackle
+- **Brandon Wakeham** (MAN): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 8).
+  - Source: Official NRL, Zero Tackle
+- **Braydon Trindall** (SHA): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Brendan Piakura** (BRO): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Brent Woolf** (DOL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Brian Kelly** (PAR): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 1).
+  - Source: Official NRL, Zero Tackle
+- **Brian Pouniu** (DOL): EXPECTED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 17).
+  - Source: Official NRL, Zero Tackle
+- **Brian To'o** (PEN): EXPECTED → NAMED
+  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 5, jersey 5).
+  - Source: Official NRL, Zero Tackle
+- **Briton Nikora** (SHA): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 10).
+  - Source: Official NRL, Zero Tackle
