@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-18T18:12:49.686Z",
+  "updated": "2026-08-18T18:59:10.538Z",
   "round": 25,
   "source": "Open-Meteo hourly forecast API",
   "status": "fresh",
@@ -66,53 +66,14 @@
       "lat": -33.889,
       "lon": 151.225,
       "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-08-22T19:00",
-        "to": "2026-08-22T21:20",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-08-22T19:00",
-          "phase": "game_window",
-          "temperature_2m": 15.7,
-          "precipitation_probability": 10,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 13.5,
-          "wind_gusts_10m": 32.8
-        },
-        {
-          "time": "2026-08-22T20:00",
-          "phase": "game_window",
-          "temperature_2m": 15.4,
-          "precipitation_probability": 9,
-          "precipitation_mm": 0.1,
-          "wind_speed_10m": 11.4,
-          "wind_gusts_10m": 31.7
-        },
-        {
-          "time": "2026-08-22T21:00",
-          "phase": "game_window",
-          "temperature_2m": 15.1,
-          "precipitation_probability": 9,
-          "precipitation_mm": 0.1,
-          "wind_speed_10m": 8.2,
-          "wind_gusts_10m": 29.5
-        }
-      ],
+      "weatherStatus": "source_failed",
+      "gameWindowWeather": [],
       "weatherRisk": {
-        "label": "Low",
-        "score": 15,
-        "maxRainProbability": 10,
-        "totalGameRainMm": 0.2,
-        "maxWindKmh": 13.5,
-        "maxGustKmh": 32.8,
-        "avgTemp": 15.4,
+        "score": 0,
+        "label": "Unknown",
         "reasons": [
-          "moderate wind/gusts"
-        ],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+          "503 https://api.open-meteo.com/v1/forecast?latitude=-33.889&longitude=151.225&hourly=temperature_2m%2Cprecipitation_probability%2Cprecipitation%2Cwind_speed_10m%2Cwind_gusts_10m&timezone=Australia%2FSydney&start_date=2026-08-22&end_date=2026-08-22"
+        ]
       }
     },
     {
@@ -490,53 +451,14 @@
       "lat": -33.889,
       "lon": 151.225,
       "timezone": "Australia/Sydney",
-      "weatherStatus": "updated",
-      "gameWindow": {
-        "from": "2026-08-22T19:00",
-        "to": "2026-08-22T21:20",
-        "gameMinutes": 110
-      },
-      "gameWindowWeather": [
-        {
-          "time": "2026-08-22T19:00",
-          "phase": "game_window",
-          "temperature_2m": 15.7,
-          "precipitation_probability": 10,
-          "precipitation_mm": 0,
-          "wind_speed_10m": 13.5,
-          "wind_gusts_10m": 32.8
-        },
-        {
-          "time": "2026-08-22T20:00",
-          "phase": "game_window",
-          "temperature_2m": 15.4,
-          "precipitation_probability": 9,
-          "precipitation_mm": 0.1,
-          "wind_speed_10m": 11.4,
-          "wind_gusts_10m": 31.7
-        },
-        {
-          "time": "2026-08-22T21:00",
-          "phase": "game_window",
-          "temperature_2m": 15.1,
-          "precipitation_probability": 9,
-          "precipitation_mm": 0.1,
-          "wind_speed_10m": 8.2,
-          "wind_gusts_10m": 29.5
-        }
-      ],
+      "weatherStatus": "source_failed",
+      "gameWindowWeather": [],
       "weatherRisk": {
-        "label": "Low",
-        "score": 15,
-        "maxRainProbability": 10,
-        "totalGameRainMm": 0.2,
-        "maxWindKmh": 13.5,
-        "maxGustKmh": 32.8,
-        "avgTemp": 15.4,
+        "score": 0,
+        "label": "Unknown",
         "reasons": [
-          "moderate wind/gusts"
-        ],
-        "captainImpact": "Low weather risk over game window. Normal captain logic applies."
+          "503 https://api.open-meteo.com/v1/forecast?latitude=-33.889&longitude=151.225&hourly=temperature_2m%2Cprecipitation_probability%2Cprecipitation%2Cwind_speed_10m%2Cwind_gusts_10m&timezone=Australia%2FSydney&start_date=2026-08-22&end_date=2026-08-22"
+        ]
       }
     },
     {
@@ -853,5 +775,11 @@
       }
     }
   ],
-  "failures": []
+  "failures": [
+    {
+      "match": "Bulldogs v Dragons",
+      "venue": "Allianz Stadium",
+      "reason": "503 https://api.open-meteo.com/v1/forecast?latitude=-33.889&longitude=151.225&hourly=temperature_2m%2Cprecipitation_probability%2Cprecipitation%2Cwind_speed_10m%2Cwind_gusts_10m&timezone=Australia%2FSydney&start_date=2026-08-22&end_date=2026-08-22"
+    }
+  ]
 }
