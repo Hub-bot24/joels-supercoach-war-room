@@ -1,7 +1,16 @@
 # SuperCoach War Room status changes — Round 25
 
-Detected: 2026-08-19T09:04:52.779Z
+Detected: 2026-08-19T09:49:28.744Z
 
-- **Billy Walters** (BRO): NAMED → EXPECTED
-  - Named in team-list article extended squad only (Zero Tackle, jersey 19).
-  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
+- **Davvy Moale** (MEL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL, Zero Tackle
+- **Jaxen Edgar** (PEN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL, Zero Tackle
+- **Jesse McLean** (PEN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL, Zero Tackle
+- **Manaia Waitere** (MEL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL, Zero Tackle
