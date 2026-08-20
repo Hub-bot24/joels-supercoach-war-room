@@ -1,16 +1,16 @@
 # SuperCoach War Room status changes — Round 25
 
-Detected: 2026-08-19T09:49:28.744Z
+Detected: 2026-08-20T08:18:17.695Z
 
-- **Davvy Moale** (MEL): EXPECTED → NOT_NAMED
+- **Jayden Brailey** (CBR): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL, Zero Tackle
-- **Jaxen Edgar** (PEN): EXPECTED → NOT_NAMED
+  - Source: Official NRL, Official NRL
+- **Jesse Arthars** (BRO): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL, Zero Tackle
-- **Jesse McLean** (PEN): EXPECTED → NOT_NAMED
+  - Source: Official NRL, Official NRL
+- **Sebastian Kris** (CBR): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL, Zero Tackle
-- **Manaia Waitere** (MEL): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL, Zero Tackle
+  - Source: Official NRL, Official NRL
+- **Tom Duffy** (BRO): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 18).
+  - Source: Official NRL, Official NRL, Zero Tackle, Zero Tackle
