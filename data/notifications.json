@@ -1,20 +1,20 @@
 {
-  "updated": "2026-08-20T09:05:58.280Z",
+  "updated": "2026-08-20T09:50:41.565Z",
   "round": 25,
   "newChanges": [
     {
-      "player": "Blaize Talagi",
-      "team": "PEN",
-      "from": "EXPECTED",
+      "player": "Tui Kamikamica",
+      "team": "MEL",
+      "from": "NAMED",
       "to": "NOT_NAMED",
       "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-08-20T09:05:58.280Z",
+      "detectedAt": "2026-08-20T09:50:41.565Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
-          "updatedAt": "2026-08-20T09:05:58.280Z",
+          "updatedAt": "2026-08-20T09:50:41.565Z",
           "priority": 3,
           "order": 2
         },
@@ -22,28 +22,9 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
-          "updatedAt": "2026-08-20T09:05:58.280Z",
+          "updatedAt": "2026-08-20T09:50:41.565Z",
           "priority": 2,
           "order": 3
-        }
-      ],
-      "round": 25
-    },
-    {
-      "player": "Tui Kamikamica",
-      "team": "MEL",
-      "from": "NOT_NAMED",
-      "to": "NAMED",
-      "reason": "Named in team-list article starting side (Official NRL, jersey 7).",
-      "detectedAt": "2026-08-20T09:05:58.280Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
-          "updatedAt": "2026-08-20T09:05:58.280Z",
-          "priority": 3,
-          "order": 2
         }
       ],
       "round": 25
