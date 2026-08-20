@@ -1,6 +1,77 @@
 {
-  "updated": "2026-08-20T11:43:01.289Z",
+  "updated": "2026-08-20T12:14:48.622Z",
   "round": 25,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Luke Garner",
+      "team": "PEN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 21).",
+      "detectedAt": "2026-08-20T12:14:48.622Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
+          "updatedAt": "2026-08-20T12:14:48.622Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-storm-panthers-10396524-237179",
+          "updatedAt": "2026-08-20T12:14:48.622Z",
+          "priority": 4,
+          "order": 6
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-25-team-lists-2026-237113",
+          "updatedAt": "2026-08-20T12:14:48.622Z",
+          "priority": 2,
+          "order": 10
+        }
+      ],
+      "round": 25
+    },
+    {
+      "player": "Luron Patea",
+      "team": "PEN",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 16).",
+      "detectedAt": "2026-08-20T12:14:48.622Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
+          "updatedAt": "2026-08-20T12:14:48.622Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-storm-panthers-10396524-237179",
+          "updatedAt": "2026-08-20T12:14:48.622Z",
+          "priority": 4,
+          "order": 6
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-25-team-lists-2026-237113",
+          "updatedAt": "2026-08-20T12:14:48.622Z",
+          "priority": 2,
+          "order": 10
+        }
+      ],
+      "round": 25
+    }
+  ],
   "allChangeCount": 500
 }
