@@ -1,39 +1,5 @@
 [
   {
-    "player": "Zac Hosking",
-    "team": "CBR",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-16T16:27:00.211Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-16T16:27:00.211Z"
-      }
-    ],
-    "round": 25
-  },
-  {
-    "player": "Zac Laybutt",
-    "team": "NQC",
-    "from": "NAMED",
-    "to": "BYE",
-    "reason": "Bye round 25",
-    "detectedAt": "2026-08-16T16:27:00.211Z",
-    "sources": [
-      {
-        "type": "fixture",
-        "name": "players.json bye data",
-        "url": "players.json",
-        "updatedAt": "2026-08-16T16:27:00.211Z"
-      }
-    ],
-    "round": 25
-  },
-  {
     "player": "Zach Dockar-Clay",
     "team": "MAN",
     "from": "NOT_NAMED",
@@ -12047,6 +12013,52 @@
         "updatedAt": "2026-08-20T08:18:17.695Z",
         "priority": 2,
         "order": 8
+      }
+    ],
+    "round": 25
+  },
+  {
+    "player": "Blaize Talagi",
+    "team": "PEN",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-20T09:05:58.280Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+        "updatedAt": "2026-08-20T09:05:58.280Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
+        "updatedAt": "2026-08-20T09:05:58.280Z",
+        "priority": 2,
+        "order": 3
+      }
+    ],
+    "round": 25
+  },
+  {
+    "player": "Tui Kamikamica",
+    "team": "MEL",
+    "from": "NOT_NAMED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Official NRL, jersey 7).",
+    "detectedAt": "2026-08-20T09:05:58.280Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+        "updatedAt": "2026-08-20T09:05:58.280Z",
+        "priority": 3,
+        "order": 2
       }
     ],
     "round": 25

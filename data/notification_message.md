@@ -1,16 +1,10 @@
 # SuperCoach War Room status changes — Round 25
 
-Detected: 2026-08-20T08:18:17.695Z
+Detected: 2026-08-20T09:05:58.280Z
 
-- **Jayden Brailey** (CBR): EXPECTED → NOT_NAMED
+- **Blaize Talagi** (PEN): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **Jesse Arthars** (BRO): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Sebastian Kris** (CBR): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
-- **Tom Duffy** (BRO): NAMED → EXPECTED
-  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 18).
-  - Source: Official NRL, Official NRL, Zero Tackle, Zero Tackle
+- **Tui Kamikamica** (MEL): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Official NRL, jersey 7).
+  - Source: Official NRL
