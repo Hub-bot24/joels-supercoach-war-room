@@ -1,32 +1,5 @@
 [
   {
-    "player": "Alekolasimi Jones",
-    "team": "CAN",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
-    "detectedAt": "2026-08-18T06:02:40.707Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
-        "updatedAt": "2026-08-18T06:02:40.707Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-25-team-lists-2026-237113",
-        "updatedAt": "2026-08-18T06:02:40.707Z",
-        "priority": 2,
-        "order": 6
-      }
-    ],
-    "round": 25
-  },
-  {
     "player": "Alex Johnston",
     "team": "STH",
     "from": "EXPECTED",
@@ -12373,6 +12346,25 @@
         "name": "Current club team-list not confirmed",
         "url": "data/status_truth.json",
         "updatedAt": "2026-08-21T05:34:34.061Z"
+      }
+    ],
+    "round": 25
+  },
+  {
+    "player": "Connelly Lemuelu",
+    "team": "DOL",
+    "from": "NOT_NAMED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Official NRL, jersey 7).",
+    "detectedAt": "2026-08-21T06:04:47.264Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+        "updatedAt": "2026-08-21T06:04:47.264Z",
+        "priority": 3,
+        "order": 2
       }
     ],
     "round": 25
