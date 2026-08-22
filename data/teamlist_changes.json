@@ -1,86 +1,5 @@
 [
   {
-    "player": "Brian Kelly",
-    "team": "PAR",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
-    "detectedAt": "2026-08-18T06:02:40.707Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
-        "updatedAt": "2026-08-18T06:02:40.707Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-25-team-lists-2026-237113",
-        "updatedAt": "2026-08-18T06:02:40.707Z",
-        "priority": 2,
-        "order": 6
-      }
-    ],
-    "round": 25
-  },
-  {
-    "player": "Brian Pouniu",
-    "team": "DOL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
-    "detectedAt": "2026-08-18T06:02:40.707Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
-        "updatedAt": "2026-08-18T06:02:40.707Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-25-team-lists-2026-237113",
-        "updatedAt": "2026-08-18T06:02:40.707Z",
-        "priority": 2,
-        "order": 6
-      }
-    ],
-    "round": 25
-  },
-  {
-    "player": "Brian To'o",
-    "team": "PEN",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 5, jersey 5).",
-    "detectedAt": "2026-08-18T06:02:40.707Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
-        "updatedAt": "2026-08-18T06:02:40.707Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-25-team-lists-2026-237113",
-        "updatedAt": "2026-08-18T06:02:40.707Z",
-        "priority": 2,
-        "order": 6
-      }
-    ],
-    "round": 25
-  },
-  {
     "player": "Briton Nikora",
     "team": "SHA",
     "from": "EXPECTED",
@@ -12615,6 +12534,101 @@
         "updatedAt": "2026-08-22T07:33:02.408Z",
         "priority": 2,
         "order": 3
+      }
+    ],
+    "round": 25
+  },
+  {
+    "player": "Enari Tuala",
+    "team": "CAN",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-22T08:47:54.528Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+        "updatedAt": "2026-08-22T08:47:54.528Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
+        "updatedAt": "2026-08-22T08:47:54.528Z",
+        "priority": 2,
+        "order": 3
+      }
+    ],
+    "round": 25
+  },
+  {
+    "player": "Jonathan Sua",
+    "team": "CAN",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 5, jersey 22).",
+    "detectedAt": "2026-08-22T08:47:54.528Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+        "updatedAt": "2026-08-22T08:47:54.528Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+        "updatedAt": "2026-08-22T08:47:54.528Z",
+        "priority": 3,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
+        "updatedAt": "2026-08-22T08:47:54.528Z",
+        "priority": 2,
+        "order": 3
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/updated-team-lists-dragons-bulldogs-10396529-237245",
+        "updatedAt": "2026-08-22T08:47:54.528Z",
+        "priority": 4,
+        "order": 9
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-25-team-lists-2026-237113",
+        "updatedAt": "2026-08-22T08:47:54.528Z",
+        "priority": 2,
+        "order": 12
+      }
+    ],
+    "round": 25
+  },
+  {
+    "player": "Luciano Leilua",
+    "team": "STG",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-08-22T08:47:54.528Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "",
+        "updatedAt": "2026-08-22T08:47:54.528Z"
       }
     ],
     "round": 25
