@@ -1,24 +1,5 @@
 [
   {
-    "player": "Brent Woolf",
-    "team": "DOL",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-08-18T06:02:40.707Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
-        "updatedAt": "2026-08-18T06:02:40.707Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 25
-  },
-  {
     "player": "Brian Kelly",
     "team": "PAR",
     "from": "EXPECTED",
@@ -12613,6 +12594,25 @@
         "name": "Official NRL",
         "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
         "updatedAt": "2026-08-22T06:49:02.195Z",
+        "priority": 2,
+        "order": 3
+      }
+    ],
+    "round": 25
+  },
+  {
+    "player": "Latrell Mitchell",
+    "team": "STH",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-08-22T07:33:02.408Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
+        "updatedAt": "2026-08-22T07:33:02.408Z",
         "priority": 2,
         "order": 3
       }
