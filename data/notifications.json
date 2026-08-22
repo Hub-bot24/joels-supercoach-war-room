@@ -1,6 +1,377 @@
 {
-  "updated": "2026-08-22T05:56:25.862Z",
+  "updated": "2026-08-22T06:49:02.195Z",
   "round": 25,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Adam Doueihi",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-22T06:49:02.195Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-22T06:49:02.195Z"
+        }
+      ],
+      "round": 25
+    },
+    {
+      "player": "Adam Pompey",
+      "team": "NZL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 4, jersey 18).",
+      "detectedAt": "2026-08-22T06:49:02.195Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-warriors-10396528-237240",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 4,
+          "order": 10
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-25-team-lists-2026-237113",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 2,
+          "order": 11
+        }
+      ],
+      "round": 25
+    },
+    {
+      "player": "Charlie Murray",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-22T06:49:02.195Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-22T06:49:02.195Z"
+        }
+      ],
+      "round": 25
+    },
+    {
+      "player": "Cody Ramsey",
+      "team": "SYD",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 1, jersey 18).",
+      "detectedAt": "2026-08-22T06:49:02.195Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-roosters-vs-wests-tigers-10396531-237270",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 4,
+          "order": 9
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-25-team-lists-2026-237113",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 2,
+          "order": 11
+        }
+      ],
+      "round": 25
+    },
+    {
+      "player": "Corey Waddell",
+      "team": "MAN",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 16).",
+      "detectedAt": "2026-08-22T06:49:02.195Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-sea-eagles-10396527-237233",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 4,
+          "order": 6
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-25-team-lists-2026-237113",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 2,
+          "order": 11
+        }
+      ],
+      "round": 25
+    },
+    {
+      "player": "Eddie Ieremia-Toeava",
+      "team": "NZL",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).",
+      "detectedAt": "2026-08-22T06:49:02.195Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-warriors-10396528-237240",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 4,
+          "order": 10
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-25-team-lists-2026-237113",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 2,
+          "order": 11
+        }
+      ],
+      "round": 25
+    },
+    {
+      "player": "Fletcher Baker",
+      "team": "CAN",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
+      "detectedAt": "2026-08-22T06:49:02.195Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-knights-sea-eagles-10396527-237233",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 4,
+          "order": 6
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-25-team-lists-2026-237113",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 2,
+          "order": 11
+        }
+      ],
+      "round": 25
+    },
+    {
+      "player": "Luke Laulilii",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-22T06:49:02.195Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-22T06:49:02.195Z"
+        }
+      ],
+      "round": 25
+    },
+    {
+      "player": "Morgan Gannon",
+      "team": "NZL",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-22T06:49:02.195Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 25
+    },
+    {
+      "player": "Sunia Turuva",
+      "team": "WST",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-22T06:49:02.195Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-22T06:49:02.195Z"
+        }
+      ],
+      "round": 25
+    },
+    {
+      "player": "Taylor Losalu",
+      "team": "SYD",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-08-22T06:49:02.195Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Parsed current team-list source",
+          "url": "",
+          "updatedAt": "2026-08-22T06:49:02.195Z"
+        }
+      ],
+      "round": 25
+    },
+    {
+      "player": "Thomas Fletcher",
+      "team": "STH",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-22T06:49:02.195Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/19/nrl-late-mail-round-25---trell-touch-and-go-best-good-to-go",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
+          "updatedAt": "2026-08-22T06:49:02.195Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 25
+    }
+  ],
   "allChangeCount": 500
 }
