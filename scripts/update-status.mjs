@@ -1516,7 +1516,7 @@ function parseNrlRoleLineRowsFromPage(text){
   const clean = String(text || '').replace(/\s+/g, ' ').trim();
   const rows = [];
 
-  const roleWords = [
+    const roleWords = [
     'Fullback',
     'Wing',
     'Winger',
