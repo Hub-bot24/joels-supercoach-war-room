@@ -1,59 +1,5 @@
 [
   {
-    "player": "Cameron Munster",
-    "team": "MEL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 6, jersey 6).",
-    "detectedAt": "2026-08-18T06:02:40.707Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
-        "updatedAt": "2026-08-18T06:02:40.707Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-25-team-lists-2026-237113",
-        "updatedAt": "2026-08-18T06:02:40.707Z",
-        "priority": 2,
-        "order": 6
-      }
-    ],
-    "round": 25
-  },
-  {
-    "player": "Cameron Murray",
-    "team": "STH",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 13).",
-    "detectedAt": "2026-08-18T06:02:40.707Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/08/18/nrl-team-lists-round-25",
-        "updatedAt": "2026-08-18T06:02:40.707Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-25-team-lists-2026-237113",
-        "updatedAt": "2026-08-18T06:02:40.707Z",
-        "priority": 2,
-        "order": 6
-      }
-    ],
-    "round": 25
-  },
-  {
     "player": "Campbell Graham",
     "team": "STH",
     "from": "EXPECTED",
@@ -12755,6 +12701,40 @@
         "updatedAt": "2026-08-23T03:51:41.036Z",
         "priority": 4,
         "order": 14
+      }
+    ],
+    "round": 25
+  },
+  {
+    "player": "Benaiah Ioelu",
+    "team": "SYD",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-08-23T04:38:50.702Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "",
+        "updatedAt": "2026-08-23T04:38:50.702Z"
+      }
+    ],
+    "round": 25
+  },
+  {
+    "player": "Javon Andrews",
+    "team": "WST",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-08-23T04:38:50.702Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "",
+        "updatedAt": "2026-08-23T04:38:50.702Z"
       }
     ],
     "round": 25
