@@ -1,7 +1,7 @@
 # SuperCoach War Room status changes — Round 25
 
-Detected: 2026-08-23T02:47:45.677Z
+Detected: 2026-08-23T03:51:41.036Z
 
-- **Liam Ison** (SHA): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL, Official NRL
+- **Xavier Willison** (BRO): NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 23).
+  - Source: Official NRL, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle, Zero Tackle
