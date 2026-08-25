@@ -1,22 +1,5 @@
 [
   {
-    "player": "Tyrone Munro",
-    "team": "STH",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-23T16:35:07.672Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-23T16:35:07.672Z"
-      }
-    ],
-    "round": 26
-  },
-  {
     "player": "Tyson Frizell",
     "team": "NEW",
     "from": "NAMED",
@@ -11369,6 +11352,33 @@
         "updatedAt": "2026-08-25T06:03:45.330Z",
         "priority": 2,
         "order": 2
+      }
+    ],
+    "round": 26
+  },
+  {
+    "player": "Jai Arrow",
+    "team": "STH",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).",
+    "detectedAt": "2026-08-25T07:58:26.112Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
+        "updatedAt": "2026-08-25T07:58:26.112Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-26-team-lists-2026-237365",
+        "updatedAt": "2026-08-25T07:58:26.112Z",
+        "priority": 2,
+        "order": 4
       }
     ],
     "round": 26
