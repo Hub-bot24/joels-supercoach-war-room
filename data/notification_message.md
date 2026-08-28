@@ -1,7 +1,136 @@
 # SuperCoach War Room status changes — Round 26
 
-Detected: 2026-08-25T23:31:36.036Z
+Detected: 2026-08-28T12:47:18.600Z
 
-- **Jacob Preston** (CAN): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 11).
+- **Adam Christensen** (GLD): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Adam Elliott** (STH): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 18).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
+- **Angus Hinchey** (MEL): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 16, jersey 18).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Ben Talty** (BRO): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Benaiah Ioelu** (SYD): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 20, jersey 21).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle, Zero Tackle
+- **Blake Wilson** (MAN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Brad Schneider** (DOL): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 18).
+  - Source: Official NRL, Official NRL, Zero Tackle, Zero Tackle, Zero Tackle
+- **Brian Pouniu** (DOL): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 17).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle, Zero Tackle
+- **Charlie Murray** (WST): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Cody Ramsey** (SYD): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 18).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle, Zero Tackle
+- **Corey Waddell** (MAN): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 16).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Davvy Moale** (MEL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Egan Butcher** (SYD): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 16, jersey 16).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle, Zero Tackle
+- **Hohepa Puru** (SHA): NAMED → EXPECTED
+  - Named in official NRL role-line team-list extended squad only (Official NRL, Interchange, jersey 18).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle
+- **Hugo Hart** (MAN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Hugo Peel** (MEL): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Jack Hetherington** (MEL): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 16).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Jack Underhill** (CAN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Jackson Shereb** (MAN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Jacob Halangahu** (STG): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 16).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Jamie Humphreys** (STH): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
+- **Jaxen Edgar** (PEN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Jed Reardon** (CAN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Jesse Arthars** (BRO): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Jesse McLean** (PEN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Jojo Fifita** (GLD): NAMED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Joshua Curran** (CAN): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).
   - Source: Official NRL, Zero Tackle
+- **Kade Reed** (STG): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Kurt Donoghoe** (DOL): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 22).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle, Zero Tackle
+- **Liam Le Blanc** (STH): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
+- **Liam Sutton** (NQC): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
+- **Logan Spinks** (CAN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Luciano Leilua** (STG): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
+- **Mason Kira** (NQC): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
+- **Peter Mamouzelos** (STH): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
+- **Sean O'Sullivan** (CAN): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 19).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Sialetili Faeamani** (GLD): EXPECTED → NAMED
+  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 4, jersey 18).
+  - Source: Official NRL, Official NRL, Zero Tackle
+- **Sunia Turuva** (WST): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Taylor Losalu** (SYD): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 17).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle, Zero Tackle
+- **Tevita Naufahu** (DOL): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 20, jersey 20).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle, Zero Tackle
+- **Tom Ale** (PEN): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Tommy Talau** (SYD): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 19).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle, Zero Tackle
+- **Trent Toelau** (MEL): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 14).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Tristan Hope** (WST): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 18).
+  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
