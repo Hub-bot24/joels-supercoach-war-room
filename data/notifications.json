@@ -1,296 +1,55 @@
 {
-  "updated": "2026-08-29T04:04:06.351Z",
+  "updated": "2026-08-29T11:06:19.926Z",
   "round": 26,
   "newChanges": [
     {
-      "player": "Brodie Jones",
-      "team": "NEW",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/26/nrl-late-mail-round-26",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
-          "priority": 3,
-          "order": 2
-        },
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
-          "priority": 2,
-          "order": 3
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Chanel Harris-Tavita",
-      "team": "NZL",
-      "from": "NAMED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Charnze Nicoll-Klokstad",
-      "team": "NZL",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Dallin Watene-Zelezniak",
-      "team": "NZL",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Edward Kosi",
-      "team": "STH",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/26/nrl-late-mail-round-26",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
-          "priority": 3,
-          "order": 2
-        },
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
-          "priority": 2,
-          "order": 3
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Elijah Salesa-Leaumoana",
-      "team": "NEW",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Not present in higher-priority current team-list source (Official NRL).",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/26/nrl-late-mail-round-26",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
-          "priority": 3,
-          "order": 2
-        },
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
-          "priority": 2,
-          "order": 3
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Haizyn Mellars",
-      "team": "NZL",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Jackson Ford",
-      "team": "NZL",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Jett Cleary",
-      "team": "NZL",
-      "from": "EXPECTED",
-      "to": "NAMED",
-      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 7, jersey 23).",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/26/nrl-late-mail-round-26",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
-          "priority": 3,
-          "order": 2
-        },
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/26/nrl-late-mail-round-26",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
-          "priority": 3,
-          "order": 2
-        },
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
-          "priority": 2,
-          "order": 3
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-warriors-vs-knights-10396539-237504",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
-          "priority": 4,
-          "order": 5
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-26-team-lists-2026-237365",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
-          "priority": 2,
-          "order": 10
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Jett Liu",
+      "player": "Arama Hau",
       "team": "GLD",
       "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Jye Linnane",
-      "team": "NZL",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Kayliss Fatialofa",
-      "team": "NZL",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Luke Hanson",
-      "team": "NZL",
-      "from": "EXPECTED",
       "to": "NAMED",
-      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 6, jersey 22).",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
+      "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 19).",
+      "detectedAt": "2026-08-29T11:06:19.926Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/08/26/nrl-late-mail-round-26",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
-          "priority": 3,
-          "order": 2
+          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 3
         },
         {
           "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-26-team-lists-2026-237365",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-titans-rabbitohs-10396536-237471",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 4,
+          "order": 13
+        }
+      ],
+      "round": 26
+    },
+    {
+      "player": "Bailey Simonsson",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-29T11:06:19.926Z",
+      "sources": [
+        {
+          "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/08/26/nrl-late-mail-round-26",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
           "priority": 3,
           "order": 2
         },
@@ -298,144 +57,335 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 26
+    },
+    {
+      "player": "Benaiah Ioelu",
+      "team": "SYD",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 14, jersey 14).",
+      "detectedAt": "2026-08-29T11:06:19.926Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
           "priority": 2,
           "order": 3
         },
         {
           "type": "teamlist",
           "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-warriors-vs-knights-10396539-237504",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
+          "url": "https://www.zerotackle.com/updated-team-lists-dolphins-vs-roosters-10396427-234728",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
           "priority": 4,
-          "order": 5
+          "order": 6
+        }
+      ],
+      "round": 26
+    },
+    {
+      "player": "Braden Uele",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-29T11:06:19.926Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/26/nrl-late-mail-round-26",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 26
+    },
+    {
+      "player": "Brian Pouniu",
+      "team": "DOL",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).",
+      "detectedAt": "2026-08-29T11:06:19.926Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dolphins-vs-roosters-10396427-234728",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 4,
+          "order": 6
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-roosters-dolphins-10396537-237479",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 4,
+          "order": 9
         },
         {
           "type": "teamlist",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/round-26-team-lists-2026-237365",
-          "updatedAt": "2026-08-29T04:04:06.351Z",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
           "priority": 2,
-          "order": 10
+          "order": 12
         }
       ],
       "round": 26
     },
     {
-      "player": "Luke Metcalf",
-      "team": "NZL",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Marata Niukore",
-      "team": "NZL",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Motu Pasikala",
-      "team": "NZL",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Rocco Berry",
-      "team": "NZL",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Roger Tuivasa-Sheck",
-      "team": "NZL",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Tanah Boyd",
-      "team": "NZL",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
-      "sources": [
-        {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
-        }
-      ],
-      "round": 26
-    },
-    {
-      "player": "Te Maire Martin",
-      "team": "NZL",
+      "player": "Jye Gray",
+      "team": "STH",
       "from": "NAMED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-08-29T04:04:06.351Z",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 14).",
+      "detectedAt": "2026-08-29T11:06:19.926Z",
       "sources": [
         {
           "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-08-29T04:04:06.351Z"
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-26-team-lists-2026-237365",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-titans-rabbitohs-10396536-237471",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 4,
+          "order": 13
+        }
+      ],
+      "round": 26
+    },
+    {
+      "player": "Kaiden Lahrs",
+      "team": "NQC",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-29T11:06:19.926Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 26
+    },
+    {
+      "player": "Kurt Donoghoe",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 16, jersey 22).",
+      "detectedAt": "2026-08-29T11:06:19.926Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dolphins-vs-roosters-10396427-234728",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 4,
+          "order": 6
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-roosters-dolphins-10396537-237479",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 4,
+          "order": 9
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-26-team-lists-2026-237365",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 12
+        }
+      ],
+      "round": 26
+    },
+    {
+      "player": "Luke Sommerton",
+      "team": "GLD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).",
+      "detectedAt": "2026-08-29T11:06:19.926Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-26-team-lists-2026-237365",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 12
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-titans-rabbitohs-10396536-237471",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 4,
+          "order": 13
+        }
+      ],
+      "round": 26
+    },
+    {
+      "player": "Ryley Smith",
+      "team": "PAR",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-29T11:06:19.926Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/26/nrl-late-mail-round-26",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 26
+    },
+    {
+      "player": "Taylor Losalu",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).",
+      "detectedAt": "2026-08-29T11:06:19.926Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-dolphins-vs-roosters-10396427-234728",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 4,
+          "order": 6
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/updated-team-lists-roosters-dolphins-10396537-237479",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 4,
+          "order": 9
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-26-team-lists-2026-237365",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 12
+        }
+      ],
+      "round": 26
+    },
+    {
+      "player": "Toby Rudolf",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-08-29T11:06:19.926Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/26/nrl-late-mail-round-26",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/08/25/nrl-team-lists-round-26",
+          "updatedAt": "2026-08-29T11:06:19.926Z",
+          "priority": 2,
+          "order": 3
         }
       ],
       "round": 26

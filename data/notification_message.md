@@ -1,64 +1,40 @@
 # SuperCoach War Room status changes — Round 26
 
-Detected: 2026-08-29T04:04:06.351Z
+Detected: 2026-08-29T11:06:19.926Z
 
-- **Brodie Jones** (NEW): EXPECTED → NOT_NAMED
+- **Arama Hau** (GLD): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 17, jersey 19).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Bailey Simonsson** (PAR): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **Chanel Harris-Tavita** (NZL): NAMED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Charnze Nicoll-Klokstad** (NZL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Dallin Watene-Zelezniak** (NZL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Edward Kosi** (STH): EXPECTED → NOT_NAMED
+- **Benaiah Ioelu** (SYD): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 14, jersey 14).
+  - Source: Official NRL, Zero Tackle
+- **Braden Uele** (SHA): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **Elijah Salesa-Leaumoana** (NEW): EXPECTED → NOT_NAMED
+- **Brian Pouniu** (DOL): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).
+  - Source: Official NRL, Zero Tackle, Zero Tackle, Zero Tackle
+- **Jye Gray** (STH): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 19, jersey 14).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Kaiden Lahrs** (NQC): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL
+- **Kurt Donoghoe** (DOL): EXPECTED → NAMED
+  - Named in structured team-list snapshot interchange (Zero Tackle, lineup position 16, jersey 22).
+  - Source: Official NRL, Zero Tackle, Zero Tackle, Zero Tackle
+- **Luke Sommerton** (GLD): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).
+  - Source: Official NRL, Zero Tackle, Zero Tackle
+- **Ryley Smith** (PAR): EXPECTED → NOT_NAMED
   - Not present in higher-priority current team-list source (Official NRL).
   - Source: Official NRL, Official NRL
-- **Haizyn Mellars** (NZL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Jackson Ford** (NZL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Jett Cleary** (NZL): EXPECTED → NAMED
-  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 7, jersey 23).
-  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
-- **Jett Liu** (GLD): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Jye Linnane** (NZL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Kayliss Fatialofa** (NZL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Luke Hanson** (NZL): EXPECTED → NAMED
-  - Named in structured team-list snapshot starting side (Zero Tackle, lineup position 6, jersey 22).
-  - Source: Official NRL, Official NRL, Official NRL, Zero Tackle, Zero Tackle
-- **Luke Metcalf** (NZL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Marata Niukore** (NZL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Motu Pasikala** (NZL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Rocco Berry** (NZL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Roger Tuivasa-Sheck** (NZL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Tanah Boyd** (NZL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Te Maire Martin** (NZL): NAMED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
+- **Taylor Losalu** (SYD): NAMED → EXPECTED
+  - Named in structured team-list snapshot extended squad only (Zero Tackle, lineup position 18, jersey 17).
+  - Source: Official NRL, Zero Tackle, Zero Tackle, Zero Tackle
+- **Toby Rudolf** (SHA): EXPECTED → NOT_NAMED
+  - Not present in higher-priority current team-list source (Official NRL).
+  - Source: Official NRL, Official NRL
