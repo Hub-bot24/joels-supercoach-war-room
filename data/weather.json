@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-31T14:54:52.716Z",
+  "updated": "2026-08-31T20:42:02.852Z",
   "round": 27,
   "source": "Open-Meteo hourly forecast API",
   "status": "fresh",
@@ -27,20 +27,20 @@
         {
           "time": "2026-09-03T20:00",
           "phase": "game_window",
-          "temperature_2m": 18.8,
+          "temperature_2m": 19.2,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 13.7,
-          "wind_gusts_10m": 30.6
+          "wind_speed_10m": 12.3,
+          "wind_gusts_10m": 26.6
         },
         {
           "time": "2026-09-03T21:00",
           "phase": "game_window",
-          "temperature_2m": 17.3,
+          "temperature_2m": 17.6,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 14.1,
-          "wind_gusts_10m": 32.4
+          "wind_speed_10m": 13.6,
+          "wind_gusts_10m": 31
         }
       ],
       "weatherRisk": {
@@ -48,9 +48,9 @@
         "score": 15,
         "maxRainProbability": 0,
         "totalGameRainMm": 0,
-        "maxWindKmh": 14.1,
-        "maxGustKmh": 32.4,
-        "avgTemp": 18.1,
+        "maxWindKmh": 13.6,
+        "maxGustKmh": 31,
+        "avgTemp": 18.4,
         "reasons": [
           "moderate wind/gusts"
         ],
@@ -78,29 +78,29 @@
         {
           "time": "2026-09-05T17:00",
           "phase": "game_window",
-          "temperature_2m": 23.1,
+          "temperature_2m": 22.9,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 13.1,
-          "wind_gusts_10m": 37.8
+          "wind_speed_10m": 11.6,
+          "wind_gusts_10m": 35.3
         },
         {
           "time": "2026-09-05T18:00",
           "phase": "game_window",
-          "temperature_2m": 22.5,
+          "temperature_2m": 22.1,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 11.8,
-          "wind_gusts_10m": 37.1
+          "wind_speed_10m": 10.8,
+          "wind_gusts_10m": 33.8
         },
         {
           "time": "2026-09-05T19:00",
           "phase": "game_window",
-          "temperature_2m": 21.9,
+          "temperature_2m": 21.4,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 11,
-          "wind_gusts_10m": 35.3
+          "wind_speed_10m": 10.7,
+          "wind_gusts_10m": 31.7
         }
       ],
       "weatherRisk": {
@@ -108,9 +108,9 @@
         "score": 15,
         "maxRainProbability": 0,
         "totalGameRainMm": 0,
-        "maxWindKmh": 13.1,
-        "maxGustKmh": 37.8,
-        "avgTemp": 22.5,
+        "maxWindKmh": 11.6,
+        "maxGustKmh": 35.3,
+        "avgTemp": 22.1,
         "reasons": [
           "moderate wind/gusts"
         ],
@@ -138,33 +138,31 @@
         {
           "time": "2026-09-04T18:00",
           "phase": "game_window",
-          "temperature_2m": 24,
+          "temperature_2m": 23.5,
           "precipitation_probability": 1,
           "precipitation_mm": 0,
-          "wind_speed_10m": 8.7,
-          "wind_gusts_10m": 32.8
+          "wind_speed_10m": 3.4,
+          "wind_gusts_10m": 22
         },
         {
           "time": "2026-09-04T19:00",
           "phase": "game_window",
-          "temperature_2m": 22.1,
+          "temperature_2m": 20.9,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 9.2,
-          "wind_gusts_10m": 33.1
+          "wind_speed_10m": 4.5,
+          "wind_gusts_10m": 20.9
         }
       ],
       "weatherRisk": {
         "label": "Low",
-        "score": 15,
+        "score": 0,
         "maxRainProbability": 1,
         "totalGameRainMm": 0,
-        "maxWindKmh": 9.2,
-        "maxGustKmh": 33.1,
-        "avgTemp": 23.1,
-        "reasons": [
-          "moderate wind/gusts"
-        ],
+        "maxWindKmh": 4.5,
+        "maxGustKmh": 22,
+        "avgTemp": 22.2,
+        "reasons": [],
         "captainImpact": "Low weather risk over game window. Normal captain logic applies."
       }
     },
@@ -189,39 +187,39 @@
         {
           "time": "2026-09-05T19:00",
           "phase": "game_window",
-          "temperature_2m": 23.9,
-          "precipitation_probability": 12,
-          "precipitation_mm": 0.1,
-          "wind_speed_10m": 23.1,
-          "wind_gusts_10m": 67
+          "temperature_2m": 23.4,
+          "precipitation_probability": 4,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 21.7,
+          "wind_gusts_10m": 51.8
         },
         {
           "time": "2026-09-05T20:00",
           "phase": "game_window",
-          "temperature_2m": 22.6,
-          "precipitation_probability": 12,
+          "temperature_2m": 22.3,
+          "precipitation_probability": 6,
           "precipitation_mm": 0,
-          "wind_speed_10m": 22,
-          "wind_gusts_10m": 60.5
+          "wind_speed_10m": 19.7,
+          "wind_gusts_10m": 50.8
         },
         {
           "time": "2026-09-05T21:00",
           "phase": "game_window",
-          "temperature_2m": 21.4,
+          "temperature_2m": 21,
           "precipitation_probability": 10,
           "precipitation_mm": 0,
-          "wind_speed_10m": 21.9,
-          "wind_gusts_10m": 54
+          "wind_speed_10m": 18,
+          "wind_gusts_10m": 52.9
         }
       ],
       "weatherRisk": {
         "label": "Medium",
         "score": 30,
-        "maxRainProbability": 12,
-        "totalGameRainMm": 0.1,
-        "maxWindKmh": 23.1,
-        "maxGustKmh": 67,
-        "avgTemp": 22.6,
+        "maxRainProbability": 10,
+        "totalGameRainMm": 0,
+        "maxWindKmh": 21.7,
+        "maxGustKmh": 52.9,
+        "avgTemp": 22.2,
         "reasons": [
           "strong wind/gusts"
         ],
@@ -249,30 +247,30 @@
         {
           "time": "2026-09-05T17:00",
           "phase": "game_window",
-          "temperature_2m": 14.7,
-          "precipitation_probability": 1,
+          "temperature_2m": 15,
+          "precipitation_probability": 2,
           "precipitation_mm": 0,
-          "wind_speed_10m": 10.6,
-          "wind_gusts_10m": 36.7
+          "wind_speed_10m": 12.5,
+          "wind_gusts_10m": 37.4
         },
         {
           "time": "2026-09-05T18:00",
           "phase": "game_window",
-          "temperature_2m": 13.9,
+          "temperature_2m": 14.1,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 8.5,
-          "wind_gusts_10m": 34.6
+          "wind_speed_10m": 10.1,
+          "wind_gusts_10m": 36.4
         }
       ],
       "weatherRisk": {
         "label": "Low",
         "score": 15,
-        "maxRainProbability": 1,
+        "maxRainProbability": 2,
         "totalGameRainMm": 0,
-        "maxWindKmh": 10.6,
-        "maxGustKmh": 36.7,
-        "avgTemp": 14.3,
+        "maxWindKmh": 12.5,
+        "maxGustKmh": 37.4,
+        "avgTemp": 14.6,
         "reasons": [
           "moderate wind/gusts"
         ],
@@ -300,30 +298,30 @@
         {
           "time": "2026-09-06T14:00",
           "phase": "game_window",
-          "temperature_2m": 18.7,
-          "precipitation_probability": 9,
+          "temperature_2m": 18.3,
+          "precipitation_probability": 13,
           "precipitation_mm": 0,
-          "wind_speed_10m": 14.8,
-          "wind_gusts_10m": 38.2
+          "wind_speed_10m": 12.4,
+          "wind_gusts_10m": 34.9
         },
         {
           "time": "2026-09-06T15:00",
           "phase": "game_window",
-          "temperature_2m": 18.2,
-          "precipitation_probability": 8,
+          "temperature_2m": 17.8,
+          "precipitation_probability": 10,
           "precipitation_mm": 0,
-          "wind_speed_10m": 13.2,
-          "wind_gusts_10m": 37.8
+          "wind_speed_10m": 11.4,
+          "wind_gusts_10m": 34.6
         }
       ],
       "weatherRisk": {
         "label": "Low",
         "score": 15,
-        "maxRainProbability": 9,
+        "maxRainProbability": 13,
         "totalGameRainMm": 0,
-        "maxWindKmh": 14.8,
-        "maxGustKmh": 38.2,
-        "avgTemp": 18.4,
+        "maxWindKmh": 12.4,
+        "maxGustKmh": 34.9,
+        "avgTemp": 18.1,
         "reasons": [
           "moderate wind/gusts"
         ],
@@ -351,20 +349,20 @@
         {
           "time": "2026-09-06T16:00",
           "phase": "game_window",
-          "temperature_2m": 19.3,
+          "temperature_2m": 18.4,
           "precipitation_probability": 8,
           "precipitation_mm": 0,
-          "wind_speed_10m": 14.4,
-          "wind_gusts_10m": 37.1
+          "wind_speed_10m": 13.3,
+          "wind_gusts_10m": 35.3
         },
         {
           "time": "2026-09-06T17:00",
           "phase": "game_window",
-          "temperature_2m": 16.5,
+          "temperature_2m": 17.3,
           "precipitation_probability": 7,
           "precipitation_mm": 0,
-          "wind_speed_10m": 11.1,
-          "wind_gusts_10m": 37.1
+          "wind_speed_10m": 12.9,
+          "wind_gusts_10m": 35.6
         }
       ],
       "weatherRisk": {
@@ -372,8 +370,8 @@
         "score": 15,
         "maxRainProbability": 8,
         "totalGameRainMm": 0,
-        "maxWindKmh": 14.4,
-        "maxGustKmh": 37.1,
+        "maxWindKmh": 13.3,
+        "maxGustKmh": 35.6,
         "avgTemp": 17.9,
         "reasons": [
           "moderate wind/gusts"
@@ -402,11 +400,11 @@
         {
           "time": "2026-09-04T20:00",
           "phase": "game_window",
-          "temperature_2m": 15.8,
+          "temperature_2m": 15.7,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 2.1,
-          "wind_gusts_10m": 29.2
+          "wind_speed_10m": 3,
+          "wind_gusts_10m": 28.4
         },
         {
           "time": "2026-09-04T21:00",
@@ -414,7 +412,7 @@
           "temperature_2m": 15.3,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 3.5,
+          "wind_speed_10m": 4.4,
           "wind_gusts_10m": 17.6
         }
       ],
@@ -423,9 +421,9 @@
         "score": 0,
         "maxRainProbability": 0,
         "totalGameRainMm": 0,
-        "maxWindKmh": 3.5,
-        "maxGustKmh": 29.2,
-        "avgTemp": 15.6,
+        "maxWindKmh": 4.4,
+        "maxGustKmh": 28.4,
+        "avgTemp": 15.5,
         "reasons": [],
         "captainImpact": "Low weather risk over game window. Normal captain logic applies."
       }
@@ -453,20 +451,20 @@
         {
           "time": "2026-09-03T20:00",
           "phase": "game_window",
-          "temperature_2m": 18.8,
+          "temperature_2m": 19.2,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 13.7,
-          "wind_gusts_10m": 30.6
+          "wind_speed_10m": 12.3,
+          "wind_gusts_10m": 26.6
         },
         {
           "time": "2026-09-03T21:00",
           "phase": "game_window",
-          "temperature_2m": 17.3,
+          "temperature_2m": 17.6,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 14.1,
-          "wind_gusts_10m": 32.4
+          "wind_speed_10m": 13.6,
+          "wind_gusts_10m": 31
         }
       ],
       "weatherRisk": {
@@ -474,9 +472,9 @@
         "score": 15,
         "maxRainProbability": 0,
         "totalGameRainMm": 0,
-        "maxWindKmh": 14.1,
-        "maxGustKmh": 32.4,
-        "avgTemp": 18.1,
+        "maxWindKmh": 13.6,
+        "maxGustKmh": 31,
+        "avgTemp": 18.4,
         "reasons": [
           "moderate wind/gusts"
         ],
@@ -504,29 +502,29 @@
         {
           "time": "2026-09-05T17:00",
           "phase": "game_window",
-          "temperature_2m": 23.1,
+          "temperature_2m": 22.9,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 13.1,
-          "wind_gusts_10m": 37.8
+          "wind_speed_10m": 11.6,
+          "wind_gusts_10m": 35.3
         },
         {
           "time": "2026-09-05T18:00",
           "phase": "game_window",
-          "temperature_2m": 22.5,
+          "temperature_2m": 22.1,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 11.8,
-          "wind_gusts_10m": 37.1
+          "wind_speed_10m": 10.8,
+          "wind_gusts_10m": 33.8
         },
         {
           "time": "2026-09-05T19:00",
           "phase": "game_window",
-          "temperature_2m": 21.9,
+          "temperature_2m": 21.4,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 11,
-          "wind_gusts_10m": 35.3
+          "wind_speed_10m": 10.7,
+          "wind_gusts_10m": 31.7
         }
       ],
       "weatherRisk": {
@@ -534,9 +532,9 @@
         "score": 15,
         "maxRainProbability": 0,
         "totalGameRainMm": 0,
-        "maxWindKmh": 13.1,
-        "maxGustKmh": 37.8,
-        "avgTemp": 22.5,
+        "maxWindKmh": 11.6,
+        "maxGustKmh": 35.3,
+        "avgTemp": 22.1,
         "reasons": [
           "moderate wind/gusts"
         ],
@@ -564,33 +562,31 @@
         {
           "time": "2026-09-04T18:00",
           "phase": "game_window",
-          "temperature_2m": 24,
+          "temperature_2m": 23.5,
           "precipitation_probability": 1,
           "precipitation_mm": 0,
-          "wind_speed_10m": 8.7,
-          "wind_gusts_10m": 32.8
+          "wind_speed_10m": 3.4,
+          "wind_gusts_10m": 22
         },
         {
           "time": "2026-09-04T19:00",
           "phase": "game_window",
-          "temperature_2m": 22.1,
+          "temperature_2m": 20.9,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 9.2,
-          "wind_gusts_10m": 33.1
+          "wind_speed_10m": 4.5,
+          "wind_gusts_10m": 20.9
         }
       ],
       "weatherRisk": {
         "label": "Low",
-        "score": 15,
+        "score": 0,
         "maxRainProbability": 1,
         "totalGameRainMm": 0,
-        "maxWindKmh": 9.2,
-        "maxGustKmh": 33.1,
-        "avgTemp": 23.1,
-        "reasons": [
-          "moderate wind/gusts"
-        ],
+        "maxWindKmh": 4.5,
+        "maxGustKmh": 22,
+        "avgTemp": 22.2,
+        "reasons": [],
         "captainImpact": "Low weather risk over game window. Normal captain logic applies."
       }
     },
@@ -615,39 +611,39 @@
         {
           "time": "2026-09-05T19:00",
           "phase": "game_window",
-          "temperature_2m": 23.9,
-          "precipitation_probability": 12,
-          "precipitation_mm": 0.1,
-          "wind_speed_10m": 23.1,
-          "wind_gusts_10m": 67
+          "temperature_2m": 23.4,
+          "precipitation_probability": 4,
+          "precipitation_mm": 0,
+          "wind_speed_10m": 21.7,
+          "wind_gusts_10m": 51.8
         },
         {
           "time": "2026-09-05T20:00",
           "phase": "game_window",
-          "temperature_2m": 22.6,
-          "precipitation_probability": 12,
+          "temperature_2m": 22.3,
+          "precipitation_probability": 6,
           "precipitation_mm": 0,
-          "wind_speed_10m": 22,
-          "wind_gusts_10m": 60.5
+          "wind_speed_10m": 19.7,
+          "wind_gusts_10m": 50.8
         },
         {
           "time": "2026-09-05T21:00",
           "phase": "game_window",
-          "temperature_2m": 21.4,
+          "temperature_2m": 21,
           "precipitation_probability": 10,
           "precipitation_mm": 0,
-          "wind_speed_10m": 21.9,
-          "wind_gusts_10m": 54
+          "wind_speed_10m": 18,
+          "wind_gusts_10m": 52.9
         }
       ],
       "weatherRisk": {
         "label": "Medium",
         "score": 30,
-        "maxRainProbability": 12,
-        "totalGameRainMm": 0.1,
-        "maxWindKmh": 23.1,
-        "maxGustKmh": 67,
-        "avgTemp": 22.6,
+        "maxRainProbability": 10,
+        "totalGameRainMm": 0,
+        "maxWindKmh": 21.7,
+        "maxGustKmh": 52.9,
+        "avgTemp": 22.2,
         "reasons": [
           "strong wind/gusts"
         ],
@@ -675,30 +671,30 @@
         {
           "time": "2026-09-05T17:00",
           "phase": "game_window",
-          "temperature_2m": 14.7,
-          "precipitation_probability": 1,
+          "temperature_2m": 15,
+          "precipitation_probability": 2,
           "precipitation_mm": 0,
-          "wind_speed_10m": 10.6,
-          "wind_gusts_10m": 36.7
+          "wind_speed_10m": 12.5,
+          "wind_gusts_10m": 37.4
         },
         {
           "time": "2026-09-05T18:00",
           "phase": "game_window",
-          "temperature_2m": 13.9,
+          "temperature_2m": 14.1,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 8.5,
-          "wind_gusts_10m": 34.6
+          "wind_speed_10m": 10.1,
+          "wind_gusts_10m": 36.4
         }
       ],
       "weatherRisk": {
         "label": "Low",
         "score": 15,
-        "maxRainProbability": 1,
+        "maxRainProbability": 2,
         "totalGameRainMm": 0,
-        "maxWindKmh": 10.6,
-        "maxGustKmh": 36.7,
-        "avgTemp": 14.3,
+        "maxWindKmh": 12.5,
+        "maxGustKmh": 37.4,
+        "avgTemp": 14.6,
         "reasons": [
           "moderate wind/gusts"
         ],
@@ -726,30 +722,30 @@
         {
           "time": "2026-09-06T14:00",
           "phase": "game_window",
-          "temperature_2m": 18.7,
-          "precipitation_probability": 9,
+          "temperature_2m": 18.3,
+          "precipitation_probability": 13,
           "precipitation_mm": 0,
-          "wind_speed_10m": 14.8,
-          "wind_gusts_10m": 38.2
+          "wind_speed_10m": 12.4,
+          "wind_gusts_10m": 34.9
         },
         {
           "time": "2026-09-06T15:00",
           "phase": "game_window",
-          "temperature_2m": 18.2,
-          "precipitation_probability": 8,
+          "temperature_2m": 17.8,
+          "precipitation_probability": 10,
           "precipitation_mm": 0,
-          "wind_speed_10m": 13.2,
-          "wind_gusts_10m": 37.8
+          "wind_speed_10m": 11.4,
+          "wind_gusts_10m": 34.6
         }
       ],
       "weatherRisk": {
         "label": "Low",
         "score": 15,
-        "maxRainProbability": 9,
+        "maxRainProbability": 13,
         "totalGameRainMm": 0,
-        "maxWindKmh": 14.8,
-        "maxGustKmh": 38.2,
-        "avgTemp": 18.4,
+        "maxWindKmh": 12.4,
+        "maxGustKmh": 34.9,
+        "avgTemp": 18.1,
         "reasons": [
           "moderate wind/gusts"
         ],
@@ -777,20 +773,20 @@
         {
           "time": "2026-09-06T16:00",
           "phase": "game_window",
-          "temperature_2m": 19.3,
+          "temperature_2m": 18.4,
           "precipitation_probability": 8,
           "precipitation_mm": 0,
-          "wind_speed_10m": 14.4,
-          "wind_gusts_10m": 37.1
+          "wind_speed_10m": 13.3,
+          "wind_gusts_10m": 35.3
         },
         {
           "time": "2026-09-06T17:00",
           "phase": "game_window",
-          "temperature_2m": 16.5,
+          "temperature_2m": 17.3,
           "precipitation_probability": 7,
           "precipitation_mm": 0,
-          "wind_speed_10m": 11.1,
-          "wind_gusts_10m": 37.1
+          "wind_speed_10m": 12.9,
+          "wind_gusts_10m": 35.6
         }
       ],
       "weatherRisk": {
@@ -798,8 +794,8 @@
         "score": 15,
         "maxRainProbability": 8,
         "totalGameRainMm": 0,
-        "maxWindKmh": 14.4,
-        "maxGustKmh": 37.1,
+        "maxWindKmh": 13.3,
+        "maxGustKmh": 35.6,
         "avgTemp": 17.9,
         "reasons": [
           "moderate wind/gusts"
@@ -828,11 +824,11 @@
         {
           "time": "2026-09-04T20:00",
           "phase": "game_window",
-          "temperature_2m": 15.8,
+          "temperature_2m": 15.7,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 2.1,
-          "wind_gusts_10m": 29.2
+          "wind_speed_10m": 3,
+          "wind_gusts_10m": 28.4
         },
         {
           "time": "2026-09-04T21:00",
@@ -840,7 +836,7 @@
           "temperature_2m": 15.3,
           "precipitation_probability": 0,
           "precipitation_mm": 0,
-          "wind_speed_10m": 3.5,
+          "wind_speed_10m": 4.4,
           "wind_gusts_10m": 17.6
         }
       ],
@@ -849,9 +845,9 @@
         "score": 0,
         "maxRainProbability": 0,
         "totalGameRainMm": 0,
-        "maxWindKmh": 3.5,
-        "maxGustKmh": 29.2,
-        "avgTemp": 15.6,
+        "maxWindKmh": 4.4,
+        "maxGustKmh": 28.4,
+        "avgTemp": 15.5,
         "reasons": [],
         "captainImpact": "Low weather risk over game window. Normal captain logic applies."
       }
