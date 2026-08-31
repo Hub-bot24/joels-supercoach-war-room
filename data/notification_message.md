@@ -1,7 +1,7 @@
 # SuperCoach War Room status changes — Round 27
 
-Detected: 2026-08-31T00:54:49.658Z
+Detected: 2026-08-31T06:46:32.891Z
 
-- **Hugo Savala** (SYD): EXPECTED → INJURED
-  - Injury confirmed near player on injury article (Zero Tackle): Round 1.; Origin/representative-duty context present
-  - Source: Zero Tackle, Zero Tackle, origin_players.json
+- **Hugo Savala** (SYD): INJURED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed

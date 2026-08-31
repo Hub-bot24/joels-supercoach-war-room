@@ -1,22 +1,5 @@
 [
   {
-    "player": "Benaiah Ioelu",
-    "team": "SYD",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-08-30T17:33:29.850Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-08-30T17:33:29.850Z"
-      }
-    ],
-    "round": 27
-  },
-  {
     "player": "Benjamin TeKura",
     "team": "BRO",
     "from": "NOT_NAMED",
@@ -8507,6 +8490,23 @@
         "name": "origin_players.json",
         "url": "origin_players.json",
         "updatedAt": "2026-08-30T22:44:53.992Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Hugo Savala",
+    "team": "SYD",
+    "from": "INJURED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-08-31T06:46:32.891Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-08-31T06:46:32.891Z"
       }
     ],
     "round": 27

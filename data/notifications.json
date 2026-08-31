@@ -1,32 +1,20 @@
 {
-  "updated": "2026-08-31T00:54:49.658Z",
+  "updated": "2026-08-31T06:46:32.891Z",
   "round": 27,
   "newChanges": [
     {
       "player": "Hugo Savala",
       "team": "SYD",
-      "from": "EXPECTED",
-      "to": "INJURED",
-      "reason": "Injury confirmed near player on injury article (Zero Tackle): Round 1.; Origin/representative-duty context present",
-      "detectedAt": "2026-08-31T00:54:49.658Z",
+      "from": "INJURED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-08-31T06:46:32.891Z",
       "sources": [
         {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/roosters-suffer-huge-blow-with-sam-walker-injury-update-237519/",
-          "updatedAt": "2026-08-31T00:54:49.658Z"
-        },
-        {
-          "type": "injury",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/roosters-reveal-sam-walker-injury-update-after-surgery-237562/",
-          "updatedAt": "2026-08-31T00:54:49.658Z"
-        },
-        {
-          "type": "origin",
-          "name": "origin_players.json",
-          "url": "origin_players.json",
-          "updatedAt": "2026-08-30T22:44:53.992Z"
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-08-31T06:46:32.891Z"
         }
       ],
       "round": 27
