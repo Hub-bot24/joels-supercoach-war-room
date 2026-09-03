@@ -1,6 +1,34 @@
 {
-  "updated": "2026-09-03T21:22:59.134Z",
+  "updated": "2026-09-03T23:26:52.287Z",
   "round": 27,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Sam Walker",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
+      "detectedAt": "2026-09-03T23:26:52.287Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/nrl/team-lists/final-teams",
+          "updatedAt": "2026-09-03T23:26:52.287Z",
+          "priority": 5,
+          "order": 6
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-09-03T23:26:52.287Z",
+          "priority": 2,
+          "order": 10
+        }
+      ],
+      "round": 27
+    }
+  ],
   "allChangeCount": 500
 }
