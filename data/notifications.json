@@ -1,20 +1,220 @@
 {
-  "updated": "2026-09-04T05:59:10.965Z",
+  "updated": "2026-09-04T11:07:27.167Z",
   "round": 27,
   "newChanges": [
     {
-      "player": "Haizyn Mellars",
-      "team": "NZL",
+      "player": "Angus Crichton",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Arama Hau",
+      "team": "GLD",
       "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-09-04T05:59:10.965Z",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
       "sources": [
         {
           "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-09-04T05:59:10.965Z"
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 2,
+          "order": 8
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Billy Smith",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Blake Steep",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Brent Woolf",
+      "team": "DOL",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Connelly Lemuelu",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 16).",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 2,
+          "order": 3
+        },
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 2,
+          "order": 8
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Daniel Saifiti",
+      "team": "DOL",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Davvy Moale",
+      "team": "MEL",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/02/nrl-late-mail-round-27--yeo-in-frame-duncan-hamstrung",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Elijah Rasmussen",
+      "team": "DOL",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Fetalagia Pauga",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Hugo Savala",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
         }
       ],
       "round": 27
@@ -22,16 +222,16 @@
     {
       "player": "Isaah Yeo",
       "team": "PEN",
-      "from": "EXPECTED",
-      "to": "NAMED",
-      "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
-      "detectedAt": "2026-09-04T05:59:10.965Z",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in official NRL role-line team-list extended squad only (Official NRL, Reserve, jersey 22).",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/09/02/nrl-late-mail-round-27--yeo-in-frame-duncan-hamstrung",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
           "priority": 3,
           "order": 2
         },
@@ -39,7 +239,7 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/09/02/nrl-late-mail-round-27--yeo-in-frame-duncan-hamstrung",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
           "priority": 3,
           "order": 2
         },
@@ -47,57 +247,78 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
           "priority": 2,
           "order": 3
         },
         {
           "type": "teamlist",
           "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-warriors-vs-sea-eagles-10396545-237723",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
-          "priority": 4,
-          "order": 5
-        },
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 2,
+          "order": 8
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Jake Averillo",
+      "team": "DOL",
+      "from": "EXPECTED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
         {
           "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/team-lists/final-teams",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
-          "priority": 5,
-          "order": 6
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 2,
+          "order": 3
         },
         {
           "type": "teamlist",
           "name": "Zero Tackle",
           "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
           "priority": 2,
           "order": 8
-        },
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "James Tedesco",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Jaylan De Groot",
+      "team": "GLD",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
         {
           "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-vs-roosters-10396544-237695",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
-          "priority": 4,
-          "order": 9
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-bulldogs-broncos-10396542-237649",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
-          "priority": 4,
-          "order": 10
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-titans-vs-dolphins-10396543-237691",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
-          "priority": 4,
-          "order": 11
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
         }
       ],
       "round": 27
@@ -105,16 +326,16 @@
     {
       "player": "Jeremiah Nanai",
       "team": "NQC",
-      "from": "NOT_NAMED",
-      "to": "NAMED",
-      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
-      "detectedAt": "2026-09-04T05:59:10.965Z",
+      "from": "NAMED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/09/02/nrl-late-mail-round-27--yeo-in-frame-duncan-hamstrung",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
           "priority": 3,
           "order": 2
         },
@@ -122,74 +343,304 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
           "priority": 2,
           "order": 3
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-warriors-vs-sea-eagles-10396545-237723",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
-          "priority": 4,
-          "order": 5
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/nrl/team-lists/final-teams",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
-          "priority": 5,
-          "order": 6
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
-          "priority": 2,
-          "order": 8
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-rabbitohs-vs-roosters-10396544-237695",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
-          "priority": 4,
-          "order": 9
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-bulldogs-broncos-10396542-237649",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
-          "priority": 4,
-          "order": 10
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-titans-vs-dolphins-10396543-237691",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
-          "priority": 4,
-          "order": 11
         }
       ],
       "round": 27
     },
     {
-      "player": "Leka Halasima",
-      "team": "NZL",
+      "player": "John Fineanganofo",
+      "team": "DOL",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Kodi Nikorima",
+      "team": "DOL",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Kulikefu Finefeuiaki",
+      "team": "DOL",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Lewis Symonds",
+      "team": "DOL",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Lindsay Collins",
+      "team": "SYD",
       "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "LJ Nonu",
+      "team": "DOL",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Manaia Waitere",
+      "team": "MEL",
+      "from": "EXPECTED",
       "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-09-04T05:59:10.965Z",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
       "sources": [
         {
           "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-09-04T05:59:10.965Z"
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/02/nrl-late-mail-round-27--yeo-in-frame-duncan-hamstrung",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Mark Nawaqanitawase",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Mason Kira",
+      "team": "NQC",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/02/nrl-late-mail-round-27--yeo-in-frame-duncan-hamstrung",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Nat Butcher",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Naufahu Whyte",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Reece Robson",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Robert Toia",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Ronald Philitoga",
+      "team": "NQC",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/02/nrl-late-mail-round-27--yeo-in-frame-duncan-hamstrung",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Sam Stonestreet",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/02/nrl-late-mail-round-27--yeo-in-frame-duncan-hamstrung",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 3,
+          "order": 2
+        },
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 2,
+          "order": 3
         }
       ],
       "round": 27
@@ -197,41 +648,103 @@
     {
       "player": "Sam Walker",
       "team": "SYD",
-      "from": "NAMED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-09-04T05:59:10.965Z",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
       "sources": [
         {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "",
-          "updatedAt": "2026-09-04T05:59:10.965Z"
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
         }
       ],
       "round": 27
     },
     {
-      "player": "Taine Tuaupiki",
-      "team": "NZL",
+      "player": "Selwyn Cobbo",
+      "team": "DOL",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Siua Wong",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Talanoa Penitani",
+      "team": "STH",
       "from": "EXPECTED",
-      "to": "NAMED",
-      "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 1, jersey 18).",
-      "detectedAt": "2026-09-04T05:59:10.965Z",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 2,
+          "order": 3
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Trai Fuller",
+      "team": "DOL",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Tuku HauTapuha",
+      "team": "SHA",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Not present in higher-priority current team-list source (Official NRL).",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
       "sources": [
         {
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/09/02/nrl-late-mail-round-27--yeo-in-frame-duncan-hamstrung",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
-          "priority": 3,
-          "order": 2
-        },
-        {
-          "type": "teamlist",
-          "name": "Official NRL",
-          "url": "https://www.nrl.com/news/2026/09/02/nrl-late-mail-round-27--yeo-in-frame-duncan-hamstrung",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
           "priority": 3,
           "order": 2
         },
@@ -239,25 +752,70 @@
           "type": "teamlist",
           "name": "Official NRL",
           "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
           "priority": 2,
           "order": 3
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Victor Radley",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Xavier Vaa",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-09-04T11:07:27.167Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Zac Laybutt",
+      "team": "NQC",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in team-list article extended squad only (Official NRL, jersey 24).",
+      "detectedAt": "2026-09-04T11:07:27.167Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/02/nrl-late-mail-round-27--yeo-in-frame-duncan-hamstrung",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
+          "priority": 3,
+          "order": 2
         },
         {
           "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/updated-team-lists-warriors-vs-sea-eagles-10396545-237723",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
-          "priority": 4,
-          "order": 5
-        },
-        {
-          "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-          "updatedAt": "2026-09-04T05:59:10.965Z",
+          "name": "Official NRL",
+          "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
+          "updatedAt": "2026-09-04T11:07:27.167Z",
           "priority": 2,
-          "order": 8
+          "order": 3
         }
       ],
       "round": 27
