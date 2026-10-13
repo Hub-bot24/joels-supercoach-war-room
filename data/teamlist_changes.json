@@ -1,32 +1,5 @@
 [
   {
-    "player": "Jamayne Isaako",
-    "team": "DOL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
     "player": "James Fisher-Harris",
     "team": "NZL",
     "from": "EXPECTED",
@@ -11107,6 +11080,25 @@
         "name": "Current club team-list not confirmed",
         "url": "data/status_truth.json",
         "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Matthew Dufty",
+    "team": "STH",
+    "from": "NOT_NAMED",
+    "to": "NAMED",
+    "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 1, jersey 1).",
+    "detectedAt": "2026-10-13T14:57:06.444Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/finals-week-1-team-lists-2026-237845",
+        "updatedAt": "2026-10-13T14:57:06.444Z",
+        "priority": 2,
+        "order": 4
       }
     ],
     "round": 27
