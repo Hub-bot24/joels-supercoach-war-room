@@ -1,814 +1,5 @@
 [
   {
-    "player": "Isaiah Tass",
-    "team": "STH",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Isaiya Katoa",
-    "team": "DOL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Izack Tago",
-    "team": "PEN",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jack Bird",
-    "team": "WST",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Current club team list loaded for club and player was not in that list.",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Parsed current team-list source",
-        "url": "data/teamlists.json",
-        "updatedAt": "2026-09-01T10:08:05.888Z"
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jack Bostock",
-    "team": "DOL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 2).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jack Cogger",
-    "team": "PEN",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jack Cole",
-    "team": "PEN",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jack de Belin",
-    "team": "PAR",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jack Gosiewski",
-    "team": "BRO",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 16, jersey 16).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jack Hetherington",
-    "team": "MEL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article interchange (Zero Tackle, jersey 15).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jack Howarth",
-    "team": "MEL",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jack Todd",
-    "team": "CAN",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jack Wighton",
-    "team": "STH",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jack Williams",
-    "team": "PAR",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 10).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jackson Ford",
-    "team": "NZL",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jacob Halangahu",
-    "team": "STG",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jacob Kiraz",
-    "team": "CAN",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 2, jersey 2).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jacob Laban",
-    "team": "NZL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jacob Liddle",
-    "team": "STG",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jacob Preston",
-    "team": "CAN",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 12, jersey 12).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jaeman Salmon",
-    "team": "CAN",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 13, jersey 13).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jahream Bula",
-    "team": "WST",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jahrome Hughes",
-    "team": "MEL",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jai Arrow",
-    "team": "STH",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 7).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jaimin Jolliffe",
-    "team": "GLD",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jaiyden Hunt",
-    "team": "BRO",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in structured team-list snapshot starting side (Zero Tackle, lineup position 11, jersey 11).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jake Clifford",
-    "team": "NQC",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jake Clydsdale",
-    "team": "CBR",
-    "from": "EXPECTED",
-    "to": "NOT_NAMED",
-    "reason": "Not present in higher-priority current team-list source (Official NRL).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jake Elliott",
-    "team": "SYD",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article interchange (Zero Tackle, jersey 17).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jake Simpkin",
-    "team": "MAN",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jake Trbojevic",
-    "team": "MAN",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jake Turpin",
-    "team": "CAN",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in structured team-list snapshot interchange (Zero Tackle, lineup position 14, jersey 14).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Jamal Fogarty",
-    "team": "MAN",
-    "from": "EXPECTED",
-    "to": "NAMED",
-    "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
-    "detectedAt": "2026-09-01T10:08:05.888Z",
-    "sources": [
-      {
-        "type": "teamlist",
-        "name": "Official NRL",
-        "url": "https://www.nrl.com/news/2026/09/01/nrl-team-lists-round-27",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 2
-      },
-      {
-        "type": "teamlist",
-        "name": "Zero Tackle",
-        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-        "updatedAt": "2026-09-01T10:08:05.888Z",
-        "priority": 2,
-        "order": 4
-      }
-    ],
-    "round": 27
-  },
-  {
     "player": "Jamayne Isaako",
     "team": "DOL",
     "from": "EXPECTED",
@@ -11123,6 +10314,799 @@
         "name": "Current club team-list not confirmed",
         "url": "data/status_truth.json",
         "updatedAt": "2026-09-20T01:26:11.783Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Benaiah Ioelu",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in official NRL role-line team-list extended squad only (Official NRL, Reserve, jersey 20).",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/09/29/nrl-team-lists-grand-final",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 4
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Blayke Brailey",
+    "team": "SHA",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Braydon Trindall",
+    "team": "SHA",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Cody Ramsey",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in official NRL role-line team-list extended squad only (Official NRL, Reserve, jersey 19).",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/09/29/nrl-team-lists-grand-final",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 4
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Connor Watson",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/09/29/nrl-team-lists-grand-final",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 4
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Haizyn Mellars",
+    "team": "NZL",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Hugo Savala",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "Named in official NRL role-line team-list extended squad only (Official NRL, Reserve, jersey 18).",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/09/29/nrl-team-lists-grand-final",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 2
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Jackson Ford",
+    "team": "NZL",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Jake Elliott",
+    "team": "SYD",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/09/29/nrl-team-lists-grand-final",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 4
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Junior Tupou",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/09/29/nrl-team-lists-grand-final",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 4
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Kayliss Fatialofa",
+    "team": "NZL",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Kurt Capewell",
+    "team": "NZL",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Luke Hanson",
+    "team": "NZL",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Luke Metcalf",
+    "team": "NZL",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Marata Niukore",
+    "team": "NZL",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Matthew Dufty",
+    "team": "STH",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Mitchell Barnett",
+    "team": "NZL",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Motu Pasikala",
+    "team": "NZL",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Nicho Hynes",
+    "team": "SHA",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Reece Foley",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/09/29/nrl-team-lists-grand-final",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 4
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Rex Bassingthwaighte",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/09/29/nrl-team-lists-grand-final",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 4
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Rocco Berry",
+    "team": "NZL",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Roger Tuivasa-Sheck",
+    "team": "NZL",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Sam Healey",
+    "team": "NZL",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Tanah Boyd",
+    "team": "NZL",
+    "from": "NOT_NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Taylor Losalu",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/09/29/nrl-team-lists-grand-final",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 4
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Teig Wilton",
+    "team": "SHA",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Thomas Hazelton",
+    "team": "SHA",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Toby Rodwell",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/09/29/nrl-team-lists-grand-final",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 4
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Tallis Duncan",
+    "team": "STH",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Tom Rodwell",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/09/29/nrl-team-lists-grand-final",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 4
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Tommy Talau",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Not present in higher-priority current team-list source (Official NRL).",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/10/01/nrl-late-mail-grand-final---roosters-sweat-on-connor",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 3,
+        "order": 1
+      },
+      {
+        "type": "teamlist",
+        "name": "Official NRL",
+        "url": "https://www.nrl.com/news/2026/09/29/nrl-team-lists-grand-final",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 2
+      },
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+        "updatedAt": "2026-10-13T06:59:57.133Z",
+        "priority": 2,
+        "order": 4
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Wayde Egan",
+    "team": "NZL",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-13T06:59:57.133Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-13T06:59:57.133Z"
       }
     ],
     "round": 27
