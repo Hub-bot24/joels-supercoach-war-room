@@ -1,22 +1,20 @@
 {
-  "updated": "2026-10-18T04:57:31.104Z",
+  "updated": "2026-10-18T09:26:29.245Z",
   "round": 27,
   "newChanges": [
     {
       "player": "Hudson Young",
       "team": "CBR",
-      "from": "NOT_NAMED",
-      "to": "EXPECTED",
-      "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 18).",
-      "detectedAt": "2026-10-18T04:57:31.104Z",
+      "from": "EXPECTED",
+      "to": "NOT_NAMED",
+      "reason": "Current club team list loaded for club and player was not in that list.",
+      "detectedAt": "2026-10-18T09:26:29.245Z",
       "sources": [
         {
           "type": "teamlist",
-          "name": "Zero Tackle",
-          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
-          "updatedAt": "2026-10-18T04:57:31.104Z",
-          "priority": 2,
-          "order": 4
+          "name": "Parsed current team-list source",
+          "url": "data/teamlists.json",
+          "updatedAt": "2026-10-18T09:26:29.245Z"
         }
       ],
       "round": 27
