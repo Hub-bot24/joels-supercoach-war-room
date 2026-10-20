@@ -1,139 +1,433 @@
 {
-  "updated": "2026-10-20T03:58:03.202Z",
+  "updated": "2026-10-20T09:20:27.507Z",
   "round": 27,
   "newChanges": [
     {
-      "player": "Apa Twidle",
-      "team": "PAR",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-10-20T03:58:03.202Z",
+      "player": "Angus Crichton",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
       "sources": [
         {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "data/teamlists.json",
-          "updatedAt": "2026-10-20T03:58:03.202Z"
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-10-20T09:20:27.507Z"
         }
       ],
       "round": 27
     },
     {
-      "player": "Araz Nanva",
-      "team": "PAR",
+      "player": "Benaiah Ioelu",
+      "team": "SYD",
       "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-10-20T03:58:03.202Z",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 8).",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
       "sources": [
         {
           "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "data/teamlists.json",
-          "updatedAt": "2026-10-20T03:58:03.202Z"
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-10-20T09:20:27.507Z",
+          "priority": 2,
+          "order": 2
         }
       ],
       "round": 27
     },
     {
-      "player": "Bailey Simonsson",
-      "team": "PAR",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-10-20T03:58:03.202Z",
+      "player": "Billy Smith",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
       "sources": [
         {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "data/teamlists.json",
-          "updatedAt": "2026-10-20T03:58:03.202Z"
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-10-20T09:20:27.507Z"
         }
       ],
       "round": 27
     },
     {
-      "player": "Charlie Guymer",
-      "team": "PAR",
+      "player": "Cody Ramsey",
+      "team": "SYD",
       "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-10-20T03:58:03.202Z",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
       "sources": [
         {
           "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "data/teamlists.json",
-          "updatedAt": "2026-10-20T03:58:03.202Z"
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-10-20T09:20:27.507Z",
+          "priority": 2,
+          "order": 2
         }
       ],
       "round": 27
     },
     {
-      "player": "Isaiah Iongi",
-      "team": "PAR",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-10-20T03:58:03.202Z",
+      "player": "Connor Watson",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 12).",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
       "sources": [
         {
           "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "data/teamlists.json",
-          "updatedAt": "2026-10-20T03:58:03.202Z"
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-10-20T09:20:27.507Z",
+          "priority": 2,
+          "order": 2
         }
       ],
       "round": 27
     },
     {
-      "player": "Jonah Pezet",
-      "team": "PAR",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-10-20T03:58:03.202Z",
+      "player": "Daly Cherry-Evans",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
       "sources": [
         {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "data/teamlists.json",
-          "updatedAt": "2026-10-20T03:58:03.202Z"
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-10-20T09:20:27.507Z"
         }
       ],
       "round": 27
     },
     {
-      "player": "Kelma Tuilagi",
-      "team": "PAR",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-10-20T03:58:03.202Z",
+      "player": "DeLaSalle Vaa",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
       "sources": [
         {
-          "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "data/teamlists.json",
-          "updatedAt": "2026-10-20T03:58:03.202Z"
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-10-20T09:20:27.507Z"
         }
       ],
       "round": 27
     },
     {
-      "player": "Ryley Smith",
-      "team": "PAR",
-      "from": "EXPECTED",
-      "to": "NOT_NAMED",
-      "reason": "Current club team list loaded for club and player was not in that list.",
-      "detectedAt": "2026-10-20T03:58:03.202Z",
+      "player": "Jake Elliott",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "EXPECTED",
+      "reason": "Named in team-list article extended squad only (Zero Tackle, jersey 18).",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
       "sources": [
         {
           "type": "teamlist",
-          "name": "Parsed current team-list source",
-          "url": "data/teamlists.json",
-          "updatedAt": "2026-10-20T03:58:03.202Z"
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-10-20T09:20:27.507Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "James Tedesco",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-10-20T09:20:27.507Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Junior Tupou",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 1).",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-10-20T09:20:27.507Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Mark Nawaqanitawase",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-10-20T09:20:27.507Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Nat Butcher",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-10-20T09:20:27.507Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Naufahu Whyte",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-10-20T09:20:27.507Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Reece Foley",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 5).",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-10-20T09:20:27.507Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Reece Robson",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-10-20T09:20:27.507Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Rex Bassingthwaighte",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-10-20T09:20:27.507Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Robert Toia",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-10-20T09:20:27.507Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Sam Walker",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-10-20T09:20:27.507Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Siua Wong",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-10-20T09:20:27.507Z"
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Taylor Losalu",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 9).",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-10-20T09:20:27.507Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Toby Rodwell",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 6).",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-10-20T09:20:27.507Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Tom Rodwell",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "NAMED",
+      "reason": "Named in team-list article interchange (Zero Tackle, jersey 14).",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-10-20T09:20:27.507Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Tommy Talau",
+      "team": "SYD",
+      "from": "NOT_NAMED",
+      "to": "NAMED",
+      "reason": "Named in team-list article starting side (Zero Tackle, jersey 3).",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "teamlist",
+          "name": "Zero Tackle",
+          "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+          "updatedAt": "2026-10-20T09:20:27.507Z",
+          "priority": 2,
+          "order": 2
+        }
+      ],
+      "round": 27
+    },
+    {
+      "player": "Victor Radley",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-10-20T09:20:27.507Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-10-20T09:20:27.507Z"
         }
       ],
       "round": 27

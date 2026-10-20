@@ -1,28 +1,76 @@
 # SuperCoach War Room status changes — Round 27
 
-Detected: 2026-10-20T03:58:03.202Z
+Detected: 2026-10-20T09:20:27.507Z
 
-- **Apa Twidle** (PAR): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Araz Nanva** (PAR): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Bailey Simonsson** (PAR): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Charlie Guymer** (PAR): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Isaiah Iongi** (PAR): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Jonah Pezet** (PAR): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Kelma Tuilagi** (PAR): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Ryley Smith** (PAR): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
+- **Angus Crichton** (SYD): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Benaiah Ioelu** (SYD): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 8).
+  - Source: Zero Tackle
+- **Billy Smith** (SYD): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Cody Ramsey** (SYD): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 1).
+  - Source: Zero Tackle
+- **Connor Watson** (SYD): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 12).
+  - Source: Zero Tackle
+- **Daly Cherry-Evans** (SYD): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **DeLaSalle Vaa** (SYD): NOT_NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Jake Elliott** (SYD): NOT_NAMED → EXPECTED
+  - Named in team-list article extended squad only (Zero Tackle, jersey 18).
+  - Source: Zero Tackle
+- **James Tedesco** (SYD): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Junior Tupou** (SYD): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 1).
+  - Source: Zero Tackle
+- **Mark Nawaqanitawase** (SYD): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Nat Butcher** (SYD): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Naufahu Whyte** (SYD): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Reece Foley** (SYD): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 5).
+  - Source: Zero Tackle
+- **Reece Robson** (SYD): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Rex Bassingthwaighte** (SYD): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 4).
+  - Source: Zero Tackle
+- **Robert Toia** (SYD): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Sam Walker** (SYD): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Siua Wong** (SYD): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
+- **Taylor Losalu** (SYD): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 9).
+  - Source: Zero Tackle
+- **Toby Rodwell** (SYD): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 6).
+  - Source: Zero Tackle
+- **Tom Rodwell** (SYD): NOT_NAMED → NAMED
+  - Named in team-list article interchange (Zero Tackle, jersey 14).
+  - Source: Zero Tackle
+- **Tommy Talau** (SYD): NOT_NAMED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 3).
+  - Source: Zero Tackle
+- **Victor Radley** (SYD): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
