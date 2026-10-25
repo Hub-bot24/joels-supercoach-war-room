@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T03:05:35.220Z",
+  "updated": "2026-10-25T10:39:39.988Z",
   "sources": [
     {
       "url": "https://www.nrlsupercoachstats.com/drawV2.php?year=2026",
@@ -23,8 +23,10 @@
   "status": "ok",
   "nrlVenueSource": {
     "roundsChecked": 27,
-    "filled": 204,
-    "errors": []
+    "filled": 197,
+    "errors": [
+      "R19: 503 https://www.nrl.com/draw/nrl-premiership/2026/round-19/"
+    ]
   },
   "roundsFound": [
     1,
