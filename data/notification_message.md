@@ -1,154 +1,40 @@
 # SuperCoach War Room status changes — Round 27
 
-Detected: 2026-10-25T01:26:30.562Z
+Detected: 2026-10-26T09:52:33.041Z
 
-- **Adam Doueihi** (WST): EXPECTED → NOT_NAMED
+- **Brent Woolf** (DOL): EXPECTED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Adam Elliott** (STH): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 12).
-  - Source: Zero Tackle
-- **Adam Pompey** (NZL): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 2).
-  - Source: Zero Tackle
-- **Adam Reynolds** (BRO): EXPECTED → NOT_NAMED
+- **Daniel Saifiti** (DOL): EXPECTED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Addin Fonua-Blake** (SHA): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 8).
-  - Source: Zero Tackle
-- **Alec MacDonald** (MEL): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 15).
-  - Source: Zero Tackle
-- **Alekolasimi Jones** (CAN): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 15).
-  - Source: Zero Tackle
-- **Alex Johnston** (STH): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 2).
-  - Source: Zero Tackle
-- **Alex Seyfarth** (WST): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 12).
-  - Source: Zero Tackle
-- **Alex Twal** (WST): EXPECTED → NOT_NAMED
+- **Elijah Rasmussen** (DOL): EXPECTED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Alexander Brimson** (GLD): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 4).
-  - Source: Zero Tackle
-- **Ali Leiataua** (NZL): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 3).
-  - Source: Zero Tackle
-- **Alofiana Khan-Pereira** (NZL): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 5).
-  - Source: Zero Tackle
-- **Angus Crichton** (SYD): EXPECTED → NAMED
-  - Named in official NRL role-line team-list interchange (Official NRL, Interchange, jersey 15).
-  - Source: Official NRL, Official NRL
-- **Angus Hinchey** (MEL): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 17).
-  - Source: Zero Tackle
-- **Antonio Verhoeven** (BRO): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Apisai Koroisau** (WST): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 8).
-  - Source: Zero Tackle
-- **Arama Hau** (GLD): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 16).
-  - Source: Zero Tackle
-- **Ashton Ward** (STH): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Ata Mariota** (CBR): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 12).
-  - Source: Zero Tackle
-- **Aublix Tawha** (BRO): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 15).
-  - Source: Zero Tackle
-- **Bailey Hayward** (CAN): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 9).
-  - Source: Zero Tackle
-- **Bayleigh Bentley-Hape** (STH): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Beau Fermor** (GLD): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 5).
-  - Source: Zero Tackle
-- **Ben Hunt** (BRO): EXPECTED → NAMED
+- **Hudson Young** (CBR): NOT_NAMED → NAMED
   - Named in team-list article starting side (Zero Tackle, jersey 6).
   - Source: Zero Tackle
-- **Ben Trbojevic** (MAN): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 11).
-  - Source: Zero Tackle
-- **Benjamin TeKura** (BRO): EXPECTED → NOT_NAMED
+- **John Fineanganofo** (DOL): EXPECTED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Billy Burns** (SHA): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 12).
-  - Source: Zero Tackle
-- **Billy Phillips** (PEN): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 17).
-  - Source: Zero Tackle
-- **Billy Smith** (SYD): EXPECTED → NAMED
-  - Named in official NRL role-line team-list starting side (Official NRL, Centre, jersey 3).
-  - Source: Official NRL, Official NRL
-- **Billy Walters** (BRO): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 8).
-  - Source: Zero Tackle
-- **Blake Hosking** (SHA): EXPECTED → NOT_NAMED
+- **Kodi Nikorima** (DOL): EXPECTED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Blake Lawrie** (STG): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 10).
-  - Source: Zero Tackle
-- **Blake Mozer** (BRO): EXPECTED → NOT_NAMED
+- **Kulikefu Finefeuiaki** (DOL): EXPECTED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Blake Steep** (SYD): EXPECTED → NOT_NAMED
-  - Not present in higher-priority current team-list source (Official NRL).
-  - Source: Official NRL
-- **Blayke Brailey** (SHA): EXPECTED → NOT_NAMED
+- **Lewis Symonds** (DOL): EXPECTED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Brad Schneider** (DOL): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 17).
-  - Source: Zero Tackle
-- **Braden Uele** (SHA): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 10).
-  - Source: Zero Tackle
-- **Braidon Burns** (NQC): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 2).
-  - Source: Zero Tackle
-- **Brandon Smith** (STH): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 9).
-  - Source: Zero Tackle
-- **Brandon Wakeham** (MAN): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 8).
-  - Source: Zero Tackle
-- **Braydon Trindall** (SHA): EXPECTED → NOT_NAMED
+- **LJ Nonu** (DOL): EXPECTED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Brendan Piakura** (BRO): EXPECTED → NOT_NAMED
+- **Sebastian Sua** (DOL): EXPECTED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Brian Kelly** (PAR): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 2).
-  - Source: Zero Tackle
-- **Brian Pouniu** (DOL): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 11).
-  - Source: Zero Tackle
-- **Brian To'o** (PEN): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 5).
-  - Source: Zero Tackle
-- **Briton Nikora** (SHA): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 11).
-  - Source: Zero Tackle
-- **Bronson Garlick** (STH): EXPECTED → NOT_NAMED
+- **Selwyn Cobbo** (DOL): EXPECTED → NOT_NAMED
   - Current club team list loaded for club and player was not in that list.
   - Source: Parsed current team-list source
-- **Bronson Xerri** (CAN): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 4).
-  - Source: Zero Tackle
-- **Bunty Afoa** (WST): EXPECTED → NAMED
-  - Named in team-list article interchange (Zero Tackle, jersey 17).
-  - Source: Zero Tackle
+- **Trai Fuller** (DOL): EXPECTED → NOT_NAMED
+  - Current club team list loaded for club and player was not in that list.
+  - Source: Parsed current team-list source
