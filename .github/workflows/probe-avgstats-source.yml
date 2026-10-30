@@ -1,7 +1,5 @@
-# TEST ONLY: one-off source-contract probe for the avg-stats parser failure
-# (10 headers vs 8 cells since 2026-09-07). Prints the raw per-player HTML
-# into the job log so the parser can be fixed against real evidence.
-# Delete this workflow once the parser fix lands.
+# TEST ONLY: live validation of the avg-stats parser fix against the real
+# source, without writing or committing anything. Delete before merge.
 name: Probe avg-stats source (TEST ONLY)
 
 "on":
@@ -14,15 +12,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Dump raw avg-stats HTML for sample players
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Parse live avg-stats for first 25 players (no writes)
         run: |
-          SEASON=$(jq -r .season data/source_config.json)
-          for name in $(jq -r '.players[:2][].name | @uri' players.json); do
-            decoded=$(printf '%b' "${name//%/\\x}")
-            given="${decoded%% *}"; surname="${decoded#* }"
-            q=$(jq -rn --arg s "$surname, $given" '$s|@uri')
-            url="https://www.nrlsupercoachstats.com/updatedatatable${SEASON}.php?q=${q}"
-            echo "===== $url"
-            curl -sS -A "Mozilla/5.0 (compatible; SuperCoachWarRoomBot/1.0)" "$url"
-            echo; echo "===== end"
-          done
+          cat > /tmp/probe.mjs <<'JS'
+          import fs from "node:fs";
+          import { parseAvgStatsHtml, appNameToSourceName } from "./scripts/update-players.mjs";
+          const season = JSON.parse(fs.readFileSync("data/source_config.json", "utf8")).season;
+          const players = JSON.parse(fs.readFileSync("players.json", "utf8")).players.slice(0, 25);
+          let ok = 0;
+          for (const p of players) {
+            const url = `https://www.nrlsupercoachstats.com/updatedatatable${season}.php?q=${encodeURIComponent(appNameToSourceName(p.name))}`;
+            const html = await (await fetch(url, { headers: { "user-agent": "Mozilla/5.0 (compatible; SuperCoachWarRoomBot/1.0)" } })).text();
+            const stats = parseAvgStatsHtml(html);
+            if (stats) ok++;
+            console.log(p.name, "| app avg", p.avg, "| parsed", JSON.stringify(stats));
+            await new Promise(r => setTimeout(r, 200));
+          }
+          console.log(`PARSED ${ok}/${players.length}`);
+          if (!ok) process.exit(1);
+          JS
+          cp /tmp/probe.mjs ./probe.mjs && node probe.mjs
