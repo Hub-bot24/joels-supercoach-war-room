@@ -1,0 +1,28 @@
+# TEST ONLY: one-off source-contract probe for the avg-stats parser failure
+# (10 headers vs 8 cells since 2026-09-07). Prints the raw per-player HTML
+# into the job log so the parser can be fixed against real evidence.
+# Delete this workflow once the parser fix lands.
+name: Probe avg-stats source (TEST ONLY)
+
+"on":
+  push:
+    branches:
+      - claude/avgstats-source-probe
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dump raw avg-stats HTML for sample players
+        run: |
+          SEASON=$(jq -r .season data/source_config.json)
+          for name in $(jq -r '.players[:2][].name | @uri' players.json); do
+            decoded=$(printf '%b' "${name//%/\\x}")
+            given="${decoded%% *}"; surname="${decoded#* }"
+            q=$(jq -rn --arg s "$surname, $given" '$s|@uri')
+            url="https://www.nrlsupercoachstats.com/updatedatatable${SEASON}.php?q=${q}"
+            echo "===== $url"
+            curl -sS -A "Mozilla/5.0 (compatible; SuperCoachWarRoomBot/1.0)" "$url"
+            echo; echo "===== end"
+          done
