@@ -810,12 +810,26 @@ async function fetchTeamBEsRows() {
 // Parses the per-player stats card: a table of <h2> column headers
 // (Price, ~BE, Pts, Mins, 3/5Rd, PPM, $/Pt) followed by one data row.
 // Header-driven so column reordering doesn't silently break it.
+//
+// Headers and cells are read from the one table that holds the "Pts"
+// header, not the whole page: since 2026-09 the source page also carries a
+// separate Team/Posn/Other Year Profiles table with its own <h2> headers,
+// plus a trailing blank header+cell pair in the stats table itself. Reading
+// page-wide mixed those extra headers in and failed every player. Blank
+// headers are kept (not filtered) so they stay index-aligned with their
+// blank cells.
 function parseAvgStatsHtml(html) {
-  const headers = [...html.matchAll(/<h2>([^<]*)<\/h2>/gi)]
-    .map(match => match[1].trim())
-    .filter(Boolean);
+  const innermostTables = [...String(html || "").matchAll(/<table\b[^>]*>((?:(?!<table\b)[\s\S])*?)<\/table>/gi)]
+    .map(match => match[1]);
 
-  const cells = [...html.matchAll(/<td[^>]*font-size:1\.6em;"[^>]*>([\s\S]*?)<\/td>/gi)]
+  const statsTable = innermostTables.find(table => /<h2>\s*Pts\s*<\/h2>/i.test(table));
+
+  if (!statsTable) return null;
+
+  const headers = [...statsTable.matchAll(/<h2>([^<]*)<\/h2>/gi)]
+    .map(match => match[1].trim());
+
+  const cells = [...statsTable.matchAll(/<td[^>]*font-size:1\.6em;"[^>]*>([\s\S]*?)<\/td>/gi)]
     .map(match => stripTags(match[1]));
 
   if (!headers.length || !cells.length) return null;
