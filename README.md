@@ -29,10 +29,10 @@ stored in `data/source_config.json`.
 To re-run a past season deliberately, set `SEASON` in the environment (e.g.
 `SEASON=2025 node scripts/update-fixtures.mjs`). An invalid value throws.
 
-Early January: the scripts switch to the new season straight away. Sources
-that have not published the new season yet (SuperCoach prices and dual
-positions usually appear late January/February) will fail loudly, as
-designed, rather than mixing seasons - expect red price runs until then.
+From 1 January (Sydney time) the scripts target the new season. The new
+draw loads as soon as the source publishes it, and the active round then
+resolves to round 1. The price/BE updater stays on its normal schedule and
+skips until round 1's price-update window has passed.
 
 If the "Update SuperCoach Data" workflow ever goes red with "matched 0
 canonical identities", check the job log's `[debug] price-be-source` /
