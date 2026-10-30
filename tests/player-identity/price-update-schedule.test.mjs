@@ -101,14 +101,38 @@ test("shouldFetchPricesNow refuses a redundant re-fetch once a round has already
       fixturesFile,
       JSON.stringify([{ round: 22, kickoffLocal: "2026-08-02T16:05:00" }])
     );
-    await fs.writeFile(stateFile, JSON.stringify({ lastPricedRound: 22 }));
+    await fs.writeFile(stateFile, JSON.stringify({ season: 2026, lastPricedRound: 22 }));
 
     const result = await shouldFetchPricesNow(new Date("2026-08-05T00:00:00Z"), {
       currentRoundFile,
       fixturesFile,
-      stateFile
+      stateFile,
+      season: 2026
     });
     assert.equal(result.proceed, false);
+  });
+});
+
+test("shouldFetchPricesNow does not let last season's same-numbered round block this season's price update", async () => {
+  await withTempFiles(async dir => {
+    const currentRoundFile = path.join(dir, "current_round.json");
+    const fixturesFile = path.join(dir, "fixtures.json");
+    const stateFile = path.join(dir, "price_update_state.json");
+
+    await fs.writeFile(currentRoundFile, JSON.stringify({ round: 22, detectedRound: 22 }));
+    await fs.writeFile(
+      fixturesFile,
+      JSON.stringify([{ round: 22, kickoffLocal: "2027-08-01T16:05:00" }])
+    );
+    await fs.writeFile(stateFile, JSON.stringify({ season: 2026, lastPricedRound: 22 }));
+
+    const result = await shouldFetchPricesNow(new Date("2027-08-04T00:00:00Z"), {
+      currentRoundFile,
+      fixturesFile,
+      stateFile,
+      season: 2027
+    });
+    assert.equal(result.proceed, true);
   });
 });
 

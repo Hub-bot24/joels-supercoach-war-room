@@ -30,6 +30,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
+import { resolveSeason } from "./lib/season.mjs";
+
 const ROOT = process.cwd();
 const PROJECTIONS_DIR = path.join(ROOT, "data", "history", "projections");
 const SCORES_DIR = path.join(ROOT, "data", "history", "scores");
@@ -106,13 +108,7 @@ function computeAccuracy(projectionFiles, scoresBySeason, season) {
 }
 
 async function main() {
-  const sourceConfig = await readJson(path.join(ROOT, "data", "source_config.json"), {});
-  const season = sourceConfig.season;
-
-  if (!season) {
-    console.log("No season configured (data/source_config.json) - skipping build.");
-    return;
-  }
+  const season = resolveSeason();
 
   let projectionFileNames;
   try {

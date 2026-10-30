@@ -5,6 +5,7 @@ import {
   normaliseIdentityName,
   resolveIdentity
 } from "./lib/player-identity.mjs";
+import { resolveSeason } from "./lib/season.mjs";
 
 const readJson = (path, fallback = null) => {
   try {
@@ -18,8 +19,7 @@ const writeJson = (path, data) => {
   fs.writeFileSync(path, JSON.stringify(data, null, 2) + "\n");
 };
 
-const sourceConfig = readJson("data/source_config.json", {});
-const SEASON = sourceConfig.season;
+const SEASON = resolveSeason();
 
 const DPP_URL = `https://www.nrlsupercoachstats.com/dualposngrid.php?year=${SEASON}`;
 
