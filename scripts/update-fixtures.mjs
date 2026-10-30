@@ -4,6 +4,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
+import { resolveSeason } from "./lib/season.mjs";
+
 const ROOT = process.cwd();
 
 const OUT = path.join(ROOT, "fixtures.json");
@@ -17,20 +19,7 @@ async function readJson(file, fallback = {}) {
   }
 }
 
-const sourceConfig = await readJson(
-  path.join(ROOT, "data/source_config.json"),
-  {}
-);
-
-const YEAR = Number(
-  process.env.SEASON ||
-  sourceConfig.season ||
-  sourceConfig.year
-);
-
-if (!Number.isFinite(YEAR) || YEAR < 2020) {
-  throw new Error(`Invalid fixture season: ${YEAR}`);
-}
+const YEAR = resolveSeason();
 
 const URLS = [
   `https://www.nrlsupercoachstats.com/drawV2.php?year=${YEAR}`,

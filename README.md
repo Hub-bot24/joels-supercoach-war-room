@@ -17,13 +17,22 @@ After upload:
 5. Go to Actions.
 6. You should see "Update SuperCoach Data".
 
-## Season rollover checklist
+## Season rollover
 
-The only manual step required each new season: update `"season"` in
-`data/source_config.json` to the new year. It feeds the dual-position
-source URL directly, so nothing else needs to change. If it's left
-stale, the DPP parser will fail loudly (it already throws when it finds
-players but matches none) rather than silently going wrong.
+Automatic - nothing to edit. Every data script gets the season from
+`scripts/lib/season.mjs`, which uses the current year in Sydney time (an NRL
+season sits inside one calendar year). The active round is resolved by
+`scripts/update-status.mjs` from real team lists and fixtures, and team-list
+articles are discovered from `teamlistIndexUrls`, so no round or season is
+stored in `data/source_config.json`.
+
+To re-run a past season deliberately, set `SEASON` in the environment (e.g.
+`SEASON=2025 node scripts/update-fixtures.mjs`). An invalid value throws.
+
+Early January: the scripts switch to the new season straight away. Sources
+that have not published the new season yet (SuperCoach prices and dual
+positions usually appear late January/February) will fail loudly, as
+designed, rather than mixing seasons - expect red price runs until then.
 
 If the "Update SuperCoach Data" workflow ever goes red with "matched 0
 canonical identities", check the job log's `[debug] price-be-source` /

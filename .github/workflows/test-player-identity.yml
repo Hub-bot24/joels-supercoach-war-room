@@ -8,6 +8,7 @@ on:
       - "scripts/capture-player-scores.mjs"
       - "scripts/update-dpp.mjs"
       - "scripts/lib/player-identity.mjs"
+      - "scripts/lib/season.mjs"
       - "scripts/lib/player-identity-migration.mjs"
       - "scripts/migrate-player-identities.mjs"
       - "tests/player-identity/**"
@@ -27,6 +28,7 @@ on:
       - "scripts/capture-player-scores.mjs"
       - "scripts/update-dpp.mjs"
       - "scripts/lib/player-identity.mjs"
+      - "scripts/lib/season.mjs"
       - "scripts/lib/player-identity-migration.mjs"
       - "scripts/migrate-player-identities.mjs"
       - "tests/player-identity/**"
@@ -62,6 +64,7 @@ jobs:
       - name: Validate JavaScript syntax
         run: |
           node --check scripts/lib/player-identity.mjs
+          node --check scripts/lib/season.mjs
           node --check scripts/lib/player-identity-migration.mjs
           node --check scripts/migrate-player-identities.mjs
           node --check scripts/update-players.mjs

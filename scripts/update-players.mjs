@@ -4,6 +4,8 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
+import { resolveSeason } from "./lib/season.mjs";
+
 import {
   buildIdentityIndex,
   normaliseIdentityName,
@@ -17,11 +19,7 @@ const PLAYERS_FILE = path.join(ROOT, "players.json");
 const SOURCE_URL =
   "https://www.nrlsupercoachstats.com/TeamPricesAndBEs.php";
 
-  const sourceConfig = JSON.parse(
-  await fs.readFile(path.join(ROOT, "data/source_config.json"), "utf8")
-);
-
-const SEASON = sourceConfig.season;
+const SEASON = resolveSeason();
 
 const DPP_URL =
   `https://www.nrlsupercoachstats.com/dualposngrid.php?year=${SEASON}`;
@@ -1004,7 +1002,8 @@ async function shouldFetchPricesNow(now = new Date(), files = {}) {
   const {
     currentRoundFile = CURRENT_ROUND_FILE,
     fixturesFile = FIXTURES_FILE,
-    stateFile = PRICE_UPDATE_STATE_FILE
+    stateFile = PRICE_UPDATE_STATE_FILE,
+    season = SEASON
   } = files;
 
   const currentRoundMeta = await readJson(currentRoundFile, {});
@@ -1027,7 +1026,9 @@ async function shouldFetchPricesNow(now = new Date(), files = {}) {
   }
 
   const state = await readJson(stateFile, {});
-  if (state.lastPricedRound === round) {
+  // Round numbers repeat every season - only a round priced in this same
+  // season counts, or last season's final round would block this one's.
+  if (state.lastPricedRound === round && state.season === season) {
     console.log(`[update-players] Prices already fetched for round ${round} - skipping until round ${round + 1} completes.`);
     return { proceed: false, round };
   }
@@ -1082,6 +1083,7 @@ async function main() {
 
   if (gate.round != null) {
     await writeJson(PRICE_UPDATE_STATE_FILE, {
+      season: SEASON,
       lastPricedRound: gate.round,
       updatedAt: new Date().toISOString()
     });

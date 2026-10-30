@@ -31,6 +31,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { appNameToSourceName } from "./update-players.mjs";
+import { resolveSeason } from "./lib/season.mjs";
 
 const ROOT = process.cwd();
 const PLAYERS_FILE = path.join(ROOT, "players.json");
@@ -113,7 +114,7 @@ async function main() {
     try {
       // Any single year's response carries every season the site has -
       // one request per player is enough to seed the whole history.
-      const seasons = await fetchPlayerScoresByRound(sourceName, new Date().getFullYear());
+      const seasons = await fetchPlayerScoresByRound(sourceName, resolveSeason());
 
       if (seasons) {
         for (const [year, roundScores] of Object.entries(seasons)) {
