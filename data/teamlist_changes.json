@@ -1,22 +1,5 @@
 [
   {
-    "player": "Manaia Waitere",
-    "team": "MEL",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-10-30T13:22:20.936Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-10-30T13:22:20.936Z"
-      }
-    ],
-    "round": 27
-  },
-  {
     "player": "Marcelo Montoya",
     "team": "CAN",
     "from": "NOT_NAMED",
@@ -8959,6 +8942,23 @@
         "updatedAt": "2026-10-30T22:49:50.760Z",
         "priority": 2,
         "order": 2
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Sam Walker",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-10-31T08:26:50.287Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-10-31T08:26:50.287Z"
       }
     ],
     "round": 27

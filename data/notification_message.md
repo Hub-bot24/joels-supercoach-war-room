@@ -1,7 +1,7 @@
 # SuperCoach War Room status changes — Round 27
 
-Detected: 2026-10-30T22:49:50.760Z
+Detected: 2026-10-31T08:26:50.287Z
 
-- **Sam Walker** (SYD): EXPECTED → NAMED
-  - Named in team-list article starting side (Zero Tackle, jersey 1).
-  - Source: Zero Tackle
+- **Sam Walker** (SYD): NAMED → EXPECTED
+  - No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.
+  - Source: Current club team-list not confirmed
