@@ -1,22 +1,5 @@
 [
   {
-    "player": "Matty Nicholson",
-    "team": "CBR",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-10-30T13:22:20.936Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-10-30T13:22:20.936Z"
-      }
-    ],
-    "round": 27
-  },
-  {
     "player": "Mavrik Geyer",
     "team": "WST",
     "from": "NOT_NAMED",
@@ -8959,6 +8942,25 @@
         "name": "Current club team-list not confirmed",
         "url": "data/status_truth.json",
         "updatedAt": "2026-11-03T09:53:21.068Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Hudson Young",
+    "team": "CBR",
+    "from": "NOT_NAMED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Zero Tackle, jersey 4).",
+    "detectedAt": "2026-11-04T02:44:15.397Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+        "updatedAt": "2026-11-04T02:44:15.397Z",
+        "priority": 2,
+        "order": 3
       }
     ],
     "round": 27
