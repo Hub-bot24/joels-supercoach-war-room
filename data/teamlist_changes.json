@@ -1,73 +1,5 @@
 [
   {
-    "player": "Mavrik Geyer",
-    "team": "WST",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-10-30T13:22:20.936Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-10-30T13:22:20.936Z"
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Mawene Hiroti",
-    "team": "SHA",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-10-30T13:22:20.936Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-10-30T13:22:20.936Z"
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Max King",
-    "team": "CAN",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-10-30T13:22:20.936Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-10-30T13:22:20.936Z"
-      }
-    ],
-    "round": 27
-  },
-  {
-    "player": "Max McCarthy",
-    "team": "STH",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-10-30T13:22:20.936Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-10-30T13:22:20.936Z"
-      }
-    ],
-    "round": 27
-  },
-  {
     "player": "Max Plath",
     "team": "DOL",
     "from": "NAMED",
@@ -8961,6 +8893,74 @@
         "updatedAt": "2026-11-04T02:44:15.397Z",
         "priority": 2,
         "order": 3
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Hudson Young",
+    "team": "CBR",
+    "from": "NAMED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-11-05T03:38:02.067Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-11-05T03:38:02.067Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Tui Kamikamica",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-11-05T03:38:02.067Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-11-05T03:38:02.067Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "William Warbrick",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-11-05T03:38:02.067Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-11-05T03:38:02.067Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Xavier Coates",
+    "team": "MEL",
+    "from": "EXPECTED",
+    "to": "NOT_NAMED",
+    "reason": "Current club team list loaded for club and player was not in that list.",
+    "detectedAt": "2026-11-05T03:38:02.067Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Parsed current team-list source",
+        "url": "data/teamlists.json",
+        "updatedAt": "2026-11-05T03:38:02.067Z"
       }
     ],
     "round": 27
