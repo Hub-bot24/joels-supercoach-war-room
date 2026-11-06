@@ -1,16 +1,7 @@
 # SuperCoach War Room status changes — Round 27
 
-Detected: 2026-11-05T03:38:02.067Z
+Detected: 2026-11-06T14:50:12.309Z
 
-- **Hudson Young** (CBR): NAMED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Tui Kamikamica** (MEL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **William Warbrick** (MEL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
-- **Xavier Coates** (MEL): EXPECTED → NOT_NAMED
-  - Current club team list loaded for club and player was not in that list.
-  - Source: Parsed current team-list source
+- **Victor Radley** (SYD): EXPECTED → NAMED
+  - Named in team-list article starting side (Zero Tackle, jersey 6).
+  - Source: Zero Tackle
