@@ -1,22 +1,5 @@
 [
   {
-    "player": "Michael Asomua",
-    "team": "CBR",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-10-30T13:22:20.936Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-10-30T13:22:20.936Z"
-      }
-    ],
-    "round": 27
-  },
-  {
     "player": "Michael Gabrael",
     "team": "SHA",
     "from": "NAMED",
@@ -8963,6 +8946,23 @@
         "updatedAt": "2026-11-06T14:50:12.309Z",
         "priority": 2,
         "order": 3
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "Victor Radley",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-11-07T13:25:55.461Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-11-07T13:25:55.461Z"
       }
     ],
     "round": 27

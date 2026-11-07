@@ -1,6 +1,24 @@
 {
-  "updated": "2026-11-07T06:25:02.864Z",
+  "updated": "2026-11-07T13:25:55.461Z",
   "round": 27,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "Victor Radley",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-11-07T13:25:55.461Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-11-07T13:25:55.461Z"
+        }
+      ],
+      "round": 27
+    }
+  ],
   "allChangeCount": 500
 }
