@@ -1,22 +1,5 @@
 [
   {
-    "player": "Michael Gabrael",
-    "team": "SHA",
-    "from": "NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-10-30T13:22:20.936Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-10-30T13:22:20.936Z"
-      }
-    ],
-    "round": 27
-  },
-  {
     "player": "Mitchell Kenny",
     "team": "PEN",
     "from": "NOT_NAMED",
@@ -8963,6 +8946,25 @@
         "name": "Current club team-list not confirmed",
         "url": "data/status_truth.json",
         "updatedAt": "2026-11-07T13:25:55.461Z"
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "James Tedesco",
+    "team": "SYD",
+    "from": "EXPECTED",
+    "to": "NAMED",
+    "reason": "Named in team-list article starting side (Zero Tackle, jersey 7).",
+    "detectedAt": "2026-11-17T02:21:11.367Z",
+    "sources": [
+      {
+        "type": "teamlist",
+        "name": "Zero Tackle",
+        "url": "https://www.zerotackle.com/round-27-team-lists-2026-237598",
+        "updatedAt": "2026-11-17T02:21:11.367Z",
+        "priority": 2,
+        "order": 3
       }
     ],
     "round": 27
