@@ -1,6 +1,24 @@
 {
-  "updated": "2026-11-17T19:44:34.885Z",
+  "updated": "2026-11-18T01:53:08.801Z",
   "round": 27,
-  "newChanges": [],
+  "newChanges": [
+    {
+      "player": "James Tedesco",
+      "team": "SYD",
+      "from": "NAMED",
+      "to": "EXPECTED",
+      "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+      "detectedAt": "2026-11-18T01:53:08.801Z",
+      "sources": [
+        {
+          "type": "source_missing",
+          "name": "Current club team-list not confirmed",
+          "url": "data/status_truth.json",
+          "updatedAt": "2026-11-18T01:53:08.801Z"
+        }
+      ],
+      "round": 27
+    }
+  ],
   "allChangeCount": 500
 }

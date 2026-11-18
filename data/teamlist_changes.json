@@ -1,22 +1,5 @@
 [
   {
-    "player": "Mitchell Kenny",
-    "team": "PEN",
-    "from": "NOT_NAMED",
-    "to": "EXPECTED",
-    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
-    "detectedAt": "2026-10-30T13:22:20.936Z",
-    "sources": [
-      {
-        "type": "source_missing",
-        "name": "Current club team-list not confirmed",
-        "url": "data/status_truth.json",
-        "updatedAt": "2026-10-30T13:22:20.936Z"
-      }
-    ],
-    "round": 27
-  },
-  {
     "player": "Mitchell Moses",
     "team": "PAR",
     "from": "NAMED",
@@ -8965,6 +8948,23 @@
         "updatedAt": "2026-11-17T02:21:11.367Z",
         "priority": 2,
         "order": 3
+      }
+    ],
+    "round": 27
+  },
+  {
+    "player": "James Tedesco",
+    "team": "SYD",
+    "from": "NAMED",
+    "to": "EXPECTED",
+    "reason": "No current club team-list truth. Source missing/uncertain; treated as expected, not confirmed NOT_NAMED.",
+    "detectedAt": "2026-11-18T01:53:08.801Z",
+    "sources": [
+      {
+        "type": "source_missing",
+        "name": "Current club team-list not confirmed",
+        "url": "data/status_truth.json",
+        "updatedAt": "2026-11-18T01:53:08.801Z"
       }
     ],
     "round": 27
